@@ -21,11 +21,37 @@ float calculateNormalsEdge(
   float3 left = txGNormal.Sample(samLinear, uv - float2(CameraInvResolution.x, 0.0));
   float3 topLeft = txGNormal.Sample(samLinear, uv + float2(-CameraInvResolution.x, CameraInvResolution.y));
 
-  float3 normal_sampledValue = top + topRight + right + bottom + bottomRight + left + bottomLeft + topLeft;
+  float3 t  = abs( normal_center - top );
+  float3 r  = abs( normal_center - right );
+  float3 b  = abs( normal_center - bottom );
+  float3 l  = abs( normal_center - left );
 
-  normal_sampledValue /= 8.0f;
+  float3 tr = abs( normal_center - topRight );
+  float3 br  = abs( normal_center - bottomRight );
+  float3 bl = abs( normal_center - bottomLeft );
+  float3 tl = abs( normal_center - topLeft );
 
-  return length(normal_center - normal_sampledValue);
+  float n = 0.0;
+  n = max(length(tr),n);
+  n = max(length(tl),n);
+  n = max(length(br),n);
+  n = max(length(bl),n);
+
+  n = max(length(t),n);
+  n = max(length(l),n);
+  n = max(length(b),n);
+  n = max(length(r),n);
+
+  //Sobel
+  float x = tl + 2.0*l + bl - tr - 2.0*r - br;
+  float y = -tl - 2.0*t - tr + bl + 2.0 * b + br;
+
+  //Scharr
+  /*float x = 3.0*tl + 10.0*l + 3.0*bl - 3.0*tr - 10.0*r - 3.0*br;
+  float y = 3.0*tl + 10.0*t + 3.0*tr - 3.0*bl - 10.0 * b - 3.0*br;*/
+
+  n = sqrt((x*x) + (y*y));
+  return n;
 }
 
 float calculateDistanceEdge(
@@ -43,11 +69,26 @@ float calculateDistanceEdge(
   float left = txGLinearDepth.Sample(samLinear, uv - float2(CameraInvResolution.x, 0.0)).x;
   float topLeft = txGLinearDepth.Sample(samLinear, uv + float2(-CameraInvResolution.x, CameraInvResolution.y)).x; 
 
-  float depth_sampledValue = top + topRight + right + bottom + bottomRight + left + bottomLeft + topLeft;
+  float3 t  = abs( depth_center - top );
+  float3 r  = abs( depth_center - right );
+  float3 b  = abs( depth_center - bottom );
+  float3 l  = abs( depth_center - left );
 
-  depth_sampledValue /= 8.0f;
+  float3 tr = abs( depth_center - topRight );
+  float3 br  = abs( depth_center - bottomRight );
+  float3 bl = abs( depth_center - bottomLeft );
+  float3 tl = abs( depth_center - topLeft );
 
-  return abs(depth_center - depth_sampledValue);
+  //Sobel
+  /*float x = tl + 2.0*l + bl - tr - 2.0*r - br;
+  float y = -tl - 2.0*t - tr + bl + 2.0 * b + br;*/
+
+  //Scharr
+  float x = 3.0*tl + 10.0*l + 3.0*bl - 3.0*tr - 10.0*r - 3.0*br;
+  float y = 3.0*tl + 10.0*t + 3.0*tr - 3.0*bl - 10.0 * b - 3.0*br;
+
+  float n = sqrt((x*x) + (y*y));
+  return n;
 }
 
 //--------------------------------------------------------------------------------------
@@ -249,7 +290,11 @@ float4 PS_GBuffer_Resolve(
   float edgeD = calculateDistanceEdge(iUV);
 
   //return lerp(acc_light, float4(0,0,0,1), step(0.3, (edgeN + edgeD)));
-  return acc_light - (edgeD + edgeN) * acc_light;
+  float edge = (edgeD + edgeN);
+  const float edgeHardness = 10.0;
+  const float edgeThreshold = 1.0;
+  edge = clamp( clamp((edge * edgeHardness) - edgeThreshold, 0.0, 1.0) * 0.5f, 0.0, 1.0 );
+  return acc_light - (edge) * acc_light;
 }
 
 // -------------------------------------------------
