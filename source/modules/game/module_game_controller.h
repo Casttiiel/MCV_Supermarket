@@ -1,0 +1,228 @@
+#pragma once
+
+#include "modules/module.h"
+#include "entity/entity.h"
+#include "entity/entity_parser.h"
+#include "entity/common_msgs.h"
+#include "datatypes.h"
+#include "geometry/curve.h"
+#include "components/controllers/comp_curve_controller.h"
+#include "skeleton/comp_skel_lookat.h"
+#include "modules/game/audio/audioEvent.h"
+#include "components/animation/comp_morph_animation.h"
+
+class CCheckpoint;
+class CModuleGameplayFragment;
+
+class CModuleGameController : public IModule
+{
+    AudioEvent soundtrack;
+    /* Mantain a handle of the player */
+    CHandle _player;
+    CHandle _fly_camera;
+    //Storage of entity status
+    CCheckpoint* _lastCheckpoint;
+    bool god_mode = false;
+	  bool invisible_block_cursor = false;
+
+    CModuleGameplayFragment* gf;
+
+    // Menu window related variables.
+    ImGuiWindowFlags window_flags;
+    unsigned int window_width;
+    unsigned int window_height;
+    unsigned int menuPosition;
+    const unsigned int menuSize = 4;
+	//Im	Gui Bar size
+	float hp_bar_size = 250.f;
+	float madness_bar_size = 250.f;
+	float extraBarSize = 75.f;
+
+    void resetState();
+    void renderInMenu();
+    void updateGameCondition();
+    
+    //void switchState(PauseState pause);
+
+	//Madness Puddles
+	int _madnessPuddlesCleansed = 0;
+	//End Madness Puddles
+
+	//EnemiesKilled
+	int enemiesKilled = 0;
+	//End EnemiesKilled
+public:
+#define PREFAB_SUSHI "data/prefabs/enemies/bt_sushi.json"
+#define PREFAB_RANGED_SUSHI "data/prefabs/enemies/bt_ranged_sushi.json"
+#define PREFAB_CUPCAKE "data/prefabs/enemies/bt_cupcake.json"
+#define PREFAB_GOLEM "data/prefabs/enemies/golem.json"
+#define PREFAB_TELEPORTABLE_OBJECT "data/prefabs/structures/teleport_box.json"
+
+    const std::map<EntityType, std::string> _prefabs {
+        {SUSHI, "data/prefabs/enemies/bt_sushi.json"},
+        {RANGED_SUSHI, "data/prefabs/enemies/bt_ranged_sushi.json"},
+        {CUPCAKE, "data/prefabs/enemies/bt_cupcake.json"},
+        {GOLEM, "data/prefabs/enemies/golem.json"},
+        {CUPCAKE_SPAWNER, "data/prefabs/structures/enemy_spawner.json"},
+        {EXPLOSIVE_OBJECT, "data/prefabs/structures/explosive_object.json"},
+        {DUMPLING_TURRET, "data/prefabs/structures/spawner_dumpling.json"},
+        {THERMOSTATE, "data/prefabs/structures/termostate.json"}
+    };
+
+  float yaw_sensivity = 5.f;
+  float pitch_sensivity = 2.f;
+
+	enum PauseState { none, main, win, defeat, editor1, editor1unpaused, editor2, void_state };
+    PauseState _currentstate;
+
+	CModuleGameController() : IModule("KK") {};
+	CModuleGameController(const std::string& name) : IModule(name) {}
+
+	CModuleGameController* getPointer() { return this; }
+
+
+	//CModuleGameController();
+
+    bool start() override;
+    void update(float delta) override;
+    void stop() override;
+    PauseState getCurrentState();
+	  CHandle getPlayerHandle();
+    bool getGodMode() { return god_mode; }
+	void setGodMode(bool _god_mode);
+	bool getInvisibleBlock() { return invisible_block_cursor; }
+
+	//Checkpoints
+    bool saveCheckpoint(VEC3 playerPos, QUAT playerRot);
+    bool loadCheckpoint();
+    bool deleteCheckpoint();
+    bool isCheckpointSaved();
+	//End Checkpoints
+
+	//Entity handling
+    CHandle spawnPrefab(const std::string prefab, Vector3 pos, QUAT rot = QUAT().Identity, float scale = 1.0f);
+    CHandle spawnPuddle(Vector3 pos, QUAT rot = QUAT().Identity, float scale = 1.0f);
+	void deleteByTag(const char* tag);
+	//End Entity handling
+
+	//Behavior Tree Control
+  void stopStateMachines();
+  void stopBehaviorTrees();
+	void resumeBehaviorTrees();
+	//End Behavior Tree Control
+
+	//Time Control
+	void stopTime();
+	void resumeTime();
+	void setTimeScale(float timeScale);
+	float getTimeScale();
+	//End Time Control
+
+	//Madness Puddles
+	void addMadnessPuddle();
+	int getMadnessPuddles();
+	//End Madness Puddles
+
+	//EnemiesKilled
+	void addEnemiesKilled(EntityType e);
+	int getEnemiesKilled();
+	//End EnemiesKilled
+
+	//get and set bar
+	float getHpBarSize(); 
+	void increaseHpBarSize(float _madness_bar_size);
+	float getMadnessBarSize();
+	void increaseMadnessBarSize(float _madness_bar_size);
+
+	//player
+  void  healPlayer();
+  void  healPlayerPartially(float health);
+	void restoreMadness();
+
+	//Damage Generators
+	void generateDamageSphere(VEC3 center, float radius, TMsgDamage message, const char* targetFilter);
+	//End Damage Generators
+
+	void addPowerUp(float quantity, PowerUpType type);
+	int getNumThermoStatesActives();
+	void activateSecondEvent();
+  //scripting situations and checkpoint helper
+  void activateGameplayFragment(std::string module);
+  void deactivateGameplayFragment(std::string module);
+  //scripting situations and checkpoint helper
+
+  //lua functions
+  void wakeUpSushi(std::string id);
+  void deleteElement(std::string id);
+  void activateSpawner(std::string id);
+  //lua functions
+  void spawnPrefabByPoint(const std::string prefab, const std::string name_origin);
+  //setear damage
+  void setDamage(const std::string name_origin, int damage );
+  //bindear entidades en curvas
+  void bindInCurve(std::string _curve, std::string entity);
+  //blending camaras con interpolador
+  void blendingCamera(std::string camDest,float blendTime, std::string typeInterpolation);
+  //activar animacion de morph
+  void playAnimationMorph(std::string name);
+  //desactivar animacion de morph
+  void stopAnimationMorph(std::string name);
+
+  //bloquear camera principal
+  void lockCamera3Person(bool activate);
+  //resetCamera
+  void resetCamera();
+  //activar modo cinematica en jugador
+  void inCinematic(bool active);
+	//activar modo cinematica en golem
+	void inCinematicGolem(std::string name, bool active);
+  //delete handle
+  void destroyCHandleByName(std::string name);
+  //activar plataformas
+  void activatePlatformByName(std::string name);
+  //spawnear y poner nombre a la entidad
+  void toNamePrefab(const std::string name, CHandle handle);
+  //cargar escena
+  void loadScene(const std::string name);
+  template <typename T>
+  void broadcastMessage(T message);
+
+	void setPauseEnemyByName(std::string enemy, bool active);
+	void setPauseEnemyByHandle(CHandle h_enemy, bool active);
+	void updateEnemyCurveByName(std::string _curve, std::string enemy);
+	void updateEnemyCurveByHandle(std::string _curve, CHandle h_enemy);
+	void updateCupcakeCurveByHandle(std::string _curve, CHandle h_enemy);
+
+	void updatePlatformCurveByName(std::string _curve, std::string name_platform);
+	
+	void setTransformObject(std::string name, VEC3 pos,float yaw, float pith, float roll);
+
+	//destruir un muro
+	void destroyWallByName(std::string name, std::string golemName, float intensity = 20);
+
+	//despertar golem
+	void wakeUpGolem(std::string name);
+	//dormir al golem
+	void sleepGolem(std::string name);
+
+    //Soundtrack Functions
+    void startSoundtrack(int track_id);
+    void pauseSoundtrack();
+    void resumeSoundtrack();
+    void updateSoundtrackID(int new_track_id);
+    void setSoundtrackVolume(float volume);
+    //End Soundtrack Functions
+	
+    void pauseGame();
+    void resumeGame();
+
+};
+
+
+//aux function
+
+TCompCurveController* TCurveController(CHandle h);
+CEntity* toEntity(CHandle h);
+TCompSkelLookAt* toCompSkelLookAt(CHandle h);
+TCompMorphAnimation* toCompMorphAnimation(CHandle h);
+

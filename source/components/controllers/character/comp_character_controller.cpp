@@ -1,0 +1,1272 @@
+#include "mcv_platform.h"
+#include "comp_character_controller.h"
+#include "components/common/physics/comp_collider.h"
+#include "components/common/physics/comp_rigid_body.h"
+#include "components/common/comp_transform.h"
+#include "components/common/comp_tags.h"
+#include "components/common/comp_camera.h"
+#include "components/common/comp_render.h"
+#include "components/common/comp_name.h"
+#include "components/powers/comp_fire.h"
+#include "components/powers/comp_coffee.h"
+#include "components/powers/comp_teleport.h"
+#include "components/powers/comp_madness.h"
+#include "components/powers/comp_battery.h"
+#include "engine.h"
+#include "modules/module_physics.h"
+#include "input/module_input.h"
+#include "components/ai/others/comp_blackboard.h"
+#include "windows/app.h"
+#include "components/animation/comp_player_animation.h"
+#include "modules/module_camera_mixer.h"
+#include "components/controllers/comp_trans_curve_controller.h"
+#include "ui/widgets/ui_bar.h"
+#include "ui/widgets/ui_image.h"
+#include "ui/module_ui.h"
+#include "ui/ui_widget.h"
+
+using namespace physx;
+
+DECL_OBJ_MANAGER("character_controller", TCompCharacterController);
+
+void TCompCharacterController::Init() {
+  AddState("GROUNDED", (statehandler)&TCompCharacterController::grounded);
+  AddState("DASHING", (statehandler)&TCompCharacterController::dashing);
+  AddState("ON_AIR", (statehandler)&TCompCharacterController::onAir);
+  AddState("DAMAGED", (statehandler)&TCompCharacterController::damaged);
+  AddState("DEAD", (statehandler)&TCompCharacterController::dead);
+  AddState("MOUNTED", (statehandler)&TCompCharacterController::mounted);
+  AddState("WIN", (statehandler)&TCompCharacterController::win);
+  AddState("ATTACKING", (statehandler)&TCompCharacterController::attack);
+  AddState("CHARGED_ATTACK", (statehandler)&TCompCharacterController::chargedAttack);
+  //AddState("USINGCHILLI", (statehandler)&TCompCharacterController::attackChilli);
+  AddState("NOCLIP", (statehandler)&TCompCharacterController::noclip);
+  AddState("IDLE_CINEMATIC", (statehandler)& TCompCharacterController::idleCinematic);
+
+    //ADD MORE STATES FOR BEING HIT, ETC, ETC
+
+    footSteps = EngineAudio.playEvent("event:/Character/Footsteps/Footsteps");
+    footSteps.setPaused(true);
+    ChangeState("GROUNDED");
+}
+
+void TCompCharacterController::update(float dt) {
+	dt = Time.delta_unscaled;
+	if (invulnerabilityTimer > 0) {
+		invulnerabilityTimer -= dt;
+	}
+
+	if (!_pausedAI) {
+		PROFILE_FUNCTION("IAIController");
+		assert(!state.empty());
+		assert(statemap.find(state) != statemap.end());
+		// this is a trusted jump as we've tested for coherence in ChangeState
+		(this->*statemap[state])(Time.delta);
+	}
+}
+
+void TCompCharacterController::debugInMenu() {
+    ImGui::LabelText("State", "%s", state.c_str());
+    ImGui::DragFloat("Time between dashes", &time_between_dashes, 0.1f, 0.0f, 5.0f);
+    ImGui::DragFloat("Jump Force", &jump_force, 0.5f, 0.f, 130.f);
+    ImGui::DragFloat("Double Jump Force", &double_jump_force, 0.5f, 0.f, 130.f);
+    ImGui::DragFloat("Falling factor on hover", &falling_factor_hover, 0.1f, 0.f, 1.f);
+    ImGui::DragFloat("Moving factor on hover", &moving_factor_hover, 0.1f, 0.f, 1.f);
+    ImGui::DragFloat("Speed", &speed, 0.1f, 0.f, 10.f);
+    ImGui::DragFloat("Dash Speed", &dash_speed, 0.1f, 0.f, 10.f);
+    ImGui::DragFloat("Rotation speed", &rotation_speed, 0.1f, 0.f, 10.f);
+    ImGui::DragFloat("Life", &life, 0.10f, 0.f, 100.f);
+    ImGui::DragFloat("Distance to aim", &distance_to_aim, 0.10f, 0.f, 100.f);
+    ImGui::Checkbox("UnLockable Battery", &unLockableBattery);
+	ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
+	ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
+	ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);
+}
+
+void TCompCharacterController::renderDebug() {
+    if (state == "ATTACKING") {
+        TCompTransform* c_trans = get<TCompTransform>();
+        TCompCollider* comp_collider = get<TCompCollider>();
+        if (!comp_collider || !comp_collider->controller)
+            return;
+
+        Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeDistance);
+        PxF32 attackHeight = comp_collider->controller->getHeight() / 2;
+        damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
+        drawWiredSphere(damageOrigin, meleeRadius, VEC4(1, 0, 0, 1));
+    }
+    else if (EngineInput["noclip_"].justPressed() && getState() == "NOCLIP") {
+        speed /= 2;
+        TCompCollider* comp_collider = get<TCompCollider>();
+        if (!comp_collider || !comp_collider->controller)
+            return;
+        comp_collider->actor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, false);
+        ChangeState("ON_AIR");
+        return;
+    }
+    auto& app = CApplication::get();
+    if (EngineInput["exitGame_"].justPressed()) {
+        DestroyWindow(app.getHandle());
+    }
+}
+
+void TCompCharacterController::load(const json& j, TEntityParseContext& ctx) {
+    this->Init();
+
+    life = j.value("life", life);
+    enabled = j.value("enabled", enabled);
+    speed = j.value("speed", speed);
+    rotation_speed = j.value("rotation_sensibility", rotation_speed);
+    distance_to_aim = j.value("distance_to_aim", distance_to_aim);
+    unLockableBattery = j.value("unLockableBattery", unLockableBattery);
+	unLockableTeleport = j.value("unLockableTeleport", unLockableTeleport);
+	unLockableCoffe = j.value("unLockableCoffe", unLockableCoffe);
+	unLockableChilli = j.value("unLockableChilli", unLockableChilli);
+}
+
+void TCompCharacterController::registerMsgs() {
+    DECL_MSG(TCompCharacterController, TMsgOnContact, onCollision);
+    DECL_MSG(TCompCharacterController, TMsgDamage, onGenericDamage);
+    DECL_MSG(TCompCharacterController, TMsgTrapWind, onTrapWind);
+    // DECL_MSG(TCompCharacterController, TMsgDamageToPlayer, onDamage);
+    DECL_MSG(TCompCharacterController, TMsgEntityTriggerEnter, onEnter);
+    DECL_MSG(TCompCharacterController, TMsgPowerUp, onPowerUp);
+    DECL_MSG(TCompCharacterController, TMsgDamageToAll, onDamageAll);
+    DECL_MSG(TCompCharacterController, TMsgBatteryDeactivates, onBatteryDeactivation);
+    DECL_MSG(TCompCharacterController, TCompPlayerAnimator::TMsgPlayerAnimationFinished, onAnimationFinish);
+	DECL_MSG(TCompCharacterController, TMsgOnCinematic, onCinematic);
+}
+
+void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg) {
+    switch (msg.animation)
+    {
+    case TCompPlayerAnimator::IDLE:
+        dbg("Animation IDLE callback received.\n");
+        break;
+    case TCompPlayerAnimator::ATTACK:
+        dbg("Animation ATTACK callback received.\n");
+        break;
+    case TCompPlayerAnimator::RUN:
+        dbg("Animation RUN callback received.\n");
+        break;
+    case TCompPlayerAnimator::JUMP:
+        dbg("Animation JUMP callback received.\n");
+        break;
+    case TCompPlayerAnimator::THROW:
+        dbg("Animation THROW callback received.\n");
+        break;
+    case TCompPlayerAnimator::SCAN:
+        dbg("Animation SCAN callback received.\n");
+        break;
+    case TCompPlayerAnimator::DEAD:
+        dbg("Animation DEAD callback received.\n");
+        break;
+    case TCompPlayerAnimator::PRUEBA:
+        dbg("Animation PRUEBA callback received.\n");
+        break;
+    default:
+        break;
+    }
+}
+//STATES
+
+void TCompCharacterController::idleCinematic(float delta) {
+    footSteps.setPaused(true);
+  //DO NOTHING, ONLY LOOP IDLE
+	if (!cinematic) {
+		ChangeState("GROUNDED");
+		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+		mirilla->getParams()->visible = true;
+	}
+}
+
+void TCompCharacterController::grounded(float delta) {
+
+    if (!enabled)
+        return;
+
+    //WE NEED THE CAMERA TO BE CREATED TO MOVE FROM ITS PERSPECTIVE
+    if (!h_camera.isValid()) {
+        h_camera = getEntityByName("PlayerCamera");
+        return;
+    }
+
+    treatRumble(Time.delta_unscaled);
+    bool startDash = false;
+    can_double_jump = true;
+
+    VEC3 dir = VEC3().Zero;
+
+    //GROUNDED, PLAYER CAN AIM, SHOOT, DASH, JUMP AND MOVE
+    powerSelection();
+    aiming = false;
+
+    //MOVEMENT
+    getInputForce(dir);
+    if (dir != VEC3().Zero) {
+        //SwapMesh(2);
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f);
+        //Play sound
+        if(footSteps.getPaused()){
+            footSteps.setPaused(false);
+            footSteps.restart();
+        }
+    }
+    else {
+        //SwapMesh(0);
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 0.5f);
+        //footSteps.stop();
+        if (!footSteps.getPaused()) {
+            footSteps.setPaused(true);
+        }
+    }
+
+    if (time_to_next_dash > 0.0f)
+        time_to_next_dash -= Time.delta_unscaled;
+
+    if (EngineInput["aim_"].isPressed()) {//AIM
+        aiming = true;
+    }
+    if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
+        shoot();
+    }
+    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
+        ChangeState("DASHING");
+        dash = dash_limit;
+        startDash = true;
+        EngineAudio.playEvent("event:/Character/Other/Dash");
+    }
+    else if (EngineInput["jump_"].justPressed()) {//JUMP
+        TCompRigidBody* c_rbody = get<TCompRigidBody>();
+        if (!c_rbody)
+            return;
+        EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
+        c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::JUMP, 1.3f);
+        //Commented because the state machine will transition to it on its own
+        //ChangeState("ON_AIR");
+    }
+    else if (!isGrounded()) { //FALLING
+        ChangeState("ON_AIR");
+    }
+    else if (EngineInput["attack_"].isPressed() && meleeTimer <= 0) {//CHARGED ATTACK
+        //If the button is pressed for chargedAttack_buttonPressThreshold or more, player is holding the button
+        if (chargedAttack_buttonPressTimer >= chargedAttack_buttonPressThreshold) {
+            //Player is holding the button
+            ChangeState("CHARGED_ATTACK");
+        }
+        else {
+            chargedAttack_buttonPressTimer += Time.delta_unscaled;
+        }
+    }
+    else if (EngineInput["attack_"].justReleased() && meleeTimer <= 0) {//ATTACK
+        if (chargedAttack_buttonPressTimer <= chargedAttack_buttonPressThreshold) {
+            chargedAttack_buttonPressTimer = 0.f;
+            //Player didn't hold the button
+            ChangeState("ATTACKING");
+        }
+    }
+    else if (EngineInput["interact_"].justPressed()) {//INTERACT
+        interact();
+    }
+    else if (EngineInput["coffee_time_"].justPressed() && unLockableCoffe) { //COFFEE
+      //dbg("switch coffe ground\n");
+        TCompCoffeeController* c_coffee = get<TCompCoffeeController>();
+        c_coffee->switchState();
+    }
+    else if (EngineInput["fire_attack_"].isPressed() && unLockableChilli) { //FIRE
+        TCompTeleport* c_tp = get<TCompTeleport>();
+        TCompTransform* c_trans = get<TCompTransform>();
+        TCompMadnessController* m_c = get<TCompMadnessController>();
+
+        if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE)) {
+            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
+        //Enable fire, keep it enabled while holding trigger, disable on release
+                TCompFireController* c_fire = get<TCompFireController>();
+                c_fire->enable();
+                //Change weapon mesh
+                CEntity* weapon = getEntityByName("Mop");
+                TCompRender* w_r = weapon->get<TCompRender>();
+                w_r->is_visible = false;
+                CEntity* weapon2 = getEntityByName("Anti_extintor");
+                TCompRender* w_r2 = weapon2->get<TCompRender>();
+                w_r2->is_visible = true;
+                CEntity* weapon3 = getEntityByName("Scanner");
+                TCompRender* w_r3 = weapon3->get<TCompRender>();
+                w_r3->is_visible = false;
+                w_r->updateRenderManager();
+                w_r2->updateRenderManager();
+                w_r3->updateRenderManager();
+            }
+        }
+        else if (c_tp->canCombo()) { 
+            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
+                dbg("Pj execute combo fire\n");
+                c_tp->comboDone = true;
+                TCompFireController* c_fire = get<TCompFireController>();
+                c_fire->comboAttack(c_trans->getPosition());
+            }
+        }
+    }
+    else if (EngineInput["checkpoint_"].justPressed()) {
+        GameController.loadCheckpoint();
+    }
+
+    dir *= Time.delta_unscaled;
+
+    //MOVE PLAYER
+    TCompCollider* comp_collider = get<TCompCollider>();
+    if (!comp_collider || !comp_collider->controller)
+        return;
+
+    comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+
+    //WHEN CHARACTER IS GROUNDED HE CAN ROTATE
+    rotatePlayer(dir, Time.delta_unscaled, startDash);
+
+    meleeTimer -= Time.delta_unscaled;
+
+}
+
+void TCompCharacterController::dashing(float delta) {
+    //WE NEED THE CAMERA TO BE CREATED TO MOVE FROM ITS PERSPECTIVE
+    if (!h_camera.isValid()) {
+        h_camera = getEntityByName("Camera");
+        return;
+    }
+
+    treatRumble(Time.delta_unscaled);
+
+    //IMPORTANT, DASHING WE DONT APPLY GRAVITY, FOR SAKE OF AIR DASHING
+    VEC3 dir = VEC3();
+
+    //WHILE DASHING, PLAYER CANT AIM, MOVE AND SHOOT
+    aiming = false;
+    powerSelection();
+
+    //MOVEMENT
+    TCompTransform* c_trans = get<TCompTransform>();
+    dir = c_trans->getFront() * dash_speed;
+    dir *= Time.delta_unscaled;
+
+    //MOVE PLAYER
+    TCompCollider* comp_collider = get<TCompCollider>();
+    if (!comp_collider || !comp_collider->controller)
+        return;
+
+    comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+
+    //WHEN DASHING, PLAYER CANT ROTATE
+
+    dash -= Time.delta_unscaled;
+    if (dash <= 0.0f) {
+        time_to_next_dash = time_between_dashes;
+        if (isGrounded()) {
+            ChangeState("GROUNDED");
+        }
+        else {
+            ChangeState("ON_AIR");
+        }
+    }
+
+
+}
+
+void TCompCharacterController::onAir(float delta) {
+    //WE NEED THE CAMERA TO BE CREATED TO MOVE FROM ITS PERSPECTIVE
+    if (!h_camera.isValid()) {
+        h_camera = getEntityByName("Camera");
+        return;
+    }
+
+    if (isGrounded()) {
+        ChangeState("GROUNDED");
+        EngineAudio.playEvent("event:/Character/Footsteps/Landing");
+        return;
+    }
+
+    if (!footSteps.getPaused()) {
+        footSteps.setPaused(true);
+    }
+
+    treatRumble(Time.delta_unscaled);
+    bool startDash = false;
+
+    VEC3 dir = VEC3();
+
+    if (time_to_next_dash > 0.0f)
+        time_to_next_dash -= Time.delta_unscaled;
+
+    //ON AIR, PLAYER CAN AIM, SHOOT AND DASH, HE CANT MOVE
+    powerSelection();
+    if (EngineInput["aim_"].isPressed() && aiming) {//AIM
+        aiming = true;
+    }
+    if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
+        shoot();
+    }
+    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
+        ChangeState("DASHING");
+        dash = dash_limit;
+        startDash = true;
+        EngineAudio.playEvent("event:/Character/Other/Dash");
+    }
+    else if (EngineInput["jump_"].justPressed() && can_double_jump) { //DOUBLE JUMP
+        can_double_jump = false;
+        TCompRigidBody* c_rbody = get<TCompRigidBody>();
+        if (!c_rbody)
+            return;
+        EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
+        c_rbody->doubleJump(VEC3(0.0f, double_jump_force, 0.0f));
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::JUMP, 1.f);
+    }
+    else if (EngineInput["attack_"].justPressed() && !aiming && meleeTimer <= 0) {//ATTACK
+        ChangeState("ATTACKING");
+    }
+    else if (EngineInput["interact_"].justPressed()) {//INTERACT
+        interact();
+    }
+    else if (EngineInput["coffee_time_"].justPressed()) {
+        //dbg("switch coffe air\n");
+        TCompCoffeeController* c_coffee = get<TCompCoffeeController>();
+        c_coffee->switchState();
+    }
+    else if (EngineInput["fire_attack_"].isPressed() /*&& unLockableChilli*/) { //FIRE
+        TCompTeleport* c_tp = get<TCompTeleport>();
+        TCompTransform* c_trans = get<TCompTransform>();
+        TCompMadnessController* m_c = get<TCompMadnessController>();
+
+        if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
+        //Enable fire, keep it enabled while holding trigger, disable on release
+            TCompFireController* c_fire = get<TCompFireController>();
+            c_fire->enable();
+        }
+        else if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode()) && c_tp->canCombo()) { //SI PUEDES HACER COMBO, Y TIENES ENERGIA
+            dbg("Pj execute combo fire\n");
+            c_tp->comboDone = true;
+            TCompFireController* c_fire = get<TCompFireController>();
+            c_fire->comboAttack(c_trans->getPosition());
+        }
+    }
+
+    getInputForce(dir);
+    dir *= Time.delta_unscaled;
+
+    //MOVE PLAYER TO THE GROUND
+    TCompCollider* comp_collider = get<TCompCollider>();
+    if (!comp_collider || !comp_collider->controller)
+        return;
+
+    comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+
+    //WE GET THE INPUT FORCE SO WE CAN ROTATE THE PLAYER TO THAT DIRECTION, NOT MOVE!
+    getInputForce(dir);
+
+    //ON AIR, THE CHARACTER CAN MOVE OR ROTATE
+    rotatePlayer(dir, Time.delta_unscaled, startDash);
+
+    meleeTimer -= Time.delta_unscaled;
+}
+
+void TCompCharacterController::damaged(float delta) {
+
+    if (isGrounded()) {//END RECOIL WHEN IS GROUNDED
+        if (!isMounted) {
+            ChangeState("GROUNDED");
+        }
+        else {
+            ChangeState("MOUNTED");
+        }
+    }
+}
+
+void TCompCharacterController::dead(float delta) {
+    //WE NEED THE CAMERA TO BE CREATED TO MOVE FROM ITS PERSPECTIVE
+    treatRumble(Time.delta_unscaled);
+    VEC3 dir = VEC3();
+
+    //MOVE PLAYER ONLY WITH GRAVITY
+    TCompCollider* comp_collider = get<TCompCollider>();
+    if (!comp_collider || !comp_collider->controller)
+        return;
+
+    comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+
+    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+    playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.f);
+
+    //------------------
+    //TMsgBlackboard msg;
+    //msg.player_dead = true;
+    TCompBlackboard* c_bb = get<TCompBlackboard>();
+    c_bb->playerIsDeath(true);
+    //------------------
+
+
+    if (EngineInput["checkpoint_"].justPressed()) {
+        GameController.loadCheckpoint();
+        //------------------
+        ChangeState("GROUNDED");
+    }
+}
+
+void TCompCharacterController::win(float delta) {
+    if (EngineInput["checkpoint_"].justPressed()) {
+        endGame = false;
+        ChangeState("GROUNDED");
+
+    }
+
+}
+
+void TCompCharacterController::noclip(float delta) {
+    VEC3 dir = VEC3();
+    getInputForce(dir);
+    dir *= Time.delta_unscaled;
+    //dir.Normalize();
+    TCompCollider* comp_collider = get<TCompCollider>();
+    if (!comp_collider || !comp_collider->controller)
+        return;
+    TCompTransform* c_trans = get<TCompTransform>();
+    Vector3 currentPos = c_trans->getPosition();
+    Vector3 nextPos = currentPos + (dir * speed * Time.delta_unscaled);
+
+    PxFilterData* filterData0 = (new PxFilterData(PxFilterObjectType::eRIGID_STATIC, PxFilterObjectType::eRIGID_DYNAMIC, PxFilterObjectType::eRIGID_STATIC | PxFilterObjectType::eRIGID_DYNAMIC, PxFilterObjectType::eRIGID_DYNAMIC | PxFilterObjectType::eRIGID_DYNAMIC));
+
+    comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters(filterData0, 0, 0));
+    //comp_collider->controller->setPosition(VEC3_TO_PXEXVEC3(nextPos));
+
+}
+
+
+//UTILS
+
+void TCompCharacterController::treatRumble(float delta) {
+    rumble_time -= Time.delta_unscaled;
+    if (rumble_time < 0.0f) {
+        Input::TRumbleData rumble;
+        rumble.leftVibration = 0.0f;
+        rumble.rightVibration = 0.0f;
+        EngineInput.feedback(rumble);
+        rumble_time = 0.0f;
+    }
+}
+
+void TCompCharacterController::getInputForce(VEC3 &dir) {
+    //Movement from camera perspective
+    CEntity* e_camera = (CEntity *)h_camera;
+    TCompTransform* cam_trans = e_camera->get<TCompTransform>();
+
+    VEC3 camera_left = cam_trans->getLeft();
+    VEC3 camera_front = cam_trans->getFront();
+    if (getState() != "NOCLIP") {
+        camera_left.y = 0.0f;
+        camera_front.y = 0.0f;
+    }
+    camera_left.Normalize();
+    camera_front.Normalize();
+
+    //KEYBOARD
+    if (EngineInput["front_"].isPressed()) {
+        dir += camera_front;
+    }
+    if (EngineInput["back_"].isPressed()) {
+        dir -= camera_front;
+    }
+    if (EngineInput["left_"].isPressed()) {
+        dir += camera_left;
+    }
+    if (EngineInput["right_"].isPressed()) {
+        dir -= camera_left;
+    }
+    //GAMEPAD
+    if (EngineInput.gamepad()._connected) {
+        //TO CORRECT A BUG WITH GAMEPAD CONNECTED WITH KEYBOARD
+        if (!EngineInput["w"].isPressed())
+            dir += camera_front * EngineInput["front_"].value;
+
+        if (!EngineInput["a"].isPressed())
+            dir -= camera_left * EngineInput["left_"].value;
+    }
+
+    float length = clamp(dir.Length(), 0.f, 1.f);
+    dir.Normalize();
+
+    if (isGrounded()) {
+        TCompRigidBody* r_body = get<TCompRigidBody>();
+        if (r_body->ground_normal != VEC3::Zero) {
+            VEC3 temp = r_body->ground_normal.Cross(dir);
+            dir = temp.Cross(r_body->ground_normal);
+        }
+    }
+
+    dir *= speed * length;
+}
+
+void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool start_dash) {
+    TCompTransform* c_trans = get<TCompTransform>();
+    VEC3 player_pos = c_trans->getPosition();
+
+    CEntity* e_camera = (CEntity *)h_camera;
+    TCompTransform* cam_trans = e_camera->get<TCompTransform>();
+    VEC3 camera_front = cam_trans->getFront();
+    camera_front.y = 0.0f;
+
+    VEC3 norm_dir = VEC3();
+    dir.Normalize(norm_dir);
+
+    float elapsed = 1.0f;
+
+    if ((dir.x != 0.0f || dir.z != 0.0f) && (!aiming || start_dash)) { //ROTATE PLAYER WHERE HE WALKS
+                                                                       //And also rotate the player on the direction its facing
+        float yaw, pitch;
+        c_trans->getAngles(&yaw, &pitch);
+
+        float wanted_yaw = c_trans->getDeltaYawToAimTo(player_pos + dir);
+
+        if (!start_dash)
+            elapsed = Time.delta_unscaled * rotation_speed;
+
+        if (abs(wanted_yaw) > 0.01)
+            c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + wanted_yaw * Time.real_scale_factor, pitch, 0.0f));
+    }
+    else if (aiming && !start_dash) { //ROTATE PLAYER WHERE THE CAMERA LOOKS
+        float yaw, pitch;
+        c_trans->getAngles(&yaw, &pitch);
+
+        float wanted_yaw = c_trans->getDeltaYawToAimTo(player_pos + camera_front);
+
+        if (!start_dash)
+            elapsed = Time.delta_unscaled * rotation_speed * 2.0f;
+
+        if (abs(wanted_yaw) > 0.01)
+            c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + wanted_yaw * elapsed, pitch, 0.0f));
+    }
+}
+
+bool TCompCharacterController::isGrounded() {
+    TCompRigidBody* r_body = get<TCompRigidBody>();
+    return r_body->isGrounded();
+}
+
+void TCompCharacterController::powerSelection() {
+  if (EngineInput["select_teleport_"].justPressed()) { //teleport
+    power_selected = PowerType::TELEPORT; 
+	
+	//GameController.bindInCurve("Line002","DebugCamera"); //prueba generacion de componente curva dinamico
+	
+	/*
+	//Prueba nueva funcion que esta en fichero
+	CHandle  h_entity = getEntityByName("PlayerCamera");
+	static Interpolator::TLinearInterpolator linear;
+	Engine.getCameraMixer().blendCameraToPosition(h_entity,VEC3(12,5,1),20.f, &linear);
+	*/
+  }
+  else if (EngineInput["select_battery_"].justPressed()) { //bateria
+    power_selected = PowerType::BATTERY;
+	//Scripting.execActionDelayed("playMorph(\"Morph\")", 0.0);
+	/*Prueba de concepto
+	CEntity* debug_camera = getEntityByName("DebugCamera");
+	TCompCurveController* t = debug_camera->get<TCompCurveController>();
+	const CCurve* curve = t->getCurve();
+	const std::vector<VEC3> lista = curve->_knots;
+	TCompTransform* transf = debug_camera->get<TCompTransform>();
+	transf->setPosition(lista[0]);
+	*/
+  }
+}
+
+void TCompCharacterController::shoot() {
+    if (EngineInput.gamepad()._connected) { //RUMBLE AT SHOOT
+        Input::TRumbleData rumble;
+        rumble.leftVibration = 0.2f;
+        rumble.rightVibration = 0.2f;
+        EngineInput.feedback(rumble);
+        rumble_time = 0.3f;
+    }
+
+    TCompTransform* c_trans = get<TCompTransform>();
+    TCompMadnessController* m_c = get<TCompMadnessController>();
+
+    if (power_selected == PowerType::TELEPORT && unLockableTeleport) {
+        //If we have enough madness, we can use the power
+        if (m_c->spendMadness(PowerType::TELEPORT) || GameController.getGodMode()) {
+            TCompTeleport* c_tp = get<TCompTeleport>();
+            c_tp->rayCast();
+            //Change weapon mesh
+            CEntity* weapon = getEntityByName("Mop");
+            TCompRender* w_r = weapon->get<TCompRender>();
+            w_r->is_visible = false;
+            CEntity* weapon2 = getEntityByName("Anti_extintor");
+            TCompRender* w_r2 = weapon2->get<TCompRender>();
+            w_r2->is_visible = false;
+            CEntity* weapon3 = getEntityByName("Scanner");
+            TCompRender* w_r3 = weapon3->get<TCompRender>();
+            w_r3->is_visible = true;
+            w_r->updateRenderManager();
+            w_r2->updateRenderManager();
+            w_r3->updateRenderManager();
+            //Execute animation
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::SCAN, 1.f, true);
+        }
+    }
+    else if (power_selected == PowerType::BATTERY && unLockableBattery) {
+        if (isBatteryAlive)
+            return;
+        if (m_c->spendMadness(PowerType::BATTERY) || GameController.getGodMode()) {
+            TCompTransform* c_trans = get<TCompTransform>();
+            CEntity* e_camera = (CEntity *)h_camera;
+            TCompTransform* comp_cam = e_camera->get<TCompTransform>();
+            VEC3 far_cam_target = (comp_cam->getFront() * distance_to_aim) + comp_cam->getPosition(); //DISTANCE WHERE IS POINTING
+            VEC3 front = far_cam_target - c_trans->getPosition();
+            front.Normalize();
+            TCompBatteryController* c_bat = get<TCompBatteryController>();
+            c_bat->shoot(front);
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::THROW, 1.f, true);
+            EngineAudio.playEvent("event:/Character/Powers/Battery/Throw");
+            isBatteryAlive = true;
+        }
+    }
+}
+
+void TCompCharacterController::attack(float delta) {
+    if (attackFirstExecution) {
+        //Execute animation
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::ATTACK, 1.f, true);
+        EngineAudio.playEvent("event:/Character/Attacks/Melee_Swing");
+        attackFirstExecution = false;
+    }
+    //Change weapon mesh
+    CEntity* weapon = getEntityByName("Mop");
+    TCompRender* w_r = weapon->get<TCompRender>();
+    w_r->is_visible = true;
+    CEntity* weapon2 = getEntityByName("Anti_extintor");
+    TCompRender* w_r2 = weapon2->get<TCompRender>();
+    w_r2->is_visible = false;
+    CEntity* weapon3 = getEntityByName("Scanner");
+    TCompRender* w_r3 = weapon3->get<TCompRender>();
+    w_r3->is_visible = false;
+    w_r->updateRenderManager();
+    w_r2->updateRenderManager();
+    w_r3->updateRenderManager();
+    //COJO EL COMPONENTE, SI PUEDO HACER COMBO, PUES OTRA ANIMACION Y LA FUERZA ES MAYOR
+
+    VEC3 dir = VEC3();
+    getInputForce(dir);
+    dir *= Time.delta_unscaled;
+    TCompCollider* comp_collider = get<TCompCollider>();
+    if (!comp_collider || !comp_collider->controller)
+        return;
+
+
+    TCompTeleport* c_tp = get<TCompTeleport>();
+    TCompTransform* c_trans = get<TCompTransform>();
+    TCompMadnessController* m_c = get<TCompMadnessController>();
+
+    float comboModifier = 1.f;
+    if (c_tp->canCombo()) { //puedes hacer combo
+        comboModifier = 3.f;
+        c_tp->comboDone = true;
+    }
+
+    if (meleeCurrentDuration <= meleeTotalDuration) {
+        //Mesh Swap
+        //SwapMesh(4);
+        //End Mesh Swap
+        if (!alreadyAttacked) {
+
+            TCompTransform* c_trans = get<TCompTransform>();
+            //Create a collider sphere where we want to detect collision
+            PxSphereGeometry geometry(meleeRadius);
+            Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeDistance);
+            PxF32 attackHeight = comp_collider->controller->getHeight();
+            damageOrigin.y = c_trans->getPosition().y + (float)attackHeight + hyChilli / 2;
+            PxVec3 pos = VEC3_TO_PXVEC3(damageOrigin);
+            PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+
+            const PxU32 bufferSize = 256;
+            PxOverlapHit hitBuffer[bufferSize];
+            PxOverlapBuffer buf(hitBuffer, bufferSize);
+            PxTransform shapePose = PxTransform(pos, ori);
+            PxQueryFilterData filter_data = PxQueryFilterData();
+            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall;
+            bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
+            if (res) {
+                for (PxU32 i = 0; i < buf.nbTouches; i++) {
+                    CHandle h_comp_physics;
+                    h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
+                    CEntity* entityContact = h_comp_physics.getOwner();
+                    if (entityContact) {
+                        TMsgDamage msg;
+                        // Who sent this bullet
+                        msg.h_sender = CHandle(this).getOwner();
+                        msg.h_bullet = CHandle(this).getOwner();
+                        msg.position = c_trans->getPosition() + VEC3::Up;
+                        msg.senderType = PLAYER;
+                        msg.intensityDamage = meleeDamage;
+                        msg.impactForce = impactForceAttack * comboModifier;
+											msg.damageType = MELEE;
+                        msg.targetType = ENEMIES;
+                        entityContact->sendMsg(msg);
+
+                        alreadyAttacked = true;
+                        TCompMadnessController* m_c = get<TCompMadnessController>();
+                        m_c->generateMadness(MELEE);
+                        EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
+                    }
+                }
+            }
+        }
+        meleeCurrentDuration += Time.delta_unscaled;
+    }
+    else {
+        meleeCurrentDuration = 0.f;
+        attackFirstExecution = true;
+        meleeTimer = meleeDelay;
+        alreadyAttacked = false;
+        ChangeState("GROUNDED");
+    }
+
+    comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+    rotatePlayer(dir, Time.delta_unscaled, false);
+}
+
+void TCompCharacterController::chargedAttack(float delta) {
+    //If the button is released
+    if (EngineInput["attack_"].justReleased() || chargedAttack_releasing) {
+        //If the chargedAttack_buttonPressTimer is greater than chargedAttack_chargeDelay, launch the attack
+        if (chargedAttack_buttonPressTimer >= chargedAttack_chargeDelay && !chargedAttack_releasing) {
+            dbg("Player executes CHARGED_ATTACK\n");
+            chargedAttack_releasing = true;
+            //Execute animation, should have root motion and deal the damage the moment it connects with the ground
+            TCompRigidBody* c_rbody = get<TCompRigidBody>();
+            if (!c_rbody)
+                return;
+            EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
+            c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
+        }
+
+        TCompTransform* c_trans = get<TCompTransform>();
+        //If we're releasing and haven't hit the floor, stay here
+        if (chargedAttack_releasing && !isGrounded()) {
+            chargedAttack_onAir = true;
+            VEC3 dir = VEC3().Zero;
+            VEC3 camera_front = c_trans->getFront();
+            camera_front.y = 0.0f;
+            camera_front.Normalize();
+            dir = camera_front;
+            dir *= speed * 1.0f;
+            dir *= Time.delta_unscaled;
+            TCompCollider* comp_collider = get<TCompCollider>();
+            if (!comp_collider || !comp_collider->controller)
+                return;
+
+            comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+            return;
+        }
+
+        //if we're releasing and have hit the floor, finish the attack
+        if (chargedAttack_releasing && isGrounded() && chargedAttack_onAir) {
+            TMsgDamage msg;
+            msg.h_bullet = CHandle(this).getOwner();
+            msg.senderType = EntityType::PLAYER;
+            msg.targetType = EntityType::ENEMIES;
+            msg.damageType = PowerType::CHARGED_ATTACK;
+            msg.position = c_trans->getPosition() + VEC3::Up;
+            msg.intensityDamage = chargedAttack_damage;
+            msg.impactForce = 20.f;
+            GameController.generateDamageSphere(c_trans->getPosition(), chargedAttack_radius, msg, "enemy");
+            GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
+            //stop charging
+            chargedAttack_buttonPressTimer = 0.f;
+            //reset speed
+            speed = base_speed;
+            chargedAttack_releasing = false;
+            chargedAttack_onAir = false;
+            dbg("Player lands CHARGED_ATTACK.\n");
+            ChangeState("GROUNDED");
+            return;
+        }
+
+        //If we stop holding before the attack is charged, go back to grounded
+        if (EngineInput["attack_"].justReleased() && chargedAttack_buttonPressTimer < chargedAttack_chargeDelay) {
+            //stop charging
+            chargedAttack_buttonPressTimer = 0.f;
+            //reset speed
+            speed = base_speed;
+            chargedAttack_releasing = false;
+            chargedAttack_onAir = false;
+            dbg("Player stops charging CHARGED_ATTACK.\n");
+            ChangeState("GROUNDED");
+        }
+    }
+
+    //If the button is pressed increase chargedAttack_buttonPressTimer
+    if (EngineInput["attack_"].isPressed()) {
+        chargedAttack_buttonPressTimer += Time.delta_unscaled;
+        speed = chargedAttack_playerSpeed;
+    }
+
+    VEC3 dir = VEC3();
+    getInputForce(dir);
+    dir *= Time.delta_unscaled;
+    TCompCollider* comp_collider = get<TCompCollider>();
+    if (!comp_collider || !comp_collider->controller)
+        return;
+
+    comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+    rotatePlayer(dir, Time.delta_unscaled, false);
+}
+
+//void TCompCharacterController::attackChilli(float delta) {
+//  VEC3 dir = VEC3();
+//  getInputForce(dir);
+//  dir *= Time.delta_unscaled;
+//  TCompCollider* comp_collider = get<TCompCollider>();
+//  if (!comp_collider || !comp_collider->controller)
+//    return;
+//
+//  if (meleeCurrentDuration <= meleeTotalDuration) {
+//    //SwapMesh(4);
+//    meleeCurrentDuration += Time.delta_unscaled;
+//  }
+//  else {
+//    meleeCurrentDuration = 0.f;
+//    meleeTimer = meleeDelay;
+//    ChangeState("GROUNDED");
+//
+//    TCompFireController* c_fire = get<TCompFireController>();
+//    c_fire->inUse = false;
+//  }
+//
+//  comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+//  rotatePlayer(dir, Time.delta_unscaled, false);
+//}
+
+//EVENTS
+
+void TCompCharacterController::onCollision(const TMsgOnContact& msg) {
+    CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
+    if (source_of_impact) {
+        TCompTags* c_tag = source_of_impact->get<TCompTags>();
+        if (c_tag) {
+            std::string tag = CTagsManager::get().getTagName(c_tag->tags[0]);
+            std::string tag2 = CTagsManager::get().getTagName(c_tag->tags[1]);
+            if (strcmp("floor", tag.c_str()) == 0) {
+
+            }
+        }
+    }
+}
+
+void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_enter) {
+    CEntity* e = (CEntity *)trigger_enter.h_entity;
+
+    if (e) {
+        TCompTags* c_tag = e->get<TCompTags>();
+        if (c_tag) {
+            std::string tag = CTagsManager::get().getTagName(c_tag->tags[0]);
+            if (strcmp("checkpoint", tag.c_str()) == 0) {
+                TCompTransform* transfCkeckpoint = e->get<TCompTransform>();
+                posCkeckpoint = transfCkeckpoint->getPosition();
+            }
+            else if (strcmp("endgame", tag.c_str()) == 0) {
+                //..en el futuro GameState GameOver
+                endGame = true;
+                dismount();
+                ChangeState("WIN");
+
+            }
+            //else if(){} demas trigers...
+        }
+    }
+}
+
+void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
+    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+        life -= msg.intensityDamage;
+				invulnerabilityTimer = invulnerabilityTimeDuration;
+		//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+		//bar->setRatio((life + 20) / 120.f);
+    }
+
+
+    if (life <= 0.0f) {
+        life = 0.0f;
+        ChangeState("DEAD");
+    }
+    else {
+
+        ChangeState("DAMAGED");
+
+        TCompRigidBody* c_rbody = get<TCompRigidBody>();
+        if (!c_rbody)
+            return;
+        c_rbody->addForce(VEC3(0, 0, 0));
+    }
+
+}
+
+void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
+  //dbg("recibo damage \n");
+  if (!GameController.getGodMode() && !cinematic) {
+    if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
+      life -= msg.intensityDamage;
+      //UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+      //bar->setRatio((life + 20) / 120.f); // 20 y 120 son offset de la barra de vida
+      TCompTransform* my_trans = get<TCompTransform>();
+      VEC3 direction_to_damage;
+      if (msg.senderType == ENEMIES) { //los enemigos envian el handle
+        CEntity* entity_to_hit_me = (CEntity *)msg.h_bullet;
+        TCompTransform* e_trans = entity_to_hit_me->get<TCompTransform>();
+        direction_to_damage = my_trans->getPosition() - e_trans->getPosition();
+      }
+      else { //algunos objetos envian una posicion
+        direction_to_damage = my_trans->getPosition() - msg.position;
+      }
+      direction_to_damage.Normalize();
+
+      TCompRigidBody* c_rbody = get<TCompRigidBody>();
+      if (c_rbody && strcmp("CHARGED_ATTACK", state.c_str()) != 0)
+        c_rbody->addForce(direction_to_damage * msg.impactForce);
+
+      if (life <= 0.0f) {
+        life = 0.0f;
+        EngineAudio.playEvent("event:/Character/Voice/Player_Death");
+        ChangeState("DEAD");
+      }
+      else {
+
+        if (msg.senderType == ENEMIES) {
+          //	c_rbody->addForce(direction_to_damage * 8.0f);
+        }
+        if (&(msg.impactForce) != nullptr && msg.impactForce > 0) {
+          EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+          //ChangeState("DAMAGED");
+        }
+      }
+    }
+  }
+}
+
+void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
+    //dbg("recibo damage \n");
+    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+        if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
+            life -= msg.intensityDamage;
+						invulnerabilityTimer = invulnerabilityTimeDuration;
+			//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+			//bar->setRatio((life + 20)/120.f); // 20 y 120 son offset de la barra de vida
+            TCompTransform* my_trans = get<TCompTransform>();
+            VEC3 direction_to_damage;
+            if (msg.senderType == ENEMIES) { //los enemigos envian el handle
+                CEntity* entity_to_hit_me = (CEntity *)msg.h_bullet;
+                TCompTransform* e_trans = entity_to_hit_me->get<TCompTransform>();
+                direction_to_damage = my_trans->getPosition() - e_trans->getPosition();
+            }
+            else { //algunos objetos envian una posicion
+                direction_to_damage = my_trans->getPosition() - msg.position;
+            }
+            direction_to_damage.Normalize();
+
+            TCompRigidBody* c_rbody = get<TCompRigidBody>();
+            if (c_rbody && strcmp("CHARGED_ATTACK", state.c_str()) != 0)
+                c_rbody->addForce(direction_to_damage * msg.impactForce);
+
+            if (life <= 0.0f) {
+                life = 0.0f;
+                EngineAudio.playEvent("event:/Character/Voice/Player_Death");
+                ChangeState("DEAD");
+            }
+            else {
+
+                if (msg.senderType == ENEMIES) {
+                    //	c_rbody->addForce(direction_to_damage * 8.0f);
+                }
+                if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0) {
+                    EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+                    //ChangeState("DAMAGED");
+                }
+            }
+        }
+    }
+}
+
+void TCompCharacterController::onPowerUp(const TMsgPowerUp& msg) {
+
+}
+
+void TCompCharacterController::onCinematic(const TMsgOnCinematic & msg)
+{
+	TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+	playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
+	ChangeState("IDLE_CINEMATIC");
+	cinematic = msg.cinematic;
+	UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+	mirilla->getParams()->visible = false;
+
+}
+
+
+void TCompCharacterController::onBatteryDeactivation(const TMsgBatteryDeactivates& msg) {
+    isBatteryAlive = false;
+}
+
+
+//OTHERS
+
+void  TCompCharacterController::SwapMesh(int state) {
+    TCompRender* crender = get<TCompRender>();
+    crender->showMeshesWithState(state);
+}
+
+//Shopping Cart
+void TCompCharacterController::mount(CHandle vehicle) {
+    if (vehicle.isValid()) {
+        isMounted = true;
+        TCompSCartController* sCart = get<TCompSCartController>();
+        sCart->enable(vehicle);
+        //dbg("Player changes to MOUNTED\n");
+        ChangeState("MOUNTED");
+        //SwapMesh(1);
+    }
+}
+
+void TCompCharacterController::dismount() {
+    //dbg("Player DISMOUNTS\n");
+    isMounted = false;
+    //While moving appear behind sCart
+    //While stationary appear in front of sCart
+    //SwapMesh(0);
+}
+
+void TCompCharacterController::mounted(float delta) {
+    if (!isMounted) {
+        //dbg("Player changes to GROUNDED from MOUNTED\n");
+        ChangeState("GROUNDED");
+    }
+}
+
+void TCompCharacterController::interact() {
+    TCompTransform* c_trans = get<TCompTransform>();
+    //Analyze interactable objects
+    //Create a collider sphere where we want to detect collision
+    PxSphereGeometry geometry(interactRange * 2);
+    PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+    PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+
+    const PxU32 bufferSize = 256;        // [in] size of 'hitBuffer'
+    PxOverlapHit hitBuffer[bufferSize];  // [out] User provided buffer for results
+    PxOverlapBuffer buf(hitBuffer, bufferSize); // [out] Blocking and touching hits stored here
+
+    PxTransform shapePose = PxTransform(pos, ori);    // [in] initial shape pose (at distance=0)
+                                                      //Evaluate collisions
+
+    physx::PxFilterData pxFilterData;
+    pxFilterData.word0 = EnginePhysics.Carrito;
+    physx::PxQueryFilterData PxPlayerFilterData;
+    PxPlayerFilterData.data = pxFilterData;
+    bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, PxPlayerFilterData);
+
+    //If there were any hits
+    if (res) {
+        //Analyze entities hit
+        for (PxU32 i = 0; i < buf.nbTouches; i++) {
+            CHandle h_comp_physics;
+            h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
+            CEntity* entityContact = h_comp_physics.getOwner();
+            if (entityContact) {
+                dbg("Pete con carrito: %s\n", entityContact->getName());
+                mount(h_comp_physics);
+            }
+        }
+    }
+}
+
+void TCompCharacterController::setMeleeMultiplier(float newMulti) {
+    meleeDamage *= newMulti;
+}
+
+void TCompCharacterController::setSpeed(float newSpeed) {
+    speed = newSpeed;
+}
+
+float TCompCharacterController::getBaseSpeed() {
+    return base_speed;
+}
+
+void  TCompCharacterController::heal() {
+    life = maxLife;
+}
+
+void  TCompCharacterController::healPartially(float health) {
+    life += health;
+    if (life > maxLife)
+        life = maxLife;
+}
+
+void TCompCharacterController::restoreMadness() {
+    TCompMadnessController* madness = get<TCompMadnessController>();
+    madness->restoreMadness();
+}
+
+float TCompCharacterController::getMaxMadness() {
+    TCompMadnessController* madness = get<TCompMadnessController>();
+    return madness->getMaximumMadness();
+}
+
+
+void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, float extraBarSize) {
+
+    switch (type) {
+    case PowerUpType::HEALTH_UP:
+    {
+        //dbg("aplica el power up de life \n");
+        maxLife = maxLife + quantity;
+        heal();
+        GameController.increaseHpBarSize(extraBarSize);
+        break;
+    }
+    case PowerUpType::MADNESS_UP:
+    {
+        //dbg("aplica el power up de la locura \n");
+        TCompMadnessController* madness = get<TCompMadnessController>();
+        madness->setMaximumMadness(madness->getMaximumMadness() + quantity);
+        restoreMadness();
+        GameController.increaseMadnessBarSize(extraBarSize);
+        break;
+    }
+    case PowerUpType::ACTIVATE_BATTERY:
+    {
+        //TODO
+        unLockableBattery = true;
+		//unLockableTeleport = true;
+        break;
+    }
+    case PowerUpType::ACTIVATE_CHILLI:
+    {
+        //TODO
+		unLockableChilli = true;
+        break;
+    }
+    case PowerUpType::ACTIVATE_COFFEE:
+    {
+        //TODO
+		unLockableCoffe = true;
+        break;
+    }
+    case PowerUpType::ACTIVATE_TELEPORT:
+    {
+		unLockableTeleport = true;
+        break;
+    }
+    }
+
+}

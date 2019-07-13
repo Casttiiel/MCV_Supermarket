@@ -1,0 +1,22 @@
+[
+  {
+    "entity": {
+      "name": "ExplosionSphere",
+      "transform": {
+        "pos": "0 0 0"
+      },
+      "render": {
+        "mesh": "data/meshes/static_objects/explosion.mesh",
+        "color": "0.5 0.5 0.5 1.0",
+        "materials":
+        [
+          "data/materials/bleachaura.material"
+        ]
+      },
+      "comp_self_destroy" : {
+				"_isEnabled": true,
+				"_selfDestructDelay": 0.3
+			}
+    }
+  }
+]

@@ -1,0 +1,200 @@
+#include "mcv_platform.h"
+#include "checkpoint.h"
+#include "components/common/comp_tags.h"
+#include "components/common/comp_name.h"
+#include "components/common/comp_transform.h"
+#include "components/actions/comp_checkpoint_register.h"
+#include "components/ai/bt/bt_cupcake.h"
+#include "components/ai/bt/bt_sushi.h"
+#include "components/ai/bt/bt_ranged_sushi.h"
+#include "components/ai/bt/bt_golem.h"
+#include "components/ai/others/comp_blackboard.h"
+#include "engine.h"
+#include "entity/common_msgs.h"
+
+CCheckpoint::CCheckpoint() {
+    saved = false;
+}
+
+/*
+
+This function clears the previous checkpoint's data and stores the status of those entities marked to be registered.
+
+*/
+bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
+{
+    PROFILE_FUNCTION("CCheckpoint::saveCheckPoint");
+    dbg("Saving...\n");
+
+    /* Clear previous data */
+    bool error = false;
+    enemies.clear();
+    entities.clear();
+
+    /* Save Player status */
+    playerStatus.playerPos = playerPos;
+    playerStatus.playerRot = playerRotation;
+    playerStatus.saved = true;
+
+    /* Save Registered Entities' status */
+    //VHandles allEntities = getAllEntities();
+    //Get all entities with the 'checkpoint_registered' tag. More info in comp_checkpoint_register.
+    VHandles allEntities = CTagsManager::get().getAllEntitiesByTag(getID("checkpoint_registered"));
+    for (const auto& entity : allEntities) {
+        CEntity* e_entity = (CEntity*)entity;
+        TCompCheckpointRegister* comp_registry = e_entity->get<TCompCheckpointRegister>();
+        //If the entity has the tag but doesn't have the component, we have assigned the tag manually
+        //This should not happen, since we would not be storing the prefab's address
+        if (!comp_registry) {
+            fatal("Do NOT use 'checkpoint_registered' tag manually.\nAdd 'comp_checkpoint_register' component to the entity.");
+        }
+
+        //Make sure the entity has what it needs in order to be saved
+        EntityStatus status;
+        TCompName* comp_name = e_entity->get<TCompName>();
+        TCompTransform* comp_transform = e_entity->get<TCompTransform>();
+        assert(comp_name);
+        assert(comp_transform);
+
+        //Save the entity
+        status.entityName = std::string(comp_name->getName());
+        status.entityPos = comp_transform->getPosition();
+        status.entityRot = comp_transform->getRotation();
+        status.entityPrefab = comp_registry->getPrefab();
+        status.handle = entity;
+        status.saved = true;
+
+        entities.push_back(status);
+    }
+    saved = true;
+
+    dbg("Game saved.\n");
+    return !error;
+}
+
+/*
+
+This function deletes those entities marked to be registered and creates them again using their stored status
+
+*/
+bool CCheckpoint::loadCheckPoint()
+{
+    PROFILE_FUNCTION("CCheckpoint::loadCheckPoint");
+    if (saved) {
+        dbg("Loading Player...\n");
+        //Move the player to the saved position and reset it
+        CHandle h_player = EngineEntities.getPlayerHandle();
+        if (h_player.isValid() && playerStatus.saved) {
+            CEntity * e_player = h_player;
+            TCompCollider * playerCollider = e_player->get<TCompCollider>();
+            playerStatus.playerPos.y += 0.5f;
+            playerCollider->controller->setPosition(VEC3_TO_PXEXVEC3(playerStatus.playerPos));
+						TCompBlackboard* c_b = e_player->get<TCompBlackboard>();
+						c_b->resetBlackBoard();
+            GameController.healPlayer();
+        }
+
+        dbg("Loading Registered Entities...\n");
+        //Stop Behavior Trees and State Machines in order to be able to delete them safely
+        GameController.stopBehaviorTrees();
+        GameController.stopStateMachines();
+        //Delete all entities present in the scene with the checkpoint_registered tag
+        VHandles allEntities = CTagsManager::get().getAllEntitiesByTag(getID("checkpoint_registered"));
+        for (auto& handle : allEntities) {
+            if (handle.isValid()) {
+                handle.destroy();
+            }
+        }
+        //Load saved entities
+        for (auto& entity : entities) {
+            //Spawn the entity using it's stored prefab, make sure it spawned properly
+            CHandle handle = GameController.spawnPrefab(entity.entityPrefab, entity.entityPos, entity.entityRot);
+            assert(handle.isValid());
+            CEntity* spawnedEntity = (CEntity*)handle;
+            TCompName* spawnedEntity_cname = spawnedEntity->get<TCompName>();
+
+            //Update its name with the stored value
+            spawnedEntity_cname->setName(entity.entityName.c_str());
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool CCheckpoint::deleteCheckPoint()
+{
+    playerStatus.saved = false;
+    enemies.clear();
+    entities.clear();
+    saved = false;
+
+    return true;
+}
+
+void CCheckpoint::debugInMenu()
+{
+    if (ImGui::TreeNode("Checkpoint")) {
+
+        ImGui::Text("Saved: ");
+        ImGui::SameLine();
+        if (saved) {
+            ImGui::TextColored(ImVec4(0, 255, 0, 255), "TRUE");
+            if (ImGui::TreeNode("Player")) {
+                ImGui::Text("Position: (%f, %f, %f)", playerStatus.playerPos.x, playerStatus.playerPos.y, playerStatus.playerPos.z);
+                ImGui::Text("Rotation: (%f, %f, %f)", playerStatus.playerRot.x, playerStatus.playerRot.y, playerStatus.playerRot.z, playerStatus.playerRot.w);
+                ImGui::TreePop();
+            }
+
+            if (ImGui::TreeNode("Enemies")) {
+                for (int i = 0; i < enemies.size(); i++) {
+                    if (ImGui::TreeNode(enemies[i].enemyName.c_str())) {
+                        ImGui::Text("Position: (%f, %f, %f)", enemies[i].enemyPosition.x, enemies[i].enemyPosition.y, enemies[i].enemyPosition.z);
+                        ImGui::Text("State: %s", enemies[i].enemyIAStateName);
+                        switch (enemies[i].enemyType) {
+                        case EntityType::CUPCAKE:
+                        {
+                            ImGui::Text("Type: CUPCAKE");
+                            break;
+                        }
+                        case EntityType::SUSHI:
+                        {
+                            ImGui::Text("Type: SUSHI");
+                            break;
+                        }
+                        case EntityType::RANGED_SUSHI:
+                        {
+                            ImGui::Text("Type: RANGED_SUSHI");
+                            break;
+                        }
+                        case EntityType::GOLEM:
+                        {
+                            ImGui::Text("Type: GOLEM");
+                            break;
+                        }
+                        }
+                        ImGui::TreePop();
+                    }
+                }
+                ImGui::TreePop();
+            }
+
+            if (ImGui::TreeNode("Entities")) {
+                for (int i = 0; i < entities.size(); i++) {
+                    if (ImGui::TreeNode(entities[i].entityName.c_str())) {
+                        ImGui::Text("Position: (%f, %f, %f)", entities[i].entityPos.x, entities[i].entityPos.y, entities[i].entityPos.z);
+                        ImGui::TreePop();
+                    }
+                }
+                ImGui::TreePop();
+            }
+        }
+        else {
+            ImGui::TextColored(ImVec4(255, 0, 0, 255), "FALSE");
+
+        }
+
+        ImGui::TreePop();
+    }
+}

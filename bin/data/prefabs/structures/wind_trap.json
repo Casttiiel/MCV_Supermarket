@@ -1,0 +1,53 @@
+[
+{
+    "entity":
+    {
+      "name": "wind_trap",
+			"render" : {
+			
+			"mesh": "data/meshes/static_objects/fire_extintor.mesh",
+			"materials":
+			[
+				"data/materials/ice_wind.material"
+			],
+			"color": "1 0 0 1"
+			},
+      "transform":
+      {
+        "pos": "0 0 0"
+      },
+      "abs_aabb" : {},
+      "collider":
+      {
+          "shapes":
+          [
+            {
+              "shape": "box"
+              ,
+              "half_size": "0.5 0.5 0.5"
+              ,
+              "offset":
+              {
+                "pos": "0.0 0.5 0.0"
+              }
+              ,
+              "trigger": false,
+              "group":"spawner"
+            },
+            {
+              "shape": "box",
+            "half_size": "0.5 0.5 5.0",
+            "offset": {
+              "pos": "0.0 0.5 5"
+            },
+            "trigger": true,
+            "group": "trigger"
+            }
+          ]
+      },
+      "comp_wind_trap":{
+      },
+      "tags" : ["enemy", "scenario"]
+    }
+}
+]

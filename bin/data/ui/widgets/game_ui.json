@@ -1,0 +1,262 @@
+{
+	"name" : "game_ui",
+	"alias" :"game_ui_root",
+	"children" : 
+	[
+		{
+			"name" : "life_character",
+			"position" : "160 40",
+			"children" : 
+			[
+				{
+					"name" : "life_empty",
+					"type" : "image",
+					"texture" : "data/ui/textures/market/life_empty.dds",
+					"size" : "325 96",
+					"maxUV" : "1.0 1.0"
+
+				},
+				{
+					"name" : "life_full",
+					"type" : "bar",
+					"alias" : "life_bar_r",
+					"texture" : "data/ui/textures/market/life_full.dds",
+					"size" : "325 96",
+					"maxUV" : "1.0 1.0",
+					"var" : "life_character"
+				}
+			]
+		},
+		{
+			"name" : "mana_character",
+			"position" : "160 120",
+			"children" : 
+			[
+				{
+					"name" : "mana_empty",
+					"type" : "bar",
+					"texture" : "data/ui/textures/market/mana_empty.dds",
+					"size" : "317 70",
+					"maxUV" : "1.0 1.0"
+
+				},
+				{
+					"name" : "mana_full",
+					"type" : "bar",
+					"alias" : "mana_bar_r",
+					"texture" : "data/ui/textures/market/mana_full.dds",
+					"size" : "317 70",
+					"maxUV" : "1.0 1.0",
+					"var" : "mana_character"
+				}
+			]
+		}
+		,
+		{
+			"name" : "botonera_acciones_simples",
+			"position" : "1350 800",
+			"children" :
+			[
+				{
+					"name" : "bt_carro",
+					"alias" : "bt_carro_",
+					"position" : "50 0",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/carro.dds",
+					"size" : "105 112",
+					
+					"states" : [
+						{
+							"name" : "enabled",
+							"color" : "255 255 255 255"
+						},
+						{
+							"name" : "selected",
+							"color" : "255 255 255 128"
+						}
+					]
+				},
+				{
+					"name" : "bt_dash",
+					"alias" : "bt_dash_",
+					"position" : "140 90",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/dash.dds",
+					"size" : "116 68",
+					
+					"states" : [
+						{
+							"name" : "enabled",
+							"color" : "255 255 255 255"
+						},
+						{
+							"name" : "selected",
+							"color" : "255 255 255 128"
+						}
+					]
+				},
+				{
+					"name" : "bt_jump",
+					"alias" : "bt_jump_",
+					"position" : "90 140",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/jump.dds",
+					
+					"size" : "121 73",
+					
+					"states" : [
+						{
+							"name" : "enabled",
+							"color" : "255 255 255 255"
+						},
+						{
+							"name" : "selected",
+							"color" : "255 255 255 128"
+						}
+					]
+				},
+				{
+					"name" : "bt_mop",
+					"alias" : "bt_mop_",
+					"position" : "20 65",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/mop.dds",
+					
+					"size" : "81 130",
+					
+					"states" : [
+						{
+							"name" : "enabled",
+							"color" : "255 255 255 255"
+						},
+						{
+							"name" : "selected",
+							"color" : "255 255 255 128"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name" : "botonera_acciones_disparos",
+			"position" : "1460 700",
+			"children" :
+			[
+				{
+					"name" : "bt_l1",
+					"alias" : "bt_l1_",
+					"position" : "0 0",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/l1.dds",
+					"size" : "103 90",
+					
+					"states" : [
+						{
+							"name" : "enabled",
+							"color" : "255 255 255 255"
+						},
+						{
+							"name" : "selected",
+							"color" : "255 255 255 128"
+						}
+					]
+				},
+				{
+					"name" : "bt_r1",
+					"alias" : "bt_r1_",
+					"position" : "40 50",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/r1.dds",
+					
+					"size" : "164 99",
+					
+					"states" : [
+						{
+							"name" : "enabled",
+							"color" : "255 255 255 255"
+						},
+						{
+							"name" : "selected",
+							"color" : "255 255 255 128"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name" : "botonera_seleccion",
+			"position" : "20 40",
+			"children" :
+			[
+				
+				
+				{
+					"name" : "card",
+					"alias" : "card_",
+					"position" : "0 0",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/teleport_card.dds",
+					"size" : "139 138",
+					"states" : [
+						{
+							"name" : "option_battery",
+							"texture" : "data/ui/textures/market/battery_card.dds"
+						},
+						{
+							"name" : "option_teleport",
+							"texture" : "data/ui/textures/market/teleport_card.dds"
+						}
+						,
+						{
+							"name" : "no_battery",
+							"texture" : "data/ui/textures/market/no_card.dds"
+						},
+						{
+							"name" : "no_teleport",
+							"texture" : "data/ui/textures/market/no_card.dds"
+						}
+						
+						
+					]
+					
+				},
+				{
+					"name" : "cursor",
+					"alias" : "cursor_",
+					"position" : "40 140",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/cursor_izq.dds",
+					"size" : "70 66",
+					
+					"states" : [
+						{
+							"name" : "nothing",
+							"texture" : "data/ui/textures/market/cursor.dds"
+						},
+						{
+							"name" : "option_battery",
+							"texture" : "data/ui/textures/market/cursor_der.dds"
+						},
+						{
+							"name" : "option_teleport",
+							"texture" : "data/ui/textures/market/cursor_izq.dds"
+						}
+					]
+				}
+			]
+		}
+		,
+		{
+			"name" : "reticula",
+			"type" : "image",
+			"alias" : "reticula_",
+			"texture" : "data/ui/textures/market/mirilla.dds",
+			"maxUV" : "1.0 1.0",
+			"position" : "840 540",
+			"size" : "29 25"
+
+		}
+		
+		
+	]
+}

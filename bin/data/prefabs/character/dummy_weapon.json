@@ -1,0 +1,212 @@
+[  
+  {
+    "entity":
+    {
+      "name": "Mop"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0"
+      }
+      ,
+      "render":
+      {
+        "is_visible" : true,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh": "data/meshes/weapons/Mop.mesh"
+      },
+      "bone_tracker":{
+        "bone": "Bone002",
+        "parent": "Player"
+      },
+	   "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity":
+    {
+      "name": "Scanner"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0"
+      }
+      ,
+      "render":
+      {
+        "is_visible" : false,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh":"data/meshes/weapons/scanner.mesh",
+        "materials":
+        [
+          "data/materials/scanner.material"
+        ]
+      },
+      "bone_tracker":{
+        "bone": "Bone002",
+        "parent": "Player"
+      },
+     "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity":
+    {
+      "name": "Anti_extintor"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0",
+        "scale": 0.1
+      }
+      ,
+      "render":
+      {
+        "is_visible" : false,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh":"data/meshes/weapons/Anti_extintor.mesh",
+        "materials":
+        [
+          "data/materials/extintor.material"
+        ]
+      },
+      "bone_tracker":{
+        "bone": "Bone002",
+        "parent": "Player"
+      },
+     "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity": {
+      "name": "AimCurve",
+      "transform": {
+        "pos": "0 0 0"
+      },
+      "render": {
+        "mesh": "data/meshes/static_objects/AimCylinder.mesh",
+        "color": "0.0 0.5 1.0 1.0",
+        "materials":
+        [
+          "data/materials/vfx/aim_curve.material"
+        ]
+      },
+      "parabolic_launch" : {
+        "velocity": 20.0
+      },
+          "buffers" : {
+            "TCtesAimCurve" : {
+                "total_bytes" : 16,
+                "slot" : 13
+            }
+          }
+    }
+  },
+  {
+    "entity":
+    {
+      "name": "Projectile_cupcake_golem1"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0"
+      }
+      ,
+      "render":
+      {
+        "is_visible" : false,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh":"data/meshes/cupcake_eneano.mesh",
+        "materials":
+        [
+          "data/materials/cupcakebody.material"
+          ,
+          "data/materials/cupcakeeyebrows.material"
+        ]
+      },
+      "bone_tracker":{
+        "bone": "antebrazo_izq",
+        "parent": "golem1"
+      },
+     "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity":
+    {
+      "name": "Projectile_cupcake_golem2"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0"
+      }
+      ,
+      "render":
+      {
+        "is_visible" : false,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh":"data/meshes/cupcake_eneano.mesh",
+        "materials":
+        [
+          "data/materials/cupcakebody.material"
+          ,
+          "data/materials/cupcakeeyebrows.material"
+        ]
+      },
+      "bone_tracker":{
+        "bone": "antebrazo_izq",
+        "parent": "golem2"
+      },
+     "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity":
+    {
+      "name": "Projectile_cupcake_golem3"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0"
+      }
+      ,
+      "render":
+      {
+        "is_visible" : false,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh":"data/meshes/cupcake_eneano.mesh",
+        "materials":
+        [
+          "data/materials/cupcakebody.material"
+          ,
+          "data/materials/cupcakeeyebrows.material"
+        ]
+      },
+      "bone_tracker":{
+        "bone": "antebrazo_izq",
+        "parent": "golem3"
+      },
+     "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity": 
+    {
+      "name": "Fire",
+      "transform": {
+        "pos": "0 1 0",
+        "scale": 0.04
+      },
+      "render": {
+        "mesh": "data/meshes/static_objects/Extintor_Cylinder.mesh",
+        "color": "0.0 0.5 1.0 1.0",
+        "materials":
+        [
+          "data/materials/vfx/fire.material",
+          "data/materials/vfx/fire.material"
+        ]
+      },
+      "fire_follow":{}
+    }
+  }
+]

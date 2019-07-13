@@ -1,0 +1,764 @@
+[
+  {
+    "entity":
+    {
+      "name": "Plane001"
+      ,
+      "transform":
+      {
+        "pos": "-212.887 1.12788e-05 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial01_Plane001.col_mesh"
+            ,
+            "group": "floor"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_Plane001.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box001"
+      ,
+      "transform":
+      {
+        "pos": "-308.891 1.09927e-05 251.484"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.66059 9.41441 10.3354"
+            ,
+            "offset":
+            {
+              "pos": "0.0 9.41441 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_Box001.mesh"
+        ,
+        "color": "0.894118 0.721569 0.6 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box002"
+      ,
+      "transform":
+      {
+        "pos": "-295.552 1.15755e-05 264.817"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.66059 9.41441 10.3354"
+            ,
+            "offset":
+            {
+              "pos": "0.0 9.41441 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_Box002.mesh"
+        ,
+        "color": "0.894118 0.721569 0.6 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box003"
+      ,
+      "transform":
+      {
+        "pos": "-295.552 1.04844e-05 239.855"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.66059 9.41441 10.3354"
+            ,
+            "offset":
+            {
+              "pos": "0.0 9.41441 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_Box003.mesh"
+        ,
+        "color": "0.894118 0.721569 0.6 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box004"
+      ,
+      "transform":
+      {
+        "pos": "-308.891 1.21087e-05 277.016"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.66059 9.41441 10.3354"
+            ,
+            "offset":
+            {
+              "pos": "0.0 9.41441 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_Box004.mesh"
+        ,
+        "color": "0.894118 0.721569 0.6 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "platf0"
+      ,
+      "transform":
+      {
+        "pos": "-265.795 1.12788e-05 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "11.8533 0.6625 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.6625 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_platf0.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "platf002"
+      ,
+      "transform":
+      {
+        "pos": "-259.16 1.35184 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "15.25 0.662335 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.662335 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_platf002.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "platf003"
+      ,
+      "transform":
+      {
+        "pos": "-262.554 2.73163 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "9.1125 0.45 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.45 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_platf003.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "platf004"
+      ,
+      "transform":
+      {
+        "pos": "-262.319 3.64427 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "5.75 0.95 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.95 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_platf004.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "platf005"
+      ,
+      "transform":
+      {
+        "pos": "-228.288 1.12788e-05 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "15.6375 2.7645 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 2.7645 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_platf005.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "platf006"
+      ,
+      "transform":
+      {
+        "pos": "-233.704 5.50119 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "5.75 0.836 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.836 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_platf006.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cajas"
+      ,
+      "transform":
+      {
+        "pos": "-192.133 1.12788e-05 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.575 3.6765 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 3.6765 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_cajas.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cajas001"
+      ,
+      "transform":
+      {
+        "pos": "-185.693 1.12788e-05 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.575 3.6765 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 3.6765 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_cajas001.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "platf007"
+      ,
+      "transform":
+      {
+        "pos": "-226.576 7.20709 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "9.1125 0.45 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.45 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_platf007.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "platf008"
+      ,
+      "transform":
+      {
+        "pos": "-221.796 7.99824 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "9.1125 0.45 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.45 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_platf008.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "platf009"
+      ,
+      "transform":
+      {
+        "pos": "-219.454 8.84432 258.029"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "6.561 0.45 10.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.45 0.0"
+            }
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial01/mapa_zona_tutorial01_platf009.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mat_piso.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "-326.154 1.1195e-05 256.111"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  }
+]

@@ -1,0 +1,45 @@
+[
+	{
+    "entity" : {
+      "transform" : {
+        "pos" : "0 0 0",
+        "scale": 0.1
+    }, 
+    "name": "health_powerup",
+    "render" : {
+      "mesh": "data/meshes/pizza_powerupvida_uvs/pizza_powerupvida_uvs_pizza_powerup.mesh"
+        ,
+        "color": "0.835294 0.603922 0.898039 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/pizza_powerupvida_uvs/interactive.material"
+        ]
+      },
+    "abs_aabb" : {},
+    "collider":
+    {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "1.0 1.0 1.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.0 0.0"
+            }
+            ,
+            "trigger": true,
+            "group":"scenario"
+          }
+        ]
+      },
+			"comp_increase_power" : {
+          "type" : "health"
+			}
+		}
+	}
+]
+

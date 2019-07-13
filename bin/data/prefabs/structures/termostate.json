@@ -1,0 +1,46 @@
+[
+{
+    "entity":
+    {
+      "name": "termostato",
+			"render" : {
+                "mesh": "data/meshes/termostato2/termostato2_termostato.mesh"
+        ,
+        "color": "0.109804 0.584314 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/termostato2/mat_termostato.material"
+        ]
+			},
+      "transform":
+      {
+        "scale": 0.3
+        ,
+        "pos": "0 0 0"
+      },
+      "abs_aabb" : {},
+      "collider":
+      {
+          "shapes":
+          [
+            {
+              "shape": "box"
+              ,
+              "half_size": "2 3 1"
+              ,
+              "offset":
+              {
+                "pos": "0.0 3.0 0.0"
+              }
+              ,
+              "trigger": false,
+              "group":"spawner"
+            }
+          ]
+      },
+	  "comp_termoestato":{},
+      "tags" : ["enemy", "scenario"]
+    }
+}
+]

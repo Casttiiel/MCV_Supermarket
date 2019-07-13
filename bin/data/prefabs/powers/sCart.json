@@ -1,0 +1,39 @@
+[
+  {
+    "entity": {
+      "transform": {
+        "pos": "0 0 0"
+      },
+      "name": "sCart",
+      "render": {
+        "mesh": "data/meshes/static_objects/carrito.mesh",
+        "materials":
+        [
+          "data/materials/mapa_zona_congelados11/mat_palillos.material"
+        ]
+      },
+      "local_aabb": {},
+      "comp_checkpoint_register": {
+        "prefab": "data/prefabs/powers/sCart.json",
+        "entityTypeString": "SCART"
+      },
+      "abs_aabb": {},
+      "tags": [],
+      "collider": {
+        "shapes": [
+          {
+            "shape": "box",
+            "half_size": "0.7 1.2 0.7",
+            "offset": {
+              "pos": "0.0 0.5 0.0"
+            },
+            "density": 1.1
+          }
+        ],
+        "controller": true,
+        "group": "carrito"
+      },
+      "msg_logger": true
+    }
+  }
+]
