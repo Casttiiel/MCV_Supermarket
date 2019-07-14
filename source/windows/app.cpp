@@ -130,11 +130,12 @@ bool CApplication::create(HINSTANCE hInstance, int nCmdShow, int w, int h) {
     return false;
 
   ShowWindow(hWnd, nCmdShow);
-  /*w = GetSystemMetrics(SM_CXSCREEN);
+  /*
+  w = GetSystemMetrics(SM_CXSCREEN);
   h = GetSystemMetrics(SM_CYSCREEN);
   SetWindowLongPtr(hWnd, GWL_STYLE, WS_VISIBLE | WS_POPUP);
-  SetWindowPos(hWnd, HWND_TOP, 0, 0, w, h, SWP_FRAMECHANGED);*/
-  
+  SetWindowPos(hWnd, HWND_TOP, 0, 0, w, h, SWP_FRAMECHANGED);
+  */
   return true;
 
 }

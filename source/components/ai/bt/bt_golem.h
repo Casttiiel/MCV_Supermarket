@@ -92,7 +92,7 @@ private:
 
 	int damage = 10;
 
-	bool scriptedGolem = true; //TODO: PONER A TRUE
+	bool scriptedGolem = false; //TODO: PONER A TRUE
 	bool golemCinematic = false;
 
 

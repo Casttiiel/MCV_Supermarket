@@ -379,6 +379,8 @@ int CBTGolem::actionThrow()
 	ctx.root_transform = *weapon_trans;
 	parseScene("data/prefabs/bullets/turret_bullet.json", ctx);
 
+
+
 	TMsgAssignBulletOwner msg;
 	msg.h_owner = CHandle(this).getOwner();
 	msg.source = c_trans->getPosition();

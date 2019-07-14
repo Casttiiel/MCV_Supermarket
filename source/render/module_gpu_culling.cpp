@@ -30,7 +30,7 @@ struct TSampleDataGenerator {
   float        scale = 1.0f;
   uint32_t     num_instances = 0;
 
-  VHandles     prefabs; //for products
+  VHandles     prefabs; //for trees
   std::map<const std::string, CHandle> scene_prefabs; //for scenes
 
   bool         prefab_handles_loaded = false;
@@ -93,6 +93,7 @@ struct TSampleDataGenerator {
           //this prefab can be a product on a shelve, if it is we will load it only on RELEASE because performance issues
           std::size_t found = prefab_src.find("/products/");
           if (found != std::string::npos) {
+            continue;
             #ifndef NDEBUG
               continue;
             #endif
@@ -289,6 +290,7 @@ struct TSampleDataGenerator {
   }
   
   void addPrefabToModule(CHandle handl, json j) {
+    //HERE WE RECEIVE THE RENDER COMPONENT HANDLE, SO WE GET ITS ENTITY
     CHandle prefab = handl;
     CEntity* e = prefab;
     assert(e);
@@ -620,7 +622,7 @@ void CModuleGPUCulling::renderInMenu() {
       gpu_draw_datas->copyGPUtoCPU();
       TDrawData* dd = (TDrawData*)gpu_draw_datas->cpu_data.data();
       for (uint32_t i = 0; i < draw_datas.size(); ++i, ++dd ) {
-        ImGui::Text("Base:%3d Draw Instances:%3d #Idxs:%4d From:%d Dummy:%d,%d", dd->base, dd->args.instanceCount, dd->args.indexCount, dd->args.firstIndex,dd->max_instances, dd->dummy);
+        ImGui::Text("Base:%3d Draw Instances:%3d #Idxs:%4d From:%d Dummy:%d,%d", dd->base, dd->args.instanceCount, dd->args.indexCount, dd->args.firstIndex,dd->dummy[0], dd->dummy[1]);
       }
       ImGui::TreePop();
     }
@@ -656,23 +658,14 @@ void CModuleGPUCulling::preparePrefabs() {
     }
   }
 
-  // Clear counts
-  for( auto& dd : draw_datas )
-    dd.max_instances = 0;
-
+  uint32_t base = 0;
   for (auto& p : prefabs) {
     // Each prefab will render 
     for (uint32_t idx = 0; idx < p.num_render_type_ids; ++idx) {
       uint32_t render_type_id = p.render_type_ids[idx];
-      draw_datas[render_type_id].max_instances += p.total_num_objs;
+      draw_datas[render_type_id].base = base;
+      base += p.total_num_objs;
     }
-  }
-
-  // Set the base now that we now how many instances of each render type we have.
-  uint32_t base = 0;
-  for (auto& dd : draw_datas) {
-    dd.base = base;
-    base += dd.max_instances;
   }
 
   uint32_t max_culled_instances = comp_buffers.getBufferByName("culled_instances")->num_elems;

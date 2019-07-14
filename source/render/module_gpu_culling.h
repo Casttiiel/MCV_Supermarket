@@ -66,8 +66,7 @@ class CModuleGPUCulling : public IModule {
   struct TDrawData {
     DrawIndexedInstancedArgs args;      // 5 ints
     uint32_t                 base = 0;  // Where in the array of culled_instances we can start adding objs
-    uint32_t                 max_instances = 0;
-    uint32_t                 dummy = 0;
+    uint32_t                 dummy[2] = { 0,0 };
   };
 
   // -----------------------------------------------

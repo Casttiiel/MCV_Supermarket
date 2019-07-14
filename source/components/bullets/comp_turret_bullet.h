@@ -6,7 +6,7 @@
 #include "components/common/physics/comp_collider.h"
 
 class TCompTurretBulletController : public TCompBase {
-
+	
 	float speed = 200;
 	VEC3  front;
 	float mass = 1.5;
@@ -17,6 +17,10 @@ class TCompTurretBulletController : public TCompBase {
 	float _explosionRadius = 3.f;
 	float life_time = 50.0f;
 	bool impact = false;
+	float power = 5.f;
+	int numPointsTrajectory = 30;
+	std::vector<VEC3> trajectoryPoints;
+	
 
 	CHandle e_player;
 	
@@ -29,5 +33,8 @@ public:
 	void update(float dt);
 	void load(const json& j, TEntityParseContext& ctx);
 	void debugInMenu();
+	VEC3 getForceFrom(VEC3 fromPos, VEC3 toPos);
+	void launch();
 	static void registerMsgs();
+	float fly_time = 1.5f;//tiempo de vuelo
 };
