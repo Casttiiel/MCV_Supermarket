@@ -11,7 +11,7 @@
 #include "engine.h"
 #include "components/common/comp_id.h"
 
-#include "PxPhysicsAPI.h"
+
 
 
 using namespace physx;
@@ -186,12 +186,15 @@ void CAIMobilePlatform::Turn(float dt) {
 					QUAT angle = QUAT::CreateFromAxisAngle(axis, deg2rad(i_ang));
 					result = QUAT::Slerp(actual, angle, dt);
 					TCompCollider* c_col = get<TCompCollider>();
-					physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+					PxRigidDynamic* rigid_dynamic = static_cast<PxRigidDynamic*>(c_col->actor);
 					PxQuat ori = QUAT_TO_PXQUAT(result);
 					PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
 					i_ang++;
 					PxTransform tr(pos, ori);
+					
 					rigid_dynamic->setKinematicTarget(tr);
+
+					//rigid_dynamic->setGlobalPose(tr);
 					rotationTimeActual = rotationTime;
 				}
 			}
