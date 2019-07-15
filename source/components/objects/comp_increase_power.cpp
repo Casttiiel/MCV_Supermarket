@@ -2,6 +2,7 @@
 #include "engine.h"
 #include "comp_increase_power.h"
 #include "components/powers/comp_madness.h"
+#include "components/controllers/character/comp_character_controller.h"
 #include "ui/widgets/ui_button.h"
 #include "ui/module_ui.h"
 DECL_OBJ_MANAGER("comp_increase_power", TCompIncreasePower);
@@ -55,6 +56,10 @@ void TCompIncreasePower::enable(const TMsgEntityTriggerEnter & msg) {
 			//cambiar imagen de cursor un instante de timepo
 			UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
 			b_cursor->setCurrentState("option_battery");
+			CEntity* e_player = getEntityByName("Player");
+			TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
+			c_controller->power_selected = PowerType::BATTERY;
+
 
 			/*UI::CButton* a = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
 			a->setCurrentState("option_teleport");
