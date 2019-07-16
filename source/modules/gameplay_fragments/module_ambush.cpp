@@ -22,10 +22,10 @@ void CModuleAmbush::enemyKilled(EntityType e) {
   }
 
   if (sushisKilled == 1) {
-	  secondEvent();
+	
   }
   else if (sushisKilled == 3) {
-    //TODO
+   
   }
 }
 

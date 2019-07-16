@@ -919,7 +919,7 @@ PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getB
 	return PxControllerBehaviorFlags(0);
 }
 PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getBehaviorFlags(const PxController& controller) {
-	CHandle h_comp_physics;
+	/*CHandle h_comp_physics;
 	h_comp_physics.fromVoidPtr(controller.getActor());
 	if (!h_comp_physics.isValid())
 		return PxControllerBehaviorFlags(0);
@@ -931,7 +931,7 @@ PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getB
 	bool isPlatform = jconfig.value("platform", false);
 	if (isPlatform) {
 		return PxControllerBehaviorFlag::eCCT_CAN_RIDE_ON_OBJECT;
-	}
+	}*/
 	return PxControllerBehaviorFlags(0);
 }
 PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getBehaviorFlags(const PxObstacle& obstacle) {
