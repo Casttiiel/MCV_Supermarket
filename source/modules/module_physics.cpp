@@ -210,6 +210,7 @@ bool CModulePhysics::readShape(PxRigidActor* actor, const json& jcfg) {
 	
 	shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
 
+
 	
     // Bind the render mesh as userData of the SHAPE, not the ACTOR.
     shape->userData = render_mesh;
