@@ -233,7 +233,7 @@ function createEnemies_player()
 	GameController:setPauseEnemyByHandle(h_suishi2,false);
 
 	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(93,-0.193,68), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica3",h_suishi3);
+	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica3",h_suishi3);	
 	GameController:setPauseEnemyByHandle(h_suishi3,false);
 
 	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(126,-0.193, 78), QUAT(0, 0, 0, 1),1);
@@ -244,26 +244,26 @@ function createEnemies_player()
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica5",h_suishi5);
 	GameController:setPauseEnemyByHandle(h_suishi5,false);
 
-	h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(128,-0.193, 100), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica6",h_suishi6);
-	GameController:setPauseEnemyByHandle(h_suishi6,false);
+	--h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(128,-0.193, 100), QUAT(0, 0, 0, 1),1);
+	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica6",h_suishi6);
+	--GameController:setPauseEnemyByHandle(h_suishi6,false);
 
-	h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(116,-0.193,63), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica7",h_suishi7);
-	GameController:setPauseEnemyByHandle(h_suishi7,false);
+	--h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(116,-0.193,63), QUAT(0, 0, 0, 1),1);
+	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica7",h_suishi7);
+	--GameController:setPauseEnemyByHandle(h_suishi7,false);
 
-	h_suishi8 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(104,-0.193,88), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica8",h_suishi8);
-	GameController:setPauseEnemyByHandle(h_suishi8,false);
+	--h_suishi8 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(104,-0.193,88), QUAT(0, 0, 0, 1),1);
+	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica8",h_suishi8);
+	--GameController:setPauseEnemyByHandle(h_suishi8,false);
 
 	--suishis piso superior
-	h_suishi9 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(78,7.632,121), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica9",h_suishi9);
-	GameController:setPauseEnemyByHandle(h_suishi9,true);
+	--h_suishi9 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(78,7.632,121), QUAT(0, 0, 0, 1),1);
+	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica9",h_suishi9);
+	--GameController:setPauseEnemyByHandle(h_suishi9,true);
 
-	h_suishi10 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(60,7.632,139), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica10",h_suishi10);
-	GameController:setPauseEnemyByHandle(h_suishi10,true);
+	--h_suishi10 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(60,7.632,139), QUAT(0, 0, 0, 1),1);
+	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica10",h_suishi10);
+	--GameController:setPauseEnemyByHandle(h_suishi10,true);
 
 	h_suishi11 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(58,7.632,110), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica11",h_suishi11);

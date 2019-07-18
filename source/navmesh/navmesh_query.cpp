@@ -405,7 +405,7 @@ std::vector<VEC3> CNavmeshQuery::findPath(VEC3 start, VEC3 end) {
 		*/
 
 		static const float STEP_SIZE = 20.f;
-		static const float SLOP = 0.05f;
+		static const float SLOP = 0.03f;
 
 		m_nsmoothPath = 0;
 

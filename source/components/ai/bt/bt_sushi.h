@@ -106,7 +106,7 @@ private:
   //navmesh values
   bool use_navmesh = false;
   float reevaluatePathTimer = 0;
-  float reevaluatePathDelay = 1.0;
+  float reevaluatePathDelay = 0.1;
   int navMeshIndex = 0;
   Vector3 nextNavMeshPoint = VEC3().Zero;
   std::vector<VEC3> navmeshPath;
@@ -126,7 +126,7 @@ private:
   //Core Values
   float life = 100.f;
   float patrolSpeed = 1.0f;
-  float chaseSpeed = 4.0f;
+  float chaseSpeed = 3.0f;
   float rotationSpeed = 90.0f;
   float damageStunDuration = 0.5f;
   float damageStunTimer = 0.f;
@@ -169,7 +169,7 @@ private:
 
   //Jump Charge Values
   VEC3 jumpPosition = VEC3().Zero;
-  int jumpChargeProbability = 30;
+  int jumpChargeProbability = 30;//30
   float jumpSpeed = 3.0f;
   float jumpHeight = 5.0f;
   float jumpChargeSpeed = 5.0f;
@@ -253,7 +253,7 @@ private:
   //Flags
   bool inCombat = false;
   bool blocking = false;
-
+  bool nopath = false;
   //Blackboard
   bool player_dead = false;
 	bool slotsAvailable = false;
@@ -264,7 +264,7 @@ private:
   //attack
   float impactForceAttack = 8.0f;
   float impactReceived;
-
+  bool isPlayerInNavmesh();
 
   
 
