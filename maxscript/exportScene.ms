@@ -45,8 +45,8 @@ fn isMaxShit obj = (
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	--project_path = "C:/Users/victo/mcv_sm/bin/",
-	project_path = "C:/Users/Daniel/Desktop/mcv_sm/bin/",
+	project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
+	--project_path = "C:/Users/Daniel/Desktop/mcv_sm/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/mcv_sm/bin/",
 	base_path = "data/",
@@ -115,6 +115,29 @@ struct TSceneExporter (
 		if id != undefined then (
 			fs.writeComma()
 			fs.writeKeyValue "id" id
+		)
+	),
+	fn exportPanel obj =(
+		local isPanel =  getUserProp obj "isPanel"
+		if isPanel == true then (
+			local param1 = getUserProp obj "nombre"
+			local param2 = getUserProp obj "elementoAmover"
+			
+			if param1 == undefined  then (
+				throw "A un Panel le faltan datos"
+			)
+			
+			fs.writeComma()
+			fs.writeKey "comp_interruptor"
+			fs.beginObj()
+			if param1 != undefined  then (
+				fs.writeKeyValue "nombre" param1
+				fs.writeComma()
+			)
+			if param2 != undefined  then (
+				fs.writeKeyValue "elementoAmover" param2 
+			)
+			fs.endObj()	
 		)
 	),
 	
@@ -540,7 +563,6 @@ struct TSceneExporter (
 	),
 	
 	
-	
 	fn exportEntity obj = (
 		fs.beginObj()
 		fs.writeKey "entity"
@@ -551,6 +573,7 @@ struct TSceneExporter (
 			exportID obj
 			exportAABB obj
 			exportPlatform obj
+			exportPanel obj
 			exportCamera obj
 			exportWalls obj
 			exportMorph obj

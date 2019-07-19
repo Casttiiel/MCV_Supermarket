@@ -704,6 +704,10 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
   else if (strcmp("destroyable_wall", name.c_str()) == 0) {
 	  return CModulePhysics::FilterGroup::DestroyableWall;
   }
+  else if (strcmp("panel", name.c_str()) == 0) {
+	  return CModulePhysics::FilterGroup::Panel;
+		  
+  }
   else if (strcmp("not_spawner_obj", name.c_str()) == 0) {
 	  return CModulePhysics::FilterGroup::NotSpawnerObjects;
   }

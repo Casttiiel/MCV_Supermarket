@@ -796,7 +796,7 @@ void TCompCharacterController::attack(float delta) {
             PxOverlapBuffer buf(hitBuffer, bufferSize);
             PxTransform shapePose = PxTransform(pos, ori);
             PxQueryFilterData filter_data = PxQueryFilterData();
-            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall;
+            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall | EnginePhysics.Panel;
             bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
             if (res) {
                 for (PxU32 i = 0; i < buf.nbTouches; i++) {
