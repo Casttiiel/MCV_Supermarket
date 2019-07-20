@@ -16,6 +16,7 @@
 #define TRAVELLING_ROTATION_ALWAYS 5 //plataforma sigue camino
 #define TRAVELLING_NOT_ROTATION 6 //platafarma sigue camino de vias sin rotar
 #define TRAVELLING_ALWAYS_WITHOUT_TIME 7
+#define TO_POSITION_WITH_CURVE_NOT_ROTATION 8//solo va hacia una posicion siguiendo una curva
 
 class CAIMobilePlatform : public IAIController
 {
@@ -48,6 +49,8 @@ class CAIMobilePlatform : public IAIController
 	//plataformas que se mueven siempre a la misma velocidad ( no hacen caso del cafe)
 	void TurnInfinityNoDt(float dt);
 
+	void ToPosition(float dt);
+
 	DECL_SIBLING_ACCESS();
 public:
 	void InitTravel();
@@ -58,6 +61,7 @@ public:
 	void InitTravelRotationInfinity();
 	void InitialPositionTravelStateNotRotation();
 	void InitRotationInfinityNoDt();
+	void InitToPositionWithCurveNotRotation();
 
 	void load(const json& j, TEntityParseContext& ctx);
 	void debugInMenu();

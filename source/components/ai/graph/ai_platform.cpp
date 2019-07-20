@@ -549,6 +549,44 @@ void CAIMobilePlatform::InitRotationInfinityNoDt() {
 
 
 
+void CAIMobilePlatform::ToPosition(float dt) {
+	if (active) {
+		TCompTransform* c_trans = get<TCompTransform>();
+		TCompCollider* c_col = get<TCompCollider>();
+		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+
+		/*if (ratio >= 1.0f || ratio < 0.0f) {
+			mTravelTime = -mTravelTime;
+		}*/
+		if (ratio >= 1.0f) {
+			//mTravelTime = -mTravelTime;
+			//ratio = 1.0f;
+			active = false;
+		}
+		if (ratio < 0.0f) {
+			mTravelTime = -mTravelTime;
+			ratio = 0.0f;
+		}
+		float yaw, pitch, roll = 0.f;
+		c_trans->getAngles(&yaw, &pitch);
+		nextPoint = _curve->evaluate(ratio);
+		ratio += dt * mTravelTime;
+		QUAT quat = c_trans->getRotation();
+		PxVec3 pos = VEC3_TO_PXVEC3(nextPoint);
+		PxQuat qua = QUAT_TO_PXQUAT(quat);
+		const PxTransform tr(pos, qua);
+		rigid_dynamic->setKinematicTarget(tr);
+
+	}
+}
+
+void CAIMobilePlatform::InitToPositionWithCurveNotRotation() {
+	AddState("TOPOSITION", (statehandler)&CAIMobilePlatform::ToPosition);
+	ChangeState("TOPOSITION");
+}
+
+
+
 void CAIMobilePlatform::load(const json& j, TEntityParseContext& ctx) {
 	
 	//trigger o no trigger
@@ -607,6 +645,9 @@ void CAIMobilePlatform::load(const json& j, TEntityParseContext& ctx) {
 	}
 	else if (platformType == TRAVELLING_ALWAYS_WITHOUT_TIME) { //7
 		this->InitRotationInfinityNoDt();
+	}
+	else if (platformType == TO_POSITION_WITH_CURVE_NOT_ROTATION) { //8
+		this->InitToPositionWithCurveNotRotation();
 	}
 	
 }

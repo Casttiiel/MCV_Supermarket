@@ -59,8 +59,9 @@ struct TMaterialExporter (
 			local isPlatform = getUserProp obj "isPlatform"
 			local aabb = getUserProp obj "AABB"
 			local walltype = getUserProp obj "typeWall"
+			local isPanel = getUserProp obj "isPanel"
 			local is_morphed = obj.modifiers[#Morpher]
-			if is_morphed == undefined and isPlatform == undefined and aabb == "static" and walltype == undefined then (
+			if is_morphed == undefined and isPlatform == undefined and aabb == "static" and walltype == undefined and isPanel == undefined then (
 				fs.writeKeyValue "technique" "objs_culled_by_gpu.tech"
 				fs.writeComma()
 			)else (

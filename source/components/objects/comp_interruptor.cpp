@@ -26,16 +26,16 @@ void TCompInterruptor::onActivate(const TMsgDamage & msg) {
 		//llamar a script activateAlgo y nombre de lo que se activa
 		if(!isOn){
 			//cambiar por nombres que nos pasen en el mapa
-			if (nombre.compare("panel_prueba") == 0) {
+			if (nombre.compare("panelRampa") == 0) {
 				//nombre de plataforma a mover
-				Scripting.execActionDelayed("activePlatformByName(\"zanahoria\")", 0.0);
+				Scripting.execActionDelayed("activePlatformByName(\"Box040\")", 0.0);
 				//nombre de camaras para mostrar lo que vamos ha hacer
 			}
-			else if (nombre.compare("panel_prueba2") == 0) {
+			/*else if (nombre.compare("panel_prueba2") == 0) {
 				//nombre de plataforma a mover
 				Scripting.execActionDelayed("activePlatformByName(\"zanahoria2\")", 0.0);
 				//nombre de camaras para mostrar lo que vamos ha hacer
-			}
+			}*/
 
 			isOn = true;
 		}
