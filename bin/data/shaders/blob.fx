@@ -83,9 +83,9 @@ VS_OUTPUT VS(
   float3 newNormal = cross( newTangent.xyz, newBitangent.xyz );
   newNormal = normalize(newNormal);
 
-  output.Pos = mul(newPos, World);
+  output.Pos = mul(Pos, World);
   output.Pos = mul(output.Pos, ViewProjection);
-  output.N = mul(newNormal, (float3x3)World);
+  output.N = mul(N, (float3x3)World);
   output.T = float4( mul(T.xyz, (float3x3)World), T.w);
   output.Uv = Uv;
   return output;
@@ -93,15 +93,37 @@ VS_OUTPUT VS(
 
 float4 PS(VS_OUTPUT input) : SV_Target
 {
-  float2 pos = float2(input.Uv*5.0);
+  const float freq = 15.0f;
+  const float speed = 5.0f;
+  const float amplitude = 22.0f;
+
+  float2 pos = float2(input.Uv * freq);
 
   // Use the noise function
-  float n = noise(pos);
+  float3 dir = normalize(-CameraFront.xyz);
+  float3 N = normalize(input.N);
+  float  NdV = saturate(dot(N, dir));
 
-  float3 color = float3(n,n,n);
-  //color += sin(2.*sin(color*22.+GlobalWorldTime*2.)+input.Uv.yxyy-input.Uv.yyxy*.5)/12.;    // colour transform
+  float npatron = noise(pos);
 
-  //color *= ObjColor;
+  npatron = sin(2.*sin(npatron*amplitude + GlobalWorldTime*speed)) * 0.5 + 0.5;
+  npatron *= npatron;
+  npatron *= npatron;
+  npatron *= npatron;
+  npatron *= npatron;
 
-  return float4(input.N, 1.0f);
+
+
+  float3 iridiscolor = float3(0,0,0);
+  iridiscolor += sin(NdV * float3(0.0, 1.0, 0.0) * 10.0 * 1.5);
+  iridiscolor += sin(NdV * float3(1.0, 0.0, 0.0) * 20.0 * 1.5);
+  iridiscolor += sin(NdV * float3(0.0, 0.0, 1.0) * 5.0 * 1.5);
+  iridiscolor = clamp(normalize(iridiscolor), 0.0, 1.0);
+  //iridiscolor = float3(1,1,1);
+  //iridiscolor = float3(0,0,0);
+
+  //npatron *= ObjColor;
+  float3 color = (ObjColor.xyz * (npatron <= 0.9f)) + (iridiscolor * (npatron > 0.9f));
+
+  return float4(iridiscolor, 1.0f);
 }
