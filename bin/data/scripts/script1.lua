@@ -193,6 +193,20 @@ end
 
 
 
+function cinematic_panel_player()
+	GameController:resetCamera();
+	execDelayedAction("on_cinematic(true)",0);
+	execDelayedAction("on_lock_camera3(false)",0.1);
+	execDelayedAction("on_blending_camera(\"CameraPanel001\", 4,\"linear\")",0.3);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 4,\"linear\")",6);
+	execDelayedAction("on_lock_camera3(true)",9);
+	execDelayedAction("on_cinematic(false)",9);
+	execDelayedAction("on_delete_handle(\"trigger007\")",0);
+end
+
+
+
+
 
 function cinematic_scene_termoestatos_player()
 	--evento cinematica

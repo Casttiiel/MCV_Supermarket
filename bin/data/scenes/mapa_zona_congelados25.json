@@ -578,7 +578,7 @@
       ,
       "ai_platform_mobile":
       {
-        "mTravelTime_": 1
+        "mTravelTime_": 0.15
         ,
         "curve": "data/curves/curvaRampaCongelador.curve"
         ,
@@ -592,6 +592,9 @@
         "shapes":
         [
           {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_Box040.col_mesh"
           }
         ]
         ,
@@ -3071,7 +3074,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_congelados25/abanico_m2.material"
+          "data/materials/mapa_zona_congelados25/blanco.material"
         ]
       }
     }
@@ -3111,7 +3114,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_congelados25/abanico_m2.material"
+          "data/materials/mapa_zona_congelados25/blanco.material"
         ]
       }
     }
@@ -3151,7 +3154,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_congelados25/abanico_m2.material"
+          "data/materials/mapa_zona_congelados25/blanco.material"
         ]
       }
     }
@@ -3191,7 +3194,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_congelados25/abanico_m2.material"
+          "data/materials/mapa_zona_congelados25/blanco.material"
         ]
       }
     }
@@ -3231,7 +3234,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_congelados25/abanico_m2.material"
+          "data/materials/mapa_zona_congelados25/blanco.material"
         ]
       }
     }
@@ -3271,7 +3274,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_congelados25/abanico_m2.material"
+          "data/materials/mapa_zona_congelados25/blanco.material"
         ]
       }
     }
@@ -3311,7 +3314,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_congelados25/abanico_m2.material"
+          "data/materials/mapa_zona_congelados25/blanco.material"
         ]
       }
     }
@@ -3351,7 +3354,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_congelados25/abanico_m2.material"
+          "data/materials/mapa_zona_congelados25/blanco.material"
         ]
       }
     }
@@ -3403,6 +3406,13 @@
       ,
       "abs_aabb": {}
       ,
+      "comp_interruptor":
+      {
+        "nombre": "panelRampa"
+        ,
+        "elementoAmover": "Box040"
+      }
+      ,
       "collider":
       {
         "shapes":
@@ -3432,6 +3442,102 @@
         [
           "data/materials/mapa_zona_congelados25/mat_palillos.material"
         ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "trigger007"
+      ,
+      "transform":
+      {
+        "pos": "200.028 -3.00781 106.384"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "3.61681 3.36464 13.1194"
+            ,
+            "offset":
+            {
+              "pos": "0.0 3.36464 0.0"
+            }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
+          }
+        ]
+      }
+      ,
+      "trigger":
+      {
+        "onEnter": "cinematic_panel"
+        ,
+        "delay": 0
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraPanel001"
+      ,
+      "transform":
+      {
+        "pos": "219.286 7.77558 98.3549"
+        ,
+        "rotation": "-0.0492095 -0.718874 0.691506 -0.0511571"
+        ,
+        "lookat": "216.443 6.99598 118.233"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 20.0954
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraRampa002"
+      ,
+      "transform":
+      {
+        "pos": "226.819 6.6894 96.7042"
+        ,
+        "rotation": "-0.361306 -0.638627 0.486161 -0.474616"
+        ,
+        "lookat": "202.317 -0.377803 104.084"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 26.5474
       }
     }
   }
