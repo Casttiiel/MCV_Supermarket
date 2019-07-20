@@ -315,6 +315,14 @@
     "blend" : "combinative",
     "z": "test_but_no_write"
   },
+  "fire_aux" : {
+    "vs_fx": "data/shaders/fire.fx",
+    "ps": "PS_aux",
+    "vdecl": "PosNUvT",
+    "noise" : "data/textures/noise_cloud2.dds",
+    "blend" : "combinative",
+    "z": "test_but_no_write"
+  },
   "ice_wind" : {
     "vs_fx": "data/shaders/icewind.fx",
     "vdecl": "PosNUvT",

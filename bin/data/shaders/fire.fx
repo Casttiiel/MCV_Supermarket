@@ -66,3 +66,21 @@ float4 PS(VS_OUTPUT input) : SV_Target
  
   return float4(color_ramp, alpha);
 }
+
+float4 PS_aux(VS_OUTPUT input) : SV_Target
+{
+  const float lineAmplitude = 1.0f;
+  const float lineLength = 20.0f;
+  const float lineSpeed = 1.0f;
+
+  float2 uv = float2(input.Uv.x * lineLength, (input.Uv.y * lineAmplitude) + (GlobalWorldTime * lineSpeed));
+  float2 uv2 = uv + float2( 1, 1) + float2(sin(GlobalWorldTime), cos(GlobalWorldTime));
+
+  float3 tex1 = txNormal.Sample(samLinear, uv); //use this for the color ramp
+  float3 tex2 = txMetallic.Sample(samLinear, uv);
+  float3 tex3 = txMetallic.Sample(samLinear, uv2);
+
+  float3 tex4 = (tex2 * tex3);
+
+  return float4(tex2, 1);
+}

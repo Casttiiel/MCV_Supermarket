@@ -99,9 +99,9 @@ float4 PS(VS_OUTPUT input) : SV_Target
   float n = noise(pos);
 
   float3 color = float3(n,n,n);
-  color += sin(2.*sin(color*22.+GlobalWorldTime*2.)+input.Uv.yxyy-input.Uv.yyxy*.5)/12.;    // colour transform
+  //color += sin(2.*sin(color*22.+GlobalWorldTime*2.)+input.Uv.yxyy-input.Uv.yyxy*.5)/12.;    // colour transform
 
-  color *= ObjColor;
+  //color *= ObjColor;
 
-  return float4(color, 1.0f);
+  return float4(input.N, 1.0f);
 }
