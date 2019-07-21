@@ -759,3 +759,20 @@ void CModuleGameController::resumeGame() {
     EngineAudio.soundtrack.setPaused(false);
     EngineAudio.secondarySoundtrack.setPaused(true);
 }
+
+void CModuleGameController::cheatPosition() {
+	CEntity* entity = getPlayerHandle();
+	TCompTransform* c_trans = entity->get<TCompTransform>();
+	TCompCollider* comp_collider = entity->get<TCompCollider>();
+	if (!comp_collider || !comp_collider->controller)
+		return;
+
+	VEC3 posArea = positionAreas[positionCheat];
+	physx::PxExtendedVec3 pxPosArea = VEC3_TO_PXEXVEC3(posArea);
+	comp_collider->controller->setPosition(pxPosArea);
+	//dbg("POSITION:%i\n", positionCheat);
+	if (positionCheat >= positionAreas.size() - 1) {
+		positionCheat = 0;
+	}
+	positionCheat++;
+}

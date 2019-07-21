@@ -42,6 +42,9 @@ class CModuleGameController : public IModule
     void resetState();
     void renderInMenu();
     void updateGameCondition();
+
+	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(300.825,-2.37953 ,151.652),VEC3(163, 5.377,154),VEC3(55,0.550,-45.8998)};
+	int positionCheat = 0;
     
     //void switchState(PauseState pause);
 
@@ -213,9 +216,9 @@ public:
     void updateSoundtrackID(int new_track_id);
     void setSoundtrackVolume(float volume);
     //End Soundtrack Functions
-	
-	CHandle entityByName(std::string origin);
-
+	//dar handle a partir del nombre 
+	CHandle entityByName(std::string name);
+	void cheatPosition();
 
     void pauseGame();
     void resumeGame();

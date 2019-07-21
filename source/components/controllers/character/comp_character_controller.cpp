@@ -314,6 +314,10 @@ void TCompCharacterController::grounded(float delta) {
     else if (EngineInput["checkpoint_"].justPressed()) {
         GameController.loadCheckpoint();
     }
+	//cheat(cambio de zona por posicion de mapa)
+	else if (EngineInput[VK_F3]) {
+		GameController.cheatPosition();
+	}
 
     dir *= Time.delta_unscaled;
 
@@ -452,6 +456,9 @@ void TCompCharacterController::onAir(float delta) {
             c_fire->comboAttack(c_trans->getPosition());
         }
     }
+	else if (EngineInput[VK_F3]) {
+		GameController.cheatPosition();
+	}
 
     getInputForce(dir);
     dir *= Time.delta_unscaled;
