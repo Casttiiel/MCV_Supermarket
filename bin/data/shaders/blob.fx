@@ -118,7 +118,13 @@ float4 PS(VS_OUTPUT input) : SV_Target
   iridisColor = pow(iridisColor, iridiscent_intensity);
   iridisColor = clamp(normalize(iridisColor), 0.0, 1.0);
 
-  float3 color = lerp(ObjColor.xyz, iridisColor, fresnel_term * npatron);
+
+  float2 pos = float2(input.Uv*5.0);
+  float n = noise(pos);
+  float3 color2 = float3(n,n,n);
+  color2 += sin(2.*sin(color2*22.+GlobalWorldTime*2.)+input.Uv.yxyy-input.Uv.yyxy*.5)/12.;    // colour transform
+
+  float3 color = lerp(ObjColor.xyz * color2, iridisColor, fresnel_term * npatron);
 
   return float4(color, 1.0f);
 }
