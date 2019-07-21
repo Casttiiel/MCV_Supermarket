@@ -3541,4 +3541,89 @@
       }
     }
   }
+  ,
+  {
+    "entity":
+    {
+      "name": "trigger008"
+      ,
+      "transform":
+      {
+        "pos": "154.294 3.69263 154.419"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "3.10651 5.52942 7.72736"
+            ,
+            "offset":
+            {
+              "pos": "0.0 5.52942 0.0"
+            }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
+          }
+        ]
+      }
+      ,
+      "trigger":
+      {
+        "onEnter": "in_trap_tube_enemies"
+        ,
+        "delay": 0
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enemies_in_tube"
+      ,
+      "transform":
+      {
+        "pos": "132.175 25.7304 153.945"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/traps/enemies_in_tube.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraEnemiesTube"
+      ,
+      "transform":
+      {
+        "pos": "157.669 27.2884 150.946"
+        ,
+        "rotation": "-0.365053 -0.606174 0.366171 -0.604324"
+        ,
+        "lookat": "140.0 18.0 151.0"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 19.9618
+      }
+    }
+  }
 ]

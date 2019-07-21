@@ -204,6 +204,27 @@ function cinematic_panel_player()
 	execDelayedAction("on_delete_handle(\"trigger007\")",0);
 end
 
+function in_trap_tube_enemies_player()
+	
+	--GameController:resetCamera();
+	execDelayedAction("on_cinematic(true)",3);
+	execDelayedAction("on_lock_camera3(false)",3);
+	execDelayedAction("on_blending_camera(\"CameraEnemiesTube\", 5,\"linear\")",3); --poner en mapa la cmara correspondiente a donde estaran ubicados los termoestatos
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"linear\")",7);
+	execDelayedAction("on_lock_camera3(true)",7);
+	execDelayedAction("on_cinematic(false)",7);
+
+	handle = GameController:entityByName("enemies_in_tube");--prefab
+	t_compenemiestube = toCompEnemiesInTube(toEntity(handle):getCompByName("enemies_in_tube"));
+	t_compenemiestube.activateTrap = true
+
+
+	execDelayedAction("on_delete_handle(\"trigger008\")",0);
+
+
+
+end
+
 
 
 

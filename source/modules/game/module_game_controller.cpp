@@ -29,6 +29,7 @@
 #include "components/ai/bt/bt_cupcake.h"
 #include "components/ai/bt/bt_cupcake_explosive.h"
 
+
 bool CModuleGameController::start() {
 
    /* window_flags = 0;
@@ -684,6 +685,11 @@ void CModuleGameController::loadScene(const std::string name) {
 	SceneManager.getSceneManager()->loadScene(name);
 }
 
+CHandle CModuleGameController::entityByName(std::string name) {
+	CHandle h = getEntityByName(name);
+	return h;
+}
+
 
 
 template <typename T>
@@ -710,10 +716,18 @@ TCompSkelLookAt* toCompSkelLookAt(CHandle h)
 	return t;
 }
 
+TCompEnemiesInTube* toCompEnemiesInTube(CHandle h) {
+	TCompEnemiesInTube* it = h;
+	return it;
+	
+}
+
 TCompMorphAnimation* toCompMorphAnimation(CHandle h) {
 	TCompMorphAnimation* m = h;
 	return m;
 }
+
+
 
 
 

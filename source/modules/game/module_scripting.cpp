@@ -94,7 +94,7 @@ void CModuleScripting::doBingings() {
 	BindTransform();
 
 	BindConverters();
-
+	BindEnemiesInTube();
 }
 
 
@@ -141,6 +141,7 @@ void CModuleScripting::BindGameController() {
         .set("resumeSoundtrack", &CModuleGameController::resumeSoundtrack)
         .set("updateSoundtrackID", &CModuleGameController::updateSoundtrackID)
         .set("setSoundtrackVolume", &CModuleGameController::setSoundtrackVolume)
+		.set("entityByName", &CModuleGameController::entityByName)
 		;
 }
 
@@ -149,6 +150,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toEntity", SLB::FuncCall::create(&toEntity));
 	m->set("toCompSkelLookAt", SLB::FuncCall::create(&toCompSkelLookAt));
 	m->set("toCompMorphAnimation", SLB::FuncCall::create(&toCompMorphAnimation));//toCompMorphAnimation
+	m->set("toCompEnemiesInTube", SLB::FuncCall::create(&toCompEnemiesInTube));
 }
 
 void CModuleScripting::BindCharacterController() {
@@ -172,6 +174,24 @@ void CModuleScripting::BindSkeleton() {
 		.property("flagFirst", &TCompSkelLookAt::flagFirst)
 		;
 }
+
+
+void CModuleScripting::BindEnemiesInTube() {
+	SLB::Class<TCompEnemiesInTube>("TCompEnemiesInTube", m)
+		.comment("This is our wrapper of comp_enemies_in_tube class")
+		.property("activateTrap", &TCompEnemiesInTube::activateTrap)
+
+		/*
+		float birthTime = 5.f;
+		float birthTimeReset = 5.f;
+		float limitTime = 0.f;
+		int positionBirth = 0;
+		bool activateTrap = false;
+		
+		*/
+		;
+}
+
 
 
 void CModuleScripting::BindGeometry() {

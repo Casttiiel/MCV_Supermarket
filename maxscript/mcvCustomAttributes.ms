@@ -32,7 +32,8 @@ classPrefabData = attributes prefabData
 			"Cafe",
 			"Teleport Object",
 			"Trap_air",
-			"Trap_carniceria"
+			"Trap_carniceria",
+			"Trap_tube_enemies"
 			) align:#left
 	)
 	fn exportAsComponent fs = (
@@ -60,7 +61,8 @@ classPrefabData = attributes prefabData
 		else if prefab == 21 then src = "data/prefabs/powers/powerUp_cafe.json"
 		else if prefab == 22 then src = "data/prefabs/structures/teleport_box.json"
 		else if prefab == 23 then src = "data/prefabs/traps/wind_trap.json"
-		else if prefab == 24 then src = "data/prefabs/traps/blade_trap.json"	
+		else if prefab == 24 then src = "data/prefabs/traps/blade_trap.json"
+	    else if prefab == 25 then src = "data/prefabs/traps/enemies_in_tube.json"			
 		else return undefined
 		fs.writeComma()
 		fs.writeKeyValue "prefab"  src

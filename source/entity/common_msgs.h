@@ -218,6 +218,12 @@ struct TMsgBlackboard {
 	DECL_MSG_ID();
 };
 
+struct TMSgWallDestroyed {
+	CHandle h_entity;
+	bool isDetroyed;
+	DECL_MSG_ID();
+};
+
 /*
 struct TMsgTimeOut {
   DECL_MSG_ID();

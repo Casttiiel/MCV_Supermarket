@@ -1153,3 +1153,12 @@ void CBTCupcake::setCurve(const CCurve* curve) {
 	_knots = _curve->_knots;
 
 }
+
+
+void CBTCupcake::setLengthCone(float length_cone) {
+	this->length_cone = length_cone;
+}
+
+void CBTCupcake::setHalfCone(float half_cone) {
+	this->half_cone = half_cone;
+}

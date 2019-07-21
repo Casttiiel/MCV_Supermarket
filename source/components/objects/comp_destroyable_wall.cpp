@@ -5,6 +5,8 @@
 #include "components/common/comp_transform.h"
 #include "components/controllers/character/comp_character_controller.h"
 #include "modules/module_physics.h"
+#include "modules/game/module_game_controller.h"
+#include "engine.h"
 
 
 using namespace physx;
@@ -147,11 +149,22 @@ void TCompDestroyableWall::onPlayerAttack(const TMsgDamage & msg) {
 
 		}
 	}
-	else if (typeWall == 3) { //Time ice wall
+	else if (typeWall == 3) { //Time ice wall 
 		if (msg.damageType == FIRE) {
 			//esto debe durar X segundos, o tener un limite de vida
 			timer_ice_wall -= msg.intensityDamage;
 			if (timer_ice_wall <= 0) {
+				CHandle h = GameController.entityByName("enemies_in_tube");
+				if(h.isValid()){
+					CEntity* enemies_in_tube = ((CEntity*)h);
+					TCompEnemiesInTube* comp = enemies_in_tube->get<TCompEnemiesInTube>();
+					if(comp != nullptr){//nos aseguramos de que es el del puzzle
+						TMSgWallDestroyed msg;
+						msg.h_entity = h;
+						msg.isDetroyed = true;
+						enemies_in_tube->sendMsg(msg);
+					}
+				}
 				CHandle(this).getOwner().destroy();
 				CHandle(this).destroy();
 			}

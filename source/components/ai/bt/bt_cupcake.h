@@ -18,6 +18,12 @@ public:
 
 	void setCurve(const CCurve* curve);
 
+	void setLengthCone(float length_cone);
+	
+	void setHalfCone(float half_cone);
+
+
+
 	int actionChangeWpt();
 	int actionSeekWpt();
 	int actionAttack();

@@ -10,6 +10,7 @@
 #include "skeleton/comp_skel_lookat.h"
 #include "modules/game/audio/audioEvent.h"
 #include "components/animation/comp_morph_animation.h"
+#include "components/controllers/comp_enemies_in_tube.h"
 
 class CCheckpoint;
 class CModuleGameplayFragment;
@@ -213,6 +214,9 @@ public:
     void setSoundtrackVolume(float volume);
     //End Soundtrack Functions
 	
+	CHandle entityByName(std::string origin);
+
+
     void pauseGame();
     void resumeGame();
 
@@ -225,4 +229,5 @@ TCompCurveController* TCurveController(CHandle h);
 CEntity* toEntity(CHandle h);
 TCompSkelLookAt* toCompSkelLookAt(CHandle h);
 TCompMorphAnimation* toCompMorphAnimation(CHandle h);
+TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 
