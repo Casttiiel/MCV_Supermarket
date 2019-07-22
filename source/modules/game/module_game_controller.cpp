@@ -4,6 +4,7 @@
 #include "input/devices/device_mouse.h"
 #include "components/common/comp_tags.h"
 #include "components/controllers/character/comp_character_controller.h"
+#include "components/controllers/comp_sCart_controller.h"
 #include "entity/common_msgs.h"
 #include "entity/msgs.h"
 #include "entity/entity.h"
@@ -665,8 +666,12 @@ void CModuleGameController::setTransformObject(std::string name,VEC3 pos,float y
 
 void CModuleGameController::inCinematic(bool active) {
 	CHandle e_player = getEntityByName("Player");
+	CEntity* entity = e_player;
+	TCompSCartController* scartController = entity->get<TCompSCartController>();
+	bool isScart = scartController->isEnabled;
 	TMsgOnCinematic msgOnCinematic;
 	msgOnCinematic.cinematic = active;
+	msgOnCinematic.isscart = isScart;
 	e_player.sendMsg(msgOnCinematic);
 		
 	
@@ -674,8 +679,14 @@ void CModuleGameController::inCinematic(bool active) {
 
 void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 	CHandle e_golem = getEntityByName(name);
+	CHandle e_player = getEntityByName("Player");
+	CEntity* entity = e_player;
+	TCompSCartController* scartController = entity->get<TCompSCartController>();
+	
+	bool isScart = scartController->isEnabled;
 	TMsgOnCinematic msgOnCinematic;
 	msgOnCinematic.cinematic = active;
+	msgOnCinematic.isscart = isScart;
 	if (e_golem.isValid()) {
 		e_golem.sendMsg(msgOnCinematic);
 	}

@@ -1112,13 +1112,14 @@ void TCompCharacterController::onPowerUp(const TMsgPowerUp& msg) {
 
 void TCompCharacterController::onCinematic(const TMsgOnCinematic & msg)
 {
-	TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-	playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
-	ChangeState("IDLE_CINEMATIC");
-	cinematic = msg.cinematic;
-	UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-	mirilla->getParams()->visible = false;
-
+	if(!msg.isscart){
+		TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+		playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
+		ChangeState("IDLE_CINEMATIC");
+		cinematic = msg.cinematic;
+		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+		mirilla->getParams()->visible = false;
+	}
 }
 
 

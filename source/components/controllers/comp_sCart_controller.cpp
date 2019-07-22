@@ -22,7 +22,7 @@ void TCompSCartController::Init() {
 	AddState("SCART_ON_AIR", (statehandler)&TCompSCartController::onAir);
 	AddState("SCART_DAMAGED", (statehandler)&TCompSCartController::damaged);
 	AddState("SCART_DEAD", (statehandler)&TCompSCartController::dead);
-    AddState("IDLE_CINEMATIC", (statehandler)&TCompSCartController::idleCinematic);
+    AddState("SCART_IDLE_CINEMATIC", (statehandler)&TCompSCartController::idleCinematic);
 
 	//ADD MORE STATES FOR BEING HIT, ETC, ETC
 
@@ -96,9 +96,10 @@ void TCompSCartController::disabled() {
 
 void TCompSCartController::idleCinematic() {
     if (!cinematic) {
-        dbg("Shopping Cart becomes ENABLED, changes to GROUNDED from IDLE_CINEMATIC");
+        dbg("Shopping Cart becomes ENABLED, changes to GROUNDED from SCART_IDLE_CINEMATIC");
         ChangeState("SCART_GROUNDED");
     }
+
 }
 
 
@@ -125,17 +126,18 @@ void TCompSCartController::debugInMenu() {
 void TCompSCartController::registerMsgs() {
 	DECL_MSG(TCompSCartController, TMsgOnContact, onCollision);
 	DECL_MSG(TCompSCartController, TMsgDamage, onDamage);
-    DECL_MSG(TCompSCartController, TMsgOnCinematic, onCinematic);
+    DECL_MSG(TCompSCartController, TMsgOnCinematic, onCinematicScart);
 }
 
-void TCompSCartController::onCinematic(const TMsgOnCinematic & msg)
+void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
 {
     cinematic = msg.cinematic;
     if (cinematic) {
-        ChangeState("IDLE_CINEMATIC");
+        ChangeState("SCART_IDLE_CINEMATIC");
     }
     else {
         if (isEnabled) {
+			rowImpulseLeft = 0;//al salir de la cinematica para que no se vaya a cuenca el carrito
             ChangeState("SCART_GROUNDED");
         }
         else {

@@ -118,6 +118,7 @@ struct TMsgSpawnerCheckout {
 //parar pj
 struct TMsgOnCinematic {
 	bool cinematic;
+	bool isscart;
 	DECL_MSG_ID();
 };
 
