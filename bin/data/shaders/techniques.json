@@ -404,5 +404,14 @@
   "blob": {
     "vs_fx": "data/shaders/blob.fx",
     "vdecl": "PosNUvT"
+  },
+  "wind" : {
+    "vs_fx": "data/shaders/air.fx",
+    "vdecl": "PosNUvT",
+    "blend" : "combinative",
+    "rs": "cull_none",
+    "ctes_buffers": {
+      "TCtesAir": 13
+    }
   }
 }

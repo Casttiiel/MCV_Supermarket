@@ -64,7 +64,6 @@ void TCompWindTrap::update(float dt) {
     return;
   }
 		
-
 	if (_isEnabled) {
 		c_trans = get<TCompTransform>();
 		VEC3 force = c_trans->getFront();
@@ -78,4 +77,13 @@ void TCompWindTrap::update(float dt) {
 		msg.impactForce = windForce * dt;
 		player_e->sendMsg(msg);
 	}
+
+  generateWind(dt);
+}
+
+void TCompWindTrap::generateWind(float dt) {
+  _windCooldownTimer += dt;
+  if (_windCooldownTimer >= _windDelay) {
+    _windCooldownTimer = 0.0f;
+  }
 }

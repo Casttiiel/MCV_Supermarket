@@ -24,8 +24,8 @@ private:
 	float _windDuration = 3.f;
 	float _windCurrentTime = 0.f;
 
-	float _windDelay = 2.f;
-	float _windCooldownTimer = _windDelay;
+	float _windDelay = 0.1f;
+	float _windCooldownTimer = 0.0f;
 	CHandle player;
 
 	TCompTransform* c_trans;
@@ -34,5 +34,6 @@ private:
 	void disable(const TMsgEntityTriggerExit & msg);
 	void onBattery(const TMsgGravity & msg);
 	void onCreate(const TMsgEntityCreated & msg);
+  void generateWind(float dt);
 };
 
