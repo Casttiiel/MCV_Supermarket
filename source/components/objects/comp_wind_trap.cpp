@@ -76,6 +76,6 @@ void TCompWindTrap::update(float dt) {
 		msg.position = c_trans->getPosition();
 		msg.intensityDamage = 0.f;
 		msg.impactForce = windForce * dt;
-		player_e->sendMsg(msg);
+		player_e->sendMsg(msg); 
 	}
 }
