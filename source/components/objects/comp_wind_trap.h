@@ -24,8 +24,13 @@ private:
 	float _windDuration = 3.f;
 	float _windCurrentTime = 0.f;
 
-	float _windDelay = 0.1f;
+	float _windDelay = 0.08f;
 	float _windCooldownTimer = 0.0f;
+  float _scaleVar = 0.4f;
+  float _rollVar = 1.57f;
+  float _speedVar = 2.0f;
+  float radius = 0.5f;
+
 	CHandle player;
 
 	TCompTransform* c_trans;

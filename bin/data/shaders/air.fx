@@ -47,8 +47,17 @@ VS_OUTPUT VS(
 //--------------------------------------------------------------------------------------
 float4 PS(VS_OUTPUT input) : SV_Target
 {
+  const float l = 0.5f;
+  const float d = 0.2f;
+  const float t = 0.0f;
+
   float alpha_horizontal = input.Uv.y >= 0.5f ? 1 - input.Uv.y : input.Uv.y;
-  float alpha_vertical = input.Uv.x;
+  float alpha_vertical = 1.0f;
+  if(input.Uv.x >= (t + (l/2.0f))){
+    alpha_vertical = (input.Uv.x - (t + (l/2.0f)) / d);
+  }else if(input.Uv.x <= (t - (l/2.0f))){
+    alpha_vertical = 0.0f;
+  }
  
-  return float4(1,1,1, alpha_horizontal);
+  return float4(1,1,1, alpha_horizontal * alpha_vertical);
 }
