@@ -675,6 +675,11 @@ void TCompCharacterController::powerSelection() {
   }
   else if (EngineInput["select_battery_"].justPressed()) { //bateria
     power_selected = PowerType::BATTERY;
+	/*TCompTransform* c_trans = get<TCompTransform>();
+	
+	VEC3 posDestination = c_trans->getTranslatePositionForAngle(c_trans->getPosition(), 3, -90);
+	dbg("POS DESTINATION:X:%f,Y:%f,Z:%f\n", posDestination.x, posDestination.y, posDestination.z);
+	*/
 	//Scripting.execActionDelayed("playMorph(\"Morph\")", 0.0);
 	/*Prueba de concepto
 	CEntity* debug_camera = getEntityByName("DebugCamera");
