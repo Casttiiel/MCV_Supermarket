@@ -1084,19 +1084,6 @@ bool CBTRangedSushi::conditionPlayerInView() {
 			res = false;
 			initialExecution = true;
 			hayCamino = false;
-			CEntity* e_player = (CEntity *)h_player;
-			TCompCharacterController* cc = e_player->get<TCompCharacterController>();
-			/*if (!cc->is_grounded) {
-				hayCamino = true;
-			}*/
-			
- 			//inCombat = false;
-			//CEntity* e_player = (CEntity *)h_player;
-			//TCompTransform* p_trans = e_player->get<TCompTransform>();
-			//TCompCharacterController* cc = e_player->get<TCompCharacterController>();
-			//if (!cc->is_grounded) {
-			//	inCombat = true;
-			//}
 		}
 		else {
 			hayCamino = true;
@@ -1226,16 +1213,32 @@ bool CBTRangedSushi::isView() {
 		//a menos distancia que hearing_radius
 		float angle = rad2deg(c_trans->getDeltaYawToAimTo(player_position->getPosition()));
 		bool sighted = ((abs(angle) <= half_cone) && (distance <= viewDistance)) || distance <= hearing_radius;
-		if (sighted && hayCamino)
-			inCombat = true;
-		return sighted;
+		
+		if (use_navmesh) {
+			if (sighted && hayCamino)
+				inCombat = true;
+			return sighted;
+		}
+		else {
+			if (sighted)
+				inCombat = true;
+			return sighted;
+		}
 	}
 	else {
 		//si estamos en combate, view es menos distancia que combatViewDistance
-		bool sighted = (distance <= combatViewDistance) && hayCamino;
-		if (!sighted)
-  			inCombat = false;
-		return sighted;
+		if (use_navmesh) {
+			bool sighted = (distance <= combatViewDistance) && hayCamino;
+			if (!sighted)
+				inCombat = false;
+			return sighted;
+		}
+		else {
+			bool sighted = (distance <= combatViewDistance);
+			if (!sighted)
+				inCombat = false;
+			return sighted;
+		}
 	}
 	return false;
 }
