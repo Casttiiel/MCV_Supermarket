@@ -152,6 +152,7 @@ void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
 }
 
 void TCompSCartController::onCollision(const TMsgOnContact& msg) {
+
 	if (isEnabled) {
 		CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
 		if (source_of_impact) {
@@ -177,24 +178,28 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 		}
 	}
 	else {
-		ChangeState("SCART_DISABLED");
+		//ChangeState("SCART_DISABLED");
 	}
 }
 
 void TCompSCartController::onDamage(const TMsgDamage& msg) {
 	if (isEnabled) {
-		if (strcmp("DAMAGED", state.c_str()) != 0) {
-			life -= msg.intensityDamage;
-			ChangeState("SCART_DAMAGED");
-			if (life <= 0.0f) {
-				life = 0.0f;
-				ChangeState("SCART_DEAD");
-			}
+		life -= msg.intensityDamage;
+		TCompRigidBody* c_rbody = get<TCompRigidBody>();
+		if (!c_rbody)
+			return;
+		EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
+		c_rbody->jump(VEC3(0.0f, 7.f, 0.0f));
+		ChangeState("SCART_DAMAGED");
+		if (life <= 0.0f) {
+			life = 0.0f;
+			//ChangeState("SCART_DEAD");
 		}
+		
 	}
-	else {
-		ChangeState("SCART_DISABLED");
-	}
+	//else {
+	//	ChangeState("SCART_DISABLED");
+	//}
 }
 
 void  TCompSCartController::SwapMesh(int state) {
