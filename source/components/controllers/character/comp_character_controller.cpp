@@ -1125,6 +1125,11 @@ void TCompCharacterController::onCinematic(const TMsgOnCinematic & msg)
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
 		mirilla->getParams()->visible = false;
 	}
+	else {
+		cinematic = msg.cinematic;
+		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+		mirilla->getParams()->visible = false;
+	}
 }
 
 

@@ -10,6 +10,9 @@
 #include "modules/module_physics.h"
 #include "engine.h"
 #include "input/module_input.h"
+#include "ui/widgets/ui_image.h"
+#include "ui/module_ui.h"
+#include "ui/ui_widget.h"
 
 using namespace physx;
 
@@ -132,6 +135,8 @@ void TCompSCartController::registerMsgs() {
 void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
 {
     cinematic = msg.cinematic;
+	UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+	mirilla->getParams()->visible = false;
     if (cinematic) {
         ChangeState("SCART_IDLE_CINEMATIC");
     }
