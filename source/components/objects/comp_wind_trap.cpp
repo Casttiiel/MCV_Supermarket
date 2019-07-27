@@ -102,9 +102,13 @@ void TCompWindTrap::generateWind(float dt) {
     //change speed a bit randomly
     CEntity* e = ctx.entities_loaded[0];
     TCompAir* c_a = e->get<TCompAir>();
-    c_a->speed = randomFloat(c_a->speed -_speedVar, c_a->speed + _speedVar);
+    c_a->speed += randomFloat(-_speedVar, _speedVar);
+    float timeToDestroy = randomFloat(1.5f, 2.0f);
+    c_a->destroy = timeToDestroy;
+    c_a->len = windLength;
+    c_a->d = windDist;
     TCompSelfDestroy* c_sd = e->get<TCompSelfDestroy>();
-    c_sd->setDelay(randomFloat(1.5f, 2.0f));
+    c_sd->setDelay(timeToDestroy);
     c_sd->enable();
   }
 }

@@ -20,6 +20,9 @@ public:
 private:
 	bool _isEnabled = false;
 	float windForce = 50.f;
+  
+  float windLength = 0.8f;
+  float windDist = 0.4f;
 
 	float _windDuration = 3.f;
 	float _windCurrentTime = 0.f;

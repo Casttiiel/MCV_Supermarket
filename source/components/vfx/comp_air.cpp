@@ -17,14 +17,18 @@ void TCompAir::renderDebug() {
 }
 
 void TCompAir::update(float delta) {
-  /*TCompBuffers* c_buff = get<TCompBuffers>();
+  TCompBuffers* c_buff = get<TCompBuffers>();
   if (c_buff) {
-    constants.x = Interpolator::cubicInOut(0.0f, 1.0f, ratio);
-    constants.y = Interpolator::cubicOut(0.f, 1.f, clamp(ratio - 1.0f, 0.0f, 1.0f));
+    //constants.x = Interpolator::cubicInOut(0.0f, 1.0f, ratio);
+    ratio += delta;
+    constants.x = len;
+    constants.y = d;
+    constants.z = Interpolator::quadOut(1.0f, (-2.0f*d) - len, ratio/ destroy); //time 
 
     auto buf = c_buff->getCteByName("TCtesAir");
     buf->updateGPU(&constants);
-  }*/
+  }
+
   TCompTransform* c_trans = get<TCompTransform>();
   c_trans->setPosition(c_trans->getPosition() + c_trans->getFront() * delta * speed);
 }

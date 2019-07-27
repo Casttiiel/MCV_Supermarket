@@ -5,10 +5,10 @@
 
 SHADER_CTE_BUFFER(TCtesAir, CTE_BUFFER_SLOT_COMP_BUFFERS)
 {
-  float  height;
-  float  v0;
-  float  pitch;
-  float  length;
+  float  len;
+  float  d;
+  float  t;
+  float  dummy;
 };
 
 //--------------------------------------------------------------------------------------
@@ -47,17 +47,20 @@ VS_OUTPUT VS(
 //--------------------------------------------------------------------------------------
 float4 PS(VS_OUTPUT input) : SV_Target
 {
-  const float l = 0.5f;
+  /*const float len = 0.5f;
   const float d = 0.2f;
-  const float t = 0.0f;
+  const float t = -0.9f;*/
 
   float alpha_horizontal = input.Uv.y >= 0.5f ? 1 - input.Uv.y : input.Uv.y;
+
+  float x = input.Uv.x + t;
   float alpha_vertical = 1.0f;
-  if(input.Uv.x >= (t + (l/2.0f))){
-    alpha_vertical = (input.Uv.x - (t + (l/2.0f)) / d);
-  }else if(input.Uv.x <= (t - (l/2.0f))){
-    alpha_vertical = 0.0f;
+  if(x < d){
+    alpha_vertical = x * (1 / d);
+  }else if(x > d + len){
+    alpha_vertical = 1 - ((1 / d) * (x - d - len));
   }
+  alpha_vertical = saturate(alpha_vertical);
  
   return float4(1,1,1, alpha_horizontal * alpha_vertical);
 }
