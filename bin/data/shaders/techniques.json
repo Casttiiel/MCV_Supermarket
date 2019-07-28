@@ -65,6 +65,16 @@
       "instances" : 0
     }
   },
+  "particles_smoke_cold_num_instances": {
+    "vs_fx": "data/shaders/gpu_particles_smoke_cold.fx",
+    "vdecl": "PosUvColor",
+    "blend": "additive_by_src_alpha",
+    "z": "test_but_no_write",
+    "rs": "cull_none",
+    "gpu_buffers" : {
+      "instances" : 0
+    }
+  },
   "objs_culled_by_gpu": {
     "desc" : "Instances result of gpu_culling",
     "vs_fx": "data/shaders/gpu_culling.fx",
@@ -282,6 +292,14 @@
   "cs_particles_cold_update" : {
     "cs" : "cs_particles_cold_update",
     "cs_fx" : "data/shaders/gpu_particles_cold.fx"
+  },
+  "cs_particles_smoke_cold_spawn" : {
+    "cs" : "cs_particles_smoke_cold_spawn",
+    "cs_fx" : "data/shaders/gpu_particles_smoke_cold.fx"
+  },
+  "cs_particles_smoke_cold_update" : {
+    "cs" : "cs_particles_smoke_cold_update",
+    "cs_fx" : "data/shaders/gpu_particles_smoke_cold.fx"
   },
   "instances_particles_combinative": {
     "desc" : "updated by cpu, render gpu using instanced",
