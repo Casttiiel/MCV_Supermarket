@@ -176,8 +176,8 @@ void TCompTeleport::teleportWithEnemy(VEC3 candidate_position) {
   //cambiar posiciones
   c_collider_player->controller->setPosition(final_pos_px);
   
-  UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_r1_"));
-  boton->setCurrentState("selected");
+  //UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
+  //boton->setCurrentState("selected");
   
   manageCameras();
 
@@ -188,8 +188,8 @@ void TCompTeleport::teleportWithObject(VEC3 candidate_position) {
   timeAfterTeleport = 0.f;
   comboDone = false;
   
-  UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_r1_"));
-  boton->setCurrentState("selected");
+  //UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
+  //boton->setCurrentState("selected");
   
   //change positions between object and player
   CEntity* e_player = (CEntity *)h_player;
