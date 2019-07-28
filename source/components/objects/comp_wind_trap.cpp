@@ -9,6 +9,13 @@
 DECL_OBJ_MANAGER("comp_wind_trap", TCompWindTrap);
 
 void TCompWindTrap::debugInMenu() {
+  ImGui::DragFloat("Wind Frequency: ", &_windDelay, 0.01f, 0.f, 1.f);
+  ImGui::DragFloat("Scale Variation: ", &_scaleVar, 0.1f, 0.1f, 2.f);
+  ImGui::DragFloat("Speed Variation: ", &_speedVar, 0.1f, 0.1f, 3.f);
+  ImGui::DragFloat("Min Destroy Time: ", &_startDestroy, 0.1f, 0.1f, 5.f);
+  ImGui::DragFloat("Destroy Variation: ", &_destroyVar, 0.1f, 0.1f, 2.f);
+  ImGui::DragFloat("Wind Visibility: ", &windLength, 0.1f, 0.1f, 3.f);
+  ImGui::DragFloat("Wind Decay: ", &windDist, 0.1f, 0.1f, 2.f);
 }
 
 void TCompWindTrap::load(const json& j, TEntityParseContext& ctx) {
@@ -58,6 +65,7 @@ void TCompWindTrap::onBattery(const TMsgGravity & msg) {
 
 void TCompWindTrap::update(float dt) {
   if (!player.isValid()) {
+    player = getEntityByName("Player");
     return;
   }
 		
@@ -94,7 +102,7 @@ void TCompWindTrap::generateWind(float dt) {
     float rollOffset = randomFloat(-_rollVar, _rollVar);
     ctx.root_transform.setAngles(yaw, pitch, rollOffset);
     //change position a bit randomly
-    VEC3 offset = VEC3(randomFloat(-radius, radius), randomFloat(0.5f - radius, 0.5f + radius), randomFloat(-radius, radius));
+    VEC3 offset = VEC3(randomFloat(-_radius, _radius), randomFloat(0.5f - _radius, 0.5f + _radius), randomFloat(-_radius, _radius));
     ctx.root_transform.setPosition(ctx.root_transform.getPosition() + offset);
     
     parseScene("data/prefabs/vfx/air.json", ctx);
@@ -103,7 +111,7 @@ void TCompWindTrap::generateWind(float dt) {
     CEntity* e = ctx.entities_loaded[0];
     TCompAir* c_a = e->get<TCompAir>();
     c_a->speed += randomFloat(-_speedVar, _speedVar);
-    float timeToDestroy = randomFloat(1.5f, 2.0f);
+    float timeToDestroy = randomFloat(_startDestroy, _startDestroy + _destroyVar);
     c_a->destroy = timeToDestroy;
     c_a->len = windLength;
     c_a->d = windDist;

@@ -21,18 +21,20 @@ private:
 	bool _isEnabled = false;
 	float windForce = 50.f;
   
-  float windLength = 0.8f;
-  float windDist = 0.4f;
+  float windLength = 0.6f;
+  float windDist = 0.1f;
 
 	float _windDuration = 3.f;
 	float _windCurrentTime = 0.f;
 
-	float _windDelay = 0.08f;
+	float _windDelay = 0.16f;
 	float _windCooldownTimer = 0.0f;
-  float _scaleVar = 0.4f;
+  float _scaleVar = 0.7f;
   float _rollVar = 1.57f;
   float _speedVar = 2.0f;
-  float radius = 0.5f;
+  float _radius = 0.6f;
+  float _startDestroy = 3.0f;
+  float _destroyVar = 0.8f;
 
 	CHandle player;
 

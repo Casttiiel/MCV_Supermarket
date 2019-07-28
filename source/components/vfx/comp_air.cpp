@@ -23,14 +23,15 @@ void TCompAir::update(float delta) {
     ratio += delta;
     constants.x = len;
     constants.y = d;
-    constants.z = Interpolator::quadOut(1.0f, (-2.0f*d) - len, ratio/ destroy); //time 
+    constants.z = Interpolator::quadOut(-d - len, 1.0f, ratio/ destroy); //time 
 
     auto buf = c_buff->getCteByName("TCtesAir");
     buf->updateGPU(&constants);
   }
 
   TCompTransform* c_trans = get<TCompTransform>();
-  c_trans->setPosition(c_trans->getPosition() + c_trans->getFront() * delta * speed);
+  float factor = 1.0f - ratio/destroy;
+  c_trans->setPosition(c_trans->getPosition() + (c_trans->getFront() * delta * ((speed * factor) + 0.2f)) );
 }
 
 
