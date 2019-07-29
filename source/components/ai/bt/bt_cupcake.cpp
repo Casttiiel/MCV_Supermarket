@@ -31,6 +31,7 @@ void CBTCupcake::create(string s)//crear el arbol
 	createRoot("CUPCAKE", PRIORITY, NULL, NULL);
 
 	//pasive states:
+
 	addChild("CUPCAKE", "ON_DIVIDE", ACTION, (btcondition)&CBTCupcake::conditionDivide, (btaction)&CBTCupcake::actionDivide);
 	addChild("CUPCAKE", "ON_DEATH", ACTION, (btcondition)&CBTCupcake::conditionDeath, (btaction)&CBTCupcake::actionDeath);
 	addChild("CUPCAKE", "ON_GRAVITY", ACTION, (btcondition)&CBTCupcake::conditionGravityReceived, (btaction)&CBTCupcake::actionGravityReceived);
