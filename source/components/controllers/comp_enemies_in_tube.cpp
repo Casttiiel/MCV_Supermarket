@@ -41,7 +41,7 @@ void TCompEnemiesInTube::update(float dt) {
 			CHandle handle = GameController.spawnPrefab("data/prefabs/enemies/bt_cupcake.json", enemiesPosition[positionBirth], QUAT(0, 0, 0, 1), 1);
 			CEntity* entity = (CEntity *)handle;
 			CBTCupcake* cupcake = entity->get<CBTCupcake>();
-			cupcake->setHalfCone(180);
+			cupcake->setHalfCone(360);
 			cupcake->setLengthCone(300);
 			positionBirth++;
 			if (positionBirth >= enemiesPosition.size() - 1) {

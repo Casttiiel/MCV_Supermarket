@@ -1086,17 +1086,18 @@ bool CBTRangedSushi::conditionPlayerInView() {
 			inCombat = false;
 			return false;
 		}
-		isPlayerInNavmesh();
-		if (navmeshPath.size() == 0) {
-			res = false;
-			initialExecution = true;
-			hayCamino = false;
+		if(isView()) {
+			isPlayerInNavmesh();
+			if (navmeshPath.size() == 0) {
+				res = false;
+				initialExecution = true;
+				hayCamino = false;
+			}
+			else {
+				hayCamino = true;
+				//inCombat = false;
+			}
 		}
-		else {
-			hayCamino = true;
-			//inCombat = false;
-		}
-		
 	}
 	return res;
 
@@ -1738,7 +1739,9 @@ VEC3 CBTRangedSushi::calculatePositionGround() {
 					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
 					if (hitCollider.isValid()) {
 						CEntity* candidate = hitCollider.getOwner();
-						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						if(candidate != nullptr){
+							dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						}
 						positionJump = PXVEC3_TO_VEC3(hit.getAnyHit(closestIdx).position);
 					}
 				}
