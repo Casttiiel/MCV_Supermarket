@@ -43,8 +43,11 @@ void CBTGolem::create(string s)//crear el arbol
 	addChild("ATTACK", "MELEE", PRIORITY, NULL, NULL);//(btcondition)&CBTGolem::conditionDistanceMelee
 
 	addChild("THROW", "CHARGINGTHROW", ACTION, (btcondition)&CBTGolem::conditionTimerThrow, (btaction)&CBTGolem::actionChargingThrow); //CARGANDO
-	addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrow, (btaction)&CBTGolem::actionThrowCupcake); //LANZAR
-	addChild("THROW", "THROWING", ACTION, NULL, (btaction)&CBTGolem::actionThrow);
+
+	addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
+	addChild("THROW", "THROWINGPROYECTILE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowParabolic, (btaction)&CBTGolem::actionThrow);
+	addChild("THROW", "THROWINGNFORTUNECOOKIESIMPLE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowSimpleCookie, (btaction)&CBTGolem::actionThrowCookieSimple);
+	addChild("THROW", "THROWINGNFORTUNECOOKIETRIPLE", ACTION, NULL, (btaction)&CBTGolem::actionThrowCookieSpread);
 
 	addChild("MELEE", "CHARGINGMELEE", ACTION, (btcondition)&CBTGolem::conditionTimerMelee, (btaction)&CBTGolem::actionChargingMelee);
 	addChild("MELEE", "MELEEATACK", ACTION, NULL, (btaction)&CBTGolem::actionMelee);
@@ -338,6 +341,76 @@ int CBTGolem::actionThrowCupcake()
 
 }
 
+
+int CBTGolem::actionThrowCookieSpread() {
+	_burstTimer -= dt;
+
+	if (_shotsFired < numberOfCookiesTriple) {
+		TCompTransform* c_trans = get<TCompTransform>();
+		CEntity* e_player = (CEntity *)h_player;
+		TCompTransform* p_trans = e_player->get<TCompTransform>();
+		c_trans->rotateTowards(p_trans->getPosition(), twistSpeed, dt);
+		if (_burstTimer <= 0) {
+			dbg("Firing BURST_SHOT\n");
+
+			//ANIMATION-----------------------
+			TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
+			golemAnimator->playAnimation(TCompGolemAnimator::THROW, 2.0f);
+			//END ANIMATION------------------------
+
+			spreadShot();
+			_burstTimer = _burstDelay;
+			_shotsFired++;
+			return STAY;
+		}
+		else {
+			return STAY;
+		}
+	}
+	else {
+		_shotsFired = 0;
+		timerGrenade = throwFrequecy;
+		return LEAVE;
+	}
+
+}
+
+
+int CBTGolem::actionThrowCookieSimple() {
+
+	_burstTimer -= dt;
+
+	if (_shotsFired < numberOfCookiesSimple) {
+		TCompTransform* c_trans = get<TCompTransform>();
+		CEntity* e_player = (CEntity *)h_player;
+		TCompTransform* p_trans = e_player->get<TCompTransform>();
+		c_trans->rotateTowards(p_trans->getPosition(), twistSpeed, dt);
+		if (_burstTimer <= 0) {
+			dbg("Firing BURST_SHOT\n");
+
+		//ANIMATION-----------------------
+		TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
+		golemAnimator->playAnimation(TCompGolemAnimator::THROW, 2.0f);
+		//END ANIMATION------------------------
+
+			singleShot();
+			_burstTimer = _burstDelay;
+			_shotsFired++;
+			return STAY;
+		}
+		else {
+			return STAY;
+		}
+	}
+	else {
+		_shotsFired = 0;
+	timerGrenade = throwFrequecy;
+		return LEAVE;
+	}
+
+	
+}
+
 int CBTGolem::actionThrow()
 {
 	CEntity* e_player = (CEntity *)h_player;
@@ -499,12 +572,26 @@ bool CBTGolem::conditionTimerThrow() {
 	return false;
 }
 
-bool CBTGolem::conditionRandomThrow() {
-
-	if (bt_dist_gol(bt_gol) < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber) { 
+bool CBTGolem::conditionRandomThrowCupcake() {
+	randomNumber = bt_dist_gol(bt_gol);
+	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber) { 
 		return true; //throw cupcake
 	}
-	return false;//throw projectile
+	return false;//check others
+}
+
+bool CBTGolem::conditionRandomThrowParabolic() {
+	if (randomNumber < throwParabolicProjectileProb) { //&& _currentEnemies.size() < _spawnMaxNumber
+		return true; //throw parabolic proyectile
+	}
+	return false;//check others
+}
+
+bool CBTGolem::conditionRandomThrowSimpleCookie() {
+	if (randomNumber < throwSimpleFortuneCookieProb) { //&& _currentEnemies.size() < _spawnMaxNumber
+		return true; //throw Cookie
+	}
+	return false;//throw Triple Cookie
 }
 
 bool CBTGolem::conditionTimerMelee() {
@@ -726,7 +813,119 @@ void CBTGolem::onBornChild(const TMsgSpawnerFather & msg) {
 }
 
 
+void CBTGolem::singleShot() {
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* p_trans = e_player->get<TCompTransform>();
+	TCompCollider* p_col = e_player->get<TCompCollider>();
+	TCompTransform* c_trans = get<TCompTransform>();
+	TCompCollider* c_cc = get<TCompCollider>();
 
+	//Bullet origin
+	VEC3 firingPosition = c_trans->getPosition();
+	firingPosition.y += c_cc->controller->getHeight();
+	firingPosition += c_trans->getFront() * 0.5f;
+
+	TEntityParseContext ctx;
+	ctx.root_transform.setPosition(firingPosition);
+	ctx.root_transform.setRotation(c_trans->getRotation());
+	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
+
+	//Bullet direction
+	VEC3 targetDir = p_trans->getPosition() - c_trans->getPosition();
+	targetDir.Normalize();
+	VEC3 _targetPosition = p_trans->getPosition() + targetDir * _playerOffset;
+	VEC3 _targetDirection = _targetPosition - c_trans->getPosition();
+	_targetDirection.Normalize();
+
+	//Message to the player
+	TMsgDamage msgDamage;
+	msgDamage.bullet_front = _targetDirection;
+	msgDamage.senderType = EntityType::GOLEM;
+	msgDamage.targetType = EntityType::PLAYER;
+	msgDamage.intensityDamage = _bulletDamage;
+	msgDamage.impactForce = _bulletForce;
+
+	//Message to the bullet
+	TMsgAssignBulletOwner msg;
+	msg.h_owner = CHandle(this).getOwner();
+	msg.h_target = h_player;
+	msg.source = c_trans->getPosition();
+	msg.front = _targetDirection;
+	msg.messageToTarget = msgDamage;
+	ctx.entities_loaded[0].sendMsg(msg);
+}
+
+void CBTGolem::spreadShot() {
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* p_trans = e_player->get<TCompTransform>();
+	TCompCollider* p_col = e_player->get<TCompCollider>();
+	TCompTransform* c_trans = get<TCompTransform>();
+	TCompCollider* c_cc = get<TCompCollider>();
+
+	//STRAIGHT BULLET
+	//Bullet origin
+	VEC3 firingPosition = c_trans->getPosition();
+	firingPosition.y += c_cc->controller->getHeight();
+	firingPosition += c_trans->getFront() * 0.5f;
+
+	TEntityParseContext ctx;
+	ctx.root_transform.setPosition(firingPosition);
+	ctx.root_transform.setRotation(c_trans->getRotation());
+	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
+
+	//Bullet direction
+	VEC3 targetDir = p_trans->getPosition() - c_trans->getPosition();
+	targetDir.Normalize();
+	VEC3 _targetPosition = p_trans->getPosition() + targetDir * _playerOffset;
+	VEC3 _targetDirection = _targetPosition - c_trans->getPosition();
+	_targetDirection.Normalize();
+
+	//Message to the player
+	TMsgDamage msgDamage;
+	msgDamage.bullet_front = _targetDirection;
+	msgDamage.senderType = EntityType::SUSHI;
+	msgDamage.targetType = EntityType::PLAYER;
+	msgDamage.intensityDamage = _bulletDamage;
+	msgDamage.impactForce = _bulletForce;
+
+	//Message to the bullet
+	TMsgAssignBulletOwner msg;
+	msg.h_owner = CHandle(this).getOwner();
+	msg.h_target = h_player;
+	msg.source = c_trans->getPosition();
+	msg.front = _targetDirection;
+	msg.messageToTarget = msgDamage;
+	ctx.entities_loaded[0].sendMsg(msg);
+	//END STRAIGHT BULLET
+
+	//15DEG BULLET
+	VEC3 rotatedDirection = VEC3().Zero;
+	MAT44 rotMat = MAT44::CreateRotationY(deg2rad(10.f));
+	VEC3().Transform(_targetDirection, rotMat, rotatedDirection);
+
+	TEntityParseContext ctx2;
+	ctx2.root_transform.setPosition(firingPosition);
+	ctx2.root_transform.setRotation(c_trans->getRotation());
+	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx2);
+	msgDamage.bullet_front = rotatedDirection;
+	msg.front = rotatedDirection;
+	ctx2.entities_loaded[0].sendMsg(msg);
+	//END 15DEG BULLET
+
+	//-15DEG BULLET
+	rotatedDirection = VEC3().Zero;
+	rotMat = MAT44::CreateRotationY(deg2rad(-10.f));
+	VEC3().Transform(_targetDirection, rotMat, rotatedDirection);
+
+	TEntityParseContext ctx3;
+	ctx3.root_transform.setPosition(firingPosition);
+	ctx3.root_transform.setRotation(c_trans->getRotation());
+	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx3);
+	msgDamage.bullet_front = rotatedDirection;
+	msg.front = rotatedDirection;
+	ctx3.entities_loaded[0].sendMsg(msg);
+	//END -15DEG BULLET
+}
 
 
 
