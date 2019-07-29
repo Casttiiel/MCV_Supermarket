@@ -245,7 +245,7 @@ private:
   bool isPlayerInNavmesh();
   bool obstacleInJump();
   bool checkHeight();
-
+  VEC3 calculatePositionGround();
   //Flags
   bool inCombat = false;
 

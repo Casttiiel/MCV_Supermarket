@@ -1077,8 +1077,15 @@ bool CBTRangedSushi::conditionPlayerInView() {
 	if (isView() && checkHeight()) {//tiene que estar dentro de ambos rangos
 		res = true;
 		//return true;
+	
 	}
+	
 	if (use_navmesh) {
+		//raycast de personaje hacia abajo
+		if (!checkHeight()) {
+			inCombat = false;
+			return false;
+		}
 		isPlayerInNavmesh();
 		if (navmeshPath.size() == 0) {
 			res = false;
@@ -1688,24 +1695,68 @@ bool CBTRangedSushi::isHole(VEC3 direction) {
 		}
 
 	}
-
-
-
-
-
-
-
-	
 }
 
 
+VEC3 CBTRangedSushi::calculatePositionGround() {
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* p_trans = e_player->get<TCompTransform>();
 
-bool CBTRangedSushi::obstacleInJump() {
+	VEC3 char_pos = p_trans->getPosition();
+	VEC3 positionJump = char_pos;
 	PxReal maxDistance = 10.0f;
 	PxRaycastBuffer hit;
 	PxRaycastHit hitBuffer[10];
 	hit = PxRaycastBuffer(hitBuffer, 10);
+	const PxHitFlags outputFlags =
+		PxHitFlag::eDISTANCE
+		| PxHitFlag::ePOSITION
+		| PxHitFlag::eNORMAL;
+	TCompTransform* c_trans = get<TCompTransform>();
 
+	
+	PxVec3 origin = VEC3_TO_PXVEC3(char_pos);
+	PxVec3 unitDir = VEC3_TO_PXVEC3((-c_trans->getUp()));//direccion abajo
+	bool res = EnginePhysics.gScene->raycast(origin, unitDir, maxDistance, hit, outputFlags);
+	if (res) {//colisiona con algo
+		int closestIdx = -1;
+		float closestDist = 1000.0f;
+		dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+			if (hit.getAnyHit(i).distance <= closestDist) {
+				closestDist = hit.getAnyHit(i).distance;
+				closestIdx = i;
+			}
+		}
+		if (closestIdx != -1) {
+			CHandle hitCollider;
+			PxShape* colShape;
+			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
+				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				PxFilterData col_filter_data = colShape->getSimulationFilterData();
+				if (col_filter_data.word0 & EnginePhysics.All) {
+					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
+					if (hitCollider.isValid()) {
+						CEntity* candidate = hitCollider.getOwner();
+						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						positionJump = PXVEC3_TO_VEC3(hit.getAnyHit(closestIdx).position);
+					}
+				}
+			}
+		}
+	}
+	dbg("positionJump.x:%f,positionJump.y:%fpositionJump.z:%f\n", positionJump.x, positionJump.y, positionJump.z);
+	
+	return positionJump;
+}
+
+
+
+bool CBTRangedSushi::obstacleInJump(){
+	PxReal maxDistance = 10.0f;
+	PxRaycastBuffer hit;
+	PxRaycastHit hitBuffer[10];
+	hit = PxRaycastBuffer(hitBuffer, 10);
 	// [in] Define what parts of PxRaycastHit we're interested in
 	const PxHitFlags outputFlags =
 		PxHitFlag::eDISTANCE
@@ -1722,10 +1773,7 @@ bool CBTRangedSushi::obstacleInJump() {
 		unitDir = VEC3_TO_PXVEC3(c_trans->getLeft());
 		
 	}
-
-
 	bool res = EnginePhysics.gScene->raycast(origin, unitDir, maxDistance, hit, outputFlags);
-
 	if (res) {//colisiona con algo
 		int closestIdx = -1;
 		float closestDist = 1000.0f;
@@ -1759,13 +1807,14 @@ bool CBTRangedSushi::obstacleInJump() {
 
 bool CBTRangedSushi::isPlayerInNavmesh() {
 
-	CEntity* e_player = (CEntity *)h_player;
-	TCompTransform* p_trans = e_player->get<TCompTransform>();
-
+	//CEntity* e_player = (CEntity *)h_player;
+	//TCompTransform* p_trans = e_player->get<TCompTransform>();
+	VEC3 posPlayer = calculatePositionGround();
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 position = c_trans->getPosition();
 	//wtp 
-	generateNavmesh(position, p_trans->getPosition(), false);
+	generateNavmesh(position, posPlayer, false);
+	
 	//inCombat = false;
 	return true;
 }
