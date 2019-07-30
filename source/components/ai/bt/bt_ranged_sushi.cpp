@@ -1025,7 +1025,11 @@ int CBTRangedSushi::actionDecoy() {
 	PxScenarioFilterData.data = pxFilterData;
 	PxScenarioFilterData.flags = physx::PxQueryFlag::eSTATIC;
 	EnginePhysics.Raycast(origin, -c_trans->getFront(), _decoyTeleportDistance, hit, physx::PxQueryFlag::eSTATIC, PxScenarioFilterData);
-	if (hit.position != physx::PxVec3(0)) {
+	VEC3 ori = c_trans->getPosition();
+	VEC3 posibleDestination = c_trans->getTranslatePositionForAngle(ori, _decoyTeleportDistance, 180);//si me voi hacia atras y hay vacio o pared no sigo retrocediendo
+	VEC3 hit_navmesh = VEC3();
+	bool r = EngineNavmesh.raycast(ori, posibleDestination, hit_navmesh);//true: hay interseccion limite navmesh
+	if (hit.position != physx::PxVec3(0) || r) {
 		//There is something behind me, can't teleport
 		dbg("DECOY failed, obstacle behind.\n");
 		_decoyTriggered = false;
@@ -1633,7 +1637,7 @@ bool CBTRangedSushi::isHole(VEC3 direction) {
 	TCompTransform* trans_p = e_player->get<TCompTransform>();
 
 	VEC3 directionToPlayer = c_trans->getPosition() - trans_p->getPosition();
-	dbg("ALGO: x:%f,y:%f,z:%f\n", directionToPlayer.x, directionToPlayer.y, directionToPlayer.z);
+	//dbg("ALGO: x:%f,y:%f,z:%f\n", directionToPlayer.x, directionToPlayer.y, directionToPlayer.z);
 
 	if (directionToPlayer.z < 0) {
 		if (directionJump == 1) {//LEFT
@@ -1722,7 +1726,7 @@ VEC3 CBTRangedSushi::calculatePositionGround() {
 	if (res) {//colisiona con algo
 		int closestIdx = -1;
 		float closestDist = 1000.0f;
-		dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
 		for (int i = 0; i < hit.getNbAnyHits(); i++) {
 			if (hit.getAnyHit(i).distance <= closestDist) {
 				closestDist = hit.getAnyHit(i).distance;
@@ -1740,7 +1744,7 @@ VEC3 CBTRangedSushi::calculatePositionGround() {
 					if (hitCollider.isValid()) {
 						CEntity* candidate = hitCollider.getOwner();
 						if(candidate != nullptr){
-							dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+							//dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
 						}
 						positionJump = PXVEC3_TO_VEC3(hit.getAnyHit(closestIdx).position);
 					}
@@ -1748,7 +1752,7 @@ VEC3 CBTRangedSushi::calculatePositionGround() {
 			}
 		}
 	}
-	dbg("positionJump.x:%f,positionJump.y:%fpositionJump.z:%f\n", positionJump.x, positionJump.y, positionJump.z);
+	//dbg("positionJump.x:%f,positionJump.y:%fpositionJump.z:%f\n", positionJump.x, positionJump.y, positionJump.z);
 	
 	return positionJump;
 }
@@ -1780,7 +1784,7 @@ bool CBTRangedSushi::obstacleInJump(){
 	if (res) {//colisiona con algo
 		int closestIdx = -1;
 		float closestDist = 1000.0f;
-		dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
 		for (int i = 0; i < hit.getNbAnyHits(); i++) {
 			if (hit.getAnyHit(i).distance <= closestDist) {
 				closestDist = hit.getAnyHit(i).distance;

@@ -189,16 +189,18 @@ void TCompSCartController::onDamage(const TMsgDamage& msg) {
 		if (!c_rbody)
 			return;
 		EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
-		c_rbody->jump(VEC3(0.0f, 7.f, 0.0f));
+		
 		VEC3 direction_to_damage;
 		TCompTransform* my_trans = get<TCompTransform>();
 		if (msg.senderType == ENEMIES) { //los enemigos envian el handle
-			CEntity* entity_to_hit_me = (CEntity *)msg.h_bullet;
+			/*CEntity* entity_to_hit_me = (CEntity *)msg.h_bullet;
 			TCompTransform* e_trans = entity_to_hit_me->get<TCompTransform>();
-			direction_to_damage = my_trans->getPosition() - e_trans->getPosition();
+			direction_to_damage = my_trans->getPosition() - e_trans->getPosition();*/
+			c_rbody->jump(VEC3(0.0f,5.f, 0.0f));
 		}
 		else { //algunos objetos envian una posicion
-			direction_to_damage = my_trans->getPosition() - msg.position;
+			//direction_to_damage = my_trans->getPosition() - msg.position;
+			c_rbody->jump(VEC3(0.0f, 5.f, 0.0f));
 		}
 		direction_to_damage.Normalize();
 		c_rbody->addForce(VEC3(direction_to_damage) * 100);
