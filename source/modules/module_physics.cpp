@@ -208,7 +208,7 @@ bool CModulePhysics::readShape(PxRigidActor* actor, const json& jcfg) {
     Resources.registerResource(render_mesh);
 
 	
-	shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+	//shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
 
 
 	
