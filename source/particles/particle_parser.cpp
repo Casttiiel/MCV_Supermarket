@@ -52,7 +52,7 @@ void from_json(const json& j, TTrack<VEC4>& colors) {
 void from_json(const json& j, TCtesParticles& p) {
   p.emitter_time_between_spawns = j.value("time_between_spawns", 1.0f);
   p.emitter_num_particles_per_spawn = j.value("num_particles_per_spawn", 1);
-  p.emitter_dir = VEC3(0, 1, 0);
+  p.emitter_dir = loadVEC3(j, "emitter_dir", VEC3(0, 1, 0));
   p.emitter_center = VEC3(0, 0, 0);
   p.emitter_center_radius = j.value("center_radius", 0.0f);
   p.emitter_dir_aperture = j.value("dir_aperture", 0.0f);
