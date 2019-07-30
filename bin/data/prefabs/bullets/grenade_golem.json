@@ -2,8 +2,8 @@
 	{
 		"entity" : {
 			"transform" : {
-        		"pos": "0 3 1",
-				"scale" : 10
+        		"pos": "0 1 0",
+				"scale" : 1
 			},		
 			"name" : "grenade",
 			"collider":{
@@ -17,17 +17,19 @@
 			"grenade_golem_controller" : {
 				"speed": 5
 			},
-		    "render":
-     		 {
-       			"mesh": "data/meshes/Dumpling_Milestone2/Dumpling_Milestone2_Dumpling_milestone2.mesh"
-            ,
-            "color": "0.109804 0.34902 0.694118 1.0"
-            ,
-              "materials": [
-                "data/materials/Dumpling_Milestone2/default.material"
-              ]
-     	 	}
-		}
+      		"render" : {
+       			"mesh": "data/meshes/cupcake_eneano.mesh"
+        		,
+        		"color": "0.345098 0.780392 0.882353 1.0"
+        		,
+       			 "materials":
+       			[
+          			"data/materials/cupcakebody.material"
+          			,
+          			"data/materials/cupcakeeyebrows.material"
+        		]
+      		}
+      	}
 	}
 ]
 

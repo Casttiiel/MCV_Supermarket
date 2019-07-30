@@ -68,7 +68,7 @@ private:
 	float length_cone = 30.0f;
 	float half_cone = 180.0f;
 	float cone_vision = 10.f;
-	float viewDistance = 20.f;
+	float viewDistance = 40.f;
 	float hearing_radius = 2.0f;
 	float damageArea = 1.0; //melee attack
 	//end range values
@@ -90,8 +90,8 @@ private:
 
 
 	//probability values
-	float throwCupcakeProbability = 10; //10%
-	float throwParabolicProjectileProb = 25; //en realidad es 25 - 10 que es 15%
+	float throwCupcakeProbability = 100; //10%
+	float throwParabolicProjectileProb = 0; //en realidad es 25 - 10 que es 15%
 	float throwSimpleFortuneCookieProb = 75; // en realidad es 75 - 25 que es 50%
 	//el otro 25 es para el lanzamiento triple, que no necesita variable-- seria un 25%
 	//end probability values
@@ -109,7 +109,7 @@ private:
 	float life = 100.f;
 	int numberOfCookiesSimple = 5; //number of burst in simple cookie
 	int numberOfCookiesTriple = 3; //number of burst in triple coockie
-	int _spawnMaxNumber = 3; //number of cupcakes
+	int _spawnMaxNumber = 30; //number of cupcakes
 	float battery_time = 0.f;
 	//end gameplay values
 
@@ -131,6 +131,14 @@ private:
 	bool golemCinematic = false;
 	bool inCinematic = false;
 
+	bool firstExec= true;
+	float projectileDelay = 0.83;
+	float delay = projectileDelay;
+	float delayCupcake = 0.8;
+	float throwActive = false;
+	int throwType = 1; //1 cupcake ; 2 parabolic
+
+
 
 	std::vector<CHandle> _currentEnemies;
 
@@ -141,6 +149,8 @@ private:
 	void onBornChild(const TMsgSpawnerFather & msg);
 	void activeGolem(const TMsgActiveGolem & msg);
 	void onCinematic(const TMsgOnCinematic & msg);
+
+	void updateBT();
 
 	bool isView();
 	CHandle h_sender;
