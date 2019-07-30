@@ -246,13 +246,7 @@ float4 PS2(v2p input) : SV_Target {
   return finalcolor; // + float4( 1,1,1,0);
 }
 
-float4 blend(float4 A, float4 B)
-{
-   float4 C;
-   C.a = A.a + (1 - A.a) * B.a;
-   C.rgb = (1 / C.a) * (A.a * A.rgb + (1 - A.a) * B.a * B.rgb);
-   return C;
-}
+
 
 float4 PS(v2p input) : SV_Target {
   float4 red = float4(1,0,0,1);
@@ -261,41 +255,37 @@ float4 PS(v2p input) : SV_Target {
   float4 blue = float4(0,0,1,1);
   float4 green = float4(0,1,0,1);
 
+  //for color
+  const float _offset = 0.0f;
+  //for rim
+  const float _edge = 0.7f;
+  const float _hard = 5.0f;
+  //for shape
+  const float _height = 0.70f;
   //for distortion
-  const float _speed = 0.2f;
-  float2 time_mod = float2(0,GlobalWorldTime * _speed);
+  const float _scrollX = 0.0f;
+  const float _scrollY = 0.4f;
+  const float _distort = 0.15f;
   //for visuals
-  const float _threshold = 0.6f;
+  const float _threshold = 0.9f;
   const float _rim = 0.1f;
+  const float _scale = 0.4f;
 
-  float4 voronoi_noise = txNormal.Sample(samLinear, (input.Uv * 0.6f) - time_mod);
-  voronoi_noise.a = voronoi_noise.x;
-  float4 voronoi_noise2 = txNormal.Sample(samLinear, input.Uv - time_mod);
-  float4 voronoi_blend = blend(voronoi_noise, voronoi_noise2);
-  float4 voronoi_power = pow(voronoi_blend, 5);
+  float4 distortion = txRoughness.Sample(samLinear, input.Uv) * _distort;
+  float4 voronoi_noise = txNormal.Sample(samLinear, float2((input.Uv.x - GlobalWorldTime * _scrollX) + distortion.g  ,(input.Uv.y - GlobalWorldTime * _scrollY) + distortion.r) * float2(_scale,_scale));
+  voronoi_noise.a = voronoi_noise.z;
+  float shapetex = txAlbedo.Sample(samLinear, input.Uv).a;
+  
+  voronoi_noise += shapetex * _threshold * 0.6f;
   float4 final_voronoi = voronoi_noise;
-
 
   float flame = final_voronoi.x > _threshold;
   float4 flamecolored = flame * yellow;
 
   float4 flamerim = (final_voronoi.x > _threshold - _rim) - flame;
-  float4 flamecolored2 = flamerim * red;
+  float4 flamecolored2 = flamerim * orange;
   float4 finalcolor = flamecolored + flamecolored2;
-  finalcolor *= length(input.Uv - float2(0.5f,0.5f)) < 1.4f;
-/*
-  float4 distortion = txRoughness.Sample(samLinear, input.Uv) * _distort;
-  
-  
-  voronoi_noise += gradientBlend;
-  //voronoi_noise = 1 - (voronoi_noise * _height + (1 - (shapetex * _hard)));
-
-  float4 flame = saturate(voronoi_noise.a * _hard);
-  float4 flamecolored = flame * yellow;
-  float4 flamerim = saturate((voronoi_noise.a + _edge) * _hard) - flame;
-
-  float4 flamecolored2 = flamerim * red;
-  float4 finalcolor = flamecolored + flamecolored2;*/
+  finalcolor *= length(input.Uv - float2(0.5f,0.5f)) < 0.4f;
 
   //return input.Color * 4;
   return finalcolor; // + float4( 1,1,1,0);
