@@ -7,6 +7,7 @@
 #include "components/common/comp_tags.h"
 #include "time.h"
 #include "stdlib.h"
+#include "skeleton/comp_bone_tracker_golem.h"
 #include "modules/module_physics.h"
 #include "components/animation/comp_golem_animation.h"
 #include "bt_golem.h"
@@ -43,8 +44,11 @@ void CBTGolem::create(string s)//crear el arbol
 	addChild("ATTACK", "MELEE", PRIORITY, NULL, NULL);//(btcondition)&CBTGolem::conditionDistanceMelee
 
 	addChild("THROW", "CHARGINGTHROW", ACTION, (btcondition)&CBTGolem::conditionTimerThrow, (btaction)&CBTGolem::actionChargingThrow); //CARGANDO
-	addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrow, (btaction)&CBTGolem::actionThrowCupcake); //LANZAR
-	addChild("THROW", "THROWING", ACTION, NULL, (btaction)&CBTGolem::actionThrow);
+
+	addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
+	addChild("THROW", "THROWINGPROYECTILE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowParabolic, (btaction)&CBTGolem::actionThrow);
+	addChild("THROW", "THROWINGNFORTUNECOOKIESIMPLE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowSimpleCookie, (btaction)&CBTGolem::actionThrowCookieSimple);
+	addChild("THROW", "THROWINGNFORTUNECOOKIETRIPLE", ACTION, NULL, (btaction)&CBTGolem::actionThrowCookieSpread);
 
 	addChild("MELEE", "CHARGINGMELEE", ACTION, (btcondition)&CBTGolem::conditionTimerMelee, (btaction)&CBTGolem::actionChargingMelee);
 	addChild("MELEE", "MELEEATACK", ACTION, NULL, (btaction)&CBTGolem::actionMelee);
@@ -54,6 +58,7 @@ void CBTGolem::create(string s)//crear el arbol
 	if (!h_player.isValid()) {
 		h_player = getEntityByName("Player");
 	}
+
 }
 
 
@@ -291,51 +296,84 @@ int CBTGolem::actionThrowCupcake()
 	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
 	//END ANIMATION------------------------
 
-		//GUARRADA DE MILESTONE 3 --- CAMBIAR ESTO EN UN FUTURO
-	CHandle h(this);
-	CHandle c_e = h.getOwner();
-	CEntity* c_entity = (CEntity*)c_e;
-	CEntity* weapon;
-	if (c_entity == getEntityByName("golem1")) {
-		weapon = getEntityByName("Projectile_cupcake_golem1");
-	}
-	else if (c_entity == getEntityByName("golem2")) {
-		weapon = getEntityByName("Projectile_cupcake_golem2");
-	}
-	else { //if (c_entity == getEntityByName("golem3"))
-		weapon = getEntityByName("Projectile_cupcake_golem3");
-	}
-
-	//CEntity* weapon = getEntityByName("Projectile_cupcake_golem1");
-	TCompRender* w_r = weapon->get<TCompRender>();
-	TCompTransform* weapon_trans = weapon->get<TCompTransform>();
-	w_r->is_visible = false;
-	//-----------------
-
-
-
-
-	//dbg("lanza granada");
+	delay = delayCupcake;
 	timerGrenade = throwFrequecy;
-	TEntityParseContext ctx;
-	ctx.root_transform = *weapon_trans;
-	parseScene("data/prefabs/bullets/grenade_golem.json", ctx); 
-	//std::string _prefab = "data/prefabs/bullets/grenade_golem.json";
 
-	//VEC3 position = c_trans->getPosition();
-	//CHandle enemy = GameController.spawnPrefab(_prefab, position);
-
-	//_currentEnemies.push_back(enemy);
-
-
-	TMsgAssignBulletOwner msg;
-	msg.h_owner = CHandle(this).getOwner();
-	msg.source = c_trans->getPosition();
-	msg.front = c_trans->getFront();
-	ctx.entities_loaded[0].sendMsg(msg);
+	throwActive = true;
+	throwType = 1;
 
 	return LEAVE;
 
+}
+
+
+int CBTGolem::actionThrowCookieSpread() {
+	_burstTimer -= dt;
+
+	if (_shotsFired < numberOfCookiesTriple) {
+		TCompTransform* c_trans = get<TCompTransform>();
+		CEntity* e_player = (CEntity *)h_player;
+		TCompTransform* p_trans = e_player->get<TCompTransform>();
+		c_trans->rotateTowards(p_trans->getPosition(), twistSpeed, dt);
+		if (_burstTimer <= 0) {
+			dbg("Firing BURST_SHOT\n");
+
+			//ANIMATION-----------------------
+			TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
+			golemAnimator->playAnimation(TCompGolemAnimator::THROW, 2.0f);
+			//END ANIMATION------------------------
+
+			spreadShot();
+			_burstTimer = _burstDelay;
+			_shotsFired++;
+			return STAY;
+		}
+		else {
+			return STAY;
+		}
+	}
+	else {
+		_shotsFired = 0;
+		timerGrenade = throwFrequecy;
+		return LEAVE;
+	}
+
+}
+
+
+int CBTGolem::actionThrowCookieSimple() {
+
+	_burstTimer -= dt;
+
+	if (_shotsFired < numberOfCookiesSimple) {
+		TCompTransform* c_trans = get<TCompTransform>();
+		CEntity* e_player = (CEntity *)h_player;
+		TCompTransform* p_trans = e_player->get<TCompTransform>();
+		c_trans->rotateTowards(p_trans->getPosition(), twistSpeed, dt);
+		if (_burstTimer <= 0) {
+			dbg("Firing BURST_SHOT\n");
+
+		//ANIMATION-----------------------
+		TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
+		golemAnimator->playAnimation(TCompGolemAnimator::THROW, 2.0f);
+		//END ANIMATION------------------------
+
+			singleShot();
+			_burstTimer = _burstDelay;
+			_shotsFired++;
+			return STAY;
+		}
+		else {
+			return STAY;
+		}
+	}
+	else {
+		_shotsFired = 0;
+	timerGrenade = throwFrequecy;
+		return LEAVE;
+	}
+
+	
 }
 
 int CBTGolem::actionThrow()
@@ -350,45 +388,15 @@ int CBTGolem::actionThrow()
 	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
 	//END ANIMATION------------------------
 
+	delay = projectileDelay;
+	throwActive = true;
+	throwType = 2;
 
-
-	//GUARRADA DE MILESTONE 3 --- CAMBIAR ESTO EN UN FUTURO
-	CHandle h(this);
-	CHandle c_e = h.getOwner();
-	CEntity* c_entity =(CEntity*) c_e;
-	CEntity* weapon;
-	if (c_entity == getEntityByName("golem1")) {
-		 weapon = getEntityByName("Projectile_cupcake_golem1");
-	}
-	else if (c_entity == getEntityByName("golem2")) {
-		weapon = getEntityByName("Projectile_cupcake_golem2");
-	}
-	else  { //if (c_entity == getEntityByName("golem3"))
-		 weapon = getEntityByName("Projectile_cupcake_golem3");
-	}
-	
-	//CEntity* weapon = getEntityByName("Projectile_cupcake_golem1");
-	TCompRender* w_r = weapon->get<TCompRender>();
-	TCompTransform* weapon_trans = weapon->get<TCompTransform>();
-	w_r->is_visible = false;
-	//-----------------
-
-	//dbg("lanza granada");
 	timerGrenade = throwFrequecy;
-	TEntityParseContext ctx;
-	ctx.root_transform = *weapon_trans;
-	parseScene("data/prefabs/bullets/turret_bullet.json", ctx);
-
-
-
-	TMsgAssignBulletOwner msg;
-	msg.h_owner = CHandle(this).getOwner();
-	msg.source = c_trans->getPosition();
-	msg.front = c_trans->getFront();
-	ctx.entities_loaded[0].sendMsg(msg);
 	return LEAVE;
 
 }
+
 
 int CBTGolem::actionGravityReceived() {
 	return LEAVE;
@@ -499,12 +507,26 @@ bool CBTGolem::conditionTimerThrow() {
 	return false;
 }
 
-bool CBTGolem::conditionRandomThrow() {
-
-	if (bt_dist_gol(bt_gol) < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber) { 
+bool CBTGolem::conditionRandomThrowCupcake() {
+	randomNumber = bt_dist_gol(bt_gol);
+	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber) { 
 		return true; //throw cupcake
 	}
-	return false;//throw projectile
+	return false;//check others
+}
+
+bool CBTGolem::conditionRandomThrowParabolic() {
+	if (randomNumber < throwParabolicProjectileProb) { //&& _currentEnemies.size() < _spawnMaxNumber
+		return true; //throw parabolic proyectile
+	}
+	return false;//check others
+}
+
+bool CBTGolem::conditionRandomThrowSimpleCookie() {
+	if (randomNumber < throwSimpleFortuneCookieProb) { //&& _currentEnemies.size() < _spawnMaxNumber
+		return true; //throw Cookie
+	}
+	return false;//throw Triple Cookie
 }
 
 bool CBTGolem::conditionTimerMelee() {
@@ -726,8 +748,176 @@ void CBTGolem::onBornChild(const TMsgSpawnerFather & msg) {
 }
 
 
+void CBTGolem::singleShot() {
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* p_trans = e_player->get<TCompTransform>();
+	TCompCollider* p_col = e_player->get<TCompCollider>();
+	TCompTransform* c_trans = get<TCompTransform>();
+	TCompCollider* c_cc = get<TCompCollider>();
+
+	//Bullet origin
+	VEC3 firingPosition = c_trans->getPosition();
+	firingPosition.y += c_cc->controller->getHeight();
+	firingPosition += c_trans->getFront() * 0.5f;
+
+	TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+
+	TEntityParseContext ctx;
+	ctx.root_transform.setPosition(boneTracker->getPosition());
+	ctx.root_transform.setRotation(c_trans->getRotation());
+	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
+
+	//Bullet direction
+	VEC3 targetDir = p_trans->getPosition() - boneTracker->getPosition();
+	targetDir.Normalize();
+	VEC3 _targetPosition = p_trans->getPosition() + targetDir * _playerOffset;
+	VEC3 _targetDirection = _targetPosition - boneTracker->getPosition();
+	_targetDirection.Normalize();
+
+	//Message to the player
+	TMsgDamage msgDamage;
+	msgDamage.bullet_front = _targetDirection;
+	msgDamage.senderType = EntityType::GOLEM;
+	msgDamage.targetType = EntityType::PLAYER;
+	msgDamage.intensityDamage = _bulletDamage;
+	msgDamage.impactForce = _bulletForce;
+
+	//Message to the bullet
+	TMsgAssignBulletOwner msg;
+	msg.h_owner = CHandle(this).getOwner();
+	msg.h_target = h_player;
+	msg.source = c_trans->getPosition();
+	msg.front = _targetDirection;
+	msg.messageToTarget = msgDamage;
+	ctx.entities_loaded[0].sendMsg(msg);
+}
+
+void CBTGolem::spreadShot() {
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* p_trans = e_player->get<TCompTransform>();
+	TCompCollider* p_col = e_player->get<TCompCollider>();
+	TCompTransform* c_trans = get<TCompTransform>();
+	TCompCollider* c_cc = get<TCompCollider>();
+
+	//STRAIGHT BULLET
+	//Bullet origin
+	TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+	VEC3 firingPosition = boneTracker->getPosition();
+	firingPosition.y += c_cc->controller->getHeight();
+	firingPosition += c_trans->getFront() * 0.5f;
+
+	TEntityParseContext ctx;
+	ctx.root_transform.setPosition(firingPosition);
+	ctx.root_transform.setRotation(c_trans->getRotation());
+	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
+
+	//Bullet direction
+	VEC3 targetDir = p_trans->getPosition() - boneTracker->getPosition();
+	targetDir.Normalize();
+	VEC3 _targetPosition = p_trans->getPosition() + targetDir * _playerOffset;
+	VEC3 _targetDirection = _targetPosition - boneTracker->getPosition();
+	_targetDirection.Normalize();
+
+	//Message to the player
+	TMsgDamage msgDamage;
+	msgDamage.bullet_front = _targetDirection;
+	msgDamage.senderType = EntityType::GOLEM;
+	msgDamage.targetType = EntityType::PLAYER;
+	msgDamage.intensityDamage = _bulletDamage;
+	msgDamage.impactForce = _bulletForce;
+
+	//Message to the bullet
+	TMsgAssignBulletOwner msg;
+	msg.h_owner = CHandle(this).getOwner();
+	msg.h_target = h_player;
+	msg.source = c_trans->getPosition();
+	msg.front = _targetDirection;
+	msg.messageToTarget = msgDamage;
+	ctx.entities_loaded[0].sendMsg(msg);
+	//END STRAIGHT BULLET
+
+	//15DEG BULLET
+	VEC3 rotatedDirection = VEC3().Zero;
+	MAT44 rotMat = MAT44::CreateRotationY(deg2rad(10.f));
+	VEC3().Transform(_targetDirection, rotMat, rotatedDirection);
+
+	TEntityParseContext ctx2;
+	ctx2.root_transform.setPosition(firingPosition);
+	ctx2.root_transform.setRotation(c_trans->getRotation());
+	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx2);
+	msgDamage.bullet_front = rotatedDirection;
+	msg.front = rotatedDirection;
+	ctx2.entities_loaded[0].sendMsg(msg);
+	//END 15DEG BULLET
+
+	//-15DEG BULLET
+	rotatedDirection = VEC3().Zero;
+	rotMat = MAT44::CreateRotationY(deg2rad(-10.f));
+	VEC3().Transform(_targetDirection, rotMat, rotatedDirection);
+
+	TEntityParseContext ctx3;
+	ctx3.root_transform.setPosition(firingPosition);
+	ctx3.root_transform.setRotation(c_trans->getRotation());
+	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx3);
+	msgDamage.bullet_front = rotatedDirection;
+	msg.front = rotatedDirection;
+	ctx3.entities_loaded[0].sendMsg(msg);
+	//END -15DEG BULLET
+}
+
+void CBTGolem::updateBT() {
+
+	if (firstExec) {
+		firstExec = false;
+
+		//---------------------------- 
+
+		CHandle h(this);
+		CHandle c_e = h.getOwner();
+		CEntity* c_entity = (CEntity*)c_e;
+		//obtener el nombre de la entidad y ponerselo a comp_bone_tracker_golem
+		TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+		TCompName* myName = get<TCompName>();
+		boneTracker->setParentName(myName->getName());
+
+		//---------------------------------
+
+	}
+
+	if (throwActive) {
+
+		if (delay <= 0) {
+			TCompTransform* c_trans = get<TCompTransform>();
+			TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+			TEntityParseContext ctx;
+			ctx.root_transform.setPosition(boneTracker->getPosition());
+			ctx.root_transform.setRotation(boneTracker->getRotation());
 
 
+			if (throwType == 1) { //cupcake
+				parseScene("data/prefabs/bullets/grenade_golem.json", ctx);
+				//delay = delayCupcake;
+			}
+			else { //parabolic
+				parseScene("data/prefabs/bullets/turret_bullet.json", ctx);
+				//delay = projectileDelay;
+			}
 
+			TMsgAssignBulletOwner msg;
+			msg.h_owner = CHandle(this).getOwner();
+			msg.source = c_trans->getPosition();
+			msg.front = c_trans->getFront();
+			ctx.entities_loaded[0].sendMsg(msg);
+
+		
+			throwActive = false;
+		}
+		else {
+			delay -= dt;
+		}
+	}
+
+
+}
 
 
