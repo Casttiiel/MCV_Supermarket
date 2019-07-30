@@ -282,7 +282,15 @@ void TCompCharacterController::grounded(float delta) {
         TCompTransform* c_trans = get<TCompTransform>();
         TCompMadnessController* m_c = get<TCompMadnessController>();
 
-        if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE)) {
+        if (c_tp->canCombo() && m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) {
+            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
+                dbg("Pj execute combo fire\n");
+                c_tp->comboDone = true;
+                TCompFireController* c_fire = get<TCompFireController>();
+                c_fire->comboAttack(c_trans->getPosition());
+            }
+        }
+        else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE)) {
             if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
         //Enable fire, keep it enabled while holding trigger, disable on release
                 TCompFireController* c_fire = get<TCompFireController>();
@@ -300,14 +308,6 @@ void TCompCharacterController::grounded(float delta) {
                 w_r->updateRenderManager();
                 w_r2->updateRenderManager();
                 w_r3->updateRenderManager();
-            }
-        }
-        else if (c_tp->canCombo()) { 
-            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
-                dbg("Pj execute combo fire\n");
-                c_tp->comboDone = true;
-                TCompFireController* c_fire = get<TCompFireController>();
-                c_fire->comboAttack(c_trans->getPosition());
             }
         }
     }
@@ -784,7 +784,7 @@ void TCompCharacterController::attack(float delta) {
 
     float comboModifier = 1.f;
     if (c_tp->canCombo()) { //puedes hacer combo
-        comboModifier = 3.f;
+        comboModifier = 6.f;
         c_tp->comboDone = true;
     }
 
