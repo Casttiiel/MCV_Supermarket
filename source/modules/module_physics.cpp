@@ -214,6 +214,7 @@ bool CModulePhysics::readShape(PxRigidActor* actor, const json& jcfg) {
 	
     // Bind the render mesh as userData of the SHAPE, not the ACTOR.
     shape->userData = render_mesh;
+	
   }
 
   if (jcfg.value("trigger", false))

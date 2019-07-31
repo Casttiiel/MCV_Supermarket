@@ -105,7 +105,7 @@ void CAIMobilePlatform::TurnInfinity(float dt) {
 	TCompTransform* c_trans = get<TCompTransform>();
 	
 	if (direction == 0) {
-			//ESTO HABLAR CON JUANITO
+			
 			//ralentiza con el cafe pero el giro del pitch al llegar a 90 grados se queda quieto 
 			TCompCollider* c_col = get<TCompCollider>();
 			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
@@ -115,7 +115,7 @@ void CAIMobilePlatform::TurnInfinity(float dt) {
 				c_trans->setAngles(yaw + dt * rotationTime, pitch, roll); //ok funciona
 			}
 			else if (axis.x == 0 &&  axis.y == 1 && axis.z == 0) {
-				c_trans->setAngles(yaw, pitch + dt * rotationTime, roll); //ko solo gira hasta llegar, a 90 grados Preguntar a JUAN
+				c_trans->setAngles(yaw, pitch + dt * rotationTime, roll); //ko solo gira hasta llegar, a 90 grados <-TODO->
 			}
 			else if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
 				c_trans->setAngles(yaw, pitch, roll + dt * rotationTime); //OK funciona	
@@ -137,7 +137,7 @@ void CAIMobilePlatform::TurnInfinity(float dt) {
 			c_trans->setAngles(yaw - dt * rotationTime, pitch, roll); //OK funciona
 		}
 		else if (axis.x == 0 && axis.y == 1 && axis.z == 0) {
-			c_trans->setAngles(yaw, pitch - dt * rotationTime, roll); //KO solo gira hasta llegar, a 90 grados Preguntar a JUAN
+			c_trans->setAngles(yaw, pitch - dt * rotationTime, roll); //KO solo gira hasta llegar, a 90 grados <-TODO->
 		}
 		else if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
 			c_trans->setAngles(yaw, pitch, roll - dt * rotationTime); //OK funciona	
