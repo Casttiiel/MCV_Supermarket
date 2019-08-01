@@ -38,9 +38,12 @@ struct TSystem {
 // The spawn fn to customize
 TInstance spawnParticle( uint unique_id ) {
   
+  float  rnd1 = rand(unique_id + 7654);
   float2 rnd2 = hash2( unique_id ) * 2.0 - 1.0;
   float2 rnd3 = hash2( unique_id + 57 );
   float2 rnd4 = hash2( unique_id + 75 );
+  float  rnd5 = rand(unique_id + 75) * 10.0f;
+  float  rnd6 = rand(unique_id + 7654) * 0.75f;
   float  duration = emitter_duration.x + ( emitter_duration.y - emitter_duration.x ) * rnd3.x;
   float  speed  = emitter_speed.x + ( emitter_speed.y - emitter_speed.x ) * rnd3.y;
 
@@ -54,9 +57,9 @@ TInstance spawnParticle( uint unique_id ) {
   p.time_factor = 1.0 / duration;
   p.scale = 1.0;
   p.color = float4(1,1,0,1);
-  p.dummy1 = 0;
-  p.dummy2 = 0;
-  p.dummy3 = 0;
+  p.dummy1 = rnd5;
+  p.dummy2 = rnd6;
+  p.dummy3 = rnd1;
   p.dummy4 = 0;
 
   p.pos += float3( rnd2.x, rnd4.x, rnd2.y) * emitter_center_radius;
@@ -163,6 +166,7 @@ struct v2p {   // Vertex to pixel
   float4 Pos   : SV_POSITION;
   float2 Uv    : TEXCOORD0;
   float4 Color : COLOR;
+  float2  aux   : TEXCOORD1;
 };
 
 struct VS_INPUT {   // Input from billboard mesh
@@ -200,55 +204,17 @@ v2p VS(
   output.Pos = mul( float4(p,1.0), ViewProjection );
   output.Uv = input.Uv;
   output.Color = instance.color;
+  output.aux = float2(instance.dummy1 , instance.dummy2);
   return output;
 }
 
 //--------------------------------------------------------------------------------------
-float4 PS2(v2p input) : SV_Target {
-  float4 red = float4(1,0,0,1);
-  float4 yellow = float4(1,1,0,1);
-  float4 orange = float4(1,0.2f,0,1);
-  float4 blue = float4(0,0,1,1);
-  float4 green = float4(0,1,0,1);
-
-  //for color
-  const float _offset = 0.0f;
-  //for rim
-  const float _edge = 0.7f;
-  const float _hard = 5.0f;
-  //for shape
-  const float _height = 0.70f;
-  //for distortion
-  const float _scrollX = 0.0f;
-  const float _scrollY = 0.2f;
-  const float _distort = 0.3f;
-
-  float4 gradientMain = lerp(red, yellow, input.Uv.y + _offset);
-  float4 gradientTint = lerp(blue, green, input.Uv.y + _offset);
-  float4 gradientBlend = lerp(float4(2,2,2,2), float4(0,0,0,0), (input.Uv.y + _height));
-
-  float4 distortion = txRoughness.Sample(samLinear, input.Uv) * _distort;
-  float4 voronoi_noise = txNormal.Sample(samLinear, float2((input.Uv.x - GlobalWorldTime * _scrollX) + distortion.g  ,(input.Uv.y - GlobalWorldTime * _scrollY) + distortion.r));
-  voronoi_noise.a = voronoi_noise.z;
-  float shapetex = txAlbedo.Sample(samLinear, input.Uv).x;
-  
-  voronoi_noise += gradientBlend;
-  //voronoi_noise = 1 - (voronoi_noise * _height + (1 - (shapetex * _hard)));
-
-  float4 flame = saturate(voronoi_noise.a * _hard);
-  float4 flamecolored = flame * yellow;
-  float4 flamerim = saturate((voronoi_noise.a + _edge) * _hard) - flame;
-
-  float4 flamecolored2 = flamerim * red;
-  float4 finalcolor = flamecolored + flamecolored2;
-
-  //return input.Color * 4;
-  return finalcolor; // + float4( 1,1,1,0);
-}
-
-
-
 float4 PS(v2p input) : SV_Target {
+  const float2x2 rot_matrix = { cos(input.aux.x), -sin(input.aux.x),
+    sin(input.aux.x), cos(input.aux.x)
+  };
+  float2 rot_uv = mul(input.Uv - float2(0.5f,0.5f), rot_matrix);
+
   float4 red = float4(1,0,0,1);
   float4 yellow = float4(1,1,0,1);
   float4 orange = float4(1,0.2f,0,1);
@@ -265,14 +231,14 @@ float4 PS(v2p input) : SV_Target {
   //for distortion
   const float _scrollX = 0.0f;
   const float _scrollY = 0.4f;
-  const float _distort = 0.15f;
+  const float _distort = 0.25f;
   //for visuals
-  const float _threshold = 0.9f;
+  const float _threshold = 0.7f + input.aux.y;
   const float _rim = 0.1f;
   const float _scale = 0.4f;
 
-  float4 distortion = txRoughness.Sample(samLinear, input.Uv) * _distort;
-  float4 voronoi_noise = txNormal.Sample(samLinear, float2((input.Uv.x - GlobalWorldTime * _scrollX) + distortion.g  ,(input.Uv.y - GlobalWorldTime * _scrollY) + distortion.r) * float2(_scale,_scale));
+  float4 distortion = txRoughness.Sample(samLinear, rot_uv) * _distort;
+  float4 voronoi_noise = txNormal.Sample(samLinear, float2((rot_uv.x - GlobalWorldTime * _scrollX) + distortion.g  ,(rot_uv.y - GlobalWorldTime * _scrollY) + distortion.r) * float2(_scale,_scale));
   voronoi_noise.a = voronoi_noise.z;
   float shapetex = txAlbedo.Sample(samLinear, input.Uv).a;
   
@@ -288,5 +254,5 @@ float4 PS(v2p input) : SV_Target {
   finalcolor *= length(input.Uv - float2(0.5f,0.5f)) < 0.4f;
 
   //return input.Color * 4;
-  return finalcolor; // + float4( 1,1,1,0);
+  return finalcolor * input.Color; // + float4( 1,1,1,0); finalcolor * input.Color
 }
