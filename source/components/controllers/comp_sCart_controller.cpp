@@ -196,14 +196,18 @@ void TCompSCartController::onDamage(const TMsgDamage& msg) {
 			/*CEntity* entity_to_hit_me = (CEntity *)msg.h_bullet;
 			TCompTransform* e_trans = entity_to_hit_me->get<TCompTransform>();
 			direction_to_damage = my_trans->getPosition() - e_trans->getPosition();*/
-			c_rbody->jump(VEC3(0.0f,5.f, 0.0f));
+			if(!cinematic) {
+				c_rbody->jump(VEC3(0.0f,5.f, 0.0f));
+			}
 		}
 		else { //algunos objetos envian una posicion
 			//direction_to_damage = my_trans->getPosition() - msg.position;
-			c_rbody->jump(VEC3(0.0f, 5.f, 0.0f));
+			if (!cinematic) {
+				c_rbody->jump(VEC3(0.0f, 5.f, 0.0f));
+			}
 		}
 		direction_to_damage.Normalize();
-		c_rbody->addForce(VEC3(direction_to_damage) * 100);
+		//c_rbody->addForce(VEC3(direction_to_damage) * 100);
 		ChangeState("SCART_DAMAGED");
 		if (life <= 0.0f) {
 			life = 0.0f;
@@ -370,7 +374,7 @@ void TCompSCartController::onAir(float delta) {
 }
 
 void TCompSCartController::damaged(float delta) {
-	if (isEnabled) {
+	if (isEnabled && !cinematic) {
 		dbg("sCart changes to STATE from DAMAGED\n");
 		ChangeState("SCART_GROUNDED");
 	}
@@ -394,10 +398,10 @@ void TCompSCartController::rotatePlayer(float delta) {
   float value = 0.0f;
 
   if (EngineInput["left_"].isPressed()) {
-    value += 1.0f;
+    value += sensitivity;
   }
   if (EngineInput["right_"].isPressed()) {
-    value -= 1.0f;
+    value -= sensitivity;
   }
   //GAMEPAD
   if (EngineInput.gamepad()._connected) {

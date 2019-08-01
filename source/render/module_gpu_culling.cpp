@@ -36,7 +36,7 @@ struct TSampleDataGenerator {
   bool         prefab_handles_loaded = false;
 
   void createProductPrefabs(const json& j) {
-
+	  
     float radius = j.value("radius", 30.f);
     pmin = VEC3(-radius, 0.f, -radius);
     pmax = VEC3(radius, 1.0f, radius);

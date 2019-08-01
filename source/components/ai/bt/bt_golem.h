@@ -100,9 +100,9 @@ private:
 	int intensityDamage = 0;
 	float meleeDamage = 10;
 	int damage = 10;
-	float _bulletDamage = 1.f;
-	float _bulletForce = 2.5f;
-	float impactForceAttack = 8.0f;
+	float _bulletDamage = 10.f;
+	float _bulletForce = 10.f;
+	float impactForceAttack = 100.0f;
 	//end damage values
 
 	//GAMEPLAY VALUES
