@@ -406,7 +406,16 @@ struct TSceneExporter (
 			convexmes
 			
 		) else if classof obj == Editable_Mesh then (
-			fs.writeKeyValue "shape" "trimesh"
+			
+			
+			local is_platform = getUserProp obj "platform"
+			if is_platform != undefined then (
+				fs.writeKeyValue "shape" "convex"
+				
+			)else (
+				fs.writeKeyValue "shape" "trimesh"
+			)
+			--fs.writeKeyValue "shape" "trimesh"
 			fs.writeComma()
 			-- Warning, order might be incorrect!!!
 			local mesh_name = mesh_path + current_scene_name + "_" + obj.parent.name + ".col_mesh"
