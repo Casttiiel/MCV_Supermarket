@@ -228,10 +228,10 @@ private:
 
 	float impulseStrenghtSecondSon = 7.f;
 
-	float cone_vision = 14.f;
-	float enemyRadiousView = 9.0f;
+	float cone_vision = 20.f;
+	float enemyRadiousView = 12.0f;
 	bool view_point = false;
-	float length_cone = 15.0f;
+	float length_cone = 20.0f;
 	float half_cone = 45.0f;
 	float height_range = 3.0f;
 
