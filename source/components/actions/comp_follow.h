@@ -20,4 +20,5 @@ private:
 	float minDistance = 3.f;
 	CHandle     h_target;
 	std::string targetName = "";
+	VEC3 offset = VEC3();
 };

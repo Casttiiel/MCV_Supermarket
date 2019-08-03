@@ -571,6 +571,27 @@ struct TSceneExporter (
 		)
 	),
 	
+	fn exportHierarch obj = (
+		local isHierarchy = getUserProp obj "isSon"
+		if isHierarchy != undefined then (
+			local pos = getUserProp obj "pos"
+			local rot = getUserProp obj "rotation"
+			local parent = getUserProp obj "parent"
+			fs.writeComma()
+			fs.writeKey "hierarchy"
+			fs.beginObj()
+			fs.writeKeyValue "pos" pos
+			fs.writeComma()
+			if rot != undefined then (
+				fs.writeKeyValue "rotation" rot
+				fs.writeComma()
+			)
+			fs.writeKeyValue "parent" parent
+			fs.endObj()
+			
+		)
+	),
+	
 	
 	fn exportEntity obj = (
 		fs.beginObj()
@@ -586,6 +607,7 @@ struct TSceneExporter (
 			exportCamera obj
 			exportWalls obj
 			exportMorph obj
+			exportHierarch obj
 			--exportCompCurveController obj
 			
 			local nCA = custAttributes.count obj
