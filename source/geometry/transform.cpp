@@ -226,3 +226,4 @@ VEC3 CTransform::getTranslatePositionForAngle(VEC3 startPoint, float distance, f
 	newPosition.z += z;
 	return newPosition;
 }
+

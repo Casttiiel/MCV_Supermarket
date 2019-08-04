@@ -62,5 +62,4 @@ public:
   bool renderInMenu();
 
   VEC3 getTranslatePositionForAngle(VEC3 startPoint, float distance, float angle);
-
 };

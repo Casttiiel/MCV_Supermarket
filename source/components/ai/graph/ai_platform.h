@@ -109,7 +109,6 @@ private:
 
 	bool stop = false;
 	
-
 };
 
 #endif _AI_PLATFORM

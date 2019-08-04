@@ -105,30 +105,31 @@ void CAIMobilePlatform::TurnInfinity(float dt) {
 	TCompTransform* c_trans = get<TCompTransform>();
 	
 	if (direction == 0) {
+		//ralentiza con el cafe pero el giro del pitch al llegar a 90 grados se queda quieto 
+		TCompCollider* c_col = get<TCompCollider>();
+		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+		float yaw, pitch, roll;
+		
+		c_trans->getAngles(&yaw, &pitch, &roll);
+		if (axis.x == 1 && axis.y == 0 && axis.z == 0) {//en el json el axis
+			c_trans->setAngles(yaw + dt * rotationTime, pitch, roll); //ok funciona
+		}
+		else if (axis.x == 0 &&  axis.y == 1 && axis.z == 0) {
+			//ko solo gira hasta llegar, a 90 grados
+			c_trans->setAngles(yaw,pitch + (dt * rotationTime), roll);
 			
-			//ralentiza con el cafe pero el giro del pitch al llegar a 90 grados se queda quieto 
-			TCompCollider* c_col = get<TCompCollider>();
-			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-			float yaw, pitch, roll;
-			c_trans->getAngles(&yaw, &pitch,&roll);
-			if (axis.x == 1 && axis.y == 0 && axis.z == 0) {//en el json el axis
-				c_trans->setAngles(yaw + dt * rotationTime, pitch, roll); //ok funciona
-			}
-			else if (axis.x == 0 &&  axis.y == 1 && axis.z == 0) {
-				c_trans->setAngles(yaw, pitch + dt * rotationTime, roll); //ko solo gira hasta llegar, a 90 grados <-TODO->
-			}
-			else if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
-				c_trans->setAngles(yaw, pitch, roll + dt * rotationTime); //OK funciona	
-			}
-
-			PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
-			PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
-			PxTransform tr(pos, ori);
-			rigid_dynamic->setKinematicTarget(tr);
-			
+		}
+		else if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
+			c_trans->setAngles(yaw, pitch, roll + dt * rotationTime); //OK funciona
+		}
+		
+		PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+		PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+		PxTransform tr(pos, ori);
+		rigid_dynamic->setKinematicTarget(tr);
+		dbg("Pitch:%f\n", rad2deg(pitch));
 	}
 	else {
-		
 		TCompCollider* c_col = get<TCompCollider>();
 		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
 		float yaw, pitch, roll;
@@ -138,6 +139,7 @@ void CAIMobilePlatform::TurnInfinity(float dt) {
 		}
 		else if (axis.x == 0 && axis.y == 1 && axis.z == 0) {
 			c_trans->setAngles(yaw, pitch - dt * rotationTime, roll); //KO solo gira hasta llegar, a 90 grados <-TODO->
+
 		}
 		else if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
 			c_trans->setAngles(yaw, pitch, roll - dt * rotationTime); //OK funciona	
@@ -147,13 +149,6 @@ void CAIMobilePlatform::TurnInfinity(float dt) {
 		PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
 		PxTransform tr(pos, ori);
 		rigid_dynamic->setKinematicTarget(tr);
-		
-		
-			
-		
-		
-		
-		
 	}
 	
 }
