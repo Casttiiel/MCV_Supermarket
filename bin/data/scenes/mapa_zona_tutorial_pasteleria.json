@@ -398,7 +398,7 @@
       ,
       "transform":
       {
-        "pos": "406.331 -20.3113 124.665"
+        "pos": "406.664 -20.3113 124.665"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -533,7 +533,7 @@
       ,
       "transform":
       {
-        "pos": "406.274 -19.7351 124.372"
+        "pos": "406.606 -19.7351 124.372"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -594,7 +594,7 @@
       ,
       "transform":
       {
-        "pos": "420.38 -20.3113 176.13"
+        "pos": "421.286 -20.3113 176.13"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -639,7 +639,7 @@
       ,
       "transform":
       {
-        "pos": "413 -27.247 -22.293"
+        "pos": "424.151 -19.4608 176.238"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -655,100 +655,12 @@
       ,
       "transform":
       {
-        "pos": "417.331 -19.6239 176.012"
+        "pos": "418.238 -19.6239 176.012"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "prefab": "data/prefabs/structures/teleport_box.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Plane026"
-      ,
-      "transform":
-      {
-        "pos": "399.723 -27.2468 159.716"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_Plane026.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_Plane026.mesh"
-        ,
-        "color": "0.552941 0.027451 0.227451 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "horno2"
-      ,
-      "transform":
-      {
-        "pos": "376.807 -27.2468 170.237"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "prefab": "data/prefabs/structures/enemy_spawner.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "horno3"
-      ,
-      "transform":
-      {
-        "pos": "387.248 -27.2468 141.974"
-        ,
-        "rotation": "0.0 1.50996e-07 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/enemy_spawner.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "horno4"
-      ,
-      "transform":
-      {
-        "pos": "397.01 -27.2468 175.193"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/enemy_spawner.json"
     }
   }
   ,
@@ -781,83 +693,6 @@
       }
       ,
       "prefab": "data/prefabs/structures/enemy_spawner.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "horno7"
-      ,
-      "transform":
-      {
-        "pos": "350.212 -27.2468 140.794"
-        ,
-        "rotation": "0.0 1.50996e-07 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/enemy_spawner.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "horno8"
-      ,
-      "transform":
-      {
-        "pos": "326.062 -27.2468 159.888"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/enemy_spawner.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box006"
-      ,
-      "transform":
-      {
-        "pos": "416.899 -27.2468 148.483"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "6.34563 3.58821 5.44554"
-            ,
-            "offset":
-            {
-              "pos": "0.0 3.58821 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_Box006.mesh"
-        ,
-        "color": "0.568627 0.109804 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
-        ]
-      }
     }
   }
   ,
@@ -909,237 +744,11 @@
   {
     "entity":
     {
-      "name": "platf028"
-      ,
-      "transform":
-      {
-        "pos": "370.378 -27.2026 158.204"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "3.28043 0.37 2.88"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.37 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_platf028.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "platf029"
-      ,
-      "transform":
-      {
-        "pos": "368.865 -26.4185 158.204"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "3.28043 0.37 2.88"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.37 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_platf029.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "platf030"
-      ,
-      "transform":
-      {
-        "pos": "366.95 -25.6066 158.204"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "3.28043 0.37 2.88"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.37 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_platf030.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "platf031"
-      ,
-      "transform":
-      {
-        "pos": "351.747 -20.49 158.204"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "3.28043 0.37 2.88"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.37 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_platf031.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "fuente"
-      ,
-      "transform":
-      {
-        "pos": "350.31 -19.7912 158.106"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/madness_fountain.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "tpobj"
-      ,
-      "transform":
-      {
-        "pos": "352.883 -19.7912 160.195"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/teleport_box.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "PowerUp de Vida"
       ,
       "transform":
       {
         "pos": "420.397 -27.2468 156.658"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Charcos"
-      ,
-      "transform":
-      {
-        "pos": "401.832 -27.2468 158.332"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -1207,99 +816,16 @@
   {
     "entity":
     {
-      "name": "plat1346467"
-      ,
-      "transform":
-      {
-        "pos": "311.717 -27.2468 151.272"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "local_aabb": {}
-      ,
-      "ai_platform_mobile":
-      {
-        "mTravelTime_": 8
-        ,
-        "curve": "data/curves/curva_plat1346467.curve"
-        ,
-        "active": false
-        ,
-        "platformType_": 6
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "1.48912 0.387908 5.29623"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.387908 0.0"
-            }
-          }
-        ]
-        ,
-        "dynamic": true
-        ,
-        "kinematic": true
-        ,
-        "platform": true
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_plat1346467.mesh"
-        ,
-        "color": "0.694118 0.345098 0.105882 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/interactive.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "platf0"
       ,
       "transform":
       {
-        "pos": "415.441 -27.2468 4.69069"
+        "pos": "415.441 -27.2468 38.3612"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
       ,
       "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "11.8533 0.6625 10.0"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.6625 0.0"
-            }
-            ,
-            "group": "scenario"
-          }
-        ]
-      }
       ,
       "render":
       {
@@ -1322,31 +848,12 @@
       ,
       "transform":
       {
-        "pos": "415.441 -25.895 11.3264"
+        "pos": "415.441 -25.895 44.9969"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
       ,
       "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "15.25 0.662335 10.0"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.662335 0.0"
-            }
-            ,
-            "group": "scenario"
-          }
-        ]
-      }
       ,
       "render":
       {
@@ -1369,31 +876,12 @@
       ,
       "transform":
       {
-        "pos": "415.441 -24.5152 7.9319"
+        "pos": "415.441 -24.5152 41.6024"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
       ,
       "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "9.1125 0.45 10.0"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.45 0.0"
-            }
-            ,
-            "group": "scenario"
-          }
-        ]
-      }
       ,
       "render":
       {
@@ -1416,7 +904,7 @@
       ,
       "transform":
       {
-        "pos": "415.441 -24.0541 8.16713"
+        "pos": "415.441 -24.0541 41.8376"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1463,7 +951,7 @@
       ,
       "transform":
       {
-        "pos": "414.479 -27.2468 -49.352"
+        "pos": "414.479 -27.2468 1.5206"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1479,7 +967,7 @@
       ,
       "transform":
       {
-        "pos": "410.478 -27.2468 -39.6895"
+        "pos": "410.478 -27.2468 11.1831"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1535,7 +1023,7 @@
       ,
       "transform":
       {
-        "pos": "408.952 -27.2468 -39.6895"
+        "pos": "408.952 -27.2468 11.1831"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1591,7 +1079,7 @@
       ,
       "transform":
       {
-        "pos": "407.542 -27.2468 -39.6895"
+        "pos": "407.542 -27.2468 11.1831"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1647,7 +1135,7 @@
       ,
       "transform":
       {
-        "pos": "408.181 -25.8375 -39.6895"
+        "pos": "408.181 -25.8375 11.1831"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1703,7 +1191,7 @@
       ,
       "transform":
       {
-        "pos": "409.777 -25.8375 -39.6895"
+        "pos": "409.777 -25.8375 11.1831"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1759,7 +1247,7 @@
       ,
       "transform":
       {
-        "pos": "419.752 -27.2468 -24.605"
+        "pos": "419.752 -27.2468 15.0113"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1815,7 +1303,7 @@
       ,
       "transform":
       {
-        "pos": "421.128 -27.2468 -24.605"
+        "pos": "421.128 -27.2468 15.0113"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1871,7 +1359,7 @@
       ,
       "transform":
       {
-        "pos": "422.5 -27.2468 -24.605"
+        "pos": "422.5 -27.2468 15.0113"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1927,7 +1415,7 @@
       ,
       "transform":
       {
-        "pos": "422.5 -26.0366 -24.605"
+        "pos": "422.5 -26.0366 15.0113"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1983,7 +1471,7 @@
       ,
       "transform":
       {
-        "pos": "421.134 -26.0366 -24.605"
+        "pos": "421.134 -26.0366 15.0113"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -2039,7 +1527,7 @@
       ,
       "transform":
       {
-        "pos": "419.76 -26.0366 -24.605"
+        "pos": "419.76 -26.0366 15.0113"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -2091,140 +1579,11 @@
   {
     "entity":
     {
-      "name": "Plane02"
-      ,
-      "transform":
-      {
-        "pos": "415.174 -27.2468 85.7618"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_Plane02.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_Plane02.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box016"
-      ,
-      "transform":
-      {
-        "pos": "415.426 -27.1469 35.6771"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "9.99823 2.46826 9.05076"
-            ,
-            "offset":
-            {
-              "pos": "0.0 2.46826 0.0"
-            }
-            ,
-            "group": "scenario"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_Box016.mesh"
-        ,
-        "color": "0.552941 0.027451 0.227451 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Plane027"
-      ,
-      "transform":
-      {
-        "pos": "316.057 -27.2468 150.777"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_Plane027.col_mesh"
-            ,
-            "group": "scenario"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_Plane027.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "triggerCreacionCupcackes"
       ,
       "transform":
       {
-        "pos": "414.898 -28.6618 -14.9463"
+        "pos": "414.898 -28.6618 20.8614"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2257,461 +1616,6 @@
         "onEnter": "on_create_enemies_zone_cupcake"
         ,
         "delay": 0
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot001"
-      ,
-      "transform":
-      {
-        "pos": "415.995 -1.89947e-06 -43.4548"
-        ,
-        "rotation": "-0.0105423 -0.355976 0.00401618 -0.934427"
-        ,
-        "lookat": "415.509 -32.369 -44.0001"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot002"
-      ,
-      "transform":
-      {
-        "pos": "415.995 -9.95888e-07 -22.7833"
-        ,
-        "rotation": "-0.0105423 -0.355976 0.00401618 -0.934427"
-        ,
-        "lookat": "415.509 -32.369 -23.3286"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot003"
-      ,
-      "transform":
-      {
-        "pos": "415.995 0.0 -0.434111"
-        ,
-        "rotation": "-0.0105423 -0.355976 0.00401618 -0.934427"
-        ,
-        "lookat": "415.509 -32.369 -0.979432"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot004"
-      ,
-      "transform":
-      {
-        "pos": "415.995 8.92864e-07 20.4264"
-        ,
-        "rotation": "-0.0105423 -0.355976 0.00401618 -0.934427"
-        ,
-        "lookat": "415.509 -32.369 19.881"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot005"
-      ,
-      "transform":
-      {
-        "pos": "415.995 2.18686e-06 50.0295"
-        ,
-        "rotation": "-0.0105423 -0.355976 0.00401618 -0.934427"
-        ,
-        "lookat": "415.509 -32.369 49.4842"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot006"
-      ,
-      "transform":
-      {
-        "pos": "415.995 3.32305e-06 76.0224"
-        ,
-        "rotation": "-0.0105424 -0.355974 0.00401618 -0.934428"
-        ,
-        "lookat": "415.509 -32.369 75.4771"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot007"
-      ,
-      "transform":
-      {
-        "pos": "415.995 4.49355e-06 102.801"
-        ,
-        "rotation": "-0.0105424 -0.355974 0.00401618 -0.934428"
-        ,
-        "lookat": "415.509 -32.369 102.255"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot008"
-      ,
-      "transform":
-      {
-        "pos": "415.995 5.73296e-06 131.155"
-        ,
-        "rotation": "-0.0105425 -0.355971 0.00401617 -0.934429"
-        ,
-        "lookat": "415.509 -32.369 130.609"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot009"
-      ,
-      "transform":
-      {
-        "pos": "415.995 7.00229e-06 160.194"
-        ,
-        "rotation": "-0.0105425 -0.355971 0.00401617 -0.934429"
-        ,
-        "lookat": "415.509 -32.369 159.648"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot010"
-      ,
-      "transform":
-      {
-        "pos": "386.986 7.00229e-06 160.194"
-        ,
-        "rotation": "-0.0105425 -0.355971 0.00401617 -0.934429"
-        ,
-        "lookat": "386.5 -32.369 159.648"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot011"
-      ,
-      "transform":
-      {
-        "pos": "362.834 6.65382e-06 152.222"
-        ,
-        "rotation": "-0.0105425 -0.355971 0.00401617 -0.934429"
-        ,
-        "lookat": "362.348 -32.369 151.676"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot012"
-      ,
-      "transform":
-      {
-        "pos": "337.01 6.65382e-06 152.222"
-        ,
-        "rotation": "-0.0105425 -0.355971 0.00401617 -0.934429"
-        ,
-        "lookat": "336.524 -32.369 151.676"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot013"
-      ,
-      "transform":
-      {
-        "pos": "308.793 6.65382e-06 152.222"
-        ,
-        "rotation": "-0.0105425 -0.355971 0.00401617 -0.934429"
-        ,
-        "lookat": "308.307 -32.369 151.676"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 32.3772
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
       }
     }
   }
@@ -2762,54 +1666,11 @@
   {
     "entity":
     {
-      "name": "checkpoint001"
-      ,
-      "transform":
-      {
-        "pos": "414.898 -28.6618 -36.031"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "13.1737 5.91135 4.80368"
-            ,
-            "offset":
-            {
-              "pos": "0.0 5.91135 0.0"
-            }
-            ,
-            "group": "trigger"
-            ,
-            "trigger": true
-          }
-        ]
-      }
-      ,
-      "trigger":
-      {
-      }
-      ,
-      "trigger_checkpoint":
-      {
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "checkpoint002"
       ,
       "transform":
       {
-        "pos": "414.898 -28.6618 38.0041"
+        "pos": "414.898 -28.6618 21.6748"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2848,42 +1709,111 @@
   {
     "entity":
     {
-      "name": "checkpoint003"
+      "name": "suelo_pasteleria"
       ,
       "transform":
       {
-        "pos": "366.242 -27.3907 150.961"
+        "pos": "415.313 -27.2668 89.1973"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
-      "collider":
+      "abs_aabb": {}
+      ,
+      "render":
       {
-        "shapes":
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_suelo_pasteleria.mesh"
+        ,
+        "color": "0.0235294 0.529412 0.227451 1.0"
+        ,
+        "materials":
         [
-          {
-            "shape": "box"
-            ,
-            "half_size": "6.06487 6.62905 16.079"
-            ,
-            "offset":
-            {
-              "pos": "0.0 6.62905 0.0"
-            }
-            ,
-            "group": "trigger"
-            ,
-            "trigger": true
-          }
+          "data/materials/mapa_zona_tutorial_pasteleria/suelo.material"
         ]
       }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared1_pasteleria"
       ,
-      "trigger":
+      "transform":
       {
+        "pos": "426.613 -15.0668 89.1973"
+        ,
+        "rotation": "0.0 0.0 0.707107 -0.707107"
       }
       ,
-      "trigger_checkpoint":
+      "abs_aabb": {}
+      ,
+      "render":
       {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared1_pasteleria.mesh"
+        ,
+        "color": "0.0235294 0.529412 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/suelo.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared2_pasteleria"
+      ,
+      "transform":
+      {
+        "pos": "403.813 -15.2668 89.1973"
+        ,
+        "rotation": "0.0 0.0 0.707107 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared2_pasteleria.mesh"
+        ,
+        "color": "0.0235294 0.529412 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/suelo.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "techo_pasteleria"
+      ,
+      "transform":
+      {
+        "pos": "415.313 -3.26684 89.1973"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_techo_pasteleria.mesh"
+        ,
+        "color": "0.0235294 0.529412 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/suelo.material"
+        ]
       }
     }
   }
