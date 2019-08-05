@@ -78,7 +78,7 @@ private:
 	//end speed values
 
 	//frequency values
-	float throwFrequecy = 1.0f; //cada cuanto reevalua que tipo de disparo hará
+	float throwFrequecy = 1.0f; //cada cuanto reevalua que tipo de disparo harï¿½
 	float timerGrenade = throwFrequecy;
 
 	float meleeFrequency = 1.0f;

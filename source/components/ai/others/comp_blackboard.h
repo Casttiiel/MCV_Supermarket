@@ -46,7 +46,7 @@ public:
 private:
 	
 	int numTermostateBroken = 0;
-	int maxSlotsAttacking = 2; //maximo de slots que te pueden atacar
+	int maxSlotsAttacking = 6; //maximo de slots que te pueden atacar
 	int slotsAttacking = 0;
 	int numSlotsCupcake = 1; //slots que ocupa un cupcake
 	int numSlotsSushi = 2; //slots que ocupa un sushi

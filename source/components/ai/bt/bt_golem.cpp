@@ -756,14 +756,13 @@ void CBTGolem::singleShot() {
 	TCompCollider* c_cc = get<TCompCollider>();
 
 	//Bullet origin
-	VEC3 firingPosition = c_trans->getPosition();
+	TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+	VEC3 firingPosition = boneTracker->getPosition();
 	firingPosition.y += c_cc->controller->getHeight();
 	firingPosition += c_trans->getFront() * 0.5f;
 
-	TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
-
 	TEntityParseContext ctx;
-	ctx.root_transform.setPosition(boneTracker->getPosition());
+	ctx.root_transform.setPosition(firingPosition);
 	ctx.root_transform.setRotation(c_trans->getRotation());
 	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
 
