@@ -114,6 +114,7 @@ bool CTransform::renderInMenu() {
   ImGui::LabelText("Up", "%f %f %f", up.x, up.y, up.z);
   ImGui::LabelText("Left", "%f %f %f", left.x, left.y, left.z);
   ImGui::LabelText("Right", "%f %f %f", right.x, right.y, right.z);
+  ImGui::Text("Quat: %f %f %f %f", getRotation().x, getRotation().y, getRotation().z, getRotation().w);
   return changed | changed_pos | changed_scaled;
 }
 
