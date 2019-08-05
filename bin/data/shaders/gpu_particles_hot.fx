@@ -48,20 +48,20 @@ TInstance spawnParticle( uint unique_id ) {
 
   TInstance p;
   p.pos = emitter_center;
-  p.prev_pos = p.pos;
   p.acc = float3(0,0,0);
-  p.dir = emitter_dir;
+  p.dir = float3(0,1,0);
   p.unique_id = unique_id;
   p.time_normalized = 0.0;
   p.time_factor = 1.0 / duration;
-  p.scale = 0.0;
+  p.scale = 1.0;
   p.color = float4(1,1,0,1);
   p.dummy1 = rnd4;
   p.dummy2 = rnd5;
   p.dummy3 = 0;
   p.dummy4 = 0;
 
-  p.pos += float3( rnd2.x, rnd1, rnd2.y) * emitter_center_radius;
+  p.pos += float3( rnd2.x, 0, rnd2.y) * emitter_center_radius;
+  p.prev_pos = p.pos;
   p.dir += float3( rnd2.y, rnd1, rnd2.x) * emitter_dir_aperture;
   p.dir *= speed;
 
@@ -71,14 +71,13 @@ TInstance spawnParticle( uint unique_id ) {
 // ----------------------------------------------------------
 // The update fn to customize
 void updateParticle( inout TInstance p ) {
-  p.prev_pos = p.pos;
   p.color = sampleColor( p.time_normalized );
   p.dir += p.acc * GlobalDeltaTime;
-  p.pos = float3(sin(GlobalWorldTime + p.dummy1) * p.dir.x, p.pos.y, sin(GlobalWorldTime + p.dummy2) * p.dir.z);
+  p.pos = p.prev_pos + float3(sin(GlobalWorldTime + p.dummy1) * p.dir.x, p.pos.y, sin(GlobalWorldTime + p.dummy2) * p.dir.z);
   p.pos.y += p.dir.y * GlobalDeltaTime;
   p.scale = 1.0f;
-  if(p.time_normalized < 0.03f){
-    p.scale = p.time_normalized / 0.03f;
+  if(p.time_normalized < 0.05f){
+    p.scale = p.time_normalized / 0.05f;
   }else if(p.time_normalized > 0.9f){
     p.scale = (1 - p.time_normalized) / 0.1f;
   }
@@ -187,9 +186,9 @@ v2p VS(
   TInstance instance = instances_active[ InstanceID ];
 
   // orient billboard to camera
-  float3 localPos = input.Pos.x * CameraLeft * 0.2f
+  float3 localPos = input.Pos.x * CameraLeft * 0.4f
                   + input.Pos.y * CameraUp * 0.9;
-  float3 p = instance.pos + localPos * instance.scale; //multiply localPos to scale the billboard
+  float3 p = instance.pos + localPos * 0.2f * instance.scale; //multiply localPos to scale the billboard
   /* 
 
   // Strech based on direction
@@ -213,7 +212,7 @@ v2p VS(
 //--------------------------------------------------------------------------------------
 float4 PS(v2p input) : SV_Target {
   float4 texture_color = txAlbedo.Sample(samLinear, input.Uv);
-  texture_color.a = texture_color.a > 0.7f ? 1.0f : texture_color.a;
+    texture_color.a = texture_color.a > 0.5f ? 1.0f : texture_color.a;
   //return input.Color * 4;
   return texture_color * input.Color; // + float4( 1,1,1,0);
 }
