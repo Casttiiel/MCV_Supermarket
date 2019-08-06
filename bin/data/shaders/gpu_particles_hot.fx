@@ -63,6 +63,7 @@ TInstance spawnParticle( uint unique_id ) {
   p.pos += float3( rnd2.x, 0, rnd2.y) * emitter_center_radius;
   p.prev_pos = p.pos;
   p.dir += float3( rnd2.y, rnd1, rnd2.x) * emitter_dir_aperture;
+  p.dir = normalize(p.dir);
   p.dir *= speed;
 
   return p;
@@ -72,9 +73,7 @@ TInstance spawnParticle( uint unique_id ) {
 // The update fn to customize
 void updateParticle( inout TInstance p ) {
   p.color = sampleColor( p.time_normalized );
-  p.dir += p.acc * GlobalDeltaTime;
-  p.pos = p.prev_pos + float3(sin(GlobalWorldTime + p.dummy1) * p.dir.x, p.pos.y, sin(GlobalWorldTime + p.dummy2) * p.dir.z);
-  p.pos.y += p.dir.y * GlobalDeltaTime;
+  p.pos = p.prev_pos + float3(sin(GlobalWorldTime + p.dummy1) * p.dir.x, - p.prev_pos.y + p.pos.y + p.dir.y * GlobalDeltaTime, sin(GlobalWorldTime + p.dummy2) * p.dir.z);
   p.scale = 1.0f;
   if(p.time_normalized < 0.05f){
     p.scale = p.time_normalized / 0.05f;
