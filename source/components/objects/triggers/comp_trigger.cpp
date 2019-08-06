@@ -78,8 +78,11 @@ void TCompTrigger::onEnter(const TMsgEntityTriggerEnter & msg)
 		else {
 			CEntity * c_other = msg.h_entity;
 			std::string other_name = c_other->getName();
-			std::string params = onEnter_ + "_enemy(" + other_name + ")";//por ejemplo
-			Scripting.execEvent(Events::TRIGGER_ENTER, params, delay);
+			std::string params = onEnter_ + "_enemy";//por ejemplo
+			//dbg("------%s\n",params.c_str());
+			//dbg("------%s\n", other_name.c_str());//(" + other_name + ")"
+			Scripting.runScript(params, other_name , delay);
+			//Scripting.execEvent(Events::TRIGGER_ENTER, params, other_name, delay);
 		}
 	}
 	/*

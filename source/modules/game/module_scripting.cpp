@@ -95,6 +95,7 @@ void CModuleScripting::doBingings() {
 
 	BindConverters();
 	BindEnemiesInTube();
+	BindName();
 }
 
 
@@ -142,6 +143,7 @@ void CModuleScripting::BindGameController() {
         .set("updateSoundtrackID", &CModuleGameController::updateSoundtrackID)
         .set("setSoundtrackVolume", &CModuleGameController::setSoundtrackVolume)
 		.set("entityByName", &CModuleGameController::entityByName)
+		.set("dbgInLua", &CModuleGameController::dbgInLua)
 		;
 }
 
@@ -151,6 +153,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompSkelLookAt", SLB::FuncCall::create(&toCompSkelLookAt));
 	m->set("toCompMorphAnimation", SLB::FuncCall::create(&toCompMorphAnimation));//toCompMorphAnimation
 	m->set("toCompEnemiesInTube", SLB::FuncCall::create(&toCompEnemiesInTube));
+	m->set("toCompName", SLB::FuncCall::create(&toCompName)); 
 }
 
 void CModuleScripting::BindCharacterController() {
@@ -174,6 +177,18 @@ void CModuleScripting::BindSkeleton() {
 		.property("flagFirst", &TCompSkelLookAt::flagFirst)
 		;
 }
+
+
+void CModuleScripting::BindName() {
+	SLB::Class<TCompName>("TCompName", m)
+		.comment("This is our wrapper of compName class")
+		.constructor()
+		.set("setName", &TCompName::setName)
+		.set("getName", &TCompName::getName)
+		;
+}
+
+
 
 
 void CModuleScripting::BindEnemiesInTube() {
@@ -278,6 +293,7 @@ bool CModuleScripting::execEvent(Events event, const std::string & params, float
 			return execActionDelayed(params, delay);
 		}
 		else {
+			
 			return execAction(params);
 		}
 		break;
@@ -296,8 +312,8 @@ bool CModuleScripting::execEvent(Events event, const std::string & params, float
 
 
 bool CModuleScripting::execAction(const std::string& action) {
-
 	try {
+		//dbg("-------->in execAction: %s\n",action.c_str());
 		s->doString(action);
 		return true;
 	}

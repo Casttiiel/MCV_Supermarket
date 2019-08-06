@@ -223,6 +223,8 @@ public:
     void pauseGame();
     void resumeGame();
 
+	void dbgInLua(std::string text);
+
 };
 
 
@@ -233,4 +235,4 @@ CEntity* toEntity(CHandle h);
 TCompSkelLookAt* toCompSkelLookAt(CHandle h);
 TCompMorphAnimation* toCompMorphAnimation(CHandle h);
 TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
-
+TCompName* toCompName(CHandle h);

@@ -10,6 +10,7 @@
 #include "modules/game/module_fluid_decal_generator.h"
 #include "components/animation/comp_sushi_animation.h"
 #include "components/ai/others/comp_blackboard.h"
+#include "components/objects/comp_enemies_in_butcher.h"
 #include "bt_sushi.h"
 
 #include "random"
@@ -1127,6 +1128,25 @@ int CBTSushi::actionDeath() {
 		//------------------------------------
     TCompTransform* c_trans = get<TCompTransform>();
     GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+	//------ENVIO ME HE MUERTO A COMPONENTE DE TRAMPA DE SUISHIS-----
+	
+	CHandle h = GameController.entityByName("enemies_in_butcher");
+	if (h.isValid()) {
+		CEntity* enemies_in_butcher = ((CEntity*)h);
+		TCompEnemiesInButcher* comp = enemies_in_butcher->get<TCompEnemiesInButcher>();
+		if (comp != nullptr) {
+			TMSgEnemyDead msgSushiDead;
+			msgSushiDead.h_entity = CHandle(this).getOwner();
+			msgSushiDead.isDead = true;
+			enemies_in_butcher->sendMsg(msgSushiDead);
+		}
+	}
+		
+
+	
+	
+	
+	
 
     CHandle(this).getOwner().destroy();
     CHandle(this).destroy();

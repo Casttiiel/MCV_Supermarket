@@ -248,7 +248,9 @@ void CModuleGameController::resetCamera() {
 
 }
 
-
+void CModuleGameController::dbgInLua(std::string text) {
+	dbg("EN LUA:%s\n",text.c_str());
+}
 
 void CModuleGameController::destroyCHandleByName(std::string name) {
 	if (name != "") {
@@ -736,6 +738,11 @@ TCompEnemiesInTube* toCompEnemiesInTube(CHandle h) {
 TCompMorphAnimation* toCompMorphAnimation(CHandle h) {
 	TCompMorphAnimation* m = h;
 	return m;
+}
+
+TCompName* toCompName(CHandle h) {
+	TCompName* n = h;
+	return n;
 }
 
 

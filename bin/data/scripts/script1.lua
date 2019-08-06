@@ -454,18 +454,27 @@ function activePlataformCarniceria_player()
 	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-1,6.157,-67), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn4",h_suishi4);
 	GameController:setPauseEnemyByHandle(h_suishi4,false);
+	t_compname4 = toCompName(toEntity(h_suishi4):getCompByName("name"));
+	t_compname4:setName("Sushi004");
 	--suishis P2
 	h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(2.5,12.182,-30), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
 	GameController:setPauseEnemyByHandle(h_suishi5,false);
+	t_compname5 = toCompName(toEntity(h_suishi5):getCompByName("name"));
+	t_compname5:setName("Sushi005");
 	--suishis P3
 	h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(34,14.962,-29), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn6",h_suishi6);
 	GameController:setPauseEnemyByHandle(h_suishi6,false);
+	t_compname6 = toCompName(toEntity(h_suishi6):getCompByName("name"));
+	t_compname6:setName("Sushi006");
 	--suishis P4
 	h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(33,22.063,-65), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn7",h_suishi7);
 	GameController:setPauseEnemyByHandle(h_suishi7,false);
+	--creacion de la trampa de los suishis
+	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
+
 	--Audio
 	GameController:updateSoundtrackID(5);
 end
@@ -482,6 +491,29 @@ function activeElevatorInitCarniceria_player()
 	execDelayedAction("activePlatformByName(\"ascensor\")",0.3);
 	execDelayedAction("on_delete_handle(\"triggerActivarAscensorInicial\")",0);
 end
+
+
+function caidaSuishisPisos_enemy(name)
+	--matar/cambiar curvas según el sushi que cae
+	
+	if name == "Sushi004" then
+		h_suishi4 = GameController:entityByName("Sushi004");
+		GameController:updateEnemyCurveByHandle("CurvaSuishiCarn1",h_suishi4);
+	end
+	if name == "Sushi005" then
+		h_suishi5 = GameController:entityByName("Sushi005");
+		GameController:updateEnemyCurveByHandle("CurvaSuishiCarn2",h_suishi5);
+	end
+	if name == "Sushi006" then
+		h_suishi6 = GameController:entityByName("Sushi006");
+		GameController:updateEnemyCurveByHandle("CurvaSuishiCarn3",h_suishi6);
+	end
+end
+
+function trampaSushisButcher_player()
+	--por si queremos poner cinematicas enfocando el fuego o hacer que empiece a llamear el ascensor
+end
+
 
 
 --Prueba carga de escena desde trigger, de momento carga NAVMESH

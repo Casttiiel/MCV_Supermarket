@@ -236,12 +236,12 @@
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
-      ,
-	   "hierarchy":
-      {
-        "pos": "0 2 0"
-        ,
-        "parent": "ascensor002"
+	  ,
+	  "hierarchy":
+	  {
+		"pos":"0 2 0"
+		,
+		"parent": "ascensor002"
       },
       "prefab": "data/prefabs/structures/teleport_box.json"
     }
@@ -1344,6 +1344,22 @@
   {
     "entity":
     {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "55.8203 -2.09376e-06 -47.8998"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "Cafe"
       ,
       "transform":
@@ -1353,7 +1369,7 @@
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
-      "prefab": "data/prefabs/powers/powerUp_cafe.json"
+      "prefab": "data/prefabs/powers/powerUp_pila.json"
     }
   }
   ,
@@ -1367,7 +1383,6 @@
         "pos": "16.5302 37.2335 -28.962"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
-        , "yaw":  180
       }
       ,
       "prefab": "data/prefabs/enemies/bt_golem.json"
@@ -1435,6 +1450,62 @@
       }
       ,
       "prefab": "data/prefabs/traps/blade_trap.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box060"
+      ,
+      "transform":
+      {
+        "pos": "37.3023 -1.36883e-06 -31.3152"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Box060.mesh"
+        ,
+        "color": "0.6 0.894118 0.839216 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_carniceria06/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box061"
+      ,
+      "transform":
+      {
+        "pos": "37.5082 -2.86468e-06 -65.5362"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Box061.mesh"
+        ,
+        "color": "0.6 0.894118 0.839216 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_carniceria06/blanco.material"
+        ]
+      }
     }
   }
   ,
@@ -1570,13 +1641,13 @@
   {
     "entity":
     {
-      "name": "triggerdeath"
+      "name": "deathTrigger001"
       ,
       "transform":
       {
-        "pos": "22.1664 -21.5278 -43.6979"
+        "pos": "24.2183 -9.42639 -54.0545"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
       "collider":
@@ -1586,11 +1657,11 @@
           {
             "shape": "box"
             ,
-            "half_size": "50.7925 8.06916 50.5043"
+            "half_size": "29.8875 1.12073 45.0711"
             ,
             "offset":
             {
-              "pos": "0.0 8.06916 0.0"
+              "pos": "0.0 1.12073 0.0"
             }
             ,
             "group": "trigger"
@@ -1613,99 +1684,14 @@
   {
     "entity":
     {
-      "name": "Spot001"
+      "name": "triggerSuishisPisos"
       ,
       "transform":
       {
-        "pos": "18.0307 30.682 -47.1604"
-        ,
-        "rotation": "0.003466 -0.975189 0.0153068 0.220818"
-        ,
-        "lookat": "18.5473 -7.50958 -46.0781"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 38.2104
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "fuente01"
-      ,
-      "transform":
-      {
-        "pos": "-1.4963 6.36236 -63.6815"
+        "pos": "16.9919 0.699819 -48.1326"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
-      ,
-      "prefab": "data/prefabs/structures/madness_fountain.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "fuente002"
-      ,
-      "transform":
-      {
-        "pos": "-0.36031 12.2831 -27.8872"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/madness_fountain.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "fuente003"
-      ,
-      "transform":
-      {
-        "pos": "34.8554 15.7408 -27.7"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/madness_fountain.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box060"
-      ,
-      "transform":
-      {
-        "pos": "37.6817 3.29895 -47.826"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
       ,
       "collider":
       {
@@ -1714,26 +1700,25 @@
           {
             "shape": "box"
             ,
-            "half_size": "1.415 16.6334 22.2934"
+            "half_size": "20.2795 0.990745 22.1011"
             ,
             "offset":
             {
-              "pos": "0.0 16.6334 0.0"
+              "pos": "0.0 0.990745 0.0"
             }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
           }
         ]
       }
       ,
-      "render":
+      "trigger":
       {
-        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Box060.mesh"
+        "onEnter": "caidaSuishisPisos"
         ,
-        "color": "0.890196 0.6 0.6 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_carniceria06/blanco.material"
-        ]
+        "delay": 0
       }
     }
   }
@@ -1741,16 +1726,14 @@
   {
     "entity":
     {
-      "name": "Box061"
+      "name": "triggerTrampaSushis"
       ,
       "transform":
       {
-        "pos": "37.64 -2.62272e-06 -60.0008"
+        "pos": "34.5335 -2.15952e-06 -49.404"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
-      ,
-      "abs_aabb": {}
       ,
       "collider":
       {
@@ -1759,71 +1742,25 @@
           {
             "shape": "box"
             ,
-            "half_size": "1.37239 1.94422 9.92126"
+            "half_size": "2.66856 1.63019 10.821"
             ,
             "offset":
             {
-              "pos": "0.0 1.94422 0.0"
+              "pos": "0.0 1.63019 0.0"
             }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
           }
         ]
       }
       ,
-      "render":
+      "trigger":
       {
-        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Box061.mesh"
+        "onEnter": "trampaSushisButcher"
         ,
-        "color": "0.835294 0.603922 0.898039 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_carniceria06/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box062"
-      ,
-      "transform":
-      {
-        "pos": "37.64 -1.60647e-06 -36.7518"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "1.37239 1.94422 9.92126"
-            ,
-            "offset":
-            {
-              "pos": "0.0 1.94422 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Box062.mesh"
-        ,
-        "color": "0.835294 0.603922 0.898039 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_carniceria06/blanco.material"
-        ]
+        "delay": 0
       }
     }
   }

@@ -225,6 +225,13 @@ struct TMSgWallDestroyed {
 	DECL_MSG_ID();
 };
 
+struct TMSgEnemyDead {
+	CHandle h_entity;
+	std::string name;
+	bool isDead;
+	DECL_MSG_ID();
+};
+
 /*
 struct TMsgTimeOut {
   DECL_MSG_ID();

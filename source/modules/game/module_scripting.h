@@ -38,7 +38,7 @@ public:
 	void BindSkeleton();
 	void BindConverters();
 	void BindEnemiesInTube();
-
+	void BindName();
 
 	void runScript(std::string nameScript, const std::string& params = "", float delay = 0.f);
 	bool execAction(const std::string& action);
