@@ -291,7 +291,7 @@ function createEnemies_player()
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica8",h_suishi8);
 	GameController:setPauseEnemyByHandle(h_suishi8,false);
 
-	--suishis piso superior
+	--suishis piso superior (Quizas setear el height para que no te ataquen antes de tiempo)
 	h_suishi9 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(78,7.632,121), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica9",h_suishi9);
 	GameController:setPauseEnemyByHandle(h_suishi9,true);
@@ -458,18 +458,21 @@ function activePlataformCarniceria_player()
 	t_compname4:setName("Sushi004");
 	--suishis P2
 	h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(2.5,12.182,-30), QUAT(0, 0, 0, 1),1);
+	GameController:setHeightEnemyByHandle(1.0,h_suishi5,1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
 	GameController:setPauseEnemyByHandle(h_suishi5,false);
 	t_compname5 = toCompName(toEntity(h_suishi5):getCompByName("name"));
 	t_compname5:setName("Sushi005");
 	--suishis P3
 	h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(34,14.962,-29), QUAT(0, 0, 0, 1),1);
+	GameController:setHeightEnemyByHandle(1.0,h_suishi6,1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn6",h_suishi6);
 	GameController:setPauseEnemyByHandle(h_suishi6,false);
 	t_compname6 = toCompName(toEntity(h_suishi6):getCompByName("name"));
 	t_compname6:setName("Sushi006");
 	--suishis P4
 	h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(33,22.063,-65), QUAT(0, 0, 0, 1),1);
+	GameController:setHeightEnemyByHandle(1.0,h_suishi7,1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn7",h_suishi7);
 	GameController:setPauseEnemyByHandle(h_suishi7,false);
 	--creacion de la trampa de los suishis

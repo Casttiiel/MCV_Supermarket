@@ -144,6 +144,7 @@ void CModuleScripting::BindGameController() {
         .set("setSoundtrackVolume", &CModuleGameController::setSoundtrackVolume)
 		.set("entityByName", &CModuleGameController::entityByName)
 		.set("dbgInLua", &CModuleGameController::dbgInLua)
+		.set("setHeightEnemyByHandle", &CModuleGameController::setHeightEnemyByHandle)
 		;
 }
 

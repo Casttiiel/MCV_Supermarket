@@ -61,6 +61,7 @@ public:
   bool conditionChase();
 
 	void setCurve(const CCurve* curve);
+	void setHeightRange(float height);
   //End Conditions
 private:
   float initialExecution = true;
@@ -249,7 +250,7 @@ private:
   bool rollDice(int probability);
   void generateNavmesh(VEC3 initPos, VEC3 destPos, bool recalc);
 	bool checkHeight();
-
+	VEC3 calculatePositionGround();
   //Flags
   bool inCombat = false;
   bool blocking = false;
@@ -265,7 +266,7 @@ private:
   float impactForceAttack = 8.0f;
   float impactReceived;
   bool isPlayerInNavmesh();
-
+  bool hayCamino = true;
   
 
   /* DEPRECATED */

@@ -73,6 +73,10 @@ public:
         {THERMOSTATE, "data/prefabs/structures/termostate.json"}
     };
 
+#define TYPE_SUSHI 1
+#define TYPE_RANGED_SUSHI 2
+#define TYPE_CUPCAKE 3 
+
   float yaw_sensivity = 5.f;
   float pitch_sensivity = 2.f;
 
@@ -224,7 +228,7 @@ public:
     void resumeGame();
 
 	void dbgInLua(std::string text);
-
+	void setHeightEnemyByHandle(int height, CHandle h_enemy, int typeEnemy);
 };
 
 
@@ -236,3 +240,4 @@ TCompSkelLookAt* toCompSkelLookAt(CHandle h);
 TCompMorphAnimation* toCompMorphAnimation(CHandle h);
 TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 TCompName* toCompName(CHandle h);
+
