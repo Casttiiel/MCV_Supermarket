@@ -245,6 +245,7 @@ private:
   void onFireAreaEnter(const TMsgFireAreaEnter& msg);
   void onFireAreaExit(const TMsgFireAreaExit& msg);
   void onBlackboardMsg(const TMsgBlackboard& msg);
+  void onDamageAll(const TMsgDamageToAll& msg);
   bool rollDiceCharge();
   bool rollDiceJumpCharge();
   bool rollDice(int probability);

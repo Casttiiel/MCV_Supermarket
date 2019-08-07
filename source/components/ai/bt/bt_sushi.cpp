@@ -1614,6 +1614,28 @@ void CBTSushi::registerMsgs() {
     DECL_MSG(CBTSushi, TMsgOnContact, onCollision);
     DECL_MSG(CBTSushi, TMsgGravity, onGravity);
     DECL_MSG(CBTSushi, TMsgBTPaused, onMsgBTPaused);
+	DECL_MSG(CBTSushi, TMsgDamageToAll, onDamageAll);//Nuevo, esto para el caso de que te caes
+}
+
+
+void CBTSushi::onDamageAll(const TMsgDamageToAll& msg) {//se recibe este mensaje solo cuando se cae por el collider ese triggerDamage
+	life -= msg.intensityDamage;
+	if (life < 0) {
+		life = 0;
+		CHandle h = GameController.entityByName("enemies_in_butcher");
+		if (h.isValid()) {
+			CEntity* enemies_in_butcher = ((CEntity*)h);
+			TCompEnemiesInButcher* comp = enemies_in_butcher->get<TCompEnemiesInButcher>();
+			if (comp != nullptr) {
+				TMSgEnemyDead msgSushiDead;
+				msgSushiDead.h_entity = CHandle(this).getOwner();
+				msgSushiDead.isDead = true;
+				enemies_in_butcher->sendMsg(msgSushiDead);
+			}
+		}
+		CHandle(this).getOwner().destroy();
+		CHandle(this).destroy();
+	}
 }
 
 void CBTSushi::onBlackboardMsg(const TMsgBlackboard& msg) {
