@@ -135,6 +135,7 @@ void TCompCharacterController::registerMsgs() {
     DECL_MSG(TCompCharacterController, TMsgBatteryDeactivates, onBatteryDeactivation);
     DECL_MSG(TCompCharacterController, TCompPlayerAnimator::TMsgPlayerAnimationFinished, onAnimationFinish);
 	DECL_MSG(TCompCharacterController, TMsgOnCinematic, onCinematic);
+	DECL_MSG(TCompCharacterController, TMSgTriggerFalloutDead, onTriggerFalloutDead);
 }
 
 void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg) {
@@ -1110,6 +1111,34 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
         }
     }
 }
+
+void TCompCharacterController::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
+	
+	if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+		life -= msg.damage;
+		invulnerabilityTimer = invulnerabilityTimeDuration;
+		//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+		//bar->setRatio((life + 20) / 120.f);
+	}
+
+
+	if (life <= 0.0f) {
+		life = 0.0f;
+		ChangeState("DEAD");
+	}
+	else {
+
+		ChangeState("DAMAGED");
+
+		TCompRigidBody* c_rbody = get<TCompRigidBody>();
+		if (!c_rbody)
+			return;
+		c_rbody->addForce(VEC3(0, 0, 0));
+	}
+
+
+}
+
 
 void TCompCharacterController::onPowerUp(const TMsgPowerUp& msg) {
 

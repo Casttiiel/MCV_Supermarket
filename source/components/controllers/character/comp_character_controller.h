@@ -158,6 +158,7 @@ private:
   void onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg);
   void onCinematic(const TMsgOnCinematic& msg);
   void onTrapWind(const TMsgTrapWind& msg);
+  void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
 
 
   //?????

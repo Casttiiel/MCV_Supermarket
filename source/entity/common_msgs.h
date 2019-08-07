@@ -232,6 +232,13 @@ struct TMSgEnemyDead {
 	DECL_MSG_ID();
 };
 
+struct TMSgTriggerFalloutDead {
+	CHandle h_entity;
+	bool falloutDead;
+	float damage;
+	DECL_MSG_ID();
+};
+
 /*
 struct TMsgTimeOut {
   DECL_MSG_ID();

@@ -956,7 +956,7 @@ int CBTSushi::actionMelee3() {
 int CBTSushi::actionOnAir() {
     previousState = currentState;
     currentState = States::OnAir;
-    if (isGrounded() && impulse.y <= 0.0f) {
+    if (isGrounded() && impulse.y <= 0.0f || isDeadForFallout) {
         impulse.y = 0.0f;
         return LEAVE;
     }
@@ -1614,10 +1614,20 @@ void CBTSushi::registerMsgs() {
     DECL_MSG(CBTSushi, TMsgOnContact, onCollision);
     DECL_MSG(CBTSushi, TMsgGravity, onGravity);
     DECL_MSG(CBTSushi, TMsgBTPaused, onMsgBTPaused);
-	DECL_MSG(CBTSushi, TMsgDamageToAll, onDamageAll);//Nuevo, esto para el caso de que te caes
+	DECL_MSG(CBTSushi, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	//DECL_MSG(CBTSushi, TMsgDamageToAll, onDamageAll);//Nuevo, esto para el caso de que te caes
+}
+
+void CBTSushi::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
+	life -= msg.damage;
+	isDeadForFallout = msg.falloutDead;
+	if (life < 0) {
+		life = 0;
+	}
 }
 
 
+/*
 void CBTSushi::onDamageAll(const TMsgDamageToAll& msg) {//se recibe este mensaje solo cuando se cae por el collider ese triggerDamage
 	life -= msg.intensityDamage;
 	if (life < 0) {
@@ -1636,7 +1646,7 @@ void CBTSushi::onDamageAll(const TMsgDamageToAll& msg) {//se recibe este mensaje
 		CHandle(this).getOwner().destroy();
 		CHandle(this).destroy();
 	}
-}
+}*/
 
 void CBTSushi::onBlackboardMsg(const TMsgBlackboard& msg) {
     player_dead = msg.player_dead;

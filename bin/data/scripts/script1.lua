@@ -443,13 +443,13 @@ function activePlataformCarniceria_player()
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn1",h_suishi1);
 	GameController:setPauseEnemyByHandle(h_suishi1,false);
 	
-	--h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(28,0.000,-65), QUAT(0, 0, 0, 1),1);
-	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn2",h_suishi2);
-	--GameController:setPauseEnemyByHandle(h_suishi2,false);
+	h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(28,0.000,-65), QUAT(0, 0, 0, 1),1);
+	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn2",h_suishi2);
+	GameController:setPauseEnemyByHandle(h_suishi2,false);
 
-	--h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(30,0.000,-33), QUAT(0, 0, 0, 1),1);
-	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn3",h_suishi3);
-	--GameController:setPauseEnemyByHandle(h_suishi3,false);
+	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(30,0.000,-33), QUAT(0, 0, 0, 1),1);
+	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn3",h_suishi3);
+	GameController:setPauseEnemyByHandle(h_suishi3,false);
 	--suishis P1
 	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-1,6.157,-67), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn4",h_suishi4);

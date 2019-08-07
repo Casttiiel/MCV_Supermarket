@@ -245,7 +245,8 @@ private:
   void onFireAreaEnter(const TMsgFireAreaEnter& msg);
   void onFireAreaExit(const TMsgFireAreaExit& msg);
   void onBlackboardMsg(const TMsgBlackboard& msg);
-  void onDamageAll(const TMsgDamageToAll& msg);
+  void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
+  //void onDamageAll(const TMsgDamageToAll& msg);
   bool rollDiceCharge();
   bool rollDiceJumpCharge();
   bool rollDice(int probability);
@@ -268,7 +269,7 @@ private:
   float impactReceived;
   bool isPlayerInNavmesh();
   bool hayCamino = true;
-  
+  bool isDeadForFallout = false;
 
   /* DEPRECATED */
   //void LookAt_Player(TCompTransform* c_trans, TCompTransform* player_position);
