@@ -17,7 +17,7 @@ void TCompToneMapping::load(const json& j, TEntityParseContext& ctx) {
   mesh = Resources.get("unit_quad_xy.mesh")->as<CMesh>();
 
   rt = new CRenderToTexture;
-  bool is_ok = rt->createRT("Tone_Mapping", Render.width, Render.height, DXGI_FORMAT_R8G8B8A8_UNORM);
+  bool is_ok = rt->createRT("Tone_Mapping", Render.width, Render.height, DXGI_FORMAT_R16G16B16A16_UNORM);
   assert(is_ok);
 }
 

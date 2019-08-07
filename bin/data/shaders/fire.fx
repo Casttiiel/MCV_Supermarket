@@ -57,9 +57,9 @@ float4 PS(VS_OUTPUT input) : SV_Target
   const float _scrollY = 0.4f;
   const float _distort = 0.25f;
   //for visuals
-  const float _threshold = 1.0f;
-  const float _rim = 0.2f;
-  const float _scale = 1.6f;
+  const float _threshold = 0.8f;
+  const float _rim = 0.25f;
+  const float _scale = 1.3f;
 
   float4 distortion = txRoughness.Sample(samLinear, input.Uv) * _distort;
   float4 voronoi_noise = txNormal.Sample(samLinear, float2((input.Uv.x - GlobalWorldTime * _scrollX) + distortion.g  ,(input.Uv.y + GlobalWorldTime * _scrollY) + distortion.r) * float2(_scale,_scale));

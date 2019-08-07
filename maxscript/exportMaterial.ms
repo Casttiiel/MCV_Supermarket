@@ -103,7 +103,6 @@ struct TMaterialExporter (
 	fn exportMaterial mat base_name obj = (
 		
 		local exported_materials = #()
-		format "vamos a exportar el material\n"
 		if classof mat == StandardMaterial then (
 			local mat_name = base_name + mat.name + ".material"
 			append exported_materials mat_name
@@ -115,10 +114,8 @@ struct TMaterialExporter (
 			exportStdMaterial obj mat mat_name
 			
 		) else if classof mat == MultiMaterial then (
-			format "es multi \n"
 			local multi_mat = mat
 			local materials_of_mesh = getMaterialsUsedByMesh obj
-			format "es multi2 \n"
 			for mat_idx = 1 to materials_of_mesh.count do (
 				if materials_of_mesh[ mat_idx ] == undefined then continue
 				local mat_of_mesh = multi_mat[ mat_idx ]
@@ -130,6 +127,12 @@ struct TMaterialExporter (
 				append exported_materials mat_name
 				exportStdMaterial obj mat_of_mesh mat_name
 			)
+		)
+		
+		local is_fire = getUserProp obj "isFire"
+		
+		if is_fire != undefined  then(
+			exported_materials = #("data/materials/vfx/fire.material")
 		)
 		
 		return exported_materials

@@ -33,7 +33,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_zona_carniceria06_plataformarotatoria003.col_mesh"
           }
@@ -72,12 +72,6 @@
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
-	   "hierarchy":
-      {
-        "pos": "0 2 0"
-        ,
-        "parent": "ascensor002"
-      },
       "prefab": "data/prefabs/structures/teleport_box.json"
     }
   }
@@ -114,7 +108,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_zona_carniceria06_ascensor.col_mesh"
           }
@@ -173,7 +167,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_zona_carniceria06_ascensor002.col_mesh"
           }
@@ -634,7 +628,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_zona_carniceria06_plataformarotatoria004.col_mesh"
           }
@@ -695,7 +689,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_zona_carniceria06_plataformarotatoria005.col_mesh"
           }
@@ -756,7 +750,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_zona_carniceria06_plataformarotatoria006.col_mesh"
           }
@@ -815,7 +809,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_zona_carniceria06_trap001.col_mesh"
           }
@@ -874,7 +868,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_zona_carniceria06_trap002.col_mesh"
           }
@@ -933,7 +927,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_zona_carniceria06_trap003.col_mesh"
           }
@@ -1928,6 +1922,9 @@
         "shapes":
         [
           {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_carniceria06_pasarela2.col_mesh"
           }
         ]
       }
@@ -1949,7 +1946,7 @@
   {
     "entity":
     {
-      "name": "suelo_carniceria"
+      "name": "suelo_carniceria001"
       ,
       "transform":
       {
@@ -1967,20 +1964,20 @@
           {
             "shape": "trimesh"
             ,
-            "collision_mesh": "data/meshes/mapa_zona_carniceria06_suelo_carniceria.col_mesh"
+            "collision_mesh": "data/meshes/mapa_zona_carniceria06_suelo_carniceria001.col_mesh"
           }
         ]
       }
       ,
       "render":
       {
-        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_suelo_carniceria.mesh"
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_suelo_carniceria001.mesh"
         ,
         "color": "0.894118 0.6 0.721569 1.0"
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/suelo_carnes.material"
+          "data/materials/mapa_zona_carniceria06/mat05.material"
         ]
       }
     }
@@ -1989,26 +1986,414 @@
   {
     "entity":
     {
-      "name": "suelo_carniceria1"
+      "name": "Plane004"
       ,
       "transform":
       {
-        "pos": "4.77502 -2.04271e-06 -46.7317"
+        "pos": "32.422 30.8648 -27.9547"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "-1.0 0.0 0.0 0.0"
       }
-      ,
-      "abs_aabb": {}
       ,
       "render":
       {
-        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_suelo_carniceria1.mesh"
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane004.mesh"
         ,
-        "color": "0.894118 0.6 0.721569 1.0"
+        "color": "0.105882 0.694118 0.105882 1.0"
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/mat04.material"
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane006"
+      ,
+      "transform":
+      {
+        "pos": "32.422 13.7365 -63.1887"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane006.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane007"
+      ,
+      "transform":
+      {
+        "pos": "32.422 13.7365 -57.4664"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane007.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane008"
+      ,
+      "transform":
+      {
+        "pos": "32.422 30.8648 -39.728"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane008.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane009"
+      ,
+      "transform":
+      {
+        "pos": "32.422 30.8648 -45.7993"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane009.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane010"
+      ,
+      "transform":
+      {
+        "pos": "32.422 30.8648 -51.995"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane010.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane011"
+      ,
+      "transform":
+      {
+        "pos": "32.422 30.8648 -63.2764"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane011.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane012"
+      ,
+      "transform":
+      {
+        "pos": "32.422 30.8648 -68.1243"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane012.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane015"
+      ,
+      "transform":
+      {
+        "pos": "32.422 30.8648 -23.6467"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane015.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane016"
+      ,
+      "transform":
+      {
+        "pos": "32.422 30.8648 -33.7567"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane016.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane017"
+      ,
+      "transform":
+      {
+        "pos": "32.422 30.8648 -57.4106"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane017.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane018"
+      ,
+      "transform":
+      {
+        "pos": "35.0526 13.57 -57.4995"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane018.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane019"
+      ,
+      "transform":
+      {
+        "pos": "35.0526 13.57 -63.2459"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane019.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane020"
+      ,
+      "transform":
+      {
+        "pos": "35.0526 13.57 -68.9757"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane020.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane021"
+      ,
+      "transform":
+      {
+        "pos": "35.0526 13.57 -45.7127"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane021.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Plane022"
+      ,
+      "transform":
+      {
+        "pos": "35.0526 13.57 -51.4271"
+        ,
+        "rotation": "-1.0 0.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Plane022.mesh"
+        ,
+        "color": "0.105882 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/vfx/fire.material"
         ]
       }
     }
