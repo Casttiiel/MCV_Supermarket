@@ -46,7 +46,7 @@ struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
 	project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	--project_path = "C:/Users/Daniel/Desktop/mcv_sm/bin/",
+	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/mcv_sm/bin/",
 	base_path = "data/",
@@ -509,7 +509,7 @@ struct TSceneExporter (
 		if candidates.count == 0 then return undefined
 		
 		format "Candidates are %\n" candidates
-		--return truee
+		--return true
 		exportCompCollider obj candidates
 		
 	),

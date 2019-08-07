@@ -39,30 +39,63 @@ VS_OUTPUT VS(
 //--------------------------------------------------------------------------------------
 float4 PS(VS_OUTPUT input) : SV_Target
 {
-  const float fire_amount = 2.0f; //touch this for fire amount
-  const float fire_speed = 1.0f; //touch this for fire speed
-  const float fire_clamp = 0.3f; //touch this to make fire disappear more or less
-  const float fire_clamp_attenuation_range = 0.1f; //touch this to make fire start disappear totally
-  const float fire_clamp_range = 0.1f; //touch this to make fire start disappear totally
-  const float fire_attenuation_range = 0.2f; //touch this to make fire start disappear earlier
-  float2 uv = float2(input.Uv.x * fire_amount, input.Uv.y + GlobalWorldTime * fire_speed);
+  float4 red = float4(1,0,0,1);
+  float4 yellow = float4(1,1,0,1);
+  float4 orange = float4(1,0.2f,0,1);
+  float4 blue = float4(0,0,1,1);
+  float4 green = float4(0,1,0,1);
 
-  float tex1 = txNormal.Sample(samLinear, uv).x; //use this for the color ramp
-  float tex2 = txMetallic.Sample(samLinear, uv + float2(0,GlobalWorldTime * 0.5f)).x;
-  //float3 tex2 = txRoughness.Sample(samLinear, uv).xyz;
+  //for color
+  const float _offset = 0.0f;
+  //for rim
+  const float _edge = 0.7f;
+  const float _hard = 5.0f;
+  //for shape
+  const float _height = 0.70f;
+  //for distortion
+  const float _scrollX = 0.0f;
+  const float _scrollY = 0.4f;
+  const float _distort = 0.25f;
+  //for visuals
+  const float _threshold = 1.0f;
+  const float _rim = 0.2f;
+  const float _scale = 1.6f;
 
-  float3 color_ramp = txAlbedo.Sample(samLinear, float2(1-tex1,0.5f)).xyz;
+  float4 distortion = txRoughness.Sample(samLinear, input.Uv) * _distort;
+  float4 voronoi_noise = txNormal.Sample(samLinear, float2((input.Uv.x - GlobalWorldTime * _scrollX) + distortion.g  ,(input.Uv.y + GlobalWorldTime * _scrollY) + distortion.r) * float2(_scale,_scale));
+  voronoi_noise.a = voronoi_noise.z;
+  float shapetex = lerp(-0.5,1, input.Uv.y);
+  
+  voronoi_noise += shapetex * _threshold * 0.9f;
+  float4 final_voronoi = voronoi_noise;
 
-  float alpha;
-  if(input.Uv.y <= fire_clamp_attenuation_range){
-    alpha = ((tex1 * tex2) > fire_clamp) * (input.Uv.y) / fire_clamp_attenuation_range;
-  }else if(input.Uv.y <= fire_clamp_attenuation_range + fire_clamp_range){
-    alpha = (tex1 * tex2) > fire_clamp;
-  }else if(input.Uv.y <= fire_clamp_attenuation_range + fire_clamp_range + fire_attenuation_range){
-    alpha = ((tex1 * tex2) > fire_clamp) ? 1.0 : (input.Uv.y - fire_clamp_range - fire_clamp_attenuation_range) / fire_attenuation_range;
-  }else{
-    alpha = 1.0f;
-  }
- 
-  return float4(color_ramp, alpha);
+  float flame = final_voronoi.x > _threshold;
+  float4 flamecolored = flame * yellow;
+
+  float4 flamerim = (final_voronoi.x > _threshold - _rim) - flame;
+  float4 flamecolored2 = flamerim * orange;
+  float4 finalcolor = flamecolored + flamecolored2;
+  //finalcolor *= length(input.Uv - float2(0.5f,0.5f)) < 0.4f;
+
+  //return input.Color * 4;
+  return finalcolor; // + float4( 1,1,1,0); finalcolor * input.Color
+}
+
+
+float4 PS_aux(VS_OUTPUT input) : SV_Target
+{
+  const float lineAmplitude = 1.0f;
+  const float lineLength = 20.0f;
+  const float lineSpeed = 1.0f;
+
+  float2 uv = float2(input.Uv.x * lineLength, (input.Uv.y * lineAmplitude) + (GlobalWorldTime * lineSpeed));
+  float2 uv2 = uv + float2( 1, 1) + float2(sin(GlobalWorldTime), cos(GlobalWorldTime));
+
+  float3 tex1 = txNormal.Sample(samLinear, uv); //use this for the color ramp
+  float3 tex2 = txMetallic.Sample(samLinear, uv);
+  float3 tex3 = txMetallic.Sample(samLinear, uv2);
+
+  float3 tex4 = (tex2 * tex3);
+
+  return float4(tex2, 1);
 }
