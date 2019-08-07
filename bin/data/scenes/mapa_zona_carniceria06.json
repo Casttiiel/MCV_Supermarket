@@ -1946,46 +1946,6 @@
   {
     "entity":
     {
-      "name": "suelo_carniceria001"
-      ,
-      "transform":
-      {
-        "pos": "4.77502 -2.04271e-06 -46.7317"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_carniceria06_suelo_carniceria001.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_suelo_carniceria001.mesh"
-        ,
-        "color": "0.894118 0.6 0.721569 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_carniceria06/mat05.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "Plane004"
       ,
       "transform":
@@ -2394,6 +2354,46 @@
         "materials":
         [
           "data/materials/vfx/fire.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "suelo"
+      ,
+      "transform":
+      {
+        "pos": "4.99839 -0.026986 -45.9608"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_carniceria06_suelo.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_suelo.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_carniceria06/mat05.material"
         ]
       }
     }

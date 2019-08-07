@@ -132,7 +132,7 @@ bool CDeferredRenderer::create(int new_xres, int new_yres) {
     rt_self_illum = new CRenderToTexture;
   }
 
-  if (!rt_albedos->createRT("g_albedos.dds", xres, yres, DXGI_FORMAT_R8G8B8A8_UNORM))
+  if (!rt_albedos->createRT("g_albedos.dds", xres, yres, DXGI_FORMAT_R16G16B16A16_UNORM))
     return false;
 
   if (!rt_normals->createRT("g_normals.dds", xres, yres, DXGI_FORMAT_R16G16B16A16_UNORM))
