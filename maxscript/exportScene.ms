@@ -477,7 +477,7 @@ struct TSceneExporter (
 		if candidates.count == 0 then return undefined
 		
 		format "Candidates are %\n" candidates
-		--return truee
+		--return true
 		exportCompCollider obj candidates
 		
 	),

@@ -6,7 +6,7 @@
       ,
       "transform":
       {
-        "pos": "407.164 -27.1312 62.4021"
+        "pos": "407.701 -27.1312 62.4021"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -51,7 +51,7 @@
       ,
       "transform":
       {
-        "pos": "407.164 -26.438 64.3822"
+        "pos": "407.701 -26.438 64.3822"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -141,7 +141,7 @@
       ,
       "transform":
       {
-        "pos": "425.956 -20.3114 75.8341"
+        "pos": "425.478 -20.3114 75.8341"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -276,7 +276,7 @@
       ,
       "transform":
       {
-        "pos": "407.164 -25.6511 66.2311"
+        "pos": "407.701 -25.6511 66.2311"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -398,7 +398,7 @@
       ,
       "transform":
       {
-        "pos": "406.664 -20.3113 124.665"
+        "pos": "406.331 -20.3113 124.665"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -533,7 +533,7 @@
       ,
       "transform":
       {
-        "pos": "406.606 -19.7351 124.372"
+        "pos": "406.274 -19.7351 124.372"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -594,7 +594,7 @@
       ,
       "transform":
       {
-        "pos": "421.286 -20.3113 176.13"
+        "pos": "420.38 -20.3113 176.13"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -639,7 +639,7 @@
       ,
       "transform":
       {
-        "pos": "424.151 -19.4608 176.238"
+        "pos": "423.245 -19.4608 176.238"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -655,7 +655,7 @@
       ,
       "transform":
       {
-        "pos": "418.238 -19.6239 176.012"
+        "pos": "417.331 -19.6239 176.012"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -699,11 +699,56 @@
   {
     "entity":
     {
+      "name": "Box006"
+      ,
+      "transform":
+      {
+        "pos": "416.899 -27.2468 148.483"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "6.34563 3.58821 5.44554"
+            ,
+            "offset":
+            {
+              "pos": "0.0 3.58821 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_Box006.mesh"
+        ,
+        "color": "0.568627 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "platf027"
       ,
       "transform":
       {
-        "pos": "407.164 -24.937 68.0702"
+        "pos": "407.701 -24.937 68.0702"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -758,74 +803,28 @@
   {
     "entity":
     {
-      "name": "Charcos"
+      "name": "platf0"
       ,
       "transform":
       {
-        "pos": "416.673 -27.2468 59.7994"
+        "pos": "415.441 -27.2468 41.6199"
         ,
-        "rotation": "0.0 -1.0 0.0 0.0"
+        "rotation": "0.0 0.707107 0.0 -0.707107"
       }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "trigger1"
       ,
-      "transform":
-      {
-        "pos": "312.115 -27.2468 150.924"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
+      "abs_aabb": {}
       ,
       "collider":
       {
         "shapes":
         [
           {
-            "shape": "box"
+            "shape": "trimesh"
             ,
-            "half_size": "3.63471 2.41375 10.4958"
-            ,
-            "offset":
-            {
-              "pos": "0.0 2.41375 0.0"
-            }
-            ,
-            "group": "trigger"
-            ,
-            "mask": "player"
-            ,
-            "trigger": true
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_platf0.col_mesh"
           }
         ]
       }
-      ,
-      "trigger":
-      {
-        "onEnter": "activePlataform"
-        ,
-        "delay": 0
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "platf0"
-      ,
-      "transform":
-      {
-        "pos": "415.441 -27.2468 38.3612"
-        ,
-        "rotation": "0.0 0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
       ,
       "render":
       {
@@ -848,12 +847,24 @@
       ,
       "transform":
       {
-        "pos": "415.441 -25.895 44.9969"
+        "pos": "415.441 -25.895 48.2557"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
       ,
       "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_platf002.col_mesh"
+          }
+        ]
+      }
       ,
       "render":
       {
@@ -876,12 +887,24 @@
       ,
       "transform":
       {
-        "pos": "415.441 -24.5152 41.6024"
+        "pos": "415.441 -24.5152 44.8612"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
       ,
       "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_platf003.col_mesh"
+          }
+        ]
+      }
       ,
       "render":
       {
@@ -904,7 +927,7 @@
       ,
       "transform":
       {
-        "pos": "415.441 -24.0541 41.8376"
+        "pos": "415.441 -24.0541 45.0964"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -916,16 +939,9 @@
         "shapes":
         [
           {
-            "shape": "box"
+            "shape": "trimesh"
             ,
-            "half_size": "5.75 0.95 10.0"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.95 0.0"
-            }
-            ,
-            "group": "scenario"
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_platf004.col_mesh"
           }
         ]
       }
@@ -951,7 +967,7 @@
       ,
       "transform":
       {
-        "pos": "414.479 -27.2468 1.5206"
+        "pos": "414.479 -27.2468 3.46272"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -967,7 +983,7 @@
       ,
       "transform":
       {
-        "pos": "410.478 -27.2468 11.1831"
+        "pos": "410.478 -27.2468 13.1252"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1023,7 +1039,7 @@
       ,
       "transform":
       {
-        "pos": "408.952 -27.2468 11.1831"
+        "pos": "408.952 -27.2468 13.1252"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1079,7 +1095,7 @@
       ,
       "transform":
       {
-        "pos": "407.542 -27.2468 11.1831"
+        "pos": "407.542 -27.2468 13.1252"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1135,7 +1151,7 @@
       ,
       "transform":
       {
-        "pos": "408.181 -25.8375 11.1831"
+        "pos": "408.181 -25.8375 13.1252"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1191,7 +1207,7 @@
       ,
       "transform":
       {
-        "pos": "409.777 -25.8375 11.1831"
+        "pos": "409.777 -25.8375 13.1252"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1247,7 +1263,7 @@
       ,
       "transform":
       {
-        "pos": "419.752 -27.2468 15.0113"
+        "pos": "419.752 -27.2468 20.0217"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1303,7 +1319,7 @@
       ,
       "transform":
       {
-        "pos": "421.128 -27.2468 15.0113"
+        "pos": "421.128 -27.2468 20.0217"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1359,7 +1375,7 @@
       ,
       "transform":
       {
-        "pos": "422.5 -27.2468 15.0113"
+        "pos": "422.5 -27.2468 20.0217"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1415,7 +1431,7 @@
       ,
       "transform":
       {
-        "pos": "422.5 -26.0366 15.0113"
+        "pos": "422.5 -26.0366 20.0217"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1471,7 +1487,7 @@
       ,
       "transform":
       {
-        "pos": "421.134 -26.0366 15.0113"
+        "pos": "421.134 -26.0366 20.0217"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1527,7 +1543,7 @@
       ,
       "transform":
       {
-        "pos": "419.76 -26.0366 15.0113"
+        "pos": "419.76 -26.0366 20.0217"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1583,7 +1599,7 @@
       ,
       "transform":
       {
-        "pos": "414.898 -28.6618 20.8614"
+        "pos": "414.898 -28.6618 30.5026"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1666,11 +1682,11 @@
   {
     "entity":
     {
-      "name": "checkpoint002"
+      "name": "checkpoint001"
       ,
       "transform":
       {
-        "pos": "414.898 -28.6618 21.6748"
+        "pos": "414.898 -28.6618 55.5049"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1709,11 +1725,507 @@
   {
     "entity":
     {
-      "name": "suelo_pasteleria"
+      "name": "horno007"
       ,
       "transform":
       {
-        "pos": "415.313 -27.2668 89.1973"
+        "pos": "405.479 -27.2468 127.568"
+        ,
+        "rotation": "0.0 -0.709043 0.0 -0.705165"
+      }
+      ,
+      "prefab": "data/prefabs/structures/enemy_spawner.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346467"
+      ,
+      "transform":
+      {
+        "pos": "414.984 -18.697 124.665"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_plat1346467.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346468"
+      ,
+      "transform":
+      {
+        "pos": "423.327 -17.1698 124.665"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_plat1346468.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346469"
+      ,
+      "transform":
+      {
+        "pos": "423.327 -16.1008 132.263"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_plat1346469.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346470"
+      ,
+      "transform":
+      {
+        "pos": "416.197 -14.6691 132.263"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_plat1346470.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346471"
+      ,
+      "transform":
+      {
+        "pos": "409.228 -13.1773 132.263"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_plat1346471.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346473"
+      ,
+      "transform":
+      {
+        "pos": "423.256 -0.373059 134.886"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_plat1346473.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346474"
+      ,
+      "transform":
+      {
+        "pos": "407.177 7.23729 121.327"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_plat1346474.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346475"
+      ,
+      "transform":
+      {
+        "pos": "423.395 12.4648 119.966"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_plat1346475.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "horno008"
+      ,
+      "transform":
+      {
+        "pos": "407.798 -11.4287 110.53"
+        ,
+        "rotation": "0.0 -0.00274235 0.0 -0.999996"
+      }
+      ,
+      "prefab": "data/prefabs/structures/enemy_spawner.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "horno009"
+      ,
+      "transform":
+      {
+        "pos": "423.011 -11.4287 110.53"
+        ,
+        "rotation": "0.0 -0.00274235 0.0 -0.999996"
+      }
+      ,
+      "prefab": "data/prefabs/structures/enemy_spawner.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "tpobj003"
+      ,
+      "transform":
+      {
+        "pos": "425.37 0.22027 134.843"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "tpobj004"
+      ,
+      "transform":
+      {
+        "pos": "407.215 7.6759 121.51"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "tpobj005"
+      ,
+      "transform":
+      {
+        "pos": "423.49 13.0997 119.953"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "suelo_tutorial"
+      ,
+      "transform":
+      {
+        "pos": "415.383 -27.33 91.3981"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_suelo_tutorial.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_suelo_tutorial.mesh"
+        ,
+        "color": "0.529412 0.231373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "techo_tutorial1"
+      ,
+      "transform":
+      {
+        "pos": "415.383 -2.08155 47.1544"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1722,13 +2234,13 @@
       ,
       "render":
       {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_suelo_pasteleria.mesh"
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_techo_tutorial1.mesh"
         ,
-        "color": "0.0235294 0.529412 0.227451 1.0"
+        "color": "0.529412 0.231373 0.0313726 1.0"
         ,
         "materials":
         [
-          "data/materials/mapa_zona_tutorial_pasteleria/suelo.material"
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
         ]
       }
     }
@@ -1737,67 +2249,11 @@
   {
     "entity":
     {
-      "name": "pared1_pasteleria"
+      "name": "techo_tutorial2"
       ,
       "transform":
       {
-        "pos": "426.613 -15.0668 89.1973"
-        ,
-        "rotation": "0.0 0.0 0.707107 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared1_pasteleria.mesh"
-        ,
-        "color": "0.0235294 0.529412 0.227451 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/suelo.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "pared2_pasteleria"
-      ,
-      "transform":
-      {
-        "pos": "403.813 -15.2668 89.1973"
-        ,
-        "rotation": "0.0 0.0 0.707107 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared2_pasteleria.mesh"
-        ,
-        "color": "0.0235294 0.529412 0.227451 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_tutorial_pasteleria/suelo.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "techo_pasteleria"
-      ,
-      "transform":
-      {
-        "pos": "415.313 -3.26684 89.1973"
+        "pos": "415.383 -2.08155 193.095"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1806,13 +2262,417 @@
       ,
       "render":
       {
-        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_techo_pasteleria.mesh"
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_techo_tutorial2.mesh"
         ,
-        "color": "0.0235294 0.529412 0.227451 1.0"
+        "color": "0.529412 0.231373 0.0313726 1.0"
         ,
         "materials":
         [
-          "data/materials/mapa_zona_tutorial_pasteleria/suelo.material"
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared1_tutorial"
+      ,
+      "transform":
+      {
+        "pos": "415.383 6.5086 106.321"
+        ,
+        "rotation": "-0.707107 0.0 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_pared1_tutorial.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared1_tutorial.mesh"
+        ,
+        "color": "0.529412 0.231373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "techo_tutorial3"
+      ,
+      "transform":
+      {
+        "pos": "415.302 17.5032 149.502"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_techo_tutorial3.mesh"
+        ,
+        "color": "0.529412 0.231373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared2_tutorial"
+      ,
+      "transform":
+      {
+        "pos": "415.383 53.6582 139.447"
+        ,
+        "rotation": "-0.707107 0.0 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_pared2_tutorial.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared2_tutorial.mesh"
+        ,
+        "color": "0.529412 0.231373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared3_tutorial"
+      ,
+      "transform":
+      {
+        "pos": "426.483 -16.9577 91.3981"
+        ,
+        "rotation": "0.0 0.0 -0.707107 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_pared3_tutorial.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared3_tutorial.mesh"
+        ,
+        "color": "0.529412 0.231373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared4_tutorial"
+      ,
+      "transform":
+      {
+        "pos": "404.483 -16.9577 91.3981"
+        ,
+        "rotation": "0.0 0.0 -0.707107 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_pared4_tutorial.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared4_tutorial.mesh"
+        ,
+        "color": "0.529412 0.231373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "tpobj006"
+      ,
+      "transform":
+      {
+        "pos": "422.697 18.0582 134.769"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared2_tutorial001"
+      ,
+      "transform":
+      {
+        "pos": "415.383 -19.4612 187.436"
+        ,
+        "rotation": "-0.707107 0.0 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_pared2_tutorial001.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared2_tutorial001.mesh"
+        ,
+        "color": "0.529412 0.231373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared2_tutorial002"
+      ,
+      "transform":
+      {
+        "pos": "415.383 -19.4612 -5.82596"
+        ,
+        "rotation": "-0.707107 0.0 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_pared2_tutorial002.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_pared2_tutorial002.mesh"
+        ,
+        "color": "0.529412 0.231373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box016"
+      ,
+      "transform":
+      {
+        "pos": "414.997 -11.9283 118.792"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_Box016.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_Box016.mesh"
+        ,
+        "color": "0.694118 0.580392 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box017"
+      ,
+      "transform":
+      {
+        "pos": "404.451 7.52597 122.899"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_Box017.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_Box017.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box018"
+      ,
+      "transform":
+      {
+        "pos": "426.428 7.52597 122.899"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_tutorial_pasteleria_Box018.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_tutorial_pasteleria/mapa_zona_tutorial_pasteleria_Box018.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
         ]
       }
     }
