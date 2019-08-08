@@ -57,7 +57,7 @@ struct TSampleDataGenerator {
       && j_entity.count("comp_increase_power") == 0 && j_entity.count("ai_platform_mobile") == 0  //is not a platform and not a power up
       && j_entity.count("morph_animation") == 0 && j_entity.count("comp_destroyable_wall") == 0 && j_entity.count("comp_interruptor") == 0   //is not a morph and not a destroyable wall
       && j_entity.count("bt_sushi") == 0 && j_entity.count("bt_cupcake") == 0 && j_entity.count("bt_golem") == 0 && j_entity.count("bt_ranged_sushi") == 0 //is not an enemy
-      && j_entity.count("comp_madness_puddle") == 0; //is not a madness puddle
+      && j_entity.count("comp_madness_puddle") == 0 && j_entity.count("comp_wind_trap") == 0; //is not a madness puddle or a wind trap
   }
 
   void create(const std::string& filename, TEntityParseContext& ctx) {

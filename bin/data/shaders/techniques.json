@@ -55,6 +55,46 @@
       "instances" : 0
     }
   },
+  "particles_cold_num_instances": {
+    "vs_fx": "data/shaders/gpu_particles_cold.fx",
+    "vdecl": "PosUvColor",
+    "blend": "additive_by_src_alpha",
+    "z": "test_but_no_write",
+    "rs": "cull_none",
+    "gpu_buffers" : {
+      "instances" : 0
+    }
+  },
+  "particles_fire_num_instances": {
+    "vs_fx": "data/shaders/gpu_particles_fire.fx",
+    "vdecl": "PosUvColor",
+    "blend": "combinative",
+    "z": "test_but_no_write",
+    "rs": "cull_none",
+    "gpu_buffers" : {
+      "instances" : 0
+    }
+  },
+  "particles_smoke_cold_num_instances": {
+    "vs_fx": "data/shaders/gpu_particles_smoke_cold.fx",
+    "vdecl": "PosUvColor",
+    "blend": "additive_by_src_alpha",
+    "z": "test_but_no_write",
+    "rs": "cull_none",
+    "gpu_buffers" : {
+      "instances" : 0
+    }
+  },
+  "particles_hot_num_instances": {
+    "vs_fx": "data/shaders/gpu_particles_hot.fx",
+    "vdecl": "PosUvColor",
+    "blend": "additive_by_src_alpha",
+    "z": "test_but_no_write",
+    "rs": "cull_none",
+    "gpu_buffers" : {
+      "instances" : 0
+    }
+  },
   "objs_culled_by_gpu": {
     "desc" : "Instances result of gpu_culling",
     "vs_fx": "data/shaders/gpu_culling.fx",
@@ -265,6 +305,38 @@
     "cs" : "cs_particles_flow_update",
     "cs_fx" : "data/shaders/gpu_particles_flow.fx"
   },
+  "cs_particles_cold_spawn" : {
+    "cs" : "cs_particles_cold_spawn",
+    "cs_fx" : "data/shaders/gpu_particles_cold.fx"
+  },
+  "cs_particles_cold_update" : {
+    "cs" : "cs_particles_cold_update",
+    "cs_fx" : "data/shaders/gpu_particles_cold.fx"
+  },
+  "cs_particles_hot_spawn" : {
+    "cs" : "cs_particles_hot_spawn",
+    "cs_fx" : "data/shaders/gpu_particles_hot.fx"
+  },
+  "cs_particles_hot_update" : {
+    "cs" : "cs_particles_hot_update",
+    "cs_fx" : "data/shaders/gpu_particles_hot.fx"
+  },
+  "cs_particles_smoke_cold_spawn" : {
+    "cs" : "cs_particles_smoke_cold_spawn",
+    "cs_fx" : "data/shaders/gpu_particles_smoke_cold.fx"
+  },
+  "cs_particles_smoke_cold_update" : {
+    "cs" : "cs_particles_smoke_cold_update",
+    "cs_fx" : "data/shaders/gpu_particles_smoke_cold.fx"
+  },
+  "cs_particles_fire_update" : {
+    "cs" : "cs_particles_fire_update",
+    "cs_fx" : "data/shaders/gpu_particles_fire.fx"
+  },
+  "cs_particles_fire_spawn" : {
+    "cs" : "cs_particles_fire_spawn",
+    "cs_fx" : "data/shaders/gpu_particles_fire.fx"
+  },
   "instances_particles_combinative": {
     "desc" : "updated by cpu, render gpu using instanced",
     "vs_fx": "data/shaders/particles_instanced.fx",
@@ -310,6 +382,13 @@
   },
   "fire" : {
     "vs_fx": "data/shaders/fire.fx",
+    "vdecl": "PosNUvT",
+    "blend" : "combinative",
+    "z": "test_but_no_write"
+  },
+  "fire_aux" : {
+    "vs_fx": "data/shaders/fire.fx",
+    "ps": "PS_aux",
     "vdecl": "PosNUvT",
     "noise" : "data/textures/noise_cloud2.dds",
     "blend" : "combinative",
@@ -396,5 +475,15 @@
   "blob": {
     "vs_fx": "data/shaders/blob.fx",
     "vdecl": "PosNUvT"
+  },
+  "wind" : {
+    "vs_fx": "data/shaders/air.fx",
+    "vdecl": "PosNUvT",
+    "blend" : "combinative",
+    "rs": "cull_none",
+    "z": "test_but_no_write",
+    "ctes_buffers": {
+      "TCtesAir": 13
+    }
   }
 }

@@ -21,7 +21,9 @@ void TCompParticles::registerMsgs()
 
 void TCompParticles::debugInMenu()
 {
-  
+  //not safe
+  particles::TEmitter* b = const_cast<particles::TEmitter*>(_emitter);
+  b->renderInMenu();
 } 
 
 void TCompParticles::update(float dt)

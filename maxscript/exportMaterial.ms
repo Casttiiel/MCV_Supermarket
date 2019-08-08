@@ -103,7 +103,6 @@ struct TMaterialExporter (
 	fn exportMaterial mat base_name obj = (
 		
 		local exported_materials = #()
-		
 		if classof mat == StandardMaterial then (
 			local mat_name = base_name + mat.name + ".material"
 			append exported_materials mat_name
@@ -116,19 +115,24 @@ struct TMaterialExporter (
 			
 		) else if classof mat == MultiMaterial then (
 			local multi_mat = mat
-			
 			local materials_of_mesh = getMaterialsUsedByMesh obj
 			for mat_idx = 1 to materials_of_mesh.count do (
 				if materials_of_mesh[ mat_idx ] == undefined then continue
 				local mat_of_mesh = multi_mat[ mat_idx ]
 				
 				if mat_of_mesh == undefined then throw ("Mesh " + obj.name + " is using a multimaterial in slot " + (mat_idx as string)+ " but the multimat does not have this submat")
-				if classof mat_of_mesh != StandardMaterial or classof mat_of_mesh != PhysicalMaterial then throw ("Mesh " + obj.name + " is using a multimaterial in slot " + (mat_idx as string) + " but the multimat in this slot is not a stdMaterial")
+				if classof mat_of_mesh != StandardMaterial and classof mat_of_mesh != PhysicalMaterial then throw ("Mesh " + obj.name + " is using a multimaterial in slot " + (mat_idx as string) + " but the multimat in this slot is not a stdMaterial, is "+(mat_of_mesh as string) + (mat_idx as string))
 				
 				local mat_name = base_name + mat_of_mesh.name + ".material"
 				append exported_materials mat_name
 				exportStdMaterial obj mat_of_mesh mat_name
 			)
+		)
+		
+		local is_fire = getUserProp obj "isFire"
+		
+		if is_fire != undefined  then(
+			exported_materials = #("data/materials/vfx/fire.material")
 		)
 		
 		return exported_materials
