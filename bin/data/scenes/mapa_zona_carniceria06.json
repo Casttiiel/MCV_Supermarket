@@ -72,6 +72,13 @@
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
+      "hierarchy":
+      {
+        "pos": "0 2 0"
+        ,
+        "parent": "ascensor002"
+      }
+      ,
       "prefab": "data/prefabs/structures/teleport_box.json"
     }
   }
@@ -96,7 +103,7 @@
       {
         "mTravelTime_": 15
         ,
-        "curve": "data/curves/curvaAscensor.curve"
+        "curve": "data/curves/curvaAscensor_v2.curve"
         ,
         "active": false
         ,
@@ -155,7 +162,7 @@
       {
         "mTravelTime_": 15
         ,
-        "curve": "data/curves/curvaAscensor002.curve"
+        "curve": "data/curves/curvaAscensor002_v2.curve"
         ,
         "active": false
         ,
@@ -561,7 +568,7 @@
       ,
       "transform":
       {
-        "pos": "-18.924 6.46586 -49.7677"
+        "pos": "-19.08 6.46586 -49.7677"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -784,7 +791,7 @@
       ,
       "transform":
       {
-        "pos": "-27.955 7.76811 -49.7677"
+        "pos": "-25.339 7.76811 -49.7677"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -797,7 +804,7 @@
       {
         "mTravelTime_": 200
         ,
-        "curve": "data/curves/curvaTrap001.curve"
+        "curve": "data/curves/curva_trap001_v2.curve"
         ,
         "active": false
         ,
@@ -843,7 +850,7 @@
       ,
       "transform":
       {
-        "pos": "-27.955 9.14445 -43.6474"
+        "pos": "-25.339 9.14445 -43.6474"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -856,7 +863,7 @@
       {
         "mTravelTime_": 200
         ,
-        "curve": "data/curves/curvaTrap002.curve"
+        "curve": "data/curves/curva_Trap002_v2.curve"
         ,
         "active": false
         ,
@@ -902,7 +909,7 @@
       ,
       "transform":
       {
-        "pos": "-27.955 10.5047 -37.7004"
+        "pos": "-25.339 10.5047 -37.7004"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -915,7 +922,7 @@
       {
         "mTravelTime_": 200
         ,
-        "curve": "data/curves/curvaTrap003.curve"
+        "curve": "data/curves/curvaTrap003_v2.curve"
         ,
         "active": false
         ,
@@ -961,7 +968,7 @@
       ,
       "transform":
       {
-        "pos": "43.4862 -1.99911e-06 -45.7343"
+        "pos": "42.9283 -1.99911e-06 -45.7343"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1003,7 +1010,7 @@
       ,
       "transform":
       {
-        "pos": "6.08607 22.4578 -63.3706"
+        "pos": "2.96181 22.4578 -63.3706"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1108,7 +1115,7 @@
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
-      "prefab": "data/prefabs/powers/powerUp_pila.json"
+      "prefab": "data/prefabs/powers/powerUp_cafe.json"
     }
   }
   ,
@@ -1135,7 +1142,7 @@
       ,
       "transform":
       {
-        "pos": "5.93671 15.419 -20.1828"
+        "pos": "5.93671 14.497 -20.1828"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -1151,7 +1158,7 @@
       ,
       "transform":
       {
-        "pos": "1.04072 15.419 -20.1828"
+        "pos": "1.04072 14.497 -20.1828"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -1167,7 +1174,7 @@
       ,
       "transform":
       {
-        "pos": "-4.01328 15.419 -20.1828"
+        "pos": "-6.90513 14.497 -20.1828"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -1183,7 +1190,7 @@
       ,
       "transform":
       {
-        "pos": "11.0067 15.419 -20.1828"
+        "pos": "13.8491 14.4972 -20.1828"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -1195,67 +1202,11 @@
   {
     "entity":
     {
-      "name": "Box060"
-      ,
-      "transform":
-      {
-        "pos": "-16.5025 11.2819 -26.0582"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Box060.mesh"
-        ,
-        "color": "0.6 0.894118 0.839216 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_carniceria06/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box061"
-      ,
-      "transform":
-      {
-        "pos": "37.5082 -2.86468e-06 -65.5362"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_Box061.mesh"
-        ,
-        "color": "0.6 0.894118 0.839216 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_carniceria06/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "chechpoint002"
       ,
       "transform":
       {
-        "pos": "3.55708 11.2819 -31.5979"
+        "pos": "-16.5025 11.2819 -26.0582"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1341,7 +1292,7 @@
       ,
       "transform":
       {
-        "pos": "8.09571 -21.5278 -43.6979"
+        "pos": "31.1515 21.9584 -64.0069"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1380,7 +1331,50 @@
   {
     "entity":
     {
-      "name": "deathTrigger001"
+      "name": "triggerdeath"
+      ,
+      "transform":
+      {
+        "pos": "8.09571 -21.5278 -43.6979"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "73.6491 8.06916 50.5043"
+            ,
+            "offset":
+            {
+              "pos": "0.0 8.06916 0.0"
+            }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
+          }
+        ]
+      }
+      ,
+      "trigger":
+      {
+      }
+      ,
+      "trigger_damage_zone":
+      {
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Spot001"
       ,
       "transform":
       {
@@ -1526,7 +1520,7 @@
         ]
       }
       ,
-      "trigger":
+      "render":
       {
         "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_suelo_boss.mesh"
         ,
@@ -1536,10 +1530,6 @@
         [
           "data/materials/mapa_zona_carniceria06/suelo_carnes.material"
         ]
-      }
-      ,
-      "trigger_damage_zone":
-      {
       }
     }
   }
@@ -1555,6 +1545,8 @@
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
+      ,
+      "abs_aabb": {}
       ,
       "collider":
       {
@@ -1944,7 +1936,7 @@
         ]
       }
       ,
-      "trigger":
+      "render":
       {
         "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_pasarela2.mesh"
         ,
@@ -1978,7 +1970,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2004,7 +1996,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2030,7 +2022,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2056,7 +2048,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2082,7 +2074,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2108,7 +2100,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2134,7 +2126,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2160,7 +2152,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2186,7 +2178,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2212,7 +2204,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2238,7 +2230,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2264,7 +2256,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2290,7 +2282,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2316,7 +2308,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2342,7 +2334,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2368,7 +2360,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_carniceria06/interactive.material"
+          "data/materials/vfx/fire.material"
         ]
       }
     }
@@ -2381,10 +2373,12 @@
       ,
       "transform":
       {
-        "pos": "4.99839 -0.407812 -45.9608"
+        "pos": "4.99839 -0.026986 -45.9608"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
+      ,
+      "abs_aabb": {}
       ,
       "collider":
       {
@@ -2398,7 +2392,7 @@
         ]
       }
       ,
-      "trigger":
+      "render":
       {
         "mesh": "data/meshes/mapa_zona_carniceria06/mapa_zona_carniceria06_suelo.mesh"
         ,
@@ -2408,6 +2402,90 @@
         [
           "data/materials/mapa_zona_carniceria06/mat05.material"
         ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "triggerSuishisPisos"
+      ,
+      "transform":
+      {
+        "pos": "4.72318 -2.01011e-06 -45.9859"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "31.4249 0.506859 26.6965"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.506859 0.0"
+            }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
+          }
+        ]
+      }
+      ,
+      "trigger":
+      {
+        "onEnter": "caidaSuishisPisos"
+        ,
+        "delay": 0
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "triggerTrampaSushis"
+      ,
+      "transform":
+      {
+        "pos": "33.8274 -2.01821e-06 -46.1712"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.35508 1.79774 4.46711"
+            ,
+            "offset":
+            {
+              "pos": "0.0 1.79774 0.0"
+            }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
+          }
+        ]
+      }
+      ,
+      "trigger":
+      {
+        "onEnter": "trampaSushisButcher"
+        ,
+        "delay": 0
       }
     }
   }

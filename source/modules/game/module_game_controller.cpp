@@ -612,7 +612,7 @@ void  CModuleGameController::updateEnemyCurveByHandle(std::string _curve, CHandl
 void  CModuleGameController::updateCupcakeCurveByHandle(std::string _curve, CHandle h_enemy) {
 	if (h_enemy.isValid()) {
 		std::string path = "data/curves/" + _curve + ".curve";
-		//TENER EN CUENTA QUE SI ES UN RANGED O NO
+		//TENER EN CUENTA QUE SI ES UN RANdGED O NO
 		CEntity* e_enemy = (CEntity*)h_enemy;
 
 
