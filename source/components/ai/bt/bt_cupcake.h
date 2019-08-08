@@ -65,6 +65,7 @@ public:
 	void onCreated(const TMsgEntityCreated& msg);
 	void onCheckin(const TMsgSpawnerCheckin& msg);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
+	void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
 
 	static void registerMsgs();
 
@@ -234,7 +235,7 @@ private:
 	float length_cone = 20.0f;
 	float half_cone = 45.0f;
 	float height_range = 3.0f;
-
+	bool isDeadForFallout = false;
 	bool checkHeight();
 
 	CHandle h_sender;

@@ -55,7 +55,7 @@ public:
 	void onCreated(const TMsgEntityCreated& msg);
 	void onCheckin(const TMsgSpawnerCheckin& msg);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
-
+	void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
 	static void registerMsgs();
 
 	template <typename T>
@@ -163,7 +163,7 @@ private:
 	float distanceToBattery = 0.f;
 	float repulsionDuration = 0.4f;
 	float repulsionTimer = 0.f;
-
+	bool isDeadForFallout = false;
 
 
 	//blackboard

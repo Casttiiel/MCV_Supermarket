@@ -239,7 +239,9 @@ int CBTCupcake::actionDeath() {
 	}
 	//------------------------------------
   TCompTransform* c_trans = get<TCompTransform>();
-  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
+  if (!isDeadForFallout) {
+	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
+  }
   EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death");
   voice.stop();
 	CHandle(this).getOwner().destroy();
@@ -872,6 +874,7 @@ void CBTCupcake::registerMsgs() {
 	DECL_MSG(CBTCupcake, TMsgFireAreaExit, onFireAreaExit);
 	DECL_MSG(CBTCupcake, TMsgEntityCreated, onCreated);
 	DECL_MSG(CBTCupcake, TMsgSpawnerCheckin, onCheckin);
+	DECL_MSG(CBTCupcake, TMSgTriggerFalloutDead, onTriggerFalloutDead);
 
 }
 
@@ -907,6 +910,17 @@ currentDamage = damage;
 */
 
 }
+
+
+void CBTCupcake::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
+	life -= msg.damage;
+	isDeadForFallout = msg.falloutDead;
+	if (life < 0) {
+		life = 0;
+	}
+}
+
+
 
 bool CBTCupcake::isGrounded() {
 	TCompRigidBody* r_body = get<TCompRigidBody>();
