@@ -137,7 +137,7 @@ private:
 	float delayCupcake = 0.8;
 	float throwActive = false;
 	int throwType = 1; //1 cupcake ; 2 parabolic
-
+	float height_range = 1.5f;
 
 
 	std::vector<CHandle> _currentEnemies;
@@ -153,6 +153,7 @@ private:
 	void updateBT();
 
 	bool isView();
+	bool checkHeight();
 	CHandle h_sender;
 	CHandle h_bullet;
 };

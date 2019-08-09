@@ -382,3 +382,29 @@ float TCompSkeleton::getAnimationDuration(int animaId) {
 		return core_anima->getDuration();
 	return -1.f;
 }
+
+
+VEC3 TCompSkeleton::getBonePositionByName(const std::string & name) {
+
+	
+	int bone_id = model->getCoreModel()->getCoreSkeleton()->getCoreBoneId(name);
+	return Cal2DX(model->getSkeleton()->getBone(bone_id)->getTranslationAbsolute());
+}
+
+VEC3 TCompSkeleton::setBonePositionByName(const std::string & name) {
+
+	
+	int bone_id = model->getCoreModel()->getCoreSkeleton()->getCoreBoneId(name);
+	return Cal2DX(model->getSkeleton()->getBone(bone_id)->getTranslationAbsolute());
+}
+
+
+
+VEC3 TCompSkeleton::getBonePositionById(int id) {
+	VEC3 pos = Cal2DX(model->getSkeleton()->getBone(id)->getTranslationAbsolute());
+	return pos;
+}
+
+void TCompSkeleton::setBonePositionById(int id, VEC3 position) {
+	model->getSkeleton()->getBone(id)->setTranslation(DX2Cal(position));
+}

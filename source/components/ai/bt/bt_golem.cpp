@@ -45,7 +45,7 @@ void CBTGolem::create(string s)//crear el arbol
 
 	addChild("THROW", "CHARGINGTHROW", ACTION, (btcondition)&CBTGolem::conditionTimerThrow, (btaction)&CBTGolem::actionChargingThrow); //CARGANDO
 
-	addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
+	//addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
 	addChild("THROW", "THROWINGPROYECTILE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowParabolic, (btaction)&CBTGolem::actionThrow);
 	addChild("THROW", "THROWINGNFORTUNECOOKIESIMPLE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowSimpleCookie, (btaction)&CBTGolem::actionThrowCookieSimple);
 	addChild("THROW", "THROWINGNFORTUNECOOKIETRIPLE", ACTION, NULL, (btaction)&CBTGolem::actionThrowCookieSpread);
@@ -290,7 +290,7 @@ int CBTGolem::actionThrowCupcake()
 	TCompTransform* player_position = e_player->get<TCompTransform>();
 	TCompTransform* c_trans = get<TCompTransform>();
 
-
+	
 	//ANIMATION-----------------------
 	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
 	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
@@ -301,7 +301,7 @@ int CBTGolem::actionThrowCupcake()
 
 	throwActive = true;
 	throwType = 1;
-
+	
 	return LEAVE;
 
 }
@@ -448,7 +448,7 @@ bool CBTGolem::conditionAttackCinematic()
 }
 
 bool CBTGolem::isView() {
-
+	
 	if (!h_player.isValid()) {
 		h_player = GameController.getPlayerHandle();
 	}
@@ -460,7 +460,7 @@ bool CBTGolem::isView() {
 
 	bool sighted = ((abs(angle) <= half_cone) && (distance <= viewDistance)) || distance <= hearing_radius;
 
-	return sighted;
+	return sighted && checkHeight();
 }
 
 bool CBTGolem::conditionDistanceThrow()
@@ -875,10 +875,11 @@ void CBTGolem::updateBT() {
 		CHandle c_e = h.getOwner();
 		CEntity* c_entity = (CEntity*)c_e;
 		//obtener el nombre de la entidad y ponerselo a comp_bone_tracker_golem
-		TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+		//TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+		
 		TCompName* myName = get<TCompName>();
-		boneTracker->setParentName(myName->getName());
-
+		//boneTracker->setParentName(myName->getName());
+		
 		//---------------------------------
 
 	}
@@ -887,28 +888,38 @@ void CBTGolem::updateBT() {
 
 		if (delay <= 0) {
 			TCompTransform* c_trans = get<TCompTransform>();
-			TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+			//TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+			
+			TCompSkeleton *h_skeleton = get<TCompSkeleton>();
+			
+			VEC3 posBrazoLanzamiento = h_skeleton->getBonePositionByName("Bone011_izq");
 			TEntityParseContext ctx;
-			ctx.root_transform.setPosition(boneTracker->getPosition());
-			ctx.root_transform.setRotation(boneTracker->getRotation());
+			ctx.root_transform.setPosition(posBrazoLanzamiento);
+			//ctx.root_transform.setPosition(posBrazoLanzamiento);
+			//ctx.root_transform.setRotation(boneTracker->getRotation());
 
 
 			if (throwType == 1) { //cupcake
+				
 				parseScene("data/prefabs/bullets/grenade_golem.json", ctx);
+				TMsgAssignBulletOwner msg;
+				msg.h_owner = CHandle(this).getOwner();
+				msg.source = posBrazoLanzamiento;//boneTracker->getPosition();
+				//msg.source = c_trans->getPosition();
+				msg.front = c_trans->getFront();
+				ctx.entities_loaded[0].sendMsg(msg);
 				//delay = delayCupcake;
+				
 			}
 			else { //parabolic
 				parseScene("data/prefabs/bullets/turret_bullet.json", ctx);
 				//delay = projectileDelay;
+				TMsgAssignBulletOwner msg;
+				msg.h_owner = CHandle(this).getOwner();
+				msg.source = c_trans->getPosition();
+				msg.front = c_trans->getFront();
+				ctx.entities_loaded[0].sendMsg(msg);
 			}
-
-			TMsgAssignBulletOwner msg;
-			msg.h_owner = CHandle(this).getOwner();
-			msg.source = c_trans->getPosition();
-			msg.front = c_trans->getFront();
-			ctx.entities_loaded[0].sendMsg(msg);
-
-		
 			throwActive = false;
 		}
 		else {
@@ -917,6 +928,22 @@ void CBTGolem::updateBT() {
 	}
 
 
+}
+
+
+bool CBTGolem::checkHeight() {
+	bool res = false;
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* player_position = e_player->get<TCompTransform>();
+	float playerHeight = player_position->getPosition().y;
+	TCompTransform* c_trans = get<TCompTransform>();
+	float enemyHeight = c_trans->getPosition().y;
+
+	if (height_range > abs(playerHeight - enemyHeight)) {
+		res = true;;
+	}
+
+	return res;
 }
 
 

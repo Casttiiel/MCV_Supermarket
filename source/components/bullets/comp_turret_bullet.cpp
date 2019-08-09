@@ -126,9 +126,9 @@ void TCompTurretBulletController::launch() {
 	CHandle h_player = GameController.getPlayerHandle();
 	CEntity* e_player = (CEntity*)h_player;
 	TCompTransform* player_trans = e_player->get< TCompTransform>();
-	VEC3 targetXZPos = VEC3(player_trans->getPosition().x, 0.0f, player_trans->getPosition().z);
+	VEC3 targetXZPos = VEC3(player_trans->getPosition().x, player_trans->getPosition().y, player_trans->getPosition().z);
 	TCompTransform* c_trans = get<TCompTransform>();
-	VEC3 projectileXZPos = VEC3(c_trans->getPosition().x, 0.0f, c_trans->getPosition().z);//porque sale del suelo
+	VEC3 projectileXZPos = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);//porque sale del suelo
 
 
 	VEC3 forceDirection = getForceFrom(projectileXZPos, targetXZPos);

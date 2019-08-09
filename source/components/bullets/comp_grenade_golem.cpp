@@ -68,7 +68,7 @@ void TCompGrenadeGolemController::launch() {
 	CHandle h_player = GameController.getPlayerHandle();
 	CEntity* e_player = (CEntity*)h_player;
 	TCompTransform* player_trans = e_player->get< TCompTransform>();
-	VEC3 targetXZPos = VEC3(player_trans->getPosition().x, 0.0f, player_trans->getPosition().z);
+	VEC3 targetXZPos = VEC3(player_trans->getPosition().x, player_trans->getPosition().y, player_trans->getPosition().z);
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 projectileXZPos = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
 
@@ -81,7 +81,7 @@ void TCompGrenadeGolemController::launch() {
 
 
 	x0 = 0.;
-	y0 = 3.;//harcodeado, poner en un script el bone del golem y lanzarlo desde alli sin mierdas
+	y0 = c_trans->getPosition().y;//harcodeado, poner en un script el bone del golem y lanzarlo desde alli sin mierdas
 	z0 = 0.;
 
 
@@ -111,15 +111,13 @@ void TCompGrenadeGolemController::onGrenadeInfoMsg(const TMsgAssignBulletOwner& 
 	float yaw = vectorToYaw(msg.front);
 	c_trans->setAngles(yaw, 0.f, 0.f);
 
-	dbg("Naces en x:%f,y:%f,z:%f\n", c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
+	dbg("Naces en x:%f,y:%f,z:%f\n", c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z + 1.f);
 	
 	c_collider = get<TCompCollider>();
-	VEC3 new_pos = c_trans->getFront();
-	PxVec3 velocidad = PxVec3(new_pos.x, new_pos.y, new_pos.z);
-
+	
 	physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
 
-	PxVec3 pxvec3 = PxVec3(c_trans->getPosition().x, 3, c_trans->getPosition().z);
+	PxVec3 pxvec3 = PxVec3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
 	PxTransform pxtransf = PxTransform(pxvec3);
 	rigid_dynamic->setGlobalPose(pxtransf);
 	launch();
@@ -167,8 +165,9 @@ void TCompGrenadeGolemController::update(float delta) {//cambiar la condicion un
 
 
 			//golem h_sender
-
+			
 			CHandle(this).getOwner().destroy();
+			CHandle(this).destroy();
 		}
 	}
 }
