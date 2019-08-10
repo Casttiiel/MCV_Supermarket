@@ -41,7 +41,7 @@ public:
 	void debugInMenu();
 	void load(const json& j, TEntityParseContext& ctx);
 	void update(float dt);
-	void initializeAnimations();
+	//void initializeAnimations();
 
 	bool initializeAnimation(EAnimation animation, EAnimationType animationType, EAnimationSize animationSize, std::string animationName, std::string secondAnimationName = "", std::string thirdAnimationName = "", float weight = 1.0f, float speed = 1.0f);
 	bool playAnimationConverted(EAnimation animation, float speed = 1.0f);

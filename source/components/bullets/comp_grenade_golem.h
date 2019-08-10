@@ -18,7 +18,7 @@ class TCompGrenadeGolemController : public TCompBase {
 
 	int damage = 20;//esto cogerlo del golem 
 	
-	
+	VEC3 posLiving;
 
 	DECL_SIBLING_ACCESS();
 	void onGrenadeInfoMsg(const TMsgAssignBulletOwner& msg);
@@ -31,7 +31,6 @@ public:
 	void launch();
 	VEC3 getForceFrom(VEC3 fromPos, VEC3 toPos);
 	TCompCollider* c_collider;
-	TCompTransform* c_trans;
 	float explosion_radius = 2.f;
 	float fly_time = 1.5f;
 	//bool flagColision = false; //quizas cambiar

@@ -45,10 +45,10 @@ void CBTGolem::create(string s)//crear el arbol
 
 	addChild("THROW", "CHARGINGTHROW", ACTION, (btcondition)&CBTGolem::conditionTimerThrow, (btaction)&CBTGolem::actionChargingThrow); //CARGANDO
 
-	//addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
-	addChild("THROW", "THROWINGPROYECTILE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowParabolic, (btaction)&CBTGolem::actionThrow);
-	addChild("THROW", "THROWINGNFORTUNECOOKIESIMPLE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowSimpleCookie, (btaction)&CBTGolem::actionThrowCookieSimple);
-	addChild("THROW", "THROWINGNFORTUNECOOKIETRIPLE", ACTION, NULL, (btaction)&CBTGolem::actionThrowCookieSpread);
+	addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
+	//addChild("THROW", "THROWINGPROYECTILE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowParabolic, (btaction)&CBTGolem::actionThrow);
+	//addChild("THROW", "THROWINGNFORTUNECOOKIESIMPLE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowSimpleCookie, (btaction)&CBTGolem::actionThrowCookieSimple);
+	//addChild("THROW", "THROWINGNFORTUNECOOKIETRIPLE", ACTION, NULL, (btaction)&CBTGolem::actionThrowCookieSpread);
 
 	addChild("MELEE", "CHARGINGMELEE", ACTION, (btcondition)&CBTGolem::conditionTimerMelee, (btaction)&CBTGolem::actionChargingMelee);
 	addChild("MELEE", "MELEEATACK", ACTION, NULL, (btaction)&CBTGolem::actionMelee);
@@ -608,7 +608,7 @@ void CBTGolem::load(const json& j, TEntityParseContext& ctx) {
 
 
 void CBTGolem::debugInMenu() {
-	
+	ImGui::Checkbox("_pausedBT", &_pausedBT);
 }
 
 void CBTGolem::renderDebug() {
@@ -894,7 +894,7 @@ void CBTGolem::updateBT() {
 			
 			VEC3 posBrazoLanzamiento = h_skeleton->getBonePositionByName("Bone011_izq");
 			TEntityParseContext ctx;
-			ctx.root_transform.setPosition(posBrazoLanzamiento);
+			//ctx.root_transform.setPosition(posBrazoLanzamiento);
 			//ctx.root_transform.setPosition(posBrazoLanzamiento);
 			//ctx.root_transform.setRotation(boneTracker->getRotation());
 
@@ -904,7 +904,7 @@ void CBTGolem::updateBT() {
 				parseScene("data/prefabs/bullets/grenade_golem.json", ctx);
 				TMsgAssignBulletOwner msg;
 				msg.h_owner = CHandle(this).getOwner();
-				msg.source = posBrazoLanzamiento;//boneTracker->getPosition();
+				msg.source = posBrazoLanzamiento;
 				//msg.source = c_trans->getPosition();
 				msg.front = c_trans->getFront();
 				ctx.entities_loaded[0].sendMsg(msg);
@@ -945,5 +945,3 @@ bool CBTGolem::checkHeight() {
 
 	return res;
 }
-
-
