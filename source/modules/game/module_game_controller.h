@@ -43,7 +43,7 @@ class CModuleGameController : public IModule
     void renderInMenu();
     void updateGameCondition();
 
-	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(300.825,-2.37953 ,151.652),VEC3(130, 4,154),VEC3(55,0.550,-45.8998)};
+	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(300.825,-2.37953 ,151.652),VEC3(130, 3,154),VEC3(55,0.550,-45.8998)};
 	int positionCheat = 0;
     
     //void switchState(PauseState pause);

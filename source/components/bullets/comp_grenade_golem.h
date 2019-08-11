@@ -14,7 +14,7 @@ class TCompGrenadeGolemController : public TCompBase {
 	
 	CHandle h_sender;
 	
-	boolean flagExplota = false;
+	bool flagExplota = false;
 
 	int damage = 20;//esto cogerlo del golem 
 	

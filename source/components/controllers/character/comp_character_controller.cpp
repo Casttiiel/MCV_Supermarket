@@ -501,11 +501,11 @@ void TCompCharacterController::dead(float delta) {
     TCompCollider* comp_collider = get<TCompCollider>();
     if (!comp_collider || !comp_collider->controller)
         return;
-
+	
     comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
 
-    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-    playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.f);
+   // TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+   // playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.f);
 
     //------------------
     //TMsgBlackboard msg;
@@ -1147,9 +1147,12 @@ void TCompCharacterController::onPowerUp(const TMsgPowerUp& msg) {
 void TCompCharacterController::onCinematic(const TMsgOnCinematic & msg)
 {
 	if(!msg.isscart){
-		TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-		playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
-		ChangeState("IDLE_CINEMATIC");
+		
+		if(msg.cinematic){
+			TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+			playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
+			ChangeState("IDLE_CINEMATIC");
+		}
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
 		mirilla->getParams()->visible = false;

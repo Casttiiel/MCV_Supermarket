@@ -10,6 +10,7 @@
 #include "skeleton/comp_bone_tracker_golem.h"
 #include "modules/module_physics.h"
 #include "components/animation/comp_golem_animation.h"
+#include "components/controllers/character/comp_character_controller.h"
 #include "bt_golem.h"
 
 
@@ -425,7 +426,15 @@ int CBTGolem::actionChargingMelee() {
 
 bool CBTGolem::conditionView()
 {
-
+	/*
+	CEntity* e_player = (CEntity *)h_player;
+	if (e_player == nullptr) {
+		return false;
+	}
+	TCompCharacterController* character = e_player->get<TCompCharacterController>();
+	if (character->life <= 0) {
+		return false;
+	}*/
 	/*if (player_dead) {
 		return false; 
 	}*/
@@ -459,20 +468,28 @@ bool CBTGolem::isView() {
 	float angle = rad2deg(c_trans->getDeltaYawToAimTo(player_position->getPosition()));
 
 	bool sighted = ((abs(angle) <= half_cone) && (distance <= viewDistance)) || distance <= hearing_radius;
+	TCompCharacterController* character = e_player->get<TCompCharacterController>();
+	if (character->life <= 0) {
+		return false;
+	}
+
 
 	return sighted && checkHeight();
 }
 
 bool CBTGolem::conditionDistanceThrow()
 {
+	
 	//dbg("%s: handling condition distance\n", name.c_str());
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* player_position = e_player->get<TCompTransform>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	float distance = VEC3::Distance(player_position->getPosition(), c_trans->getPosition());
 	//dbg("Distancia %f\n",distance);
+	
 	if (distance > epsilon) {
 		//dbg("Dispara cupcake\n");
+		
 		return true; 
 	}
 	else {
@@ -508,8 +525,10 @@ bool CBTGolem::conditionTimerThrow() {
 }
 
 bool CBTGolem::conditionRandomThrowCupcake() {
+	
+
 	randomNumber = bt_dist_gol(bt_gol);
-	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber) { 
+	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber) {
 		return true; //throw cupcake
 	}
 	return false;//check others

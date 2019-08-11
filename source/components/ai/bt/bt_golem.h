@@ -12,7 +12,7 @@ class CBTGolem : public BTController {
 	DECL_SIBLING_ACCESS();
 public:
 	void create(string); //init
-
+	bool unCupcake = false;
 	 //acciones == hojas
 	int actionIdle();
 	int nothing();

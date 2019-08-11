@@ -122,7 +122,7 @@ private:
 
   float rumble_time = 0.0f;
   
-  
+  bool cinematicFinish = false;
 
 
   CHandle h_camera;

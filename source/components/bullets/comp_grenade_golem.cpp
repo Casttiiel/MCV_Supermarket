@@ -46,8 +46,10 @@ void TCompGrenadeGolemController::onCollision(const TMsgOnContact& msg) {
 	TCompTransform* c_trans = get<TCompTransform>();
 	
 	std::string _prefab = "data/prefabs/enemies/bt_cupcake.json";
+	
 	CHandle enemy = GameController.spawnPrefab(_prefab, c_trans->getPosition());
-
+		
+	
 	//Le decimos al cupcake quien es su padre
 	/*
 	TMsgSpawnerCheckin checkin;
