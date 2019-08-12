@@ -17,8 +17,8 @@ class TCompGrenadeGolemController : public TCompBase {
 	bool flagExplota = false;
 
 	int damage = 20;//esto cogerlo del golem 
+	CHandle enemy;
 	
-	VEC3 posLiving;
 
 	DECL_SIBLING_ACCESS();
 	void onGrenadeInfoMsg(const TMsgAssignBulletOwner& msg);

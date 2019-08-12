@@ -109,7 +109,7 @@ private:
 	float life = 100.f;
 	int numberOfCookiesSimple = 5; //number of burst in simple cookie
 	int numberOfCookiesTriple = 3; //number of burst in triple coockie
-	int _spawnMaxNumber = 30; //number of cupcakes
+	int _spawnMaxNumber = 3; //number of cupcakes
 	float battery_time = 0.f;
 	//end gameplay values
 

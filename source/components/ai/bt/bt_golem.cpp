@@ -426,15 +426,15 @@ int CBTGolem::actionChargingMelee() {
 
 bool CBTGolem::conditionView()
 {
-	/*
-	CEntity* e_player = (CEntity *)h_player;
+	
+	CEntity* e_player = GameController.getPlayerHandle();
 	if (e_player == nullptr) {
 		return false;
 	}
 	TCompCharacterController* character = e_player->get<TCompCharacterController>();
 	if (character->life <= 0) {
 		return false;
-	}*/
+	}
 	/*if (player_dead) {
 		return false; 
 	}*/
@@ -528,7 +528,7 @@ bool CBTGolem::conditionRandomThrowCupcake() {
 	
 
 	randomNumber = bt_dist_gol(bt_gol);
-	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber) {
+	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber -1) {
 		return true; //throw cupcake
 	}
 	return false;//check others

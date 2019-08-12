@@ -47,23 +47,28 @@ void TCompGrenadeGolemController::onCollision(const TMsgOnContact& msg) {
 	
 	std::string _prefab = "data/prefabs/enemies/bt_cupcake.json";
 	
-	CHandle enemy = GameController.spawnPrefab(_prefab, c_trans->getPosition());
+	enemy = GameController.spawnPrefab(_prefab, c_trans->getPosition());
 		
-	
+
 	//Le decimos al cupcake quien es su padre
 	/*
 	TMsgSpawnerCheckin checkin;
 	checkin.spawnerHandle = h_sender;
 	((CEntity*)enemy)->sendMsg(checkin);
-
+	
 	//Le decimos al golem quien es su hijo
 	TMsgSpawnerFather msg;
 	msg.son = enemy;
 	((CEntity*)h_sender)->sendMsg(msg);
-	*/
+	*/	
 	CHandle(this).getOwner().destroy();
 	CHandle(this).destroy();
+	
+	
   }
+
+ 
+
 	
 }
 
@@ -146,6 +151,23 @@ void TCompGrenadeGolemController::onGrenadeInfoMsg(const TMsgAssignBulletOwner& 
 
 void TCompGrenadeGolemController::update(float delta) {//cambiar la condicion un poco antes de la explosion para indicar que va a explotar
 	PROFILE_FUNCTION("GrenadeGolem");
+
+	if (flagExplota) {
+		//Le decimos al cupcake quien es su padre
+	
+		TMsgSpawnerCheckin checkin;
+		checkin.spawnerHandle = h_sender;
+		((CEntity*)enemy)->sendMsg(checkin);
+
+		//Le decimos al golem quien es su hijo
+		TMsgSpawnerFather msg;
+		msg.son = enemy;
+		((CEntity*)h_sender)->sendMsg(msg);
+		flagExplota = false;
+		
+
+	}
+
 	/*if (flagExplota) {
 		
 		TCompTransform* c_trans = get<TCompTransform>();
