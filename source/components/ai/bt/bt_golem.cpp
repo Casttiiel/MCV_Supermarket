@@ -47,9 +47,9 @@ void CBTGolem::create(string s)//crear el arbol
 	addChild("THROW", "CHARGINGTHROW", ACTION, (btcondition)&CBTGolem::conditionTimerThrow, (btaction)&CBTGolem::actionChargingThrow); //CARGANDO
 
 	addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
-	//addChild("THROW", "THROWINGPROYECTILE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowParabolic, (btaction)&CBTGolem::actionThrow);
-	//addChild("THROW", "THROWINGNFORTUNECOOKIESIMPLE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowSimpleCookie, (btaction)&CBTGolem::actionThrowCookieSimple);
-	//addChild("THROW", "THROWINGNFORTUNECOOKIETRIPLE", ACTION, NULL, (btaction)&CBTGolem::actionThrowCookieSpread);
+	addChild("THROW", "THROWINGPROYECTILE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowParabolic, (btaction)&CBTGolem::actionThrow);
+	addChild("THROW", "THROWINGNFORTUNECOOKIESIMPLE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowSimpleCookie, (btaction)&CBTGolem::actionThrowCookieSimple);
+	addChild("THROW", "THROWINGNFORTUNECOOKIETRIPLE", ACTION, NULL, (btaction)&CBTGolem::actionThrowCookieSpread);
 
 	addChild("MELEE", "CHARGINGMELEE", ACTION, (btcondition)&CBTGolem::conditionTimerMelee, (btaction)&CBTGolem::actionChargingMelee);
 	addChild("MELEE", "MELEEATACK", ACTION, NULL, (btaction)&CBTGolem::actionMelee);
@@ -773,7 +773,6 @@ void CBTGolem::singleShot() {
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompCollider* c_cc = get<TCompCollider>();
-
 	//Bullet origin
 	TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
 	VEC3 firingPosition = boneTracker->getPosition();
@@ -894,10 +893,10 @@ void CBTGolem::updateBT() {
 		CHandle c_e = h.getOwner();
 		CEntity* c_entity = (CEntity*)c_e;
 		//obtener el nombre de la entidad y ponerselo a comp_bone_tracker_golem
-		//TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+		TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
 		
 		TCompName* myName = get<TCompName>();
-		//boneTracker->setParentName(myName->getName());
+		boneTracker->setParentName(myName->getName());
 		
 		//---------------------------------
 
@@ -907,15 +906,14 @@ void CBTGolem::updateBT() {
 
 		if (delay <= 0) {
 			TCompTransform* c_trans = get<TCompTransform>();
-			//TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+			TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
 			
 			TCompSkeleton *h_skeleton = get<TCompSkeleton>();
 			
 			VEC3 posBrazoLanzamiento = h_skeleton->getBonePositionByName("Bone011_izq");
 			TEntityParseContext ctx;
-			//ctx.root_transform.setPosition(posBrazoLanzamiento);
-			//ctx.root_transform.setPosition(posBrazoLanzamiento);
-			//ctx.root_transform.setRotation(boneTracker->getRotation());
+			ctx.root_transform.setPosition(posBrazoLanzamiento);
+			
 
 
 			if (throwType == 1) { //cupcake
@@ -931,11 +929,12 @@ void CBTGolem::updateBT() {
 				
 			}
 			else { //parabolic
+
 				parseScene("data/prefabs/bullets/turret_bullet.json", ctx);
 				//delay = projectileDelay;
 				TMsgAssignBulletOwner msg;
 				msg.h_owner = CHandle(this).getOwner();
-				msg.source = c_trans->getPosition();
+				msg.source = posBrazoLanzamiento;
 				msg.front = c_trans->getFront();
 				ctx.entities_loaded[0].sendMsg(msg);
 			}
