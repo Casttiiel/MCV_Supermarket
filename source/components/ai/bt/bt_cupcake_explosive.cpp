@@ -58,15 +58,8 @@ void CBTCupcake_explosive::create(string s)//crear el arbol
 int CBTCupcake_explosive::actionChangeWpt() {
 	//accion de cambiar de wpt
   //dbg("cambiando de waypoint\n");
-
-	if (ratio >= 1.0f || ratio < 0.0f) {
-		mTravelTime = -mTravelTime;
-	}
-	ratio += dt * mTravelTime;
-	nextPoint = _curve->evaluate(ratio);
-
-	/*wtpIndex = (wtpIndex + 1) % positions.size();
-	nextPoint = positions[wtpIndex];*/
+	wtpIndex = (wtpIndex + 1) % positions.size();
+	nextPoint = positions[wtpIndex];
 	attacking = false;
 	return LEAVE;
 }
@@ -461,16 +454,11 @@ bool CBTCupcake_explosive::conditionWptClose() {
 			VEC3 position = c_trans->getPosition();
 			_knots = _curve->_knots;
 		}
-		
-		if (ratio >= 1.0f || ratio < 0.0f) {
-			mTravelTime = -mTravelTime;
-		}
-		ratio += dt * mTravelTime;
-		nextPoint = _curve->evaluate(ratio);
-		
-		//wtpIndex = (wtpIndex + 1) % _knots.size();
-		//nextPoint = _knots[wtpIndex];
+		wtpIndex = (wtpIndex + 1) % _knots.size();
+		nextPoint = _knots[wtpIndex];
 	}
+
+
 
 
 	TCompTransform* c_trans = get<TCompTransform>();
@@ -915,11 +903,4 @@ void CBTCupcake_explosive::updateBT() {
 	reevaluatePathTimer -= dt;
 
   voice.set3DAttributes(*c_trans);
-}
-
-void CBTCupcake_explosive::setCurve(const CCurve* curve) {
-
-	this->_curve = curve; // TO TEST
-	_knots = _curve->_knots;
-
 }

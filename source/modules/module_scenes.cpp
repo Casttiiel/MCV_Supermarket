@@ -3,6 +3,7 @@
 #include "engine.h"
 #include "entity/entity_parser.h"
 #include "modules/module_navmesh.h"
+#include "modules/module_camera_mixer.h"
 
 CModuleSceneManager::CModuleSceneManager(const std::string& name)
   : IModule(name)
@@ -10,7 +11,6 @@ CModuleSceneManager::CModuleSceneManager(const std::string& name)
 
 bool CModuleSceneManager::start()
 {
-	
 	sceneInUse = newScene("INIT");//se carga una escena inicial
 	loadJsonScenes("data/bootScenes.json");
 	return true;
@@ -25,8 +25,29 @@ bool CModuleSceneManager::loadScene(const std::string & name) {
 	{
 		removeActiveScene();
 		Scene * current_scene = it->second;
+		
+
+		TEntityParseContext ctx;
+		parseScene(current_scene->scene_pref, ctx);
+
+		for (auto& others : current_scene->others) {
+			TEntityParseContext ctx;
+			parseScene(others, ctx);
+		}
+
 		Engine.getNavmesh().createNavmesh(current_scene->navmesh);
+		
 		sceneInUse = current_scene;
+		
+		CHandle h_camera = getEntityByName("PlayerCamera");
+		if (h_camera.isValid()){
+			Engine.getCameraMixer().setDefaultCamera(h_camera);
+			
+		}
+		h_camera = getEntityByName("MainCamera");
+		if (h_camera.isValid()){
+			Engine.getCameraMixer().setOutputCamera(h_camera);
+		}
 		return true;
 	}
 	return false;
@@ -49,11 +70,13 @@ void CModuleSceneManager::loadJsonScenes(const std::string filepath) {
 		std::string scene_name = it.key();
 		
 		Scene* scene = newScene(scene_name);
+		std::string nameScene = jboot[scene_name]["data"];
 		std::string navmesh_name = jboot[scene_name]["navmesh"];
+		std::vector<std::string> others = jboot[scene_name]["others"];
+		scene->scene_pref = nameScene;
 		scene->navmesh = navmesh_name;
+		scene->others = others;
 		//mas cosas de prefabs de escenas
-		
-
 		scenes.insert(std::pair<std::string, Scene*>(scene_name, scene));
 	}
 }
@@ -84,9 +107,10 @@ void CModuleSceneManager::renderInMenu() {
 
 bool CModuleSceneManager::removeActiveScene() {//borramos cosas
 	if (sceneInUse != nullptr) {
-		
 		//mas adelante:eliminar prefabs de escenas y otros.
 		EngineNavmesh.destroyNavmesh();
+		EngineEntities.destroyEntities();
+		Engine.getCameraMixer().removeCamera();
 		sceneInUse = nullptr;
 		return true;
 	}

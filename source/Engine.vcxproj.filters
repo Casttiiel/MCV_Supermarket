@@ -684,15 +684,6 @@
     <ClCompile Include="modules\game\module_game_ui.cpp">
       <Filter>modules\game</Filter>
     </ClCompile>
-    <ClCompile Include="components\vfx\comp_dust.cpp">
-      <Filter>components\vfx</Filter>
-    </ClCompile>
-    <ClCompile Include="components\common\comp_dynamic_instance.cpp">
-      <Filter>components\common</Filter>
-    </ClCompile>
-    <ClCompile Include="skeleton\comp_skel_lookat_direction.cpp">
-      <Filter>skeleton</Filter>
-    </ClCompile>
     <ClCompile Include="components\objects\comp_termoestato.cpp">
       <Filter>components\objects</Filter>
     </ClCompile>
@@ -702,47 +693,14 @@
     <ClCompile Include="components\ai\bt\bt_cupcake_explosive.cpp">
       <Filter>components\ai\bt</Filter>
     </ClCompile>
-    <ClCompile Include="components\vfx\comp_trail.cpp">
-      <Filter>components\vfx</Filter>
-    </ClCompile>
-    <ClCompile Include="components\common\comp_particles.cpp">
-      <Filter>components\common</Filter>
-    </ClCompile>
-    <ClCompile Include="particles\particle_parser.cpp">
-      <Filter>particles</Filter>
-    </ClCompile>
-    <ClCompile Include="particles\particle_system.cpp">
-      <Filter>particles</Filter>
-    </ClCompile>
-    <ClCompile Include="particles\module_particles.cpp">
-      <Filter>particles</Filter>
+    <ClCompile Include="skeleton\comp_skel_lookat_direction.cpp">
+      <Filter>skeleton</Filter>
     </ClCompile>
     <ClCompile Include="modules\module_scenes.cpp">
       <Filter>modules</Filter>
     </ClCompile>
     <ClCompile Include="ui\widgets\ui_bar.cpp">
       <Filter>ui\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="components\objects\comp_blade_trap.cpp">
-      <Filter>components\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="components\animation\comp_golem_animation.cpp">
-      <Filter>components\animation</Filter>
-    </ClCompile>
-    <ClCompile Include="components\objects\comp_interruptor.cpp">
-      <Filter>components\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="components\controllers\comp_enemies_in_tube.cpp">
-      <Filter>components\controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="skeleton\comp_bone_tracker_golem.cpp">
-      <Filter>skeleton</Filter>
-    </ClCompile>
-    <ClCompile Include="components\actions\comp_follow.cpp">
-      <Filter>components\actions</Filter>
-    </ClCompile>
-    <ClCompile Include="components\vfx\comp_air.cpp">
-      <Filter>components\vfx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1511,71 +1469,23 @@
     <ClInclude Include="modules\game\module_game_ui.h">
       <Filter>modules\game</Filter>
     </ClInclude>
-    <ClInclude Include="components\vfx\comp_dust.h">
-      <Filter>components\vfx</Filter>
-    </ClInclude>
-    <ClInclude Include="components\common\comp_dynamic_instance.h">
-      <Filter>components\common</Filter>
-    </ClInclude>
-    <ClInclude Include="skeleton\comp_skel_lookat_direction.h">
-      <Filter>skeleton</Filter>
-    </ClInclude>
     <ClInclude Include="components\objects\comp_termoestato.h">
       <Filter>components\objects</Filter>
     </ClInclude>
     <ClInclude Include="components\ai\bt\bt_cupcake_explosive.h">
       <Filter>components\ai\bt</Filter>
     </ClInclude>
-    <ClInclude Include="components\vfx\comp_trail.h">
-      <Filter>components\vfx</Filter>
+    <ClInclude Include="skeleton\comp_skel_lookat_direction.h">
+      <Filter>skeleton</Filter>
     </ClInclude>
     <ClInclude Include="components\animation\comp_morph_animation.h">
       <Filter>components\animation</Filter>
-    </ClInclude>
-    <ClInclude Include="components\common\comp_particles.h">
-      <Filter>components\common</Filter>
-    </ClInclude>
-    <ClInclude Include="particles\particle.h">
-      <Filter>particles</Filter>
-    </ClInclude>
-    <ClInclude Include="particles\particle_emitter.h">
-      <Filter>particles</Filter>
-    </ClInclude>
-    <ClInclude Include="particles\particle_parser.h">
-      <Filter>particles</Filter>
-    </ClInclude>
-    <ClInclude Include="particles\particle_system.h">
-      <Filter>particles</Filter>
-    </ClInclude>
-    <ClInclude Include="particles\module_particles.h">
-      <Filter>particles</Filter>
     </ClInclude>
     <ClInclude Include="modules\module_scenes.h">
       <Filter>modules</Filter>
     </ClInclude>
     <ClInclude Include="ui\widgets\ui_bar.h">
       <Filter>ui\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="components\objects\comp_blade_trap.h">
-      <Filter>components\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="components\animation\comp_golem_animation.h">
-      <Filter>components\animation</Filter>
-    </ClInclude>
-    <ClInclude Include="components\objects\comp_interruptor.h">
-      <Filter>components\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="components\controllers\comp_enemies_in_tube.h">
-      <Filter>components\controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="skeleton\comp_bone_tracker_golem.h">
-      <Filter>skeleton</Filter>
-    </ClInclude>
-    <ClInclude Include="components\actions\comp_follow.h">
-      <Filter>components\actions</Filter>
-    </ClInclude>
-    <ClInclude Include="components\vfx\comp_air.h">
-      <Filter>components\vfx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1752,9 +1662,6 @@
     </Filter>
     <Filter Include="ui\widgets">
       <UniqueIdentifier>{c4516125-3a64-4c55-b97c-b2b025aa476d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="particles">
-      <UniqueIdentifier>{b8772c77-e56a-4a7f-a651-134a66023bf6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

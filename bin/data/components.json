@@ -1,17 +1,14 @@
 {
   "sizes" : {
-    "default" : 2048,
-  "transform" : 2048
+    "default" : 1024,
+  "transform" : 1024
   },
   "init_order" : {
     "entity" : 100,
     "transform" : 90
   },
   "multithread": [
-    "armature",
-    "local_aabb",
-    "dynamic_instance",
-    "compute"
+    "armature"
   ],
   "update": [
     "armature",
@@ -36,7 +33,6 @@
     "rigidbody",
     "camera_flyover",
     "bone_tracker",
-    "bone_tracker_golem",
     "ragdoll",
     "sensor",
     "hierarchy",
@@ -79,25 +75,30 @@
     "trigger",
     "trans_curve_controller",
     "bolt_billboard",
-    "bolt_sphere",
-    "dust",
-    "air",
-    "trail",
     "scalable",
-    "dynamic_instance",
     "camera",
     "compute",
     "removable_camera",
     "comp_self_destroy",
 	"comp_termoestato",
 	"morph_animation",
-	"comp_blade_trap",
-	"comp_increase_power",
-	"comp_interruptor",
-	"enemies_in_tube"
+	"skel_lookat"
   ],
   "render_debug": [
-    "ui_controller",
-    "character_controller"
+    "transform",
+    "light_dir",
+    "armature",
+    "abs_aabb",
+    "local_aabb",
+    "collider",
+    "character_controller",
+    "parabolic_launch",
+	"curve_controller",
+	"trans_curve_controller",
+	"morph_animation",
+	"skel_lookat"
+	
+	
+	
   ]
 }

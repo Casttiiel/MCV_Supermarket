@@ -11,12 +11,10 @@
 #define POINT_TO_POINT 0 //translacion
 #define TRAVELLING 1 //plataforma sigue camino camino de vias
 #define ROTATION 2 //rotacion cierto angulo
-#define ROTATION_ALWAYS_WITH_TIME 3 //rotacion infinita
+#define ROTATION_ALWAYS 3 //rotacion infinita
 #define POINT_TO_POINT_ROTATION_ALWAYS 4//de punto a punto con giro infinito
 #define TRAVELLING_ROTATION_ALWAYS 5 //plataforma sigue camino
 #define TRAVELLING_NOT_ROTATION 6 //platafarma sigue camino de vias sin rotar
-#define TRAVELLING_ALWAYS_WITHOUT_TIME 7
-#define TO_POSITION_WITH_CURVE_NOT_ROTATION 8//solo va hacia una posicion siguiendo una curva
 
 class CAIMobilePlatform : public IAIController
 {
@@ -46,10 +44,7 @@ class CAIMobilePlatform : public IAIController
 	void InitialPositionTravelNotRotationState(float dt);
 	void SeekwptTravelNotRotationState(float dt);
 	
-	//plataformas que se mueven siempre a la misma velocidad ( no hacen caso del cafe)
-	void TurnInfinityNoDt(float dt);
-
-	void ToPosition(float dt);
+	
 
 	DECL_SIBLING_ACCESS();
 public:
@@ -60,8 +55,6 @@ public:
 	void InitPoinToPointRotationInfinity();
 	void InitTravelRotationInfinity();
 	void InitialPositionTravelStateNotRotation();
-	void InitRotationInfinityNoDt();
-	void InitToPositionWithCurveNotRotation();
 
 	void load(const json& j, TEntityParseContext& ctx);
 	void debugInMenu();
@@ -71,7 +64,7 @@ public:
 	static void registerMsgs();
 	void onActiveMsgReceived(const TMsgSetActive & msg);
 	bool active = true;
-	void setCurve(const CCurve* curve);
+
 private:
 	std::vector<VEC3> positions;
 	int i = 0;
@@ -98,18 +91,18 @@ private:
 	MAT44 _curveTransform;
 	std::vector<VEC3> _knots;
 	float i_ang = 0;
-	float rotationTime = 10.f;
+	float rotationTime = 5.f;
 	float rotationTimeActual = rotationTime;
-	VEC3 axis = VEC3(1, 0, 0);
+	VEC3 axis = VEC3(0, 1, 0);
 	int direction = -1;//sentido de rotacion
 	void onTriggerEnter(const TMsgEntityTriggerEnter& msg);
 
 	int trigger_id = 19; //trigger que genera el area de damage
 	int pair_object_id = 17; //elemento con el que chocara
 
-	bool stop = false;
+
 	
-	bool firstTimeRotateDegree = true;
+
 };
 
 #endif _AI_PLATFORM

@@ -27,7 +27,6 @@ void TCompRenderBloom::debugInMenu() {
   ImGui::DragFloat("Threshold Max", &threshold_max, 0.01f, 0.f, 2.f);
   ImGui::DragFloat("Multiplier", &multiplier, 0.01f, 0.f, 3.f);
   ImGui::DragFloat4("Add Weights", &add_weights.x, 0.02f, 0.f, 3.f);
-  ImGui::DragFloat("Emissive Bloom", &emissive_bloom, 0.02f, 1.f, 4.f);
 }
 
 void TCompRenderBloom::load(const json& j, TEntityParseContext& ctx) {
@@ -55,12 +54,9 @@ void TCompRenderBloom::addBloom() {
   if (!enabled || nactive_steps == 0)
     return;
 
-  CGpuScope gpu_scope("CompBloomAddBloom");
-
   cte_bloom.bloom_weights = add_weights * multiplier;
   cte_bloom.bloom_threshold_min = threshold_min * threshold_max;    // So min is always below max
   cte_bloom.bloom_threshold_max = threshold_max;
-  cte_bloom.emissive_bloom_factor = emissive_bloom;
 
   // Remove weights of unused steps
   if (nactive_steps < 4)
@@ -95,8 +91,6 @@ void TCompRenderBloom::generateHighlights(CTexture* in_texture) {
 
   if (!enabled)
     return;
-
-  CGpuScope gpu_scope("CompBloomGenerateHighlights");
 
   // Filter input image to gather only the highlights
   auto prev_rt = rt_highlights->activateRT();

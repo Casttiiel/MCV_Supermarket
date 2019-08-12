@@ -1,13 +1,8 @@
 #include "mcv_platform.h"
 #include "comp_buffers.h"
 #include "render/compute/gpu_buffer.h"
-#include "components/common/comp_render.h"
-#include "utils/data_saver.h"
 
 DECL_OBJ_MANAGER("buffers", TCompBuffers);
-
-void from_json(const json& j, TCtesParticles& p);
-template<> bool debugCteInMenu<TCtesParticles>(TCtesParticles& d);
 
 TCompBuffers::~TCompBuffers() {
   for (auto& b : gpu_buffers)
@@ -60,58 +55,11 @@ void TCompBuffers::load(const json& j, TEntityParseContext& ctx) {
       continue;
     }
 
-    if (key == "TCtesParticles") {
-      auto cte_buffer = new CCteBuffer< TCtesParticles >( CTE_BUFFER_SLOT_PARTICLES );
-      bool is_ok = cte_buffer->create(key.c_str());
-      assert(is_ok);
-      from_json(jval, *cte_buffer);
-      cte_buffer->updateGPU();
-      cte_buffers.push_back(cte_buffer);
-      continue;
-    }
-
     {
       CGPUBuffer* gpu_buffer = new CGPUBuffer();
       bool is_ok = gpu_buffer->create(jval);
       assert(is_ok || fatal("Failed to create compute shader buffer %s\n", key.c_str()));
       gpu_buffers.push_back(gpu_buffer);
-
-      if (gpu_buffer->is_indirect && jval.count( "init_indirect_from_mesh" )) {
-        std::string mesh_name = jval["init_indirect_from_mesh"];
-        const CMesh* mesh = Resources.get(mesh_name)->as<CMesh>();
-        auto& g = mesh->getGroups();
-        assert(g.size() > 0);
-        uint32_t args[5] = { g[0].num_indices, 0, g[0].first_idx, 0, 0 };
-        gpu_buffer->copyCPUtoGPUFrom(args);
-      }
-
-      if (jval.value("init_as_sequencial_ints", false)) {
-        std::vector<uint32_t> ints;
-        for (uint32_t i = 0; i < gpu_buffer->num_elems; ++i)
-          ints.push_back(i);
-        gpu_buffer->copyCPUtoGPUFrom(ints.data());
-      }
-
-      if (jval.value("init_with_values", false)) {
-        CMemoryDataSaver ds;
-        for (auto& j : jval.items()) {
-          auto& jv = j.value();
-          if (jv.is_number_float()) {
-            float f = jv;
-            ds.write(f);
-          }
-          else if (jv.is_number_integer()) {
-            uint32_t i = jv;
-            ds.write(i);
-          }
-          else {
-            fatal("Don't know how to init gpu buffer %s with value '%s'\n", gpu_buffer->name.c_str(), jv.dump().c_str() );
-          }
-        }
-        assert(ds.buffer.size() <= gpu_buffer->bytes_per_elem * gpu_buffer->num_elems);
-        gpu_buffer->copyCPUtoGPUFrom(ds.buffer.data());
-      }
-
     }
   }
 

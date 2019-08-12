@@ -21,7 +21,6 @@ public:
   bool aiming = false;
   bool is_grounded = false;
   void Init();
-	void update(float dt);
   void debugInMenu();
   void renderDebug();
   void load(const json& j, TEntityParseContext& ctx);
@@ -49,10 +48,7 @@ public:
 
 
   bool unLockableBattery = false;
-  bool unLockableTeleport = false;
-  bool unLockableChilli = false;
-  bool unLockableCoffe = false;
-  bool cinematic = false;
+
 private:
 
 	int typeRender = 2;
@@ -81,9 +77,6 @@ private:
   bool enemy_in_range = true;
 
   bool isBatteryAlive = false;
-
-	float invulnerabilityTimer = 0.f;
-	float invulnerabilityTimeDuration = 1.0;
 
   //Audio Values
   AudioEvent footSteps;
@@ -121,7 +114,7 @@ private:
   float chilliDistance = 3.f;
 
   float rumble_time = 0.0f;
-  
+  bool cinematic = false;
   
 
 
@@ -157,7 +150,11 @@ private:
   void onBatteryDeactivation(const TMsgBatteryDeactivates& msg);
   void onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg);
   void onCinematic(const TMsgOnCinematic& msg);
-  void onTrapWind(const TMsgTrapWind& msg);
+  
+
+
+  
+
 
 
   //?????

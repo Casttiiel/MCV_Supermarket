@@ -9,9 +9,8 @@ class TCompDestroyableWall : public TCompBase
 {
 
   #define ICE_WALL 0 //translacion
-  #define DESTROYABLE_WALL = 1//caja que se rompe en trozos
+  #define DESTROYABLE_WALL = 1
   #define NORMAL_WALL = 2 //o caja
-	#define TIME_ICE_WALL = 3 // MURO DE HIELO QUE TARDA EN DERRETIRSE
   DECL_SIBLING_ACCESS();
 
 public:
@@ -24,8 +23,6 @@ public:
 private:
   void onPlayerAttack(const TMsgDamage & msg);
   int typeWall = ICE_WALL;
-  float factor = 1.5f;
-	float factor2 = 2.5f;
-	float timer_ice_wall = 150.0;
+  float randomNumber();
 };
 

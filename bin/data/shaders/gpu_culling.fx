@@ -35,9 +35,7 @@ cbuffer TCullingPlanes : register(b11) {
 };
 
 // --------------------------------------------------------------
-
-SHADER_CTE_BUFFER(TCtesInstancing, CTE_BUFFER_SLOT_COMP_BUFFERS) 
-{
+cbuffer TCtesInstancing : register(b12) {
   uint  total_num_objs;
   uint  instance_base;
   uint2 instancing_padding;

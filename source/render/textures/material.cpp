@@ -78,17 +78,22 @@ const char* CMaterial::getCategoryName() const {
   return category_names.nameOf(category);
 }
 
+CMaterial::CMaterial()
+  : ctes_material(CTE_BUFFER_SLOT_MATERIAL)
+{}
+
 void CMaterial::destroy() {
-  if (ctes_material) {
-    ctes_material->destroy();
-    ctes_material = nullptr;
-  }
+  ctes_material.destroy();
 }
 
 // ----------------------------------------------------------
 bool CMaterial::create(const json& j) {
 
   assert(j.count("textures") || fatal("material %s requires attribute textures\n", name.c_str()));
+
+  bool is_ok = ctes_material.create("Material");
+  // Read initial values...
+  assert(is_ok);
 
   // Set all textures to a null value
   for (int i = 0; i < max_textures; ++i) {
@@ -158,8 +163,7 @@ void CMaterial::cacheSRVs() {
 
 void CMaterial::activate() const {
   tech->activate();
-  if(ctes_material)
-    ctes_material->activate();
+  ctes_material.activate();
   activateTextures(TS_ALBEDO);
 }
 

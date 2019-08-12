@@ -86,5 +86,8 @@ public:
   void setEntityCamera(CHandle h_new_entity_camera) {
     h_camera = h_new_entity_camera;
   }
-  CHandle getEntityCamera() const { return h_camera; }
+
+  CHandle getEntityCamera() {
+    return h_camera;
+  }
 };

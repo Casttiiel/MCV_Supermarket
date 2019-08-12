@@ -40,17 +40,16 @@ CCteBuffer<TCtesUI>  ctes_ui(CTE_BUFFER_SLOT_UI);
 CCteBuffer<TCtesFXAA>   ctes_fxaa(CTE_BUFFER_SLOT_FXAA);
 CCteBuffer<TCtesChromaticAberration>   ctes_chr_abr(CTE_BUFFER_SLOT_CHR_ABR);
 
-
 // -----------------------------------------------------------
 bool createAxis(CMesh& mesh) {
   SimpleVertex axis_data[] =
   {
     { VEC3(0.0f,  0.0f, 0.0f), VEC4(1,0,0,1)},
-    { VEC3(20.0f,  0.0f, 0.0f), VEC4(1,0,0,1)},
+    { VEC3(1.0f,  0.0f, 0.0f), VEC4(1,0,0,1)},
     { VEC3(0.0f,  0.0f, 0.0f), VEC4(0,1,0,1)},
-    { VEC3(0.0f,  20.0f, 0.0f), VEC4(0,1,0,1)},
+    { VEC3(0.0f,  2.0f, 0.0f), VEC4(0,1,0,1)},
     { VEC3(0.0f,  0.0f, 0.0f), VEC4(0,0,1,1)},
-    { VEC3(0.0f,  0.0f, 20.0f), VEC4(0,0,1,1)},
+    { VEC3(0.0f,  0.0f, 3.0f), VEC4(0,0,1,1)},
   };
   return mesh.create(axis_data, 6, sizeof(SimpleVertex), "PosColor", nullptr, 0, 0, CMesh::LINE_LIST);
 }
@@ -197,20 +196,21 @@ bool createPlaneXYTextured(CMesh& mesh) {
 
 // ----------------------------------
 bool createPlaneXYTexturedUI(CMesh& mesh) {
-  std::vector<VertexUVColor> vtxs =
-  {
-    { VEC3(0.0f, 0.0f, 0.0f),  VEC2(0, 0),  VEC4(1, 1, 1, 1) },    // 
-    { VEC3(1.0f, 0.0f, 0.0f),  VEC2(1, 0),  VEC4(1, 1, 1, 1) },    // 
-    { VEC3(0.0f, 1.0f, 0.0f),  VEC2(0, 1),  VEC4(1, 1, 1, 1) },    // 
-    { VEC3(1.0f, 1.0f, 0.0f),  VEC2(1, 1),  VEC4(1, 1, 1, 1) },    // 
-  };
-  const std::vector<uint16_t> idxs = {
-    0, 1, 2, 3
-  };
-  return mesh.create(vtxs.data(), (uint32_t)vtxs.size(), sizeof(VertexUVColor),
-    "PosUvColor"
-    , idxs.data(), (uint32_t)idxs.size(), sizeof(uint16_t), CMesh::TRIANGLE_STRIP);
+	std::vector<VertexUVColor> vtxs =
+	{
+	  { VEC3(0.0f, 0.0f, 0.0f),  VEC2(0, 0),  VEC4(1, 1, 1, 1) },    // 
+	  { VEC3(1.0f, 0.0f, 0.0f),  VEC2(1, 0),  VEC4(1, 1, 1, 1) },    // 
+	  { VEC3(0.0f, 1.0f, 0.0f),  VEC2(0, 1),  VEC4(1, 1, 1, 1) },    // 
+	  { VEC3(1.0f, 1.0f, 0.0f),  VEC2(1, 1),  VEC4(1, 1, 1, 1) },    // 
+	};
+	const std::vector<uint16_t> idxs = {
+	  0, 1, 2, 3
+	};
+	return mesh.create(vtxs.data(), (uint32_t)vtxs.size(), sizeof(VertexUVColor),
+		"PosUvColor"
+		, idxs.data(), (uint32_t)idxs.size(), sizeof(uint16_t), CMesh::TRIANGLE_STRIP);
 }
+
 
 // ----------------------------------
 bool createBoltQuad(CMesh& mesh) {
@@ -231,40 +231,7 @@ bool createBoltQuad(CMesh& mesh) {
 
 // ----------------------------------
 // Full screen quad to dump textures in screen
-bool createUnitQuadXYCentered(CMesh& mesh) {
-  const float min = -0.5f;
-  const float max = 0.5f;
-  std::vector<VertexUVColor> vtxs =
-  {
-    { VEC3(min, min, 0.0f),  VEC2(0, 0),  VEC4(1, 1, 1, 1) },    // 
-    { VEC3(max, min, 0.0f),  VEC2(1, 0),  VEC4(1, 1, 1, 1) },    // 
-    { VEC3(min, max, 0.0f),  VEC2(0, 1),  VEC4(1, 1, 1, 1) },    // 
-    { VEC3(max, max, 0.0f),  VEC2(1, 1),  VEC4(1, 1, 1, 1) },    // 
-  };
-  const std::vector<uint16_t> idxs = {
-    0, 1, 2, 3
-  };
-  return mesh.create(vtxs.data(), (uint32_t)vtxs.size(), sizeof(VertexUVColor),
-    "PosUvColor"
-    , idxs.data(), (uint32_t)idxs.size(), sizeof(uint16_t), CMesh::TRIANGLE_STRIP);
-}
-
-// ----------------------------------
-// Full screen quad to dump textures in screen
 bool createUnitQuadXY(CMesh& mesh) {
-  const VEC4 white(1, 1, 1, 1);
-  const std::vector<SimpleVertex> vtxs = {
-    { VEC3(0, 0, 0), white }
-  , { VEC3(1, 0, 0), white }
-  , { VEC3(0, 1, 0), white }
-  , { VEC3(1, 1, 0), white }
-  };
-  return mesh.create(vtxs.data(), (uint32_t)vtxs.size(), sizeof(SimpleVertex),
-    "PosColor"
-    , nullptr, 0, 0, CMesh::TRIANGLE_STRIP);
-}
-
-bool createTrail(CMesh& mesh) {
   const VEC4 white(1, 1, 1, 1);
   const std::vector<SimpleVertex> vtxs = {
     { VEC3(0, 0, 0), white }
@@ -307,9 +274,7 @@ bool createRenderPrimitives() {
   registerMesh("unit_frustum_solid", createCameraFrustumSolid);
   registerMesh("unit_wired_cube", createWiredUnitCube);
   registerMesh("unit_quad_xy", createUnitQuadXY);
-  registerMesh("unit_quad_xy_centered", createUnitQuadXYCentered);
   registerMesh("bolt_quad", createBoltQuad);
-  registerMesh("trail_mesh", createTrail);
   
   tech_debug_color = Resources.get("debug_color.tech")->as<CTechnique>();
   tech_debug_pos = Resources.get("debug_pos.tech")->as<CTechnique>();
@@ -323,9 +288,9 @@ bool createRenderPrimitives() {
   is_ok &= ctes_light.create("Light");
   is_ok &= ctes_debug_line.create("DebugLine");
   is_ok &= ctes_blur.create("Blur");
+  is_ok &= ctes_ui.create("UI");
   is_ok &= ctes_fxaa.create("FXAA");
   is_ok &= ctes_chr_abr.create("ChromAbr");
-  is_ok &= ctes_ui.create("UI");
   assert(is_ok);
 
   ctes_debug_line.activate();     // This could be done once per runtime
@@ -381,9 +346,6 @@ void activateCamera(const CCamera& camera, int width, int height) {
   ctes_camera.CameraTanHalfFov = tanf(camera.getFov() * 0.5f);
   ctes_camera.CameraInvResolution = VEC2(1.0f / (float)width, 1.0f / (float)height);
   ctes_camera.CameraAspectRatio = camera.getAspectRatio();
-
-  ctes_camera.CameraLeft = camera.getLeft();
-  ctes_camera.CameraUp = camera.getUp();
 
   // Simplify conversion from screen coords to world coords 
   MAT44 m = MAT44::CreateScale(-ctes_camera.CameraInvResolution.x * 2.f, -ctes_camera.CameraInvResolution.y * 2.f, 1.f)

@@ -94,10 +94,9 @@ public:
   std::string asString() const { return std::to_string(asUnsigned()); };
   // Create & Destroy
   template<class TObj>
-  CHandle create() {
+  void create() {
     auto hm = getObjectManager<TObj>();
     *this = hm->createHandle();
-    return *this;
   }
   void destroy();
 

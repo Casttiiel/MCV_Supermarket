@@ -27,7 +27,6 @@ public:
     void setVolume(float volume);
     void setPitch(float pitch);
     void setParameter(const std::string& name, float value);
-    void setParameter(const std::string& name, int value);
 
     bool getPaused() const;
     float getVolume() const;

@@ -8,9 +8,6 @@ filein (mcv_scripts_path + "exportScene.ms")
 filein (mcv_scripts_path + "exportCurve.ms")
 filein (mcv_scripts_path + "exportUI.ms")
 filein (mcv_scripts_path + "exportSkeletons.ms")
-
-format "path %" mcv_scripts_path
-
 --filein (mcv_scripts_path + "export_ui.ms")
 --filein (mcv_scripts_path + "export_scene.ms")
 --filein (mcv_scripts_path + "export_ui.ms")

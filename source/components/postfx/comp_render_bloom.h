@@ -14,7 +14,6 @@ struct TCompRenderBloom : public TCompRenderBlur {
   float                         threshold_min = 0.8f;
   float                         threshold_max = 1.f;
   float                         multiplier = 1.f;
-  float                         emissive_bloom = 4.0f;
 
   TCompRenderBloom();
   ~TCompRenderBloom();

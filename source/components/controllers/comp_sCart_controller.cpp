@@ -10,9 +10,6 @@
 #include "modules/module_physics.h"
 #include "engine.h"
 #include "input/module_input.h"
-#include "ui/widgets/ui_image.h"
-#include "ui/module_ui.h"
-#include "ui/ui_widget.h"
 
 using namespace physx;
 
@@ -25,7 +22,6 @@ void TCompSCartController::Init() {
 	AddState("SCART_ON_AIR", (statehandler)&TCompSCartController::onAir);
 	AddState("SCART_DAMAGED", (statehandler)&TCompSCartController::damaged);
 	AddState("SCART_DEAD", (statehandler)&TCompSCartController::dead);
-    AddState("SCART_IDLE_CINEMATIC", (statehandler)&TCompSCartController::idleCinematic);
 
 	//ADD MORE STATES FOR BEING HIT, ETC, ETC
 
@@ -85,7 +81,7 @@ void TCompSCartController::disable() {
 	behind.y += offsetY;
 	vehicle_prop_collider->controller->setPosition(VEC3_TO_PXEXVEC3(behind));
 	SwapMesh(0);
-    rowImpulseLeft = 0.f;
+
 	//Remove fake player
 	fakePlayerHandle.destroy();
 }
@@ -95,14 +91,6 @@ void TCompSCartController::disabled() {
 		dbg("Shopping Cart becomes ENABLED, changes to GROUNDED from DISABLED");
 		ChangeState("SCART_GROUNDED");
 	}
-}
-
-void TCompSCartController::idleCinematic() {
-    if (!cinematic) {
-        dbg("Shopping Cart becomes ENABLED, changes to GROUNDED from SCART_IDLE_CINEMATIC");
-        ChangeState("SCART_GROUNDED");
-    }
-
 }
 
 
@@ -129,30 +117,9 @@ void TCompSCartController::debugInMenu() {
 void TCompSCartController::registerMsgs() {
 	DECL_MSG(TCompSCartController, TMsgOnContact, onCollision);
 	DECL_MSG(TCompSCartController, TMsgDamage, onDamage);
-    DECL_MSG(TCompSCartController, TMsgOnCinematic, onCinematicScart);
-}
-
-void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
-{
-    cinematic = msg.cinematic;
-	UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-	mirilla->getParams()->visible = false;
-    if (cinematic) {
-        ChangeState("SCART_IDLE_CINEMATIC");
-    }
-    else {
-        if (isEnabled) {
-			rowImpulseLeft = 0;//al salir de la cinematica para que no se vaya a cuenca el carrito
-            ChangeState("SCART_GROUNDED");
-        }
-        else {
-            ChangeState("SCART_DISABLED");
-        }        
-    }
 }
 
 void TCompSCartController::onCollision(const TMsgOnContact& msg) {
-
 	if (isEnabled) {
 		CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
 		if (source_of_impact) {
@@ -178,46 +145,24 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 		}
 	}
 	else {
-		//ChangeState("SCART_DISABLED");
+		ChangeState("SCART_DISABLED");
 	}
 }
 
 void TCompSCartController::onDamage(const TMsgDamage& msg) {
 	if (isEnabled) {
-		life -= msg.intensityDamage;
-		TCompRigidBody* c_rbody = get<TCompRigidBody>();
-		if (!c_rbody)
-			return;
-		EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
-		
-		VEC3 direction_to_damage;
-		TCompTransform* my_trans = get<TCompTransform>();
-		if (msg.senderType == ENEMIES) { //los enemigos envian el handle
-			/*CEntity* entity_to_hit_me = (CEntity *)msg.h_bullet;
-			TCompTransform* e_trans = entity_to_hit_me->get<TCompTransform>();
-			direction_to_damage = my_trans->getPosition() - e_trans->getPosition();*/
-			if(!cinematic) {
-				c_rbody->jump(VEC3(0.0f,5.f, 0.0f));
+		if (strcmp("DAMAGED", state.c_str()) != 0) {
+			life -= msg.intensityDamage;
+			ChangeState("SCART_DAMAGED");
+			if (life <= 0.0f) {
+				life = 0.0f;
+				ChangeState("SCART_DEAD");
 			}
 		}
-		else { //algunos objetos envian una posicion
-			//direction_to_damage = my_trans->getPosition() - msg.position;
-			if (!cinematic) {
-				c_rbody->jump(VEC3(0.0f, 5.f, 0.0f));
-			}
-		}
-		direction_to_damage.Normalize();
-		//c_rbody->addForce(VEC3(direction_to_damage) * 100);
-		ChangeState("SCART_DAMAGED");
-		if (life <= 0.0f) {
-			life = 0.0f;
-			//ChangeState("SCART_DEAD");
-		}
-		
 	}
-	//else {
-	//	ChangeState("SCART_DISABLED");
-	//}
+	else {
+		ChangeState("SCART_DISABLED");
+	}
 }
 
 void  TCompSCartController::SwapMesh(int state) {
@@ -374,7 +319,7 @@ void TCompSCartController::onAir(float delta) {
 }
 
 void TCompSCartController::damaged(float delta) {
-	if (isEnabled && !cinematic) {
+	if (isEnabled) {
 		dbg("sCart changes to STATE from DAMAGED\n");
 		ChangeState("SCART_GROUNDED");
 	}
@@ -398,10 +343,10 @@ void TCompSCartController::rotatePlayer(float delta) {
   float value = 0.0f;
 
   if (EngineInput["left_"].isPressed()) {
-    value += sensitivity;
+    value += 1.0f;
   }
   if (EngineInput["right_"].isPressed()) {
-    value -= sensitivity;
+    value -= 1.0f;
   }
   //GAMEPAD
   if (EngineInput.gamepad()._connected) {

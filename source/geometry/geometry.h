@@ -20,10 +20,8 @@ typedef DirectX::BoundingSphere BSphere;
 extern VEC2 loadVEC2(const json& j, const char* attr, const VEC2& defaultValue = VEC2::Zero);
 extern VEC3 loadVEC3(const std::string& str);
 extern VEC3 loadVEC3(const json& j, const char* attr);
-extern VEC3 loadVEC3(const json& j, const char* attr, const VEC3& defaultValue);
 extern VEC4 loadVEC4(const json& j, const char* attr);
 extern QUAT loadQUAT(const json& j, const char* attr);
-extern VEC4 loadColor(const json& j);
 extern VEC4 loadColor(const json& j, const char* attr);
 extern VEC4 loadColor(const json& j, const char* attr, const VEC4& defaultValue);
 

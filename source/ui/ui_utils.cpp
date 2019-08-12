@@ -25,7 +25,8 @@ namespace UI
     tech->activate();
     if (texture)
       texture->activate(TS_ALBEDO);
-    auto* mesh = Resources.get("unit_plane_xy_UI.mesh")->as<CMesh>();
+    //auto* mesh = Resources.get("unit_plane_xy.mesh")->as<CMesh>();
+	auto* mesh = Resources.get("unit_plane_xy_UI.mesh")->as<CMesh>();
     mesh->activateAndRender();
   }
 

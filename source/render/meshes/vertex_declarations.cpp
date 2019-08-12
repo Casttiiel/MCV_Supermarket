@@ -83,12 +83,6 @@ static D3D11_INPUT_ELEMENT_DESC layout_InstanceColorTimed[] = {
 { "TEXCOORD", 7, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 80, D3D11_INPUT_PER_VERTEX_DATA, 0 },    // time + 3 dummy
 };
 
-static D3D11_INPUT_ELEMENT_DESC layout_ParticleRenderData[] = {
-  { "TEXCOORD", 2, DXGI_FORMAT_R32G32B32_FLOAT,    0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },    // pos
-  { "TEXCOORD", 3, DXGI_FORMAT_R32_FLOAT,          0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },    // time
-  { "TEXCOORD", 4, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },    // color  // Not used anymore
-};
-
 static std::vector< CVertexDeclaration* > all_vertex_decl = {
   MAKE_VERTEX_DECLARATION(Pos, 12),
   MAKE_VERTEX_DECLARATION(PosColor, 28),
@@ -100,7 +94,6 @@ static std::vector< CVertexDeclaration* > all_vertex_decl = {
   MAKE_VERTEX_DECLARATION(Instance, 64),
   MAKE_VERTEX_DECLARATION(InstanceColor, 80),
   MAKE_VERTEX_DECLARATION(InstanceColorTimed, 80+16),
-  MAKE_VERTEX_DECLARATION(ParticleRenderData, 32),
 };
 
 const CVertexDeclaration* createInstancedVertexDecl(const std::string& name, size_t idx) {

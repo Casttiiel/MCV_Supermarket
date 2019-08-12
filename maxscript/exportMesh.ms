@@ -345,12 +345,10 @@ function exportMesh the_obj out_filename vtx_fmt = (
 	if out_filename == undefined then (
 		--local export_path = "D:/Joaquin/mcv_sm/bin/data/meshes/ D:/Joaquin/Proyecto_43/mcv_sm/bin/data/meshes/"
 		--C:/Users/victo/mcv_sm/bin/data/meshes/
-		--local export_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/meshes/"
+		--C:/Users/Daniel/Desktop/mcv_sm/bin/data/meshes/
 		--C:/Users/mcv17_alumne/Desktop/mcv_sm/bin/data/meshes/
-		--local export_path = "C:/Users/victo/mcv_sm/bin/data/meshes/
-		--C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/meshes/
-		--local export_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/meshes/" 
-		local export_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/data/meshes/static_objects/"
+		--local export_path = "C:/Users/victo/mcv_sm/bin/data/meshes/" 
+		local export_path = "C:/Users/Daniel/Desktop/mcv_sm/bin/data/meshes/" 
 		out_filename = export_path + the_obj.name + ".mesh"
 	)
 	writeMeshToFile out_filename verts idxs vtx_fmt subgroups

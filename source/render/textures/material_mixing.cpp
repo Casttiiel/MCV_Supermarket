@@ -2,21 +2,10 @@
 #include "material_mixing.h"
 
 // ---------------------------------------------------------
-CMaterialMixing::CMaterialMixing()
-: ctes_mixing(CTE_BUFFER_SLOT_MATERIAL)
-{
-}
-
-// ---------------------------------------------------------
-void CMaterialMixing::destroy() {
-  ctes_mixing.destroy();
-}
-
-// ---------------------------------------------------------
 void CMaterialMixing::activate() const {
 
   // Upload ctes
-  ctes_mixing.activate();
+  ctes_material.activate();
 
   // Tech
   tech->activate();
@@ -35,9 +24,6 @@ bool CMaterialMixing::create(const json& j) {
   if (!CMaterial::create(j))
     return false;
 
-  bool is_ok = ctes_mixing.create("Mixing");
-  assert(is_ok);
-
   for (int i = 0; i < 3; ++i) {
     std::string mat_name = j["mats"][i];
     mats[i] = Resources.get(mat_name)->as< CMaterial >();
@@ -53,12 +39,12 @@ bool CMaterialMixing::create(const json& j) {
 void CMaterialMixing::renderInMenu() {
   ((CTechnique*)tech)->renderInMenu();
   bool changed = false;
-  changed |= ImGui::DragFloat("Boost R", &ctes_mixing.mix_boost_r, 0.01f, 0.f, 1.f);
-  changed |= ImGui::DragFloat("Boost G", &ctes_mixing.mix_boost_g, 0.01f, 0.f, 1.f);
-  changed |= ImGui::DragFloat("Boost B", &ctes_mixing.mix_boost_b, 0.01f, 0.f, 1.f);
+  changed |= ImGui::DragFloat("Boost R", &ctes_material.mix_boost_r, 0.01f, 0.f, 1.f);
+  changed |= ImGui::DragFloat("Boost G", &ctes_material.mix_boost_g, 0.01f, 0.f, 1.f);
+  changed |= ImGui::DragFloat("Boost B", &ctes_material.mix_boost_b, 0.01f, 0.f, 1.f);
   for (int i = 0; i < 3; ++i)
     ((CMaterial*)mats[i])->renderInMenu();
   if( changed )
-    ctes_mixing.updateGPU();
+    ctes_material.updateGPU();
 }
 

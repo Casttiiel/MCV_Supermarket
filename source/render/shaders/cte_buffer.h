@@ -61,20 +61,13 @@ public:
     return total_bytes;
   }
 
-  uint32_t slotIndex() const {
-    return slot_idx;
-  }
-
 };
 
 template< typename TData >
 void readCteJson(const json& j, TData& d) {}
 
 template< typename TData >
-bool debugCteInMenu(TData& d) { 
-  ImGui::Text("(%ld bytes)", sizeof(d));
-  return false; 
-}
+bool debugCteInMenu(TData& d) { return false; }
 
 // Create an composed object, first the ctes data struct
 // then, the pointer to the cb
@@ -103,11 +96,8 @@ public:
     updateGPU();
   }
   void debugInMenu() override {
-    if (ImGui::TreeNode(getName().c_str())) {
-      if (debugCteInMenu<TData>(*this))
-        updateGPU();
-      ImGui::TreePop();
-    }
+    if (debugCteInMenu<TData>(*this))
+      updateGPU();
   }
 };
 

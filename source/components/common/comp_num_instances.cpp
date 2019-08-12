@@ -8,11 +8,6 @@ void TCompNumInstances::debugInMenu() {
 }
 
 void TCompNumInstances::load(const json& j, TEntityParseContext& ctx) {
-  if (j.is_string()) {
-    gpu_buffer_name = j.get<std::string>();
-    is_indirect = true;
-    num_instances = 0;
-  }
-  else
-    num_instances = j.get<uint32_t>();
+  num_instances = j.get<uint32_t>();
 }
+

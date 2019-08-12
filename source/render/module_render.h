@@ -32,6 +32,4 @@ public:
   void endImgui();
   void generateFrame();
   void onResolutionUpdated();
-
-  CHandle getCamera() { return h_camera; }
 };

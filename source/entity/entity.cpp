@@ -22,15 +22,12 @@ CEntity::~CEntity() {
   }
 }
 
+
 void CEntity::set(uint32_t comp_type, CHandle new_comp) {
   assert(comp_type < CHandle::max_types);
   assert(!comps[comp_type].isValid());
   comps[comp_type] = new_comp;
   new_comp.setOwner(CHandle(this));
-}
-
-void CEntity::set(CHandle new_comp) {
-  set(new_comp.getType(), new_comp);
 }
 
 const char* CEntity::getName() const {

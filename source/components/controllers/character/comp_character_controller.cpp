@@ -21,9 +21,7 @@
 #include "modules/module_camera_mixer.h"
 #include "components/controllers/comp_trans_curve_controller.h"
 #include "ui/widgets/ui_bar.h"
-#include "ui/widgets/ui_image.h"
 #include "ui/module_ui.h"
-#include "ui/ui_widget.h"
 
 using namespace physx;
 
@@ -50,21 +48,6 @@ void TCompCharacterController::Init() {
     ChangeState("GROUNDED");
 }
 
-void TCompCharacterController::update(float dt) {
-	dt = Time.delta_unscaled;
-	if (invulnerabilityTimer > 0) {
-		invulnerabilityTimer -= dt;
-	}
-
-	if (!_pausedAI) {
-		PROFILE_FUNCTION("IAIController");
-		assert(!state.empty());
-		assert(statemap.find(state) != statemap.end());
-		// this is a trusted jump as we've tested for coherence in ChangeState
-		(this->*statemap[state])(Time.delta);
-	}
-}
-
 void TCompCharacterController::debugInMenu() {
     ImGui::LabelText("State", "%s", state.c_str());
     ImGui::DragFloat("Time between dashes", &time_between_dashes, 0.1f, 0.0f, 5.0f);
@@ -78,9 +61,6 @@ void TCompCharacterController::debugInMenu() {
     ImGui::DragFloat("Life", &life, 0.10f, 0.f, 100.f);
     ImGui::DragFloat("Distance to aim", &distance_to_aim, 0.10f, 0.f, 100.f);
     ImGui::Checkbox("UnLockable Battery", &unLockableBattery);
-	ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
-	ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
-	ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);
 }
 
 void TCompCharacterController::renderDebug() {
@@ -118,16 +98,12 @@ void TCompCharacterController::load(const json& j, TEntityParseContext& ctx) {
     speed = j.value("speed", speed);
     rotation_speed = j.value("rotation_sensibility", rotation_speed);
     distance_to_aim = j.value("distance_to_aim", distance_to_aim);
-    unLockableBattery = j.value("unLockableBattery", unLockableBattery);
-	unLockableTeleport = j.value("unLockableTeleport", unLockableTeleport);
-	unLockableCoffe = j.value("unLockableCoffe", unLockableCoffe);
-	unLockableChilli = j.value("unLockableChilli", unLockableChilli);
+    unLockableBattery = j.value("unLockableBattery", unLockableBattery);;
 }
 
 void TCompCharacterController::registerMsgs() {
     DECL_MSG(TCompCharacterController, TMsgOnContact, onCollision);
     DECL_MSG(TCompCharacterController, TMsgDamage, onGenericDamage);
-    DECL_MSG(TCompCharacterController, TMsgTrapWind, onTrapWind);
     // DECL_MSG(TCompCharacterController, TMsgDamageToPlayer, onDamage);
     DECL_MSG(TCompCharacterController, TMsgEntityTriggerEnter, onEnter);
     DECL_MSG(TCompCharacterController, TMsgPowerUp, onPowerUp);
@@ -171,12 +147,10 @@ void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsg
 //STATES
 
 void TCompCharacterController::idleCinematic(float delta) {
-    footSteps.setPaused(true);
   //DO NOTHING, ONLY LOOP IDLE
 	if (!cinematic) {
 		ChangeState("GROUNDED");
-		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = true;
+		
 	}
 }
 
@@ -272,25 +246,17 @@ void TCompCharacterController::grounded(float delta) {
     else if (EngineInput["interact_"].justPressed()) {//INTERACT
         interact();
     }
-    else if (EngineInput["coffee_time_"].justPressed() && unLockableCoffe) { //COFFEE
+    else if (EngineInput["coffee_time_"].justPressed()) { //COFFEE
       //dbg("switch coffe ground\n");
         TCompCoffeeController* c_coffee = get<TCompCoffeeController>();
         c_coffee->switchState();
     }
-    else if (EngineInput["fire_attack_"].isPressed() && unLockableChilli) { //FIRE
+    else if (EngineInput["fire_attack_"].isPressed()) { //FIRE
         TCompTeleport* c_tp = get<TCompTeleport>();
         TCompTransform* c_trans = get<TCompTransform>();
         TCompMadnessController* m_c = get<TCompMadnessController>();
 
-        if (c_tp->canCombo() && m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) {
-            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
-                dbg("Pj execute combo fire\n");
-                c_tp->comboDone = true;
-                TCompFireController* c_fire = get<TCompFireController>();
-                c_fire->comboAttack(c_trans->getPosition());
-            }
-        }
-        else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE)) {
+        if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE)) {
             if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
         //Enable fire, keep it enabled while holding trigger, disable on release
                 TCompFireController* c_fire = get<TCompFireController>();
@@ -310,14 +276,18 @@ void TCompCharacterController::grounded(float delta) {
                 w_r3->updateRenderManager();
             }
         }
+        else if (c_tp->canCombo()) { 
+            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
+                dbg("Pj execute combo fire\n");
+                c_tp->comboDone = true;
+                TCompFireController* c_fire = get<TCompFireController>();
+                c_fire->comboAttack(c_trans->getPosition());
+            }
+        }
     }
     else if (EngineInput["checkpoint_"].justPressed()) {
         GameController.loadCheckpoint();
     }
-	//cheat(cambio de zona por posicion de mapa)
-	else if (EngineInput[VK_F3]) {
-		GameController.cheatPosition();
-	}
 
     dir *= Time.delta_unscaled;
 
@@ -439,7 +409,7 @@ void TCompCharacterController::onAir(float delta) {
         TCompCoffeeController* c_coffee = get<TCompCoffeeController>();
         c_coffee->switchState();
     }
-    else if (EngineInput["fire_attack_"].isPressed() /*&& unLockableChilli*/) { //FIRE
+    else if (EngineInput["fire_attack_"].isPressed()) { //FIRE
         TCompTeleport* c_tp = get<TCompTeleport>();
         TCompTransform* c_trans = get<TCompTransform>();
         TCompMadnessController* m_c = get<TCompMadnessController>();
@@ -456,9 +426,6 @@ void TCompCharacterController::onAir(float delta) {
             c_fire->comboAttack(c_trans->getPosition());
         }
     }
-	else if (EngineInput[VK_F3]) {
-		GameController.cheatPosition();
-	}
 
     getInputForce(dir);
     dir *= Time.delta_unscaled;
@@ -482,12 +449,7 @@ void TCompCharacterController::onAir(float delta) {
 void TCompCharacterController::damaged(float delta) {
 
     if (isGrounded()) {//END RECOIL WHEN IS GROUNDED
-        if (!isMounted) {
-            ChangeState("GROUNDED");
-        }
-        else {
-            ChangeState("MOUNTED");
-        }
+        ChangeState("GROUNDED");
     }
 }
 
@@ -675,12 +637,6 @@ void TCompCharacterController::powerSelection() {
   }
   else if (EngineInput["select_battery_"].justPressed()) { //bateria
     power_selected = PowerType::BATTERY;
-	/*TCompTransform* c_trans = get<TCompTransform>();
-	
-	VEC3 posDestination = c_trans->getTranslatePositionForAngle(c_trans->getPosition(), 3, -90);
-	dbg("POS DESTINATION:X:%f,Y:%f,Z:%f\n", posDestination.x, posDestination.y, posDestination.z);
-	*/
-	//Scripting.execActionDelayed("playMorph(\"Morph\")", 0.0);
 	/*Prueba de concepto
 	CEntity* debug_camera = getEntityByName("DebugCamera");
 	TCompCurveController* t = debug_camera->get<TCompCurveController>();
@@ -704,7 +660,7 @@ void TCompCharacterController::shoot() {
     TCompTransform* c_trans = get<TCompTransform>();
     TCompMadnessController* m_c = get<TCompMadnessController>();
 
-    if (power_selected == PowerType::TELEPORT && unLockableTeleport) {
+    if (power_selected == PowerType::TELEPORT) {
         //If we have enough madness, we can use the power
         if (m_c->spendMadness(PowerType::TELEPORT) || GameController.getGodMode()) {
             TCompTeleport* c_tp = get<TCompTeleport>();
@@ -784,7 +740,7 @@ void TCompCharacterController::attack(float delta) {
 
     float comboModifier = 1.f;
     if (c_tp->canCombo()) { //puedes hacer combo
-        comboModifier = 6.f;
+        comboModifier = 3.f;
         c_tp->comboDone = true;
     }
 
@@ -808,7 +764,7 @@ void TCompCharacterController::attack(float delta) {
             PxOverlapBuffer buf(hitBuffer, bufferSize);
             PxTransform shapePose = PxTransform(pos, ori);
             PxQueryFilterData filter_data = PxQueryFilterData();
-            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall | EnginePhysics.Panel;
+            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall;
             bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
             if (res) {
                 for (PxU32 i = 0; i < buf.nbTouches; i++) {
@@ -820,11 +776,11 @@ void TCompCharacterController::attack(float delta) {
                         // Who sent this bullet
                         msg.h_sender = CHandle(this).getOwner();
                         msg.h_bullet = CHandle(this).getOwner();
-                        msg.position = c_trans->getPosition() + VEC3::Up;
+                        msg.position = c_trans->getPosition();
                         msg.senderType = PLAYER;
                         msg.intensityDamage = meleeDamage;
                         msg.impactForce = impactForceAttack * comboModifier;
-											msg.damageType = MELEE;
+						msg.damageType = MELEE;
                         msg.targetType = ENEMIES;
                         entityContact->sendMsg(msg);
 
@@ -891,7 +847,7 @@ void TCompCharacterController::chargedAttack(float delta) {
             msg.senderType = EntityType::PLAYER;
             msg.targetType = EntityType::ENEMIES;
             msg.damageType = PowerType::CHARGED_ATTACK;
-            msg.position = c_trans->getPosition() + VEC3::Up;
+            msg.position = c_trans->getPosition();
             msg.intensityDamage = chargedAttack_damage;
             msg.impactForce = 20.f;
             GameController.generateDamageSphere(c_trans->getPosition(), chargedAttack_radius, msg, "enemy");
@@ -1002,11 +958,10 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
 }
 
 void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
-    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+    if (!GameController.getGodMode() && !cinematic) {
         life -= msg.intensityDamage;
-				invulnerabilityTimer = invulnerabilityTimeDuration;
-		//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
-		//bar->setRatio((life + 20) / 120.f);
+		UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+		bar->setRatio((life + 20) / 120.f);
     }
 
 
@@ -1015,7 +970,6 @@ void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
         ChangeState("DEAD");
     }
     else {
-
         ChangeState("DAMAGED");
 
         TCompRigidBody* c_rbody = get<TCompRigidBody>();
@@ -1026,56 +980,14 @@ void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
 
 }
 
-void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
-  //dbg("recibo damage \n");
-  if (!GameController.getGodMode() && !cinematic) {
-    if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
-      life -= msg.intensityDamage;
-      //UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
-      //bar->setRatio((life + 20) / 120.f); // 20 y 120 son offset de la barra de vida
-      TCompTransform* my_trans = get<TCompTransform>();
-      VEC3 direction_to_damage;
-      if (msg.senderType == ENEMIES) { //los enemigos envian el handle
-        CEntity* entity_to_hit_me = (CEntity *)msg.h_bullet;
-        TCompTransform* e_trans = entity_to_hit_me->get<TCompTransform>();
-        direction_to_damage = my_trans->getPosition() - e_trans->getPosition();
-      }
-      else { //algunos objetos envian una posicion
-        direction_to_damage = my_trans->getPosition() - msg.position;
-      }
-      direction_to_damage.Normalize();
-
-      TCompRigidBody* c_rbody = get<TCompRigidBody>();
-      if (c_rbody && strcmp("CHARGED_ATTACK", state.c_str()) != 0)
-        c_rbody->addForce(direction_to_damage * msg.impactForce);
-
-      if (life <= 0.0f) {
-        life = 0.0f;
-        EngineAudio.playEvent("event:/Character/Voice/Player_Death");
-        ChangeState("DEAD");
-      }
-      else {
-
-        if (msg.senderType == ENEMIES) {
-          //	c_rbody->addForce(direction_to_damage * 8.0f);
-        }
-        if (&(msg.impactForce) != nullptr && msg.impactForce > 0) {
-          EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
-          //ChangeState("DAMAGED");
-        }
-      }
-    }
-  }
-}
 
 void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
     //dbg("recibo damage \n");
-    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+    if (!GameController.getGodMode() && !cinematic) {
         if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
             life -= msg.intensityDamage;
-						invulnerabilityTimer = invulnerabilityTimeDuration;
-			//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
-			//bar->setRatio((life + 20)/120.f); // 20 y 120 son offset de la barra de vida
+			UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+			bar->setRatio((life + 20)/120.f); // 20 y 120 son offset de la barra de vida
             TCompTransform* my_trans = get<TCompTransform>();
             VEC3 direction_to_damage;
             if (msg.senderType == ENEMIES) { //los enemigos envian el handle
@@ -1102,7 +1014,7 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 if (msg.senderType == ENEMIES) {
                     //	c_rbody->addForce(direction_to_damage * 8.0f);
                 }
-                if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0) {
+                if (&(msg.impactForce) != nullptr && msg.impactForce > 0) {
                     EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
                     //ChangeState("DAMAGED");
                 }
@@ -1117,19 +1029,10 @@ void TCompCharacterController::onPowerUp(const TMsgPowerUp& msg) {
 
 void TCompCharacterController::onCinematic(const TMsgOnCinematic & msg)
 {
-	if(!msg.isscart){
-		TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-		playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
-		ChangeState("IDLE_CINEMATIC");
-		cinematic = msg.cinematic;
-		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = false;
-	}
-	else {
-		cinematic = msg.cinematic;
-		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = false;
-	}
+	TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+	playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
+	ChangeState("IDLE_CINEMATIC");
+	cinematic = msg.cinematic;
 }
 
 
@@ -1265,24 +1168,21 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
     {
         //TODO
         unLockableBattery = true;
-		//unLockableTeleport = true;
         break;
     }
     case PowerUpType::ACTIVATE_CHILLI:
     {
         //TODO
-		unLockableChilli = true;
         break;
     }
     case PowerUpType::ACTIVATE_COFFEE:
     {
         //TODO
-		unLockableCoffe = true;
         break;
     }
     case PowerUpType::ACTIVATE_TELEPORT:
     {
-		unLockableTeleport = true;
+        //TODO
         break;
     }
     }

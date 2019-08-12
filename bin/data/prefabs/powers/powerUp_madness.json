@@ -2,37 +2,35 @@
 	{
     "entity" : {
       "transform" : {
-        "pos" : "5 3 0"
-      }, 
-      "name": "madness_powerup",
-      "render" : {
-        "mesh": "data/meshes/static_objects/GeoSphere.mesh",
-        "color": "0.45 0.13 0.49 1",
+        "pos" : "0 0 0"
+    }, 
+    "render" : {
+      "mesh": "data/meshes/prefabs/cruces_cruzLila.mesh",
         "materials":
-          [
-            "data/materials/vfx/blob.material"
-          ]
+        [
+          "data/materials/mat_cruzLila.material"
+        ]
       },
-      "abs_aabb" : {},
-      "collider":{
+    "abs_aabb" : {},
+    "collider":
+    {
         "shapes":
-          [
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "1.0 1.0 1.0"
+            ,
+            "offset":
             {
-              "shape": "box"
-              ,
-              "half_size": "1.0 1.0 1.0"
-              ,
-              "offset":
-              {
-                "pos": "0.0 0.0 0.0"
-              }
-              ,
-              "trigger": true,
-              "group":"trigger",
-              "mask": "player"
+              "pos": "0.0 0.0 0.0"
             }
-          ]
-       },
+            ,
+            "trigger": true,
+            "group":"scenario"
+          }
+        ]
+      },
 			"comp_increase_power" : {
           "type" : "madness"
 			}

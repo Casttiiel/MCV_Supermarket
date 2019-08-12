@@ -1,7 +1,7 @@
 clearListener()
 
 struct  TSkeletonsExporter (
-	project_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/skeletons/",
+	project_path = "D:/Javier/Documentos/UPF/mcv_sm/bin/data/",
 	--project_path = "C:/Users/Daniel/Desktop/mcv_sm/bin/data/",
 	skel_name = "unknown",			-- smurf
 	skel_root_path,					-- "C:/../bin/data/skeletons/smurf/,
@@ -75,7 +75,7 @@ struct  TSkeletonsExporter (
 		-- Pasar a modo figura si esta en modo pose
 		local was_in_figure_mode = false
 		if( classof root.controller != prs ) then (
-			was_gure_mode = root.controller.figureMode
+			was_in_figure_mode = root.controller.figureMode
 			root.controller.figureMode = true
 		)
 		local bones_to_export = findBoneCandidates()

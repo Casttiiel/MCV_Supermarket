@@ -21,7 +21,7 @@
       "local_aabb" : {},
       "abs_aabb" : {},
       "bt_cupcake_explosive": {
-        "use_navmesh": true,
+        "use_navmesh": false,
         "jumpingCupcake" : false,
         "explosionDelay" : 2.0,
         "explosion_damage": 25.0,
@@ -32,8 +32,8 @@
       "collider" : {
         "shape": "capsule",
           "controller": true,
-          "radius": 0.4,
-          "height": 0.5,
+          "radius": 0.7,
+          "height": 1.0,
           "group":"cupcake",
           "mask":"all"
       },

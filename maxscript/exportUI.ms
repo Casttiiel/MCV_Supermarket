@@ -16,22 +16,22 @@ utility MyMCVExporter "MCV Exporter"
 		button 'btn_camera' "Export Camera" pos:[50,215] width:88 height:21 align:#left
 		spinner 'curve_global_spn' "" pos:[135,245] width:33 height:16 range:[2,100,2] type:#integer align:#left
 		button 'btn_GlobalCurve' "Export Global Curve" pos:[10,244] width:121 height:21 align:#left
-		button 'btnwhiteboxit' "WhiteBox It" pos:[21,275] width:146 height:23 align:#left
 		
 		
 
 		-- Exports the current selection mesh to file
 		
 		-- Exports the current selection mesh to file
-		on btnwhiteboxit pressed do
+		
+		on btn_GlobalCurve pressed do
 		(
 			try(
-				local p = ConvertTo $ Editable_Poly
-				polyop.setFaceSelection p #all
-				polyOp.setFaceMatID p (polyOp.getFaceSelection p) 1
-				MessageBox "DONE"
-			)catch (
-				MessageBox ("Error Whiteboxing :\n" + getCurrentException())
+				gc()
+				local exporter = TCurveGlobalExporter()
+				exporter.exportGlobalCurve $ curve_global_spn.value
+				MessageBox "Global curve exported OK"
+			) catch (
+				MessageBox ("Error Exporting Curve:\n" + getCurrentException())
 			)
 		)
 		on btn_curve pressed do
@@ -122,13 +122,13 @@ utility MyMCVExporter "MCV Exporter"
 			)
 			
 		)
-		on btn_GlobalCurve pressed do
+		on btn_exportGlobalCurve pressed do
 		(
 			try(
 				gc()
-				local exporter = TCurveGlobalExporter()
-				exporter.exportGlobalCurve $ curve_global_spn.value
-				MessageBox "Global curve exported OK"
+				local exporter = TCurveExporter()
+				exporter.exportCurve $ curve_spn.value
+				MessageBox "Single curve exported OK"
 			) catch (
 				MessageBox ("Error Exporting Curve:\n" + getCurrentException())
 			)
@@ -144,4 +144,4 @@ utility MyMCVExporter "MCV Exporter"
 	(
 		removeRollout exporter
 	) 
-) -- end utility M
+) -- end utility My

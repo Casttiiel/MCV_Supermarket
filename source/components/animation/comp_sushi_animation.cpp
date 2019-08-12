@@ -197,15 +197,12 @@ void TCompSushiAnimator::registerMsgs() {
 
 void TCompSushiAnimator::onCreated(const TMsgEntityCreated& msg) {
 
-	
-	
-	  ownHandle = CHandle(this).getOwner();
+    ownHandle = CHandle(this).getOwner();
     CEntity *e = ownHandle;
     TCompSkeleton * compSkeleton = e->get<TCompSkeleton>();
     assert(compSkeleton);
     initializeAnimations();
     setFeetNumAndCalculate(2);
-		
 }
 
 bool TCompSushiAnimator::playAnimation(TCompSushiAnimator::EAnimation animation, float speed) {

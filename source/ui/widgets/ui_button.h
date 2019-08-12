@@ -19,7 +19,6 @@ namespace UI
 	  void render() override;
 	  void setCurrentState(const std::string& stateName);
 	  TState* getCurrentState() { return _currentState; }
-	  
     friend class CParser;
   };
 

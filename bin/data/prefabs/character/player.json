@@ -28,33 +28,26 @@
         "target": "0 0 5",
         "amount":0
       },
-      "comp_checkpoint_register":{
-        "prefab": "data/prefabs/character/player.json",
-        "entityTypeString": "PLAYER"
-      },
       "character_controller": {
         "distance_to_aim": 40.0,
         "life": 100.0,
-        "unLockableBattery": true,
-	      "unLockableTeleport": true,
-		    "unLockableChilli": true,
-		    "unLockableCoffe":true
+        "unLockableBattery": true
       },
       "tags": [
         "player"
       ],
-	  "ui_controller":{},
       "comp_blackboard": {},
+      "ui_controller": {},
       "comp_madness": {},
       "comp_coffee": {},
       "comp_teleport": {},
       "comp_fire": {},
       "sCart_controller": {},
       "msg_logger": true,
-	    "skel_lookat": {
-		      "target": "0 0 5",
-          "amount":0
-	    }
+	  "skel_lookat": {
+		"target": "0 0 5",
+        "amount":0
+	  }
     }
   }
 ]

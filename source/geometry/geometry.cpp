@@ -33,24 +33,9 @@ VEC3 loadVEC3(const json& j, const char* attr) {
   return v;
 }
 
-VEC3 loadVEC3(const json& j, const char* attr, const VEC3& defaultValue) {
-  if (j.count(attr) <= 0)
-  {
-    return defaultValue;
-  }
-  return loadVEC3(j, attr);
-}
-
 QUAT loadQUAT(const json& j, const char* attr) {
   auto k = j.value(attr, "0 0 0 1");
   QUAT v;
-  sscanf(k.c_str(), "%f %f %f %f", &v.x, &v.y, &v.z, &v.w);
-  return v;
-}
-
-VEC4 loadColor(const json& j) {
-  auto k = j.get<std::string>();
-  VEC4 v;
   sscanf(k.c_str(), "%f %f %f %f", &v.x, &v.y, &v.z, &v.w);
   return v;
 }

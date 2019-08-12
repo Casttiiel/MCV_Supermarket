@@ -8,16 +8,11 @@
 #include "geometry/curve.h"
 #include "components/controllers/comp_curve_controller.h"
 #include "skeleton/comp_skel_lookat.h"
-#include "modules/game/audio/audioEvent.h"
-#include "components/animation/comp_morph_animation.h"
-#include "components/controllers/comp_enemies_in_tube.h"
-
 class CCheckpoint;
 class CModuleGameplayFragment;
 
 class CModuleGameController : public IModule
 {
-    AudioEvent soundtrack;
     /* Mantain a handle of the player */
     CHandle _player;
     CHandle _fly_camera;
@@ -42,9 +37,6 @@ class CModuleGameController : public IModule
     void resetState();
     void renderInMenu();
     void updateGameCondition();
-
-	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(300.825,-2.37953 ,151.652),VEC3(130, 4,154),VEC3(55,0.550,-45.8998)};
-	int positionCheat = 0;
     
     //void switchState(PauseState pause);
 
@@ -167,19 +159,12 @@ public:
   void bindInCurve(std::string _curve, std::string entity);
   //blending camaras con interpolador
   void blendingCamera(std::string camDest,float blendTime, std::string typeInterpolation);
-  //activar animacion de morph
-  void playAnimationMorph(std::string name);
-  //desactivar animacion de morph
-  void stopAnimationMorph(std::string name);
-
   //bloquear camera principal
   void lockCamera3Person(bool activate);
   //resetCamera
   void resetCamera();
   //activar modo cinematica en jugador
   void inCinematic(bool active);
-	//activar modo cinematica en golem
-	void inCinematicGolem(std::string name, bool active);
   //delete handle
   void destroyCHandleByName(std::string name);
   //activar plataformas
@@ -195,34 +180,9 @@ public:
 	void setPauseEnemyByHandle(CHandle h_enemy, bool active);
 	void updateEnemyCurveByName(std::string _curve, std::string enemy);
 	void updateEnemyCurveByHandle(std::string _curve, CHandle h_enemy);
-	void updateCupcakeCurveByHandle(std::string _curve, CHandle h_enemy);
-
-	void updatePlatformCurveByName(std::string _curve, std::string name_platform);
 	
 	void setTransformObject(std::string name, VEC3 pos,float yaw, float pith, float roll);
-
-	//destruir un muro
-	void destroyWallByName(std::string name, std::string golemName, float intensity = 20);
-
-	//despertar golem
-	void wakeUpGolem(std::string name);
-	//dormir al golem
-	void sleepGolem(std::string name);
-
-    //Soundtrack Functions
-    void startSoundtrack(int track_id);
-    void pauseSoundtrack();
-    void resumeSoundtrack();
-    void updateSoundtrackID(int new_track_id);
-    void setSoundtrackVolume(float volume);
-    //End Soundtrack Functions
-	//dar handle a partir del nombre 
-	CHandle entityByName(std::string name);
-	void cheatPosition();
-
-    void pauseGame();
-    void resumeGame();
-
+	
 };
 
 
@@ -231,6 +191,4 @@ public:
 TCompCurveController* TCurveController(CHandle h);
 CEntity* toEntity(CHandle h);
 TCompSkelLookAt* toCompSkelLookAt(CHandle h);
-TCompMorphAnimation* toCompMorphAnimation(CHandle h);
-TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 

@@ -26,14 +26,12 @@ classPrefabData = attributes prefabData
 			"Sushi Arquero", 
 			"Spawner Dumpling",
 			"Termostato",
-			"Scanner",
 			"Pila",
 			"Extintor",
-			"Cafe",
+			"Scanner",
 			"Teleport Object",
 			"Trap_air",
-			"Trap_carniceria",
-			"Trap_tube_enemies"
+			"Light_point"
 			) align:#left
 	)
 	fn exportAsComponent fs = (
@@ -55,14 +53,12 @@ classPrefabData = attributes prefabData
 		else if prefab == 15 then src = "data/prefabs/enemies/bt_ranged_sushi.json"
 		else if prefab == 16 then src = "data/prefabs/structures/spawner_dumpling.json"
 		else if prefab == 17 then src = "data/prefabs/structures/termostate.json"
-		else if prefab == 18 then src = "data/prefabs/powers/powerUp_scanner.json"
-		else if prefab == 19 then src = "data/prefabs/powers/powerUp_pila.json"
+		else if prefab == 18 then src = "data/prefabs/powers/powerUp_pila.json"
+		else if prefab == 19 then src = "data/prefabs/powers/powerUp_scanner.json"
 		else if prefab == 20 then src = "data/prefabs/powers/powerUp_extintor.json"
-		else if prefab == 21 then src = "data/prefabs/powers/powerUp_cafe.json"
-		else if prefab == 22 then src = "data/prefabs/structures/teleport_box.json"
-		else if prefab == 23 then src = "data/prefabs/traps/wind_trap.json"
-		else if prefab == 24 then src = "data/prefabs/traps/blade_trap.json"
-	    else if prefab == 25 then src = "data/prefabs/traps/enemies_in_tube.json"			
+		else if prefab == 21 then src = "data/prefabs/structures/teleport_box.json"
+		else if prefab == 22 then src = "data/prefabs/traps/wind_trap.json"
+		else if prefab == 23 then src = "data/prefabs/lights/light_point.json"
 		else return undefined
 		fs.writeComma()
 		fs.writeKeyValue "prefab"  src

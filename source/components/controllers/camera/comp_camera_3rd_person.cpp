@@ -379,6 +379,11 @@ void TCompCamera3rdPerson::shouldSwapCamera() {
 
   //SWAP BETWEEN AIM AND NORMAL CAMERA
   if (EngineInput["aim_"].justPressed() && _enabled) {
+    CEntity* ui = getEntityByName("Mirilla");
+    TCompRender* c_render = ui->get<TCompRender>();
+    c_render->is_visible = true;
+    c_render->updateRenderManager();
+
     aiming = true;
     smoothSpeed = 10.f;
     GameController.yaw_sensivity *= 0.4f;
@@ -387,6 +392,11 @@ void TCompCamera3rdPerson::shouldSwapCamera() {
 
   //SWAP BETWEEN AIM AND NORMAL CAMERA
   if (EngineInput["aim_"].justReleased() && _enabled) {
+    CEntity* ui = getEntityByName("Mirilla");
+    TCompRender* c_render = ui->get<TCompRender>();
+    c_render->is_visible = false;
+    c_render->updateRenderManager();
+
     aiming = false;
     smoothSpeed = 6.f;
     GameController.yaw_sensivity /= 0.4f;

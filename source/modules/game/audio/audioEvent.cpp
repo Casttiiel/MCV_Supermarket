@@ -70,13 +70,6 @@ void AudioEvent::setParameter(const std::string& name, float value) {
     }
 }
 
-void AudioEvent::setParameter(const std::string& name, int value) {
-    auto event = EngineAudio.getEventInstance(myID);
-    if (event) {
-        event->setParameterByName(name.c_str(), value);
-    }
-}
-
 bool AudioEvent::getPaused() const {
     bool isPaused = false;
     auto event = EngineAudio.getEventInstance(myID);

@@ -2,6 +2,49 @@
   {
     "entity":
     {
+      "name": "Box015"
+      ,
+      "transform":
+      {
+        "pos": "25.4736 28.0315 -3.36267"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "7.82904 3.83973 0.99733"
+            ,
+            "offset":
+            {
+              "pos": "0.0 3.83973 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box015.mesh"
+        ,
+        "color": "0.0313726 0.0313726 0.533333 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "Box009"
       ,
       "transform":
@@ -35,7 +78,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -77,7 +120,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -119,7 +162,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -136,8 +179,6 @@
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
-      ,
-      "abs_aabb": {}
       ,
       "collider":
       {
@@ -161,7 +202,77 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "asianGate_006"
+      ,
+      "transform":
+      {
+        "pos": "27.0286 27.9699 -25.8708"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_asiatica_asianGate_006.col_mesh"
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_asianGate_006.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "asianGate_007"
+      ,
+      "transform":
+      {
+        "pos": "-35.2162 28.0089 -106.636"
+        ,
+        "rotation": "0.0 -0.21644 0.0 -0.976296"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_asianGate_007.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -203,7 +314,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -245,7 +356,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -287,7 +398,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -329,7 +440,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -357,7 +468,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -399,7 +510,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -441,7 +552,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -483,7 +594,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -525,7 +636,343 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box035"
+      ,
+      "transform":
+      {
+        "pos": "-19.6663 28.0 -93.9042"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_asiatica_Box035.col_mesh"
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box035.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box036"
+      ,
+      "transform":
+      {
+        "pos": "-32.1729 28.0 -93.9042"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_asiatica_Box036.col_mesh"
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box036.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box037"
+      ,
+      "transform":
+      {
+        "pos": "-32.1729 28.0 -78.8273"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_asiatica_Box037.col_mesh"
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box037.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box038"
+      ,
+      "transform":
+      {
+        "pos": "-19.7977 28.0 -78.8273"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_asiatica_Box038.col_mesh"
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box038.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box039"
+      ,
+      "transform":
+      {
+        "pos": "-3.62757 28.0 -76.2401"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_asiatica_Box039.col_mesh"
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box039.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box040"
+      ,
+      "transform":
+      {
+        "pos": "-3.09003 28.0 -89.9098"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_asiatica_Box040.col_mesh"
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box040.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box041"
+      ,
+      "transform":
+      {
+        "pos": "18.1142 28.0 -63.8446"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_asiatica_Box041.col_mesh"
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box041.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box042"
+      ,
+      "transform":
+      {
+        "pos": "18.1142 28.0 -48.8947"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_asiatica_Box042.col_mesh"
+            ,
+            "group": "scenario"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box042.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -567,7 +1014,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -609,7 +1056,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -651,7 +1098,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -693,7 +1140,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -735,7 +1182,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -777,7 +1224,33 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "asianGate_collider_007"
+      ,
+      "transform":
+      {
+        "pos": "-35.2162 28.0089 -106.636"
+        ,
+        "rotation": "0.0 -0.21644 0.0 -0.976296"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_asianGate_collider_007.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -819,7 +1292,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
+          "data/materials/abanico_m2.material"
         ]
       }
     }
@@ -853,7 +1326,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/spawner_dumpling.json"
     }
   }
   ,
@@ -864,12 +1337,12 @@
       ,
       "transform":
       {
-        "pos": "-27.4753 28.0 -88.2537"
+        "pos": "-27.4753 28.0 -98.6174"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/spawner_dumpling.json"
     }
   }
   ,
@@ -880,12 +1353,12 @@
       ,
       "transform":
       {
-        "pos": "-18.9059 35.8826 -46.4939"
+        "pos": "-26.2866 35.8826 -45.7375"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/spawner_dumpling.json"
     }
   }
   ,
@@ -901,7 +1374,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/teleport_box.json"
     }
   }
   ,
@@ -917,7 +1390,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/teleport_box.json"
     }
   }
   ,
@@ -933,7 +1406,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/teleport_box.json"
     }
   }
   ,
@@ -949,7 +1422,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/teleport_box.json"
     }
   }
   ,
@@ -965,7 +1438,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/termostate.json"
     }
   }
   ,
@@ -981,7 +1454,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/termostate.json"
     }
   }
   ,
@@ -997,7 +1470,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/teleport_box.json"
     }
   }
   ,
@@ -1013,7 +1486,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/teleport_box.json"
     }
   }
   ,
@@ -1029,7 +1502,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/explosive_object.json"
     }
   }
   ,
@@ -1045,7 +1518,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/explosive_object.json"
     }
   }
   ,
@@ -1061,7 +1534,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/explosive_object.json"
     }
   }
   ,
@@ -1077,7 +1550,7 @@
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/explosive_object.json"
     }
   }
   ,
@@ -1090,10 +1563,10 @@
       {
         "pos": "3.12564 28.0 -38.793"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "prefab": "data/prefabs/products/product1.json"
+      "prefab": "data/prefabs/structures/explosive_object.json"
     }
   }
   ,
@@ -1142,23 +1615,7 @@
   {
     "entity":
     {
-      "name": "Player"
-      ,
-      "transform":
-      {
-        "pos": "23.4346 28.0 -31.4119"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "prefab": "data/prefabs/character/player.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Turret_001"
+      "name": "CameraTermoestato1"
       ,
       "transform":
       {
@@ -1171,7 +1628,7 @@
       ,
       "camera":
       {
-        "pos": "-27.4753 28.0 -98.6174"
+        "near": 1.0
         ,
         "far": 1000.0
         ,
@@ -1189,9 +1646,9 @@
       ,
       "transform":
       {
-        "pos": "-26.2866 35.8826 -45.7375"
+        "pos": "-28.7546 50.2567 -55.457"
         ,
-        "rotation": "-0.076616 -0.796117 0.591345 -0.103147"
+        "rotation": "-0.0471987 -0.762977 0.642257 -0.0560703"
         ,
         "lookat": "-31.9582 46.4635 -33.7781"
       }
@@ -1201,397 +1658,6 @@
         "near": 1.0
         ,
         "far": 1000.0
-        ,
-        "fov": 45.0
-        ,
-        "distanceTarget": 13.1306
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "asian_gate"
-      ,
-      "transform":
-      {
-        "pos": "26.601 27.97 -23.0108"
-        ,
-        "rotation": "0.0 0.0 -0.707107 -0.707107"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_asian_gate.mesh"
-        ,
-        "color": "0.690196 0.101961 0.101961 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "asian_gate001"
-      ,
-      "transform":
-      {
-        "pos": "-31.8729 27.97 -107.123"
-        ,
-        "rotation": "-0.153046 -0.153046 -0.690346 -0.690345"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_asian_gate001.mesh"
-        ,
-        "color": "0.690196 0.101961 0.101961 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_baja"
-      ,
-      "transform":
-      {
-        "pos": "18.4817 28.0 -48.935"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_estanteria_baja.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_baja001"
-      ,
-      "transform":
-      {
-        "pos": "18.4817 28.0 -63.9465"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_estanteria_baja001.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_baja002"
-      ,
-      "transform":
-      {
-        "pos": "-3.83674 28.0 -77.4098"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_estanteria_baja002.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_baja003"
-      ,
-      "transform":
-      {
-        "pos": "-3.83674 28.0 -91.1995"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_estanteria_baja003.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_baja004"
-      ,
-      "transform":
-      {
-        "pos": "-20.4182 28.0 -93.6728"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_estanteria_baja004.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_baja005"
-      ,
-      "transform":
-      {
-        "pos": "-33.0609 28.0 -93.6728"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_estanteria_baja005.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_baja006"
-      ,
-      "transform":
-      {
-        "pos": "-33.0609 28.0 -78.3449"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_estanteria_baja006.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_baja007"
-      ,
-      "transform":
-      {
-        "pos": "-20.276 28.0 -78.3449"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_estanteria_baja007.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_sushis"
-      ,
-      "transform":
-      {
-        "pos": "5.75097 28.0 -91.5631"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_estanteria_sushis.mesh"
-        ,
-        "color": "0.333333 0.109804 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box001"
-      ,
-      "transform":
-      {
-        "pos": "6.2589 28.0 -75.9082"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_Box001.mesh"
-        ,
-        "color": "0.333333 0.109804 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "kiosco_mediano"
-      ,
-      "transform":
-      {
-        "pos": "18.9569 28.0 -75.5904"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_kiosco_mediano.mesh"
-        ,
-        "color": "0.109804 0.584314 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "letrero_asianfoods"
-      ,
-      "transform":
-      {
-        "pos": "13.7986 36.6821 -75.6942"
-        ,
-        "rotation": "-0.707107 0.0 0.0 -0.707107"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_letrero_asianfoods.mesh"
-        ,
-        "color": "0.882353 0.345098 0.780392 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_asiatica/pruebameshesdani.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "zanahoria"
-      ,
-      "transform":
-      {
-        "pos": "-28.7546 50.2567 -55.457"
-        ,
-        "rotation": "-0.0471987 -0.762977 0.642257 -0.0560703"
-        ,
-        "lookat": "-31.9582 46.4635 -33.7781"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_asiatica/mapa_zona_asiatica_zanahoria.mesh"
-        ,
-        "color": "0.898039 0.603922 0.843137 1.0"
         ,
         "fov": 45.0
         ,

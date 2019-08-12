@@ -76,10 +76,9 @@ void CModuleMainMenu::update(float dt)
     progressBar->setRatio(ratio);
   }
 
-  /*
+
   if(EngineInput[VK_F1])
   {
     CEngine::get().getModules().changeToGamestate("gs_gameplay");
   }
-  */
 }

@@ -15,6 +15,7 @@ class CModuleAudio : public IModule
 {
 private:
     FMOD_RESULT		res;
+
     /* FMOD systems */
     FMOD::Studio::System* system = NULL;
     void *_extradriverdata = 0;
@@ -48,16 +49,6 @@ protected:
     bool playPreloadedEventInstance(unsigned int id);
 
 public:
-    /*
-    0.- Pause
-    1.- MainMenu
-    2.- SlowTrack
-    3.- MainTrack
-    4.- ScaryTrack
-    5.- CombatTrack
-    */
-    AudioEvent soundtrack;
-    AudioEvent secondarySoundtrack;
     CModuleAudio(const std::string& name) : IModule(name) {}
     bool start() override;
     void update(float delta) override;

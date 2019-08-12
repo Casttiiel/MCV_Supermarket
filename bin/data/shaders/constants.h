@@ -14,7 +14,6 @@
 #define CTE_BUFFER_SLOT_MATERIAL    11
 #define CTE_BUFFER_SLOT_UI          12
 #define CTE_BUFFER_SLOT_COMP_BUFFERS 13
-#define CTE_BUFFER_SLOT_PARTICLES   13
 
 // TS = TEXTURE_SLOT
 #define TS_ALBEDO            0
@@ -90,10 +89,6 @@ SHADER_CTE_BUFFER(TCtesCamera, CTE_BUFFER_SLOT_CAMERAS)
   float  CameraTanHalfFov;
   float  CameraAspectRatio;
   float2 CameraInvResolution;
-  float3 CameraLeft;
-  float  CameraDummy1;
-  float3 CameraUp;
-  float  CameraDummy2;
 };
 
 SHADER_CTE_BUFFER(TCtesObject, CTE_BUFFER_SLOT_OBJECT)
@@ -106,11 +101,6 @@ SHADER_CTE_BUFFER(TCtesObject, CTE_BUFFER_SLOT_OBJECT)
 SHADER_CTE_BUFFER(TCtesShared, CTE_BUFFER_SLOT_SHARED)
 {
   float  GlobalWorldTime;
-  float  GlobalDeltaTime;
-  float  GlobalDeltaUnscaledTime;
-  float  GlobalDummy1;
-
-  float  GlobalDummy2;
   int    GlobalRenderOutput;
   float  GlobalAmbientBoost;
   float  GlobalExposureAdjustment;
@@ -121,10 +111,14 @@ SHADER_CTE_BUFFER(TCtesShared, CTE_BUFFER_SLOT_SHARED)
   float GlobalFXVal3;
 
   float  GlobalLUTAmount;
-  float  CoffeeRatio;
-  float  Actual_dt;
+  float  Globaldumm1;
+  float  Globaldumm2;
   float  Globaldumm3;
 
+  float  CoffeeRatio;
+  float  Actual_dt;
+  float  GlobalDummy2;
+  float  GlobalDummy3;
 };
 
 SHADER_CTE_BUFFER(TCtesDebugLine, CTE_BUFFER_SLOT_DEBUG_LINE)
@@ -195,8 +189,8 @@ SHADER_CTE_BUFFER(TCtesBloom, CTE_BUFFER_SLOT_BLOOM)
   float4 bloom_weights;
   float  bloom_threshold_min;
   float  bloom_threshold_max;
-  float  emissive_bloom_factor;
   float  bloom_pad1;
+  float  bloom_pad2;
 };
 
 SHADER_CTE_BUFFER(TCtesMaterial, CTE_BUFFER_SLOT_MATERIAL) 
@@ -218,25 +212,3 @@ SHADER_CTE_BUFFER(TCtesUI, CTE_BUFFER_SLOT_UI)
   float2 UImaxUV;
   float4 UItint;
 };
-
-SHADER_CTE_BUFFER(TCtesParticles, CTE_BUFFER_SLOT_PARTICLES)
-{
-  float2 psystem_frame_size;
-  float2 psystem_nframes;
-  float4 psystem_colors_over_time[8];
-
-  float  emitter_time_between_spawns;         // 1.0
-  float3 emitter_center;            
-
-  uint   emitter_num_particles_per_spawn;     // 1
-  float3 emitter_dir;
-
-  float  emitter_center_radius;
-  float  emitter_dir_aperture;
-  float2 emitter_speed;           // min/max
-
-  float2 emitter_duration;        // min/max
-  float2 emitter_dummy;
-};
-
-

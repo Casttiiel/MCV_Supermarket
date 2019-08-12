@@ -7,8 +7,6 @@ struct GBuffer
   float3 albedo;
   float3 specular_color;
   float  roughness;
-  float3 self_illum;
-  float  emissive;
   float3 reflected_dir;
   float3 view_dir;
 };
@@ -47,11 +45,6 @@ void decodeGBuffer(
   // If metallic = 0, albedo is the albedo, if metallic = 1, the
   // used albedo is almost black
   g.albedo = albedo.rgb * ( 1. - metallic );
-
-  
-  g.emissive = txGSelfIllum.Load(ss_load_coords).x;
-
-  g.self_illum = g.albedo * g.emissive;
 
   // 0.03 default specular value for dielectric.
   g.specular_color = lerp(0.03f, albedo.rgb, metallic);

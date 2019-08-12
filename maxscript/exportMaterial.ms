@@ -15,7 +15,7 @@ struct TMaterialExporter (
 			fs.writeKeyValue alias json_filename
 			return false
 		)
-		local current_scene_name = getFilenameFile maxFileName
+		
 		-- "C:\mcv\code\bin\data\textures\bricks.DDS"
 		
 		-- "C:\users\pep\desktop\download\bricks.dds"
@@ -25,7 +25,7 @@ struct TMaterialExporter (
 		local base_name = getFilenameFile map_filename
 		
 		-- data\textures\bricks.dds"
-		local json_filename = base_path + "textures/" + current_scene_name + "/" + base_name + ".dds"
+		local json_filename = base_path + "textures/" + base_name + ".dds"
 		
 		-- 
 		local ofull_path = project_path + json_filename
@@ -40,7 +40,7 @@ struct TMaterialExporter (
 	),
 	
 	fn isValidName aname = (
-		-- Add no ï¿½, accents, etc.
+		-- Add no Ñ, accents, etc.
 		return findString aname " " == undefined 
 	),
 	
@@ -56,22 +56,10 @@ struct TMaterialExporter (
 		fs.begin (project_path + mat_name )
 		fs.beginObj()
 		  --Will use the defaults set in the parser. Needs to be a full data/techniques/textured.tech"
-			local isPlatform = getUserProp obj "isPlatform"
-			local aabb = getUserProp obj "AABB"
-			local walltype = getUserProp obj "typeWall"
-			local isPanel = getUserProp obj "isPanel"
-			local is_morphed = obj.modifiers[#Morpher]
-			if is_morphed == undefined and isPlatform == undefined and aabb == "static" and walltype == undefined and isPanel == undefined then (
-				fs.writeKeyValue "technique" "objs_culled_by_gpu.tech"
-				fs.writeComma()
-			)else (
-				format "% wont be instantiated with % material\n\n\n\n" obj.name mat.name
-			)
-			if is_morphed != undefined then(
-				fs.writeKeyValue "technique" "objs_morph.tech"
-				fs.writeComma()
-			)
-		
+			--fs.writeKeyValue "technique" "textured.tech"
+			--fs.writeComma()
+			--fs.writeKeyValue "shadows" true
+			--fs.writeComma()
 			fs.writeKey "textures" 
 			fs.beginObj()
 				
@@ -103,6 +91,7 @@ struct TMaterialExporter (
 	fn exportMaterial mat base_name obj = (
 		
 		local exported_materials = #()
+		
 		if classof mat == StandardMaterial then (
 			local mat_name = base_name + mat.name + ".material"
 			append exported_materials mat_name
@@ -115,24 +104,19 @@ struct TMaterialExporter (
 			
 		) else if classof mat == MultiMaterial then (
 			local multi_mat = mat
+			
 			local materials_of_mesh = getMaterialsUsedByMesh obj
 			for mat_idx = 1 to materials_of_mesh.count do (
 				if materials_of_mesh[ mat_idx ] == undefined then continue
 				local mat_of_mesh = multi_mat[ mat_idx ]
 				
 				if mat_of_mesh == undefined then throw ("Mesh " + obj.name + " is using a multimaterial in slot " + (mat_idx as string)+ " but the multimat does not have this submat")
-				if classof mat_of_mesh != StandardMaterial and classof mat_of_mesh != PhysicalMaterial then throw ("Mesh " + obj.name + " is using a multimaterial in slot " + (mat_idx as string) + " but the multimat in this slot is not a stdMaterial, is "+(mat_of_mesh as string) + (mat_idx as string))
+				if classof mat_of_mesh != StandardMaterial or classof mat_of_mesh != PhysicalMaterial then throw ("Mesh " + obj.name + " is using a multimaterial in slot " + (mat_idx as string) + " but the multimat in this slot is not a stdMaterial")
 				
 				local mat_name = base_name + mat_of_mesh.name + ".material"
 				append exported_materials mat_name
 				exportStdMaterial obj mat_of_mesh mat_name
 			)
-		)
-		
-		local is_fire = getUserProp obj "isFire"
-		
-		if is_fire != undefined  then(
-			exported_materials = #("data/materials/vfx/fire.material")
 		)
 		
 		return exported_materials

@@ -1,6 +1,5 @@
 #include "mcv_platform.h"
 #include "render/render.h"
-#include "render/compute/gpu_buffer.h"
 
 bool CMesh::create(
   const void* vertices
@@ -120,16 +119,6 @@ void CMesh::render() const {
     renderRange(num_vertices, 0);
 }
 
-void CMesh::renderIndirect(const CGPUBuffer* buffer, uint32_t offset ) const {
-  assert(buffer);
-  if (ib) {
-    Render.ctx->DrawIndexedInstancedIndirect(buffer->buffer, offset);
-  }
-  else {
-    Render.ctx->DrawInstancedIndirect(buffer->buffer, offset);
-  }
-}
-
 void CMesh::renderGroupInstanced(uint16_t group_idx, uint32_t num_instances) const {
   assert(vb);
   assert(num_vertices);
@@ -214,8 +203,6 @@ void CMesh::renderInMenu() {
   ImGui::LabelText("# Groups", "%ld", groups.size());
   ImGui::LabelText("Bytes Per Vertex", "%d", bytes_per_vertice);
   ImGui::LabelText("Vertex Decl", "%s", vertex_decl ? vertex_decl->name.c_str() : "Null");
-  ImGui::DragFloat3("AABB Center", &aabb.Center.x, 0.01f, -25.0f, 25.0f);
-  ImGui::DragFloat3("AABB HalfSize", &aabb.Extents.x, 0.01f, 0.0f, 25.0f);
 }
 
 // ---------------------------------------------------------

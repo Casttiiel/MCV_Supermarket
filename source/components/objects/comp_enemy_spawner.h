@@ -19,7 +19,7 @@ public:
 private:
 	bool working = true; //temporal :)
 	bool _isEnabled = false;
-	int _spawnMaxNumber = 2;
+	int _spawnMaxNumber = 7;
 	std::vector<CHandle> _currentEnemies;
 	float _spawnDelay = 3.f;
 	float _spawnTimer = _spawnDelay;

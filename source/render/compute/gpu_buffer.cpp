@@ -15,7 +15,7 @@ bool CGPUBuffer::create(const json& j) {
   bytes_per_elem = j.value("bytes_per_elem", 16);
   num_elems = j.value("num_elems", 1);
   name = j.value("name", "");
-  is_indirect = j.value("is_indirect", false);
+  bool is_indirect = j.value("is_indirect", false);
   return create(bytes_per_elem, num_elems, is_indirect);
 }
 

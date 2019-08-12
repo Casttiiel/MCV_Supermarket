@@ -32,10 +32,6 @@ namespace UI
 {
   class CModuleUI;
 }
-namespace particles
-{
-  class CModuleParticles;
-}
 
 class CEngine
 {
@@ -70,7 +66,6 @@ public:
   
   DECL_MODULE(CModuleGPUCulling, _gpu_culling, getGPUCulling);
   DECL_MODULE(UI::CModuleUI, _ui, getUI);
-  DECL_MODULE(particles::CModuleParticles, _particles, getParticles);
   DECL_MODULE(CModuleSceneManager, _sceneManager, getSceneManager);
 
 

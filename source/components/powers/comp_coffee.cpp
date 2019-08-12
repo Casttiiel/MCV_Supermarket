@@ -97,11 +97,6 @@ void TCompCoffeeController::update(float delta) {
 	}
 }
 
-
-bool TCompCoffeeController::getIsEnabled() {
-	return _isEnabled;
-}
-
 void TCompCoffeeController::renderDebug() {
 
 }

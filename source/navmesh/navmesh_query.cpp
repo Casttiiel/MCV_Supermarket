@@ -397,15 +397,8 @@ std::vector<VEC3> CNavmeshQuery::findPath(VEC3 start, VEC3 end) {
 		data->m_navQuery->closestPointOnPoly(m_startRef, &start.x, &iterPos.x, 0);
 		data->m_navQuery->closestPointOnPoly(polys[npolys - 1], &end.x, &targetPos.x, 0);
 
-
-		/*
-		VALORES PARA ENCONTRAR CAMINOS LARGOS
 		static const float STEP_SIZE = 2.f;
 		static const float SLOP = 1.f;
-		*/
-
-		static const float STEP_SIZE = 20.f;
-		static const float SLOP = 0.03f;
 
 		m_nsmoothPath = 0;
 

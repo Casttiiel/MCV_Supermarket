@@ -11,7 +11,6 @@ public:
 	void update(float dt);
 	void load(const json& j, TEntityParseContext& ctx);
 	void debugInMenu();
-  void setDelay(float delay) { _selfDestructDelay = delay; _selfDestructTimer = delay; }
 
 	void enable();
 

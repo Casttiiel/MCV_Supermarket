@@ -5,14 +5,14 @@
 	[
 		{
 			"name" : "life_character",
-			"position" : "160 40",
+			"position" : "100 40",
 			"children" : 
 			[
 				{
 					"name" : "life_empty",
 					"type" : "image",
 					"texture" : "data/ui/textures/market/life_empty.dds",
-					"size" : "325 96",
+					"size" : "260 44",
 					"maxUV" : "1.0 1.0"
 
 				},
@@ -21,7 +21,7 @@
 					"type" : "bar",
 					"alias" : "life_bar_r",
 					"texture" : "data/ui/textures/market/life_full.dds",
-					"size" : "325 96",
+					"size" : "260 44",
 					"maxUV" : "1.0 1.0",
 					"var" : "life_character"
 				}
@@ -29,14 +29,14 @@
 		},
 		{
 			"name" : "mana_character",
-			"position" : "160 120",
+			"position" : "100 80",
 			"children" : 
 			[
 				{
 					"name" : "mana_empty",
 					"type" : "bar",
 					"texture" : "data/ui/textures/market/mana_empty.dds",
-					"size" : "317 70",
+					"size" : "260 44",
 					"maxUV" : "1.0 1.0"
 
 				},
@@ -45,7 +45,7 @@
 					"type" : "bar",
 					"alias" : "mana_bar_r",
 					"texture" : "data/ui/textures/market/mana_full.dds",
-					"size" : "317 70",
+					"size" : "260 44",
 					"maxUV" : "1.0 1.0",
 					"var" : "mana_character"
 				}
@@ -54,7 +54,7 @@
 		,
 		{
 			"name" : "botonera_acciones_simples",
-			"position" : "950 400",
+			"position" : "1000 450",
 			"children" :
 			[
 				{
@@ -63,7 +63,7 @@
 					"position" : "50 0",
 					"type" : "button",
 					"texture" : "data/ui/textures/market/carro.dds",
-					"size" : "105 112",
+					"size" : "75 75",
 					
 					"states" : [
 						{
@@ -79,10 +79,11 @@
 				{
 					"name" : "bt_dash",
 					"alias" : "bt_dash_",
-					"position" : "140 90",
+					"position" : "120 60",
 					"type" : "button",
 					"texture" : "data/ui/textures/market/dash.dds",
-					"size" : "116 68",
+					
+					"size" : "75 75",
 					
 					"states" : [
 						{
@@ -98,11 +99,11 @@
 				{
 					"name" : "bt_jump",
 					"alias" : "bt_jump_",
-					"position" : "90 140",
+					"position" : "80 100",
 					"type" : "button",
 					"texture" : "data/ui/textures/market/jump.dds",
 					
-					"size" : "121 73",
+					"size" : "75 75",
 					
 					"states" : [
 						{
@@ -118,11 +119,11 @@
 				{
 					"name" : "bt_mop",
 					"alias" : "bt_mop_",
-					"position" : "20 65",
+					"position" : "10 60",
 					"type" : "button",
 					"texture" : "data/ui/textures/market/mop.dds",
 					
-					"size" : "81 130",
+					"size" : "75 75",
 					
 					"states" : [
 						{
@@ -132,123 +133,6 @@
 						{
 							"name" : "selected",
 							"color" : "255 255 255 128"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name" : "botonera_acciones_disparos",
-			"position" : "1060 300",
-			"children" :
-			[
-				{
-					"name" : "bt_l1",
-					"alias" : "bt_l1_",
-					"position" : "0 0",
-					"type" : "button",
-					"texture" : "data/ui/textures/market/l1.dds",
-					"size" : "103 90",
-					
-					"states" : [
-						{
-							"name" : "enabled",
-							"color" : "255 255 255 255"
-						},
-						{
-							"name" : "selected",
-							"color" : "255 255 255 128"
-						}
-					]
-				},
-				{
-					"name" : "bt_r1",
-					"alias" : "bt_r1_",
-					"position" : "40 50",
-					"type" : "button",
-					"texture" : "data/ui/textures/market/r1.dds",
-					
-					"size" : "164 99",
-					
-					"states" : [
-						{
-							"name" : "enabled",
-							"color" : "255 255 255 255"
-						},
-						{
-							"name" : "selected",
-							"color" : "255 255 255 128"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name" : "botonera_seleccion",
-			"position" : "20 40",
-			"children" :
-			[
-				
-				
-				{
-					"name" : "card",
-					"alias" : "card_",
-					"position" : "0 0",
-					"type" : "button",
-					"texture" : "data/ui/textures/market/teleport_card.dds",
-					"size" : "139 138",
-					"states" : [
-						{
-							"name" : "option_battery",
-							"texture" : "data/ui/textures/market/battery_card.dds"
-						},
-						{
-							"name" : "option_teleport",
-							"texture" : "data/ui/textures/market/teleport_card.dds"
-						}
-						,
-						{
-							"name" : "no_battery",
-							"texture" : "data/ui/textures/market/no_card.dds"
-						},
-						{
-							"name" : "no_teleport",
-							"texture" : "data/ui/textures/market/no_card.dds"
-						}
-						,
-						{
-							"name" : "enabled",
-							"color" : "255 255 255 255"
-						},
-						{
-							"name" : "selected",
-							"color" : "255 255 255 128"
-						}
-						
-						
-					]
-					
-				},
-				{
-					"name" : "cursor",
-					"alias" : "cursor_",
-					"position" : "40 140",
-					"type" : "button",
-					"texture" : "data/ui/textures/market/cursor_izq.dds",
-					"size" : "70 66",
-					
-					"states" : [
-						{
-							"name" : "nothing",
-							"texture" : "data/ui/textures/market/cursor.dds"
-						},
-						{
-							"name" : "option_battery",
-							"texture" : "data/ui/textures/market/cursor_der.dds"
-						},
-						{
-							"name" : "option_teleport",
-							"texture" : "data/ui/textures/market/cursor_izq.dds"
 						}
 					]
 				}
@@ -259,10 +143,8 @@
 			"name" : "reticula",
 			"type" : "image",
 			"alias" : "reticula_",
-			"texture" : "data/ui/textures/market/mirilla.dds",
-			"maxUV" : "1.0 1.0",
-			"position" : "640 320",
-			"size" : "29 25"
+			"texture" : "data/ui/textures/reticula.dds",
+			"maxUV" : "1.0 1.0"
 
 		}
 		

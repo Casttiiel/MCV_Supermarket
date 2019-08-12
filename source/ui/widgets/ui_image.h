@@ -9,7 +9,6 @@ namespace UI
   public:
     void render() override;
     TImageParams* getImageParams() override { return &_imageParams; }
-	
 
   private:
     TImageParams _imageParams;

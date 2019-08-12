@@ -1,5 +1,4 @@
 #include "common.fx"
-#include "gbuffer.inc"
 
 //--------------------------------------------------------------------------------------
 float4 PS_filter(
@@ -11,13 +10,7 @@ float4 PS_filter(
 
   // Or use any other measure to compute amount of light from rgb
   float lum = dot( in_color.xyz, float3( 0.2126, 0.7152, 0.0722 ) );
-
-  //for color bloom approach
-  GBuffer g;
-  decodeGBuffer( iTex0 * float2(1280.0f,640.0f), g );
-
-  float amount = smoothstep( bloom_threshold_min, bloom_threshold_max, lum + g.emissive / emissive_bloom_factor);
-
+  float amount = smoothstep( bloom_threshold_min, bloom_threshold_max, lum);
   return float4( in_color.xyz * amount, 1 );
 }
 

@@ -4,7 +4,6 @@
 #include "mesh_group.h"
 
 struct CVertexDeclaration;
-class CGPUBuffer;
 
 class CMesh : public IResource {
 
@@ -61,16 +60,12 @@ public:
   const VMeshGroups& getGroups() const {
     return groups;
   }
-  VMeshGroups& getGroups() {    // Non-const version
-    return groups;
-  }
   void destroy();
   void activate() const;
   void render() const;
   virtual void renderGroup(uint16_t group_idx, uint16_t instanced_group_idx) const;
   void renderRange(uint32_t count, uint32_t base) const;
   void renderGroupInstanced(uint16_t group_idx, uint32_t num_instances) const;
-  void renderIndirect(const CGPUBuffer* buffer, uint32_t offset = 0) const;
   void activateAndRender() const;
   void renderInMenu() override;
   void updateVertsFromCPU(const void *new_cpu_data, size_t num_bytes_to_update);

@@ -8,7 +8,6 @@
 #include "components/common/comp_render.h"
 #include "components/common/physics/comp_collider.h"
 #include "datatypes.h"
-
 DECL_OBJ_MANAGER("comp_explosive_object", TCompExplosiveObject);
 
 

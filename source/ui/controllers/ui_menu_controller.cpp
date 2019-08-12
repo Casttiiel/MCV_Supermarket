@@ -39,7 +39,7 @@ namespace UI
     }
 
 	//nuevo
-	if (EngineInput["btMouseClickLeft"].justPressed() && getPosInButton(mousePos) != -1 ) {//nuevo----
+	if (EngineInput["btMouseClickLeft"].justPressed() && getPosInButton(mousePos) != -1) {//nuevo----
 		_options[_currentOption].callback();
 	} //---------
   }

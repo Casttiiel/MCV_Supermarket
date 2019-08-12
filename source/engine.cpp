@@ -18,8 +18,6 @@
 #include "input/module_input.h"
 #include "modules/module_camera_mixer.h"
 #include "ui/module_ui.h"
-#include "particles/module_particles.h"
-#include "particles/particle_emitter.h"
 
 #include "modules/test/module_splash.h"
 #include "modules/test/module_main_menu.h"
@@ -67,20 +65,18 @@ void CEngine::registerResourceTypes() {
   Resources.registerResourceType(getResourceTypeFor<CCurve>());
   Resources.registerResourceType(getResourceTypeFor<CTransCurve>());
   Resources.registerResourceType(getResourceTypeFor<CComputeShader>());
-  Resources.registerResourceType(getResourceTypeFor<particles::TEmitter>());
 }
 
 void CEngine::start()
 {
   PROFILE_FUNCTION("Engine::Start");
   _render = new CModuleRender("render");
-  _gpu_culling = new CModuleGPUCulling();
   _entities = new CModuleEntities("entities");
   _physics = new CModulePhysics("physics");
   _cameraMixer = new CModuleCameraMixer("camera_mixer");
   _multithreading = new MultithreadingModule("multihtreading");
   _ui = new UI::CModuleUI("ui");
-  _particles = new particles::CModuleParticles("particles");
+  _gpu_culling = new CModuleGPUCulling();
   _gameController = new CModuleGameController("game_controller");
   _audioManager = new CModuleAudio("audio_manager");
   _scripting = new CModuleScripting("scripting");
@@ -102,7 +98,6 @@ void CEngine::start()
     PROFILE_FUNCTION("Sys Modules");
     _modules.registerSystemModule(_navmesh);
     _modules.registerSystemModule(_render);
-    _modules.registerSystemModule(_gpu_culling);
     _modules.registerSystemModule(_entities);
     _modules.registerSystemModule(_input);
     _modules.registerSystemModule(_physics);
@@ -111,8 +106,8 @@ void CEngine::start()
     _modules.registerSystemModule(_gameController);
     //_modules.registerSystemModule(_audioManager);
     _modules.registerSystemModule(_scripting);
+    _modules.registerSystemModule(_gpu_culling);
     _modules.registerSystemModule(_ui);
-    _modules.registerSystemModule(_particles);
 	_modules.registerSystemModule(_sceneManager);
   }
 

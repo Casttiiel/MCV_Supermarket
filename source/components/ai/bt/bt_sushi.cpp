@@ -76,11 +76,6 @@ void CBTSushi::create(string s)//crear el arbol
 }
 
 void CBTSushi::updateBT() {
-
-	if (!h_player.isValid()) {
-		h_player = GameController.getPlayerHandle();
-	}
-
     randomTimer -= dt;
     chargeCooldownTimer -= dt;
     jumpChargeCooldownTimer -= dt;
@@ -97,23 +92,6 @@ void CBTSushi::updateBT() {
 
 		}
 	}
-
-	//check if is in the blackboard
-	if (checkBlackboard()) {
-		if (resetSlotTimer >= resetSlotDuration) {
-			resetSlotTimer = 0.0f;
-			//LIBERAR SLOT
-			slotsAvailable = false;
-			CEntity* e_player = (CEntity *)h_player;
-			TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
-			c_bb->forgetPlayer(CHandle(this).getOwner(), SUSHI);
-		}
-		else {
-			resetSlotTimer += dt;
-		}
-	}
-
-
 
 
 }
@@ -155,41 +133,22 @@ int CBTSushi::actionNextWaypoint() {
             VEC3 position = c_trans->getPosition();
             //wtp
             _knots = _curve->_knots;
-						//wtpIndex = (wtpIndex + 1) % _knots.size();
-						//nextPoint = _knots[wtpIndex];
             //nextPoint = _knots[wtpIndex];
 
-				}
-				if (ratio >= 1.0f || ratio < 0.0f) {
-					mTravelTime = -mTravelTime;
-				}
-				ratio += dt * mTravelTime;
-				nextPoint = _curve->evaluate(ratio);
-				
-
-				/*VERSION ANTIGUA
-				wtpIndex = (wtpIndex + 1) % _knots.size();
-				nextPoint = _knots[wtpIndex];
-				*/
-
+        }
+        wtpIndex = (wtpIndex + 1) % _knots.size();
+        nextPoint = _knots[wtpIndex];
     }
     return LEAVE;
 }
 
 void CBTSushi::setCurve(const CCurve* curve) {
-	
-	this->_curve = curve; // TO TEST
-	_knots = _curve->_knots;
-
-	/*
-		_knots = curve->_knots;
+	_knots = curve->_knots;
 
 	positions.clear();
 	for (int i=0; i < _knots.size();i++) {
 		positions.push_back(_knots[i]);
 	}
-	*/
-
 	
 
 }
@@ -225,20 +184,20 @@ int CBTSushi::actionSeekWaypoint() {
 		//------------------------------- navmesh code
 
 		if (use_navmesh) {
-			//if (reevaluatePathTimer <= 0) {
-			reevaluatePathTimer = reevaluatePathDelay;
+			if (reevaluatePathTimer <= 0) {
+				reevaluatePathTimer = reevaluatePathDelay;
 
-			TCompTransform* c_trans = get<TCompTransform>();
-			VEC3 position = c_trans->getPosition();
-			//wtp 
-			generateNavmesh(position, nextPoint, false);
+				TCompTransform* c_trans = get<TCompTransform>();
+				VEC3 position = c_trans->getPosition();
+				//wtp 
+				generateNavmesh(position, nextPoint, false);
 
-			if (navmeshPath.size() > 0) {
-				navMeshIndex = 0;
-				nextNavMeshPoint = navmeshPath[navMeshIndex];
+				if (navmeshPath.size() > 0) {
+					navMeshIndex = 0;
+					nextNavMeshPoint = navmeshPath[navMeshIndex];
+				}
+
 			}
-
-			//}
 
 			c_trans->rotateTowards(nextNavMeshPoint, rotationSpeed, dt);
 		}
@@ -436,7 +395,6 @@ int CBTSushi::actionPrepareCharge() {
 
 int CBTSushi::actionCharge() {
 
-	bool stopCharge = false;
     previousState = currentState;
     currentState = States::Charge;
     TCompRigidBody* c_rb = get<TCompRigidBody>();
@@ -459,52 +417,9 @@ int CBTSushi::actionCharge() {
     if (c_cc) {
         c_cc->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, dt, PxControllerFilters());
     }
-		//TODO: HACER UN RAYCAST PARA DELANTE Y COMPROBAR SI CHOCA CON ALGO
-		//raycast para no caer al vacio
-
-		VEC3 pos = c_trans->getPosition();//se lanza el raycast desde la posicion del sushi en la direccion que esta mirando
-		VEC3 direction = c_trans->getFront();
-		VEC3 aux1 = c_trans->getLeft();
-		VEC3 aux2 = c_trans->getUp();
-		direction.Normalize();
-		//VEC3 source = pos;
-
-		auto scene = EnginePhysics.getScene();
-		PxQueryFilterData filter_data = PxQueryFilterData();
-		filter_data.data.word0 = EnginePhysics.All;//no utilizamos ningun filtro
-
-		// [in] Define what parts of PxRaycastHit we're interested in
-		const PxHitFlags outputFlags =
-			PxHitFlag::eDISTANCE
-			| PxHitFlag::ePOSITION
-			| PxHitFlag::eNORMAL
-			;
-
-		PxRaycastBuffer hit;
-		PxRaycastHit hitBuffer[10];
-		hit = PxRaycastBuffer(hitBuffer, 10);
-		PxReal _maxDistance = 10.f; //TEST: este valor habra que modificarlo
-		bool colDetected = scene->raycast(
-			VEC3_TO_PXVEC3(pos),
-			VEC3_TO_PXVEC3(direction),
-			_maxDistance,
-			hit,
-			outputFlags,
-			filter_data
-		);
-
-		if (colDetected) {
-			//entonces sigue
-		}
-		else {
-			//para la carga
-			stopCharge = true;
-		}
-
-		//end raycast
 
     chargeElapsed += dt;
-    if (chargeElapsed >= chargeDuration || collided || stopCharge) {//TODO: AQUI ADD UNA CONDICION QUE SEA QUE VA A CAER Y PARAR A TIEMPO
+    if (chargeElapsed >= chargeDuration || collided) {
         //ChangeState("CHASE");
         c_rb->enableGravity(true);
         sushiAnimator->playAnimation(TCompSushiAnimator::JUMPCHARGE_END, 1.f);
@@ -545,7 +460,6 @@ void CBTSushi::generateNavmesh(VEC3 initPos, VEC3 destPos, bool recalc)
 }
 
 int CBTSushi::actionChase() {
-	
     previousState = currentState;
     currentState = States::Chase;
     TCompName* cname = get<TCompName>();
@@ -553,15 +467,24 @@ int CBTSushi::actionChase() {
     TCompTransform* p_trans = e_player->get<TCompTransform>();
     TCompTransform* c_trans = get<TCompTransform>();
 
-   
+    TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
+    sushiAnimator->playAnimation(TCompSushiAnimator::WALK_LOOP, 1.5f);
+
+    //Movement Control
+    Vector3 dir = Vector3();
+    dir = c_trans->getFront() * chaseSpeed * dt;
+    TCompCollider* c_cc = get<TCompCollider>();
+    if (c_cc)
+        c_cc->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, dt, PxControllerFilters());
+    //End Movement Control
+
     //Rotation Control
     //LookAt_Player(c_trans, player_position);
 
 	//------------------------------- navmesh code
-	
+
 	if (use_navmesh) {
-		//NO HACE FALTA EL REVALUATE ESTE 
-		/*if (reevaluatePathTimer <= 0) {
+		if (reevaluatePathTimer <= 0) {
 			reevaluatePathTimer = reevaluatePathDelay;
 
 			TCompTransform* c_trans = get<TCompTransform>();
@@ -574,54 +497,14 @@ int CBTSushi::actionChase() {
 				nextNavMeshPoint = navmeshPath[navMeshIndex];
 			}
 
-		}*/
-		TCompTransform* c_trans = get<TCompTransform>();
-		VEC3 position = c_trans->getPosition();
-		//wtp 
-		generateNavmesh(position, p_trans->getPosition(), false);
-
-		if (navmeshPath.size() > 0) {
-			navMeshIndex = 0;
-			nextNavMeshPoint = navmeshPath[navMeshIndex];
-
-			//----ESTO ESTABA FUERA DEL IF y no habia ELSE
-			Vector3 dir = Vector3();
-			dir = c_trans->getFront() * chaseSpeed * dt;
-			TCompCollider* c_cc = get<TCompCollider>();
-
-			TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
-			sushiAnimator->playAnimation(TCompSushiAnimator::WALK_LOOP, 1.5f);
-			if (c_cc)
-				c_cc->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, dt, PxControllerFilters());
-			//End Movement Control
-			VEC3 m_hitPos = VEC3();
-			//TCompTransform* c_trans = get<TCompTransform>();
-			VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
-			VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 1.5);
-			bool isIntersectionWithNavmesh = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
-			if (isIntersectionWithNavmesh) {
-				c_trans->rotateTowards(nextNavMeshPoint, 600, dt);
-			}
-			else {
-				c_trans->rotateTowards(nextNavMeshPoint, rotationSpeed, dt);
-			}
-			//-----
 		}
+
+		c_trans->rotateTowards(nextNavMeshPoint, rotationSpeed, dt);
 	}
 	else {
-		//Movement Control
-		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
-		sushiAnimator->playAnimation(TCompSushiAnimator::WALK_LOOP, 1.5f);
-		Vector3 dir = Vector3();
-		dir = c_trans->getFront() * chaseSpeed * dt;
-		TCompCollider* c_cc = get<TCompCollider>();
-		if (c_cc)
-			c_cc->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, dt, PxControllerFilters());
-		//End Movement Control
-
 		c_trans->rotateTowards(p_trans->getPosition(), rotationSpeed, dt);
 	}
-	
+
 	//------------------------------- end navmesh code
 
     //End Rotation Control
@@ -1145,17 +1028,16 @@ bool CBTSushi::conditionChase() {
     TCompTransform* c_trans = get<TCompTransform>();
     CEntity* e_player = (CEntity *)h_player;
     TCompTransform* p_trans = e_player->get<TCompTransform>();
-	float distance = 6.0;
+		float distance = 6.0;
 		
-	if (slotsAvailable) {
-		distance = meleeDistance;
-	}
-	else {
-		//TODO distance 
-	}
+		if (slotsAvailable) {
+			distance = meleeDistance;
+		}
+		else {
+			//TODO distance 
+		}
 
-	 
-    return (VEC3::Distance(p_trans->getPosition(), c_trans->getPosition()) > distance);
+    return (Vector3::Distance(p_trans->getPosition(), c_trans->getPosition()) > distance);
 }
 
 bool CBTSushi::conditionPlayerInView() {
@@ -1164,19 +1046,9 @@ bool CBTSushi::conditionPlayerInView() {
         return false; //no lo ve si esta muerto
     }
 
-	bool res = false;
-	if (isView() && checkHeight()) {//tiene que estar dentro de ambos rangos
-		res = true;
-	}
 
-	if (use_navmesh)
-		isPlayerInNavmesh();
-		if (navmeshPath.size() == 0) {
-			res = false;
-			initialExecution = true;
-			inCombat = false;
-		}
-    return res;
+
+    return isView();
 }
 
 bool CBTSushi::conditionSalute() {
@@ -1194,29 +1066,11 @@ bool CBTSushi::conditionMelee() {
 }
 
 bool CBTSushi::conditionJumpCharge() {
-	//VEC3 start, VEC3 end, VEC3 &m_hitPos
-	VEC3 m_hitPos = VEC3();
-	TCompTransform* c_trans = get<TCompTransform>();
-	VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
-	VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 100);
-	
-	bool charge = EngineNavmesh.raycast(currentPosition,frontOffset,m_hitPos);
-	//if (!charge) {
-		return rollDiceJumpCharge() && checkBlackboard();
-	//}
-	return false;
+    return rollDiceJumpCharge() && checkBlackboard();
 }
 
 bool CBTSushi::conditionCharge() {
-	VEC3 m_hitPos = VEC3();
-	TCompTransform* c_trans = get<TCompTransform>();
-	VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
-	VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 100);
-	bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
-	//if (!charge) {
-		return rollDiceCharge() && checkBlackboard();
-	//}
-	return false;
+    return rollDiceCharge() && checkBlackboard();
 }
 
 bool CBTSushi::conditionBlock() {
@@ -1760,52 +1614,9 @@ std::string CBTSushi::getState() {
     }
 }
 
-bool CBTSushi::checkHeight() {
-	bool res = false;
-	CEntity* e_player = (CEntity *)h_player;
-	TCompTransform* player_position = e_player->get<TCompTransform>();
-	float playerHeight = player_position->getPosition().y;
-	TCompTransform* c_trans = get<TCompTransform>();
-	float enemyHeight = c_trans->getPosition().y;
-
-	if (height_range > abs(playerHeight - enemyHeight)) {
-		res = true;;
-	}
-
-	return res;
-}
-
 bool CBTSushi::checkBlackboard() {
     CEntity* e_player = (CEntity *)h_player;
     TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
     slotsAvailable = c_bb->checkPermission(CHandle(this).getOwner(), SUSHI);
     return slotsAvailable;
-}
-
-bool CBTSushi::isPlayerInNavmesh() {
-
-	CEntity* e_player = (CEntity *)h_player;
-	TCompTransform* p_trans = e_player->get<TCompTransform>();
-	TCompTransform* c_trans = get<TCompTransform>();
-	VEC3 position = c_trans->getPosition();
-	//wtp 
-	generateNavmesh(position, p_trans->getPosition(), false);
-	inCombat = false;
-	return true;
-	/*if (use_navmesh) {
-		VEC3 m_hitPos = VEC3();
-		TCompTransform* c_trans = get<TCompTransform>();
-		VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
-		VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 1);
-		float isIntersectionWithNavmesh = EngineNavmesh.wallDistance(currentPosition);
-		dbg("INTER:%f\n",isIntersectionWithNavmesh);
-		if (navmeshPath.size() == 0 &&  (isIntersectionWithNavmesh < 0.1f) ) {
-			dbg("Entro en no esta el player en Navmesh\n");
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	return true;*/
 }

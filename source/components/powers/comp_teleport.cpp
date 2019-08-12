@@ -9,9 +9,7 @@
 #include "engine.h"
 #include "input/module_input.h"
 #include "modules/module_camera_mixer.h"
-#include "ui/controllers/ui_menu_controller.h"
-#include "ui/widgets/ui_button.h"
-#include "ui/module_ui.h"
+
 using namespace physx;
 
 DECL_OBJ_MANAGER("comp_teleport", TCompTeleport);
@@ -19,7 +17,6 @@ DECL_OBJ_MANAGER("comp_teleport", TCompTeleport);
 
 void TCompTeleport::update(float delta) {
   timeAfterTeleport += delta;
-  timeAfterTeleportUI -= delta;
 }
 
 void TCompTeleport::rayCast() {
@@ -101,7 +98,7 @@ void TCompTeleport::rayCast() {
       }
     }
   }
-  
+
   
   //If we're here we have missed
   EngineAudio.playEvent("event:/Character/Powers/Scanner/Scan_Fail");
@@ -134,7 +131,6 @@ bool TCompTeleport::hasCollided(bool colDetected, PxRaycastBuffer hit) {
             m_c->generateMadness(PowerType::TELEPORT);
             teleportWithObject(PXVEC3_TO_VEC3(hit.getAnyHit(closestIdx).position));
             EngineAudio.playEvent("event:/Character/Powers/Scanner/Scan_Success");
-			
             return true;
           }
         }
@@ -147,7 +143,6 @@ bool TCompTeleport::hasCollided(bool colDetected, PxRaycastBuffer hit) {
             m_c->generateMadness(PowerType::TELEPORT);
             teleportWithEnemy(PXVEC3_TO_VEC3(hit.getAnyHit(closestIdx).position));
             EngineAudio.playEvent("event:/Character/Powers/Scanner/Scan_Success");
-			
             return true;
           }
         }
@@ -175,22 +170,15 @@ void TCompTeleport::teleportWithEnemy(VEC3 candidate_position) {
   //cambiar el collider y no la transform
   //cambiar posiciones
   c_collider_player->controller->setPosition(final_pos_px);
-  
-  //UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
-  //boton->setCurrentState("selected");
-  
-  manageCameras();
 
   
+  manageCameras();
 }
 
 void TCompTeleport::teleportWithObject(VEC3 candidate_position) {
   timeAfterTeleport = 0.f;
   comboDone = false;
-  
-  //UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
-  //boton->setCurrentState("selected");
-  
+
   //change positions between object and player
   CEntity* e_player = (CEntity *)h_player;
   TCompCollider* c_collider_player = e_player->get<TCompCollider>();
@@ -205,12 +193,7 @@ void TCompTeleport::teleportWithObject(VEC3 candidate_position) {
   //Movemos jugador
   c_collider_player->controller->setFootPosition(final_pos_px);
 
-  
-
-
   manageCameras();
-
-  
 }
 
 bool TCompTeleport::canCombo() {
@@ -231,7 +214,6 @@ void TCompTeleport::manageCameras() {
   Engine.getCameraMixer().blendCamera(e_camera, 0.f, &quadInt);
   //BLEND TO PLAYER CAMERA
   Engine.getCameraMixer().blendCamera(p_camera, 0.5f, &quadInt);
-  
 }
 
 void TCompTeleport::renderDebug() {

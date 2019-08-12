@@ -1,7 +1,6 @@
 #include "mcv_platform.h"
 #include "comp_light_dir.h"
 #include "comp_transform.h"
-#include "comp_aabb.h"
 //#include "render/render_objects.h"    // cb_light
 #include "render/textures/texture.h" 
 //#include "ctes.h"                     // texture slots
@@ -78,27 +77,16 @@ void TCompLightDir::update(float dt) {
   VEC3 pp1 = VEC3(1.f, 1.f, 1.f), pp2 = VEC3(-1.f, -1.f, 0.f), pp3 = VEC3(1.f, 1.f, 0.f), pp4 = VEC3(-1.f, -1.f, 1.f);
   MAT44 inv_view_proj = getViewProjection().Invert();
 
-  VEC3 p1, p2, p3, p4;
   VEC3::Transform(pp1, inv_view_proj, p1);
   VEC3::Transform(pp2, inv_view_proj, p2);
   VEC3::Transform(pp3, inv_view_proj, p3);
   VEC3::Transform(pp4, inv_view_proj, p4);
 
-  AABB              aabb1;
-  AABB              aabb2;
   AABB::CreateFromPoints(aabb1, p1, p2);
   AABB::CreateFromPoints(aabb2, p3, p4);
 
-  AABB              finalAABB;
-  AABB              entityAbsAABB;
   AABB::CreateMerged(finalAABB, aabb1, aabb2);
-  AABB::CreateMerged(entityAbsAABB, entityAbsAABB, finalAABB);
-
-  TCompAbsAABB* c_aabb = get<TCompAbsAABB>();
-  if (c_aabb) {
-    c_aabb->Center = entityAbsAABB.Center;
-    c_aabb->Extents = entityAbsAABB.Extents;
-  }
+  AABB::CreateMerged(*entityAbsAABB, *entityAbsAABB, finalAABB);
 }
 
 // -------------------------------------------------
@@ -170,5 +158,6 @@ void TCompLightDir::registerMsgs() {
 }
 
 void TCompLightDir::onDefineLocalAABB(const TMsgDefineLocalAABB& msg) {
+  entityAbsAABB = msg.aabb;
   AABBpassed = false;
 }

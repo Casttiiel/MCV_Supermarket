@@ -10,9 +10,6 @@
 #include "input/module_input.h"
 #include "modules/module_physics.h"
 #include "components/controllers/comp_parabolic_launch.h"
-#include "components/ai/others/self_destroy.h"
-#include "components/vfx/comp_bolt_sphere.h"
-#include "components/vfx/comp_bolt_billboard.h"
 
 using namespace physx;
 
@@ -61,38 +58,19 @@ void TCompBatteryController::onCollision(const TMsgOnContact& msg) {
 
 
 
-        if (col_filter_data.word0 & EnginePhysics.Scenario && isKinematic) {
+        if (col_filter_data.word0 & EnginePhysics.Scenario) {
             isKinematic = false;
 
             physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
 
             //spawn here the bolt sphere
-            TEntityParseContext ctx;
-            TCompTransform* c_trans = get<TCompTransform>();
-            ctx.root_transform = *c_trans;
-            parseScene("data/prefabs/vfx/bolt_sphere.json", ctx);
-            CEntity* curr_e = ctx.current_entity;
-            if (curr_e) {
-              TCompSelfDestroy* c_sdes = curr_e->get<TCompSelfDestroy>();
-              c_sdes->setDelay(timeEffect);
-            }
-            //spawn a bolt from the sphere to this
-            parseScene("data/prefabs/vfx/bolt.json",ctx);
-            CEntity* curr_e2 = ctx.current_entity;
-            if (curr_e2) {
-              TCompSelfDestroy* c_sdes2 = curr_e2->get<TCompSelfDestroy>();
-              c_sdes2->setDelay(timeEffect);
-              TCompBoltBillboard* c_bbill = curr_e2->get<TCompBoltBillboard>();
-              c_bbill->setTargetPosition(curr_e);
-              CHandle h(this);
-              c_bbill->setTargetAim(h.getOwner());
-            }
+            //spawn a bolt from the sphere to this USING LUA
+
         }
         //antes 
           //rigid_dynamic->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, true);
     }
 }
-
 
 
 void TCompBatteryController::onBatteryInfoMsg(const TMsgAssignBulletOwner& msg) {
@@ -104,7 +82,7 @@ void TCompBatteryController::onBatteryInfoMsg(const TMsgAssignBulletOwner& msg) 
     physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
     rigid_dynamic->setMass(1000);
     //VEC3 new_pos = c_trans->getFront();
-    CEntity* e_camera = getEntityByName("AimCurve");
+    CEntity* e_camera = getEntityByName("PlayerCamera");
     TCompParabolicLaunch* parabolicLaunch = e_camera->get<TCompParabolicLaunch>();
     CCurve* curve_dynamic = parabolicLaunch->curve_dynamic;
     _knots = curve_dynamic->getKnots();
@@ -137,7 +115,7 @@ void TCompBatteryController::update(float delta) {
         if (dist < 1.5f) {
             i++;
 
-            if (i < _knots.size()) {
+            if (i < 99) {
                 nextPoint = _knots[i];
             }
         }
@@ -192,35 +170,6 @@ void TCompBatteryController::update(float delta) {
                             entityEnemyDamage->sendMsg(msg);
 
                             //spawn here a bolt from this to the enemy
-                            //spawn a bolt from the sphere to this
-                            bool found = false;
-                            std::list<CHandle>::iterator it = enemiesBolt.begin();
-                            while (it != enemiesBolt.end())
-                            {
-                              if ((*it) == h_comp_physics) {
-                                found = true;
-                                break;
-                              }
-                              ++it;
-                            }
-                            PxShape* colShape;
-                            buf.getAnyHit(i).actor->getShapes(&colShape, 1, 0);
-                            PxFilterData col_filter_data = colShape->getSimulationFilterData();
-
-                            if (!found && !(col_filter_data.word0 & EnginePhysics.Spawner)) {
-                              TEntityParseContext ctx;
-                              parseScene("data/prefabs/vfx/bolt.json", ctx);
-                              CEntity* curr_e2 = ctx.current_entity;
-                              if (entityContact) {
-                                TCompSelfDestroy* c_sdes2 = curr_e2->get<TCompSelfDestroy>();
-                                c_sdes2->setDelay(timeEffect);
-                                TCompBoltBillboard* c_bbill = curr_e2->get<TCompBoltBillboard>();
-                                CEntity* e_bolt = getEntityByName("BoltSphere");
-                                c_bbill->setTargetPosition(e_bolt);
-                                c_bbill->setTargetAim(entityContact);
-                              }
-                              enemiesBolt.push_back(h_comp_physics);
-                            }
 
                             //TODO: si fire esta activado enviar mensaje de damage cada x tiempo
                             if (batteryFire) {

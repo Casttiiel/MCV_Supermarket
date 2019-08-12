@@ -148,7 +148,6 @@ void CModuleRender::renderInMenu() {
   ImGui::DragInt("NumFrames To Capture", &nframes, 0.1f, 1, 20);
   if (ImGui::SmallButton("Start CPU Trace Capturing")) {
     PROFILE_SET_NFRAMES(nframes);
-    PROFILE_FRAME_BEGINS();
   }
 
   // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
@@ -218,8 +217,6 @@ void CModuleRender::generateFrame() {
 
   ctes_shared.GlobalWorldTime = (float)Time.current;
   ctes_shared.Actual_dt = (float)Time.delta;
-  ctes_shared.GlobalDeltaTime = Time.delta;
-  ctes_shared.GlobalDeltaUnscaledTime = Time.delta_unscaled;
   ctes_shared.updateGPU();
 
   activateObject(MAT44::Identity, VEC4(1, 1, 1, 1));
@@ -344,6 +341,6 @@ void CModuleRender::generateFrame() {
   // Horizontal size is aspect ratio. Top/left is 0,0
   camera_ortho.setOrthoParams(false, 0.0f, (float)Render.width / (float)Render.height, 0.f, 1.0f, -1.0f, 1.0f);
   activateCamera(camera_ortho, Render.width, Render.height);
-  //CRenderManager::get().render(eRenderCategory::CATEGORY_UI);
+  CRenderManager::get().render(eRenderCategory::CATEGORY_UI);
   CEngine::get().getUI().render();
 }

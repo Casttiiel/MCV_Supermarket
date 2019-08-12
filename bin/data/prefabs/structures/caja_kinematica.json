@@ -8,7 +8,7 @@
       "abs_aabb" : {},
       "transform":
       {
-        "pos": "12 3 20"
+        "pos": "12 0 -20"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -53,13 +53,17 @@
 	  
 	  "ai_platform_mobile": {
 		
-			"mTravelTime_" : 100,
-			"mRotationSpeed_" : 50,
-			"mRotationTime_" : 5,
-			"curve":"data/curves/curvaTrap001.curve",
-			"platformType_" : 6,
-			"direction" :  0,
-			"axis" : "0 0 1"
+			"mTravelTime_" : 2,
+			"mRotationSpeed_" : 0.5,
+			"mRotationTime_" : 1,
+			"platformType_" : 1,
+			"angleTurn_" : 220,
+			"direction" : -1,
+			"axis" : "1 0 0",
+			"curve" : "data/curves/Line001.curve",
+			"positions" : 
+				["10 20 10",
+				"20 20 20"]
 			
 	
 		},

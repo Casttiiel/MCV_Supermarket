@@ -1,14 +1,37 @@
 {
   "asiatic_scene": {
-    "navmesh":"data/navmesh/navmesh_zona_asiatica.bin"
+    "navmesh":"data/navmesh/all_tiles_tilecache.bin",
+	"data" : "data/scenes/mapa_zona_tutorial.json",
+	"others" : [
+		"data/prefabs/cameras/main_camera.json",
+		"data/prefabs/cameras/debug_camera.json",
+		"data/prefabs/cameras/player_camera.json",
+		"data/scenes/test_blood.json",
+		"data/prefabs/character/dummy_weapon.json",
+		
+		"data/scenes/ui.json",
+		"data/prefabs/infinite_plane.json"
+	
+	]
+	
+	
   },
   "tutorial_scene": {
-    "navmesh":"data/navmesh/navmesh_zona_tutorial_pasteleria.bin"
-  },
-  "carniceria_scene": {
-    "navmesh":"data/navmesh/navmesh_zona_carniceria.bin"
-  },
-   "congelados_scene": {
-    "navmesh":"data/navmesh/navmesh_zona_congelados.bin"
-  }	
+    "navmesh":"data/navmesh/navmesh_pequena.bin",
+	"data" : "data/scenes/mapa_zona_asiatica3.json",
+	"others" : [
+		"data/prefabs/cameras/main_camera.json",
+		"data/prefabs/cameras/debug_camera.json",
+		"data/prefabs/cameras/player_camera.json",
+		"data/scenes/test_blood.json",
+		"data/prefabs/character/dummy_weapon.json",
+		
+		"data/scenes/ui.json",
+		"data/prefabs/infinite_plane.json"
+	
+	]
+  }
+  
+  
+  
 }

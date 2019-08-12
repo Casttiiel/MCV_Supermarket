@@ -101,7 +101,7 @@ PxRigidActor* CModulePhysics::createController(TCompCollider& comp_collider) {
   PxCapsuleControllerDesc capsuleDesc;
   capsuleDesc.height = jconfig.value("height", 1.f);
   capsuleDesc.radius = jconfig.value("radius", 1.f);
-  capsuleDesc.climbingMode = PxCapsuleClimbingMode::eEASY;
+  capsuleDesc.climbingMode = PxCapsuleClimbingMode::eCONSTRAINED;
   capsuleDesc.material = gMaterial;
   capsuleDesc.stepOffset = 0.1;
   capsuleDesc.reportCallback = &customUserControllerHitReport;
@@ -115,7 +115,7 @@ PxRigidActor* CModulePhysics::createController(TCompCollider& comp_collider) {
   comp_collider.controller = ctrl;
 
   setupFilteringOnAllShapesOfActor(actor,
-    getFilterByName(jconfig.value("group", "all"), true),
+    getFilterByName(jconfig.value("group", "all")),
     getFilterByName(jconfig.value("mask", "all"))
   );
 
@@ -161,51 +161,7 @@ bool CModulePhysics::readShape(PxRigidActor* actor, const json& jcfg) {
   }
   else if (geometryType == PxGeometryType::eCONVEXMESH)
   {
-   // fatal("Convex mesh not implemented yet");
-	std::string col_mesh_name = jcfg.value("collision_mesh", "");
-	const CCollisionMesh* mesh = Resources.get(col_mesh_name)->as<CCollisionMesh>();
-	dbg("Collision mesh has %d vtxs\n", mesh->header.num_vertex);
-
-	assert(strcmp(mesh->header.vertex_type_name, "Pos") == 0);
-
-	PxConvexMeshDesc meshDesc;
-	meshDesc.points.count = mesh->header.num_vertex;
-	meshDesc.points.stride = sizeof(physx::PxVec3);
-	meshDesc.points.data = mesh->vertices.data();
-
-	meshDesc.flags = physx::PxConvexFlag::eCOMPUTE_CONVEX;
-
-	PxTolerancesScale scale;
-	PxCooking *cooking = PxCreateCooking(PX_PHYSICS_VERSION, gPhysics->getFoundation(), PxCookingParams(scale));
-	physx::PxConvexMeshCookingType::Enum convextype = physx::PxConvexMeshCookingType::eQUICKHULL;
-
-	physx::PxCookingParams params = cooking->getParams();
-	params.convexMeshCookingType = convextype;
-	params.gaussMapLimit = 256;
-	cooking->setParams(params);
-
-	PxDefaultMemoryOutputStream writeBuffer;
-	PxConvexMeshCookingResult::Enum result;
-	bool status = cooking->cookConvexMesh(meshDesc, writeBuffer, &result);
-	assert(status);
-
-	// writeBuffer could be saved to avoid the cooking in the next execution.
-	PxDefaultMemoryInputData readBuffer(writeBuffer.getData(), writeBuffer.getSize());
-	PxConvexMesh* convexMesh = gPhysics->createConvexMesh(readBuffer);
-	shape = gPhysics->createShape(PxConvexMeshGeometry(convexMesh), *gMaterial);
-
-	CMesh* render_mesh = mesh->createRenderMesh();
-	char res_name[64];
-	sprintf(res_name, "Physics_%p", render_mesh);
-	render_mesh->setNameAndType(res_name, getResourceTypeFor<CMesh>());
-	Resources.registerResource(render_mesh);
-
-
-	//shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
-	// Bind the render mesh as userData of the SHAPE, not the ACTOR.
-	shape->userData = render_mesh;
-
-
+    fatal("Convex mesh not implemented yet");
   }
   else if (geometryType == PxGeometryType::eTRIANGLEMESH)
   {
@@ -251,11 +207,8 @@ bool CModulePhysics::readShape(PxRigidActor* actor, const json& jcfg) {
     render_mesh->setNameAndType(res_name, getResourceTypeFor<CMesh>());
     Resources.registerResource(render_mesh);
 
-	
-	//shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
     // Bind the render mesh as userData of the SHAPE, not the ACTOR.
     shape->userData = render_mesh;
-	
   }
 
   if (jcfg.value("trigger", false))
@@ -275,7 +228,7 @@ bool CModulePhysics::readShape(PxRigidActor* actor, const json& jcfg) {
 
   setupFiltering(
     shape,
-    getFilterByName(jcfg.value("group", "all"), true),
+    getFilterByName(jcfg.value("group", "all")),
     getFilterByName(jcfg.value("mask", "all"))
   );
 
@@ -693,7 +646,7 @@ void CModulePhysics::renderDebug() {
   }
 }
 
-CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& name, bool isGroup)
+CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& name)
 {
   if (strcmp("player", name.c_str()) == 0) {
     return CModulePhysics::FilterGroup::Player;
@@ -746,10 +699,6 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
   else if (strcmp("destroyable_wall", name.c_str()) == 0) {
 	  return CModulePhysics::FilterGroup::DestroyableWall;
   }
-  else if (strcmp("panel", name.c_str()) == 0) {
-	  return CModulePhysics::FilterGroup::Panel;
-		  
-  }
   else if (strcmp("not_spawner_obj", name.c_str()) == 0) {
 	  return CModulePhysics::FilterGroup::NotSpawnerObjects;
   }
@@ -778,14 +727,7 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
     return CModulePhysics::FilterGroup::Column;
   }
   
-  
-  //good solution, if from max is not specified its group, it will be scenario
-  if (isGroup) {
-    return CModulePhysics::FilterGroup::Scenario;
-  }
-
   return CModulePhysics::FilterGroup::All;
-  
 }
 
 void CModulePhysics::setupFiltering(PxShape* shape, PxU32 filterGroup, PxU32 filterMask)
@@ -965,19 +907,6 @@ PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getB
 	return PxControllerBehaviorFlags(0);
 }
 PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getBehaviorFlags(const PxController& controller) {
-	/*CHandle h_comp_physics;
-	h_comp_physics.fromVoidPtr(controller.getActor());
-	if (!h_comp_physics.isValid())
-		return PxControllerBehaviorFlags(0);
-	CEntity* entityContact = h_comp_physics.getOwner();
-	if (!entityContact)
-		return PxControllerBehaviorFlags(0);
-	TCompCollider* col_ = entityContact->get<TCompCollider>();
-	const json& jconfig = col_->jconfig;
-	bool isPlatform = jconfig.value("platform", false);
-	if (isPlatform) {
-		return PxControllerBehaviorFlag::eCCT_CAN_RIDE_ON_OBJECT;
-	}*/
 	return PxControllerBehaviorFlags(0);
 }
 PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getBehaviorFlags(const PxObstacle& obstacle) {

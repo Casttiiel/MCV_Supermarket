@@ -8,8 +8,6 @@
 CRender Render;
 
 bool CRender::resizeBackBuffer(int new_width, int new_height) {
-  if (width == new_width && height == new_height)
-    return false;
   width = new_width;
   height = new_height;
   destroyRenderTarget();

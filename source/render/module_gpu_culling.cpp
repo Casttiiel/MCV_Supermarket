@@ -1,24 +1,16 @@
 #include "mcv_platform.h"
-#include "engine.h"
 #include "module_gpu_culling.h"
-#include "engine.h"
-#include "modules/module_camera_mixer.h"
 #include "render/compute/gpu_buffer.h"
 #include "components/common/comp_camera.h"
 #include "components/common/comp_light_dir.h"
 #include "components/common/comp_transform.h"
 #include "components/common/comp_render.h"
 #include "components/common/comp_lod.h"
-#include "components/common/comp_aabb.h"
-#include "components/common/comp_dynamic_instance.h"
-#include "components/common/comp_group.h"
-#include "components/common/comp_name.h"
 #include "render/textures/material.h"
 #include "utils/utils.h"
 #include "entity/entity.h"
 #include "entity/entity_parser.h"
 #include "render/compute/compute_shader.h"
-#include "utils/json_resource.h"
 
 AABB getRotatedBy(AABB src, const MAT44 &model);
 
@@ -30,13 +22,10 @@ struct TSampleDataGenerator {
   float        scale = 1.0f;
   uint32_t     num_instances = 0;
 
-  VHandles     prefabs; //for trees
-  std::map<const std::string, CHandle> scene_prefabs; //for scenes
+  VHandles     prefabs;
 
-  bool         prefab_handles_loaded = false;
+  void create(const json& j) {
 
-  void createProductPrefabs(const json& j) {
-	  
     float radius = j.value("radius", 30.f);
     pmin = VEC3(-radius, 0.f, -radius);
     pmax = VEC3(radius, 1.0f, radius);
@@ -49,273 +38,53 @@ struct TSampleDataGenerator {
       assert(is_ok);
       prefabs.push_back( ctx.entities_loaded[0] );
     }
+
+    generate();
   }
 
-  bool isInstantiable(const json j_entity) {
-    //is instantiable if
-    return j_entity.count("render") > 0 && j_entity.count("abs_aabb") > 0  //has render and aabb
-      && j_entity.count("comp_increase_power") == 0 && j_entity.count("ai_platform_mobile") == 0  //is not a platform and not a power up
-      && j_entity.count("morph_animation") == 0 && j_entity.count("comp_destroyable_wall") == 0 && j_entity.count("comp_interruptor") == 0   //is not a morph and not a destroyable wall
-      && j_entity.count("bt_sushi") == 0 && j_entity.count("bt_cupcake") == 0 && j_entity.count("bt_golem") == 0 && j_entity.count("bt_ranged_sushi") == 0 //is not an enemy
-      && j_entity.count("comp_madness_puddle") == 0 && j_entity.count("comp_wind_trap") == 0; //is not a madness puddle or a wind trap
+  void generate() {
+
+    assert(mod);
+    assert(!prefabs.empty());
+
+    for (uint32_t i = 0; i < num_instances; ++i) {
+
+      // Right now, always choose the first prefab
+      int idx = rand() % prefabs.size();
+
+      // Access the prefab recently created
+      CHandle prefab = prefabs[idx];
+      CEntity* e = prefab;
+      assert(e);
+
+      // Find a random prefab
+      VEC3 center = pmin + (pmax - pmin) * VEC3(unitRandom(), unitRandom(), unitRandom());
+      float sc = scale;
+
+      // Take original transform of the prefab (may contain rotation & scale already)
+      TCompTransform* c_transform = e->get< TCompTransform >();
+
+      // Add a random yaw
+      MAT44 rot_yaw = MAT44::CreateFromAxisAngle(VEC3(0,1,0), unitRandom() * deg2rad(360.0f));
+
+      MAT44 world = c_transform->asMatrix() * rot_yaw * MAT44::CreateScale(sc) * MAT44::CreateTranslation(center);
+
+      // Find AABB in world space
+      TCompRender* cr = e->get< TCompRender >();
+      const TCompRender::MeshPart& mp = cr->parts[1];       // Use group 1 -> bark
+      AABB aabb_local = mp.mesh->getAABB();
+      AABB aabb_abs = getRotatedBy(aabb_local, world);
+      
+      // Register object & matrix to be rendered
+      mod->addToRender(prefab, aabb_abs, world);
+    }
+
+    // Delete the prefabs we have been using to create the fake data
+    for( auto h_prefab : prefabs )
+      h_prefab.destroy();
+    prefabs.clear();
   }
-
-  void create(const std::string& filename, TEntityParseContext& ctx) {
-    if (!prefab_handles_loaded) {
-      json j = loadJson("data/gpu_culling.json");
-      createProductPrefabs(j["sample_data"]);
-      prefab_handles_loaded = true;
-    }
-
-    ctx.filename = filename;
-
-    const json& j_scene = Resources.get(filename)->as<CJson>()->getJson();
-    assert(j_scene.is_array());
-
-    // For each item in the array...
-    for (int i = 0; i < j_scene.size(); ++i) {
-      auto& j_item = j_scene[i];
-
-      assert(j_item.is_object());
-
-      if (j_item.count("entity")) {
-        auto& j_entity = j_item["entity"];
-
-        CHandle h_e;
-
-        // Do we have the prefab key in the json?
-        if (j_entity.count("prefab")) {
-
-          // Get the src/id of the prefab
-          std::string prefab_src = j_entity["prefab"];
-          assert(!prefab_src.empty());
-
-          //this prefab can be a product on a shelve, if it is we will load it only on RELEASE because performance issues
-          std::size_t found = prefab_src.find("/products/");
-          if (found != std::string::npos) {
-            continue;
-            #ifndef NDEBUG
-              continue;
-            #endif
-          }
-
-          // Get delta transform where we should instantiate this transform
-          CTransform delta_transform;
-          if (j_entity.count("transform"))
-            delta_transform.load(j_entity["transform"]);
-
-          // Parse the prefab, if any other child is created they will inherit our ctx transform
-          TEntityParseContext prefab_ctx(ctx, delta_transform);
-          prefab_ctx.parsing_prefab = true;
-          if (!parseScene(prefab_src, prefab_ctx))
-            continue;
-
-          assert(!prefab_ctx.entities_loaded.empty());
-
-          // Create a new fresh entity
-          h_e = prefab_ctx.entities_loaded[0];
-
-          // Cast to entity object
-          CEntity* e = h_e;
-
-          // We give an option to 'reload' the prefab by modifying existing components, 
-          // like changing the name, add other components, etc, but we don't want to parse again 
-          // the comp_transform, because it was already parsed as part of the root
-          // As the json is const as it's a resouce, we make a copy of the prefab section and
-          // remove the transform
-          json j_entity_without_transform = j_entity;
-          j_entity_without_transform.erase("transform");
-
-          // Do the parse now outside the 'prefab' context
-          prefab_ctx.parsing_prefab = false;
-          e->load(j_entity_without_transform, prefab_ctx);
-
-          //if the prefab is in a folder called "PRODUCTS" is a product to instantiate
-          if (found != std::string::npos) {
-            //this prefab is a product on a shelve, so we will load it only on RELEASE because performance issues
-            #ifndef NDEBUG
-              continue;
-            #endif
-            int idx = rand() % prefabs.size();
-            CHandle prefab = prefabs[idx];
-            CEntity* ep = prefab;
-            assert(e);
-
-            TCompRender* c_render = e->get<TCompRender>();
-            CHandle h(c_render);
-            h.destroy();
-
-            TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
-            CHandle h2(c_absaabb);
-            h2.destroy();
-
-            //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
-            TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
-            if (c_di) {
-              c_di->set_idx(mod->getObjSize());
-            }
-
-            //ADD DATA TO MODULE GPU CULLING
-            addPrefabToModule(ep, j_entity["transform"]);
-          }
-        }
-        else if(!isInstantiable(j_entity)){
-
-          // Create a new fresh entity
-          h_e.create< CEntity >();
-
-          // Cast to entity object
-          CEntity* e = h_e;
-
-          // Do the parse
-          e->load(j_entity, ctx);
-
-          //ASSERT JUST FOR DEBUG; MUST DELETE LATER
-          TCompRender* c_render = e->get<TCompRender>();
-          if (c_render) {
-            if (strcmp(c_render->parts[0].material->tech->getName().c_str(), "objs_culled_by_gpu.tech") == 0) {
-              TCompName* c_name = e->get<TCompName>();
-              fatal("%s mesh will not be instantiated while its material %s wants it\n", c_name->getName(), c_render->parts[0].material->getName().c_str());
-            }
-          }
-        }
-        else {
-          //this can be instantiable, by discard
-          json j_transform = j_entity["transform"];
-          std::string mesh_name = j_entity["render"].value("mesh", "none");
-          std::string mat_name = j_entity["render"]["materials"][0];
-          const std::string temp_prefab_name = mesh_name + mat_name;
-          //FIRST TIME GPU PREFAB
-          if (scene_prefabs.count(temp_prefab_name) == 0) { 
-            //CREATE GPU PREFAB HANDLE
-            // Create a new fresh entity
-            h_e.create< CEntity >();
-            // Cast to entity object
-            CEntity* e = h_e;
-
-            // Do the parse
-            e->load(j_entity, ctx);
-
-
-            //ASSERT JUST FOR DEBUG; MUST DELETE LATER
-            TCompRender* c_render = e->get<TCompRender>();
-            if (c_render) {
-              if (strcmp(c_render->parts[0].material->tech->getName().c_str(), "objs_culled_by_gpu.tech") != 0) {
-                TCompName* c_name = e->get<TCompName>();
-                fatal("%s mesh will be instantiated while its material %s does not want it\n", c_name->getName(), c_render->parts[0].material->getName().c_str());
-              }
-            }
-
-            scene_prefabs.insert(std::pair<const std::string, CHandle>(temp_prefab_name, h_e));
-
-            //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
-            TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
-            if (c_di) {
-              c_di->set_idx(mod->getObjSize());
-            }
-
-            //ADD DATA TO MODULE GPU CULLING
-            addPrefabToModule(h_e, j_transform);
-          }
-          else { //ALREADY PARSED GPU PREFAB
-            h_e.create< CEntity >();
-            CEntity* e = h_e;
-            e->load(j_entity, ctx);
-
-            TCompRender* c_render = e->get<TCompRender>();
-            CHandle h(c_render);
-            h.destroy();
-
-            //JOHN HERE IS THE PROBLEM
-            TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
-            CHandle h2(c_absaabb);
-            h2.destroy();
-            TCompName* n = e->get<TCompName>();
-            std::string a = n->getName();
-
-            //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
-            TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
-            if (c_di) {
-              c_di->set_idx(mod->getObjSize());
-            }
-
-            //ADD DATA TO MODULE GPU CULLING
-            addPrefabToModule(scene_prefabs.at(temp_prefab_name), j_transform);
-          }
-        }
-
-        ctx.entities_loaded.push_back(h_e);
-      }
-    }
-
-    // Create a comp_group automatically if there is more than one entity
-    if (ctx.entities_loaded.size() > 1) {
-      // The first entity becomes the head of the group. He is NOT in the group
-      CHandle h_root_of_group = ctx.entities_loaded[0];
-      CEntity* e_root_of_group = h_root_of_group;
-      assert(e_root_of_group);
-      // Create a new instance of the TCompGroup
-      CHandle h_group = getObjectManager<TCompGroup>()->createHandle();
-      // Add it to the entity
-      e_root_of_group->set(h_group.getType(), h_group);
-      // Now add the rest of entities created to the group, starting at 1 because 0 is the head
-      TCompGroup* c_group = h_group;
-      for (size_t i = 1; i < ctx.entities_loaded.size(); ++i)
-        c_group->add(ctx.entities_loaded[i]);
-    }
-
-    // Notify each entity created that we have finished
-    // processing this file
-    TMsgEntitiesGroupCreated msg = { ctx };
-    for (auto h : ctx.entities_loaded)
-      h.sendMsg(msg);
-
-
-    //REMOVE PREFABS FROM SCENE, THE MODULE WILL RENDER THEM
-    for (auto h_prefab : scene_prefabs) {
-      CEntity* e = h_prefab.second;
-      TCompRender* c_render = e->get<TCompRender>();
-      CHandle h(c_render);
-      h.destroy();
-
-      //JOHN HERE IS ALSO THE PROBLEM
-      TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
-      CHandle h2(c_absaabb);
-      h2.destroy();
-
-      //h_prefab.second.destroy(); //probably not destroy, just remove render and AABB components so we mantain the collider
-    }
-    scene_prefabs.clear();
-    
-  }
-  
-  void addPrefabToModule(CHandle handl, json j) {
-    //HERE WE RECEIVE THE RENDER COMPONENT HANDLE, SO WE GET ITS ENTITY
-    CHandle prefab = handl;
-    CEntity* e = prefab;
-    assert(e);
-
-    MAT44 rot_yaw = MAT44::CreateFromQuaternion(loadQUAT(j, "rotation"));
-    VEC3 pos = loadVEC3(j, "pos");
-    float scale = j.value("scale", 1.0f);
-    MAT44 world = rot_yaw * MAT44::CreateScale(scale) * MAT44::CreateTranslation(pos);
-
-    // Find AABB in world space
-    TCompRender* cr = e->get< TCompRender >();
-    const TCompRender::MeshPart& mp = cr->parts[0];
-    AABB aabb_local = mp.mesh->getAABB();
-    AABB aabb_abs = getRotatedBy(aabb_local, world);
-
-    mod->addToRender(prefab, aabb_abs, world);
-  }
-
 };
-
-TSampleDataGenerator sample_data;
-
-void CModuleGPUCulling::parseEntities(const std::string& filename, TEntityParseContext& ctx) {
-  sample_data.create(filename, ctx);
-}
 
 // ---------------------------------------------------------------
 bool CModuleGPUCulling::start() {
@@ -360,9 +129,9 @@ bool CModuleGPUCulling::start() {
   draw_datas.reserve(max_render_types);
 
   // populate with some random generated data
+  /*TSampleDataGenerator sample_data; //HERE WE GENERATE THE TREES
   sample_data.mod = this;
-  //sample_data.createTrees(j["sample_data"]);
-  //sample_data.create();
+  sample_data.create(j["sample_data"]);*/
 
   entity_camera_name = j["camera"];
   assert(!entity_camera_name.empty());
@@ -372,19 +141,6 @@ bool CModuleGPUCulling::start() {
 
 void CModuleGPUCulling::stop() {
   objs.clear();
-}
-
-void CModuleGPUCulling::updateObjData(int idx, CHandle entity) {
-  CEntity* e = entity;
-  TCompTransform* c_trans = e->get<TCompTransform>();
-  objs.at(idx).world = c_trans->asMatrix();
-
-  TCompLocalAABB* c_aabb = e->get<TCompLocalAABB>();
-  AABB aabb_abs = getRotatedBy(*c_aabb, c_trans->asMatrix());
-
-
-  objs[idx].aabb_center = aabb_abs.Center;
-  objs[idx].aabb_half = aabb_abs.Extents;
 }
 
 // ---------------------------------------------------------------
@@ -511,7 +267,6 @@ void CModuleGPUCulling::addToRender(
   obj.prefab_idx = addPrefabInstance(h_prefab);
   obj.aabb_half = aabb.Extents;
   obj.world = world;
-  obj.unique_id = objs.size();
   objs.push_back(obj);
 
   is_dirty = true;
@@ -526,11 +281,7 @@ void CModuleGPUCulling::renderDebug() {
   }
 }
 
-void CModuleGPUCulling::update(float delta) {
-  // Nothing to be done
-}
-
-void CModuleGPUCulling::updateCamera() {
+void CModuleGPUCulling::update( float delta ) {
   if (!h_camera.isValid()) {
     h_camera = getEntityByName(entity_camera_name);
     if (!h_camera.isValid())
@@ -546,10 +297,8 @@ void CModuleGPUCulling::updateCamera() {
   }
   else {
     culling_camera = *(CCamera*)c_camera;
-    culling_camera = Engine.getCameraMixer().saved_result;
   }
 
-  culling_camera.setViewport(0, 0, Render.width, Render.height);
   updateCullingPlanes(culling_camera);
 }
 
@@ -575,30 +324,20 @@ void CModuleGPUCulling::renderInMenu() {
     ImGui::Text("%ld objects", (uint32_t)objs.size());
     ImGui::Checkbox("Show Debug", &show_debug);
 
-    if (ImGui::TreeNode("All objs...")) {
-      for (auto& obj : objs)
+    if (ImGui::TreeNode("Objs")) {
+      for (auto& obj : objs) 
         ImGui::Text("Prefab:%d at %f %f %f", obj.prefab_idx, obj.aabb_center.x, obj.aabb_center.y, obj.aabb_center.z);
       ImGui::TreePop();
     }
 
+
     if (ImGui::TreeNode("Prefabs")) {
       int idx = 0;
       for (auto& p : prefabs) {
-        char txt[256];
-        sprintf( txt, "[%2d] %3d num_objs with %d render types Lod:%d at %f Total:%d", idx, p.num_objs, p.num_render_type_ids, p.lod_prefab, p.lod_threshold, p.total_num_objs);
-        if (ImGui::TreeNode(txt)) {
-          if (ImGui::TreeNode("Render Types")) {
-            for (uint32_t i = 0; i < p.num_render_type_ids; ++i)
-              ImGui::Text("[%d] %d", i, p.render_type_ids[i]);
-            ImGui::TreePop();
-          }
-          if (ImGui::TreeNode("Objs...")) {
-            for (auto& obj : objs) {
-              if( obj.prefab_idx == idx )
-                ImGui::Text("Prefab:%d at %f %f %f", obj.prefab_idx, obj.aabb_center.x, obj.aabb_center.y, obj.aabb_center.z);
-            }
-            ImGui::TreePop();
-          }
+        ImGui::Text("[%d] %3d num_objs with %d render types Lod:%d at %f Total:%d", idx, p.num_objs, p.num_render_type_ids, p.lod_prefab, p.lod_threshold, p.total_num_objs);
+        if (ImGui::TreeNode("Render Type IDs")) {
+          for (uint32_t i = 0; i < p.num_render_type_ids; ++i)
+            ImGui::Text("[%d] %d", i, p.render_type_ids[i]);
           ImGui::TreePop();
         }
         ++idx;
@@ -680,9 +419,6 @@ void CModuleGPUCulling::preparePrefabs() {
 void CModuleGPUCulling::run() {
   CGpuScope gpu_scope("GPU Culling");
 
-  // Just before starting the cs tasks, get the current data of the camera
-  updateCamera();
-
   // Upload culling planes to GPU
   comp_buffers.getCteByName("TCullingPlanes")->updateGPU(&culling_planes);
 
@@ -701,8 +437,8 @@ void CModuleGPUCulling::run() {
   clearRenderDataInGPU();
 
   // Run the culling in the GPU
-  comp_compute.executions[0].sizes[0] = (uint32_t) objs.size();
-  comp_compute.executions[0].run(&comp_buffers);
+  comp_compute.sizes[0] = (uint32_t) objs.size();
+  comp_compute.run(&comp_buffers);
 }
 
 // ---------------------------------------------------------------
@@ -715,7 +451,6 @@ void CModuleGPUCulling::renderCategory(eRenderCategory category) {
     return;
 
   // Activate in the vs
-  assert(gpu_ctes_instancing->slotIndex() == 13);
   gpu_ctes_instancing->activate();
 
   // Offset to the args of the draw indexed instanced args in the draw_datas gpu buffer

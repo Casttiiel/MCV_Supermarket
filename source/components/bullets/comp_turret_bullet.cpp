@@ -21,7 +21,6 @@ void TCompTurretBulletController::load(const json& j, TEntityParseContext& ctx) 
 	speed = j.value("speed", speed);
 	intensityDamage = j.value("damage", intensityDamage);
 	mass = j.value("mass", mass);
-	fly_time = j.value("fly_time", fly_time);
 }
 
 void TCompTurretBulletController::registerMsgs() {
@@ -75,18 +74,66 @@ void TCompTurretBulletController::onBulletInfoMsg(const TMsgAssignBulletOwner& m
 	
 	h_sender = msg.h_owner;
 	TCompTransform* c_trans = get<TCompTransform>();
-	//c_trans = get<TCompTransform>();
-	//c_trans->setPosition(msg.source);
-	
-	
+	c_trans = get<TCompTransform>();
+	c_trans->setPosition(msg.source);
+	float yaw = vectorToYaw(msg.front);
+	c_trans->setAngles(yaw, 0.f, 0.f);
+
 	TCompCollider* c_collider = get<TCompCollider>();
 	c_collider = get<TCompCollider>();
 	VEC3 new_pos = c_trans->getFront();
 	PxVec3 velocidad = PxVec3(new_pos.x, new_pos.y, new_pos.z);
 
+	CHandle h_player = GameController.getPlayerHandle();
+	CEntity* e_player = (CEntity*)h_player;
+	TCompTransform* player_trans = e_player->get< TCompTransform>();
 
-	launch();
+	physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
+	rigid_dynamic->setMass(mass);
+	PxVec3 vel_ang = PxVec3(1, 0, 0);
+	rigid_dynamic->setAngularVelocity(vel_ang);
 
+	float impulse_front = 1.2;
+
+	impulse_front *= VEC3().Distance(player_trans->getPosition(), c_trans->getPosition());
+
+	float impulso_y = 10;
+
+
+	rigid_dynamic->addForce(velocidad * impulse_front, PxForceMode::eIMPULSE, false); //todo
+	PxVec3 velocidady = PxVec3(0, new_pos.y + impulso_y, 0);//todo
+	rigid_dynamic->addForce(velocidady, PxForceMode::eIMPULSE, false);
+	
+	float angle = rad2deg(atan((0.1125)));//atan pasa radianes
+
+
+
+
+	/*
+	CHandle h_player = getEntityByName("Player");
+	if (!h_player.isValid()) {
+		e_player = getEntityByName("Player");
+		h_player = ((CEntity*)e_player)->get<TCompTransform>();
+		return;
+	}
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform *transfPlayer = e_player->get<TCompTransform>();
+	float distance = VEC3::Distance(transfPlayer->getPosition(), c_trans->getPosition());
+	float g = 9.8;
+	float tanAlfa = tanf(deg2rad(70));
+	float h = 1;//fabs(transfPlayer->getPosition().y - c_trans->getPosition().y);
+
+	float vz = sqrt(g * distance * distance / (2.0f * (fabs(h - distance * tanAlfa))));
+	float vy = tanAlfa * vz;
+	PxVec3 velz = PxVec3(0, 0, vz);
+	PxVec3 vely = PxVec3(0, vy, 0);
+
+	PxVec3 vel_ang = PxVec3(1, 0, 0);
+	rigid_dynamic->setAngularVelocity(vel_ang);
+	rigid_dynamic->addForce(velz, PxForceMode::eIMPULSE, false);
+	PxVec3 velocidady = PxVec3(0, vy, 0);
+	rigid_dynamic->addForce(velocidady, PxForceMode::eIMPULSE, false);
+	*/
 }
 
 void TCompTurretBulletController::update(float delta) {
@@ -97,65 +144,9 @@ void TCompTurretBulletController::update(float delta) {
 	else {
 		life_time -= delta;
 	}
+
+	
+	 
 }
-
-
-VEC3 TCompTurretBulletController::getForceFrom(VEC3 fromPos, VEC3 toPos)
-{
-	return ( VEC3(toPos.x, toPos.y, toPos.z) -  VEC3(fromPos.x, fromPos.y,fromPos.z));
-}
-
-
-void TCompTurretBulletController::launch() {
-	
-	float x;
-	float y;
-	float z;
-	float x0;
-	float y0;
-	float z0;
-	float v0x;
-	float v0y;
-	float v0z;
-	
-	TCompCollider* c_collider = get<TCompCollider>();
-	c_collider = get<TCompCollider>();
-	physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
-	
-
-	CHandle h_player = GameController.getPlayerHandle();
-	CEntity* e_player = (CEntity*)h_player;
-	TCompTransform* player_trans = e_player->get< TCompTransform>();
-	VEC3 targetXZPos = VEC3(player_trans->getPosition().x, 0.0f, player_trans->getPosition().z);
-	TCompTransform* c_trans = get<TCompTransform>();
-	VEC3 projectileXZPos = VEC3(c_trans->getPosition().x, 0.0f, c_trans->getPosition().z);//porque sale del suelo
-
-
-	VEC3 forceDirection = getForceFrom(projectileXZPos, targetXZPos);
-
-	x = forceDirection.x;         
-	y = forceDirection.y;         
-	z = forceDirection.z;        
-
-	
-	x0 = 0.;
-	y0 = 0.;
-	z0 = 0.;
-
-	
-	v0x = (x - x0) / fly_time;
-	v0z = (z - z0) / fly_time;
-	v0y = (y - y0 + (0.5f * 9.8f * pow(fly_time, 2))) / fly_time;
-
-
-
-	VEC3 vec3r = VEC3(1, 0, 0) * v0x;
-	VEC3 vec3u = VEC3(0, 1, 0) * v0y;
-	VEC3 vec3f = VEC3(0, 0, 1)  * v0z;
-	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3r), PxForceMode::eVELOCITY_CHANGE);
-	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3u), PxForceMode::eVELOCITY_CHANGE);
-	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3f), PxForceMode::eVELOCITY_CHANGE);
-}
-
 
 

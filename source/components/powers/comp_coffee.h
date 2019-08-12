@@ -24,7 +24,6 @@ public:
 	//Coffee Public Functions
 	void setScales();
 	void switchState();
-	bool getIsEnabled();
 	//End Coffee Public Functions
 
 private:

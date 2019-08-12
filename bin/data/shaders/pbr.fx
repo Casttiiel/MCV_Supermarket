@@ -50,6 +50,44 @@ float calculateDistanceEdge(
   return abs(depth_center - depth_sampledValue);
 }
 
+float calculateEdge(
+  float2 uv
+) {
+
+  float depth_center = txGLinearDepth.Sample(samLinear, uv).x;
+
+  float top = txGLinearDepth.Sample(samLinear, uv + float2(0.0, CameraInvResolution.y)).x;
+  float topRight = txGLinearDepth.Sample(samLinear, uv + CameraInvResolution).x;
+  float right = txGLinearDepth.Sample(samLinear, uv + float2(CameraInvResolution.x, 0.0)).x;
+  float bottomRight = txGLinearDepth.Sample(samLinear, uv + float2(CameraInvResolution.x, -CameraInvResolution.y)).x;
+  float bottom = txGLinearDepth.Sample(samLinear, uv - float2(0.0, CameraInvResolution.y)).x;
+  float bottomLeft = txGLinearDepth.Sample(samLinear, uv - CameraInvResolution).x;
+  float left = txGLinearDepth.Sample(samLinear, uv - float2(CameraInvResolution.x, 0.0)).x;
+  float topLeft = txGLinearDepth.Sample(samLinear, uv + float2(-CameraInvResolution.x, CameraInvResolution.y)).x; 
+
+  float depth_sampledValue = top + topRight + right + bottom + bottomRight + left + bottomLeft + topLeft;
+
+  
+ float3 normal_center = txGNormal.Sample(samLinear, uv);
+
+  float3 ntop = txGNormal.Sample(samLinear, uv + float2(0.0, CameraInvResolution.y));
+  float3 ntopRight = txGNormal.Sample(samLinear, uv + CameraInvResolution);
+  float3 nright = txGNormal.Sample(samLinear, uv + float2(CameraInvResolution.x, 0.0));
+  float3 nbottomRight = txGNormal.Sample(samLinear, uv + float2(CameraInvResolution.x, -CameraInvResolution.y));
+  float3 nbottom = txGNormal.Sample(samLinear, uv - float2(0.0, CameraInvResolution.y));
+  float3 nbottomLeft = txGNormal.Sample(samLinear, uv - CameraInvResolution);
+  float3 nleft = txGNormal.Sample(samLinear, uv - float2(CameraInvResolution.x, 0.0));
+  float3 ntopLeft = txGNormal.Sample(samLinear, uv + float2(-CameraInvResolution.x, CameraInvResolution.y));
+
+  float3 normal_sampledValue = ntop + ntopRight + nright + nbottom + nbottomRight + nleft + nbottomLeft + ntopLeft;
+
+  float4 ref = float4(normal_center, depth_center);
+  float4 res = float4(normal_sampledValue, depth_sampledValue);
+  res /= 8.0f;
+
+  return abs(length(ref - res));
+}
+
 //--------------------------------------------------------------------------------------
 // Vertex Shader
 //--------------------------------------------------------------------------------------
@@ -116,7 +154,6 @@ void PS_common(
 , out float4 o_albedo
 , out float4 o_normal
 , out float1 o_depth
-, out float4 o_self_illum
 , bool use_alpha_test
 )
 {
@@ -144,7 +181,7 @@ void PS_common(
 
   o_depth = linear_depth;
 
-  o_self_illum = txEmissive.Sample(samLinear,input.Uv);
+  //o_self_illum = txEmissive.Sample(samLinear,input.Uv);
   //o_self_illum.xyz *= ObjColor * self_illum_intensity;
 }
 
@@ -152,18 +189,16 @@ void PS( VS_OUTPUT input
 , out float4 o_albedo : SV_Target0
 , out float4 o_normal : SV_Target1
 , out float1 o_depth  : SV_Target2
-, out float4 o_self_illum : SV_Target3
 ) {
-  PS_common( input, o_albedo, o_normal, o_depth, o_self_illum, false );
+  PS_common( input, o_albedo, o_normal, o_depth, false );
 }
 
 void PS_alpha( VS_OUTPUT input
 , out float4 o_albedo : SV_Target0
 , out float4 o_normal : SV_Target1
 , out float1 o_depth  : SV_Target2
-, out float4 o_self_illum : SV_Target3
 ) {
-  PS_common( input, o_albedo, o_normal, o_depth, o_self_illum, true );
+  PS_common( input, o_albedo, o_normal, o_depth, true );
 }
 
 //--------------------------------------------------------------------------------------
@@ -247,6 +282,7 @@ float4 PS_GBuffer_Resolve(
   //outlines
   float edgeN = calculateNormalsEdge(iUV);
   float edgeD = calculateDistanceEdge(iUV);
+  float edge = calculateEdge(iUV);
 
   //return lerp(acc_light, float4(0,0,0,1), step(0.3, (edgeN + edgeD)));
   return acc_light - (edgeD + edgeN) * acc_light;
@@ -346,10 +382,11 @@ float4 PS_Ambient(
   float g_ReflectionIntensity = 1.0;
   float g_AmbientLightIntensity = 1.0;
 
-  float4 final_color = (float4(env_fresnel * env * g_ReflectionIntensity + 
+  float4 self_illum = txGSelfIllum.Load(uint3(iPosition.xy,0));
+
+  float4 final_color = float4(env_fresnel * env * g_ReflectionIntensity + 
                               g.albedo.xyz * irradiance * g_AmbientLightIntensity
-                              , 1.0f) * GlobalAmbientBoost);
-  final_color.xyz += g.self_illum;
+                              , 1.0f) * GlobalAmbientBoost + (self_illum * float4(g.albedo.xyz, 1));
 
   return final_color * ao;
 }
@@ -469,7 +506,6 @@ float4 PS_fake_volumetric_lights(
 , in float4 world_pos : TEXCOORD0
 ) : SV_Target
 {
-
   world_pos.xyz /= world_pos.w;
 
   float max_distance = 10.0 + (LightIntensity * 0.3) - GlobalAmbientBoost * 5.0;
@@ -487,6 +523,7 @@ float4 PS_fake_volumetric_lights(
   dist_att = saturate(dist_att);
 
   alpha *= dist_att;
+  //alpha = clamp(alpha, 0, 0.45);
 
   return float4(LightColor.xyz,alpha);
 }

@@ -18,7 +18,7 @@
         },
         "prefabs" : {
             "bytes_per_elem" : 48,
-            "num_elems" : 1024,
+            "num_elems" : 64,
             "desc" : "Array of Prefabs. Each prefabs defines which draw calls must be rendered"
         },
         "TCullingPlanes" : {
@@ -28,13 +28,13 @@
         },
         "draw_datas" : {
             "bytes_per_elem" : 32,
-            "num_elems" : 1024,
+            "num_elems" : 64,
             "is_indirect" : true,
             "desc" : "Holds how many instances of each type have passes the culling test"
         },
         "TCtesInstancing" : {
             "total_bytes" : 16,
-            "slot" : 13,
+            "slot" : 14,
             "desc" : "Notify the CS how many instances must handle"
         }
     },
@@ -43,12 +43,13 @@
         "radius" : 250.0,
         "num_instances" : 1024,
         "prefabs" : [
-            "data/prefabs/products/product1.json",
-            "data/prefabs/products/product2.json",
-            "data/prefabs/products/product3.json"
+            "data/prefabs/european_linden/european_linden_hi.json",
+            "data/prefabs/red_maple/red_maple_hi.json",
+            "data/prefabs/white_oak/white_oak_hi.json"
         ]
     },
 
-    "show_debug" : false,
-    "camera" : "MainCamera"
+    "show_debug" : true,
+    "xcamera" : "light_dir",
+    "camera" : "Camera"
 }

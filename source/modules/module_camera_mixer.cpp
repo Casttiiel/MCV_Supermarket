@@ -113,7 +113,6 @@ void CModuleCameraMixer::update(float delta)
   if (outputCamera)
   {
     *outputCamera = result;
-    saved_result = result;
   }
 }
 
@@ -143,7 +142,6 @@ void CModuleCameraMixer::blendCameras(const CCamera* camera1,
   const float newZFar = camera1->getFar() * (1.f - ratio) + camera2->getFar() * ratio;
 
   output.setProjectionParams(newFov, newZNear, newZFar);
-  output.setViewport(0,0,Render.width, Render.height);
   output.lookAt(newPosition, newPosition + newFront, newUp);
 }
 

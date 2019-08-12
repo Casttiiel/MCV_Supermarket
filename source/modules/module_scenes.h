@@ -9,7 +9,8 @@ public:
 
 	std::string name;
 	std::string navmesh;
-	//std::vector<std::string> prefabs;
+	std::string scene_pref;
+	std::vector<std::string> others;
 };
 
 
@@ -33,6 +34,7 @@ private:
   Scene* sceneInUse;
   //NUEVO
   std::map<std::string, Scene*> scenes;
+
 };
 
 

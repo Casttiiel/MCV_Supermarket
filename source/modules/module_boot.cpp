@@ -10,20 +10,19 @@ CModuleBoot::CModuleBoot(const std::string& name)
 bool CModuleBoot::start()
 {
 	
+	//Engine.getNavmesh().createNavmesh("data/navmesh/solo_navmesh.bin");
+	//Engine.getNavmesh().createNavmesh("data/navmesh/all_tiles_tilecache.bin");//TODO crar modulo de carga de Mapa
+	
+	//Engine.getNavmesh().createNavmesh("data/navmesh/navmesh_pequena.bin");
   json json = loadJson("data/boot.json");
   auto prefabs = json["scenes_to_load"].get< std::vector< std::string > >();
-  for (auto& p : prefabs) {
+  /*for (auto& p : prefabs) {
     TFileContext fc(p);
     TEntityParseContext ctx;
     PROFILE_FUNCTION_COPY_TEXT( p.c_str() );
     dbg("Parsing boot prefab %s\n", p.c_str());
-    //Instead of parsing it with parseScene, lets parse it with the GPU Culling Module
-    //parseScene(p, ctx);
-    CEngine::get().getGPUCulling().parseEntities(p, ctx);
-
-   //this makes the fetchresults from physx to be faster, but.. doesnt looks like
-   EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
-  }
+    parseScene(p, ctx);
+  }*/
 
    prefabs = json["prefabs_to_prefaload"].get< std::vector< std::string > >();
   for (auto& p : prefabs) {

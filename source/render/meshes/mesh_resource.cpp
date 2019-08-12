@@ -6,7 +6,8 @@ CMesh* TRawMesh::createRenderMesh() const {
   CMesh* new_mesh = new CMesh();
 
   // If no AABB is provided, send a null so the CMesh::create computes it.
-  const AABB* aabb_ptr = aabb_is_valid ? &aabb : nullptr;
+  const AABB* aabb_ptr = (aabb.Extents.x == 0.f && aabb.Extents.y == 0.f && aabb.Extents.z == 0.f)
+    ? nullptr : &aabb;
 
   bool is_ok = new_mesh->create(
     vertices.data(),
@@ -17,7 +18,6 @@ CMesh* TRawMesh::createRenderMesh() const {
     header.num_indices,
     header.bytes_per_index,
     (CMesh::eTopology)header.primitive_type,
-    false,      // is_dynamic 
     aabb_ptr
   );
   if( !groups.empty() )

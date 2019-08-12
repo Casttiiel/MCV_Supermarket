@@ -132,7 +132,7 @@ bool CDeferredRenderer::create(int new_xres, int new_yres) {
     rt_self_illum = new CRenderToTexture;
   }
 
-  if (!rt_albedos->createRT("g_albedos.dds", xres, yres, DXGI_FORMAT_R16G16B16A16_UNORM))
+  if (!rt_albedos->createRT("g_albedos.dds", xres, yres, DXGI_FORMAT_R8G8B8A8_UNORM))
     return false;
 
   if (!rt_normals->createRT("g_normals.dds", xres, yres, DXGI_FORMAT_R16G16B16A16_UNORM))
@@ -181,7 +181,7 @@ void CDeferredRenderer::renderAccLight() {
   renderPointLights();
   renderDirectionalLightsWithoutShadows();
   renderDirectionalLightsWithShadows();
-  //renderFakeVolumetricLights();
+  renderFakeVolumetricLights();
   renderSkyBox();
 }
 
@@ -358,7 +358,7 @@ void CDeferredRenderer::renderFakeVolumetricLights() {
 
   // Para todas las luces... pintala
   getObjectManager<TCompLightDir>()->forEach([mesh, culling_bits](TCompLightDir * c) {
-    
+
     // Do the culling
     if (culling_bits) {
       TCompAbsAABB* aabb = c->get<TCompAbsAABB>();
@@ -428,9 +428,6 @@ void CDeferredRenderer::render(CRenderToTexture* rt_destination, CHandle h_camer
   // Do the same with the acc light
   CTexture::setNullTexture(TS_DEFERRED_ACC_LIGHTS);
   renderAccLight();
-
-  // Render blending layer on top of gbuffer before adding lights
-  CRenderManager::get().render(eRenderCategory::CATEGORY_TRANSPARENTS);
 
   // Now dump contents to the destination buffer.
   rt_destination->activateRT();

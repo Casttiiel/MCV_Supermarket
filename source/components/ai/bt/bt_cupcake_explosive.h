@@ -16,8 +16,6 @@ public:
 	void updateBT();
 	 //acciones == hojas
 
-	void setCurve(const CCurve* curve);
-
 	int actionChangeWpt();
 	int actionExplode();
 	int actionSeekWpt();
@@ -73,12 +71,8 @@ public:
 	int fireDamage = 15;
 	int currentDamage = damage;
 
-	//CURVE  VALUES
-	float	mTravelTime = 0.22f;
-	float ratio = 0.f;
 	const CCurve* _curve = nullptr;
 	std::vector<VEC3> _knots;
-	//END CURVE VALUES
 
 private:
     AudioEvent voice;

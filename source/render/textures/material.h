@@ -12,12 +12,15 @@ protected:
   bool             casts_shadows = true;
   const CMaterial* shadows_material = nullptr;
 
+  CCteBuffer<TCtesMaterial> ctes_material;
+
   // To be able to upload all textures at once
   const ID3D11ShaderResourceView* srvs[max_textures];
   void cacheSRVs();
 
 public:
 
+  CMaterial();
   virtual ~CMaterial() {}
 
   virtual bool create(const json& j);
@@ -31,9 +34,6 @@ public:
   const CTechnique* tech = nullptr;
   eRenderCategory   category;
   int               priority = 100;
-
-  // Free to be defined by someone else. If set it will be activated
-  CCteBufferBase*  ctes_material = nullptr;
 
   const char* getCategoryName() const;
   bool castsShadows() const { return casts_shadows; }

@@ -15,6 +15,7 @@ class CModuleEntities : public IModule
 public:
   CHandle getPlayerHandle();
   CModuleEntities(const std::string& aname) : IModule(aname) { }
+  void destroyEntities();
   bool start() override;
   void stop() override;
   void update(float delta) override;

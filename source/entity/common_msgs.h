@@ -22,19 +22,6 @@ struct TMsgDamage {
 	DECL_MSG_ID();
 };
 
-struct TMsgTrapWind {
-  CHandle h_sender;
-  CHandle h_bullet;
-  float intensityDamage;
-  float impactForce = 0.f;
-  VEC3 bullet_front;
-  PowerType damageType;
-  EntityType senderType;
-  EntityType targetType;
-  VEC3 position;
-  DECL_MSG_ID();
-};
-
 struct TMsgAssignBulletOwner {
 	CHandle h_owner;
 	CHandle h_target;
@@ -98,17 +85,6 @@ struct TMsgSpawnerCheckin {
 	DECL_MSG_ID();
 };
 
-struct TMsgSpawnerFather {
-	CHandle son;
-	DECL_MSG_ID();
-};
-
-struct TMsgActiveGolem {
-	bool active;
-	DECL_MSG_ID();
-};
-
-
 //Send this message to the spawner for it to know that the enemy has died
 struct TMsgSpawnerCheckout {
 	CHandle enemyHandle;
@@ -118,7 +94,6 @@ struct TMsgSpawnerCheckout {
 //parar pj
 struct TMsgOnCinematic {
 	bool cinematic;
-	bool isscart;
 	DECL_MSG_ID();
 };
 
@@ -216,12 +191,6 @@ struct TMsgBlackboard {
 	bool player_dead;
 	bool is_posible; //para la respuesta
 	EntityType type;
-	DECL_MSG_ID();
-};
-
-struct TMSgWallDestroyed {
-	CHandle h_entity;
-	bool isDetroyed;
 	DECL_MSG_ID();
 };
 

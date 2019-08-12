@@ -56,7 +56,6 @@ private:
 	bool isScenario = false;
   bool isKinematic = true;
   std::list<CHandle> enemiesCatchBattery;
-  std::list<CHandle> enemiesBolt;
   int maxEnemiesAffected = 5;
   float pulseTimer = 0;
   float pulseDelay = 1.5f;

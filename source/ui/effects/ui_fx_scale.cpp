@@ -62,7 +62,7 @@ namespace UI
 
       case EMode::PingPong:
       {
-        const int direction = static_cast<int>(_time / _duration) % 2;
+        const int direction = fmod(static_cast<int>(_time / _duration), 2);
         const float ratio = fmodf(_time, _duration) / _duration;
         if (direction == 0)
         {

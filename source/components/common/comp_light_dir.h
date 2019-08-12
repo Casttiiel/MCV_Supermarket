@@ -22,7 +22,13 @@ class TCompLightDir : public TCompCamera {
   float             shadows_step = 1.f;
   CRenderToTexture* shadows_rt = nullptr;
   VEC3              offset;
-  CHandle           e_player;  
+  CHandle           e_player;
+  AABB              aabb1;
+  AABB              aabb2;
+  AABB              finalAABB;
+  AABB*             entityAbsAABB;
+  AABB*             entityLocalAABB;
+  VEC3 p1, p2, p3, p4;
 
   void onDefineLocalAABB(const TMsgDefineLocalAABB& msg);
 

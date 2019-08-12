@@ -17,12 +17,10 @@ public:
   void blendCamera(CHandle camera, float blendTime, Interpolator::IInterpolator* interpolation = nullptr);
   void setDefaultCamera(CHandle camera) { _defaultCamera = camera; }
   void setOutputCamera(CHandle camera) { _outputCamera = camera; }
-  
+  void removeCamera() { _mixedCameras.clear(); }
   float getCameraWeight(CHandle c) const;
 
   Interpolator::IInterpolator * getInterpolator(std::string interpolator);
-
-  CCamera saved_result;
 
 private:
   void blendCameras(const CCamera* camera1, const CCamera* camera2, float ratio, CCamera& output);

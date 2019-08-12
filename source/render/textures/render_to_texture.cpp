@@ -57,12 +57,18 @@ bool CRenderToTexture::createRT(
       return false;
     setDXName(render_target_view, new_name);
   }
-
+  //OJO ESTE ELSE NO EXISTIA, EL id de la linea 68 SI
+  else{//ESTE ELSE NO ESTAbA EStaba en el IF 
+	  // Resource information
+	  setNameAndType(new_name, getResourceTypeFor<CTexture>());
+	  Resources.registerResource(this);
+  }
+  
   // Resource information
-  if (name != new_name) {
+ /*if (name != new_name) {
     setNameAndType(new_name, getResourceTypeFor<CTexture>());
     Resources.registerResource(this);
-  }
+  }*/
 
   // Create ZBuffer 
   depth_format = new_depth_format;

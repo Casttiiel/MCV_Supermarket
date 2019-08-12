@@ -6,7 +6,6 @@
 #define float4 VEC4
 #define float3 VEC3
 #define float2 VEC2
-#define uint   uint32_t
 
 #else
 

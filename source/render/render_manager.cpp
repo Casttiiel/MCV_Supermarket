@@ -203,20 +203,11 @@ void CRenderManager::render(eRenderCategory category) {
     if (it->is_instanced) {
       CGpuTrace::setMarker(it->mesh->getName().c_str(), D3DCOLOR_XRGB(192, 128, 255));
       const CEntity* e = it->h_owner.getOwner();
-      TCompNumInstances* c_num_instances = e->get<TCompNumInstances>();
+      const TCompNumInstances* c_num_instances = e->get<TCompNumInstances>();
       assert(c_num_instances);
 
-      if (c_num_instances->is_indirect) {
-        if (!c_num_instances->gpu_buffer) {
-          TCompBuffers* c_buffers = e->get<TCompBuffers>();
-          c_num_instances->gpu_buffer = c_buffers->getBufferByName(c_num_instances->gpu_buffer_name.c_str());
-        }
-        it->mesh->renderIndirect(c_num_instances->gpu_buffer, 0);
-      }
-      else {
-        if (c_num_instances->num_instances)
-          it->mesh->renderGroupInstanced(it->submesh_id, c_num_instances->num_instances);
-      }
+      if (c_num_instances->num_instances)
+        it->mesh->renderGroupInstanced(it->submesh_id, c_num_instances->num_instances);
     }
     else {
       CGpuTrace::setMarker(it->mesh->getName().c_str(), D3DCOLOR_XRGB(192, 255, 128));

@@ -31,7 +31,6 @@ void CBTCupcake::create(string s)//crear el arbol
 	createRoot("CUPCAKE", PRIORITY, NULL, NULL);
 
 	//pasive states:
-
 	addChild("CUPCAKE", "ON_DIVIDE", ACTION, (btcondition)&CBTCupcake::conditionDivide, (btaction)&CBTCupcake::actionDivide);
 	addChild("CUPCAKE", "ON_DEATH", ACTION, (btcondition)&CBTCupcake::conditionDeath, (btaction)&CBTCupcake::actionDeath);
 	addChild("CUPCAKE", "ON_GRAVITY", ACTION, (btcondition)&CBTCupcake::conditionGravityReceived, (btaction)&CBTCupcake::actionGravityReceived);
@@ -64,21 +63,8 @@ void CBTCupcake::create(string s)//crear el arbol
 int CBTCupcake::actionChangeWpt() {
 	//accion de cambiar de wpt
   //dbg("cambiando de waypoint\n");
-	if (_curve == nullptr) {
-		wtpIndex = (wtpIndex + 1) % positions.size();
-		nextPoint = positions[wtpIndex]; 
-	}
-	else {
-		if (ratio >= 1.0f || ratio < 0.0f) {
-			mTravelTime = -mTravelTime;
-		}
-		ratio += dt * mTravelTime;
-		nextPoint = _curve->evaluate(ratio);
-	}
-
-
-	/*wtpIndex = (wtpIndex + 1) % positions.size();
-	nextPoint = positions[wtpIndex];*/
+	wtpIndex = (wtpIndex + 1) % positions.size();
+	nextPoint = positions[wtpIndex];
 	attacking = false;
 	return LEAVE;
 }
@@ -212,10 +198,10 @@ int CBTCupcake::actionFollowPoint() {
 
 		}
 
-		movement(nextNavMeshPoint, true);
+		movement(nextNavMeshPoint, false);
 	}
 	else {
-		movement(nextOrbitPoint, true);
+		movement(nextOrbitPoint, false);
 	}
 
 	return LEAVE;
@@ -472,24 +458,17 @@ bool CBTCupcake::conditionView() {
 	if (player_dead) {
 		return false; //no lo ve si esta muerto
 	}
-	//return true;//temporal para el milestone 2 
+	return true;//temporal para el milestone 2 
 	TCompTransform* c_trans = get<TCompTransform>();
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* player_position = e_player->get<TCompTransform>();
-	//if (Vector3::Distance(player_position->getPosition(), c_trans->getPosition()) > forgetAttackingDistance) {
-		//insightPlayer = false; //TODO: esto es temporal para el milestone 2 
-	//}
-
-	bool res = false;
-
+	if (Vector3::Distance(player_position->getPosition(), c_trans->getPosition()) > forgetAttackingDistance) {
+		insightPlayer = false; //TODO: esto es temporal para el milestone 2 
+	}
 
 	if (isView(length_cone) || insightPlayer || orbitting || enemyRadiousView > Vector3::Distance(player_position->getPosition(), c_trans->getPosition())) {
 		insightPlayer = true;
-		res = true;
-	}
-
-	if (!checkHeight()) { //si el player esta muy alto no lo ve y se olvida de el
-		res = false;
+		return true;
 	}
 
 	//------------------------------------ Blackboard
@@ -502,7 +481,7 @@ bool CBTCupcake::conditionView() {
 	}
 	//------------------------------------
 
-	return res;
+	return false;
 }
 
 bool CBTCupcake::conditionWptClose() {
@@ -513,15 +492,11 @@ bool CBTCupcake::conditionWptClose() {
 			//VEC3 position = c_trans->getPosition();
 			//wtp 
 			//positions.push_back(h_player.);
-
-			TCompTransform* c_trans = get<TCompTransform>();
-			VEC3 position = c_trans->getPosition();
-			positions.push_back(position);
-			/*positions.push_back(VEC3(initialPos.x + 5.0f, initialPos.y + 0.0f, initialPos.z + 0.0f));
+			positions.push_back(VEC3(initialPos.x + 5.0f, initialPos.y + 0.0f, initialPos.z + 0.0f));
 			positions.push_back(VEC3(initialPos.x - 5.0f, initialPos.y + 0.0f, initialPos.z + 0.0f));
 			positions.push_back(VEC3(initialPos.x + 0.0f, initialPos.y + 0.0f, initialPos.z - 5.0f));
 			positions.push_back(VEC3(initialPos.x + 0.0f, initialPos.y + 0.0f, initialPos.z + 5.0f));
-			*/
+
 			nextPoint = positions[wtpIndex];
 		}
 	}
@@ -532,16 +507,8 @@ bool CBTCupcake::conditionWptClose() {
 			VEC3 position = c_trans->getPosition();
 			_knots = _curve->_knots;
 		}
-		//wtpIndex = (wtpIndex + 1) % _knots.size();
-		//nextPoint = _knots[wtpIndex];
-
-		//MODIFICACION DE CODIGO 
-		if (ratio >= 1.0f || ratio < 0.0f) {
-			mTravelTime = -mTravelTime;
-		}
-			ratio += dt * mTravelTime;
-			nextPoint = _curve->evaluate(ratio);
-		//HASTA AQUI
+		wtpIndex = (wtpIndex + 1) % _knots.size();
+		nextPoint = _knots[wtpIndex];
 	}
 
 
@@ -557,12 +524,7 @@ bool CBTCupcake::conditionWptClose() {
 bool CBTCupcake::conditionOrbitPointClose() {
 
 	TCompTransform* c_trans = get<TCompTransform>();
-	
-	if (nextOrbitPoint == VEC3().Zero) { //si no hay punto que lo genere
-		return true;
-	}
-
-	if (Vector3::Distance(nextOrbitPoint, c_trans->getPosition()) < distanceCheckThreshold  && life > 0 ) {//|| attacking
+	if (Vector3::Distance(nextOrbitPoint, c_trans->getPosition()) < distanceCheckThreshold  && life > 0 || attacking) {
 		noOrbitPoint = false;
 		generatePoints(); //generar puntos
 		orbitIndex = (orbitIndex + 1) % orbitPositions.size();
@@ -577,32 +539,26 @@ bool CBTCupcake::conditionOrbitPointClose() {
 bool CBTCupcake::conditionRandom() {
 	//RANDOM DE ORBITAR AL PLAYER TRUE SI ORBITA FALSE SI ATACA
 	//-----------------------------------------------
-	//return false;//descativar despues del milestone 2
-	if (inBlackboard) { //si ya esta en la blackboard sigue atacando
-		return false; //attack
-	}
-	else {
+	return false;//descativar despues del milestone 2
+	if (!slotsAvailable) {
 		CEntity* e_player = (CEntity *)h_player;
 		TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
 		slotsAvailable = c_bb->checkPermission(CHandle(this).getOwner(), CUPCAKE);
 
-		if (!slotsAvailable) { //si no hay espacio no ataca
+		if (!slotsAvailable) {
 			return true; //not attack
 		}
-		else { //si hay espacio ataca
+		else {
 			inBlackboard = true;
-			return false; //attack
 		}
 	}
 
 	//-----------------------------------------------
-	/* //no es necesario con la blackboard
 	if (orbited_waypoints >= max_orbited_points) {
 		orbited_waypoints = 0;
 		return false; //attack
-	}*/
+	}
 
-	/* //no es necesario con la blackboard 
 	if (evaluateAttack <= 0) {
 		//dbg("evaluamos si atacar o no \n");
 		evaluateAttack = evaluateAttackValue;
@@ -627,7 +583,7 @@ bool CBTCupcake::conditionRandom() {
 	}
 	else {
 		return true;
-	}*/
+	}
 
 }
 
@@ -844,7 +800,7 @@ void CBTCupcake::onCreated(const TMsgEntityCreated& msg) {
 	TCompTransform* c_trans = get<TCompTransform>();
 
 	initialPos = c_trans->getPosition();
-  //voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice");
+  voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice");
 
 }
 
@@ -852,10 +808,10 @@ void CBTCupcake::onBlackboardMsg(const TMsgBlackboard& msg) {
 
 	player_dead = msg.player_dead;
 	if (!player_dead) {
-		inBlackboard = msg.is_posible; 
+		slotsAvailable = msg.is_posible;
 	}
 	else {
-		inBlackboard = false;
+		slotsAvailable = false;
 	}
 }
 
@@ -983,7 +939,7 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 		dir = c_trans->getFront() * speed;
 	}
 
-	/*if (!jump && isGrounded() && !seek) {    //descomentar esto para que se oculte al orbitar
+	if (!jump && isGrounded() && !seek) {
 		dir = c_trans->getFront() * hideSpeed;
 		TCompRender* crender = get<TCompRender>();
 		crender->showMeshesWithState(1);
@@ -991,7 +947,7 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 	else {
 		TCompRender* crender = get<TCompRender>();
 		crender->showMeshesWithState(0);
-	}*/
+	}
 
 	//GRAVITY
 	dir *= dt;
@@ -1040,34 +996,17 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 bool CBTCupcake::isView(float distance) {
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* player_position = e_player->get<TCompTransform>();
-	//float playerHeight = player_position->getPosition().y;
 	TCompTransform* c_trans = get<TCompTransform>();
-	//float enemyHeight = c_trans->getPosition().y;
 	float distancia = VEC3::Distance(c_trans->getPosition(), player_position->getPosition());
 	//CONE
 	float angle = rad2deg(c_trans->getDeltaYawToAimTo(player_position->getPosition()));
 	if (abs(angle) <= half_cone) {
 		//DISTANCE
-		if (distancia <= distance ) {
+		if (distancia <= distance) {
 			return true;
 		}
 	}
 	return false;
-}
-
-bool CBTCupcake::checkHeight() {
-	bool res = false;
-	CEntity* e_player = (CEntity *)h_player;
-	TCompTransform* player_position = e_player->get<TCompTransform>();
-	float playerHeight = player_position->getPosition().y;
-	TCompTransform* c_trans = get<TCompTransform>();
-	float enemyHeight = c_trans->getPosition().y;
-
-	if (height_range > abs(playerHeight - enemyHeight)) {
-		res = true;;
-	}
-
-	return res;
 }
 
 void CBTCupcake::generatePoints() {
@@ -1123,43 +1062,11 @@ void CBTCupcake::updateBT() {
 			
 		}
 	}
-	//----------------------- navmesh
 
-	//check if is in the blackboard
-	if (inBlackboard) {
-		if (resetSlotTimer >= resetSlotDuration) { //si ha superado el limite de tiempo, libera el slot
-			resetSlotTimer = 0.0f;
-			inBlackboard = false;
-			slotsAvailable = false;
-			CEntity* e_player = (CEntity *)h_player;
-			TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
-			c_bb->forgetPlayer(CHandle(this).getOwner(), CUPCAKE);
-		}
-		else {
-			resetSlotTimer += dt;
-		}
-	}
 
 
 	damageTimer -= dt;
 	reevaluatePathTimer -= dt;
 
   voice.set3DAttributes(*c_trans);
-}
-
-
-void CBTCupcake::setCurve(const CCurve* curve) {
-
-	this->_curve = curve; // TO TEST
-	_knots = _curve->_knots;
-
-}
-
-
-void CBTCupcake::setLengthCone(float length_cone) {
-	this->length_cone = length_cone;
-}
-
-void CBTCupcake::setHalfCone(float half_cone) {
-	this->half_cone = half_cone;
 }

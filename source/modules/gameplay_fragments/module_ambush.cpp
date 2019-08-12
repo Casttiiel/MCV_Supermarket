@@ -22,10 +22,10 @@ void CModuleAmbush::enemyKilled(EntityType e) {
   }
 
   if (sushisKilled == 1) {
-	
+	  secondEvent();
   }
   else if (sushisKilled == 3) {
-   
+    //TODO
   }
 }
 
@@ -39,10 +39,7 @@ void CModuleAmbush::firstEvent() {
 
 	termostatosActives++;
 	Scripting.execActionDelayed("defrost1()", 0.0);
-	//Scripting.execActionDelayed("setTransformObject_(\"Box009\",VEC3(71.813,2.501,93.810),-115,0,-49)",5.0);
-	//Scripting.execActionDelayed("activePlatformByName(\"Box009\")",0.1); Ya no se mueve la zanahoria
-
-
+	Scripting.execActionDelayed("setTransformObject_(\"Box009\",VEC3(-28.075,33.429,-71.601),70,0,-21.600)",5.0);
 	Scripting.execActionDelayed("wakeUpSuishisSecondFloor()", 0.0);
   //CONGELAR ENEMIGOS Y PLAYER
   //CINEMATICA

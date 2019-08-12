@@ -5,10 +5,6 @@ fn isCollider obj = (
 	return obj != undefined and (findString obj.name "collider" != undefined ) and obj.parent != null
 )
 
-fn isProductLine obj = (
-	return obj != undefined and (findString obj.name "product" != undefined ) and obj.parent != null and isLine obj
-)
-
 fn isPointLight obj = (
 	return obj != undefined and classof obj == Omnilight and obj.parent == null
 )
@@ -44,19 +40,15 @@ fn isMaxShit obj = (
 ----------------------------------------------------------
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
-	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
+	project_path = "C:/Users/victo/mcv_sm/bin/",
+	--project_path = "C:/Users/Daniel/Desktop/mcv_sm/bin/  D:/mcv_sm/mcv_sm/bin/  "  D:/Joaquin/Proyecto_43/mcv_sm/bin/data/scenes,
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
-	--project_path = "C:/Users/mcv17_alumne/Desktop/mcv_sm/bin/",
 	base_path = "data/",
 	current_scene_name,
 	scenes_path = base_path + "scenes/",
 	mesh_path = base_path + "meshes/",
 	mats_path = base_path + "materials/",
 	curve_path = base_path + "curves/",
-	productsSize = 0.18,
-	numberOfProducts = 3,
 	
 	fn exportCompName obj = (
 		fs.writeKeyValue "name" obj.name
@@ -95,7 +87,7 @@ struct TSceneExporter (
 			if isDirLight obj then (
 				fs.writeComma()
 				local target = getnodebyname (obj.name + ".Target")
-				local mcv_look_at = target.position * max2mcv
+				local mcv_look_at = target.pos * max2mcv
 				fs.writeKeyvalue "lookat" mcv_look_at
 			)
 			fs.endObj()
@@ -115,29 +107,6 @@ struct TSceneExporter (
 		if id != undefined then (
 			fs.writeComma()
 			fs.writeKeyValue "id" id
-		)
-	),
-	fn exportPanel obj =(
-		local isPanel =  getUserProp obj "isPanel"
-		if isPanel == true then (
-			local param1 = getUserProp obj "nombre"
-			local param2 = getUserProp obj "elementoAmover"
-			
-			if param1 == undefined  then (
-				throw "A un Panel le faltan datos"
-			)
-			
-			fs.writeComma()
-			fs.writeKey "comp_interruptor"
-			fs.beginObj()
-			if param1 != undefined  then (
-				fs.writeKeyValue "nombre" param1
-				fs.writeComma()
-			)
-			if param2 != undefined  then (
-				fs.writeKeyValue "elementoAmover" param2 
-			)
-			fs.endObj()	
 		)
 	),
 	
@@ -286,8 +255,7 @@ struct TSceneExporter (
 			throw ("Obj " + obj.name + " does NOT have a material")
 		)	
 		local me = TMaterialExporter project_path:project_path base_path:base_path
-		local custom_mats_path = mats_path + current_scene_name + "/"
-		local exported_materials = me.exportMaterial mat custom_mats_path obj
+		local exported_materials = me.exportMaterial mat mats_path obj
 		
 		fs.writeComma()
 		fs.writeKey "materials"
@@ -317,14 +285,6 @@ struct TSceneExporter (
 				fs.writeKeyValue "delay" delay
 			)
 			fs.endObj()
-			--modification
-			local extra_comp = getuserProp obj "extra_comp"
-			if extra_comp != undefined then(
-				fs.writeComma()
-				fs.writeKey extra_comp
-				fs.beginObj()
-				fs.endObj()
-			)
 		)
 	
 	),
@@ -361,7 +321,7 @@ struct TSceneExporter (
 		fs.writeKeyValue "far" (distance target.pos obj.pos)
 		fs.writeComma()
 		
-		fs.writeKeyValue "fov" 60
+		fs.writeKeyValue "fov" 45
 		fs.writeComma()
 		
 		fs.writeKeyValue "color" obj.color
@@ -406,16 +366,7 @@ struct TSceneExporter (
 			convexmes
 			
 		) else if classof obj == Editable_Mesh then (
-			
-			
-			local is_platform = getUserProp obj "platform"
-			if is_platform != undefined then (
-				fs.writeKeyValue "shape" "convex"
-				
-			)else (
-				fs.writeKeyValue "shape" "trimesh"
-			)
-			--fs.writeKeyValue "shape" "trimesh"
+			fs.writeKeyValue "shape" "trimesh"
 			fs.writeComma()
 			-- Warning, order might be incorrect!!!
 			local mesh_name = mesh_path + current_scene_name + "_" + obj.parent.name + ".col_mesh"
@@ -467,27 +418,27 @@ struct TSceneExporter (
 				
 		-- Add it in the user properties panel of max of object(parent), not collider:     density = 10
 		local density = getUserProp obj "density"
-		--format "export density %\n" density
+		format "export density %\n" density
 		if density != undefined then (
 			fs.writeComma()
 			fs.writeKeyValue "density" density
 		)
 		
 		local is_dynamic = getUserProp obj "dynamic"
-		--format "export dynamic %\n" is_dynamic
+		format "export dynamic %\n" is_dynamic
 		if is_dynamic != undefined then (
 			fs.writeComma()
 			fs.writeKeyValue "dynamic" true
 		)
 		
 		local is_kinematic = getUserProp obj "kinematic"
-		--format "export kinematic %\n" is_kinematic
+		format "export kinematic %\n" is_kinematic
 		if is_kinematic != undefined then (
 			fs.writeComma()
 			fs.writeKeyValue "kinematic" true
 		)
 		local is_platform = getUserProp obj "platform"
-		--format "export platform %\n" is_platform
+		format "export platform %\n" is_platform
 		if is_platform != undefined then (
 			fs.writeComma()
 			fs.writeKeyValue "platform" true
@@ -509,7 +460,7 @@ struct TSceneExporter (
 		if candidates.count == 0 then return undefined
 		
 		format "Candidates are %\n" candidates
-		--return true
+		--return truee
 		exportCompCollider obj candidates
 		
 	),
@@ -543,55 +494,6 @@ struct TSceneExporter (
 		)
 	),
 	
-	fn exportMorph obj = (
-		
-		local modmorph = obj.modifiers[#Morpher]
-		if modmorph != undefined then (
-			fs.writeComma()
-			fs.writeKey "buffers"
-			fs.beginObj()
-				fs.writeKey "TCtesMorph"
-				fs.beginObj()
-					fs.writeKeyValue "total_bytes" 16
-					fs.writeComma()
-					fs.writeKeyValue "slot" 13
-				fs.endObj()
-			fs.endObj()
-			
-			
-			fs.writeComma()
-			fs.writeKey "morph_animation"
-			fs.beginObj()
-			fs.endObj()
-			
-
-				
-
-			
-		)
-	),
-	
-	fn exportHierarch obj = (
-		local isHierarchy = getUserProp obj "isSon"
-		if isHierarchy != undefined then (
-			local pos = getUserProp obj "pos"
-			local rot = getUserProp obj "rotation"
-			local parent = getUserProp obj "parent"
-			fs.writeComma()
-			fs.writeKey "hierarchy"
-			fs.beginObj()
-			fs.writeKeyValue "pos" pos
-			fs.writeComma()
-			if rot != undefined then (
-				fs.writeKeyValue "rotation" rot
-				fs.writeComma()
-			)
-			fs.writeKeyValue "parent" parent
-			fs.endObj()
-			
-		)
-	),
-	
 	
 	fn exportEntity obj = (
 		fs.beginObj()
@@ -603,11 +505,8 @@ struct TSceneExporter (
 			exportID obj
 			exportAABB obj
 			exportPlatform obj
-			exportPanel obj
 			exportCamera obj
 			exportWalls obj
-			exportMorph obj
-			exportHierarch obj
 			--exportCompCurveController obj
 			
 			local nCA = custAttributes.count obj
@@ -635,52 +534,6 @@ struct TSceneExporter (
 		fs.endObj()
 	),
 	
-	fn exportProductLine obj = (
-		--create a for loop to create the number of entities
-		local firstPoint = (interpCurve3D obj 1 0.0)
-		local lastPoint = (interpCurve3D obj 1 1.0)
-		local dist = distance firstPoint lastPoint
-		local step = productsSize / dist
-				
-		local i = 0.0
-		while i <= 1.0 do (
-			if i > 0.0 then  fs.writeComma()
-			fs.beginObj()
-			fs.writeKey "entity"
-				fs.beginObj()
-				exportCompName obj
-				fs.writeComma()
-			
-				--custom export transform
-				fs.writeKey "transform" 
-				
-				local max2mcv = rotateXMatrix -90
-				local mcv2max = rotateXMatrix 90
-				local pos = (interpCurve3D obj 1 i)--obj position must be a calculated position from the curve
-
-				local mcv_position =  pos * max2mcv 
-				
-				local mcv_transform = mcv2max * obj.transform * max2mcv
-				local mcv_quat = mcv_transform.rotationPart as quat
-				fs.beginObj()
-					fs.writeKeyValue "pos" mcv_position
-					fs.writeComma()
-					fs.writeKeyValue "rotation" mcv_quat
-				fs.endObj()
-							
-				fs.writeComma()
-			
-				local idx = random 1 numberOfProducts
-				local product_str = "data/prefabs/products/product" + idx as string + ".json"
-				fs.writeKeyValue "prefab"  product_str
-				
-				fs.endObj()
-			fs.endObj()
-			
-			i += step
-		)
-	),
-	
 	fn exportAll = (
 		
 		-- Decide output filename based on .max filename
@@ -690,15 +543,9 @@ struct TSceneExporter (
 		
 		--local mesh_path_folder = project_path + mesh_path + current_scene_name
 		local mesh_path_folder =  project_path + mesh_path + current_scene_name
-		local material_path_folder =  project_path + mats_path + current_scene_name
-		local texture_path_folder =  project_path +base_path+ "textures/" + current_scene_name
 		format "Creating folder %\n"  mesh_path_folder
-		format "Creating folder %\n"  material_path_folder
-		format "Creating folder %\n"  texture_path_folder
 		makeDir mesh_path_folder all:false
-		makeDir material_path_folder all:false
-		makeDir texture_path_folder all:false
-		
+
 		fs.begin full_path
 		fs.beginArray()
 		
@@ -708,10 +555,6 @@ struct TSceneExporter (
 			if isTargetLight obj then continue
 			if isMaxShit obj then continue
 			if nitems > 0 then  fs.writeComma()
-			if isProductLine obj then (
-				exportProductLine obj 
-				continue
-			)
 			exportEntity obj
 			nitems = nitems + 1
 		)

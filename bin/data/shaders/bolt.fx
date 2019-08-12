@@ -41,7 +41,7 @@ VS_OUTPUT VS(
 //--------------------------------------------------------------------------------------
 float4 PS(VS_OUTPUT input) : SV_Target
 {
-  float lineSize = 0.02f / lineBoltScale;
+  float lineSize = 0.01f / lineBoltScale;
 
   float noise1 = txNoise.Sample(samLinear,float2(input.Uv.x + GlobalWorldTime,0.5)).x;
   float noise2 = txNoise.Sample(samLinear,float2(input.Uv.x,GlobalWorldTime)).y; //touch this value to change the frecuency

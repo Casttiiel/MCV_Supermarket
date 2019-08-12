@@ -4,7 +4,6 @@
 #include "input/devices/device_mouse.h"
 #include "components/common/comp_tags.h"
 #include "components/controllers/character/comp_character_controller.h"
-#include "components/controllers/comp_sCart_controller.h"
 #include "entity/common_msgs.h"
 #include "entity/msgs.h"
 #include "entity/entity.h"
@@ -27,8 +26,6 @@
 #include "components/common/comp_name.h"
 #include "entity/entity.h"
 #include "modules/module_scenes.h"
-#include "components/ai/bt/bt_cupcake.h"
-#include "components/ai/bt/bt_cupcake_explosive.h"
 
 
 bool CModuleGameController::start() {
@@ -179,20 +176,6 @@ void CModuleGameController::spawnPrefabByPoint(const std::string prefab, std::st
 	TCompTransform* transform = entity->get<TCompTransform>();
 	spawnPrefab(prefab, transform->getPosition());
 }
-
-//activar aniamcion de morph
-void CModuleGameController::playAnimationMorph(std::string name) {
-	CEntity* entity = (CEntity *)getEntityByName(name);
-	TCompMorphAnimation* morphAnimation = entity->get<TCompMorphAnimation>();
-	morphAnimation->play_ = true;
-}
-//desactivar animacion de morph
-void CModuleGameController::stopAnimationMorph(std::string name) {
-	CEntity* entity = (CEntity *)getEntityByName(name);
-	TCompMorphAnimation* morphAnimation = entity->get<TCompMorphAnimation>();
-	morphAnimation->play_ = false;
-}
-
 
 
 //danyo a una entidad por el nombre
@@ -394,65 +377,6 @@ void CModuleGameController::healPlayer() {
 	character_controller->heal();
 }
 
-void CModuleGameController::destroyWallByName(std::string name, std::string golemName, float intensity) {
-
-	
-	//obtener golem para que el muro se destruya como debe
-	try {
-
-	}
-	catch (exception e) {};
-	CEntity* e_golem = getEntityByName(golemName);
-
-	if (e_golem != nullptr) {
-		TMsgActiveGolem msg;
-		msg.active = true;
-		e_golem->sendMsg(msg);
-	}
-
-	//-------------
-
-
-	CEntity* e_wall = getEntityByName(name);
-
-	TCompTransform* wall_trans = e_wall->get<TCompTransform>();
-	VEC3 wall_pos = wall_trans->getPosition();
-
-	if (e_wall != nullptr) {
-		TMsgDamage msg;//quiza seria mejor utilizar otro tipo de mensaje si queremos diferenciar entre cuando lo destruye el player o la magia de LUA
-		msg.damageType = MELEE;
-		msg.impactForce = intensity;
-		msg.h_sender = e_golem;
-
-		e_wall->sendMsg(msg);
-	}
-
-
-}
-
-void CModuleGameController::wakeUpGolem(std::string name) {
-
-	CEntity* e_golem = getEntityByName(name);
-
-	if (e_golem != nullptr) {
-		TMsgActiveGolem msg;
-		msg.active = true;
-		e_golem->sendMsg(msg);
-	}
-}
-
-void CModuleGameController::sleepGolem(std::string name) {
-
-	CEntity* e_golem = getEntityByName(name);
-
-	if (e_golem != nullptr) {
-		TMsgActiveGolem msg;
-		msg.active = false;
-		e_golem->sendMsg(msg);
-	}
-
-}
-
 void CModuleGameController::healPlayerPartially(float health) {
     CEntity* e_player = (CEntity *)EngineEntities.getPlayerHandle();
     TCompCharacterController* character_controller = e_player->get<TCompCharacterController>();
@@ -548,19 +472,6 @@ void CModuleGameController::activateSpawner(string id) {
 	}
 }
 
-/*Nuevo metodo de seteo de curvas para plataformas*/
-void CModuleGameController::updatePlatformCurveByName(std::string _curve, std::string name_platform) {
-	CHandle handle = getEntityByName(name_platform);
-	if (handle.isValid()) {
-		std::string path = "data/curves/" + _curve + ".curve";
-		CEntity* entity = (CEntity*)handle;
-		CAIMobilePlatform* platform = entity->get<CAIMobilePlatform>();
-		platform->setCurve(Resources.get(path)->as<CCurve>());
-	}
-}
-
-
-
 /*
 _curve: nombre de la curva
 
@@ -586,7 +497,7 @@ void CModuleGameController::updateEnemyCurveByName(std::string _curve, std::stri
 		}
 	}
 }
-//modificar nombre de metodo a suishi
+
 void  CModuleGameController::updateEnemyCurveByHandle(std::string _curve, CHandle h_enemy) {
 	if (h_enemy.isValid()) {
 		std::string path = "data/curves/" + _curve + ".curve";
@@ -604,25 +515,6 @@ void  CModuleGameController::updateEnemyCurveByHandle(std::string _curve, CHandl
 		}
 	}
 }
-
-void  CModuleGameController::updateCupcakeCurveByHandle(std::string _curve, CHandle h_enemy) {
-	if (h_enemy.isValid()) {
-		std::string path = "data/curves/" + _curve + ".curve";
-		//TENER EN CUENTA QUE SI ES UN RANGED O NO
-		CEntity* e_enemy = (CEntity*)h_enemy;
-
-
-		CBTCupcake* cupcake = e_enemy->get<CBTCupcake>();
-		if (cupcake != nullptr) {
-			cupcake->setCurve(Resources.get(path)->as<CCurve>());
-		}
-		else {
-			CBTCupcake_explosive* cupcake_explosive = e_enemy->get<CBTCupcake_explosive>();
-			cupcake_explosive->setCurve(Resources.get(path)->as<CCurve>());
-		}
-	}
-}
-
 
 
 void CModuleGameController::setPauseEnemyByName(std::string enemy, bool active) {
@@ -666,39 +558,15 @@ void CModuleGameController::setTransformObject(std::string name,VEC3 pos,float y
 
 void CModuleGameController::inCinematic(bool active) {
 	CHandle e_player = getEntityByName("Player");
-	CEntity* entity = e_player;
-	TCompSCartController* scartController = entity->get<TCompSCartController>();
-	bool isScart = scartController->isEnabled;
 	TMsgOnCinematic msgOnCinematic;
 	msgOnCinematic.cinematic = active;
-	msgOnCinematic.isscart = isScart;
 	e_player.sendMsg(msgOnCinematic);
 		
 	
 }
 
-void CModuleGameController::inCinematicGolem(std::string name, bool active) {
-	CHandle e_golem = getEntityByName(name);
-	CHandle e_player = getEntityByName("Player");
-	CEntity* entity = e_player;
-	TCompSCartController* scartController = entity->get<TCompSCartController>();
-	
-	bool isScart = scartController->isEnabled;
-	TMsgOnCinematic msgOnCinematic;
-	msgOnCinematic.cinematic = active;
-	msgOnCinematic.isscart = isScart;
-	if (e_golem.isValid()) {
-		e_golem.sendMsg(msgOnCinematic);
-	}
-}
-
 void CModuleGameController::loadScene(const std::string name) {
 	SceneManager.getSceneManager()->loadScene(name);
-}
-
-CHandle CModuleGameController::entityByName(std::string name) {
-	CHandle h = getEntityByName(name);
-	return h;
 }
 
 
@@ -727,63 +595,4 @@ TCompSkelLookAt* toCompSkelLookAt(CHandle h)
 	return t;
 }
 
-TCompEnemiesInTube* toCompEnemiesInTube(CHandle h) {
-	TCompEnemiesInTube* it = h;
-	return it;
-	
-}
 
-TCompMorphAnimation* toCompMorphAnimation(CHandle h) {
-	TCompMorphAnimation* m = h;
-	return m;
-}
-
-
-
-
-
-//Soundtrack Functions
-void CModuleGameController::startSoundtrack(int track_id = 0) {
-    EngineAudio.soundtrack = EngineAudio.playEvent("event:/Music/Soundtrack");
-    EngineAudio.soundtrack.setParameter("soundtrack_id", track_id);
-}
-void CModuleGameController::pauseSoundtrack(){
-    EngineAudio.soundtrack.setPaused(true);
-}
-void CModuleGameController::resumeSoundtrack() {
-    EngineAudio.soundtrack.setPaused(false);
-}
-void CModuleGameController::updateSoundtrackID(int new_track_id = 0) {
-    EngineAudio.soundtrack.setParameter("soundtrack_id", new_track_id);
-}
-void CModuleGameController::setSoundtrackVolume(float volume) {
-    EngineAudio.soundtrack.setVolume(volume);
-}
-//End Soundtrack Functions
-
-void CModuleGameController::pauseGame() {
-    EngineAudio.soundtrack.setPaused(true);
-    EngineAudio.secondarySoundtrack.setPaused(false);
-}
-
-void CModuleGameController::resumeGame() {
-    EngineAudio.soundtrack.setPaused(false);
-    EngineAudio.secondarySoundtrack.setPaused(true);
-}
-
-void CModuleGameController::cheatPosition() {
-	CEntity* entity = getPlayerHandle();
-	TCompTransform* c_trans = entity->get<TCompTransform>();
-	TCompCollider* comp_collider = entity->get<TCompCollider>();
-	if (!comp_collider || !comp_collider->controller)
-		return;
-
-	VEC3 posArea = positionAreas[positionCheat];
-	physx::PxExtendedVec3 pxPosArea = VEC3_TO_PXEXVEC3(posArea);
-	comp_collider->controller->setPosition(pxPosArea);
-	//dbg("POSITION:%i\n", positionCheat);
-	if (positionCheat >= positionAreas.size() - 1) {
-		positionCheat = 0;
-	}
-	positionCheat++;
-}

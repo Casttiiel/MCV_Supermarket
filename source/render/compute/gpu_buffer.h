@@ -19,7 +19,6 @@ public:
   ID3D11UnorderedAccessView*   uav = nullptr;
   uint32_t                     bytes_per_elem = 0;
   uint32_t                     num_elems = 0;
-  bool                         is_indirect = false;
   std::string                  name;
   void destroy();
 };

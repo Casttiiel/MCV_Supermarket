@@ -162,3 +162,12 @@ CHandle CModuleEntities::getPlayerHandle() {
     return player_handle;
   }
 }
+
+void CModuleEntities::destroyEntities() {
+	auto om = getObjectManager<CEntity>();
+	om->forEach([](CEntity* e) {
+		CHandle h_e(e);
+		h_e.destroy();
+	});
+	CHandleManager::destroyAllPendingObjects();
+}

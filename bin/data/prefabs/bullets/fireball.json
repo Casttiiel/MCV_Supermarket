@@ -6,6 +6,14 @@
         "pos": "0 0 0",
         "scale": 0.1
       },
+      "render": {
+        "mesh": "data/meshes/static_objects/GeoSphere.mesh",
+        "color": "1.0 0.0 0.0 0.0",
+        "materials":
+        [
+          "data/materials/fire.material"
+        ]
+      },
       "kinematic_bullet": {
         "_destroyOnCollission": true,
         "_speed": 9,

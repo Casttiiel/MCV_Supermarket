@@ -16,23 +16,24 @@ public:
   void renderDebug();
   void calculateParabolicPoints();
   void update(float dt);
+  //h: tranformada y del pj, angulo de lanzamiento
   void loadValuesParabola(float new_h, float pitch,float yaw);
-  CCurve* curve_dynamic = nullptr; //guardamos vector de puntos de punto maximo y alcance
-
-private:
-	float heightPj = 1.80f;
-	int nsamples =100;
-	float v0 = 20.f; //velocidad en modulo
-  float iterations = 100.0f;
-	MAT44 _curveTransform;
-  VEC4 constants = VEC4::Zero;	
-
   float h;
   float pitch;
   float yaw;
   float v0x; //componente z
   float v0y; //componente y
+  CCurve* curve_dynamic = nullptr; //guardamos vector de puntos de punto maximo y alcance
+  bool paintCurve = false;
   CHandle h_player;
+  CHandle e_player;
+
+private:
+	float heightPj = 1.80f;
+	int nsamples =100;
+	float v0 = 20.f;//velocidad en modulo
+	MAT44 _curveTransform;
+	
 	
 
 };

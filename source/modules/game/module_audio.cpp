@@ -34,11 +34,7 @@ bool CModuleAudio::start() {
 
   loadBank("data/audio/sm/Build/Desktop/Master.strings.bank");
   loadBank("data/audio/sm/Build/Desktop/Master.bank");
-  soundtrack = EngineAudio.playEvent("event:/Music/Soundtrack");
-  soundtrack.setParameter("soundtrack_id", 1);
-  secondarySoundtrack = EngineAudio.playEvent("event:/Music/Soundtrack");
-  secondarySoundtrack.setParameter("soundtrack_id", 0);
-  secondarySoundtrack.setPaused(true);
+
   return true;
 /*
 	// un par de bancos de ejemplo    

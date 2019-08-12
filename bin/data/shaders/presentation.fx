@@ -141,7 +141,7 @@ float4 PS_Tone_mapping(
 
   float3 tmColorReinhard = toneMappingReinhard( hdrColor );
   float3 tmColorUC2 = toneMappingUncharted2( hdrColor );
-  float3 tmColor = tmColorReinhard;
+  float3 tmColor = tmColorUC2;
 
   return float4(tmColor, 1.0);
 }

@@ -16,6 +16,4 @@ class TCompBoltBillboard :  public TCompBase {
     void debugInMenu();
     void renderDebug();
     void update(float delta);
-    void setTargetPosition(CHandle t) { target_position = t; }
-    void setTargetAim(CHandle t) { target_aim = t; }
 };

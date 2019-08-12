@@ -7,15 +7,12 @@
 #include "components/common/comp_tags.h"
 #include "time.h"
 #include "stdlib.h"
-#include "skeleton/comp_bone_tracker_golem.h"
 #include "modules/module_physics.h"
-#include "components/animation/comp_golem_animation.h"
 #include "bt_golem.h"
 
 
 using namespace physx;
-std::mt19937 bt_gol(1129);
-std::uniform_int_distribution<int> bt_dist_gol(0, 100);
+
 
 DECL_OBJ_MANAGER("bt_golem", CBTGolem);
 void CBTGolem::create(string s)//crear el arbol
@@ -24,15 +21,12 @@ void CBTGolem::create(string s)//crear el arbol
 	// padre - hijo - tipo - condition - action
 	createRoot("GOLEM", PRIORITY, NULL, NULL);
 
-
-	//addChild("GOLEM", "ON_DEATH", ACTION, (btcondition)&CBTGolem::conditionDeath, (btaction)&CBTGolem::actionDeath);
-	//addChild("GOLEM", "ON_IMPACT", ACTION, (btcondition)&CBTGolem::conditionImpactReceived, (btaction)&CBTGolem::actionImpactReceived);
-	//addChild("GOLEM", "ON_GRAVITY", ACTION, (btcondition)&CBTGolem::conditionGravityReceived, (btaction)&CBTGolem::actionGravityReceived);
+	
+	addChild("GOLEM", "ON_DEATH", ACTION, (btcondition)&CBTGolem::conditionDeath, (btaction)&CBTGolem::actionDeath);
+	addChild("GOLEM", "ON_IMPACT", ACTION, (btcondition)&CBTGolem::conditionImpactReceived, (btaction)&CBTGolem::actionImpactReceived);
+	addChild("GOLEM", "ON_GRAVITY", ACTION, (btcondition)&CBTGolem::conditionGravityReceived, (btaction)&CBTGolem::actionGravityReceived);
 	
 
-	addChild("GOLEM", "ATTACKCINEMATIC", ACTION, (btcondition)&CBTGolem::conditionAttackCinematic, (btaction)&CBTGolem::actionMeleeCinematic);
-	//inCinematic
-	addChild("GOLEM", "IN_CINEMATIC", ACTION, (btcondition)&CBTGolem::conditionCinematic, (btaction)&CBTGolem::nothing);
 
 	addChild("GOLEM", "INSIGHT", SEQUENCE, (btcondition)&CBTGolem::conditionView, NULL);//(btcondition)&CBTGolem::conditionEscape  // (btaction)&CBTGolem::actionIdle
 	addChild("GOLEM", "IDLE", ACTION, NULL, (btaction)&CBTGolem::actionIdle);
@@ -41,24 +35,18 @@ void CBTGolem::create(string s)//crear el arbol
 	addChild("INSIGHT", "ATTACK", PRIORITY, NULL, NULL);
 
 	addChild("ATTACK", "THROW", PRIORITY, (btcondition)&CBTGolem::conditionDistanceThrow, NULL);
-	addChild("ATTACK", "MELEE", PRIORITY, NULL, NULL);//(btcondition)&CBTGolem::conditionDistanceMelee
+	addChild("ATTACK", "MELEE", PRIORITY, (btcondition)&CBTGolem::conditionDistanceMelee, NULL);
 
 	addChild("THROW", "CHARGINGTHROW", ACTION, (btcondition)&CBTGolem::conditionTimerThrow, (btaction)&CBTGolem::actionChargingThrow); //CARGANDO
-
-	addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
-	addChild("THROW", "THROWINGPROYECTILE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowParabolic, (btaction)&CBTGolem::actionThrow);
-	addChild("THROW", "THROWINGNFORTUNECOOKIESIMPLE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowSimpleCookie, (btaction)&CBTGolem::actionThrowCookieSimple);
-	addChild("THROW", "THROWINGNFORTUNECOOKIETRIPLE", ACTION, NULL, (btaction)&CBTGolem::actionThrowCookieSpread);
+	addChild("THROW", "THROWING", ACTION, NULL, (btaction)&CBTGolem::actionThrow); //LANZAR
 
 	addChild("MELEE", "CHARGINGMELEE", ACTION, (btcondition)&CBTGolem::conditionTimerMelee, (btaction)&CBTGolem::actionChargingMelee);
 	addChild("MELEE", "MELEEATACK", ACTION, NULL, (btaction)&CBTGolem::actionMelee);
 
 
-
 	if (!h_player.isValid()) {
 		h_player = getEntityByName("Player");
 	}
-
 }
 
 
@@ -69,13 +57,6 @@ int CBTGolem::actionIdle()
 	return LEAVE;	
 }
 
-
-int CBTGolem::nothing()
-{
-	//dbg("%s: handling idle\n", name.c_str());
-	//cuando animacion este poner return stay
-	return LEAVE;
-}
 
 int CBTGolem::actionAlign()
 {
@@ -103,276 +84,45 @@ int CBTGolem::actionAlign()
 		return STAY;
 	}
 }
-/*
-int attackInCinematic() {
-	
-		TCompTransform* c_trans = get<TCompTransform>();
-		CEntity* e_player = (CEntity *)h_player;
-		//TCompTransform* p_trans = e_player->get<TCompTransform>();
-		//dbg("%s: handling action melee\n", name.c_str());
-		TCompCollider* comp_collider = get<TCompCollider>();
-		//Create a collider sphere where we want to detect collision
-		PxSphereGeometry geometry(4.0); //NO HARDCODEADO
-
-		Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeRange);
-		PxF32 attackHeight = comp_collider->controller->getHeight() / 2;
-		damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
-
-		physx::PxFilterData pxFilterData;
-		pxFilterData.word0 = EnginePhysics.Player;
-		physx::PxQueryFilterData PxPlayerFilterData;
-		PxPlayerFilterData.data = pxFilterData;
-		PxPlayerFilterData.flags = physx::PxQueryFlag::eDYNAMIC;
-		std::vector<physx::PxOverlapHit> hits;
-		if (EnginePhysics.Overlap(geometry, damageOrigin, hits, PxPlayerFilterData)) {
-			for (int i = 0; i < hits.size(); i++) {
-				CHandle hitCollider;
-				hitCollider.fromVoidPtr(hits[i].actor->userData);
-				if (hitCollider.isValid()) {
-					CHandle player = hitCollider.getOwner();
-					if (player == h_player || attackCinematic) { //TODO: 
-						//Send damage mesage
-						CEntity* entityContact = hitCollider.getOwner();
-						Send_DamageMessage<TMsgDamage>(entityContact, meleeDamage);
-					}
-				}
-			}
-		}
-
-		attackCinematic = false;
-
-		return LEAVE;
-
-}*/
-
-int CBTGolem::actionMeleeCinematic()
-{
-
-	TCompTransform* c_trans = get<TCompTransform>();
-	//Create a collider sphere where we want to detect collision
-	PxSphereGeometry geometry(meleeRange*3);
-	Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeRange*3);
-	PxF32 attackHeight = c_trans->getPosition().y;
-	damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
-	PxVec3 pos = VEC3_TO_PXVEC3(damageOrigin);
-	PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
-
-	const PxU32 bufferSize = 256;
-	PxOverlapHit hitBuffer[bufferSize];
-	PxOverlapBuffer buf(hitBuffer, bufferSize);
-	PxTransform shapePose = PxTransform(pos, ori);
-	PxQueryFilterData filter_data = PxQueryFilterData();
-	filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall;
-	bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
-	if (res) {
-		for (PxU32 i = 0; i < buf.nbTouches; i++) {
-			CHandle h_comp_physics;
-			h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
-			CEntity* entityContact = h_comp_physics.getOwner();
-			if (entityContact) {
-				TMsgDamage msg;
-				// Who sent this bullet
-				msg.h_sender = CHandle(this).getOwner();
-				msg.h_bullet = CHandle(this).getOwner();
-				msg.position = c_trans->getPosition() + VEC3::Up;
-				msg.senderType = PLAYER;
-				msg.intensityDamage = meleeDamage;
-				msg.impactForce = impactForceCinematic;
-				msg.damageType = MELEE;
-				msg.targetType = ENEMIES;
-				entityContact->sendMsg(msg);
-
-			}
-		}
-	}
-
-	//ANIMATION-----------------------
-	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
-	golemAnimator->playAnimation(TCompGolemAnimator::POUND_ATTACK, 1.0f);
-	//END ANIMATION------------------------
-
-	attackCinematic = false;
-	/*
-	TCompTransform* c_trans = get<TCompTransform>();
-	CEntity* e_player = (CEntity *)h_player;
-	//TCompTransform* p_trans = e_player->get<TCompTransform>();
-	//dbg("%s: handling action melee\n", name.c_str());
-	TCompCollider* comp_collider = get<TCompCollider>();
-	//Create a collider sphere where we want to detect collision
-	PxSphereGeometry geometry(4.0); //NO HARDCODEADO
-
-	Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeRange);
-	PxF32 attackHeight = comp_collider->controller->getHeight() / 2;
-	damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
-
-	physx::PxFilterData pxFilterData;
-	pxFilterData.word0 = EnginePhysics.Player;
-	physx::PxQueryFilterData PxPlayerFilterData;
-	PxPlayerFilterData.data = pxFilterData;
-	PxPlayerFilterData.flags = physx::PxQueryFlag::eDYNAMIC;
-	std::vector<physx::PxOverlapHit> hits;
-	if (EnginePhysics.Overlap(geometry, damageOrigin, hits, PxPlayerFilterData)) {
-		for (int i = 0; i < hits.size(); i++) {
-			CHandle hitCollider;
-			hitCollider.fromVoidPtr(hits[i].actor->userData);
-			if (hitCollider.isValid()) {
-				CHandle player = hitCollider.getOwner();
-				if (player == h_player || attackCinematic) { //TODO: 
-					//Send damage mesage
-					CEntity* entityContact = hitCollider.getOwner();
-					Send_DamageMessage<TMsgDamage>(entityContact, meleeDamage);
-				}
-			}
-		}
-	}
-
-	//ANIMATION-----------------------
-	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
-	golemAnimator->playAnimation(TCompGolemAnimator::POUND_ATTACK, 1.0f);
-	//END ANIMATION------------------------
-	timerMelee = meleeFrequency;
-	*/
-	return LEAVE;
-
-}
 
 
 int CBTGolem::actionMelee()
 {
-	TCompTransform* c_trans = get<TCompTransform>();
-	CEntity* e_player = (CEntity *)h_player;
-	//TCompTransform* p_trans = e_player->get<TCompTransform>();
 	//dbg("%s: handling action melee\n", name.c_str());
-	TCompCollider* comp_collider = get<TCompCollider>();
-	//Create a collider sphere where we want to detect collision
-	PxSphereGeometry geometry(4.0); //NO HARDCODEADO
-
-	Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeRange);
-	PxF32 attackHeight = comp_collider->controller->getHeight() / 2;
-	damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
-
-	physx::PxFilterData pxFilterData;
-	pxFilterData.word0 = EnginePhysics.Player;
-	physx::PxQueryFilterData PxPlayerFilterData;
-	PxPlayerFilterData.data = pxFilterData;
-	PxPlayerFilterData.flags = physx::PxQueryFlag::eDYNAMIC;
-	std::vector<physx::PxOverlapHit> hits;
-	if (EnginePhysics.Overlap(geometry, damageOrigin, hits, PxPlayerFilterData)) {
-		for (int i = 0; i < hits.size(); i++) {
-			CHandle hitCollider;
-			hitCollider.fromVoidPtr(hits[i].actor->userData);
-			if (hitCollider.isValid()) {
-				CHandle player = hitCollider.getOwner();
-				if (player == h_player || attackCinematic) { //TODO: 
-					//Send damage mesage
-					CEntity* entityContact = hitCollider.getOwner();
-					Send_DamageMessage<TMsgDamage>(entityContact, meleeDamage);
-				}
-			}
-		}
-	}
-
-	//ANIMATION-----------------------
-	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
-	golemAnimator->playAnimation(TCompGolemAnimator::POUND_ATTACK, 1.0f);
-	//END ANIMATION------------------------
-	timerMelee = meleeFrequency;
-
-	return LEAVE;
 	
-}
-
-
-
-int CBTGolem::actionThrowCupcake()
-{
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* player_position = e_player->get<TCompTransform>();
 	TCompTransform* c_trans = get<TCompTransform>();
 
-
-	//ANIMATION-----------------------
-	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
-	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
-	//END ANIMATION------------------------
-
-	delay = delayCupcake;
-	timerGrenade = throwFrequecy;
-
-	throwActive = true;
-	throwType = 1;
-
+	timerMelee = meleeFrequency;
+	//crear esfera de colision
+	PxSphereGeometry geometry(meleeRange);
+	Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeRange);
+	PxVec3 pos = VEC3_TO_PXVEC3(damageOrigin);
+	PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+	PxTransform shapePose = PxTransform(pos, ori);    // [in] initial shape pose (at distance=0)
+	PxOverlapBuffer hit;
+	//Evaluate collisions
+	bool res = EnginePhysics.gScene->overlap(geometry, shapePose, hit, PxQueryFilterData(PxQueryFlag::eANY_HIT | PxQueryFlag::eDYNAMIC));
+	if (hit.hasAnyHits()) {
+		//Analyze entities hit
+		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+			CHandle h_comp_physics;
+			h_comp_physics.fromVoidPtr(hit.getAnyHit(i).actor->userData);
+			CEntity* entityContact = h_comp_physics.getOwner();
+			if (entityContact) {
+				TCompTags* c_tag = entityContact->get<TCompTags>();
+				if (c_tag) {
+					//If the entity's tag is "player"
+					std::string tag = CTagsManager::get().getTagName(c_tag->tags[0]);
+					if (strcmp("player", tag.c_str()) == 0) {
+						Send_DamageMessage<TMsgDamage>(entityContact, damage);
+					}
+				}
+			}
+		}
+	}
 	return LEAVE;
-
-}
-
-
-int CBTGolem::actionThrowCookieSpread() {
-	_burstTimer -= dt;
-
-	if (_shotsFired < numberOfCookiesTriple) {
-		TCompTransform* c_trans = get<TCompTransform>();
-		CEntity* e_player = (CEntity *)h_player;
-		TCompTransform* p_trans = e_player->get<TCompTransform>();
-		c_trans->rotateTowards(p_trans->getPosition(), twistSpeed, dt);
-		if (_burstTimer <= 0) {
-			dbg("Firing BURST_SHOT\n");
-
-			//ANIMATION-----------------------
-			TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
-			golemAnimator->playAnimation(TCompGolemAnimator::THROW, 2.0f);
-			//END ANIMATION------------------------
-
-			spreadShot();
-			_burstTimer = _burstDelay;
-			_shotsFired++;
-			return STAY;
-		}
-		else {
-			return STAY;
-		}
-	}
-	else {
-		_shotsFired = 0;
-		timerGrenade = throwFrequecy;
-		return LEAVE;
-	}
-
-}
-
-
-int CBTGolem::actionThrowCookieSimple() {
-
-	_burstTimer -= dt;
-
-	if (_shotsFired < numberOfCookiesSimple) {
-		TCompTransform* c_trans = get<TCompTransform>();
-		CEntity* e_player = (CEntity *)h_player;
-		TCompTransform* p_trans = e_player->get<TCompTransform>();
-		c_trans->rotateTowards(p_trans->getPosition(), twistSpeed, dt);
-		if (_burstTimer <= 0) {
-			dbg("Firing BURST_SHOT\n");
-
-		//ANIMATION-----------------------
-		TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
-		golemAnimator->playAnimation(TCompGolemAnimator::THROW, 2.0f);
-		//END ANIMATION------------------------
-
-			singleShot();
-			_burstTimer = _burstDelay;
-			_shotsFired++;
-			return STAY;
-		}
-		else {
-			return STAY;
-		}
-	}
-	else {
-		_shotsFired = 0;
-	timerGrenade = throwFrequecy;
-		return LEAVE;
-	}
-
 	
 }
 
@@ -382,21 +132,20 @@ int CBTGolem::actionThrow()
 	TCompTransform* player_position = e_player->get<TCompTransform>();
 	TCompTransform* c_trans = get<TCompTransform>();
 
-
-	//ANIMATION-----------------------
-	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
-	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
-	//END ANIMATION------------------------
-
-	delay = projectileDelay;
-	throwActive = true;
-	throwType = 2;
-
+	//dbg("lanza granada");
 	timerGrenade = throwFrequecy;
+	TEntityParseContext ctx;
+	ctx.root_transform = *c_trans;
+	parseScene("data/prefabs/bullets/grenade_golem.json", ctx); //cambiar granada por algo que me invente que no explote
+
+	TMsgAssignBulletOwner msg;
+	msg.h_owner = CHandle(this).getOwner();
+	msg.source = c_trans->getPosition();
+	msg.front = c_trans->getFront();
+	ctx.entities_loaded[0].sendMsg(msg);
 	return LEAVE;
 
 }
-
 
 int CBTGolem::actionGravityReceived() {
 	return LEAVE;
@@ -425,42 +174,23 @@ int CBTGolem::actionChargingMelee() {
 
 bool CBTGolem::conditionView()
 {
-
-	/*if (player_dead) {
-		return false; 
-	}*/
-
-	if (scriptedGolem && !golemCinematic) {
-		return false;
-	}
-	//en realidad, al estar scripteado el isView deja de ser necesario
-	return isView() || golemCinematic; //si es un golem activado por cinematica siempre te ve hasta que se desactive
-}
-
-bool CBTGolem::conditionCinematic()
-{
-	return inCinematic;
-}
-
-bool CBTGolem::conditionAttackCinematic()
-{
-	return attackCinematic;
-}
-
-bool CBTGolem::isView() {
-
-	if (!h_player.isValid()) {
-		h_player = GameController.getPlayerHandle();
-	}
+	//dbg("%s: condition view\n", name.c_str());
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* player_position = e_player->get<TCompTransform>();
 	TCompTransform* c_trans = get<TCompTransform>();
-	float distance = Vector3::Distance(c_trans->getPosition(), player_position->getPosition());
+	float distancia = VEC3::Distance(c_trans->getPosition(), player_position->getPosition());
+	//Esta en cono
 	float angle = rad2deg(c_trans->getDeltaYawToAimTo(player_position->getPosition()));
+	if (abs(angle) <= half_cone) {
+		//Esta distancia 
+		if (distancia <= length_cone) {
+			return true;
+		}
 
-	bool sighted = ((abs(angle) <= half_cone) && (distance <= viewDistance)) || distance <= hearing_radius;
-
-	return sighted;
+	}
+	return false;
+	
+	
 }
 
 bool CBTGolem::conditionDistanceThrow()
@@ -473,7 +203,7 @@ bool CBTGolem::conditionDistanceThrow()
 	//dbg("Distancia %f\n",distance);
 	if (distance > epsilon) {
 		//dbg("Dispara cupcake\n");
-		return true; 
+		return true; //---------------------------TODO PONER ESTO A TRUE
 	}
 	else {
 		//dbg("No dispara\n");
@@ -489,12 +219,12 @@ bool CBTGolem::conditionDistanceMelee()
 	TCompTransform* c_trans = get<TCompTransform>();
 	float distance = VEC3::Distance(player_position->getPosition(), c_trans->getPosition());
 	//dbg("Distancia %f\n", distance);
-	if (distance <= epsilon) {
-		//dbg("Pega melee\n");
+	if (distance < epsilon) {
+		//dbg("Pega hostia\n");
 		return true;
 	}
 	else {
-		//dbg("No Pega melee\n");
+		//dbg("No Pega hostia\n");
 		return false;
 	}
 }
@@ -503,30 +233,9 @@ bool CBTGolem::conditionTimerThrow() {
 	if (timerGrenade > 0) {
 		timerGrenade -= dt;
 		return true;
+
 	}
 	return false;
-}
-
-bool CBTGolem::conditionRandomThrowCupcake() {
-	randomNumber = bt_dist_gol(bt_gol);
-	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber) { 
-		return true; //throw cupcake
-	}
-	return false;//check others
-}
-
-bool CBTGolem::conditionRandomThrowParabolic() {
-	if (randomNumber < throwParabolicProjectileProb) { //&& _currentEnemies.size() < _spawnMaxNumber
-		return true; //throw parabolic proyectile
-	}
-	return false;//check others
-}
-
-bool CBTGolem::conditionRandomThrowSimpleCookie() {
-	if (randomNumber < throwSimpleFortuneCookieProb) { //&& _currentEnemies.size() < _spawnMaxNumber
-		return true; //throw Cookie
-	}
-	return false;//throw Triple Cookie
 }
 
 bool CBTGolem::conditionTimerMelee() {
@@ -712,211 +421,14 @@ void CBTGolem::onDamageInfoMsg(const TMsgDamage& msg) {
 
 
 void CBTGolem::registerMsgs() {
-	//DECL_MSG(CBTGolem, TMsgDamage, onDamageInfoMsg);
+	DECL_MSG(CBTGolem, TMsgDamage, onDamageInfoMsg);
 	DECL_MSG(CBTGolem, TMsgOnContact, onCollision);
 	DECL_MSG(CBTGolem, TMsgGravity, onGravity);
 	DECL_MSG(CBTGolem, TMsgBTPaused, onMsgBTPaused);
-	DECL_MSG(CBTGolem, TMsgSpawnerCheckout, onCheckout);
-	DECL_MSG(CBTGolem, TMsgSpawnerFather, onBornChild);
-	DECL_MSG(CBTGolem, TMsgActiveGolem, activeGolem);
-	DECL_MSG(CBTGolem, TMsgOnCinematic, onCinematic);
 }
 
 
-void CBTGolem::onCinematic(const TMsgOnCinematic & msg) {
-	inCinematic = msg.cinematic;
-}
-
-void CBTGolem::activeGolem(const TMsgActiveGolem & msg) {
-	golemCinematic = msg.active;
-	attackCinematic = true;//para romper el muro
-
-	//attackCinematic = true;
-}
-
-void CBTGolem::onCheckout(const TMsgSpawnerCheckout & msg) {
-	for (auto it = _currentEnemies.begin(); it != _currentEnemies.end(); ++it) {
-		if (*it == msg.enemyHandle) {
-			_currentEnemies.erase(it);
-			return;
-		}
-	}
-}
-
-void CBTGolem::onBornChild(const TMsgSpawnerFather & msg) {
-	_currentEnemies.push_back(msg.son);
-}
 
 
-void CBTGolem::singleShot() {
-	CEntity* e_player = (CEntity *)h_player;
-	TCompTransform* p_trans = e_player->get<TCompTransform>();
-	TCompCollider* p_col = e_player->get<TCompCollider>();
-	TCompTransform* c_trans = get<TCompTransform>();
-	TCompCollider* c_cc = get<TCompCollider>();
-
-	//Bullet origin
-	TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
-	VEC3 firingPosition = boneTracker->getPosition();
-	firingPosition.y += c_cc->controller->getHeight();
-	firingPosition += c_trans->getFront() * 0.5f;
-
-	TEntityParseContext ctx;
-	ctx.root_transform.setPosition(firingPosition);
-	ctx.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
-
-	//Bullet direction
-	VEC3 targetDir = p_trans->getPosition() - boneTracker->getPosition();
-	targetDir.Normalize();
-	VEC3 _targetPosition = p_trans->getPosition() + targetDir * _playerOffset;
-	VEC3 _targetDirection = _targetPosition - boneTracker->getPosition();
-	_targetDirection.Normalize();
-
-	//Message to the player
-	TMsgDamage msgDamage;
-	msgDamage.bullet_front = _targetDirection;
-	msgDamage.senderType = EntityType::GOLEM;
-	msgDamage.targetType = EntityType::PLAYER;
-	msgDamage.intensityDamage = _bulletDamage;
-	msgDamage.impactForce = _bulletForce;
-
-	//Message to the bullet
-	TMsgAssignBulletOwner msg;
-	msg.h_owner = CHandle(this).getOwner();
-	msg.h_target = h_player;
-	msg.source = c_trans->getPosition();
-	msg.front = _targetDirection;
-	msg.messageToTarget = msgDamage;
-	ctx.entities_loaded[0].sendMsg(msg);
-}
-
-void CBTGolem::spreadShot() {
-	CEntity* e_player = (CEntity *)h_player;
-	TCompTransform* p_trans = e_player->get<TCompTransform>();
-	TCompCollider* p_col = e_player->get<TCompCollider>();
-	TCompTransform* c_trans = get<TCompTransform>();
-	TCompCollider* c_cc = get<TCompCollider>();
-
-	//STRAIGHT BULLET
-	//Bullet origin
-	TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
-	VEC3 firingPosition = boneTracker->getPosition();
-	firingPosition.y += c_cc->controller->getHeight();
-	firingPosition += c_trans->getFront() * 0.5f;
-
-	TEntityParseContext ctx;
-	ctx.root_transform.setPosition(firingPosition);
-	ctx.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
-
-	//Bullet direction
-	VEC3 targetDir = p_trans->getPosition() - boneTracker->getPosition();
-	targetDir.Normalize();
-	VEC3 _targetPosition = p_trans->getPosition() + targetDir * _playerOffset;
-	VEC3 _targetDirection = _targetPosition - boneTracker->getPosition();
-	_targetDirection.Normalize();
-
-	//Message to the player
-	TMsgDamage msgDamage;
-	msgDamage.bullet_front = _targetDirection;
-	msgDamage.senderType = EntityType::GOLEM;
-	msgDamage.targetType = EntityType::PLAYER;
-	msgDamage.intensityDamage = _bulletDamage;
-	msgDamage.impactForce = _bulletForce;
-
-	//Message to the bullet
-	TMsgAssignBulletOwner msg;
-	msg.h_owner = CHandle(this).getOwner();
-	msg.h_target = h_player;
-	msg.source = c_trans->getPosition();
-	msg.front = _targetDirection;
-	msg.messageToTarget = msgDamage;
-	ctx.entities_loaded[0].sendMsg(msg);
-	//END STRAIGHT BULLET
-
-	//15DEG BULLET
-	VEC3 rotatedDirection = VEC3().Zero;
-	MAT44 rotMat = MAT44::CreateRotationY(deg2rad(10.f));
-	VEC3().Transform(_targetDirection, rotMat, rotatedDirection);
-
-	TEntityParseContext ctx2;
-	ctx2.root_transform.setPosition(firingPosition);
-	ctx2.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx2);
-	msgDamage.bullet_front = rotatedDirection;
-	msg.front = rotatedDirection;
-	ctx2.entities_loaded[0].sendMsg(msg);
-	//END 15DEG BULLET
-
-	//-15DEG BULLET
-	rotatedDirection = VEC3().Zero;
-	rotMat = MAT44::CreateRotationY(deg2rad(-10.f));
-	VEC3().Transform(_targetDirection, rotMat, rotatedDirection);
-
-	TEntityParseContext ctx3;
-	ctx3.root_transform.setPosition(firingPosition);
-	ctx3.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx3);
-	msgDamage.bullet_front = rotatedDirection;
-	msg.front = rotatedDirection;
-	ctx3.entities_loaded[0].sendMsg(msg);
-	//END -15DEG BULLET
-}
-
-void CBTGolem::updateBT() {
-
-	if (firstExec) {
-		firstExec = false;
-
-		//---------------------------- 
-
-		CHandle h(this);
-		CHandle c_e = h.getOwner();
-		CEntity* c_entity = (CEntity*)c_e;
-		//obtener el nombre de la entidad y ponerselo a comp_bone_tracker_golem
-		TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
-		TCompName* myName = get<TCompName>();
-		boneTracker->setParentName(myName->getName());
-
-		//---------------------------------
-
-	}
-
-	if (throwActive) {
-
-		if (delay <= 0) {
-			TCompTransform* c_trans = get<TCompTransform>();
-			TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
-			TEntityParseContext ctx;
-			ctx.root_transform.setPosition(boneTracker->getPosition());
-			ctx.root_transform.setRotation(boneTracker->getRotation());
-
-
-			if (throwType == 1) { //cupcake
-				parseScene("data/prefabs/bullets/grenade_golem.json", ctx);
-				//delay = delayCupcake;
-			}
-			else { //parabolic
-				parseScene("data/prefabs/bullets/turret_bullet.json", ctx);
-				//delay = projectileDelay;
-			}
-
-			TMsgAssignBulletOwner msg;
-			msg.h_owner = CHandle(this).getOwner();
-			msg.source = c_trans->getPosition();
-			msg.front = c_trans->getFront();
-			ctx.entities_loaded[0].sendMsg(msg);
-
-		
-			throwActive = false;
-		}
-		else {
-			delay -= dt;
-		}
-	}
-
-
-}
 
 

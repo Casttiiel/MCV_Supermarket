@@ -56,15 +56,8 @@ LRESULT CALLBACK CApplication::WndProc(HWND hWnd, UINT message, WPARAM wParam, L
     break;
 
   case WM_SIZE:
-    if (Render.device != NULL && wParam != SIZE_MINIMIZED) {
+    if (Render.device != NULL && wParam != SIZE_MINIMIZED)
       Render.resizeBackBuffer((UINT)LOWORD(lParam), (UINT)HIWORD(lParam));
-      if (wParam) { //WHEN SCREEN IS MAXIMIZED OR MINIMIZED
-        Engine.getRender().onResolutionUpdated();
-        Resources.onFileChanged("screen_size");
-      }
-    }
-      
-
     return 0;
 
   case WM_SETFOCUS:
@@ -130,12 +123,11 @@ bool CApplication::create(HINSTANCE hInstance, int nCmdShow, int w, int h) {
     return false;
 
   ShowWindow(hWnd, nCmdShow);
-  /*
-  w = GetSystemMetrics(SM_CXSCREEN);
+  /*w = GetSystemMetrics(SM_CXSCREEN);
   h = GetSystemMetrics(SM_CYSCREEN);
   SetWindowLongPtr(hWnd, GWL_STYLE, WS_VISIBLE | WS_POPUP);
-  SetWindowPos(hWnd, HWND_TOP, 0, 0, w, h, SWP_FRAMECHANGED);
-  */
+  SetWindowPos(hWnd, HWND_TOP, 0, 0, w, h, SWP_FRAMECHANGED);*/
+  
   return true;
 
 }

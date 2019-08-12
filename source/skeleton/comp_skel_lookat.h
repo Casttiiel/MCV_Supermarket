@@ -20,7 +20,7 @@ struct TCompSkelLookAt : public TCompBase {
 
   float timeTurn = 0.f;
   bool flagFirst = false;
-  float angleMax = 180;
+  float angleMax = 90;
 
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);

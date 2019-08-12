@@ -16,14 +16,6 @@ public:
 	void updateBT();
 	 //acciones == hojas
 
-	void setCurve(const CCurve* curve);
-
-	void setLengthCone(float length_cone);
-	
-	void setHalfCone(float half_cone);
-
-
-
 	int actionChangeWpt();
 	int actionSeekWpt();
 	int actionAttack();
@@ -85,12 +77,8 @@ public:
 	int fireDamage = 15;
 	int currentDamage = damage;
 
-	//CURVE  VALUES
-	float	mTravelTime = 0.22f;
-	float ratio = 0.f;
 	const CCurve* _curve = nullptr;
 	std::vector<VEC3> _knots;
-	//END CURVE VALUES
 
 private:
     AudioEvent voice;
@@ -142,7 +130,7 @@ private:
 	float sonLife = 10.0f;
 	int num_of_sons = 2; //number of sons
 	int spawnRange = 5; //spawn range of sons
-	float orbitRadious = 3.0f;
+	float orbitRadious = 7.0f;
 	int minDistanceOrbit = 4.0; //for random
 	int number_of_orbit_points = 4; //for random
 	bool jumpingCupcake = false; //type of cupcake jumping or hide
@@ -182,16 +170,12 @@ private:
 	//orbit
 	std::vector<VEC3> orbitPositions;
 	int orbitIndex = 0;
-	VEC3 nextOrbitPoint = VEC3().Zero;
+	VEC3 nextOrbitPoint;
 
 	//blackboard
 	bool slotsAvailable = false;
 	bool player_dead = false;
-
 	bool inBlackboard = false;
-
-	float resetSlotDuration = 3.0f;
-	float resetSlotTimer = 0.0f;
 
 
 	//probabilities
@@ -228,14 +212,11 @@ private:
 
 	float impulseStrenghtSecondSon = 7.f;
 
-	float cone_vision = 20.f;
-	float enemyRadiousView = 12.0f;
+	float cone_vision = 14.f;
+	float enemyRadiousView = 9.0f;
 	bool view_point = false;
-	float length_cone = 20.0f;
+	float length_cone = 15.0f;
 	float half_cone = 45.0f;
-	float height_range = 3.0f;
-
-	bool checkHeight();
 
 	CHandle h_sender;
 	CHandle h_bullet;

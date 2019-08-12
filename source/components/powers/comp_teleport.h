@@ -22,8 +22,7 @@ public:
 
   float timeAfterTeleport = 0.f;
   float windowTimeCombo = 3.f;
-  
-  float timeAfterTeleportUI = 0.5f;
+
   CHandle h_camera;
   CHandle h_player;
 

@@ -94,7 +94,7 @@ void CModuleScripting::doBingings() {
 	BindTransform();
 
 	BindConverters();
-	BindEnemiesInTube();
+
 }
 
 
@@ -117,11 +117,7 @@ void CModuleScripting::BindGameController() {
 		.set("activateSpawner", &CModuleGameController::activateSpawner)
 		.set("updateEnemyCurveByName", &CModuleGameController::updateEnemyCurveByName)
 		.set("updateEnemyCurveByHandle", &CModuleGameController::updateEnemyCurveByHandle)
-		.set("updateCupcakeCurveByHandle", &CModuleGameController::updateCupcakeCurveByHandle)
 		.set("setPauseEnemyByName", &CModuleGameController::setPauseEnemyByName)
-		.set("destroyWallByName", &CModuleGameController::destroyWallByName)
-		.set("wakeUpGolem", &CModuleGameController::wakeUpGolem)
-		.set("sleepGolem", &CModuleGameController::sleepGolem)
 		.set("setPauseEnemyByHandle", &CModuleGameController::setPauseEnemyByHandle)
 		.set("blendingCamera", &CModuleGameController::blendingCamera)
 		.set("lockCamera3Person", &CModuleGameController::lockCamera3Person)
@@ -130,18 +126,8 @@ void CModuleScripting::BindGameController() {
 		.set("setTransformObject", &CModuleGameController::setTransformObject)
 		.set("resetCamera", &CModuleGameController::resetCamera)
 		.set("inCinematic", &CModuleGameController::inCinematic)
-		.set("inCinematicGolem", &CModuleGameController::inCinematicGolem)
 		.set("getPlayerHandle", &CModuleGameController::getPlayerHandle)
 		.set("loadScene", &CModuleGameController::loadScene)
-		.set("updatePlatformCurveByName", &CModuleGameController::updatePlatformCurveByName)
-		.set("playAnimationMorph", &CModuleGameController::playAnimationMorph)
-        .set("stopAnimationMorph", &CModuleGameController::stopAnimationMorph)
-        .set("startSoundtrack", &CModuleGameController::startSoundtrack)
-        .set("pauseSoundtrack", &CModuleGameController::pauseSoundtrack)
-        .set("resumeSoundtrack", &CModuleGameController::resumeSoundtrack)
-        .set("updateSoundtrackID", &CModuleGameController::updateSoundtrackID)
-        .set("setSoundtrackVolume", &CModuleGameController::setSoundtrackVolume)
-		.set("entityByName", &CModuleGameController::entityByName)
 		;
 }
 
@@ -149,8 +135,6 @@ void CModuleScripting::BindConverters() {
 	//PUEDE ESTAR MAL
 	m->set("toEntity", SLB::FuncCall::create(&toEntity));
 	m->set("toCompSkelLookAt", SLB::FuncCall::create(&toCompSkelLookAt));
-	m->set("toCompMorphAnimation", SLB::FuncCall::create(&toCompMorphAnimation));//toCompMorphAnimation
-	m->set("toCompEnemiesInTube", SLB::FuncCall::create(&toCompEnemiesInTube));
 }
 
 void CModuleScripting::BindCharacterController() {
@@ -174,24 +158,6 @@ void CModuleScripting::BindSkeleton() {
 		.property("flagFirst", &TCompSkelLookAt::flagFirst)
 		;
 }
-
-
-void CModuleScripting::BindEnemiesInTube() {
-	SLB::Class<TCompEnemiesInTube>("TCompEnemiesInTube", m)
-		.comment("This is our wrapper of comp_enemies_in_tube class")
-		.property("activateTrap", &TCompEnemiesInTube::activateTrap)
-
-		/*
-		float birthTime = 5.f;
-		float birthTimeReset = 5.f;
-		float limitTime = 0.f;
-		int positionBirth = 0;
-		bool activateTrap = false;
-		
-		*/
-		;
-}
-
 
 
 void CModuleScripting::BindGeometry() {

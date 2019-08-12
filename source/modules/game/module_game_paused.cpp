@@ -34,7 +34,6 @@ void CModuleGamePaused::update(float delta)
   if (EngineInput["pause"].justPressed()) {
     CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
     //unpause game
-    GameController.resumeGame();
     Time.real_scale_factor = 1.0f;
 
 
@@ -63,7 +62,6 @@ void CModuleGamePaused::onOptionContinue() {
 	CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
 	UI::CModuleUI& ui = Engine.getUI();
 	ui.unregisterController();
-    GameController.resumeGame();
 }
 
 void CModuleGamePaused::onOptionRestart() {
@@ -72,7 +70,7 @@ void CModuleGamePaused::onOptionRestart() {
 	Time.real_scale_factor = 1.0f;
 	UI::CModuleUI& ui = Engine.getUI();
 	ui.unregisterController();
-	//GameController.loadCheckpoint();
+	GameController.loadCheckpoint();
 
 }
 

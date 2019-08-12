@@ -34,9 +34,6 @@ void TCompSkelLookAtDirection::update(float dt) {
     // make the target smoothly change between positions
   //c_trans->getPosition() + (c_trans->getFront() * chargeSpeed * chargeDuration);
   TCompTransform* c_trans = get<TCompTransform>();
-  if (c_trans == nullptr) {
-	  return;
-  }
     VEC3 new_target = c_trans->getPosition() + (dir * positionOffset);
     target = target * target_transition_factor + new_target * (1.0f - target_transition_factor);
 

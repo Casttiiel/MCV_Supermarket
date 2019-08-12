@@ -100,8 +100,8 @@ public:
     assert(new_resource);
     assert(!new_resource->getName().empty());
     std::string name = new_resource->getName();
-    // The resource MUST be unique by name (or they are registering exactly the same resource)
-    assert(!exists(name) || all_resources[name] == new_resource );
+    // The resource MUST be unique by name
+    assert(!exists(name));
     all_resources[name] = new_resource;
   }
 

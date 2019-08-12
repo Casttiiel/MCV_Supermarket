@@ -28,12 +28,9 @@ public:
 	void load(const json& j, TEntityParseContext& ctx);
 	void debugInMenu();
 	static void registerMsgs();
-	void launch();
-	VEC3 getForceFrom(VEC3 fromPos, VEC3 toPos);
 	TCompCollider* c_collider;
 	TCompTransform* c_trans;
 	float explosion_radius = 2.f;
-	float fly_time = 1.5f;
 	//bool flagColision = false; //quizas cambiar
 	//
 	//float final_time_explosion = 10.f;//cambiar

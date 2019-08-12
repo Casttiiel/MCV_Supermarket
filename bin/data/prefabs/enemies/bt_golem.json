@@ -4,38 +4,72 @@
 			"transform": {
 				"pos": "0 0 0"
 			},
-			"name": "Golem000",
+			"name": "Sushi000",
 			"collider": {
 				"shape": "capsule",
 				"controller": true,
 				"radius": 0.5,
 				"height": 0.8,
-				"group": "golem",
+				"group": "sushi",
 				"mask": "all"
 			},
 			"render": {
-			"mesh": "data/skeletons/golem1/golem1.mesh",
-			"color": "1.0 1.0 1.0 1.0",
-			"material": "data/materials/golem_material/Material_golem.material"
+				"mesh": "data/skeletons/ourSushi/ourSushi.mesh",
+				"color": "1.0 1.0 1.0 1.0",
+				"material": "data/materials/suhiMaterial.material"
 			},
 			"rigidbody": {},
 			"armature": {
 				"_unscaledTime": false,
-				"src": "data/skeletons/golem1/golem1.skeleton"
+				"src": "data/skeletons/ourSushi/ourSushi.skeleton"
 			},
 			"local_aabb": {},
 			"abs_aabb": {},
-			"golem_animator": {},
+			"sushi_animator": {},
 			"comp_checkpoint_register":{
-			  "prefab": "data/prefabs/enemies/bt_golem.json",
-			  "entityTypeString": "GOLEM"
+			  "prefab": "data/prefabs/enemies/bt_sushi.json",
+			  "entityTypeString": "SUSHI"
 			},
-			"bt_golem": {
+			"bt_sushi": {
+				"use_navmesh": false,
+				"_initiallyPaused": true,
+				"halfCone": 45.0,
+				"hearingRadius": 10.0,
+				"combatViewDistance": 50.0,
+				"viewDistance": 30.0,
+				"life": 150,
+				"patrolSpeed": 1.0,
+				"chaseSpeed": 3.5,
+				"rotationSpeed": 170.0,
+				"damageStunDuration": 0.5,
+				"damageStunBackwardsSpeed": 2.5,
+				"distanceCheckThreshold": 0.7,
+				"randomDelay": 3.0,
+				"meleeComboProbability": 90,
+				"melee1Damage": 10.0,
+				"melee2Damage": 10.0,
+				"melee3Damage": 20.0,
+				"meleeDistance": 1.5,
+				"meleeDelay": 1.0,
+				"chargeProbability": 40,
+				"chargeSpeed": 20.0,
+				"chargeDamage": 20.0,
+				"chargeDelay": 1.0,
+				"chargeDuration": 0.7,
+				"jumpChargeProbability": 20,
+				"jumpSpeed": 4.0,
+				"jumpHeight": 4.0,
+				"jumpChargeSpeed": 6.0,
+				"jumpChargeDamage": 20.0,
+				"saluteProbability": 30,
+				"saluteDuration": 2.0,
+				"blockProbability": 25,
+				"blockDuration": 2.0,
+				"orbitProbability": 90,
+				"orbitSpeed": 2.5,
+				"_fearSpeed": 5.5,
+				"_fearDuration": 2.0
 			},
-      		"bone_tracker_golem":{
-		        "bone": "antebrazo_izq",
-		        "parent": "golem1"
-      		},
 			"tags": [
 				"enemy"
 			]

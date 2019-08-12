@@ -72,12 +72,8 @@ private:
   Vector3 nextPoint;
   VEC3 impulse = VEC3();
 
-	//curve values
   const CCurve* _curve = nullptr;
   std::vector<VEC3> _knots;
-	float	mTravelTime = 0.22f;
-	float ratio = 0.f;
-	//end curve values
   enum class States {
     undefined = 0,
     NextWaypoint,
@@ -106,7 +102,7 @@ private:
   //navmesh values
   bool use_navmesh = false;
   float reevaluatePathTimer = 0;
-  float reevaluatePathDelay = 0.1;
+  float reevaluatePathDelay = 1.0;
   int navMeshIndex = 0;
   Vector3 nextNavMeshPoint = VEC3().Zero;
   std::vector<VEC3> navmeshPath;
@@ -120,19 +116,18 @@ private:
   float hearing_radius = 3.0f;
   float combatViewDistance = 30.0f;
   float viewDistance = 15.f;
-	float height_range = 3.0f;
   //End View Ranges
 
   //Core Values
   float life = 100.f;
   float patrolSpeed = 1.0f;
-  float chaseSpeed = 3.0f;
+  float chaseSpeed = 4.0f;
   float rotationSpeed = 90.0f;
   float damageStunDuration = 0.5f;
   float damageStunTimer = 0.f;
   bool damaged = false;
   float damageStunBackwardsSpeed = 1.5f;
-  float distanceCheckThreshold = 1.0f;
+  float distanceCheckThreshold = 0.5f;
   float randomTimer = 0.f;
   float randomDelay = 2.f;
   bool _initiallyPaused = false;
@@ -169,7 +164,7 @@ private:
 
   //Jump Charge Values
   VEC3 jumpPosition = VEC3().Zero;
-  int jumpChargeProbability = 30;//30
+  int jumpChargeProbability = 30;
   float jumpSpeed = 3.0f;
   float jumpHeight = 5.0f;
   float jumpChargeSpeed = 5.0f;
@@ -248,23 +243,21 @@ private:
   bool rollDiceJumpCharge();
   bool rollDice(int probability);
   void generateNavmesh(VEC3 initPos, VEC3 destPos, bool recalc);
-	bool checkHeight();
+
 
   //Flags
   bool inCombat = false;
   bool blocking = false;
-  bool nopath = false;
+
   //Blackboard
   bool player_dead = false;
 	bool slotsAvailable = false;
   bool checkBlackboard();
-	float resetSlotDuration = 5.0f;
-	float resetSlotTimer = 0.0f;
 
   //attack
   float impactForceAttack = 8.0f;
   float impactReceived;
-  bool isPlayerInNavmesh();
+
 
   
 

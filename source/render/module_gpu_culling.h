@@ -18,7 +18,7 @@ class CModuleGPUCulling : public IModule {
     VEC3      aabb_center;    // AABB
     uint32_t  prefab_idx;     // In the array of prefabs
     VEC3      aabb_half;
-    uint32_t  unique_id = -1;
+    uint32_t  dummy2;
     MAT44     world;          // Matrix
   };
 
@@ -109,7 +109,6 @@ class CModuleGPUCulling : public IModule {
   uint32_t                      max_render_types = 0;
   uint32_t                      max_prefabs = 0;
 
-  void updateCamera();
   void updateCullingPlanes(const CCamera& camera);
   void clearRenderDataInGPU();
   void preparePrefabs();
@@ -132,10 +131,6 @@ public:
   void renderDebug() override;
   void renderInMenu() override;
   void renderCategory(eRenderCategory category);
-  void setDirty() { is_dirty = true; }
-  void updateObjData(int idx, CHandle entity);
-  int getObjSize() { return objs.size(); }
-  void parseEntities(const std::string& filename, TEntityParseContext& ctx);
 
 };
 

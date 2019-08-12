@@ -11,7 +11,7 @@
 #include "engine.h"
 #include "components/common/comp_id.h"
 
-#include "input/input.h"
+#include "PxPhysicsAPI.h"
 
 
 using namespace physx;
@@ -102,59 +102,60 @@ void CAIMobilePlatform::InitRotationInfinity() {
 
 
 void CAIMobilePlatform::TurnInfinity(float dt) {
+	/*float yaw, pitch, roll = 0.f;
+	TCompTransform* c_trans = get<TCompTransform>();
+	c_trans->getAngles(&yaw, &pitch);
+	float yaw_deg = rad2deg(yaw);
+	
+	yaw = deg2rad(yaw_deg);
+	c_trans->setAngles(yaw + dt * mRotationSpeed, pitch);
+	TCompCollider* c_col = get<TCompCollider>();
+	physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+	PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+	PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+	PxTransform tr(pos, ori);
+	rigid_dynamic->setKinematicTarget(tr);*/
+
 	TCompTransform* c_trans = get<TCompTransform>();
 	
+
 	if (direction == 0) {
-		//ralentiza con el cafe pero el giro del pitch al llegar a 90 grados se queda quieto 
-		TCompCollider* c_col = get<TCompCollider>();
-		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-		float yaw, pitch, roll;
-		
-		c_trans->getAngles(&yaw, &pitch, &roll);
-		if (axis.x == 1 && axis.y == 0 && axis.z == 0) {//en el json el axis
-			c_trans->setAngles(yaw + dt * rotationTime, pitch, roll); //ok funciona
+		if (rotationTimeActual > 0) {
+			rotationTimeActual--;
 		}
-		else if (axis.x == 0 && axis.y == 1 && axis.z == 0) {
-			//ko solo gira hasta llegar, a 90 grados
-			//c_trans->setAngles(yaw,pitch + (dt * rotationTime), roll);
-			
-			
-			QUAT angle = QUAT::CreateFromAxisAngle(VEC3(0, 1, 0), dt * rotationTime);
-			c_trans->setRotation(angle * c_trans->getRotation());
-			
+		else {
+			QUAT result;
+			QUAT actual = c_trans->getRotation();
+			QUAT angle = QUAT::CreateFromAxisAngle(axis, deg2rad(i_ang));
+			result = QUAT::Slerp(actual, angle, 1);
+			TCompCollider* c_col = get<TCompCollider>();
+			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+			PxQuat ori = QUAT_TO_PXQUAT(result);
+			PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+			i_ang++;
+			PxTransform tr(pos, ori);
+			rigid_dynamic->setKinematicTarget(tr);
+			rotationTimeActual = rotationTime;
 		}
-		else if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
-			c_trans->setAngles(yaw, pitch, roll + dt * rotationTime); //OK funciona
-		}
-		
-		PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
-		PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
-		PxTransform tr(pos, ori);
-		rigid_dynamic->setKinematicTarget(tr);
-		//dbg("Pitch:%f\n", rad2deg(pitch));
 	}
 	else {
-		TCompCollider* c_col = get<TCompCollider>();
-		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-		float yaw, pitch, roll;
-		c_trans->getAngles(&yaw, &pitch, &roll);
-		if (axis.x == 1 && axis.y == 0 && axis.z == 0) {//en el json el axis
-			c_trans->setAngles(yaw - dt * rotationTime, pitch, roll); //OK funciona
+		if (rotationTimeActual > 0) {
+			rotationTimeActual--;
 		}
-		else if (axis.x == 0 && axis.y == 1 && axis.z == 0) {
-			//c_trans->setAngles(yaw, pitch - dt * rotationTime, roll); //KO solo gira hasta llegar, a 90 grados <-TODO->
-			QUAT angle = QUAT::CreateFromAxisAngle(VEC3(0, 1, 0), -dt * rotationTime);
-			c_trans->setRotation(angle * c_trans->getRotation());
-
+		else {
+			QUAT result;
+			QUAT actual = c_trans->getRotation();
+			QUAT angle = QUAT::CreateFromAxisAngle(axis, deg2rad(i_ang));
+			result = QUAT::Slerp(actual, angle, 1);
+			TCompCollider* c_col = get<TCompCollider>();
+			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+			PxQuat ori = QUAT_TO_PXQUAT(result);
+			PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+			i_ang--;
+			PxTransform tr(pos, ori);
+			rigid_dynamic->setKinematicTarget(tr);
+			rotationTimeActual = rotationTime;
 		}
-		else if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
-			c_trans->setAngles(yaw, pitch, roll - dt * rotationTime); //OK funciona	
-		}
-
-		PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
-		PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
-		PxTransform tr(pos, ori);
-		rigid_dynamic->setKinematicTarget(tr);
 	}
 	
 }
@@ -166,6 +167,7 @@ void CAIMobilePlatform::InitRotation() {
 	AddState("WAIT", (statehandler)&CAIMobilePlatform::WaitState);
 
 	TCompTransform* c_trans = get<TCompTransform>();
+
 	ChangeState("TURN");
 }
 
@@ -174,85 +176,55 @@ void CAIMobilePlatform::Turn(float dt) {
 	TCompTransform* c_trans = get<TCompTransform>();
 	
 	
-	if (firstTimeRotateDegree) {
 
-		float yaw_init, pitch_init, roll_init;
-		c_trans->getAngles(&yaw_init, &pitch_init, &roll_init);
-		if (axis.x == 1 && axis.y == 0 && axis.z == 0) {
-			i_ang = yaw_init;
+	if (direction == 0) {
+		if (i_ang < angleTurn) {
+			if (rotationTimeActual > 0) {
+				rotationTimeActual--;
+			}
+			else {
+				QUAT result;
+				QUAT actual = c_trans->getRotation();
+				QUAT angle = QUAT::CreateFromAxisAngle(axis, deg2rad(i_ang));
+				result = QUAT::Slerp(actual, angle, 1);
+				TCompCollider* c_col = get<TCompCollider>();
+				physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+				PxQuat ori = QUAT_TO_PXQUAT(result);
+				PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+				i_ang++;
+				PxTransform tr(pos, ori);
+				rigid_dynamic->setKinematicTarget(tr);
+				rotationTimeActual = rotationTime;
+			}
 		}
-		else if (axis.x == 0 && axis.y == 1 && axis.z == 0) {
-			i_ang = pitch_init;
+	}
+	else {
+		angleTurn = angleTurn * -1;
+		if (i_ang > angleTurn) {
+			if (rotationTimeActual > 0) {
+				rotationTimeActual--;
+			}
+			else {
+				QUAT result;
+				QUAT actual = c_trans->getRotation();
+				QUAT angle = QUAT::CreateFromAxisAngle(axis, deg2rad(i_ang));
+				result = QUAT::Slerp(actual, angle, 1);
+				TCompCollider* c_col = get<TCompCollider>();
+				physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+				PxQuat ori = QUAT_TO_PXQUAT(result);
+				PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+				i_ang--;
+				PxTransform tr(pos, ori);
+				rigid_dynamic->setKinematicTarget(tr);
+				rotationTimeActual = rotationTime;
+			}
 		}
-		if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
-			i_ang = roll_init;
-		}
-		firstTimeRotateDegree = false;
 	}
 	
-	if (active) {
-		if (direction == 0) {
-			TCompCollider* c_col = get<TCompCollider>();
-			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-			float yaw, pitch, roll;
-			c_trans->getAngles(&yaw, &pitch, &roll);
-			if (axis.x == 1 && axis.y == 0 && axis.z == 0) {
-				if (i_ang <= deg2rad(angleTurn)) {
-					c_trans->setAngles(yaw + dt * rotationTime, pitch, roll);
-					i_ang = yaw + dt * rotationTime;
-					dbg("%f\n", rad2deg(i_ang));
-				}
-			}
-			else if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
-				if (i_ang <= deg2rad(angleTurn)) {
-					c_trans->setAngles(yaw , pitch,roll  + dt * rotationTime);
-					i_ang = roll + dt * rotationTime;
-					dbg("%f\n", rad2deg(roll));
-				}
-			}
-			else if (axis.x == 0 && axis.y == 1 && axis.z == 0) {
-				if (i_ang <= deg2rad(angleTurn)) {
-					QUAT rotate = QUAT::CreateFromAxisAngle(VEC3(0, 1, 0), dt * rotationTime);
-					c_trans->setRotation(rotate * c_trans->getRotation());
-					i_ang = pitch + dt * rotationTime;
-					dbg("%f\n", rad2deg(pitch));
-				}
-			}
-			PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
-			PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
-			PxTransform tr(pos, ori);
-			rigid_dynamic->setKinematicTarget(tr);
-		}
-		else {
-			TCompCollider* c_col = get<TCompCollider>();
-			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-			float yaw, pitch, roll;
-			c_trans->getAngles(&yaw, &pitch, &roll);
-			if (axis.x == 1 && axis.y == 0 && axis.z == 0) {
-				if (i_ang > deg2rad(angleTurn)) {
-					c_trans->setAngles(yaw - dt * rotationTime, pitch, roll);
-					i_ang = yaw - dt * rotationTime;
-					dbg("%f\n", rad2deg(yaw));
-				}
-			}
-			else if (axis.x == 0 && axis.y == 0 && axis.z == 1) {
-				if (i_ang > deg2rad(angleTurn)) {
-					c_trans->setAngles(yaw, pitch, roll - dt * rotationTime);
-					i_ang = roll - dt * rotationTime;
-					dbg("%f\n", rad2deg(roll));
-				}
-			}
-			else if (axis.x == 0 && axis.y == 1 && axis.z == 0) {
-				if (i_ang > deg2rad(angleTurn)) {
-					QUAT rotate = QUAT::CreateFromAxisAngle(VEC3(0, 1, 0), -dt * rotationTime);
-					c_trans->setRotation(rotate * c_trans->getRotation());
-					i_ang = pitch - dt * rotationTime;
-					dbg("%f\n", rad2deg(pitch));
-				}
-			}
-			dbg("%f\n", rad2deg(i_ang));
-		}
-	}
+	
+
+	
+	
 }
 
 
@@ -503,17 +475,11 @@ void CAIMobilePlatform::SeekwptTravelNotRotationState(float dt) {
 		TCompCollider* c_col = get<TCompCollider>();
 		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
 
-		/*if (ratio >= 1.0f || ratio < 0.0f) {
+		if (ratio >= 1.0f || ratio < 0.0f) {
 			mTravelTime = -mTravelTime;
-		}*/
-		if (ratio >= 1.0f) {
-			mTravelTime = -mTravelTime;
-			ratio = 1.0f;
 		}
-		if (ratio < 0.0f) {
-			mTravelTime = -mTravelTime;
-			ratio = 0.0f;
-		}
+		
+		
 		float yaw, pitch, roll = 0.f;
 		c_trans->getAngles(&yaw, &pitch);
 		nextPoint = _curve->evaluate(ratio);
@@ -527,94 +493,6 @@ void CAIMobilePlatform::SeekwptTravelNotRotationState(float dt) {
 	}
 }
 
-void CAIMobilePlatform::TurnInfinityNoDt(float dt) {
-	TCompTransform* c_trans = get<TCompTransform>();
-
-	if (direction == 0) {
-		if (rotationTimeActual > 0) {
-			rotationTimeActual--;
-		}
-		else {
-			QUAT result;
-			QUAT actual = c_trans->getRotation();
-			QUAT angle = QUAT::CreateFromAxisAngle(axis, deg2rad(i_ang));
-			result = QUAT::Slerp(actual, angle, 1);
-			TCompCollider* c_col = get<TCompCollider>();
-			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-			PxQuat ori = QUAT_TO_PXQUAT(result);
-			PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
-			i_ang++;
-			PxTransform tr(pos, ori);
-			rigid_dynamic->setKinematicTarget(tr);
-			rotationTimeActual = rotationTime;
-		}
-	}
-	else {
-		if (rotationTimeActual > 0) {
-			rotationTimeActual--;
-		}
-		else {
-			QUAT result;
-			QUAT actual = c_trans->getRotation();
-			QUAT angle = QUAT::CreateFromAxisAngle(axis, deg2rad(i_ang));
-			result = QUAT::Slerp(actual, angle, 1);
-			TCompCollider* c_col = get<TCompCollider>();
-			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-			PxQuat ori = QUAT_TO_PXQUAT(result);
-			PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
-			i_ang--;
-			PxTransform tr(pos, ori);
-			rigid_dynamic->setKinematicTarget(tr);
-			rotationTimeActual = rotationTime;
-		}
-	}
-}
-
-
-void CAIMobilePlatform::InitRotationInfinityNoDt() {
-	AddState("TURNINFNODT", (statehandler)&CAIMobilePlatform::TurnInfinityNoDt);
-	TCompTransform* c_trans = get<TCompTransform>();
-
-	ChangeState("TURNINFNODT");
-}
-
-
-
-void CAIMobilePlatform::ToPosition(float dt) {
-	if (active) {
-		TCompTransform* c_trans = get<TCompTransform>();
-		TCompCollider* c_col = get<TCompCollider>();
-		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-
-		/*if (ratio >= 1.0f || ratio < 0.0f) {
-			mTravelTime = -mTravelTime;
-		}*/
-		if (ratio >= 1.0f) {
-			//mTravelTime = -mTravelTime;
-			//ratio = 1.0f;
-			active = false;
-		}
-		if (ratio < 0.0f) {
-			mTravelTime = -mTravelTime;
-			ratio = 0.0f;
-		}
-		float yaw, pitch, roll = 0.f;
-		c_trans->getAngles(&yaw, &pitch);
-		nextPoint = _curve->evaluate(ratio);
-		ratio += dt * mTravelTime;
-		QUAT quat = c_trans->getRotation();
-		PxVec3 pos = VEC3_TO_PXVEC3(nextPoint);
-		PxQuat qua = QUAT_TO_PXQUAT(quat);
-		const PxTransform tr(pos, qua);
-		rigid_dynamic->setKinematicTarget(tr);
-
-	}
-}
-
-void CAIMobilePlatform::InitToPositionWithCurveNotRotation() {
-	AddState("TOPOSITION", (statehandler)&CAIMobilePlatform::ToPosition);
-	ChangeState("TOPOSITION");
-}
 
 
 
@@ -652,9 +530,6 @@ void CAIMobilePlatform::load(const json& j, TEntityParseContext& ctx) {
 		axis = loadVEC3(j, "axis");
 	}
 	active = j.value("active", active);
-
-	
-
 	if (platformType == POINT_TO_POINT) {//0
 		this->InitPoinToPoint();
 	}
@@ -662,10 +537,10 @@ void CAIMobilePlatform::load(const json& j, TEntityParseContext& ctx) {
 
 		this->InitTravel();
 	}
-	else if (platformType == ROTATION) {//2 ARREGLADO
+	else if (platformType == ROTATION) {//2
 		this->InitRotation();
 	}
-	else if (platformType == ROTATION_ALWAYS_WITH_TIME) {//3 ARREGLADO
+	else if (platformType == ROTATION_ALWAYS) {//3
 		this->InitRotationInfinity();
 	}
 	else if (platformType == POINT_TO_POINT_ROTATION_ALWAYS) {//4
@@ -677,19 +552,11 @@ void CAIMobilePlatform::load(const json& j, TEntityParseContext& ctx) {
 	else if (platformType == TRAVELLING_NOT_ROTATION) {//6
 		this->InitialPositionTravelStateNotRotation();
 	}
-	else if (platformType == TRAVELLING_ALWAYS_WITHOUT_TIME) { //7
-		this->InitRotationInfinityNoDt();
-	}
-	else if (platformType == TO_POSITION_WITH_CURVE_NOT_ROTATION) { //8
-		this->InitToPositionWithCurveNotRotation();
-	}
-
-
 	
 }
 
 void CAIMobilePlatform::debugInMenu() {
-	ImGui::Text("Curva: %s ", _curve->getName().c_str());
+	
 }
 
 void CAIMobilePlatform::renderDebug() {
@@ -734,21 +601,6 @@ void CAIMobilePlatform::onTriggerEnter(const TMsgEntityTriggerEnter& msg) {
 		e_trigger->sendMsg(msgToSend); //activa el area de damage
 	}
 
-}
-
-
-
-void CAIMobilePlatform::setCurve(const CCurve* curve) {
-
-	this->_curve = curve;
-	_knots = _curve->_knots;
-
-
-	/*
-	positions.clear();
-	for (int i = 0; i < _knots.size(); i++) {
-		positions.push_back(_knots[i]);
-	}*/
 }
 
 

@@ -38,7 +38,6 @@ struct TRawMesh {
   THeader                header;
   VMeshGroups            groups;
   AABB                   aabb;
-  bool                   aabb_is_valid = false;
 
   bool load(CDataProvider& dp);
   bool save(CDataSaver& ds);

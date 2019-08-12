@@ -27,7 +27,6 @@ public:
   void renderDebug();
   CHandle getCompByName(const char * comp_name);
   void set(uint32_t comp_type, CHandle new_comp);
-  void set(CHandle new_comp);
   void load(const json& j, TEntityParseContext& ctx);
 
   const char* getName() const;

@@ -34,11 +34,6 @@ VEC3 CTransform::getLeft() const {
   return -MAT44::CreateFromQuaternion(rotation).Left();
 }
 
-VEC3 CTransform::getRight() const {
-	return -MAT44::CreateFromQuaternion(rotation).Right();
-}
-
-
 void CTransform::fromMatrix(MAT44 mtx) {
   VEC3 scale3;
   bool is_valid = mtx.Decompose(scale3, rotation, position);
@@ -75,12 +70,10 @@ void CTransform::setAngles(float yaw, float pitch, float roll) {
   rotation = QUAT::CreateFromYawPitchRoll(yaw, pitch, roll);
 }
 
-
 bool CTransform::renderInMenu() {
   VEC3 front = getFront();
   VEC3 up = getUp();
   VEC3 left = getLeft();
-  VEC3 right = getRight();
 
   bool changed_pos = ImGui::DragFloat3("Pos", &position.x, 0.025f, -350.f, 350.f);
 
@@ -113,8 +106,6 @@ bool CTransform::renderInMenu() {
   ImGui::LabelText("Front", "%f %f %f", front.x, front.y, front.z);
   ImGui::LabelText("Up", "%f %f %f", up.x, up.y, up.z);
   ImGui::LabelText("Left", "%f %f %f", left.x, left.y, left.z);
-  ImGui::LabelText("Right", "%f %f %f", right.x, right.y, right.z);
-  ImGui::Text("Quat: %f %f %f %f", getRotation().x, getRotation().y, getRotation().z, getRotation().w);
   return changed | changed_pos | changed_scaled;
 }
 
@@ -216,15 +207,3 @@ void CTransform::inclineTo(VEC3 target_point) {
   p = deltaPitch;
   setAngles(y, p, r);
 }
-
-VEC3 CTransform::getTranslatePositionForAngle(VEC3 startPoint, float distance, float angle) {
-	float yaw, pitch, roll = 0.f;
-	getAngles(&yaw, &pitch);
-	float x = distance * sin(deg2rad(angle) + yaw);
-	float z = distance * cos(deg2rad(angle) + yaw);
-	VEC3 newPosition = startPoint;
-	newPosition.x += x;
-	newPosition.z += z;
-	return newPosition;
-}
-

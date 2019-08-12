@@ -33,7 +33,6 @@ bool TRawMesh::load(CDataProvider& dp) {
     case magicAABB:
       assert(chunk.nbytes == sizeof(AABB));
       dp.read(&aabb, chunk.nbytes);
-      aabb_is_valid = true;
       break;
 
     case magicGroups:
@@ -51,10 +50,6 @@ bool TRawMesh::load(CDataProvider& dp) {
     }
 
   }
-
-  // To be valid, we need to have read the magicAABB and the half size must be non-zero
-  if (aabb_is_valid && aabb.Extents.x == 0.f && aabb.Extents.y == 0.f && aabb.Extents.z == 0.f)
-    aabb_is_valid = false;
 
   return true;
 }
