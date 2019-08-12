@@ -1297,7 +1297,8 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
     {
         //TODO
         unLockableBattery = true;
-		//unLockableTeleport = true;
+		//llamada funcion de scripting para poder escapar
+		Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
         break;
     }
     case PowerUpType::ACTIVATE_CHILLI:

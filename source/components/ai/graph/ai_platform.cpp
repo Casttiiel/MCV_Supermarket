@@ -612,6 +612,7 @@ void CAIMobilePlatform::ToPosition(float dt) {
 }
 
 void CAIMobilePlatform::InitToPositionWithCurveNotRotation() {
+	mTravelTime = mTravelTime / 100;
 	AddState("TOPOSITION", (statehandler)&CAIMobilePlatform::ToPosition);
 	ChangeState("TOPOSITION");
 }

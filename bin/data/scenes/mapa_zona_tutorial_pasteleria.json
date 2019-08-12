@@ -1835,12 +1835,25 @@
       ,
       "transform":
       {
-        "pos": "423.327 -16.1008 132.263"
+        "pos": "423.327 -3.98918 132.263"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "abs_aabb": {}
+      ,
+      "local_aabb": {}
+      ,
+      "ai_platform_mobile":
+      {
+        "mTravelTime_": 50
+        ,
+        "curve": "data/curves/curva_plat_panaderia1346469.curve"
+        ,
+        "active": false
+        ,
+        "platformType_": 8
+      }
       ,
       "collider":
       {
@@ -1857,6 +1870,12 @@
             }
           }
         ]
+        ,
+        "dynamic": true
+        ,
+        "kinematic": true
+        ,
+        "platform": true
       }
       ,
       "render":
@@ -1867,7 +1886,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+          "data/materials/mapa_zona_tutorial_pasteleria/interactive.material"
         ]
       }
     }
@@ -1880,12 +1899,25 @@
       ,
       "transform":
       {
-        "pos": "416.197 -14.6691 132.263"
+        "pos": "416.197 -3.98899 132.263"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "abs_aabb": {}
+      ,
+      "local_aabb": {}
+      ,
+      "ai_platform_mobile":
+      {
+        "mTravelTime_": 50
+        ,
+        "curve": "data/curves/curva_plat_panaderia1346470.curve"
+        ,
+        "active": false
+        ,
+        "platformType_": 8
+      }
       ,
       "collider":
       {
@@ -1902,6 +1934,12 @@
             }
           }
         ]
+        ,
+        "dynamic": true
+        ,
+        "kinematic": true
+        ,
+        "platform": true
       }
       ,
       "render":
@@ -1912,7 +1950,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+          "data/materials/mapa_zona_tutorial_pasteleria/interactive.material"
         ]
       }
     }
@@ -1925,12 +1963,25 @@
       ,
       "transform":
       {
-        "pos": "409.228 -13.1773 132.263"
+        "pos": "409.228 -3.98899 132.263"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "abs_aabb": {}
+      ,
+      "local_aabb": {}
+      ,
+      "ai_platform_mobile":
+      {
+        "mTravelTime_": 50
+        ,
+        "curve": "data/curves/curva_plat_panaderia1346471.curve"
+        ,
+        "active": false
+        ,
+        "platformType_": 8
+      }
       ,
       "collider":
       {
@@ -1947,6 +1998,12 @@
             }
           }
         ]
+        ,
+        "dynamic": true
+        ,
+        "kinematic": true
+        ,
+        "platform": true
       }
       ,
       "render":
@@ -1957,7 +2014,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
+          "data/materials/mapa_zona_tutorial_pasteleria/interactive.material"
         ]
       }
     }
@@ -2674,6 +2731,33 @@
         [
           "data/materials/mapa_zona_tutorial_pasteleria/blanco.material"
         ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraPanaderiaPlat"
+      ,
+      "transform":
+      {
+        "pos": "405.713 -7.11379 185.576"
+        ,
+        "rotation": "-0.699286 0.0892493 -0.0886919 -0.703681"
+        ,
+        "lookat": "416.748 -7.39074 142.775"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 44.2019
       }
     }
   }
