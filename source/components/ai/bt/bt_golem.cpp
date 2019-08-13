@@ -443,7 +443,7 @@ bool CBTGolem::conditionView()
 		return false;
 	}
 	//en realidad, al estar scripteado el isView deja de ser necesario
-	return isView() || golemCinematic; //si es un golem activado por cinematica siempre te ve hasta que se desactive
+	return isView(); /*|| golemCinematic; */ //si es un golem activado por cinematica siempre te ve hasta que se desactive()
 }
 
 bool CBTGolem::conditionCinematic()
