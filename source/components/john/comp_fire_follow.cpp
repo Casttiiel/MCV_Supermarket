@@ -17,50 +17,37 @@ void TCompFireFollow::load(const json& j, TEntityParseContext& ctx) {
 
 void TCompFireFollow::update(float delta) {
   CEntity* en = getEntityByName("Player");
-  if (!en)
+  CEntity* ex = getEntityByName("Anti_extintor");
+  if (!en && !ex)
       return;
-  TCompTransform* c_trans_pl = en->get<TCompTransform>();
+  TCompTransform* c_trans_pl = ex->get<TCompTransform>();
+  //emision position
 
-  TCompCollider* comp_collider = en->get<TCompCollider>();
-  if (!comp_collider || !comp_collider->controller)
-    return;
+  TCompBuffers* c_buff = get<TCompBuffers>();
+  if (c_buff) {
+    auto buf = c_buff->getCteByName("TCtesParticles");
+    CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
+    data->emitter_center = c_trans_pl->getPosition();
 
-  float attackHeight = (float)comp_collider->controller->getHeight();
-  float playerRadius = (float)comp_collider->controller->getRadius();
+    TCompCharacterController* p_contr = en->get<TCompCharacterController>();
+    if (p_contr->aiming) { //emision direction
+      CEntity* cam = getEntityByName("PlayerCamera");
+      TCompTransform* cam_trans = cam->get<TCompTransform>();
+      data->emitter_dir = cam_trans->getFront();
+    }
 
-  TCompTransform* c_trans = get<TCompTransform>();
-  c_trans->setPosition(c_trans_pl->getPosition() + VEC3(0.f, attackHeight, 0.f) + (c_trans_pl->getFront() * (playerRadius)));
+    //bool emision
+    TCompFireController* c_fire = en->get<TCompFireController>();
+    TCompRender* c_render = get<TCompRender>();
+    if (c_fire->isEnabled()) {
+      data->emitter_num_particles_per_spawn = 4;
+    }
+    else {
+      data->emitter_num_particles_per_spawn = 0;
+    }
 
-  //get yaw from player
-  float p_yaw, p_pitch;
-  c_trans_pl->getAngles(&p_yaw, &p_pitch);
-
-  float yaw, pitch;
-  c_trans->getAngles(&yaw, &pitch);
-
-  pitch = p_pitch;
-  //get pitch from camera if it is aiming
-
-  TCompCharacterController* p_contr = en->get<TCompCharacterController>();
-  if (p_contr->aiming) {
-    CEntity* cam = getEntityByName("PlayerCamera");
-    TCompTransform* cam_trans = cam->get<TCompTransform>();
-    float c_yaw, c_pitch;
-    cam_trans->getAngles(&c_yaw, &c_pitch);
-    pitch = c_pitch;
+    data->updateGPU();
   }
-
-  c_trans->setAngles(p_yaw, pitch);
-
-  TCompFireController* c_fire = en->get<TCompFireController>();
-  TCompRender* c_render = get<TCompRender>();
-  if (c_fire->isEnabled()) {
-    c_render->is_visible = true;
-  }
-  else {
-    c_render->is_visible = false;
-  }
-  c_render->updateRenderManager();
 }
 
 
