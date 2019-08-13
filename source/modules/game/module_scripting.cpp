@@ -145,6 +145,7 @@ void CModuleScripting::BindGameController() {
 		.set("entityByName", &CModuleGameController::entityByName)
 		.set("dbgInLua", &CModuleGameController::dbgInLua)
 		.set("setHeightEnemyByHandle", &CModuleGameController::setHeightEnemyByHandle)
+		.set("saveCheckpoint", &CModuleGameController::saveCheckpoint)
 		;
 }
 
@@ -154,7 +155,8 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompSkelLookAt", SLB::FuncCall::create(&toCompSkelLookAt));
 	m->set("toCompMorphAnimation", SLB::FuncCall::create(&toCompMorphAnimation));//toCompMorphAnimation
 	m->set("toCompEnemiesInTube", SLB::FuncCall::create(&toCompEnemiesInTube));
-	m->set("toCompName", SLB::FuncCall::create(&toCompName)); 
+	m->set("toCompName", SLB::FuncCall::create(&toCompName));
+	m->set("toCompTransform", SLB::FuncCall::create(&toCompTransform));
 }
 
 void CModuleScripting::BindCharacterController() {
@@ -246,7 +248,7 @@ void CModuleScripting::BindHandle() {
 }
 
 void CModuleScripting::BindTransform() {
-	SLB::Class <TCompTransform>("CTransform", m)
+	SLB::Class <TCompTransform>("TCompTransform", m)
 		.comment("CTransform wrapper")
 		.constructor()
 		.set("setPosition", &TCompTransform::setPosition)

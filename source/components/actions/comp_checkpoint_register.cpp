@@ -60,6 +60,9 @@ void TCompCheckpointRegister::load(const json& j, TEntityParseContext& ctx) {
 	else if (strcmp("GRENADE_GOLEM", entityTypeString.c_str()) == 0) {
 		entityType = EntityType::GRENADE_GOLEM;
 	}
+	else if (strcmp("BUTCHER_TRAP", entityTypeString.c_str()) == 0) {
+		entityType = EntityType::BUTCHER_TRAP;
+	}
     assert(prefab != "UNDEFINED");
     assert(entityTypeString != "UNDEFINED");
     assert(entityType != UNDEFINED);

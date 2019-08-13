@@ -11,6 +11,7 @@
 #include "modules/game/audio/audioEvent.h"
 #include "components/animation/comp_morph_animation.h"
 #include "components/controllers/comp_enemies_in_tube.h"
+#include "components/common/comp_transform.h"
 
 class CCheckpoint;
 class CModuleGameplayFragment;
@@ -240,4 +241,4 @@ TCompSkelLookAt* toCompSkelLookAt(CHandle h);
 TCompMorphAnimation* toCompMorphAnimation(CHandle h);
 TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 TCompName* toCompName(CHandle h);
-
+TCompTransform* toCompTransform(CHandle h);

@@ -14,7 +14,6 @@
 #include "components/common/comp_tags.h"
 #include "input/module_input.h"
 #include "components/common/physics/comp_rigid_body.h"
-#include "components/common/comp_transform.h"
 #include "components/ai/bt/bt_sushi.h"
 #include "modules/gameplay_fragments/module_ambush.h"
 #include "components/ai/bt/bt_ranged_sushi.h"
@@ -755,6 +754,11 @@ TCompMorphAnimation* toCompMorphAnimation(CHandle h) {
 TCompName* toCompName(CHandle h) {
 	TCompName* n = h;
 	return n;
+}
+
+TCompTransform* toCompTransform(CHandle h) {
+	TCompTransform* t = h;
+	return t;
 }
 
 

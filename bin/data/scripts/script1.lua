@@ -480,6 +480,9 @@ function activePlataformCarniceria_player()
 
 	--Audio
 	GameController:updateSoundtrackID(5);
+	--saveCheckpointPrueba
+	
+	
 end
 
 
@@ -514,6 +517,7 @@ function caidaSuishisPisos_enemy(name)
 end
 
 function trampaSushisButcher_player()
+	execDelayedAction("saveCheckpoint()",0.0);
 	--por si queremos poner cinematicas enfocando el fuego o hacer que empiece a llamear el ascensor
 end
 
@@ -541,4 +545,14 @@ end
 --Prueba carga de escena desde trigger, de momento carga NAVMESH
 function changeScene(name)
 	GameController:loadScene(name);
+end
+
+
+
+function saveCheckpoint()
+	handlePlayer = GameController:getPlayerHandle();
+	t_compTranf = toCompTransform(toEntity(handlePlayer):getCompByName("transform"));
+	pos = VEC3(t_compTranf:getPosition().x,t_compTranf:getPosition().y,t_compTranf:getPosition().z);
+	rot = QUAT(t_compTranf:getRotation().x,t_compTranf:getRotation().y,t_compTranf:getRotation().z,t_compTranf:getRotation().w);
+	GameController:saveCheckpoint(pos, rot);
 end
