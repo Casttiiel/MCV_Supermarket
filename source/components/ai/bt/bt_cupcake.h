@@ -80,7 +80,7 @@ public:
 	bool isView(float distance);
 
 	void generatePoints();
-
+	void renderDebug();
 
 	int damage = 10;
 	int fireDamage = 15;

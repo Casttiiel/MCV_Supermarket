@@ -1177,3 +1177,32 @@ void CBTCupcake::setLengthCone(float length_cone) {
 void CBTCupcake::setHalfCone(float half_cone) {
 	this->half_cone = half_cone;
 }
+
+void CBTCupcake::renderDebug() {
+	TCompTransform* c_trans = get<TCompTransform>();
+	TCompRender* c_render = get<TCompRender>();
+	Vector3 front = c_trans->getFront();
+	Vector3 pos = c_trans->getPosition();
+	float angle = deg2rad(half_cone);
+
+	//Create a rotation matrix with the angle
+	Matrix aux_cone_1 = Matrix::CreateRotationY(angle);
+	Matrix aux_cone_2 = Matrix::CreateRotationY(-angle);
+
+	//Create two vectors to store the result
+	Vector3 half_cone_1, half_cone_2;
+
+	//We rotate the vector "front" with the matrix "aux_cone_X" into "half_cone_X"
+	Vector3::Transform(front, aux_cone_1, half_cone_1);
+	Vector3::Transform(front, aux_cone_2, half_cone_2);
+	half_cone_1.Normalize();
+	half_cone_2.Normalize();
+
+	
+	drawCircle(pos, enemyRadiousView, c_render->color);
+	drawLine(pos, pos + half_cone_1 * length_cone, c_render->color);
+	drawLine(pos, pos + half_cone_2 * length_cone, c_render->color);
+	drawLine(pos + half_cone_1 * length_cone, pos + half_cone_2 * length_cone, c_render->color);
+	
+	
+}
