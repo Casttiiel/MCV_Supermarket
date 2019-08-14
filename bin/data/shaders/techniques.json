@@ -463,6 +463,14 @@
       "TCtesAimCurve": 13
     }
   },
+  "aimline" : {
+    "vs_fx": "data/shaders/aim_line.fx",
+    "vdecl": "PosNUvT",
+    "blend" : "combinative",
+    "ctes_buffers": {
+      "TCtesAimLineScanner": 13
+    }
+  },
   "smoke": {
     "vs_fx": "data/shaders/smoke.fx",
     "vdecl": "PosNUvT",
