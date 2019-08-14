@@ -1166,8 +1166,14 @@ void CBTCupcake::setCurve(const CCurve* curve) {
 
 	this->_curve = curve; // TO TEST
 	_knots = _curve->_knots;
-
+	this->pathCurve = curve->getName();
 }
+
+
+std::string CBTCupcake::getNameCurve() {
+	return pathCurve;
+}
+
 
 
 void CBTCupcake::setLengthCone(float length_cone) {

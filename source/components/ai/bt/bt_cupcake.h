@@ -92,7 +92,7 @@ public:
 	const CCurve* _curve = nullptr;
 	std::vector<VEC3> _knots;
 	//END CURVE VALUES
-
+	std::string getNameCurve();
 private:
     AudioEvent voice;
 
@@ -240,6 +240,10 @@ private:
 
 	CHandle h_sender;
 	CHandle h_bullet;
+
+	std::string pathCurve = "";
+
+
 };
 
 

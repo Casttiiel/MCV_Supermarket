@@ -178,6 +178,7 @@ void CBTRangedSushi::setCurve(const CCurve* curve) {
 
 	this->_curve = curve; // TO TEST
 	_knots = _curve->_knots;
+	this->pathCurve = curve->getName();
 	/*_knots = curve->_knots;
 
 	positions.clear();
@@ -1852,4 +1853,8 @@ bool CBTRangedSushi::checkHeight() {
 	}
 
 	return res;
+}
+
+std::string CBTRangedSushi::getNameCurve() {
+	return pathCurve;
 }

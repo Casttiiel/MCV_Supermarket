@@ -182,7 +182,7 @@ void CBTSushi::setCurve(const CCurve* curve) {
 	
 	this->_curve = curve; // TO TEST
 	_knots = _curve->_knots;
-
+	this->pathCurve = curve->getName();
 	/*
 		_knots = curve->_knots;
 
@@ -191,10 +191,13 @@ void CBTSushi::setCurve(const CCurve* curve) {
 		positions.push_back(_knots[i]);
 	}
 	*/
-
-	
-
 }
+
+string CBTSushi::getNameCurve() {
+	return pathCurve;
+}
+
+
 
 void CBTSushi::setHeightRange(float height) {
 	this->height_range = height;
@@ -1545,6 +1548,7 @@ void CBTSushi::load(const json& j, TEntityParseContext& ctx) {
 
     //define curve
     if (j.count("curve") > 0) {
+		pathCurve = j.value("curve", "");
         _curve = Resources.get(j.value("curve", ""))->as<CCurve>();
     }
 

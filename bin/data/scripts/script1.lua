@@ -258,10 +258,12 @@ end
 
 
 function createEnemies_player()
+
+
 	execDelayedAction("changeScene(\"asiatic_scene\")",0);
-	--h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(102,-0.193,100), QUAT(0, 0, 0, 1),1);
-	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica1",h_suishi1);
-	--GameController:setPauseEnemyByHandle(h_suishi1,false);
+	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(102,-0.193,100), QUAT(0, 0, 0, 1),1);
+	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica1",h_suishi1);
+	GameController:setPauseEnemyByHandle(h_suishi1,false);
 	
 	--h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(86,-0.193,85), QUAT(0, 0, 0, 1),1);
 	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica2",h_suishi2);
@@ -316,7 +318,8 @@ function createEnemies_player()
 	--GameController:setPauseEnemyByHandle(h_suishi14,true);
 	--h_suishi15 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(71,-0.193,61), QUAT(0, 0, 0, 1),1);
 	--GameController:setPauseEnemyByHandle(h_suishi15,true);
-	execDelayedAction("changeScene(\"asiatic_scene\")",0);
+	
+	
 	execDelayedAction("on_delete_handle(\"trigger2\")",0);
 
 
