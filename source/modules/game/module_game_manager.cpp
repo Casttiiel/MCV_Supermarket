@@ -38,6 +38,9 @@ void CModuleGameManager::updateGameCondition() {
 	if (e_player != nullptr) {
 		TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
 		if (c_controller->life <= 0) {
+
+			menuDead = true;
+
 			window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;
 			float window_size_width = 300;
 			float window_size_height = 55;
@@ -46,6 +49,8 @@ void CModuleGameManager::updateGameCondition() {
 			ImGui::Begin("Game Over", nullptr, window_flags);
 			ImGui::Text("GAME OVER, press key T for continue");
 			ImGui::End();
+
+			
 		}
 		if (c_controller->endGame) {
 			window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;

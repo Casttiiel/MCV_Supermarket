@@ -19,5 +19,8 @@ public:
 
 private:
 	void updateGameCondition();
+
+
+	bool menuDead = false;
 };
 
