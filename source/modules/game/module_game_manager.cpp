@@ -12,15 +12,29 @@
 bool CModuleGameManager::start()
 {
 	
+	isPaused = false; //estamos pausados por ganar, perder o menu pausa
+	victoryMenu = false; //el menu de ganar
+	menuDead = false; // el menu de muerte
+	menuVisible = false; ;//el menu dentro dl juego
+	
+	//no mostrar puntero raton
+
+	window_flags = 0;
+	window_flags |= ImGuiWindowFlags_NoMove;
+	window_flags |= ImGuiWindowFlags_NoResize;
+	window_flags |= ImGuiWindowFlags_NoCollapse;
+	window_flags |= ImGuiWindowFlags_NoScrollbar;
+	windowWidth = 250;
+	windowHeight = 70;
+	
 
 
-
-  return true;
+	return true;
 }
 
 void CModuleGameManager::update(float delta)
 {
-	updateGameCondition();
+	gameCondition();
 	
 }
 
@@ -29,18 +43,18 @@ void CModuleGameManager::stop()
 
 }
 
-void CModuleGameManager::updateGameCondition() {
-	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize
+void CModuleGameManager::gameCondition() {
+	/*ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize
 		| ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
-		| ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoInputs;
+		| ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoInputs;*/
 	CHandle h_player = getEntityByName("Player");
 	CEntity * e_player = h_player;
 	if (e_player != nullptr) {
 		TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
 		if (c_controller->life <= 0) {
 
-			menuDead = true;
-
+			
+			/*
 			window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;
 			float window_size_width = 300;
 			float window_size_height = 55;
@@ -48,12 +62,22 @@ void CModuleGameManager::updateGameCondition() {
 			ImGui::SetNextWindowSize(ImVec2(window_size_width, window_size_height));
 			ImGui::Begin("Game Over", nullptr, window_flags);
 			ImGui::Text("GAME OVER, press key T for continue");
-			ImGui::End();
+			ImGui::End();*/
+
+
+			
+			menuDead = true;
+			
+
+			TMsgGamePause msg;
+			msg.isPause = true;
+			msg.playerDead = true;
+
 
 			
 		}
 		if (c_controller->endGame) {
-			window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;
+			/*window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;
 			float window_size_width = 500;
 			float window_size_height = 55;
 			ImGui::SetNextWindowPos(ImVec2(Render.width / 2 - window_size_width / 2, Render.height / 2 - window_size_height / 2));
@@ -62,13 +86,45 @@ void CModuleGameManager::updateGameCondition() {
 			ImGui::Text("Congratulations , the game has finished.\nPress ESC to exit the game.");
 			auto& app = CApplication::get();
 
+			
+			
+
 			if (EngineInput["exitGame_"].justPressed()) {
 				DestroyWindow(app.getHandle());
 			}
-			ImGui::End();
+			ImGui::End();*/
+			victoryMenu = true;
 		}
 
 	}
+	
+	if (!isPaused && EngineInput["pause"].justPressed() || (!menuVisible && CApplication::get().lostFocus())) {
+		
+	
+		//juego en pausa y jugador vivo
+
+		isPaused = true;
+		CApplication::get().setLostFocus(false);
+
+		//envio de mensaje de pausa
+		TMsgGamePause msg;
+		msg.isPause = true;
+		msg.playerDead = false;
+
+		// hacemos visualizar puntero en el menu
+		
+
+		menuVisible = true;
+	}
+	else if (isPaused && EngineInput["pause"].justPressed()) {
+
+		//jugador no muerto y juego en pausa
+		exitPauseGame();//quitamos pausa
+	}
+
+	
+
+	
 }
 
 
@@ -82,4 +138,112 @@ void CModuleGameManager::renderInMenu()
 void CModuleGameManager::renderDebug()
 {
 
+	
+	VEC2 menu_position = VEC2(float(CApplication::get().width_app) * .5f - (windowWidth * .5f), CApplication::get().height_app * .5f - (windowHeight * .5f));
+
+	
+	if (menuVisible) {
+
+		ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight));
+		ImGui::Begin("MENU", false, window_flags);
+		ImGui::CaptureMouseFromApp(false);
+		ImGui::SetWindowPos("MENU", ImVec2(menu_position.x, menu_position.y));
+
+		ImGui::Selectable("Resume", menuPos == 0);
+		if (ImGui::IsItemClicked() || (menuPos == 0 && EngineInput["menu_confirm"].justPressed()))
+		{
+			exitPauseGame();
+		}
+
+		ImGui::Selectable("Restart checkpoint", menuPos == 1);
+		if (ImGui::IsItemClicked() || (menuPos == 1 && EngineInput["menu_confirm"].justPressed()))
+		{
+			exitPauseGame();
+			CEntity* e_player = getEntityByName("Player");
+			if (!e_player) {
+				return;
+			}
+			
+			TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
+			if (c_controller->life > 0) {
+				//quitar puntero de raton
+				menuDead = false;
+				c_controller->ChangeState("GROUNDED");
+				GameController.loadCheckpoint();
+				
+
+			}
+		}
+
+	
+		ImGui::Selectable("Exit game", menuPos == 2);
+		if (ImGui::IsItemClicked() || (menuPos == 2 && EngineInput["btMenuConfirm"].justPressed()))
+		{
+			auto& app = CApplication::get();
+			DestroyWindow(app.getHandle()); 
+		}
+
+		ImGui::End();
+	}
+	else if (victoryMenu) {
+
+		ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight));
+		ImGui::Begin("VICTORY!", false, window_flags);
+		ImGui::CaptureMouseFromApp(false);
+		ImGui::SetWindowPos("VICTORY!", ImVec2(menu_position.x, menu_position.y));
+		ImGui::Text("Congratulations guy");
+		ImGui::End();
+
+	}
+	else if (menuDead) {
+
+		ImGui::SetNextWindowSize(ImVec2((float)windowWidth * 1.2f, (float)windowHeight));
+		ImGui::Begin("YOU DIED:", false, window_flags);
+		ImGui::CaptureMouseFromApp(false);
+		ImGui::SetWindowPos("YOU DIED! YOUR OPTIONS ARE...", ImVec2(menu_position.x, menu_position.y));
+
+		ImGui::Selectable("Restart checkpoint", menuPos == 1);
+		if (ImGui::IsItemClicked() || (menuPos == 1 && EngineInput["btMenuConfirm"].justPressed()))
+		{
+			CEntity* e_player = getEntityByName("Player");
+			if (!e_player) {
+				return;
+			}
+			TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
+			if ((c_controller->life <= 0)) {
+
+				//quitar puntero de raton
+				menuDead = false;
+			}
+		}
+
+
+		ImGui::Selectable("Exit game", menuPos == 2);
+		if (ImGui::IsItemClicked() || (menuPos == 2 && EngineInput["btMenuConfirm"].justPressed()))
+		{
+			auto& app = CApplication::get();
+			DestroyWindow(app.getHandle());
+		}
+
+		ImGui::End();
+
+	}
+}
+
+
+void CModuleGameManager::exitPauseGame() {
+	// quitamos pausa
+	isPaused = false;
+	CApplication::get().setLostFocus(false);
+
+	// Send pause message
+	TMsgGamePause msg;
+	msg.isPause = true;
+	msg.playerDead = false;
+	
+
+	// Quitar puntero de raton
+	
+
+	menuVisible = false;
 }

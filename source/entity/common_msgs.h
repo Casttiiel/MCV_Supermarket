@@ -239,6 +239,12 @@ struct TMSgTriggerFalloutDead {
 	DECL_MSG_ID();
 };
 
+struct TMsgGamePause {
+	bool isPause;
+	bool playerDead;
+	DECL_MSG_ID();
+};
+
 /*
 struct TMsgTimeOut {
   DECL_MSG_ID();

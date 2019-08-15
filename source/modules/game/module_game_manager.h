@@ -16,11 +16,21 @@ public:
   void update(float delta) override;
   void renderDebug() override;
   void renderInMenu() override;
+  bool menuVisible;
+  bool victoryMenu;
+
 
 private:
-	void updateGameCondition();
+	void gameCondition();
+	
+	void exitPauseGame();
+	bool menuDead;
+	bool isPaused;
 
-
-	bool menuDead = false;
+	 int windowWidth;
+	 int windowHeight;
+	 int menuPos = 0;
+	 unsigned int menuSize = 1;
+	ImGuiWindowFlags window_flags;
 };
 
