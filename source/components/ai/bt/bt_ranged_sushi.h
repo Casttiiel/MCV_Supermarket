@@ -62,7 +62,7 @@ public:
 
 	void setCurve(const CCurve* curve);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
-
+	std::string getNameCurve();
   //End Conditions
 private:
   float initialExecution = true;
@@ -258,7 +258,7 @@ private:
 	float resetSlotDuration = 5.0f;
 	float resetSlotTimer = 0.0f;
 
-
+	std::string pathCurve = "";
   //flag patrol curve or point
   
 	//curve values
@@ -267,7 +267,7 @@ private:
 	float	mTravelTime = 0.22f;
 	float ratio = 0.f;
 	//end curve values
-
+	
   /* DEPRECATED */
   //void LookAt_Player(TCompTransform* c_trans, TCompTransform* player_position);
 };

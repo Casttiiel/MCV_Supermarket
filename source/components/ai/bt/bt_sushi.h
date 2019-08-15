@@ -59,7 +59,7 @@ public:
   bool conditionFear();
   bool conditionDeath();
   bool conditionChase();
-
+  std::string getNameCurve();
 	void setCurve(const CCurve* curve);
 	void setHeightRange(float height);
   //End Conditions
@@ -270,6 +270,9 @@ private:
   bool isPlayerInNavmesh();
   bool hayCamino = true;
   bool isDeadForFallout = false;
+
+  std::string pathCurve = "";
+
 
   /* DEPRECATED */
   //void LookAt_Player(TCompTransform* c_trans, TCompTransform* player_position);

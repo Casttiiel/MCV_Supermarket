@@ -26,6 +26,7 @@ struct EntityStatus {
     QUAT entityRot = QUAT().Identity;
     CHandle handle;
     bool saved = false;
+	string curve = "";
 };
 
 class CCheckpoint {

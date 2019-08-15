@@ -411,15 +411,19 @@ int CBTCupcake_explosive::actionImpactReceived() {
 
 
 bool CBTCupcake_explosive::conditionView() {
-	if (player_dead) {
+ 	if (player_dead) {
 		return false; //no lo ve si esta muerto
 	}
-	return true;//temporal para el milestone 2 
+	//return true;//temporal para el milestone 2 
 	TCompTransform* c_trans = get<TCompTransform>();
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* player_position = e_player->get<TCompTransform>();
 	if (Vector3::Distance(player_position->getPosition(), c_trans->getPosition()) > forgetAttackingDistance) {
 		insightPlayer = false; //TODO: esto es temporal para el milestone 2 
+	}
+
+	if (!checkHeight()) { //si el player esta muy alto no lo ve y se olvida de el
+		return false;
 	}
 
 	if (isView(length_cone) || insightPlayer || enemyRadiousView > Vector3::Distance(player_position->getPosition(), c_trans->getPosition())) {
@@ -932,5 +936,24 @@ void CBTCupcake_explosive::setCurve(const CCurve* curve) {
 
 	this->_curve = curve; // TO TEST
 	_knots = _curve->_knots;
+	this->pathCurve = curve->getName();
+}
 
+std::string CBTCupcake_explosive::getNameCurve() {
+	return pathCurve;
+}
+
+bool CBTCupcake_explosive::checkHeight() {
+	bool res = false;
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* player_position = e_player->get<TCompTransform>();
+	float playerHeight = player_position->getPosition().y;
+	TCompTransform* c_trans = get<TCompTransform>();
+	float enemyHeight = c_trans->getPosition().y;
+
+	if (height_range > abs(playerHeight - enemyHeight)) {
+		res = true;;
+	}
+
+	return res;
 }

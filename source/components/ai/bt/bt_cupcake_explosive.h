@@ -67,7 +67,7 @@ public:
 
 	bool isGrounded();
 	bool isView(float distance);
-
+	bool checkHeight();
 
 	int damage = 10;
 	int fireDamage = 15;
@@ -79,12 +79,12 @@ public:
 	const CCurve* _curve = nullptr;
 	std::vector<VEC3> _knots;
 	//END CURVE VALUES
-
+	std::string getNameCurve();
 private:
     AudioEvent voice;
 
 
-
+	float height_range = 3.0f;
 	CHandle _mySpawner;
 	bool _initiallyPaused = false;
 
@@ -205,7 +205,7 @@ private:
 	bool view_point = false;
 	float length_cone = 15.0f;
 	float half_cone = 45.0f;
-
+	std::string pathCurve = "";
 	CHandle h_sender;
 	CHandle h_bullet;
 };
