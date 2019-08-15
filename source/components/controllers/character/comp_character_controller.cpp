@@ -217,11 +217,13 @@ void TCompCharacterController::grounded(float delta) {
     else {
         //SwapMesh(0);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 0.5f);
-        //footSteps.stop();
-        if (!footSteps.getPaused()) {
-            footSteps.setPaused(true);
-        }
+		if(playerAnima != nullptr){
+			playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 0.5f);
+			//footSteps.stop();
+			if (!footSteps.getPaused()) {
+				footSteps.setPaused(true);
+			}
+		}
     }
 
     if (time_to_next_dash > 0.0f)
@@ -658,7 +660,9 @@ void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool s
 
 bool TCompCharacterController::isGrounded() {
     TCompRigidBody* r_body = get<TCompRigidBody>();
-    return r_body->isGrounded();
+	if(r_body != nullptr) {
+		return r_body->isGrounded();
+	}
 }
 
 void TCompCharacterController::powerSelection() {

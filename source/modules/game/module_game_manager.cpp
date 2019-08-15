@@ -214,6 +214,10 @@ void CModuleGameManager::renderDebug()
 
 				//quitar puntero de raton
 				menuDead = false;
+				c_controller->ChangeState("GROUNDED");
+				GameController.loadCheckpoint();
+
+
 			}
 		}
 
