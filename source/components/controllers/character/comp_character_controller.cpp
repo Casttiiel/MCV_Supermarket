@@ -525,6 +525,8 @@ void TCompCharacterController::dead(float delta) {
 }
 
 void TCompCharacterController::win(float delta) {
+	TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+	playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
     if (EngineInput["checkpoint_"].justPressed()) {
         endGame = false;
         ChangeState("GROUNDED");
@@ -608,10 +610,12 @@ void TCompCharacterController::getInputForce(VEC3 &dir) {
 
     if (isGrounded()) {
         TCompRigidBody* r_body = get<TCompRigidBody>();
-        if (r_body->ground_normal != VEC3::Zero) {
-            VEC3 temp = r_body->ground_normal.Cross(dir);
-            dir = temp.Cross(r_body->ground_normal);
-        }
+		if(r_body != nullptr) {
+			if (r_body->ground_normal != VEC3::Zero) {
+				VEC3 temp = r_body->ground_normal.Cross(dir);
+				dir = temp.Cross(r_body->ground_normal);
+			}
+		}
     }
 
     dir *= speed * length;
