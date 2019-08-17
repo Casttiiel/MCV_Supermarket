@@ -29,11 +29,8 @@
     <ClCompile Include="components\ai\others\comp_blackboard.cpp" />
     <ClCompile Include="components\ai\others\comp_death_collider.cpp" />
     <ClCompile Include="components\ai\others\comp_lookat_camera.cpp" />
-    <ClCompile Include="components\ai\others\power_up.cpp" />
     <ClCompile Include="components\ai\others\self_destroy.cpp" />
     <ClCompile Include="components\ai\traps\ai_turret.cpp" />
-    <ClCompile Include="components\ai\traps\ai_wind.cpp" />
-    <ClCompile Include="components\ai\traps\ai_wind_effect.cpp" />
     <ClCompile Include="components\animation\comp_golem_animation.cpp" />
     <ClCompile Include="components\animation\comp_morph_animation.cpp" />
     <ClCompile Include="components\animation\comp_player_animation.cpp" />
@@ -81,6 +78,7 @@
     <ClCompile Include="components\john\comp_sensor.cpp" />
     <ClCompile Include="components\objects\comp_blade_trap.cpp" />
     <ClCompile Include="components\objects\comp_enemies_in_butcher.cpp" />
+    <ClCompile Include="components\objects\comp_fire_trap.cpp" />
     <ClCompile Include="components\objects\comp_interruptor.cpp" />
     <ClCompile Include="components\objects\comp_termoestato.cpp" />
     <ClCompile Include="components\postfx\comp_antialiasing.cpp" />
@@ -290,11 +288,8 @@
     <ClInclude Include="components\ai\others\comp_blackboard.h" />
     <ClInclude Include="components\ai\others\comp_death_collider.h" />
     <ClInclude Include="components\ai\others\comp_lookat_camera.h" />
-    <ClInclude Include="components\ai\others\power_up.h" />
     <ClInclude Include="components\ai\others\self_destroy.h" />
     <ClInclude Include="components\ai\traps\ai_turret.h" />
-    <ClInclude Include="components\ai\traps\ai_wind.h" />
-    <ClInclude Include="components\ai\traps\ai_wind_effect.h" />
     <ClInclude Include="components\animation\comp_golem_animation.h" />
     <ClInclude Include="components\animation\comp_morph_animation.h" />
     <ClInclude Include="components\animation\comp_player_animation.h" />
@@ -340,6 +335,7 @@
     <ClInclude Include="components\john\comp_circular_controller.h" />
     <ClInclude Include="components\objects\comp_blade_trap.h" />
     <ClInclude Include="components\objects\comp_enemies_in_butcher.h" />
+    <ClInclude Include="components\objects\comp_fire_trap.h" />
     <ClInclude Include="components\objects\comp_interruptor.h" />
     <ClInclude Include="components\objects\comp_termoestato.h" />
     <ClInclude Include="components\postfx\comp_antialiasing.h" />
