@@ -56,7 +56,7 @@ struct TSceneExporter (
 	mats_path = base_path + "materials/",
 	curve_path = base_path + "curves/",
 	productsSize = 0.18,
-	numberOfProducts = 3,
+	numberOfProducts = 21,
 	
 	fn exportCompName obj = (
 		fs.writeKeyValue "name" obj.name
