@@ -34,7 +34,10 @@ void TCompFireFollow::update(float delta) {
       CEntity* cam = getEntityByName("PlayerCamera");
       TCompTransform* cam_trans = cam->get<TCompTransform>();
       data->emitter_dir = cam_trans->getFront();
-    }
+	}
+	else {
+	  data->emitter_dir = c_trans_pl->getFront();
+	}
 
     //bool emision
     TCompFireController* c_fire = en->get<TCompFireController>();

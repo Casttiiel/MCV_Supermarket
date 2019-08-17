@@ -111,7 +111,7 @@ void CRenderManager::render(eRenderCategory category) {
 
   if (normal_keys.sort_required) {
     std::sort(normal_keys.keys.begin(), normal_keys.keys.end(), &sortNormalKeys);
-    normal_keys.sort_required = true;
+    normal_keys.sort_required = false;
 
     for (auto& k : normal_keys.keys) {
       if (!k.h_transform.isValid()) {
@@ -211,7 +211,8 @@ void CRenderManager::render(eRenderCategory category) {
           TCompBuffers* c_buffers = e->get<TCompBuffers>();
           c_num_instances->gpu_buffer = c_buffers->getBufferByName(c_num_instances->gpu_buffer_name.c_str());
         }
-        it->mesh->renderIndirect(c_num_instances->gpu_buffer, 0);
+        // 20 = sizeof(sizeof(DrawIndexedInstancedArgs)
+        it->mesh->renderIndirect(c_num_instances->gpu_buffer, 20 * it->submesh_id);
       }
       else {
         if (c_num_instances->num_instances)
