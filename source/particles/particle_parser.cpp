@@ -48,6 +48,21 @@ void from_json(const json& j, TTrack<VEC4>& colors) {
   }
 }
 
+void from_json(const json& j, TTrack<float>& sizes) {
+  const float defaultSize = j.value<float>("size", 1.f);
+  sizes.setDefault(defaultSize);
+  if (j.count("sizes"))
+  {
+    for (auto& jSize : j["sizes"])
+    {
+      const float ratio = jSize[0].get<float>();
+      const float size = jSize[1].get<float>();
+      sizes.set(ratio, size);
+    }
+    sizes.sort();
+  }
+}
+
 // ----------------------------------------------------------
 void from_json(const json& j, TCtesParticles& p) {
   p.emitter_time_between_spawns = j.value("time_between_spawns", 1.0f);
@@ -61,11 +76,15 @@ void from_json(const json& j, TCtesParticles& p) {
 
   // Read and sample the colors
   TTrack<VEC4> colors = j;
-  for (int i = 0; i < particles::TEmitter::max_colors; ++i) {
-    float t = (float)i / (float)(particles::TEmitter::max_colors - 1);
-    p.psystem_colors_over_time[i] = colors.get(t);
-  }
+  colors.uniformSample(particles::TEmitter::max_colors, p.psystem_colors_over_time);
 
+  // Read the scales as float, but store them as VEC4 (because of the hlsl access array)
+  assert(particles::TEmitter::max_sizes == 8 || fatal("particles::TEmitter::max_sizes should match TCtesParticles::sizes[]\n"));
+  TTrack<float> sizes = j;
+  float scalarValues[particles::TEmitter::max_sizes];
+  sizes.uniformSample(particles::TEmitter::max_sizes, scalarValues);
+  for (int i = 0; i < particles::TEmitter::max_sizes; ++i)
+    p.psystem_sizes_over_time[i] = Vector4::One * scalarValues[i];
 }
 
 template<>
@@ -78,7 +97,8 @@ bool debugCteInMenu<TCtesParticles>(TCtesParticles& d) {
   changed |= ImGui::DragFloat("dir_aperture", &d.emitter_dir_aperture, 0.01f, 0.0f, 2.0f);
   changed |= ImGui::DragFloat2("speed", &d.emitter_speed.x, 0.01f, 0.f, 15.f);
   changed |= ImGui::DragFloat2("duration", &d.emitter_duration.x, 0.01f, 0.1f, 15.f);
-  if (ImGui::TreeNode("Colors")) {
+
+  if (ImGui::TreeNode("Colors...")) {
     for (int i = 0; i < particles::TEmitter::max_colors; ++i) {
       char title[64];
       sprintf(title, "%d", i);
@@ -86,6 +106,16 @@ bool debugCteInMenu<TCtesParticles>(TCtesParticles& d) {
     }
     ImGui::TreePop();
   }
+
+  if (ImGui::TreeNode("Sizes...")) {
+    for (int i = 0; i < particles::TEmitter::max_sizes; ++i) {
+      char title[64];
+      sprintf(title, "%d", i);
+      changed |= ImGui::DragFloat(title, &d.psystem_sizes_over_time[i].x);
+    }
+    ImGui::TreePop();
+  }
+
   return changed;
 }
 
@@ -144,18 +174,7 @@ namespace particles
     }
 
     // sizes
-    const float defaultSize = jData.value<float>("size", 1.f);
-    emitter.sizes.setDefault(defaultSize);
-    if (jData.count("sizes"))
-    {
-      for (auto& jSize : jData["sizes"])
-      {
-        const float ratio = jSize[0].get<float>();
-        const float size = jSize[1].get<float>();
-        emitter.sizes.set(ratio, size);
-      }
-      emitter.sizes.sort();
-    }
+    emitter.sizes = jData;
 
     emitter.colors = jData;
     emitter.sampleColorsOverTime();
@@ -183,10 +202,7 @@ namespace particles
   }
 
   void TEmitter::sampleColorsOverTime() {
-    for (int i = 0; i < max_colors; ++i) {
-      float t = (float)i / (float)(max_colors - 1);
-      ctes->psystem_colors_over_time[i] = colors.get(t);
-    }
+    colors.uniformSample(max_colors, ctes->psystem_colors_over_time);
     ctes->updateGPU();
   }
 

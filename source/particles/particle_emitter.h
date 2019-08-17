@@ -34,6 +34,7 @@ namespace particles
     const CMaterial* material = nullptr;
     CCteBuffer<TCtesParticles>* ctes = nullptr;
 
+    static const uint32_t max_sizes = 8;
     static const uint32_t max_colors = 8;
     void sampleColorsOverTime();
 

@@ -211,7 +211,8 @@ void CRenderManager::render(eRenderCategory category) {
           TCompBuffers* c_buffers = e->get<TCompBuffers>();
           c_num_instances->gpu_buffer = c_buffers->getBufferByName(c_num_instances->gpu_buffer_name.c_str());
         }
-        it->mesh->renderIndirect(c_num_instances->gpu_buffer, 0);
+        // 20 = sizeof(sizeof(DrawIndexedInstancedArgs)
+        it->mesh->renderIndirect(c_num_instances->gpu_buffer, 20 * it->submesh_id);
       }
       else {
         if (c_num_instances->num_instances)

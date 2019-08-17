@@ -72,6 +72,15 @@ public:
     return keyframes;
   }
 
+  void uniformSample(uint32_t num_samples, VAL* samples, float t0 = 0.0f, float t1 = 1.0f) const {
+    assert(num_samples > 1);
+    for (uint32_t i = 0; i < num_samples; ++i) {
+      float ut = (float)i / (float)(num_samples - 1);
+      float t = t0 + (t1 - t0) * ut;
+      samples[i] = get(t);
+    }
+  }
+
   bool renderInMenu( const char* title ) {
     bool changed = false;
     if (ImGui::TreeNode(title)) {
