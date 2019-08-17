@@ -38,7 +38,7 @@ bool CModuleBoot::start()
 
   CHandleManager::destroyAllPendingObjects();
 
-  //loadJsonScenes("data/boot.json");//cambiar a bootScenes.json
+  Time.loadedFrame = true;
 
   return true;
 }

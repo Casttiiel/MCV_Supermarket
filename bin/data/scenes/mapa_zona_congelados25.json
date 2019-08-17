@@ -22,7 +22,7 @@
       ,
       "transform":
       {
-        "pos": "249.805 -3.3401 150.927"
+        "pos": "276.154 -3.85006 149.194"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -39,14 +39,9 @@
         "shapes":
         [
           {
-            "shape": "box"
+            "shape": "trimesh"
             ,
-            "half_size": "7.82904 3.83973 0.99733"
-            ,
-            "offset":
-            {
-              "pos": "0.0 3.83973 0.0"
-            }
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_Box007.col_mesh"
             ,
             "group": "destroyable_wall"
           }
@@ -74,7 +69,7 @@
       ,
       "transform":
       {
-        "pos": "128.013 4.58421 154.405"
+        "pos": "128.013 4.58421 164.341"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -122,27 +117,11 @@
   {
     "entity":
     {
-      "name": "golem1"
-      ,
-      "transform":
-      {
-        "pos": "244.321 -3.3401 151.116"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "prefab": "data/prefabs/enemies/bt_golem.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "golem2"
       ,
       "transform":
       {
-        "pos": "217.237 -3.25313 126.434"
+        "pos": "270.369 -3.25313 220.978"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -158,7 +137,7 @@
       ,
       "transform":
       {
-        "pos": "182.691 -3.23546 154.777"
+        "pos": "225.199 -3.23546 164.712"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -174,7 +153,7 @@
       ,
       "transform":
       {
-        "pos": "178.533 -3.3401 154.405"
+        "pos": "186.69 -3.3401 162.538"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -191,14 +170,9 @@
         "shapes":
         [
           {
-            "shape": "box"
+            "shape": "trimesh"
             ,
-            "half_size": "7.82904 3.83973 0.99733"
-            ,
-            "offset":
-            {
-              "pos": "0.0 3.83973 0.0"
-            }
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_Box016.col_mesh"
             ,
             "group": "destroyable_wall"
           }
@@ -226,7 +200,7 @@
       ,
       "transform":
       {
-        "pos": "177.895 -1.62938 126.302"
+        "pos": "183.231 -1.62938 126.302"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -271,9 +245,9 @@
       ,
       "transform":
       {
-        "pos": "153.435 -4.2585 131.219"
+        "pos": "171.699 -4.2585 128.641"
         ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
+        "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "abs_aabb": {}
@@ -316,9 +290,9 @@
       ,
       "transform":
       {
-        "pos": "154.011 -2.87783 125.488"
+        "pos": "176.865 -2.87783 126.899"
         ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
+        "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "abs_aabb": {}
@@ -361,9 +335,9 @@
       ,
       "transform":
       {
-        "pos": "282 -3.3401 148"
+        "pos": "267.172 12.0707 177.83"
         ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
+        "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "prefab": "data/prefabs/powers/sCart.json"
@@ -377,7 +351,7 @@
       ,
       "transform":
       {
-        "pos": "171.56 -3.34011 119.586"
+        "pos": "171.56 10.8152 119.586"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -394,14 +368,9 @@
         "shapes":
         [
           {
-            "shape": "box"
+            "shape": "trimesh"
             ,
-            "half_size": "7.82904 3.83973 0.99733"
-            ,
-            "offset":
-            {
-              "pos": "0.0 3.83973 0.0"
-            }
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_Box031.col_mesh"
             ,
             "group": "destroyable_wall"
           }
@@ -429,7 +398,7 @@
       ,
       "transform":
       {
-        "pos": "171.459 -2.20583 167.507"
+        "pos": "176.358 -2.20583 172.302"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -474,57 +443,12 @@
       ,
       "transform":
       {
-        "pos": "171.481 -0.456315 151.05"
+        "pos": "179.222 -3.52968 162.36"
         ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
+        "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "prefab": "data/prefabs/structures/teleport_box.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box039"
-      ,
-      "transform":
-      {
-        "pos": "171.027 -0.770524 156.985"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "1.39942 0.899626 1.84368"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.899626 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Box039.mesh"
-        ,
-        "color": "0.345098 0.345098 0.882353 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
     }
   }
   ,
@@ -535,7 +459,7 @@
       ,
       "transform":
       {
-        "pos": "168.679 2.4669 161.954"
+        "pos": "167.424 4.20299 164.144"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -551,7 +475,7 @@
       ,
       "transform":
       {
-        "pos": "300.825 -1.37953 151.652"
+        "pos": "285.207 -1.37953 149.322"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -567,9 +491,9 @@
       ,
       "transform":
       {
-        "pos": "206.47 -7.77989 104.047"
+        "pos": "267.858 10.781 178.516"
         ,
-        "rotation": "0.0 0.0 0.188806 -0.982014"
+        "rotation": "0.173648 0.0 0.0 -0.984808"
       }
       ,
       "abs_aabb": {}
@@ -578,7 +502,7 @@
       ,
       "ai_platform_mobile":
       {
-        "mTravelTime_": 15
+        "mTravelTime_": 0.15
         ,
         "curve": "data/curves/curvaRampaCongelador.curve"
         ,
@@ -626,7 +550,7 @@
       ,
       "transform":
       {
-        "pos": "168.942 -0.172379 162.642"
+        "pos": "168.942 -0.172379 172.119"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -671,7 +595,7 @@
       ,
       "transform":
       {
-        "pos": "167.421 1.17866 154.2"
+        "pos": "167.421 1.17866 164.135"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -712,63 +636,11 @@
   {
     "entity":
     {
-      "name": "bx4"
-      ,
-      "transform":
-      {
-        "pos": "216.849 -3.25313 121.083"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "comp_destroyable_wall":
-      {
-        "type_wall": 1
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "7.82904 3.83973 0.99733"
-            ,
-            "offset":
-            {
-              "pos": "0.0 3.83973 0.0"
-            }
-            ,
-            "group": "destroyable_wall"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_bx4.mesh"
-        ,
-        "color": "0.0313726 0.0313726 0.533333 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/mat_palillos.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "bx5"
       ,
       "transform":
       {
-        "pos": "158.94 4.83241 154.405"
+        "pos": "158.94 4.83241 164.341"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -820,7 +692,7 @@
       ,
       "transform":
       {
-        "pos": "167.057 -4.09743 147.464"
+        "pos": "176.819 -4.09743 166.017"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -865,7 +737,7 @@
       ,
       "transform":
       {
-        "pos": "177.895 -0.106554 132.579"
+        "pos": "183.231 -0.106554 135.748"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -910,7 +782,7 @@
       ,
       "transform":
       {
-        "pos": "177.895 0.000257822 138.463"
+        "pos": "183.231 0.000258148 145.9"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -951,56 +823,11 @@
   {
     "entity":
     {
-      "name": "Box045"
-      ,
-      "transform":
-      {
-        "pos": "171.577 -2.42498 145.431"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "8.09238 2.11566 0.793373"
-            ,
-            "offset":
-            {
-              "pos": "0.0 2.11566 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Box045.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "Box046"
       ,
       "transform":
       {
-        "pos": "171.577 3.73258 145.431"
+        "pos": "177.679 -3.86728 153.812"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1012,14 +839,9 @@
         "shapes":
         [
           {
-            "shape": "box"
+            "shape": "trimesh"
             ,
-            "half_size": "8.09238 2.11566 0.793373"
-            ,
-            "offset":
-            {
-              "pos": "0.0 2.11566 0.0"
-            }
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_Box046.col_mesh"
           }
         ]
       }
@@ -1041,137 +863,11 @@
   {
     "entity":
     {
-      "name": "Plane34234234"
-      ,
-      "transform":
-      {
-        "pos": "188.125 -3.42532 155.807"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_Plane34234234.col_mesh"
-            ,
-            "group": "floor"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Plane34234234.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Plane021"
-      ,
-      "transform":
-      {
-        "pos": "240.697 -3.42532 151.331"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_Plane021.col_mesh"
-            ,
-            "group": "floor"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Plane021.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Plane022"
-      ,
-      "transform":
-      {
-        "pos": "216.716 -3.33834 128.443"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_Plane022.col_mesh"
-            ,
-            "group": "floor"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Plane022.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "trigger001"
       ,
       "transform":
       {
-        "pos": "277.545 -3.89349 147.774"
+        "pos": "277.545 9.40827 147.774"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1200,48 +896,6 @@
       "trigger":
       {
         "onEnter": "script_ice_1"
-        ,
-        "delay": 0
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "trigger002"
-      ,
-      "transform":
-      {
-        "pos": "245.429 -3.89349 106.399"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "3.15054 1.65042 14.2903"
-            ,
-            "offset":
-            {
-              "pos": "0.0 1.65042 0.0"
-            }
-            ,
-            "group": "trigger"
-            ,
-            "trigger": true
-          }
-        ]
-      }
-      ,
-      "trigger":
-      {
-        "onEnter": "script_ice_2"
         ,
         "delay": 0
       }
@@ -1293,51 +947,11 @@
   {
     "entity":
     {
-      "name": "Line001"
-      ,
-      "transform":
-      {
-        "pos": "250.583 -3.49599 121.378"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_Line001.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Line001.mesh"
-        ,
-        "color": "0.109804 0.584314 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "Trap_air_001"
       ,
       "transform":
       {
-        "pos": "179.495 1.52188 129.06"
+        "pos": "184.831 2.01944 130.984"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1353,7 +967,7 @@
       ,
       "transform":
       {
-        "pos": "179.495 2.99954 135.557"
+        "pos": "184.831 3.34036 140.941"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1369,11 +983,11 @@
       ,
       "transform":
       {
-        "pos": "275.062 4.26337 150.36"
+        "pos": "270.052 4.26337 150.36"
         ,
-        "rotation": "-0.479139 -0.514246 0.442272 -0.557111"
+        "rotation": "-0.0346175 -0.732789 0.678546 -0.0373847"
         ,
-        "lookat": "254.107 1.08167 148.681"
+        "lookat": "265.846 1.08167 191.477"
       }
       ,
       "camera":
@@ -1384,7 +998,7 @@
         ,
         "fov": 45.0
         ,
-        "distanceTarget": 21.2619
+        "distanceTarget": 41.4537
       }
     }
   }
@@ -1521,371 +1135,11 @@
   {
     "entity":
     {
-      "name": "Plane020"
-      ,
-      "transform":
-      {
-        "pos": "171.602 -3.42532 131.571"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_Plane020.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Plane020.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Plane46234"
-      ,
-      "transform":
-      {
-        "pos": "144.906 4.37733 154.411"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_Plane46234.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Plane46234.mesh"
-        ,
-        "color": "0.109804 0.34902 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot001"
-      ,
-      "transform":
-      {
-        "pos": "290.777 36.329 151.103"
-        ,
-        "rotation": "-0.0114695 -0.0754279 0.000867651 -0.997085"
-        ,
-        "lookat": "290.632 -5.54092 150.151"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 41.881
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot002"
-      ,
-      "transform":
-      {
-        "pos": "260.498 36.329 151.103"
-        ,
-        "rotation": "-0.0114695 -0.0754279 0.000867651 -0.997085"
-        ,
-        "lookat": "260.353 -5.54092 150.151"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 41.881
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot003"
-      ,
-      "transform":
-      {
-        "pos": "260.498 36.329 120.391"
-        ,
-        "rotation": "-0.0114695 -0.0754279 0.000867651 -0.997085"
-        ,
-        "lookat": "260.353 -5.54092 119.439"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 41.881
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot004"
-      ,
-      "transform":
-      {
-        "pos": "245.033 36.329 105.374"
-        ,
-        "rotation": "-0.0114695 -0.0754279 0.000867651 -0.997085"
-        ,
-        "lookat": "244.888 -5.54092 104.421"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 41.881
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot005"
-      ,
-      "transform":
-      {
-        "pos": "212.572 36.329 107.606"
-        ,
-        "rotation": "-0.0114695 -0.0754279 0.000867651 -0.997085"
-        ,
-        "lookat": "212.427 -5.54092 106.654"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 41.881
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot006"
-      ,
-      "transform":
-      {
-        "pos": "172.238 36.329 115.434"
-        ,
-        "rotation": "-0.0114695 -0.0754279 0.000867651 -0.997085"
-        ,
-        "lookat": "172.093 -5.54092 114.482"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 41.881
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot007"
-      ,
-      "transform":
-      {
-        "pos": "175.613 36.329 151.916"
-        ,
-        "rotation": "-0.0114695 -0.0754279 0.000867651 -0.997085"
-        ,
-        "lookat": "175.468 -5.54092 150.963"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 41.881
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Spot008"
-      ,
-      "transform":
-      {
-        "pos": "142.714 43.1612 154.787"
-        ,
-        "rotation": "-0.0114695 -0.0754279 0.000867651 -0.997085"
-        ,
-        "lookat": "142.569 1.29136 153.835"
-      }
-      ,
-      "light_dir":
-      {
-        "near": 5
-        ,
-        "far": 41.881
-        ,
-        "fov": 60
-        ,
-        "color": "1.0 1.0 1.0 1.0"
-        ,
-        "intensity": 10.0
-        ,
-        "casts_shadows": true
-        ,
-        "shadows_resolution": 512
-        ,
-        "shadows_fmt": "R32_TYPELESS"
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "estanteria_nevera_pasillo002"
       ,
       "transform":
       {
-        "pos": "298.866 -3.66875 158.945"
+        "pos": "302.576 -3.66875 157.447"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1925,7 +1179,7 @@
       ,
       "transform":
       {
-        "pos": "287.059 -3.66875 158.945"
+        "pos": "290.769 -3.66875 157.447"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1961,131 +1215,11 @@
   {
     "entity":
     {
-      "name": "estanteria_nevera_pasillo004"
-      ,
-      "transform":
-      {
-        "pos": "275.339 -3.66875 159.485"
-        ,
-        "rotation": "0.0 -0.0436194 0.0 -0.999048"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_estanteria_nevera_pasillo004.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_estanteria_nevera_pasillo004.mesh"
-        ,
-        "color": "0.0313726 0.239216 0.541176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_nevera_pasillo005"
-      ,
-      "transform":
-      {
-        "pos": "263.421 -3.66875 158.941"
-        ,
-        "rotation": "0.0 0.0436194 0.0 -0.999048"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_estanteria_nevera_pasillo005.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_estanteria_nevera_pasillo005.mesh"
-        ,
-        "color": "0.0313726 0.239216 0.541176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_nevera_pasillo006"
-      ,
-      "transform":
-      {
-        "pos": "273.38 -3.66875 140.971"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_estanteria_nevera_pasillo006.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_estanteria_nevera_pasillo006.mesh"
-        ,
-        "color": "0.0313726 0.239216 0.541176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "estanteria_nevera_pasillo007"
       ,
       "transform":
       {
-        "pos": "285.582 -3.66875 140.971"
+        "pos": "285.582 -3.66875 141.28"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -2125,7 +1259,7 @@
       ,
       "transform":
       {
-        "pos": "298.066 -3.66875 140.971"
+        "pos": "298.066 -3.66875 141.28"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -2165,9 +1299,9 @@
       ,
       "transform":
       {
-        "pos": "262.256 -3.66876 93.4992"
+        "pos": "255.002 -3.66876 95.5798"
         ,
-        "rotation": "0.0 -0.999048 0.0 -0.0436193"
+        "rotation": "0.0 -0.996195 0.0 -0.0871557"
       }
       ,
       "abs_aabb": {}
@@ -2205,7 +1339,7 @@
       ,
       "transform":
       {
-        "pos": "249.852 -3.66876 92.9346"
+        "pos": "241.88 -3.66876 94.5172"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -2245,9 +1379,9 @@
       ,
       "transform":
       {
-        "pos": "237.189 -3.66876 93.5421"
+        "pos": "229.217 -3.66876 95.6804"
         ,
-        "rotation": "0.0 -0.999048 0.0 0.0436195"
+        "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "abs_aabb": {}
@@ -2285,7 +1419,7 @@
       ,
       "transform":
       {
-        "pos": "224.518 -3.66876 94.4303"
+        "pos": "216.546 -3.66876 96.4572"
         ,
         "rotation": "0.0 -0.999048 0.0 0.0436195"
       }
@@ -2325,9 +1459,9 @@
       ,
       "transform":
       {
-        "pos": "211.988 -3.66876 95.0841"
+        "pos": "204.016 -3.66876 98.1538"
         ,
-        "rotation": "0.0 -1.0 0.0 0.0"
+        "rotation": "0.0 -0.996195 0.0 0.0871558"
       }
       ,
       "abs_aabb": {}
@@ -2365,9 +1499,9 @@
       ,
       "transform":
       {
-        "pos": "244.873 -3.66875 117.004"
+        "pos": "231.919 -3.66876 110.398"
         ,
-        "rotation": "0.0 -0.130526 0.0 -0.991445"
+        "rotation": "0.0 -1.50996e-07 0.0 -1.0"
       }
       ,
       "abs_aabb": {}
@@ -2405,9 +1539,9 @@
       ,
       "transform":
       {
-        "pos": "231.537 -3.66875 118.979"
+        "pos": "218.083 -3.66875 111.853"
         ,
-        "rotation": "0.0 -1.50996e-07 0.0 -1.0"
+        "rotation": "0.0 -0.0436195 0.0 -0.999048"
       }
       ,
       "abs_aabb": {}
@@ -2445,9 +1579,9 @@
       ,
       "transform":
       {
-        "pos": "203.676 -3.66875 118.838"
+        "pos": "203.676 -3.66875 113.861"
         ,
-        "rotation": "0.0 -1.50996e-07 0.0 -1.0"
+        "rotation": "0.0 -0.0871559 0.0 -0.996195"
       }
       ,
       "abs_aabb": {}
@@ -2481,51 +1615,11 @@
   {
     "entity":
     {
-      "name": "estanteria_nevera_pasillo017"
-      ,
-      "transform":
-      {
-        "pos": "266.975 -3.66875 130.904"
-        ,
-        "rotation": "0.0 -0.5373 0.0 -0.843391"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_estanteria_nevera_pasillo017.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_estanteria_nevera_pasillo017.mesh"
-        ,
-        "color": "0.0313726 0.239216 0.541176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "estanteria_nevera_pasillo018"
       ,
       "transform":
       {
-        "pos": "272.019 -3.66875 119.989"
+        "pos": "275.359 -3.66875 119.989"
         ,
         "rotation": "0.0 -0.5373 0.0 -0.843391"
       }
@@ -2561,93 +1655,13 @@
   {
     "entity":
     {
-      "name": "estanteria_nevera_pasillo019"
-      ,
-      "transform":
-      {
-        "pos": "274.597 -3.66876 108.339"
-        ,
-        "rotation": "0.0 -0.737277 0.0 -0.67559"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_estanteria_nevera_pasillo019.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_estanteria_nevera_pasillo019.mesh"
-        ,
-        "color": "0.0313726 0.239216 0.541176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "estanteria_nevera_pasillo020"
-      ,
-      "transform":
-      {
-        "pos": "268.203 -3.496 97.087"
-        ,
-        "rotation": "-0.696364 0.122788 -0.122788 -0.696364"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_estanteria_nevera_pasillo020.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_estanteria_nevera_pasillo020.mesh"
-        ,
-        "color": "0.0313726 0.239216 0.541176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "estanteria_nevera_pasillo021"
       ,
       "transform":
       {
-        "pos": "248.338 -3.66875 136.096"
+        "pos": "256.983 -3.66875 138.867"
         ,
-        "rotation": "0.0 0.737277 0.0 -0.67559"
+        "rotation": "0.0 0.707107 0.0 -0.707107"
       }
       ,
       "abs_aabb": {}
@@ -2805,7 +1819,7 @@
       ,
       "transform":
       {
-        "pos": "164.065 -3.66875 157.459"
+        "pos": "164.065 -3.66875 167.394"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -2845,7 +1859,7 @@
       ,
       "transform":
       {
-        "pos": "136.999 4.38984 163.511"
+        "pos": "136.999 4.38984 173.447"
         ,
         "rotation": "0.0 -1.50996e-07 0.0 -1.0"
       }
@@ -2885,7 +1899,7 @@
       ,
       "transform":
       {
-        "pos": "148.992 4.38984 163.491"
+        "pos": "148.992 4.38984 173.427"
         ,
         "rotation": "0.0 -1.50996e-07 0.0 -1.0"
       }
@@ -2925,7 +1939,7 @@
       ,
       "transform":
       {
-        "pos": "146.651 4.38984 145.442"
+        "pos": "146.651 4.38984 155.378"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -2965,7 +1979,7 @@
       ,
       "transform":
       {
-        "pos": "134.658 4.38984 145.463"
+        "pos": "134.658 4.38984 155.398"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -3001,373 +2015,11 @@
   {
     "entity":
     {
-      "name": "Box047"
-      ,
-      "transform":
-      {
-        "pos": "185.436 -3.65208 171.492"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_Box047.col_mesh"
-            ,
-            "group": "floor"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Box047.mesh"
-        ,
-        "color": "0.345098 0.345098 0.882353 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubos_hielo_pasillo"
-      ,
-      "transform":
-      {
-        "pos": "267.97 -3.496 110.948"
-        ,
-        "rotation": "0.0 -0.111006 0.0 -0.99382"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_cubos_hielo_pasillo.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_cubos_hielo_pasillo.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubos_hielo_pasillo001"
-      ,
-      "transform":
-      {
-        "pos": "256.616 -3.49599 129.96"
-        ,
-        "rotation": "0.0 -0.111006 0.0 -0.99382"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_cubos_hielo_pasillo001.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_cubos_hielo_pasillo001.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubos_hielo_pasillo002"
-      ,
-      "transform":
-      {
-        "pos": "231.012 -3.496 113.599"
-        ,
-        "rotation": "0.0 -0.111006 0.0 -0.99382"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_cubos_hielo_pasillo002.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_cubos_hielo_pasillo002.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubos_hielo_pasillo003"
-      ,
-      "transform":
-      {
-        "pos": "247.017 -3.496 110.342"
-        ,
-        "rotation": "0.0 -0.111006 0.0 -0.99382"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_cubos_hielo_pasillo003.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_cubos_hielo_pasillo003.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubos_hielo_pasillo004"
-      ,
-      "transform":
-      {
-        "pos": "172.419 -3.49599 125.886"
-        ,
-        "rotation": "0.0 -0.111006 0.0 -0.99382"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_cubos_hielo_pasillo004.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_cubos_hielo_pasillo004.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubos_hielo_pasillo005"
-      ,
-      "transform":
-      {
-        "pos": "172.494 -3.49599 137.394"
-        ,
-        "rotation": "0.0 -0.444218 0.0 -0.895919"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_cubos_hielo_pasillo005.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_cubos_hielo_pasillo005.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubos_hielo_pasillo006"
-      ,
-      "transform":
-      {
-        "pos": "171.7 -3.49599 153.213"
-        ,
-        "rotation": "0.0 -0.444218 0.0 -0.895919"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_cubos_hielo_pasillo006.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_cubos_hielo_pasillo006.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubos_hielo_pasillo007"
-      ,
-      "transform":
-      {
-        "pos": "142.755 4.42271 156.398"
-        ,
-        "rotation": "0.0 -0.444218 0.0 -0.895919"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_zona_congelados25_cubos_hielo_pasillo007.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_cubos_hielo_pasillo007.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_zona_congelados25/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "Fuente_001"
       ,
       "transform":
       {
-        "pos": "167.993 -3.23339 131.2"
+        "pos": "167.993 -3.23339 112.604"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -3383,7 +2035,7 @@
       ,
       "transform":
       {
-        "pos": "160.843 4.58124 161.664"
+        "pos": "160.843 4.58125 171.6"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -3399,7 +2051,7 @@
       ,
       "transform":
       {
-        "pos": "216.849 -3.25313 134.77"
+        "pos": "258.64 -3.25313 214.77"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -3418,14 +2070,9 @@
         "shapes":
         [
           {
-            "shape": "box"
+            "shape": "trimesh"
             ,
-            "half_size": "7.82904 3.83973 0.99733"
-            ,
-            "offset":
-            {
-              "pos": "0.0 3.83973 0.0"
-            }
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_panelRampa.col_mesh"
             ,
             "group": "panel"
           }
@@ -3453,7 +2100,7 @@
       ,
       "transform":
       {
-        "pos": "200.028 -3.00781 106.384"
+        "pos": "200.028 11.8323 106.384"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -3491,65 +2138,11 @@
   {
     "entity":
     {
-      "name": "CameraPanel001"
-      ,
-      "transform":
-      {
-        "pos": "219.286 7.77558 98.3549"
-        ,
-        "rotation": "-0.0492095 -0.718874 0.691506 -0.0511571"
-        ,
-        "lookat": "216.443 6.99598 118.233"
-      }
-      ,
-      "camera":
-      {
-        "near": 1.0
-        ,
-        "far": 1000.0
-        ,
-        "fov": 45.0
-        ,
-        "distanceTarget": 20.0954
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "CameraRampa002"
-      ,
-      "transform":
-      {
-        "pos": "226.819 6.6894 96.7042"
-        ,
-        "rotation": "-0.361306 -0.638627 0.486161 -0.474616"
-        ,
-        "lookat": "202.317 -0.377803 104.084"
-      }
-      ,
-      "camera":
-      {
-        "near": 1.0
-        ,
-        "far": 1000.0
-        ,
-        "fov": 45.0
-        ,
-        "distanceTarget": 26.5474
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "trigger008"
       ,
       "transform":
       {
-        "pos": "154.294 3.69263 154.419"
+        "pos": "154.294 3.69263 164.355"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -3591,7 +2184,7 @@
       ,
       "transform":
       {
-        "pos": "132.175 25.7304 153.945"
+        "pos": "132.175 25.7304 163.88"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -3607,11 +2200,11 @@
       ,
       "transform":
       {
-        "pos": "157.669 27.2884 150.946"
+        "pos": "157.669 27.2884 160.881"
         ,
         "rotation": "-0.365053 -0.606174 0.366171 -0.604324"
         ,
-        "lookat": "140.0 18.0 151.0"
+        "lookat": "140.0 18.0 160.935"
       }
       ,
       "camera":
@@ -3623,6 +2216,253 @@
         "fov": 45.0
         ,
         "distanceTarget": 19.9618
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "congelados"
+      ,
+      "transform":
+      {
+        "pos": "172.716 -6.32977 140.626"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_congelados.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_congelados.mesh"
+        ,
+        "color": "0.0313726 0.0313726 0.533333 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_congelados25/suelo_color2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo030"
+      ,
+      "transform":
+      {
+        "pos": "267.152 -3.66876 99.5571"
+        ,
+        "rotation": "0.0 -0.965926 0.0 -0.258819"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_estanteria_nevera_pasillo030.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_estanteria_nevera_pasillo030.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_congelados25/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "techo_congelados"
+      ,
+      "transform":
+      {
+        "pos": "172.786 -6.32977 140.626"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_techo_congelados.mesh"
+        ,
+        "color": "0.0313726 0.0313726 0.533333 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_congelados25/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo002"
+      ,
+      "transform":
+      {
+        "pos": "275.757 -3.66876 108.339"
+        ,
+        "rotation": "0.0 -0.819152 0.0 -0.573576"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_estanteria_nevera_pasillo002.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_estanteria_nevera_pasillo002.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_congelados25/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box048"
+      ,
+      "transform":
+      {
+        "pos": "197.136 -3.98658 107.209"
+        ,
+        "rotation": "0.0 0.0 0.173648 -0.984808"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "local_aabb": {}
+      ,
+      "ai_platform_mobile":
+      {
+        "mTravelTime_": 0.15
+        ,
+        "curve": "data/curves/curvaRampaCongelador.curve"
+        ,
+        "active": false
+        ,
+        "platformType_": 8
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "convex"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_Box048.col_mesh"
+          }
+        ]
+        ,
+        "dynamic": true
+        ,
+        "kinematic": true
+        ,
+        "platform": true
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Box048.mesh"
+        ,
+        "color": "0.898039 0.65098 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_congelados25/mat_palillos.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box049"
+      ,
+      "transform":
+      {
+        "pos": "177.679 3.03223 153.812"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_zona_congelados25_Box049.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_zona_congelados25/mapa_zona_congelados25_Box049.mesh"
+        ,
+        "color": "0.882353 0.560784 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_zona_congelados25/blanco.material"
+        ]
       }
     }
   }

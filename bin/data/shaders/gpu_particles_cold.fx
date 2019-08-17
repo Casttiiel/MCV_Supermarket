@@ -38,7 +38,7 @@ struct TSystem {
 // The spawn fn to customize
 TInstance spawnParticle( uint unique_id ) {
   
-  float  rnd1 = rand(unique_id + 57) * 2.0 - 1.0;
+  float  rnd1 = rand(unique_id + GlobalDeltaTime*GlobalWorldTime) * 2.0 - 1.0;
   float2 rnd2 = hash2( unique_id ) * 2.0 - 1.0;
   float2 rnd3 = hash2( unique_id + 57 );
   float  rnd4 = rand(unique_id + 75) * 1.5f;
@@ -61,7 +61,7 @@ TInstance spawnParticle( uint unique_id ) {
   p.dummy3 = 0;
   p.dummy4 = 0;
 
-  p.pos += float3( rnd2.x, rnd1, rnd2.y) * emitter_center_radius;
+  p.pos += float3( rnd2.x, rnd1, rnd2.y) * float3(emitter_center_radius, 4, emitter_center_radius);
   p.dir += float3( rnd2.y, rnd1, rnd2.x) * emitter_dir_aperture;
   p.dir *= speed;
 

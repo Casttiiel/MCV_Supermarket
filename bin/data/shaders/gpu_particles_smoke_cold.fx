@@ -47,6 +47,7 @@ TInstance spawnParticle( uint unique_id ) {
 
   TInstance p;
   p.pos = emitter_center;
+  p.pos.y += 0.2f;
   p.prev_pos = p.pos;
   p.acc = float3(0,0,0);
   p.dir = emitter_dir;
@@ -61,7 +62,6 @@ TInstance spawnParticle( uint unique_id ) {
   p.dummy4 = 0;
 
   p.pos += float3( rnd2.x, 0, rnd2.y) * emitter_center_radius;
-  p.pos.y = 0.2f;
   p.dir += float3( rnd2.y, 0, rnd2.x) * emitter_dir_aperture;
   p.dir *= speed;
   p.dir = 0.0f;
@@ -187,9 +187,9 @@ v2p VS(
   TInstance instance = instances_active[ InstanceID ];
 
   // orient billboard to camera
-  float3 localPos = input.Pos.x * CameraLeft
+  float3 localPos = input.Pos.x * CameraLeft * 5
                   + input.Pos.y * CameraUp;
-  float3 p = instance.pos + localPos * 3.0f; //multiply localPos to scale the billboard
+  float3 p = instance.pos + localPos *2; //multiply localPos to scale the billboard
   /* 
 
   // Strech based on direction
@@ -223,5 +223,6 @@ float4 PS(v2p input) : SV_Target {
   }else if(input.time > 1.0f - 0.3f){
     color.a *= (1.0f - input.time) / 0.3f;
   }
+  color.a *= 0.25f;
   return color; // + float4( 1,1,1,0);
 }

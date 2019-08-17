@@ -20,12 +20,12 @@
         "instances" : {
           "desc" : "Array of active particles at the start of the frame",
           "bytes_per_elem" : 96,
-          "num_elems" : 1024
+          "num_elems" : 8192
         },
         "instances_active" : {
           "desc" : "Array of active particles after the update",
           "bytes_per_elem" : 96,
-          "num_elems" : 1024
+          "num_elems" : 8192
         },
         "system" : {
           "desc" : "Stores dynamic information of this system: num particles alive/dead/time to next spawn/...",
@@ -47,12 +47,13 @@
         },
         "TCtesParticles" : {
           "desc" : "Cte buffer to control emission parameters and update parameters",
-          "time_between_spawns" : 0.56,
-          "num_particles_per_spawn" : 12,
-          "center_radius" : 21.0,
+          "time_between_spawns" : 0.01,
+          "num_particles_per_spawn" : 500,
+          "center_radius" : 75.0,
           "dir_aperture" : 2.0,
           "speed" : "0.1 0.2",
           "duration" : "13.0 14.0",
+          "pos": "114.0 -3.5 -1.0",
           "colors" : [
             [0.0, "0.0 0.8 1.0 1.0"],
             [1.0, "0.0 0.8 1.0 1.0"]
