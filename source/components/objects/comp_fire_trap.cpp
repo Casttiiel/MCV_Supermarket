@@ -76,10 +76,10 @@ void TCompFireTrap::update(float dt) {
       _fireTimer = _fireDelay;
     }
     else {
-      _fireTimer -= Time.delta_unscaled;
+      _fireTimer -= dt;
     }
 
-    _disablerTimer -= Time.delta_unscaled;
+    _disablerTimer -= dt;
     if (_disablerTimer <= 0.f) {
       _isEnabled = false;
       disable();
@@ -87,7 +87,7 @@ void TCompFireTrap::update(float dt) {
     }
   }
   else {
-    _enablerTimer -= Time.delta_unscaled;
+    _enablerTimer -= dt;
     if (_enablerTimer <= 0.f) {
       _isEnabled = true;
       enable();
