@@ -111,7 +111,7 @@ void CRenderManager::render(eRenderCategory category) {
 
   if (normal_keys.sort_required) {
     std::sort(normal_keys.keys.begin(), normal_keys.keys.end(), &sortNormalKeys);
-    normal_keys.sort_required = true;
+    normal_keys.sort_required = false;
 
     for (auto& k : normal_keys.keys) {
       if (!k.h_transform.isValid()) {
