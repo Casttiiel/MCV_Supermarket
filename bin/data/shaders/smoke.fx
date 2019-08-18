@@ -34,7 +34,7 @@ VS_OUTPUT VS(
   float4 auxPos = Pos;
   float noise = txNormal.SampleLevel(samLinear,Uv + GlobalWorldTime * 0.1f,0, 0).x;
   float factor = 0.5f * alpha_erosion_exit;
-  auxPos.xyz += N * noise * factor;
+  //auxPos.xyz += N * noise * factor;
 
   output.WorldPos = mul(auxPos, World);
 
@@ -50,5 +50,5 @@ float4 PS(VS_OUTPUT input) : SV_Target
   float noise1 = 1 - txNormal.SampleLevel(samLinear, input.Uv, 0, 0).x;
   float noise2 = txAlbedo.SampleLevel(samLinear, input.Uv, 0, 0).x;
   float alpha = (noise1 < alpha_erosion_entrance) * (noise2 > alpha_erosion_exit);
-  return float4(ObjColor.xyz,alpha);
+  return float4(noise2, noise2, noise2,1);
 }

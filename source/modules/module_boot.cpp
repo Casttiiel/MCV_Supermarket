@@ -25,6 +25,8 @@ bool CModuleBoot::start()
    EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
   }
 
+  CEngine::get().getGPUCulling().clear();
+
    prefabs = json["prefabs_to_prefaload"].get< std::vector< std::string > >();
   for (auto& p : prefabs) {
 	  TFileContext fc(p);
