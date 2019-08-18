@@ -7,7 +7,7 @@ SHADER_CTE_BUFFER(TCtesSmokeDust, CTE_BUFFER_SLOT_COMP_BUFFERS)
 {
   float  alpha_erosion_entrance;
   float  alpha_erosion_exit;
-  float2 dummy2;
+  float2 dummy;
 };
 
 //--------------------------------------------------------------------------------------
@@ -50,5 +50,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
   float noise1 = 1 - txNormal.SampleLevel(samLinear, input.Uv, 0, 0).x;
   float noise2 = txAlbedo.SampleLevel(samLinear, input.Uv, 0, 0).x;
   float alpha = (noise1 < alpha_erosion_entrance) * (noise2 > alpha_erosion_exit);
-  return float4(noise2, noise2, noise2,1);
+
+  return float4(ObjColor.xyz,alpha);
 }

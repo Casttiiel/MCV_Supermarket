@@ -106,6 +106,8 @@ void CModuleCameraMixer::update(float delta)
       ratio = mc.interpolator->blend(0.f, 1.f, ratio);
     }
 
+    if (isnan(ratio))
+      ratio = 0.f;
     blendCameras(&result, camera, ratio, result);
   }
 
@@ -153,6 +155,8 @@ void CModuleCameraMixer::blendCamera(CHandle camera, float blendTime, Interpolat
   mc.camera = camera;
   mc.blendTime = blendTime;
   mc.interpolator = interpolation;
+  mc.blendedWeight = 0.f;
+  mc.appliedWeight = 0.f;
 
   _mixedCameras.push_back(std::move(mc));
 }

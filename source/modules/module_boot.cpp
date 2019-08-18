@@ -40,7 +40,7 @@ bool CModuleBoot::start()
 
   CHandleManager::destroyAllPendingObjects();
 
-  Time.loadedFrame = true;
+  Time.loadedFrame();
 
   return true;
 }
