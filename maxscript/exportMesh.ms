@@ -350,7 +350,7 @@ function exportMesh the_obj out_filename vtx_fmt = (
 		--local export_path = "C:/Users/victo/mcv_sm/bin/data/meshes/
 		--C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/meshes/
 		--local export_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/meshes/" 
-		local export_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/data/meshes/static_objects/"
+		local export_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/data/meshes/products/"
 		out_filename = export_path + the_obj.name + ".mesh"
 	)
 	writeMeshToFile out_filename verts idxs vtx_fmt subgroups

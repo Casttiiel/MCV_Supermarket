@@ -56,7 +56,6 @@ struct TSceneExporter (
 	mats_path = base_path + "materials/",
 	curve_path = base_path + "curves/",
 	productsSize = 0.18,
-	numberOfProducts = 3,
 	
 	fn exportCompName obj = (
 		fs.writeKeyValue "name" obj.name
@@ -670,8 +669,7 @@ struct TSceneExporter (
 							
 				fs.writeComma()
 			
-				local idx = random 1 numberOfProducts
-				local product_str = "data/prefabs/products/product" + idx as string + ".json"
+				local product_str = "data/prefabs/products/product1.json"
 				fs.writeKeyValue "prefab"  product_str
 				
 				fs.endObj()

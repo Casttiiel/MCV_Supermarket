@@ -51,6 +51,7 @@ void TCompKinematicBullet::onLaunch(const TMsgAssignBulletOwner& msg) {
     targetType = msg.messageToTarget.targetType;
 }
 
+
 void TCompKinematicBullet::update(float delta) {
     //If it's enabled
     if (_isEnabled) {

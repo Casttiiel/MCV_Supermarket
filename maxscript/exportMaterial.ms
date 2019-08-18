@@ -71,7 +71,6 @@ struct TMaterialExporter (
 				fs.writeKeyValue "technique" "objs_morph.tech"
 				fs.writeComma()
 			)
-		
 			fs.writeKey "textures" 
 			fs.beginObj()
 				
