@@ -9,7 +9,7 @@ void TCompBoltSphere::debugInMenu() {
 }
 
 void TCompBoltSphere::load(const json& j, TEntityParseContext& ctx) {
-
+  speed = j.value("speed", speed);
 }
 
 
@@ -36,7 +36,7 @@ void TCompBoltSphere::update(float delta) {
 
   VEC3 dir = target_position - cTransform->getPosition();
   dir.Normalize();
-  cTransform->setPosition(cTransform->getPosition() + dir * delta);
+  cTransform->setPosition(cTransform->getPosition() + dir * delta * speed);
 
 }
 

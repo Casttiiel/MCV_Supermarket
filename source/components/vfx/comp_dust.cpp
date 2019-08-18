@@ -24,8 +24,7 @@ void TCompDust::update(float delta) {
   }
   else {
     if (ratio < 1.0f) {
-      ratio = clamp(ratio + speed * delta, 0.0f, 2.0f);
-      dbg("%f \n", delta);
+      ratio = clamp(ratio + speed * delta * 2.0f, 0.0f, 2.0f);
     }
     else {
       ratio = clamp(ratio + speed * delta * 0.35f, 0.0f, 2.0f);
@@ -40,6 +39,9 @@ void TCompDust::update(float delta) {
     auto buf = c_buff->getCteByName("TCtesSmokeDust");
     buf->updateGPU(&constants);
   }
+
+  if (ratio >= 2.0f)
+    CHandle(this).getOwner().destroy();
 }
 
 

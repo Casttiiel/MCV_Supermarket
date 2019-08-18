@@ -3,8 +3,8 @@
     "entity": {
       "name": "SmokeDust",
       "transform": {
-        "pos": "0 0 0",
-        "scale": 0.3
+        "pos": "0 -0.25 0",
+        "scale": 0.25
       },
       "render": {
         "mesh": "data/meshes/static_objects/smoke.mesh",
@@ -15,18 +15,17 @@
         ]
       },
       "dust":{},
+      "bolt_sphere":{"speed":0.3},
       "buffers" : {
         "TCtesSmokeDust" : {
           "total_bytes" : 16,
           "slot" : 13
         }
       },
-      "comp_self_destroy" : {
-        "_isEnabled": false
-      },
       "comp_scale_gradually":{
         "_finalScale": 0.6,
-        "_unscaledTime": true
+        "_unscaledTime": true,
+	  "_time": 2.0
       }
     }
   }

@@ -6,7 +6,6 @@
 
 class TCompScaleGradually : public TCompBase {
 
-	
 	DECL_SIBLING_ACCESS();
 
 public:

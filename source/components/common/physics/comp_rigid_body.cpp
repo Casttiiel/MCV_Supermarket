@@ -65,7 +65,7 @@ void TCompRigidBody::update(float delta) {
     if (!is_grounded && new_is_grounded) {//just landed
       TCompTransform* c_trans = get<TCompTransform>();
       TEntityParseContext ctx;
-      ctx.root_transform.setPosition(c_trans->getPosition());
+      ctx.root_transform.setPosition(c_trans->getPosition() - 0.2f* c_trans->getFront());
       parseScene("data/prefabs/vfx/smoke.json", ctx);
     }
     is_grounded = new_is_grounded;

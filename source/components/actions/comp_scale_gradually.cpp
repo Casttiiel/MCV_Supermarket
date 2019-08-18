@@ -12,6 +12,7 @@ void TCompScaleGradually::debugInMenu() {
 
 void TCompScaleGradually::load(const json& j, TEntityParseContext& ctx) {
     _finalScale = j.value("_finalScale", _finalScale);
+    _time = j.value("_time", _time);
 }
 
 void TCompScaleGradually::registerMsgs() {
@@ -24,7 +25,7 @@ void TCompScaleGradually::update(float dt) {
     if (c_trans) {
         if (c_trans->getScale() < _finalScale) {
             float currentScale = c_trans->getScale();
-            float newScale = currentScale + Time.delta_unscaled;
+            float newScale = currentScale + (Time.delta_unscaled / _time);
             c_trans->setScale(newScale);
             if (c_col) {
               //Scale collider

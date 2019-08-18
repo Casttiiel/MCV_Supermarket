@@ -1,1250 +1,1085 @@
-{"traceEvents": [{"name":"data/config.json", "cat":"c++","ph":"B","ts": 0, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 364653, "pid":1234, "tid" : 34840 }
-,{"name":"App::Crate", "cat":"c++","ph":"B","ts": 387332, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 7701019, "pid":1234, "tid" : 34840 }
-,{"name":"Render::Create", "cat":"c++","ph":"B","ts": 7704749, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 41785893, "pid":1234, "tid" : 34840 }
-,{"name":"registerResourceTypes", "cat":"c++","ph":"B","ts": 41786348, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 41845067, "pid":1234, "tid" : 34840 }
-,{"name":"Engine::Start", "cat":"c++","ph":"B","ts": 41847086, "pid":1234, "tid" : 34840 }
-,{"name":"Input", "cat":"c++","ph":"B","ts": 41958161, "pid":1234, "tid" : 34840 }
-,{"name":"data/input/button_definitions.json", "cat":"c++","ph":"B","ts": 41974417, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 42840454, "pid":1234, "tid" : 34840 }
-,{"name":"data/input/mapping.json", "cat":"c++","ph":"B","ts": 43515620, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 44688511, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 45131055, "pid":1234, "tid" : 34840 }
-,{"name":"Sys Modules", "cat":"c++","ph":"B","ts": 45131165, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 45145512, "pid":1234, "tid" : 34840 }
-,{"name":"data/modules.json", "cat":"c++","ph":"B","ts": 45161290, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 45343212, "pid":1234, "tid" : 34840 }
-,{"name":"data/gamestates.json", "cat":"c++","ph":"B","ts": 45408760, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 45604542, "pid":1234, "tid" : 34840 }
-,{"name":"Modules::Start", "cat":"c++","ph":"B","ts": 45763479, "pid":1234, "tid" : 34840 }
-,{"name":"navmesh", "cat":"c++","ph":"B","ts": 45775192, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 45779722, "pid":1234, "tid" : 34840 }
-,{"name":"render", "cat":"c++","ph":"B","ts": 45780349, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 45820931, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 46075824, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 46125117, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 46245266, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 46245375, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 46289643, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 46289717, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 46376512, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 46376592, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 46427793, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 46427880, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 46503747, "pid":1234, "tid" : 34840 }
-,{"name":"createRenderUtils", "cat":"c++","ph":"B","ts": 257316649, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 257343282, "pid":1234, "tid" : 34840 }
-,{"name":"parsePipelines", "cat":"c++","ph":"B","ts": 257346087, "pid":1234, "tid" : 34840 }
-,{"name":"data/shaders/techniques.json", "cat":"c++","ph":"B","ts": 257348262, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 260437685, "pid":1234, "tid" : 34840 }
-,{"name":"aimcurve", "cat":"c++","ph":"B","ts": 260446641, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 266517870, "pid":1234, "tid" : 34840 }
-,{"name":"aimline", "cat":"c++","ph":"B","ts": 266519961, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 271236492, "pid":1234, "tid" : 34840 }
-,{"name":"ao", "cat":"c++","ph":"B","ts": 271238786, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 281027077, "pid":1234, "tid" : 34840 }
-,{"name":"bleach", "cat":"c++","ph":"B","ts": 281029520, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/noise_cloud2.dds", "cat":"c++","ph":"B","ts": 286877541, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 287152804, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 287187985, "pid":1234, "tid" : 34840 }
-,{"name":"bleachaura", "cat":"c++","ph":"B","ts": 287190071, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/toon_fluid.dds", "cat":"c++","ph":"B","ts": 296456206, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 297210201, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 297234072, "pid":1234, "tid" : 34840 }
-,{"name":"blob", "cat":"c++","ph":"B","ts": 297235949, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 309232715, "pid":1234, "tid" : 34840 }
-,{"name":"bloom_add", "cat":"c++","ph":"B","ts": 309234988, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 312694778, "pid":1234, "tid" : 34840 }
-,{"name":"bloom_filter", "cat":"c++","ph":"B","ts": 312697191, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 316231330, "pid":1234, "tid" : 34840 }
-,{"name":"blur", "cat":"c++","ph":"B","ts": 316233737, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 320096997, "pid":1234, "tid" : 34840 }
-,{"name":"bolt_effect", "cat":"c++","ph":"B","ts": 320099065, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 324811715, "pid":1234, "tid" : 34840 }
-,{"name":"bolt_sphere_effect", "cat":"c++","ph":"B","ts": 324813894, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/vfx/pointynoise.dds", "cat":"c++","ph":"B","ts": 329731930, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 330525490, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 330554956, "pid":1234, "tid" : 34840 }
-,{"name":"chromatic_aberration", "cat":"c++","ph":"B","ts": 330557375, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 334030688, "pid":1234, "tid" : 34840 }
-,{"name":"cs_cull_instances", "cat":"c++","ph":"B","ts": 334032987, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 347747132, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_cold_spawn", "cat":"c++","ph":"B","ts": 347749566, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 355686199, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_cold_update", "cat":"c++","ph":"B","ts": 355689218, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 359958008, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_fire_spawn", "cat":"c++","ph":"B","ts": 359960318, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 368001477, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_fire_update", "cat":"c++","ph":"B","ts": 368003911, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 372059295, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_flow_spawn", "cat":"c++","ph":"B","ts": 372061648, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 379831353, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_flow_update", "cat":"c++","ph":"B","ts": 379833904, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 383922061, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_hot_spawn", "cat":"c++","ph":"B","ts": 383924300, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 392184153, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_hot_update", "cat":"c++","ph":"B","ts": 392186343, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 396540766, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_orbit", "cat":"c++","ph":"B","ts": 396543145, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 398625151, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_shine_spawn", "cat":"c++","ph":"B","ts": 398627310, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 406431455, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_smoke_cold_spawn", "cat":"c++","ph":"B","ts": 406433789, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 413773602, "pid":1234, "tid" : 34840 }
-,{"name":"cs_particles_smoke_cold_update", "cat":"c++","ph":"B","ts": 413775856, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 417817633, "pid":1234, "tid" : 34840 }
-,{"name":"debug_color", "cat":"c++","ph":"B","ts": 417819938, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 421613040, "pid":1234, "tid" : 34840 }
-,{"name":"debug_line", "cat":"c++","ph":"B","ts": 421615241, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 424999197, "pid":1234, "tid" : 34840 }
-,{"name":"debug_pos", "cat":"c++","ph":"B","ts": 425001293, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 428458693, "pid":1234, "tid" : 34840 }
-,{"name":"debug_pos_instanced", "cat":"c++","ph":"B","ts": 428460844, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 432119631, "pid":1234, "tid" : 34840 }
-,{"name":"debug_pos_skin", "cat":"c++","ph":"B","ts": 432121805, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 511058198, "pid":1234, "tid" : 34840 }
-,{"name":"explosion", "cat":"c++","ph":"B","ts": 511060388, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 515141601, "pid":1234, "tid" : 34840 }
-,{"name":"explosion2", "cat":"c++","ph":"B","ts": 515143544, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 519560429, "pid":1234, "tid" : 34840 }
-,{"name":"explosion3", "cat":"c++","ph":"B","ts": 519562366, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 523949939, "pid":1234, "tid" : 34840 }
-,{"name":"explosion4", "cat":"c++","ph":"B","ts": 523951881, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 529652302, "pid":1234, "tid" : 34840 }
-,{"name":"fake_volumetric_lights", "cat":"c++","ph":"B","ts": 529654365, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 534829913, "pid":1234, "tid" : 34840 }
-,{"name":"fire", "cat":"c++","ph":"B","ts": 534832354, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 540079447, "pid":1234, "tid" : 34840 }
-,{"name":"fire_aux", "cat":"c++","ph":"B","ts": 540081475, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 544303228, "pid":1234, "tid" : 34840 }
-,{"name":"fire_extintor", "cat":"c++","ph":"B","ts": 544305028, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 553192167, "pid":1234, "tid" : 34840 }
-,{"name":"focus", "cat":"c++","ph":"B","ts": 553194192, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 556922535, "pid":1234, "tid" : 34840 }
-,{"name":"fxaa", "cat":"c++","ph":"B","ts": 556924453, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 585595775, "pid":1234, "tid" : 34840 }
-,{"name":"gbuffer_resolve", "cat":"c++","ph":"B","ts": 585597909, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 591119148, "pid":1234, "tid" : 34840 }
-,{"name":"ice_wind", "cat":"c++","ph":"B","ts": 591121518, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 595607028, "pid":1234, "tid" : 34840 }
-,{"name":"instances_particles_additive", "cat":"c++","ph":"B","ts": 595609059, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 600216512, "pid":1234, "tid" : 34840 }
-,{"name":"instances_particles_combinative", "cat":"c++","ph":"B","ts": 600218577, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 604617967, "pid":1234, "tid" : 34840 }
-,{"name":"objs", "cat":"c++","ph":"B","ts": 604620176, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 610732749, "pid":1234, "tid" : 34840 }
-,{"name":"objs_alpha", "cat":"c++","ph":"B","ts": 610735167, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 617254920, "pid":1234, "tid" : 34840 }
-,{"name":"objs_alpha_culled_by_gpu", "cat":"c++","ph":"B","ts": 617256941, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 622953401, "pid":1234, "tid" : 34840 }
-,{"name":"objs_culled_by_gpu", "cat":"c++","ph":"B","ts": 622955401, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 628411057, "pid":1234, "tid" : 34840 }
-,{"name":"objs_instanced", "cat":"c++","ph":"B","ts": 628413150, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 634583745, "pid":1234, "tid" : 34840 }
-,{"name":"objs_mix", "cat":"c++","ph":"B","ts": 634585846, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 641719113, "pid":1234, "tid" : 34840 }
-,{"name":"objs_morph", "cat":"c++","ph":"B","ts": 641721224, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 648021716, "pid":1234, "tid" : 34840 }
-,{"name":"objs_num_instances", "cat":"c++","ph":"B","ts": 648027595, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 655071148, "pid":1234, "tid" : 34840 }
-,{"name":"objs_skin", "cat":"c++","ph":"B","ts": 655073278, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 733764927, "pid":1234, "tid" : 34840 }
-,{"name":"particles_cold_num_instances", "cat":"c++","ph":"B","ts": 733770526, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 738156816, "pid":1234, "tid" : 34840 }
-,{"name":"particles_fire_num_instances", "cat":"c++","ph":"B","ts": 738159114, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 743753502, "pid":1234, "tid" : 34840 }
-,{"name":"particles_flow_num_instances", "cat":"c++","ph":"B","ts": 743755838, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 747782173, "pid":1234, "tid" : 34840 }
-,{"name":"particles_hot_num_instances", "cat":"c++","ph":"B","ts": 747784222, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 752655083, "pid":1234, "tid" : 34840 }
-,{"name":"particles_smoke_cold_num_instances", "cat":"c++","ph":"B","ts": 752657443, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 758060706, "pid":1234, "tid" : 34840 }
-,{"name":"pbr_ambient", "cat":"c++","ph":"B","ts": 758063108, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/cubemaps/env.dds", "cat":"c++","ph":"B","ts": 765978844, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 767357821, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/cubemaps/irradiance.dds", "cat":"c++","ph":"B","ts": 767367746, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 767580353, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 767607837, "pid":1234, "tid" : 34840 }
-,{"name":"pbr_decals", "cat":"c++","ph":"B","ts": 767610141, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 776101060, "pid":1234, "tid" : 34840 }
-,{"name":"pbr_dir_lights", "cat":"c++","ph":"B","ts": 776103015, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 792837315, "pid":1234, "tid" : 34840 }
-,{"name":"pbr_dir_lights_no_shadows", "cat":"c++","ph":"B","ts": 792839722, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 804508312, "pid":1234, "tid" : 34840 }
-,{"name":"pbr_point_lights", "cat":"c++","ph":"B","ts": 804514986, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 815415097, "pid":1234, "tid" : 34840 }
-,{"name":"pbr_skybox", "cat":"c++","ph":"B","ts": 815417290, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 819720062, "pid":1234, "tid" : 34840 }
-,{"name":"presentation", "cat":"c++","ph":"B","ts": 819721996, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 829545658, "pid":1234, "tid" : 34840 }
-,{"name":"shadows", "cat":"c++","ph":"B","ts": 829547869, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 831574472, "pid":1234, "tid" : 34840 }
-,{"name":"shadows_instanced", "cat":"c++","ph":"B","ts": 831576558, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 833701446, "pid":1234, "tid" : 34840 }
-,{"name":"shadows_skin", "cat":"c++","ph":"B","ts": 833703835, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 908711784, "pid":1234, "tid" : 34840 }
-,{"name":"smoke", "cat":"c++","ph":"B","ts": 908714147, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 912858547, "pid":1234, "tid" : 34840 }
-,{"name":"tone_mapping", "cat":"c++","ph":"B","ts": 912860572, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 916083501, "pid":1234, "tid" : 34840 }
-,{"name":"ui", "cat":"c++","ph":"B","ts": 916085387, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 919694416, "pid":1234, "tid" : 34840 }
-,{"name":"ui_additive", "cat":"c++","ph":"B","ts": 919696490, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 923303298, "pid":1234, "tid" : 34840 }
-,{"name":"water", "cat":"c++","ph":"B","ts": 923305318, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 932300787, "pid":1234, "tid" : 34840 }
-,{"name":"wind", "cat":"c++","ph":"B","ts": 932302939, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 936702006, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 936883251, "pid":1234, "tid" : 34840 }
-,{"name":"createRenderPrimitives", "cat":"c++","ph":"B","ts": 936886602, "pid":1234, "tid" : 34840 }
-,{"name":"axis", "cat":"c++","ph":"B","ts": 936888994, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 936920942, "pid":1234, "tid" : 34840 }
-,{"name":"grid", "cat":"c++","ph":"B","ts": 936920994, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937137988, "pid":1234, "tid" : 34840 }
-,{"name":"unit_plane_xy", "cat":"c++","ph":"B","ts": 937138050, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937176502, "pid":1234, "tid" : 34840 }
-,{"name":"unit_plane_xy_UI", "cat":"c++","ph":"B","ts": 937176561, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937192394, "pid":1234, "tid" : 34840 }
-,{"name":"unit_circle_xz", "cat":"c++","ph":"B","ts": 937192445, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937212210, "pid":1234, "tid" : 34840 }
-,{"name":"unit_frustum", "cat":"c++","ph":"B","ts": 937212273, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937235421, "pid":1234, "tid" : 34840 }
-,{"name":"unit_frustum_solid", "cat":"c++","ph":"B","ts": 937235480, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937257351, "pid":1234, "tid" : 34840 }
-,{"name":"unit_wired_cube", "cat":"c++","ph":"B","ts": 937257399, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937278702, "pid":1234, "tid" : 34840 }
-,{"name":"unit_quad_xy", "cat":"c++","ph":"B","ts": 937278752, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937310531, "pid":1234, "tid" : 34840 }
-,{"name":"unit_quad_xy_centered", "cat":"c++","ph":"B","ts": 937310594, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937326930, "pid":1234, "tid" : 34840 }
-,{"name":"bolt_quad", "cat":"c++","ph":"B","ts": 937326983, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937361005, "pid":1234, "tid" : 34840 }
-,{"name":"trail_mesh", "cat":"c++","ph":"B","ts": 937361078, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937371521, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937395912, "pid":1234, "tid" : 34840 }
-,{"name":"Imgui", "cat":"c++","ph":"B","ts": 937395999, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937437311, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937437562, "pid":1234, "tid" : 34840 }
-,{"name":"gpu_culling", "cat":"c++","ph":"B","ts": 937438029, "pid":1234, "tid" : 34840 }
-,{"name":"data/gpu_culling.json", "cat":"c++","ph":"B","ts": 937441429, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 937967122, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 938372519, "pid":1234, "tid" : 34840 }
-,{"name":"entities", "cat":"c++","ph":"B","ts": 938372867, "pid":1234, "tid" : 34840 }
-,{"name":"data/components.json", "cat":"c++","ph":"B","ts": 938376739, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 938827142, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 978466141, "pid":1234, "tid" : 34840 }
-,{"name":"input_1", "cat":"c++","ph":"B","ts": 978466973, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 978468213, "pid":1234, "tid" : 34840 }
-,{"name":"physics", "cat":"c++","ph":"B","ts": 978468400, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 985956107, "pid":1234, "tid" : 34840 }
-,{"name":"camera_mixer", "cat":"c++","ph":"B","ts": 985957446, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 985959979, "pid":1234, "tid" : 34840 }
-,{"name":"multihtreading", "cat":"c++","ph":"B","ts": 985960182, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 986713591, "pid":1234, "tid" : 34840 }
-,{"name":"game_controller", "cat":"c++","ph":"B","ts": 986714842, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 986721851, "pid":1234, "tid" : 34840 }
-,{"name":"scripting", "cat":"c++","ph":"B","ts": 986722078, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 988107014, "pid":1234, "tid" : 34840 }
-,{"name":"ui", "cat":"c++","ph":"B","ts": 988107502, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/ui.json", "cat":"c++","ph":"B","ts": 988112348, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 988171190, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/widgets/main_menu.json", "cat":"c++","ph":"B","ts": 988176208, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 988654538, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/mainMenu_bg.dds", "cat":"c++","ph":"B","ts": 988708866, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 995828335, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/mainMenu_start_unselected.dds", "cat":"c++","ph":"B","ts": 995906777, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 996055857, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/mainMenu_start_selected.dds", "cat":"c++","ph":"B","ts": 996088875, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 996179488, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/mainMenu_continue_unselected.dds", "cat":"c++","ph":"B","ts": 996220853, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 996297587, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/font.dds", "cat":"c++","ph":"B","ts": 996308658, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 996385540, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/mainMenu_continue_selected.dds", "cat":"c++","ph":"B","ts": 996411400, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 996553299, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/mainMenu_exit_unselected.dds", "cat":"c++","ph":"B","ts": 996596642, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 996693070, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/mainMenu_exit_selected.dds", "cat":"c++","ph":"B","ts": 996730330, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 996835693, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/widgets/pausa_menu.json", "cat":"c++","ph":"B","ts": 996890626, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 997384594, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/menu_pause.dds", "cat":"c++","ph":"B","ts": 997428232, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 998681658, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/continue.dds", "cat":"c++","ph":"B","ts": 998743745, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 998845858, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/boton_continue.dds", "cat":"c++","ph":"B","ts": 998880276, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 998959960, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/restart.dds", "cat":"c++","ph":"B","ts": 999001642, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 999090800, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/boton_restart.dds", "cat":"c++","ph":"B","ts": 999125549, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 999201358, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/quit.dds", "cat":"c++","ph":"B","ts": 999242406, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 999317451, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/boton_quit.dds", "cat":"c++","ph":"B","ts": 999351679, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 999422267, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/widgets/game_ui.json", "cat":"c++","ph":"B","ts": 999472126, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1000788431, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/life_empty.dds", "cat":"c++","ph":"B","ts": 1000847949, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1000943786, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/life_full.dds", "cat":"c++","ph":"B","ts": 1000976279, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1001046288, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/mana_empty.dds", "cat":"c++","ph":"B","ts": 1001098969, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1001163815, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/mana_full.dds", "cat":"c++","ph":"B","ts": 1001196640, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1001258689, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/carro.dds", "cat":"c++","ph":"B","ts": 1001316858, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1001376344, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/dash.dds", "cat":"c++","ph":"B","ts": 1001445021, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1001503563, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/jump.dds", "cat":"c++","ph":"B","ts": 1001570351, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1001628715, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/mop.dds", "cat":"c++","ph":"B","ts": 1001694846, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1001754620, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/l1.dds", "cat":"c++","ph":"B","ts": 1001839115, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1001896803, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/r1.dds", "cat":"c++","ph":"B","ts": 1001963117, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002024233, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/teleport_card.dds", "cat":"c++","ph":"B","ts": 1002109082, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002213393, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/battery_card.dds", "cat":"c++","ph":"B","ts": 1002229126, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002297137, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/no_card.dds", "cat":"c++","ph":"B","ts": 1002322119, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002387452, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/cursor_izq.dds", "cat":"c++","ph":"B","ts": 1002463760, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002526318, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/cursor.dds", "cat":"c++","ph":"B","ts": 1002543449, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002600796, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/cursor_der.dds", "cat":"c++","ph":"B","ts": 1002614338, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002643997, "pid":1234, "tid" : 34840 }
-,{"name":"data/ui/textures/market/mirilla.dds", "cat":"c++","ph":"B","ts": 1002694700, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002763903, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002865988, "pid":1234, "tid" : 34840 }
-,{"name":"particles", "cat":"c++","ph":"B","ts": 1002866415, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/all_particles_billboards.instanced_mesh", "cat":"c++","ph":"B","ts": 1002880469, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/all_particles_billboards.instanced_mesh", "cat":"c++","ph":"B","ts": 1002907103, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1002974749, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1003027158, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/all_particles_spheres.instanced_mesh", "cat":"c++","ph":"B","ts": 1003030571, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/all_particles_spheres.instanced_mesh", "cat":"c++","ph":"B","ts": 1003052889, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1003116391, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/UnitSphere.mesh", "cat":"c++","ph":"B","ts": 1003120825, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1003199003, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1003267165, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1003285842, "pid":1234, "tid" : 34840 }
-,{"name":"scene_manager", "cat":"c++","ph":"B","ts": 1003286209, "pid":1234, "tid" : 34840 }
-,{"name":"data/bootScenes.json", "cat":"c++","ph":"B","ts": 1003288768, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1003413416, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1003440410, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1003440588, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1003457031, "pid":1234, "tid" : 34840 }
-,{"name":"App::generateFrame", "cat":"c++","ph":"B","ts": 1003903586, "pid":1234, "tid" : 34840 }
-,{"name":"CModuleManager::update", "cat":"c++","ph":"B","ts": 1007138144, "pid":1234, "tid" : 34840 }
-,{"name":"Modules::Start", "cat":"c++","ph":"B","ts": 1007160278, "pid":1234, "tid" : 34840 }
-,{"name":"boot", "cat":"c++","ph":"B","ts": 1007162324, "pid":1234, "tid" : 34840 }
-,{"name":"data/boot.json", "cat":"c++","ph":"B","ts": 1007166795, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1007462005, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/cameras/main_camera.json", "cat":"c++","ph":"B","ts": 1007483086, "pid":1234, "tid" : 34840 }
-,{"name":"data/gpu_culling.json", "cat":"c++","ph":"B","ts": 1007493713, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1007991605, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/cameras/main_camera.json", "cat":"c++","ph":"B","ts": 1008023361, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/cameras/main_camera.json", "cat":"c++","ph":"B","ts": 1008024495, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008176746, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008181225, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008216197, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008268251, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008299140, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008340061, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/lut/lut1.dds", "cat":"c++","ph":"B","ts": 1008362635, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008416758, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/white.dds", "cat":"c++","ph":"B","ts": 1008465513, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008535547, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008543673, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008620625, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008662246, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008699918, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008701197, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008747780, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008765556, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008800631, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008801874, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008866786, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008882045, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008916357, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008917619, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1008965748, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1008980878, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009015373, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1009016626, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009080576, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1009102346, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009139352, "pid":1234, "tid" : 34840 }
-,{"name":"RTCreate", "cat":"c++","ph":"B","ts": 1009160845, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009198298, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009259803, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/cameras/debug_camera.json", "cat":"c++","ph":"B","ts": 1009261506, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/cameras/debug_camera.json", "cat":"c++","ph":"B","ts": 1009290755, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/cameras/debug_camera.json", "cat":"c++","ph":"B","ts": 1009292024, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009390574, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009394959, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009476461, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/cameras/player_camera.json", "cat":"c++","ph":"B","ts": 1009477906, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/cameras/player_camera.json", "cat":"c++","ph":"B","ts": 1009491153, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/cameras/player_camera.json", "cat":"c++","ph":"B","ts": 1009492182, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009658933, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009663570, "pid":1234, "tid" : 34840 }
-,{"name":"data/curves/camera_3rd_person.curve", "cat":"c++","ph":"B","ts": 1009771618, "pid":1234, "tid" : 34840 }
-,{"name":"data/curves/camera_3rd_person.curve", "cat":"c++","ph":"B","ts": 1009775195, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009842013, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1009863983, "pid":1234, "tid" : 34840 }
-,{"name":"data/curves/idleCurve.curve", "cat":"c++","ph":"B","ts": 1009869807, "pid":1234, "tid" : 34840 }
-,{"name":"data/curves/idleCurve.curve", "cat":"c++","ph":"B","ts": 1009870933, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1010073312, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1010134200, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1010207492, "pid":1234, "tid" : 34840 }
-,{"name":"data/scenes/test_blood.json", "cat":"c++","ph":"B","ts": 1010230657, "pid":1234, "tid" : 34840 }
-,{"name":"data/scenes/test_blood.json", "cat":"c++","ph":"B","ts": 1010249963, "pid":1234, "tid" : 34840 }
-,{"name":"data/scenes/test_blood.json", "cat":"c++","ph":"B","ts": 1010251249, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1010378762, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1010383749, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/blood.instanced_mesh", "cat":"c++","ph":"B","ts": 1010432491, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/blood.instanced_mesh", "cat":"c++","ph":"B","ts": 1010456779, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1010522926, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/UnitSolidCube.mesh", "cat":"c++","ph":"B","ts": 1010527322, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1010580111, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1010613953, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/fluid_instanced.material", "cat":"c++","ph":"B","ts": 1010632840, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/fluid_instanced.material", "cat":"c++","ph":"B","ts": 1010633758, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1010730336, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/blood.dds", "cat":"c++","ph":"B","ts": 1010746316, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1011125857, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/black.dds", "cat":"c++","ph":"B","ts": 1011139333, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1011172771, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1011191702, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1011224180, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/character/dummy_weapon.json", "cat":"c++","ph":"B","ts": 1011225785, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/character/dummy_weapon.json", "cat":"c++","ph":"B","ts": 1011242799, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/character/dummy_weapon.json", "cat":"c++","ph":"B","ts": 1011243970, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1012489115, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1012493267, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/weapons/Mop.mesh", "cat":"c++","ph":"B","ts": 1012545001, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1012621022, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/wood.material", "cat":"c++","ph":"B","ts": 1012640563, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/wood.material", "cat":"c++","ph":"B","ts": 1012641354, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1012704161, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/wood_d.dds", "cat":"c++","ph":"B","ts": 1012714736, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1012920728, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/null_normal.dds", "cat":"c++","ph":"B","ts": 1012925820, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1012986347, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/shadows.material", "cat":"c++","ph":"B","ts": 1013004827, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/shadows.material", "cat":"c++","ph":"B","ts": 1013006973, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1013064479, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/null_albedo.dds", "cat":"c++","ph":"B","ts": 1013075203, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1013157003, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1013177805, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1013182842, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/weapons/scanner.mesh", "cat":"c++","ph":"B","ts": 1013284963, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1013378862, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/scanner.material", "cat":"c++","ph":"B","ts": 1013402434, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/scanner.material", "cat":"c++","ph":"B","ts": 1013403272, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1013476113, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/Scanner_Milestone2_DefaultMaterial_BaseColor.dds", "cat":"c++","ph":"B","ts": 1013486761, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1014917799, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1014947521, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/weapons/Anti_extintor.mesh", "cat":"c++","ph":"B","ts": 1015043871, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1015492865, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/extintor.material", "cat":"c++","ph":"B","ts": 1015522323, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/extintor.material", "cat":"c++","ph":"B","ts": 1015523498, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1015607521, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/AntiExtintor_forSubstance_DefaultMaterial_BaseColor.dds", "cat":"c++","ph":"B","ts": 1015618384, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1018179543, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1018207846, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/static_objects/AimCylinder.mesh", "cat":"c++","ph":"B","ts": 1018330025, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1018404164, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/aim_curve.material", "cat":"c++","ph":"B","ts": 1018446333, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/aim_curve.material", "cat":"c++","ph":"B","ts": 1018447382, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1018525724, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1018576635, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/aim_line.material", "cat":"c++","ph":"B","ts": 1018756924, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/aim_line.material", "cat":"c++","ph":"B","ts": 1018758031, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1018834396, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1018866880, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/particles_fire.material", "cat":"c++","ph":"B","ts": 1019405136, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/particles_fire.material", "cat":"c++","ph":"B","ts": 1019406866, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1019522618, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/particles/glow.dds", "cat":"c++","ph":"B","ts": 1019534962, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1019751744, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/vfx/T_Random_19.dds", "cat":"c++","ph":"B","ts": 1019757276, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1021763868, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/vfx/T_Random_44.dds", "cat":"c++","ph":"B","ts": 1021770594, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1023952438, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/vfx/noise_cloud2.dds", "cat":"c++","ph":"B","ts": 1023961470, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1024128511, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1024151689, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1024239090, "pid":1234, "tid" : 34840 }
-,{"name":"data/scenes/figures.json", "cat":"c++","ph":"B","ts": 1024241001, "pid":1234, "tid" : 34840 }
-,{"name":"data/scenes/figures.json", "cat":"c++","ph":"B","ts": 1024261828, "pid":1234, "tid" : 34840 }
-,{"name":"data/scenes/figures.json", "cat":"c++","ph":"B","ts": 1024263104, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1025409692, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1025414084, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/figures_Plane001.mesh", "cat":"c++","ph":"B","ts": 1025484320, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1025528515, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/rustediron2/rustediron2.material", "cat":"c++","ph":"B","ts": 1025550576, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/rustediron2/rustediron2.material", "cat":"c++","ph":"B","ts": 1025551570, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1025657657, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/rustediron2/rustediron2_basecolor.dds", "cat":"c++","ph":"B","ts": 1025669794, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1026930158, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/rustediron2/rustediron2_metallic.dds", "cat":"c++","ph":"B","ts": 1026940922, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1042238631, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/rustediron2/rustediron2_normal.dds", "cat":"c++","ph":"B","ts": 1042246601, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1051691176, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/rustediron2/rustediron2_roughness.dds", "cat":"c++","ph":"B","ts": 1051699186, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1060596627, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1060623606, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/figures_Box001.mesh", "cat":"c++","ph":"B","ts": 1060764036, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1060823744, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/figures_GeoSphere001.mesh", "cat":"c++","ph":"B","ts": 1060974670, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1061062572, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/sculptedfloorboards4/sculptedfloorboards4.material", "cat":"c++","ph":"B","ts": 1061105083, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/sculptedfloorboards4/sculptedfloorboards4.material", "cat":"c++","ph":"B","ts": 1061106358, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1061223338, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/sculptedfloorboards4/sculptedfloorboards4_basecolor.dds", "cat":"c++","ph":"B","ts": 1061235208, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1066784473, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/sculptedfloorboards4/sculptedfloorboards4_metalness.dds", "cat":"c++","ph":"B","ts": 1066792621, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1067958326, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/sculptedfloorboards4/sculptedfloorboards4_normal.dds", "cat":"c++","ph":"B","ts": 1067965890, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1072844709, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/sculptedfloorboards4/sculptedfloorboards4_roughness.dds", "cat":"c++","ph":"B","ts": 1072853664, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1074046967, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1074073744, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/figures_GeoSphere002.mesh", "cat":"c++","ph":"B","ts": 1074208601, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1074293374, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/figures_Teapot001.mesh", "cat":"c++","ph":"B","ts": 1074770966, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1074832620, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/figures_Torus001.mesh", "cat":"c++","ph":"B","ts": 1074966545, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1075038027, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/figures_Box002.mesh", "cat":"c++","ph":"B","ts": 1075195447, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1075235416, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/figures_Box003.mesh", "cat":"c++","ph":"B","ts": 1075375165, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1075438551, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1075574363, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/infinite_plane.json", "cat":"c++","ph":"B","ts": 1075575742, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/infinite_plane.json", "cat":"c++","ph":"B","ts": 1075587290, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/infinite_plane.json", "cat":"c++","ph":"B","ts": 1075588363, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1075714873, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1075719269, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1075875544, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/character/player.json", "cat":"c++","ph":"B","ts": 1075877147, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/character/player.json", "cat":"c++","ph":"B","ts": 1075889512, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/character/player.json", "cat":"c++","ph":"B","ts": 1075890508, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1076258895, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1076263314, "pid":1234, "tid" : 34840 }
-,{"name":"data/skeletons/ourPlayer/ourPlayer.skeleton", "cat":"c++","ph":"B","ts": 1076378734, "pid":1234, "tid" : 34840 }
-,{"name":"Skel::Create", "cat":"c++","ph":"B","ts": 1076412314, "pid":1234, "tid" : 34840 }
-,{"name":"data/skeletons/ourPlayer/ourPlayer.skeleton", "cat":"c++","ph":"B","ts": 1076413272, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1076836444, "pid":1234, "tid" : 34840 }
-,{"name":"CoreSkel", "cat":"c++","ph":"B","ts": 1076844437, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1077264517, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1077281358, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1078422284, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1078423119, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1079188408, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1079189208, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1079934921, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1079935728, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1081883935, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1081884742, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1082217881, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1082218671, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1082978782, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1083119729, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1083124178, "pid":1234, "tid" : 34840 }
-,{"name":"data/skeletons/ourPlayer/ourPlayer.mesh", "cat":"c++","ph":"B","ts": 1083486792, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1083843648, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/player_material.material", "cat":"c++","ph":"B","ts": 1083867668, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/player_material.material", "cat":"c++","ph":"B","ts": 1083868846, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1083949680, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/1001_Base_Color.dds", "cat":"c++","ph":"B","ts": 1083961209, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1089025081, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/1001_Normal_DirectX.dds", "cat":"c++","ph":"B","ts": 1089033326, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1094204403, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/shadows_skin.material", "cat":"c++","ph":"B","ts": 1094232693, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/shadows_skin.material", "cat":"c++","ph":"B","ts": 1094234307, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1094316210, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1094346962, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1094352746, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1094774227, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/vfx/smoke.json", "cat":"c++","ph":"B","ts": 1094775827, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/vfx/smoke.json", "cat":"c++","ph":"B","ts": 1094795330, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/vfx/smoke.json", "cat":"c++","ph":"B","ts": 1094796371, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1095008008, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1095012431, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/static_objects/smoke.mesh", "cat":"c++","ph":"B","ts": 1095105141, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1095155389, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/smoke.material", "cat":"c++","ph":"B","ts": 1095177434, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/smoke.material", "cat":"c++","ph":"B","ts": 1095178215, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1095258185, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/vfx/smokeffect.dds", "cat":"c++","ph":"B","ts": 1095269500, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1095623209, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/vfx/voronoi2.dds", "cat":"c++","ph":"B","ts": 1095628690, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1097922140, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1097948408, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1098002116, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/enemies/bt_sushi.json", "cat":"c++","ph":"B","ts": 1098024950, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/enemies/bt_sushi.json", "cat":"c++","ph":"B","ts": 1098053967, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/enemies/bt_sushi.json", "cat":"c++","ph":"B","ts": 1098055394, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1098541739, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1098546383, "pid":1234, "tid" : 34840 }
-,{"name":"data/skeletons/ourSushi/ourSushi.skeleton", "cat":"c++","ph":"B","ts": 1098580275, "pid":1234, "tid" : 34840 }
-,{"name":"Skel::Create", "cat":"c++","ph":"B","ts": 1098595393, "pid":1234, "tid" : 34840 }
-,{"name":"data/skeletons/ourSushi/ourSushi.skeleton", "cat":"c++","ph":"B","ts": 1098596638, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1098865550, "pid":1234, "tid" : 34840 }
-,{"name":"CoreSkel", "cat":"c++","ph":"B","ts": 1098871692, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1099048579, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1099063332, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1099893055, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1099893817, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1100727483, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1100728257, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1101070952, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1101071717, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1101524841, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1101525614, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1102521240, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1102522012, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1103006145, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1103006909, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1103385597, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1103386365, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1103972752, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1103973517, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1104330796, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1104331588, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1104751195, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1104751961, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1104963990, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1104964742, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1105443805, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1105444563, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1106042578, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1106043341, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1106168688, "pid":1234, "tid" : 34840 }
-,{"name":"Anim", "cat":"c++","ph":"B","ts": 1106169443, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1107064943, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1107091495, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1107097019, "pid":1234, "tid" : 34840 }
-,{"name":"data/curves/Line002.curve", "cat":"c++","ph":"B","ts": 1107330982, "pid":1234, "tid" : 34840 }
-,{"name":"data/curves/Line002.curve", "cat":"c++","ph":"B","ts": 1107332687, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1107455115, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1107496722, "pid":1234, "tid" : 34840 }
-,{"name":"data/skeletons/ourSushi/ourSushi.mesh", "cat":"c++","ph":"B","ts": 1107755484, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1107928536, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/suhiMaterial.material", "cat":"c++","ph":"B","ts": 1107954267, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/suhiMaterial.material", "cat":"c++","ph":"B","ts": 1107955201, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1108033291, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/sushi_Base_Color.dds", "cat":"c++","ph":"B","ts": 1108045015, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1113120386, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/sushi_Normal_DirectX.dds", "cat":"c++","ph":"B","ts": 1113129498, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1118195043, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1118227819, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1118509418, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/enemies/bt_cupcake.json", "cat":"c++","ph":"B","ts": 1118511084, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/enemies/bt_cupcake.json", "cat":"c++","ph":"B","ts": 1118542461, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/enemies/bt_cupcake.json", "cat":"c++","ph":"B","ts": 1118543935, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1118844713, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1118849178, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/cupcake_eneano.mesh", "cat":"c++","ph":"B","ts": 1119110359, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1120494880, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/cupcakebody.material", "cat":"c++","ph":"B","ts": 1120526394, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/cupcakebody.material", "cat":"c++","ph":"B","ts": 1120527731, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1120604724, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/Cupcake_Base_Color.dds", "cat":"c++","ph":"B","ts": 1120615932, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1125433266, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/Cupcake_Normal_DirectX.dds", "cat":"c++","ph":"B","ts": 1125441637, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1130342332, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1130368837, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/cupcakeeyebrows.material", "cat":"c++","ph":"B","ts": 1130376915, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/cupcakeeyebrows.material", "cat":"c++","ph":"B","ts": 1130378310, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1130467073, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/Cejas_Base_Color.dds", "cat":"c++","ph":"B","ts": 1130478697, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1135371161, "pid":1234, "tid" : 34840 }
-,{"name":"data/textures/Cejas_Normal.dds", "cat":"c++","ph":"B","ts": 1135379521, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1140169251, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1140195423, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1140331506, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/props/fake_player_mounted.json", "cat":"c++","ph":"B","ts": 1140332956, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/props/fake_player_mounted.json", "cat":"c++","ph":"B","ts": 1140356212, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/props/fake_player_mounted.json", "cat":"c++","ph":"B","ts": 1140357589, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1140484284, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1140488513, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/weapons/Principal_carrito.mesh", "cat":"c++","ph":"B","ts": 1140513805, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1206344842, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1206442651, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/enemies/bt_ranged_sushi.json", "cat":"c++","ph":"B","ts": 1206444352, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/enemies/bt_ranged_sushi.json", "cat":"c++","ph":"B","ts": 1206471880, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/enemies/bt_ranged_sushi.json", "cat":"c++","ph":"B","ts": 1206473444, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1206987123, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1206991500, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1207729702, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/vfx/air.json", "cat":"c++","ph":"B","ts": 1207731092, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/vfx/air.json", "cat":"c++","ph":"B","ts": 1207745377, "pid":1234, "tid" : 34840 }
-,{"name":"data/prefabs/vfx/air.json", "cat":"c++","ph":"B","ts": 1207746430, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1207935707, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1207940463, "pid":1234, "tid" : 34840 }
-,{"name":"data/meshes/static_objects/air_spiral.mesh", "cat":"c++","ph":"B","ts": 1208000690, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208050256, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/wind.material", "cat":"c++","ph":"B","ts": 1208075399, "pid":1234, "tid" : 34840 }
-,{"name":"data/materials/vfx/wind.material", "cat":"c++","ph":"B","ts": 1208076427, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208151076, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208184536, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208215582, "pid":1234, "tid" : 34840 }
-,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 1208216175, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208500645, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208513597, "pid":1234, "tid" : 34840 }
-,{"name":"test_cameras", "cat":"c++","ph":"B","ts": 1208514062, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208525503, "pid":1234, "tid" : 34840 }
-,{"name":"fluid_decals", "cat":"c++","ph":"B","ts": 1208525732, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208531032, "pid":1234, "tid" : 34840 }
-,{"name":"game_ui", "cat":"c++","ph":"B","ts": 1208531242, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208536003, "pid":1234, "tid" : 34840 }
-,{"name":"game_manager", "cat":"c++","ph":"B","ts": 1208536201, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208538924, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208539046, "pid":1234, "tid" : 34840 }
-,{"name":"input_1", "cat":"c++","ph":"B","ts": 1208540026, "pid":1234, "tid" : 34840 }
-,{"name":"keyboard", "cat":"c++","ph":"B","ts": 1208540575, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208541044, "pid":1234, "tid" : 34840 }
-,{"name":"mouse", "cat":"c++","ph":"B","ts": 1208541107, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208541536, "pid":1234, "tid" : 34840 }
-,{"name":"gamepad", "cat":"c++","ph":"B","ts": 1208541596, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208567049, "pid":1234, "tid" : 34840 }
-,{"name":"CKeyboard", "cat":"c++","ph":"B","ts": 1208567132, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208571281, "pid":1234, "tid" : 34840 }
-,{"name":"CMouse", "cat":"c++","ph":"B","ts": 1208571347, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208571729, "pid":1234, "tid" : 34840 }
-,{"name":"CGamepad", "cat":"c++","ph":"B","ts": 1208571784, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208572886, "pid":1234, "tid" : 34840 }
-,{"name":"CMapping", "cat":"c++","ph":"B","ts": 1208572959, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208577259, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208577362, "pid":1234, "tid" : 34840 }
-,{"name":"boot", "cat":"c++","ph":"B","ts": 1208577468, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208577842, "pid":1234, "tid" : 34840 }
-,{"name":"game_controller", "cat":"c++","ph":"B","ts": 1208577907, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208586013, "pid":1234, "tid" : 34840 }
-,{"name":"physics", "cat":"c++","ph":"B","ts": 1208586064, "pid":1234, "tid" : 34840 }
-,{"name":"Simulate", "cat":"c++","ph":"B","ts": 1208586435, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208593424, "pid":1234, "tid" : 34840 }
-,{"name":"fetch", "cat":"c++","ph":"B","ts": 1208593448, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208736574, "pid":1234, "tid" : 34840 }
-,{"name":"Actor", "cat":"c++","ph":"B","ts": 1208736889, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208738589, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208738704, "pid":1234, "tid" : 34840 }
-,{"name":"test_cameras", "cat":"c++","ph":"B","ts": 1208738826, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208739394, "pid":1234, "tid" : 34840 }
-,{"name":"fluid_decals", "cat":"c++","ph":"B","ts": 1208739455, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208741245, "pid":1234, "tid" : 34840 }
-,{"name":"scripting", "cat":"c++","ph":"B","ts": 1208741313, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208741838, "pid":1234, "tid" : 34840 }
-,{"name":"game_ui", "cat":"c++","ph":"B","ts": 1208741907, "pid":1234, "tid" : 34840 }
-,{"name":"CModuleGameUI::update", "cat":"c++","ph":"B","ts": 1208742301, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208775672, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208775758, "pid":1234, "tid" : 34840 }
-,{"name":"game_manager", "cat":"c++","ph":"B","ts": 1208775828, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208779806, "pid":1234, "tid" : 34840 }
-,{"name":"navmesh", "cat":"c++","ph":"B","ts": 1208779881, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208780274, "pid":1234, "tid" : 34840 }
-,{"name":"entities", "cat":"c++","ph":"B","ts": 1208780343, "pid":1234, "tid" : 34840 }
-,{"name":"CModuleEntities::update", "cat":"c++","ph":"B","ts": 1208780668, "pid":1234, "tid" : 34840 }
-,{"name":"armature", "cat":"c++","ph":"B","ts": 1208781273, "pid":1234, "tid" : 34840 }
-,{"name":"updateSkel", "cat":"c++","ph":"B","ts": 1208849894, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208967331, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208968104, "pid":1234, "tid" : 34840 }
-,{"name":"sCart_controller", "cat":"c++","ph":"B","ts": 1208968146, "pid":1234, "tid" : 34840 }
-,{"name":"IAIController", "cat":"c++","ph":"B","ts": 1208968812, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208970865, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208970965, "pid":1234, "tid" : 34840 }
-,{"name":"character_controller", "cat":"c++","ph":"B","ts": 1208970993, "pid":1234, "tid" : 34840 }
-,{"name":"IAIController", "cat":"c++","ph":"B","ts": 1208973061, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208976392, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208977665, "pid":1234, "tid" : 34840 }
-,{"name":"curve_controller", "cat":"c++","ph":"B","ts": 1208977696, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208978210, "pid":1234, "tid" : 34840 }
-,{"name":"skel_lookat", "cat":"c++","ph":"B","ts": 1208978236, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1208981802, "pid":1234, "tid" : 34840 }
-,{"name":"skel_lookat_direction", "cat":"c++","ph":"B","ts": 1208981829, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209033844, "pid":1234, "tid" : 34840 }
-,{"name":"fire_follow", "cat":"c++","ph":"B","ts": 1209033891, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209043283, "pid":1234, "tid" : 34840 }
-,{"name":"comp_destroyable_wall", "cat":"c++","ph":"B","ts": 1209043331, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209043912, "pid":1234, "tid" : 34840 }
-,{"name":"bt_sushi", "cat":"c++","ph":"B","ts": 1209043942, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209044363, "pid":1234, "tid" : 34840 }
-,{"name":"bt_ranged_sushi", "cat":"c++","ph":"B","ts": 1209044391, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209045218, "pid":1234, "tid" : 34840 }
-,{"name":"bt_golem", "cat":"c++","ph":"B","ts": 1209045245, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209045658, "pid":1234, "tid" : 34840 }
-,{"name":"bt_cupcake", "cat":"c++","ph":"B","ts": 1209045686, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209046093, "pid":1234, "tid" : 34840 }
-,{"name":"bt_cupcake_explosive", "cat":"c++","ph":"B","ts": 1209046135, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209047787, "pid":1234, "tid" : 34840 }
-,{"name":"kinematic_bullet", "cat":"c++","ph":"B","ts": 1209047814, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209048297, "pid":1234, "tid" : 34840 }
-,{"name":"trigger_move_wall", "cat":"c++","ph":"B","ts": 1209048341, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209048847, "pid":1234, "tid" : 34840 }
-,{"name":"battery_controller", "cat":"c++","ph":"B","ts": 1209048889, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209050391, "pid":1234, "tid" : 34840 }
-,{"name":"comp_fire", "cat":"c++","ph":"B","ts": 1209050419, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209050930, "pid":1234, "tid" : 34840 }
-,{"name":"rigidbody", "cat":"c++","ph":"B","ts": 1209050957, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209087867, "pid":1234, "tid" : 34840 }
-,{"name":"camera_flyover", "cat":"c++","ph":"B","ts": 1209087915, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209088807, "pid":1234, "tid" : 34840 }
-,{"name":"bone_tracker", "cat":"c++","ph":"B","ts": 1209088835, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209103183, "pid":1234, "tid" : 34840 }
-,{"name":"bone_tracker_golem", "cat":"c++","ph":"B","ts": 1209103211, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209103703, "pid":1234, "tid" : 34840 }
-,{"name":"ragdoll", "cat":"c++","ph":"B","ts": 1209103729, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209104132, "pid":1234, "tid" : 34840 }
-,{"name":"sensor", "cat":"c++","ph":"B","ts": 1209104178, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209104597, "pid":1234, "tid" : 34840 }
-,{"name":"hierarchy", "cat":"c++","ph":"B","ts": 1209104640, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209105071, "pid":1234, "tid" : 34840 }
-,{"name":"local_aabb", "cat":"c++","ph":"B","ts": 1209105098, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209105523, "pid":1234, "tid" : 34840 }
-,{"name":"culling", "cat":"c++","ph":"B","ts": 1209105550, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209112221, "pid":1234, "tid" : 34840 }
-,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 1209112255, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209112873, "pid":1234, "tid" : 34840 }
-,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 1209112914, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209113405, "pid":1234, "tid" : 34840 }
-,{"name":"comp_scale_gradually", "cat":"c++","ph":"B","ts": 1209113435, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209114631, "pid":1234, "tid" : 34840 }
-,{"name":"comp_coffee", "cat":"c++","ph":"B","ts": 1209114657, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209115112, "pid":1234, "tid" : 34840 }
-,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 1209115138, "pid":1234, "tid" : 34840 }
-,{"name":"ComponentUI", "cat":"c++","ph":"B","ts": 1209115539, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209115846, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209115921, "pid":1234, "tid" : 34840 }
-,{"name":"parabolic_launch", "cat":"c++","ph":"B","ts": 1209115949, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209119053, "pid":1234, "tid" : 34840 }
-,{"name":"ai_platform_mobile", "cat":"c++","ph":"B","ts": 1209119081, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209119563, "pid":1234, "tid" : 34840 }
-,{"name":"comp_madness", "cat":"c++","ph":"B","ts": 1209119590, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209121155, "pid":1234, "tid" : 34840 }
-,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 1209121198, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209121727, "pid":1234, "tid" : 34840 }
-,{"name":"comp_madness_fountain", "cat":"c++","ph":"B","ts": 1209121753, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209122233, "pid":1234, "tid" : 34840 }
-,{"name":"comp_enemy_spawner", "cat":"c++","ph":"B","ts": 1209122261, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209123675, "pid":1234, "tid" : 34840 }
-,{"name":"comp_explosive_object", "cat":"c++","ph":"B","ts": 1209123789, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209124248, "pid":1234, "tid" : 34840 }
-,{"name":"camera_3rd_person", "cat":"c++","ph":"B","ts": 1209124292, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209159103, "pid":1234, "tid" : 34840 }
-,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 1209159150, "pid":1234, "tid" : 34840 }
-,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 1209159685, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209169487, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209169591, "pid":1234, "tid" : 34840 }
-,{"name":"follow_light", "cat":"c++","ph":"B","ts": 1209169639, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209171594, "pid":1234, "tid" : 34840 }
-,{"name":"light_dir", "cat":"c++","ph":"B","ts": 1209171637, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209172180, "pid":1234, "tid" : 34840 }
-,{"name":"comp_spawner", "cat":"c++","ph":"B","ts": 1209172206, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209172667, "pid":1234, "tid" : 34840 }
-,{"name":"comp_explode_oncontact", "cat":"c++","ph":"B","ts": 1209172713, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209173223, "pid":1234, "tid" : 34840 }
-,{"name":"comp_lookat_camera", "cat":"c++","ph":"B","ts": 1209173266, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209173747, "pid":1234, "tid" : 34840 }
-,{"name":"player_animator", "cat":"c++","ph":"B","ts": 1209173787, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209174899, "pid":1234, "tid" : 34840 }
-,{"name":"sushi_animator", "cat":"c++","ph":"B","ts": 1209174947, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209175385, "pid":1234, "tid" : 34840 }
-,{"name":"prop_animator", "cat":"c++","ph":"B","ts": 1209175410, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209175837, "pid":1234, "tid" : 34840 }
-,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 1209175862, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209176251, "pid":1234, "tid" : 34840 }
-,{"name":"comp_teleport", "cat":"c++","ph":"B","ts": 1209176277, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209177725, "pid":1234, "tid" : 34840 }
-,{"name":"ai_turret", "cat":"c++","ph":"B","ts": 1209177768, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209178181, "pid":1234, "tid" : 34840 }
-,{"name":"turret_bullet_controller", "cat":"c++","ph":"B","ts": 1209178207, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209178795, "pid":1234, "tid" : 34840 }
-,{"name":"comp_blackboard", "cat":"c++","ph":"B","ts": 1209178837, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209179325, "pid":1234, "tid" : 34840 }
-,{"name":"comp_wind_trap", "cat":"c++","ph":"B","ts": 1209179351, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209180132, "pid":1234, "tid" : 34840 }
-,{"name":"comp_blade_trap", "cat":"c++","ph":"B","ts": 1209180182, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209180656, "pid":1234, "tid" : 34840 }
-,{"name":"comp_fire_trap", "cat":"c++","ph":"B","ts": 1209180682, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209181090, "pid":1234, "tid" : 34840 }
-,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 1209181116, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209181469, "pid":1234, "tid" : 34840 }
-,{"name":"comp_obstacle", "cat":"c++","ph":"B","ts": 1209181494, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209181919, "pid":1234, "tid" : 34840 }
-,{"name":"ai_anav", "cat":"c++","ph":"B","ts": 1209181948, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209182312, "pid":1234, "tid" : 34840 }
-,{"name":"trigger", "cat":"c++","ph":"B","ts": 1209182337, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209182708, "pid":1234, "tid" : 34840 }
-,{"name":"trans_curve_controller", "cat":"c++","ph":"B","ts": 1209182735, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209183249, "pid":1234, "tid" : 34840 }
-,{"name":"bolt_billboard", "cat":"c++","ph":"B","ts": 1209183292, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209183724, "pid":1234, "tid" : 34840 }
-,{"name":"bolt_sphere", "cat":"c++","ph":"B","ts": 1209183753, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209185100, "pid":1234, "tid" : 34840 }
-,{"name":"dust", "cat":"c++","ph":"B","ts": 1209185142, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209206390, "pid":1234, "tid" : 34840 }
-,{"name":"air", "cat":"c++","ph":"B","ts": 1209206448, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209209103, "pid":1234, "tid" : 34840 }
-,{"name":"trail", "cat":"c++","ph":"B","ts": 1209209130, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209209641, "pid":1234, "tid" : 34840 }
-,{"name":"scalable", "cat":"c++","ph":"B","ts": 1209209668, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209210095, "pid":1234, "tid" : 34840 }
-,{"name":"comp_slow_disappear", "cat":"c++","ph":"B","ts": 1209210120, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209210585, "pid":1234, "tid" : 34840 }
-,{"name":"dynamic_instance", "cat":"c++","ph":"B","ts": 1209210636, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209211096, "pid":1234, "tid" : 34840 }
-,{"name":"camera", "cat":"c++","ph":"B","ts": 1209211122, "pid":1234, "tid" : 34840 }
-,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 1209211516, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209213885, "pid":1234, "tid" : 34840 }
-,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 1209213929, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209215405, "pid":1234, "tid" : 34840 }
-,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 1209215433, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209216860, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209216924, "pid":1234, "tid" : 34840 }
-,{"name":"compute", "cat":"c++","ph":"B","ts": 1209216969, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209490738, "pid":1234, "tid" : 34840 }
-,{"name":"removable_camera", "cat":"c++","ph":"B","ts": 1209490849, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209491338, "pid":1234, "tid" : 34840 }
-,{"name":"comp_self_destroy", "cat":"c++","ph":"B","ts": 1209491383, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209491987, "pid":1234, "tid" : 34840 }
-,{"name":"comp_termoestato", "cat":"c++","ph":"B","ts": 1209492015, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209492540, "pid":1234, "tid" : 34840 }
-,{"name":"morph_animation", "cat":"c++","ph":"B","ts": 1209492582, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209493051, "pid":1234, "tid" : 34840 }
-,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 1209493096, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209493531, "pid":1234, "tid" : 34840 }
-,{"name":"comp_interruptor", "cat":"c++","ph":"B","ts": 1209493573, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209494024, "pid":1234, "tid" : 34840 }
-,{"name":"enemies_in_tube", "cat":"c++","ph":"B","ts": 1209494065, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209494558, "pid":1234, "tid" : 34840 }
-,{"name":"enemies_in_butcher", "cat":"c++","ph":"B","ts": 1209494618, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209496757, "pid":1234, "tid" : 34840 }
-,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 1209496864, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209507056, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209507132, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209507261, "pid":1234, "tid" : 34840 }
-,{"name":"camera_mixer", "cat":"c++","ph":"B","ts": 1209507449, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209518469, "pid":1234, "tid" : 34840 }
-,{"name":"particles", "cat":"c++","ph":"B","ts": 1209518576, "pid":1234, "tid" : 34840 }
-,{"name":"particles.update", "cat":"c++","ph":"B","ts": 1209519033, "pid":1234, "tid" : 34840 }
-,{"name":"uploadRenderDetailsToGPU", "cat":"c++","ph":"B","ts": 1209519979, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209520551, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209520636, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209520730, "pid":1234, "tid" : 34840 }
-,{"name":"render", "cat":"c++","ph":"B","ts": 1209520802, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209521156, "pid":1234, "tid" : 34840 }
-,{"name":"gpu_culling", "cat":"c++","ph":"B","ts": 1209521203, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209521612, "pid":1234, "tid" : 34840 }
-,{"name":"ui", "cat":"c++","ph":"B","ts": 1209521662, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209523417, "pid":1234, "tid" : 34840 }
-,{"name":"scene_manager", "cat":"c++","ph":"B","ts": 1209523584, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209524015, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209524087, "pid":1234, "tid" : 34840 }
-,{"name":"CModuleRender::generateFrame", "cat":"c++","ph":"B","ts": 1209528540, "pid":1234, "tid" : 34840 }
-,{"name":"uploadSkinMatricesToGPU", "cat":"c++","ph":"B","ts": 1209530366, "pid":1234, "tid" : 34840 }
-,{"name":"updateCtesBones", "cat":"c++","ph":"B","ts": 1209530904, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209535503, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1209535605, "pid":1234, "tid" : 34840 }
-,{"name":"Deferred", "cat":"c++","ph":"B","ts": 1209545637, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210358416, "pid":1234, "tid" : 34840 }
-,{"name":"RenderInMenu", "cat":"c++","ph":"B","ts": 1210436148, "pid":1234, "tid" : 34840 }
-,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 1210504459, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210513277, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210526532, "pid":1234, "tid" : 34840 }
-,{"name":"renderDebugOfComponents", "cat":"c++","ph":"B","ts": 1210535118, "pid":1234, "tid" : 34840 }
-,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 1210535943, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210538360, "pid":1234, "tid" : 34840 }
-,{"name":"character_controller", "cat":"c++","ph":"B","ts": 1210538398, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210547874, "pid":1234, "tid" : 34840 }
-,{"name":"collider", "cat":"c++","ph":"B","ts": 1210547923, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210566301, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210566372, "pid":1234, "tid" : 34840 }
-,{"name":"GPUCulling", "cat":"c++","ph":"B","ts": 1210574130, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210574563, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210637074, "pid":1234, "tid" : 34840 }
-,{"name":"endImgui", "cat":"c++","ph":"B","ts": 1210639380, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1210736472, "pid":1234, "tid" : 34840 }
-,{"name":"CRender::swapChain", "cat":"c++","ph":"B","ts": 1210736580, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212807846, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212808109, "pid":1234, "tid" : 34840 }
-,{"name":"App::generateFrame", "cat":"c++","ph":"B","ts": 1212889885, "pid":1234, "tid" : 34840 }
-,{"name":"CModuleManager::update", "cat":"c++","ph":"B","ts": 1212907524, "pid":1234, "tid" : 34840 }
-,{"name":"input_1", "cat":"c++","ph":"B","ts": 1212908539, "pid":1234, "tid" : 34840 }
-,{"name":"keyboard", "cat":"c++","ph":"B","ts": 1212909145, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212909627, "pid":1234, "tid" : 34840 }
-,{"name":"mouse", "cat":"c++","ph":"B","ts": 1212909774, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212910186, "pid":1234, "tid" : 34840 }
-,{"name":"gamepad", "cat":"c++","ph":"B","ts": 1212910247, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212930657, "pid":1234, "tid" : 34840 }
-,{"name":"CKeyboard", "cat":"c++","ph":"B","ts": 1212930749, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212934866, "pid":1234, "tid" : 34840 }
-,{"name":"CMouse", "cat":"c++","ph":"B","ts": 1212934929, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212935270, "pid":1234, "tid" : 34840 }
-,{"name":"CGamepad", "cat":"c++","ph":"B","ts": 1212935324, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212936629, "pid":1234, "tid" : 34840 }
-,{"name":"CMapping", "cat":"c++","ph":"B","ts": 1212936706, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212941111, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212941211, "pid":1234, "tid" : 34840 }
-,{"name":"boot", "cat":"c++","ph":"B","ts": 1212941340, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212941718, "pid":1234, "tid" : 34840 }
-,{"name":"game_controller", "cat":"c++","ph":"B","ts": 1212941787, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212949439, "pid":1234, "tid" : 34840 }
-,{"name":"physics", "cat":"c++","ph":"B","ts": 1212949508, "pid":1234, "tid" : 34840 }
-,{"name":"Simulate", "cat":"c++","ph":"B","ts": 1212949829, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1212956321, "pid":1234, "tid" : 34840 }
-,{"name":"fetch", "cat":"c++","ph":"B","ts": 1212956343, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213025135, "pid":1234, "tid" : 34840 }
-,{"name":"Actor", "cat":"c++","ph":"B","ts": 1213025427, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213027786, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213027896, "pid":1234, "tid" : 34840 }
-,{"name":"test_cameras", "cat":"c++","ph":"B","ts": 1213028009, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213028545, "pid":1234, "tid" : 34840 }
-,{"name":"fluid_decals", "cat":"c++","ph":"B","ts": 1213028610, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213029447, "pid":1234, "tid" : 34840 }
-,{"name":"scripting", "cat":"c++","ph":"B","ts": 1213029510, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213029950, "pid":1234, "tid" : 34840 }
-,{"name":"game_ui", "cat":"c++","ph":"B","ts": 1213030016, "pid":1234, "tid" : 34840 }
-,{"name":"CModuleGameUI::update", "cat":"c++","ph":"B","ts": 1213030442, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213059903, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213059975, "pid":1234, "tid" : 34840 }
-,{"name":"game_manager", "cat":"c++","ph":"B","ts": 1213060060, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213062793, "pid":1234, "tid" : 34840 }
-,{"name":"navmesh", "cat":"c++","ph":"B","ts": 1213062864, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213063270, "pid":1234, "tid" : 34840 }
-,{"name":"entities", "cat":"c++","ph":"B","ts": 1213063338, "pid":1234, "tid" : 34840 }
-,{"name":"CModuleEntities::update", "cat":"c++","ph":"B","ts": 1213063729, "pid":1234, "tid" : 34840 }
-,{"name":"armature", "cat":"c++","ph":"B","ts": 1213064215, "pid":1234, "tid" : 34840 }
-,{"name":"updateSkel", "cat":"c++","ph":"B","ts": 1213066985, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213183855, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213184748, "pid":1234, "tid" : 34840 }
-,{"name":"sCart_controller", "cat":"c++","ph":"B","ts": 1213184801, "pid":1234, "tid" : 34840 }
-,{"name":"IAIController", "cat":"c++","ph":"B","ts": 1213185429, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213187409, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213187505, "pid":1234, "tid" : 34840 }
-,{"name":"character_controller", "cat":"c++","ph":"B","ts": 1213187532, "pid":1234, "tid" : 34840 }
-,{"name":"IAIController", "cat":"c++","ph":"B","ts": 1213188006, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213245990, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213246112, "pid":1234, "tid" : 34840 }
-,{"name":"curve_controller", "cat":"c++","ph":"B","ts": 1213246155, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213246870, "pid":1234, "tid" : 34840 }
-,{"name":"skel_lookat", "cat":"c++","ph":"B","ts": 1213246897, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213250238, "pid":1234, "tid" : 34840 }
-,{"name":"skel_lookat_direction", "cat":"c++","ph":"B","ts": 1213250265, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213302573, "pid":1234, "tid" : 34840 }
-,{"name":"fire_follow", "cat":"c++","ph":"B","ts": 1213302635, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213308416, "pid":1234, "tid" : 34840 }
-,{"name":"comp_destroyable_wall", "cat":"c++","ph":"B","ts": 1213308461, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213308969, "pid":1234, "tid" : 34840 }
-,{"name":"bt_sushi", "cat":"c++","ph":"B","ts": 1213309015, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213309539, "pid":1234, "tid" : 34840 }
-,{"name":"bt_ranged_sushi", "cat":"c++","ph":"B","ts": 1213309582, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213310044, "pid":1234, "tid" : 34840 }
-,{"name":"bt_golem", "cat":"c++","ph":"B","ts": 1213310087, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213310491, "pid":1234, "tid" : 34840 }
-,{"name":"bt_cupcake", "cat":"c++","ph":"B","ts": 1213310533, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213310912, "pid":1234, "tid" : 34840 }
-,{"name":"bt_cupcake_explosive", "cat":"c++","ph":"B","ts": 1213310955, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213311452, "pid":1234, "tid" : 34840 }
-,{"name":"kinematic_bullet", "cat":"c++","ph":"B","ts": 1213311494, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213312068, "pid":1234, "tid" : 34840 }
-,{"name":"trigger_move_wall", "cat":"c++","ph":"B","ts": 1213312110, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213312593, "pid":1234, "tid" : 34840 }
-,{"name":"battery_controller", "cat":"c++","ph":"B","ts": 1213312635, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213313117, "pid":1234, "tid" : 34840 }
-,{"name":"comp_fire", "cat":"c++","ph":"B","ts": 1213313144, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213313602, "pid":1234, "tid" : 34840 }
-,{"name":"rigidbody", "cat":"c++","ph":"B","ts": 1213313629, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213505259, "pid":1234, "tid" : 34840 }
-,{"name":"camera_flyover", "cat":"c++","ph":"B","ts": 1213505330, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213506130, "pid":1234, "tid" : 34840 }
-,{"name":"bone_tracker", "cat":"c++","ph":"B","ts": 1213506174, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213508780, "pid":1234, "tid" : 34840 }
-,{"name":"bone_tracker_golem", "cat":"c++","ph":"B","ts": 1213508823, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213509369, "pid":1234, "tid" : 34840 }
-,{"name":"ragdoll", "cat":"c++","ph":"B","ts": 1213509395, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213509769, "pid":1234, "tid" : 34840 }
-,{"name":"sensor", "cat":"c++","ph":"B","ts": 1213509834, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213510239, "pid":1234, "tid" : 34840 }
-,{"name":"hierarchy", "cat":"c++","ph":"B","ts": 1213510281, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213510694, "pid":1234, "tid" : 34840 }
-,{"name":"local_aabb", "cat":"c++","ph":"B","ts": 1213510736, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213511145, "pid":1234, "tid" : 34840 }
-,{"name":"culling", "cat":"c++","ph":"B","ts": 1213511187, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213514840, "pid":1234, "tid" : 34840 }
-,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 1213514884, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213515356, "pid":1234, "tid" : 34840 }
-,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 1213515397, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213515964, "pid":1234, "tid" : 34840 }
-,{"name":"comp_scale_gradually", "cat":"c++","ph":"B","ts": 1213515997, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213517554, "pid":1234, "tid" : 34840 }
-,{"name":"comp_coffee", "cat":"c++","ph":"B","ts": 1213517585, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213518051, "pid":1234, "tid" : 34840 }
-,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 1213518078, "pid":1234, "tid" : 34840 }
-,{"name":"ComponentUI", "cat":"c++","ph":"B","ts": 1213518497, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213518781, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213518855, "pid":1234, "tid" : 34840 }
-,{"name":"parabolic_launch", "cat":"c++","ph":"B","ts": 1213518898, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213525657, "pid":1234, "tid" : 34840 }
-,{"name":"ai_platform_mobile", "cat":"c++","ph":"B","ts": 1213525703, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213526165, "pid":1234, "tid" : 34840 }
-,{"name":"comp_madness", "cat":"c++","ph":"B","ts": 1213526207, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213526696, "pid":1234, "tid" : 34840 }
-,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 1213526736, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213527230, "pid":1234, "tid" : 34840 }
-,{"name":"comp_madness_fountain", "cat":"c++","ph":"B","ts": 1213527257, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213527694, "pid":1234, "tid" : 34840 }
-,{"name":"comp_enemy_spawner", "cat":"c++","ph":"B","ts": 1213527737, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213528193, "pid":1234, "tid" : 34840 }
-,{"name":"comp_explosive_object", "cat":"c++","ph":"B","ts": 1213528234, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213528648, "pid":1234, "tid" : 34840 }
-,{"name":"camera_3rd_person", "cat":"c++","ph":"B","ts": 1213528693, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213556295, "pid":1234, "tid" : 34840 }
-,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 1213556347, "pid":1234, "tid" : 34840 }
-,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 1213556828, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213565756, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213565866, "pid":1234, "tid" : 34840 }
-,{"name":"follow_light", "cat":"c++","ph":"B","ts": 1213565896, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213566447, "pid":1234, "tid" : 34840 }
-,{"name":"light_dir", "cat":"c++","ph":"B","ts": 1213566488, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213566891, "pid":1234, "tid" : 34840 }
-,{"name":"comp_spawner", "cat":"c++","ph":"B","ts": 1213566931, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213567365, "pid":1234, "tid" : 34840 }
-,{"name":"comp_explode_oncontact", "cat":"c++","ph":"B","ts": 1213567407, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213567854, "pid":1234, "tid" : 34840 }
-,{"name":"comp_lookat_camera", "cat":"c++","ph":"B","ts": 1213567894, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213568350, "pid":1234, "tid" : 34840 }
-,{"name":"player_animator", "cat":"c++","ph":"B","ts": 1213568381, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213569288, "pid":1234, "tid" : 34840 }
-,{"name":"sushi_animator", "cat":"c++","ph":"B","ts": 1213569334, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213569738, "pid":1234, "tid" : 34840 }
-,{"name":"prop_animator", "cat":"c++","ph":"B","ts": 1213569763, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213570161, "pid":1234, "tid" : 34840 }
-,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 1213570188, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213570579, "pid":1234, "tid" : 34840 }
-,{"name":"comp_teleport", "cat":"c++","ph":"B","ts": 1213570621, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213571100, "pid":1234, "tid" : 34840 }
-,{"name":"ai_turret", "cat":"c++","ph":"B","ts": 1213571127, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213571487, "pid":1234, "tid" : 34840 }
-,{"name":"turret_bullet_controller", "cat":"c++","ph":"B","ts": 1213571529, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213571998, "pid":1234, "tid" : 34840 }
-,{"name":"comp_blackboard", "cat":"c++","ph":"B","ts": 1213572042, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213572503, "pid":1234, "tid" : 34840 }
-,{"name":"comp_wind_trap", "cat":"c++","ph":"B","ts": 1213572545, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213574341, "pid":1234, "tid" : 34840 }
-,{"name":"comp_blade_trap", "cat":"c++","ph":"B","ts": 1213574384, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213574862, "pid":1234, "tid" : 34840 }
-,{"name":"comp_fire_trap", "cat":"c++","ph":"B","ts": 1213574904, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213575296, "pid":1234, "tid" : 34840 }
-,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 1213575322, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213575674, "pid":1234, "tid" : 34840 }
-,{"name":"comp_obstacle", "cat":"c++","ph":"B","ts": 1213575699, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213576082, "pid":1234, "tid" : 34840 }
-,{"name":"ai_anav", "cat":"c++","ph":"B","ts": 1213576127, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213576494, "pid":1234, "tid" : 34840 }
-,{"name":"trigger", "cat":"c++","ph":"B","ts": 1213576519, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213576864, "pid":1234, "tid" : 34840 }
-,{"name":"trans_curve_controller", "cat":"c++","ph":"B","ts": 1213576895, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213577400, "pid":1234, "tid" : 34840 }
-,{"name":"bolt_billboard", "cat":"c++","ph":"B","ts": 1213577492, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213577912, "pid":1234, "tid" : 34840 }
-,{"name":"bolt_sphere", "cat":"c++","ph":"B","ts": 1213577952, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213578311, "pid":1234, "tid" : 34840 }
-,{"name":"dust", "cat":"c++","ph":"B","ts": 1213578341, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213624973, "pid":1234, "tid" : 34840 }
-,{"name":"air", "cat":"c++","ph":"B","ts": 1213625028, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213625845, "pid":1234, "tid" : 34840 }
-,{"name":"trail", "cat":"c++","ph":"B","ts": 1213625888, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213626368, "pid":1234, "tid" : 34840 }
-,{"name":"scalable", "cat":"c++","ph":"B","ts": 1213626411, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213626806, "pid":1234, "tid" : 34840 }
-,{"name":"comp_slow_disappear", "cat":"c++","ph":"B","ts": 1213626832, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213627256, "pid":1234, "tid" : 34840 }
-,{"name":"dynamic_instance", "cat":"c++","ph":"B","ts": 1213627300, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213627730, "pid":1234, "tid" : 34840 }
-,{"name":"camera", "cat":"c++","ph":"B","ts": 1213627773, "pid":1234, "tid" : 34840 }
-,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 1213628212, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213630374, "pid":1234, "tid" : 34840 }
-,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 1213630419, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213631855, "pid":1234, "tid" : 34840 }
-,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 1213631882, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213633329, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1213633392, "pid":1234, "tid" : 34840 }
-,{"name":"compute", "cat":"c++","ph":"B","ts": 1213633435, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222817641, "pid":1234, "tid" : 34840 }
-,{"name":"removable_camera", "cat":"c++","ph":"B","ts": 1222817813, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222819092, "pid":1234, "tid" : 34840 }
-,{"name":"comp_self_destroy", "cat":"c++","ph":"B","ts": 1222819137, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222819760, "pid":1234, "tid" : 34840 }
-,{"name":"comp_termoestato", "cat":"c++","ph":"B","ts": 1222819803, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222820290, "pid":1234, "tid" : 34840 }
-,{"name":"morph_animation", "cat":"c++","ph":"B","ts": 1222820334, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222820823, "pid":1234, "tid" : 34840 }
-,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 1222820866, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222821371, "pid":1234, "tid" : 34840 }
-,{"name":"comp_interruptor", "cat":"c++","ph":"B","ts": 1222821414, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222821878, "pid":1234, "tid" : 34840 }
-,{"name":"enemies_in_tube", "cat":"c++","ph":"B","ts": 1222821919, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222822419, "pid":1234, "tid" : 34840 }
-,{"name":"enemies_in_butcher", "cat":"c++","ph":"B","ts": 1222822460, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222822998, "pid":1234, "tid" : 34840 }
-,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 1222823107, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222832663, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222832779, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222832943, "pid":1234, "tid" : 34840 }
-,{"name":"camera_mixer", "cat":"c++","ph":"B","ts": 1222833294, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222841317, "pid":1234, "tid" : 34840 }
-,{"name":"particles", "cat":"c++","ph":"B","ts": 1222841391, "pid":1234, "tid" : 34840 }
-,{"name":"particles.update", "cat":"c++","ph":"B","ts": 1222841828, "pid":1234, "tid" : 34840 }
-,{"name":"uploadRenderDetailsToGPU", "cat":"c++","ph":"B","ts": 1222842653, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222843234, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222843309, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222843398, "pid":1234, "tid" : 34840 }
-,{"name":"render", "cat":"c++","ph":"B","ts": 1222843465, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222843835, "pid":1234, "tid" : 34840 }
-,{"name":"gpu_culling", "cat":"c++","ph":"B","ts": 1222843897, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222844234, "pid":1234, "tid" : 34840 }
-,{"name":"ui", "cat":"c++","ph":"B","ts": 1222844302, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222846190, "pid":1234, "tid" : 34840 }
-,{"name":"scene_manager", "cat":"c++","ph":"B","ts": 1222846273, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222846686, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222846762, "pid":1234, "tid" : 34840 }
-,{"name":"CModuleRender::generateFrame", "cat":"c++","ph":"B","ts": 1222850195, "pid":1234, "tid" : 34840 }
-,{"name":"uploadSkinMatricesToGPU", "cat":"c++","ph":"B","ts": 1222852858, "pid":1234, "tid" : 34840 }
-,{"name":"updateCtesBones", "cat":"c++","ph":"B","ts": 1222853411, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222856619, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1222856712, "pid":1234, "tid" : 34840 }
-,{"name":"Deferred", "cat":"c++","ph":"B","ts": 1222864808, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223079884, "pid":1234, "tid" : 34840 }
-,{"name":"RenderInMenu", "cat":"c++","ph":"B","ts": 1223153206, "pid":1234, "tid" : 34840 }
-,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 1223182108, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223190428, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223200139, "pid":1234, "tid" : 34840 }
-,{"name":"renderDebugOfComponents", "cat":"c++","ph":"B","ts": 1223209353, "pid":1234, "tid" : 34840 }
-,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 1223209826, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223211800, "pid":1234, "tid" : 34840 }
-,{"name":"character_controller", "cat":"c++","ph":"B","ts": 1223211838, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223219947, "pid":1234, "tid" : 34840 }
-,{"name":"collider", "cat":"c++","ph":"B","ts": 1223220001, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223236565, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223236632, "pid":1234, "tid" : 34840 }
-,{"name":"GPUCulling", "cat":"c++","ph":"B","ts": 1223244239, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223244734, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223329397, "pid":1234, "tid" : 34840 }
-,{"name":"endImgui", "cat":"c++","ph":"B","ts": 1223331081, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223369245, "pid":1234, "tid" : 34840 }
-,{"name":"CRender::swapChain", "cat":"c++","ph":"B","ts": 1223369330, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223466237, "pid":1234, "tid" : 34840 }
-,{"ph":"E","ts": 1223466504, "pid":1234, "tid" : 34840 }
+{"traceEvents": [{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 0, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 128540, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 327330, "pid":1234, "tid" : 26764 }
+,{"name":"renderDebugOfComponents", "cat":"c++","ph":"B","ts": 4131162, "pid":1234, "tid" : 26764 }
+,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 4134760, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 4271429, "pid":1234, "tid" : 26764 }
+,{"name":"character_controller", "cat":"c++","ph":"B","ts": 4271742, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 4441010, "pid":1234, "tid" : 26764 }
+,{"name":"collider", "cat":"c++","ph":"B","ts": 4441232, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 4666202, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 4666563, "pid":1234, "tid" : 26764 }
+,{"name":"GPUCulling", "cat":"c++","ph":"B","ts": 5302833, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 5306561, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 6392991, "pid":1234, "tid" : 26764 }
+,{"name":"endImgui", "cat":"c++","ph":"B","ts": 6455924, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 6700484, "pid":1234, "tid" : 26764 }
+,{"name":"CRender::swapChain", "cat":"c++","ph":"B","ts": 6701245, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 6934044, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 6935094, "pid":1234, "tid" : 26764 }
+,{"name":"App::generateFrame", "cat":"c++","ph":"B","ts": 7004916, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleManager::update", "cat":"c++","ph":"B","ts": 7055213, "pid":1234, "tid" : 26764 }
+,{"name":"input_1", "cat":"c++","ph":"B","ts": 7057918, "pid":1234, "tid" : 26764 }
+,{"name":"keyboard", "cat":"c++","ph":"B","ts": 7059843, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7061359, "pid":1234, "tid" : 26764 }
+,{"name":"mouse", "cat":"c++","ph":"B","ts": 7061522, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7062792, "pid":1234, "tid" : 26764 }
+,{"name":"gamepad", "cat":"c++","ph":"B","ts": 7062993, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7133759, "pid":1234, "tid" : 26764 }
+,{"name":"CKeyboard", "cat":"c++","ph":"B","ts": 7134012, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7148521, "pid":1234, "tid" : 26764 }
+,{"name":"CMouse", "cat":"c++","ph":"B","ts": 7148739, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7149971, "pid":1234, "tid" : 26764 }
+,{"name":"CGamepad", "cat":"c++","ph":"B","ts": 7150264, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7154138, "pid":1234, "tid" : 26764 }
+,{"name":"CMapping", "cat":"c++","ph":"B","ts": 7154624, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7172195, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7172675, "pid":1234, "tid" : 26764 }
+,{"name":"boot", "cat":"c++","ph":"B","ts": 7173032, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7174318, "pid":1234, "tid" : 26764 }
+,{"name":"game_controller", "cat":"c++","ph":"B","ts": 7174499, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7199866, "pid":1234, "tid" : 26764 }
+,{"name":"physics", "cat":"c++","ph":"B","ts": 7200036, "pid":1234, "tid" : 26764 }
+,{"name":"Simulate", "cat":"c++","ph":"B","ts": 7201444, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7228005, "pid":1234, "tid" : 26764 }
+,{"name":"fetch", "cat":"c++","ph":"B","ts": 7228078, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7425034, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7426337, "pid":1234, "tid" : 26764 }
+,{"name":"test_cameras", "cat":"c++","ph":"B","ts": 7426847, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7430086, "pid":1234, "tid" : 26764 }
+,{"name":"fluid_decals", "cat":"c++","ph":"B","ts": 7430403, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7433535, "pid":1234, "tid" : 26764 }
+,{"name":"scripting", "cat":"c++","ph":"B","ts": 7433963, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7435749, "pid":1234, "tid" : 26764 }
+,{"name":"game_ui", "cat":"c++","ph":"B","ts": 7435990, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleGameUI::update", "cat":"c++","ph":"B","ts": 7437694, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7551688, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7551952, "pid":1234, "tid" : 26764 }
+,{"name":"game_manager", "cat":"c++","ph":"B","ts": 7552329, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7562608, "pid":1234, "tid" : 26764 }
+,{"name":"navmesh", "cat":"c++","ph":"B","ts": 7563028, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 7564464, "pid":1234, "tid" : 26764 }
+,{"name":"entities", "cat":"c++","ph":"B","ts": 7564907, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleEntities::update", "cat":"c++","ph":"B","ts": 7566064, "pid":1234, "tid" : 26764 }
+,{"name":"armature", "cat":"c++","ph":"B","ts": 7567622, "pid":1234, "tid" : 26764 }
+,{"name":"updateSkel", "cat":"c++","ph":"B","ts": 7579481, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8043888, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8047060, "pid":1234, "tid" : 26764 }
+,{"name":"sCart_controller", "cat":"c++","ph":"B","ts": 8047344, "pid":1234, "tid" : 26764 }
+,{"name":"IAIController", "cat":"c++","ph":"B","ts": 8049974, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8059157, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8059752, "pid":1234, "tid" : 26764 }
+,{"name":"character_controller", "cat":"c++","ph":"B","ts": 8059898, "pid":1234, "tid" : 26764 }
+,{"name":"IAIController", "cat":"c++","ph":"B","ts": 8061659, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8288286, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8288745, "pid":1234, "tid" : 26764 }
+,{"name":"curve_controller", "cat":"c++","ph":"B","ts": 8288943, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8291910, "pid":1234, "tid" : 26764 }
+,{"name":"skel_lookat", "cat":"c++","ph":"B","ts": 8292002, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8303649, "pid":1234, "tid" : 26764 }
+,{"name":"skel_lookat_direction", "cat":"c++","ph":"B","ts": 8303745, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8491125, "pid":1234, "tid" : 26764 }
+,{"name":"fire_follow", "cat":"c++","ph":"B","ts": 8491292, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8514737, "pid":1234, "tid" : 26764 }
+,{"name":"comp_destroyable_wall", "cat":"c++","ph":"B","ts": 8514913, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8516838, "pid":1234, "tid" : 26764 }
+,{"name":"bt_sushi", "cat":"c++","ph":"B","ts": 8517060, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8518524, "pid":1234, "tid" : 26764 }
+,{"name":"bt_ranged_sushi", "cat":"c++","ph":"B","ts": 8518674, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8520330, "pid":1234, "tid" : 26764 }
+,{"name":"bt_golem", "cat":"c++","ph":"B","ts": 8520481, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8522000, "pid":1234, "tid" : 26764 }
+,{"name":"bt_cupcake", "cat":"c++","ph":"B","ts": 8522147, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8523555, "pid":1234, "tid" : 26764 }
+,{"name":"bt_cupcake_explosive", "cat":"c++","ph":"B","ts": 8523707, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8525436, "pid":1234, "tid" : 26764 }
+,{"name":"kinematic_bullet", "cat":"c++","ph":"B","ts": 8525878, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8527582, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_move_wall", "cat":"c++","ph":"B","ts": 8527727, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8529405, "pid":1234, "tid" : 26764 }
+,{"name":"battery_controller", "cat":"c++","ph":"B","ts": 8529547, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8531386, "pid":1234, "tid" : 26764 }
+,{"name":"comp_fire", "cat":"c++","ph":"B","ts": 8531473, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8533283, "pid":1234, "tid" : 26764 }
+,{"name":"rigidbody", "cat":"c++","ph":"B","ts": 8533378, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8636181, "pid":1234, "tid" : 26764 }
+,{"name":"camera_flyover", "cat":"c++","ph":"B","ts": 8636381, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8638756, "pid":1234, "tid" : 26764 }
+,{"name":"bone_tracker", "cat":"c++","ph":"B","ts": 8638925, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8647640, "pid":1234, "tid" : 26764 }
+,{"name":"bone_tracker_golem", "cat":"c++","ph":"B","ts": 8647789, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8649205, "pid":1234, "tid" : 26764 }
+,{"name":"ragdoll", "cat":"c++","ph":"B","ts": 8649299, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8650536, "pid":1234, "tid" : 26764 }
+,{"name":"sensor", "cat":"c++","ph":"B","ts": 8650680, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8652217, "pid":1234, "tid" : 26764 }
+,{"name":"hierarchy", "cat":"c++","ph":"B","ts": 8652360, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8653867, "pid":1234, "tid" : 26764 }
+,{"name":"local_aabb", "cat":"c++","ph":"B","ts": 8654389, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8655845, "pid":1234, "tid" : 26764 }
+,{"name":"culling", "cat":"c++","ph":"B","ts": 8656040, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8669572, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 8669735, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8671436, "pid":1234, "tid" : 26764 }
+,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 8671584, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8673071, "pid":1234, "tid" : 26764 }
+,{"name":"comp_scale_gradually", "cat":"c++","ph":"B","ts": 8673242, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8674888, "pid":1234, "tid" : 26764 }
+,{"name":"comp_coffee", "cat":"c++","ph":"B","ts": 8675039, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8676553, "pid":1234, "tid" : 26764 }
+,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 8676700, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentUI", "cat":"c++","ph":"B","ts": 8678326, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8679323, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8679613, "pid":1234, "tid" : 26764 }
+,{"name":"parabolic_launch", "cat":"c++","ph":"B","ts": 8679766, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8701379, "pid":1234, "tid" : 26764 }
+,{"name":"ai_platform_mobile", "cat":"c++","ph":"B","ts": 8701545, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8703268, "pid":1234, "tid" : 26764 }
+,{"name":"comp_madness", "cat":"c++","ph":"B","ts": 8703363, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8705246, "pid":1234, "tid" : 26764 }
+,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 8705386, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8707100, "pid":1234, "tid" : 26764 }
+,{"name":"comp_madness_fountain", "cat":"c++","ph":"B","ts": 8707197, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8708768, "pid":1234, "tid" : 26764 }
+,{"name":"comp_enemy_spawner", "cat":"c++","ph":"B","ts": 8708910, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8710622, "pid":1234, "tid" : 26764 }
+,{"name":"comp_explosive_object", "cat":"c++","ph":"B","ts": 8710769, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8712412, "pid":1234, "tid" : 26764 }
+,{"name":"camera_3rd_person", "cat":"c++","ph":"B","ts": 8712507, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8807518, "pid":1234, "tid" : 26764 }
+,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 8807649, "pid":1234, "tid" : 26764 }
+,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 8809361, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8839292, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8839661, "pid":1234, "tid" : 26764 }
+,{"name":"follow_light", "cat":"c++","ph":"B","ts": 8839829, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8841670, "pid":1234, "tid" : 26764 }
+,{"name":"light_dir", "cat":"c++","ph":"B","ts": 8841817, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8843265, "pid":1234, "tid" : 26764 }
+,{"name":"comp_spawner", "cat":"c++","ph":"B","ts": 8843416, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8845150, "pid":1234, "tid" : 26764 }
+,{"name":"comp_explode_oncontact", "cat":"c++","ph":"B","ts": 8845300, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8847270, "pid":1234, "tid" : 26764 }
+,{"name":"comp_lookat_camera", "cat":"c++","ph":"B","ts": 8847420, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8849035, "pid":1234, "tid" : 26764 }
+,{"name":"player_animator", "cat":"c++","ph":"B","ts": 8849182, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8853143, "pid":1234, "tid" : 26764 }
+,{"name":"sushi_animator", "cat":"c++","ph":"B","ts": 8853242, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8854743, "pid":1234, "tid" : 26764 }
+,{"name":"prop_animator", "cat":"c++","ph":"B","ts": 8854886, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8856348, "pid":1234, "tid" : 26764 }
+,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 8856443, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8857879, "pid":1234, "tid" : 26764 }
+,{"name":"comp_teleport", "cat":"c++","ph":"B","ts": 8857975, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8859633, "pid":1234, "tid" : 26764 }
+,{"name":"ai_turret", "cat":"c++","ph":"B","ts": 8859773, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8861195, "pid":1234, "tid" : 26764 }
+,{"name":"turret_bullet_controller", "cat":"c++","ph":"B","ts": 8861291, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8862934, "pid":1234, "tid" : 26764 }
+,{"name":"comp_blackboard", "cat":"c++","ph":"B","ts": 8863080, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8864882, "pid":1234, "tid" : 26764 }
+,{"name":"comp_wind_trap", "cat":"c++","ph":"B","ts": 8865027, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8866418, "pid":1234, "tid" : 26764 }
+,{"name":"comp_blade_trap", "cat":"c++","ph":"B","ts": 8866513, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8867941, "pid":1234, "tid" : 26764 }
+,{"name":"comp_fire_trap", "cat":"c++","ph":"B","ts": 8868087, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8869537, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 8869687, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8871021, "pid":1234, "tid" : 26764 }
+,{"name":"comp_obstacle", "cat":"c++","ph":"B","ts": 8871107, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8872543, "pid":1234, "tid" : 26764 }
+,{"name":"ai_anav", "cat":"c++","ph":"B","ts": 8872689, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8874102, "pid":1234, "tid" : 26764 }
+,{"name":"trigger", "cat":"c++","ph":"B","ts": 8874191, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8875420, "pid":1234, "tid" : 26764 }
+,{"name":"trans_curve_controller", "cat":"c++","ph":"B","ts": 8875571, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8877181, "pid":1234, "tid" : 26764 }
+,{"name":"bolt_billboard", "cat":"c++","ph":"B","ts": 8877331, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8878930, "pid":1234, "tid" : 26764 }
+,{"name":"bolt_sphere", "cat":"c++","ph":"B","ts": 8879069, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8880468, "pid":1234, "tid" : 26764 }
+,{"name":"dust", "cat":"c++","ph":"B","ts": 8880607, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8881802, "pid":1234, "tid" : 26764 }
+,{"name":"air", "cat":"c++","ph":"B","ts": 8881889, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8883218, "pid":1234, "tid" : 26764 }
+,{"name":"trail", "cat":"c++","ph":"B","ts": 8883357, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8884750, "pid":1234, "tid" : 26764 }
+,{"name":"scalable", "cat":"c++","ph":"B","ts": 8884835, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8886143, "pid":1234, "tid" : 26764 }
+,{"name":"comp_slow_disappear", "cat":"c++","ph":"B","ts": 8886227, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8887571, "pid":1234, "tid" : 26764 }
+,{"name":"dynamic_instance", "cat":"c++","ph":"B","ts": 8887716, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8889186, "pid":1234, "tid" : 26764 }
+,{"name":"camera", "cat":"c++","ph":"B","ts": 8889346, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 8890545, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8897676, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 8897890, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8903157, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 8903266, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8908234, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 8908458, "pid":1234, "tid" : 26764 }
+,{"name":"compute", "cat":"c++","ph":"B","ts": 8908611, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9639426, "pid":1234, "tid" : 26764 }
+,{"name":"removable_camera", "cat":"c++","ph":"B","ts": 9639708, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9641729, "pid":1234, "tid" : 26764 }
+,{"name":"comp_self_destroy", "cat":"c++","ph":"B","ts": 9641956, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9643807, "pid":1234, "tid" : 26764 }
+,{"name":"comp_termoestato", "cat":"c++","ph":"B","ts": 9643956, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9645764, "pid":1234, "tid" : 26764 }
+,{"name":"morph_animation", "cat":"c++","ph":"B","ts": 9645913, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9647418, "pid":1234, "tid" : 26764 }
+,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 9647625, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9649071, "pid":1234, "tid" : 26764 }
+,{"name":"comp_interruptor", "cat":"c++","ph":"B","ts": 9649215, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9650576, "pid":1234, "tid" : 26764 }
+,{"name":"enemies_in_tube", "cat":"c++","ph":"B","ts": 9650722, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9652292, "pid":1234, "tid" : 26764 }
+,{"name":"enemies_in_butcher", "cat":"c++","ph":"B","ts": 9652437, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9654146, "pid":1234, "tid" : 26764 }
+,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 9654417, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9687257, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9687614, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9688040, "pid":1234, "tid" : 26764 }
+,{"name":"camera_mixer", "cat":"c++","ph":"B","ts": 9688618, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9707032, "pid":1234, "tid" : 26764 }
+,{"name":"particles", "cat":"c++","ph":"B","ts": 9707269, "pid":1234, "tid" : 26764 }
+,{"name":"particles.update", "cat":"c++","ph":"B","ts": 9708808, "pid":1234, "tid" : 26764 }
+,{"name":"uploadRenderDetailsToGPU", "cat":"c++","ph":"B","ts": 9711869, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9713698, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9714001, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9714317, "pid":1234, "tid" : 26764 }
+,{"name":"render", "cat":"c++","ph":"B","ts": 9714558, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9715780, "pid":1234, "tid" : 26764 }
+,{"name":"gpu_culling", "cat":"c++","ph":"B","ts": 9715956, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9717607, "pid":1234, "tid" : 26764 }
+,{"name":"ui", "cat":"c++","ph":"B","ts": 9717774, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9724139, "pid":1234, "tid" : 26764 }
+,{"name":"scene_manager", "cat":"c++","ph":"B","ts": 9724440, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9725946, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9726298, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleRender::generateFrame", "cat":"c++","ph":"B","ts": 9865378, "pid":1234, "tid" : 26764 }
+,{"name":"uploadSkinMatricesToGPU", "cat":"c++","ph":"B","ts": 9868520, "pid":1234, "tid" : 26764 }
+,{"name":"updateCtesBones", "cat":"c++","ph":"B","ts": 9870184, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9883338, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 9883721, "pid":1234, "tid" : 26764 }
+,{"name":"Deferred", "cat":"c++","ph":"B","ts": 9904717, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 21558021, "pid":1234, "tid" : 26764 }
+,{"name":"RenderInMenu", "cat":"c++","ph":"B","ts": 27987241, "pid":1234, "tid" : 26764 }
+,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 28271126, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 28357766, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 28418950, "pid":1234, "tid" : 26764 }
+,{"name":"renderDebugOfComponents", "cat":"c++","ph":"B","ts": 29112118, "pid":1234, "tid" : 26764 }
+,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 29115131, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 29254377, "pid":1234, "tid" : 26764 }
+,{"name":"character_controller", "cat":"c++","ph":"B","ts": 29254599, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 29446817, "pid":1234, "tid" : 26764 }
+,{"name":"collider", "cat":"c++","ph":"B","ts": 29446938, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 29668724, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 29668989, "pid":1234, "tid" : 26764 }
+,{"name":"GPUCulling", "cat":"c++","ph":"B","ts": 30256253, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 30258567, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 30863235, "pid":1234, "tid" : 26764 }
+,{"name":"endImgui", "cat":"c++","ph":"B","ts": 30916874, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31049443, "pid":1234, "tid" : 26764 }
+,{"name":"CRender::swapChain", "cat":"c++","ph":"B","ts": 31049921, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31211394, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31212291, "pid":1234, "tid" : 26764 }
+,{"name":"App::generateFrame", "cat":"c++","ph":"B","ts": 31216569, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleManager::update", "cat":"c++","ph":"B","ts": 31265067, "pid":1234, "tid" : 26764 }
+,{"name":"input_1", "cat":"c++","ph":"B","ts": 31267826, "pid":1234, "tid" : 26764 }
+,{"name":"keyboard", "cat":"c++","ph":"B","ts": 31278772, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31280611, "pid":1234, "tid" : 26764 }
+,{"name":"mouse", "cat":"c++","ph":"B","ts": 31280864, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31282369, "pid":1234, "tid" : 26764 }
+,{"name":"gamepad", "cat":"c++","ph":"B","ts": 31282581, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31350372, "pid":1234, "tid" : 26764 }
+,{"name":"CKeyboard", "cat":"c++","ph":"B","ts": 31350611, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31365357, "pid":1234, "tid" : 26764 }
+,{"name":"CMouse", "cat":"c++","ph":"B","ts": 31365531, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31366816, "pid":1234, "tid" : 26764 }
+,{"name":"CGamepad", "cat":"c++","ph":"B","ts": 31367074, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31370666, "pid":1234, "tid" : 26764 }
+,{"name":"CMapping", "cat":"c++","ph":"B","ts": 31370925, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31387427, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31387876, "pid":1234, "tid" : 26764 }
+,{"name":"boot", "cat":"c++","ph":"B","ts": 31388222, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31389603, "pid":1234, "tid" : 26764 }
+,{"name":"game_controller", "cat":"c++","ph":"B","ts": 31389792, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31414044, "pid":1234, "tid" : 26764 }
+,{"name":"physics", "cat":"c++","ph":"B","ts": 31414249, "pid":1234, "tid" : 26764 }
+,{"name":"Simulate", "cat":"c++","ph":"B","ts": 31415372, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31439854, "pid":1234, "tid" : 26764 }
+,{"name":"fetch", "cat":"c++","ph":"B","ts": 31439926, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31666920, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31668198, "pid":1234, "tid" : 26764 }
+,{"name":"test_cameras", "cat":"c++","ph":"B","ts": 31668698, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31672016, "pid":1234, "tid" : 26764 }
+,{"name":"fluid_decals", "cat":"c++","ph":"B","ts": 31672303, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31675392, "pid":1234, "tid" : 26764 }
+,{"name":"scripting", "cat":"c++","ph":"B","ts": 31675751, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31677603, "pid":1234, "tid" : 26764 }
+,{"name":"game_ui", "cat":"c++","ph":"B","ts": 31677850, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleGameUI::update", "cat":"c++","ph":"B","ts": 31679309, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31790483, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31790784, "pid":1234, "tid" : 26764 }
+,{"name":"game_manager", "cat":"c++","ph":"B","ts": 31791181, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31801855, "pid":1234, "tid" : 26764 }
+,{"name":"navmesh", "cat":"c++","ph":"B","ts": 31802098, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 31803371, "pid":1234, "tid" : 26764 }
+,{"name":"entities", "cat":"c++","ph":"B","ts": 31803570, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleEntities::update", "cat":"c++","ph":"B","ts": 31804756, "pid":1234, "tid" : 26764 }
+,{"name":"armature", "cat":"c++","ph":"B","ts": 31806257, "pid":1234, "tid" : 26764 }
+,{"name":"updateSkel", "cat":"c++","ph":"B","ts": 31817709, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32241988, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32244795, "pid":1234, "tid" : 26764 }
+,{"name":"sCart_controller", "cat":"c++","ph":"B","ts": 32244973, "pid":1234, "tid" : 26764 }
+,{"name":"IAIController", "cat":"c++","ph":"B","ts": 32247321, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32256136, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32256481, "pid":1234, "tid" : 26764 }
+,{"name":"character_controller", "cat":"c++","ph":"B","ts": 32256588, "pid":1234, "tid" : 26764 }
+,{"name":"IAIController", "cat":"c++","ph":"B","ts": 32258295, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32494204, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32494778, "pid":1234, "tid" : 26764 }
+,{"name":"curve_controller", "cat":"c++","ph":"B","ts": 32494955, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32497362, "pid":1234, "tid" : 26764 }
+,{"name":"skel_lookat", "cat":"c++","ph":"B","ts": 32497602, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32509324, "pid":1234, "tid" : 26764 }
+,{"name":"skel_lookat_direction", "cat":"c++","ph":"B","ts": 32509471, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32697301, "pid":1234, "tid" : 26764 }
+,{"name":"fire_follow", "cat":"c++","ph":"B","ts": 32698199, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32736647, "pid":1234, "tid" : 26764 }
+,{"name":"comp_destroyable_wall", "cat":"c++","ph":"B","ts": 32736830, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32738829, "pid":1234, "tid" : 26764 }
+,{"name":"bt_sushi", "cat":"c++","ph":"B","ts": 32739053, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32740837, "pid":1234, "tid" : 26764 }
+,{"name":"bt_ranged_sushi", "cat":"c++","ph":"B","ts": 32740983, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32742830, "pid":1234, "tid" : 26764 }
+,{"name":"bt_golem", "cat":"c++","ph":"B","ts": 32742988, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32744800, "pid":1234, "tid" : 26764 }
+,{"name":"bt_cupcake", "cat":"c++","ph":"B","ts": 32744952, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32746685, "pid":1234, "tid" : 26764 }
+,{"name":"bt_cupcake_explosive", "cat":"c++","ph":"B","ts": 32746833, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32748679, "pid":1234, "tid" : 26764 }
+,{"name":"kinematic_bullet", "cat":"c++","ph":"B","ts": 32748860, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32750577, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_move_wall", "cat":"c++","ph":"B","ts": 32750722, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32752534, "pid":1234, "tid" : 26764 }
+,{"name":"battery_controller", "cat":"c++","ph":"B","ts": 32752683, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32754443, "pid":1234, "tid" : 26764 }
+,{"name":"comp_fire", "cat":"c++","ph":"B","ts": 32754528, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32756053, "pid":1234, "tid" : 26764 }
+,{"name":"rigidbody", "cat":"c++","ph":"B","ts": 32756146, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32862846, "pid":1234, "tid" : 26764 }
+,{"name":"camera_flyover", "cat":"c++","ph":"B","ts": 32863078, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32865593, "pid":1234, "tid" : 26764 }
+,{"name":"bone_tracker", "cat":"c++","ph":"B","ts": 32865692, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32874967, "pid":1234, "tid" : 26764 }
+,{"name":"bone_tracker_golem", "cat":"c++","ph":"B","ts": 32875112, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32876720, "pid":1234, "tid" : 26764 }
+,{"name":"ragdoll", "cat":"c++","ph":"B","ts": 32876815, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32878446, "pid":1234, "tid" : 26764 }
+,{"name":"sensor", "cat":"c++","ph":"B","ts": 32878634, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32880322, "pid":1234, "tid" : 26764 }
+,{"name":"hierarchy", "cat":"c++","ph":"B","ts": 32880474, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32882081, "pid":1234, "tid" : 26764 }
+,{"name":"local_aabb", "cat":"c++","ph":"B","ts": 32882184, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32883819, "pid":1234, "tid" : 26764 }
+,{"name":"culling", "cat":"c++","ph":"B","ts": 32884007, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32898541, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 32898719, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32900495, "pid":1234, "tid" : 26764 }
+,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 32900638, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32902203, "pid":1234, "tid" : 26764 }
+,{"name":"comp_scale_gradually", "cat":"c++","ph":"B","ts": 32902361, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32904064, "pid":1234, "tid" : 26764 }
+,{"name":"comp_coffee", "cat":"c++","ph":"B","ts": 32904224, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32905934, "pid":1234, "tid" : 26764 }
+,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 32906356, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentUI", "cat":"c++","ph":"B","ts": 32907884, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32908891, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32909177, "pid":1234, "tid" : 26764 }
+,{"name":"parabolic_launch", "cat":"c++","ph":"B","ts": 32909333, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32932509, "pid":1234, "tid" : 26764 }
+,{"name":"ai_platform_mobile", "cat":"c++","ph":"B","ts": 32932673, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32934330, "pid":1234, "tid" : 26764 }
+,{"name":"comp_madness", "cat":"c++","ph":"B","ts": 32934419, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32936133, "pid":1234, "tid" : 26764 }
+,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 32936223, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32937996, "pid":1234, "tid" : 26764 }
+,{"name":"comp_madness_fountain", "cat":"c++","ph":"B","ts": 32938092, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32939601, "pid":1234, "tid" : 26764 }
+,{"name":"comp_enemy_spawner", "cat":"c++","ph":"B","ts": 32939747, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32941480, "pid":1234, "tid" : 26764 }
+,{"name":"comp_explosive_object", "cat":"c++","ph":"B","ts": 32941625, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 32943232, "pid":1234, "tid" : 26764 }
+,{"name":"camera_3rd_person", "cat":"c++","ph":"B","ts": 32943328, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33041935, "pid":1234, "tid" : 26764 }
+,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 33042171, "pid":1234, "tid" : 26764 }
+,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 33044064, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33075410, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33075724, "pid":1234, "tid" : 26764 }
+,{"name":"follow_light", "cat":"c++","ph":"B","ts": 33075878, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33077819, "pid":1234, "tid" : 26764 }
+,{"name":"light_dir", "cat":"c++","ph":"B","ts": 33077997, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33080195, "pid":1234, "tid" : 26764 }
+,{"name":"comp_spawner", "cat":"c++","ph":"B","ts": 33080289, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33082829, "pid":1234, "tid" : 26764 }
+,{"name":"comp_explode_oncontact", "cat":"c++","ph":"B","ts": 33082996, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33084764, "pid":1234, "tid" : 26764 }
+,{"name":"comp_lookat_camera", "cat":"c++","ph":"B","ts": 33084947, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33086793, "pid":1234, "tid" : 26764 }
+,{"name":"player_animator", "cat":"c++","ph":"B","ts": 33086977, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33090819, "pid":1234, "tid" : 26764 }
+,{"name":"sushi_animator", "cat":"c++","ph":"B","ts": 33090971, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33092737, "pid":1234, "tid" : 26764 }
+,{"name":"prop_animator", "cat":"c++","ph":"B","ts": 33092832, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33094316, "pid":1234, "tid" : 26764 }
+,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 33094406, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33095784, "pid":1234, "tid" : 26764 }
+,{"name":"comp_teleport", "cat":"c++","ph":"B","ts": 33095879, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33098047, "pid":1234, "tid" : 26764 }
+,{"name":"ai_turret", "cat":"c++","ph":"B","ts": 33098197, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33099559, "pid":1234, "tid" : 26764 }
+,{"name":"turret_bullet_controller", "cat":"c++","ph":"B","ts": 33099655, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33101431, "pid":1234, "tid" : 26764 }
+,{"name":"comp_blackboard", "cat":"c++","ph":"B","ts": 33101576, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33103313, "pid":1234, "tid" : 26764 }
+,{"name":"comp_wind_trap", "cat":"c++","ph":"B","ts": 33103456, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33104954, "pid":1234, "tid" : 26764 }
+,{"name":"comp_blade_trap", "cat":"c++","ph":"B","ts": 33105116, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33106801, "pid":1234, "tid" : 26764 }
+,{"name":"comp_fire_trap", "cat":"c++","ph":"B","ts": 33106945, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33108857, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 33109035, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33110464, "pid":1234, "tid" : 26764 }
+,{"name":"comp_obstacle", "cat":"c++","ph":"B","ts": 33110550, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33112128, "pid":1234, "tid" : 26764 }
+,{"name":"ai_anav", "cat":"c++","ph":"B","ts": 33112277, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33113743, "pid":1234, "tid" : 26764 }
+,{"name":"trigger", "cat":"c++","ph":"B","ts": 33113888, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33115149, "pid":1234, "tid" : 26764 }
+,{"name":"trans_curve_controller", "cat":"c++","ph":"B","ts": 33115359, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33117099, "pid":1234, "tid" : 26764 }
+,{"name":"bolt_billboard", "cat":"c++","ph":"B","ts": 33117253, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33119067, "pid":1234, "tid" : 26764 }
+,{"name":"bolt_sphere", "cat":"c++","ph":"B","ts": 33119208, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33120670, "pid":1234, "tid" : 26764 }
+,{"name":"dust", "cat":"c++","ph":"B","ts": 33120813, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33122000, "pid":1234, "tid" : 26764 }
+,{"name":"air", "cat":"c++","ph":"B","ts": 33122094, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33123610, "pid":1234, "tid" : 26764 }
+,{"name":"trail", "cat":"c++","ph":"B","ts": 33123777, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33125183, "pid":1234, "tid" : 26764 }
+,{"name":"scalable", "cat":"c++","ph":"B","ts": 33125268, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33126518, "pid":1234, "tid" : 26764 }
+,{"name":"comp_slow_disappear", "cat":"c++","ph":"B","ts": 33126605, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33127972, "pid":1234, "tid" : 26764 }
+,{"name":"dynamic_instance", "cat":"c++","ph":"B","ts": 33128394, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33129990, "pid":1234, "tid" : 26764 }
+,{"name":"camera", "cat":"c++","ph":"B","ts": 33130166, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 33131538, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33139280, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 33139398, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33144629, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 33144741, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33149895, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 33150126, "pid":1234, "tid" : 26764 }
+,{"name":"compute", "cat":"c++","ph":"B","ts": 33150288, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34072628, "pid":1234, "tid" : 26764 }
+,{"name":"removable_camera", "cat":"c++","ph":"B","ts": 34074008, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34077885, "pid":1234, "tid" : 26764 }
+,{"name":"comp_self_destroy", "cat":"c++","ph":"B","ts": 34078181, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34081978, "pid":1234, "tid" : 26764 }
+,{"name":"comp_termoestato", "cat":"c++","ph":"B","ts": 34082551, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34085046, "pid":1234, "tid" : 26764 }
+,{"name":"morph_animation", "cat":"c++","ph":"B","ts": 34085245, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34087906, "pid":1234, "tid" : 26764 }
+,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 34088375, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34092163, "pid":1234, "tid" : 26764 }
+,{"name":"comp_interruptor", "cat":"c++","ph":"B","ts": 34092772, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34096075, "pid":1234, "tid" : 26764 }
+,{"name":"enemies_in_tube", "cat":"c++","ph":"B","ts": 34096264, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34099768, "pid":1234, "tid" : 26764 }
+,{"name":"enemies_in_butcher", "cat":"c++","ph":"B","ts": 34100120, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34103286, "pid":1234, "tid" : 26764 }
+,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 34104115, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34160097, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34160862, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34164469, "pid":1234, "tid" : 26764 }
+,{"name":"camera_mixer", "cat":"c++","ph":"B","ts": 34166473, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34219178, "pid":1234, "tid" : 26764 }
+,{"name":"particles", "cat":"c++","ph":"B","ts": 34219690, "pid":1234, "tid" : 26764 }
+,{"name":"particles.update", "cat":"c++","ph":"B","ts": 34223330, "pid":1234, "tid" : 26764 }
+,{"name":"uploadRenderDetailsToGPU", "cat":"c++","ph":"B","ts": 34230277, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34233366, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34233838, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34234363, "pid":1234, "tid" : 26764 }
+,{"name":"render", "cat":"c++","ph":"B","ts": 34234904, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34237828, "pid":1234, "tid" : 26764 }
+,{"name":"gpu_culling", "cat":"c++","ph":"B","ts": 34237991, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34240180, "pid":1234, "tid" : 26764 }
+,{"name":"ui", "cat":"c++","ph":"B","ts": 34240586, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34258770, "pid":1234, "tid" : 26764 }
+,{"name":"scene_manager", "cat":"c++","ph":"B","ts": 34259111, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34261755, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34262242, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleRender::generateFrame", "cat":"c++","ph":"B","ts": 34511306, "pid":1234, "tid" : 26764 }
+,{"name":"uploadSkinMatricesToGPU", "cat":"c++","ph":"B","ts": 34528806, "pid":1234, "tid" : 26764 }
+,{"name":"updateCtesBones", "cat":"c++","ph":"B","ts": 34538679, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34619074, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 34620184, "pid":1234, "tid" : 26764 }
+,{"name":"Deferred", "cat":"c++","ph":"B","ts": 34743827, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 49257328, "pid":1234, "tid" : 26764 }
+,{"name":"RenderInMenu", "cat":"c++","ph":"B","ts": 55222399, "pid":1234, "tid" : 26764 }
+,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 55348762, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 55408475, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 55444274, "pid":1234, "tid" : 26764 }
+,{"name":"renderDebugOfComponents", "cat":"c++","ph":"B","ts": 56018147, "pid":1234, "tid" : 26764 }
+,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 56021074, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 56150156, "pid":1234, "tid" : 26764 }
+,{"name":"character_controller", "cat":"c++","ph":"B","ts": 56150400, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 56375603, "pid":1234, "tid" : 26764 }
+,{"name":"collider", "cat":"c++","ph":"B","ts": 56375779, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 56574999, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 56575362, "pid":1234, "tid" : 26764 }
+,{"name":"GPUCulling", "cat":"c++","ph":"B","ts": 57217094, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 57219216, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 57948709, "pid":1234, "tid" : 26764 }
+,{"name":"endImgui", "cat":"c++","ph":"B","ts": 58009210, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58142682, "pid":1234, "tid" : 26764 }
+,{"name":"CRender::swapChain", "cat":"c++","ph":"B","ts": 58143253, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58307908, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58308709, "pid":1234, "tid" : 26764 }
+,{"name":"App::generateFrame", "cat":"c++","ph":"B","ts": 58312305, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleManager::update", "cat":"c++","ph":"B","ts": 58359304, "pid":1234, "tid" : 26764 }
+,{"name":"input_1", "cat":"c++","ph":"B","ts": 58362317, "pid":1234, "tid" : 26764 }
+,{"name":"keyboard", "cat":"c++","ph":"B","ts": 58364180, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58365767, "pid":1234, "tid" : 26764 }
+,{"name":"mouse", "cat":"c++","ph":"B","ts": 58366001, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58367830, "pid":1234, "tid" : 26764 }
+,{"name":"gamepad", "cat":"c++","ph":"B","ts": 58368045, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58433145, "pid":1234, "tid" : 26764 }
+,{"name":"CKeyboard", "cat":"c++","ph":"B","ts": 58433436, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58448042, "pid":1234, "tid" : 26764 }
+,{"name":"CMouse", "cat":"c++","ph":"B","ts": 58448239, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58449521, "pid":1234, "tid" : 26764 }
+,{"name":"CGamepad", "cat":"c++","ph":"B","ts": 58449808, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58453363, "pid":1234, "tid" : 26764 }
+,{"name":"CMapping", "cat":"c++","ph":"B","ts": 58453782, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58470042, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58470583, "pid":1234, "tid" : 26764 }
+,{"name":"boot", "cat":"c++","ph":"B","ts": 58471003, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58472671, "pid":1234, "tid" : 26764 }
+,{"name":"game_controller", "cat":"c++","ph":"B","ts": 58472849, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58494416, "pid":1234, "tid" : 26764 }
+,{"name":"physics", "cat":"c++","ph":"B","ts": 58494595, "pid":1234, "tid" : 26764 }
+,{"name":"Simulate", "cat":"c++","ph":"B","ts": 58496157, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58521039, "pid":1234, "tid" : 26764 }
+,{"name":"fetch", "cat":"c++","ph":"B","ts": 58521116, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58703621, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58704946, "pid":1234, "tid" : 26764 }
+,{"name":"test_cameras", "cat":"c++","ph":"B","ts": 58705463, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58708719, "pid":1234, "tid" : 26764 }
+,{"name":"fluid_decals", "cat":"c++","ph":"B","ts": 58708958, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58712074, "pid":1234, "tid" : 26764 }
+,{"name":"scripting", "cat":"c++","ph":"B","ts": 58712377, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58714188, "pid":1234, "tid" : 26764 }
+,{"name":"game_ui", "cat":"c++","ph":"B","ts": 58714436, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleGameUI::update", "cat":"c++","ph":"B","ts": 58715726, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58851987, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58852372, "pid":1234, "tid" : 26764 }
+,{"name":"game_manager", "cat":"c++","ph":"B","ts": 58852945, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58863871, "pid":1234, "tid" : 26764 }
+,{"name":"navmesh", "cat":"c++","ph":"B","ts": 58864170, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 58865481, "pid":1234, "tid" : 26764 }
+,{"name":"entities", "cat":"c++","ph":"B","ts": 58865744, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleEntities::update", "cat":"c++","ph":"B","ts": 58867101, "pid":1234, "tid" : 26764 }
+,{"name":"armature", "cat":"c++","ph":"B","ts": 58868743, "pid":1234, "tid" : 26764 }
+,{"name":"updateSkel", "cat":"c++","ph":"B","ts": 58880088, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59321817, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59324783, "pid":1234, "tid" : 26764 }
+,{"name":"sCart_controller", "cat":"c++","ph":"B","ts": 59325063, "pid":1234, "tid" : 26764 }
+,{"name":"IAIController", "cat":"c++","ph":"B","ts": 59327574, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59336496, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59336935, "pid":1234, "tid" : 26764 }
+,{"name":"character_controller", "cat":"c++","ph":"B","ts": 59337089, "pid":1234, "tid" : 26764 }
+,{"name":"IAIController", "cat":"c++","ph":"B","ts": 59338833, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59571592, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59572048, "pid":1234, "tid" : 26764 }
+,{"name":"curve_controller", "cat":"c++","ph":"B","ts": 59572201, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59574566, "pid":1234, "tid" : 26764 }
+,{"name":"skel_lookat", "cat":"c++","ph":"B","ts": 59574659, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59585981, "pid":1234, "tid" : 26764 }
+,{"name":"skel_lookat_direction", "cat":"c++","ph":"B","ts": 59586071, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59777625, "pid":1234, "tid" : 26764 }
+,{"name":"fire_follow", "cat":"c++","ph":"B","ts": 59777793, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59799262, "pid":1234, "tid" : 26764 }
+,{"name":"comp_destroyable_wall", "cat":"c++","ph":"B","ts": 59799422, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59801450, "pid":1234, "tid" : 26764 }
+,{"name":"bt_sushi", "cat":"c++","ph":"B","ts": 59801659, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59803194, "pid":1234, "tid" : 26764 }
+,{"name":"bt_ranged_sushi", "cat":"c++","ph":"B","ts": 59803339, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59804969, "pid":1234, "tid" : 26764 }
+,{"name":"bt_golem", "cat":"c++","ph":"B","ts": 59805137, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59806546, "pid":1234, "tid" : 26764 }
+,{"name":"bt_cupcake", "cat":"c++","ph":"B","ts": 59806693, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59808276, "pid":1234, "tid" : 26764 }
+,{"name":"bt_cupcake_explosive", "cat":"c++","ph":"B","ts": 59808434, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59810181, "pid":1234, "tid" : 26764 }
+,{"name":"kinematic_bullet", "cat":"c++","ph":"B","ts": 59810326, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59812070, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_move_wall", "cat":"c++","ph":"B","ts": 59812221, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59813977, "pid":1234, "tid" : 26764 }
+,{"name":"battery_controller", "cat":"c++","ph":"B","ts": 59814119, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59815828, "pid":1234, "tid" : 26764 }
+,{"name":"comp_fire", "cat":"c++","ph":"B","ts": 59815916, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59817656, "pid":1234, "tid" : 26764 }
+,{"name":"rigidbody", "cat":"c++","ph":"B","ts": 59817750, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59919881, "pid":1234, "tid" : 26764 }
+,{"name":"camera_flyover", "cat":"c++","ph":"B","ts": 59920070, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59922201, "pid":1234, "tid" : 26764 }
+,{"name":"bone_tracker", "cat":"c++","ph":"B","ts": 59922357, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59931226, "pid":1234, "tid" : 26764 }
+,{"name":"bone_tracker_golem", "cat":"c++","ph":"B","ts": 59931318, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59932878, "pid":1234, "tid" : 26764 }
+,{"name":"ragdoll", "cat":"c++","ph":"B","ts": 59933023, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59934329, "pid":1234, "tid" : 26764 }
+,{"name":"sensor", "cat":"c++","ph":"B","ts": 59934476, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59936268, "pid":1234, "tid" : 26764 }
+,{"name":"hierarchy", "cat":"c++","ph":"B","ts": 59936418, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59938189, "pid":1234, "tid" : 26764 }
+,{"name":"local_aabb", "cat":"c++","ph":"B","ts": 59938402, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59939846, "pid":1234, "tid" : 26764 }
+,{"name":"culling", "cat":"c++","ph":"B","ts": 59939991, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59953429, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 59953535, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59955235, "pid":1234, "tid" : 26764 }
+,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 59955378, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59956882, "pid":1234, "tid" : 26764 }
+,{"name":"comp_scale_gradually", "cat":"c++","ph":"B","ts": 59957045, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59958651, "pid":1234, "tid" : 26764 }
+,{"name":"comp_coffee", "cat":"c++","ph":"B","ts": 59958746, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59960563, "pid":1234, "tid" : 26764 }
+,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 59960712, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentUI", "cat":"c++","ph":"B","ts": 59962059, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59963052, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59963327, "pid":1234, "tid" : 26764 }
+,{"name":"parabolic_launch", "cat":"c++","ph":"B","ts": 59963479, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59983865, "pid":1234, "tid" : 26764 }
+,{"name":"ai_platform_mobile", "cat":"c++","ph":"B","ts": 59984031, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59985635, "pid":1234, "tid" : 26764 }
+,{"name":"comp_madness", "cat":"c++","ph":"B","ts": 59985721, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59987428, "pid":1234, "tid" : 26764 }
+,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 59987520, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59989255, "pid":1234, "tid" : 26764 }
+,{"name":"comp_madness_fountain", "cat":"c++","ph":"B","ts": 59989350, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59990879, "pid":1234, "tid" : 26764 }
+,{"name":"comp_enemy_spawner", "cat":"c++","ph":"B","ts": 59991021, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59992627, "pid":1234, "tid" : 26764 }
+,{"name":"comp_explosive_object", "cat":"c++","ph":"B","ts": 59992774, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 59994581, "pid":1234, "tid" : 26764 }
+,{"name":"camera_3rd_person", "cat":"c++","ph":"B","ts": 59994700, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60095177, "pid":1234, "tid" : 26764 }
+,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 60095387, "pid":1234, "tid" : 26764 }
+,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 60097536, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60127937, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60128316, "pid":1234, "tid" : 26764 }
+,{"name":"follow_light", "cat":"c++","ph":"B","ts": 60128478, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60130282, "pid":1234, "tid" : 26764 }
+,{"name":"light_dir", "cat":"c++","ph":"B","ts": 60130428, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60131958, "pid":1234, "tid" : 26764 }
+,{"name":"comp_spawner", "cat":"c++","ph":"B","ts": 60132059, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60133786, "pid":1234, "tid" : 26764 }
+,{"name":"comp_explode_oncontact", "cat":"c++","ph":"B","ts": 60133935, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60135709, "pid":1234, "tid" : 26764 }
+,{"name":"comp_lookat_camera", "cat":"c++","ph":"B","ts": 60135855, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60137691, "pid":1234, "tid" : 26764 }
+,{"name":"player_animator", "cat":"c++","ph":"B","ts": 60137840, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60141114, "pid":1234, "tid" : 26764 }
+,{"name":"sushi_animator", "cat":"c++","ph":"B","ts": 60141258, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60142727, "pid":1234, "tid" : 26764 }
+,{"name":"prop_animator", "cat":"c++","ph":"B","ts": 60142811, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60144351, "pid":1234, "tid" : 26764 }
+,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 60144438, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60145785, "pid":1234, "tid" : 26764 }
+,{"name":"comp_teleport", "cat":"c++","ph":"B","ts": 60145878, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60147634, "pid":1234, "tid" : 26764 }
+,{"name":"ai_turret", "cat":"c++","ph":"B","ts": 60147775, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60149268, "pid":1234, "tid" : 26764 }
+,{"name":"turret_bullet_controller", "cat":"c++","ph":"B","ts": 60149362, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60151003, "pid":1234, "tid" : 26764 }
+,{"name":"comp_blackboard", "cat":"c++","ph":"B","ts": 60151524, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60153108, "pid":1234, "tid" : 26764 }
+,{"name":"comp_wind_trap", "cat":"c++","ph":"B","ts": 60153251, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60154722, "pid":1234, "tid" : 26764 }
+,{"name":"comp_blade_trap", "cat":"c++","ph":"B","ts": 60154815, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60156273, "pid":1234, "tid" : 26764 }
+,{"name":"comp_fire_trap", "cat":"c++","ph":"B","ts": 60156457, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60157976, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 60158123, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60159371, "pid":1234, "tid" : 26764 }
+,{"name":"comp_obstacle", "cat":"c++","ph":"B","ts": 60159498, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60161671, "pid":1234, "tid" : 26764 }
+,{"name":"ai_anav", "cat":"c++","ph":"B","ts": 60162215, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60164672, "pid":1234, "tid" : 26764 }
+,{"name":"trigger", "cat":"c++","ph":"B","ts": 60164757, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60166037, "pid":1234, "tid" : 26764 }
+,{"name":"trans_curve_controller", "cat":"c++","ph":"B","ts": 60166129, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60169479, "pid":1234, "tid" : 26764 }
+,{"name":"bolt_billboard", "cat":"c++","ph":"B","ts": 60170096, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60172198, "pid":1234, "tid" : 26764 }
+,{"name":"bolt_sphere", "cat":"c++","ph":"B","ts": 60172813, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60175713, "pid":1234, "tid" : 26764 }
+,{"name":"dust", "cat":"c++","ph":"B","ts": 60175988, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60178137, "pid":1234, "tid" : 26764 }
+,{"name":"air", "cat":"c++","ph":"B","ts": 60178224, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60181652, "pid":1234, "tid" : 26764 }
+,{"name":"trail", "cat":"c++","ph":"B","ts": 60181850, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60185011, "pid":1234, "tid" : 26764 }
+,{"name":"scalable", "cat":"c++","ph":"B","ts": 60185764, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60188393, "pid":1234, "tid" : 26764 }
+,{"name":"comp_slow_disappear", "cat":"c++","ph":"B","ts": 60188481, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60193052, "pid":1234, "tid" : 26764 }
+,{"name":"dynamic_instance", "cat":"c++","ph":"B","ts": 60193439, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60196859, "pid":1234, "tid" : 26764 }
+,{"name":"camera", "cat":"c++","ph":"B","ts": 60197400, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 60200042, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60212591, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 60212825, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60218424, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 60218531, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60223573, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 60223800, "pid":1234, "tid" : 26764 }
+,{"name":"compute", "cat":"c++","ph":"B","ts": 60223959, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63143396, "pid":1234, "tid" : 26764 }
+,{"name":"removable_camera", "cat":"c++","ph":"B","ts": 63145168, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63151509, "pid":1234, "tid" : 26764 }
+,{"name":"comp_self_destroy", "cat":"c++","ph":"B","ts": 63151936, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63156408, "pid":1234, "tid" : 26764 }
+,{"name":"comp_termoestato", "cat":"c++","ph":"B","ts": 63156958, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63160453, "pid":1234, "tid" : 26764 }
+,{"name":"morph_animation", "cat":"c++","ph":"B","ts": 63160916, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63164871, "pid":1234, "tid" : 26764 }
+,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 63165603, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63171677, "pid":1234, "tid" : 26764 }
+,{"name":"comp_interruptor", "cat":"c++","ph":"B","ts": 63172191, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63175787, "pid":1234, "tid" : 26764 }
+,{"name":"enemies_in_tube", "cat":"c++","ph":"B","ts": 63176191, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63179701, "pid":1234, "tid" : 26764 }
+,{"name":"enemies_in_butcher", "cat":"c++","ph":"B","ts": 63180046, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63183279, "pid":1234, "tid" : 26764 }
+,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 63183924, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63256436, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63257443, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63258832, "pid":1234, "tid" : 26764 }
+,{"name":"camera_mixer", "cat":"c++","ph":"B","ts": 63261232, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63333830, "pid":1234, "tid" : 26764 }
+,{"name":"particles", "cat":"c++","ph":"B","ts": 63334190, "pid":1234, "tid" : 26764 }
+,{"name":"particles.update", "cat":"c++","ph":"B","ts": 63338750, "pid":1234, "tid" : 26764 }
+,{"name":"uploadRenderDetailsToGPU", "cat":"c++","ph":"B","ts": 63348254, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63352962, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63353671, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63354238, "pid":1234, "tid" : 26764 }
+,{"name":"render", "cat":"c++","ph":"B","ts": 63355304, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63357526, "pid":1234, "tid" : 26764 }
+,{"name":"gpu_culling", "cat":"c++","ph":"B","ts": 63358207, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63360701, "pid":1234, "tid" : 26764 }
+,{"name":"ui", "cat":"c++","ph":"B","ts": 63361001, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63382402, "pid":1234, "tid" : 26764 }
+,{"name":"scene_manager", "cat":"c++","ph":"B","ts": 63382818, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63386153, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63386480, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleRender::generateFrame", "cat":"c++","ph":"B","ts": 63743015, "pid":1234, "tid" : 26764 }
+,{"name":"uploadSkinMatricesToGPU", "cat":"c++","ph":"B","ts": 63763761, "pid":1234, "tid" : 26764 }
+,{"name":"updateCtesBones", "cat":"c++","ph":"B","ts": 63767585, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63805274, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 63805736, "pid":1234, "tid" : 26764 }
+,{"name":"Deferred", "cat":"c++","ph":"B","ts": 63890836, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 84649043, "pid":1234, "tid" : 26764 }
+,{"name":"RenderInMenu", "cat":"c++","ph":"B","ts": 88356175, "pid":1234, "tid" : 26764 }
+,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 88541435, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 88587192, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 88664850, "pid":1234, "tid" : 26764 }
+,{"name":"renderDebugOfComponents", "cat":"c++","ph":"B","ts": 89183423, "pid":1234, "tid" : 26764 }
+,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 89186951, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 89330734, "pid":1234, "tid" : 26764 }
+,{"name":"character_controller", "cat":"c++","ph":"B","ts": 89331308, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 89612479, "pid":1234, "tid" : 26764 }
+,{"name":"collider", "cat":"c++","ph":"B","ts": 89613282, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 89952940, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 89953448, "pid":1234, "tid" : 26764 }
+,{"name":"GPUCulling", "cat":"c++","ph":"B","ts": 90792062, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 90795130, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 91756041, "pid":1234, "tid" : 26764 }
+,{"name":"endImgui", "cat":"c++","ph":"B","ts": 92000070, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 92839404, "pid":1234, "tid" : 26764 }
+,{"name":"CRender::swapChain", "cat":"c++","ph":"B","ts": 92845269, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 93919893, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 93923756, "pid":1234, "tid" : 26764 }
+,{"name":"App::generateFrame", "cat":"c++","ph":"B","ts": 94045642, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleManager::update", "cat":"c++","ph":"B","ts": 94274128, "pid":1234, "tid" : 26764 }
+,{"name":"input_1", "cat":"c++","ph":"B","ts": 94286084, "pid":1234, "tid" : 26764 }
+,{"name":"keyboard", "cat":"c++","ph":"B","ts": 94293484, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94297978, "pid":1234, "tid" : 26764 }
+,{"name":"mouse", "cat":"c++","ph":"B","ts": 94298684, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94301852, "pid":1234, "tid" : 26764 }
+,{"name":"gamepad", "cat":"c++","ph":"B","ts": 94302491, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94602851, "pid":1234, "tid" : 26764 }
+,{"name":"CKeyboard", "cat":"c++","ph":"B","ts": 94604586, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94632782, "pid":1234, "tid" : 26764 }
+,{"name":"CMouse", "cat":"c++","ph":"B","ts": 94635023, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94639980, "pid":1234, "tid" : 26764 }
+,{"name":"CGamepad", "cat":"c++","ph":"B","ts": 94643726, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94687097, "pid":1234, "tid" : 26764 }
+,{"name":"CMapping", "cat":"c++","ph":"B","ts": 94688448, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94748686, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94751386, "pid":1234, "tid" : 26764 }
+,{"name":"boot", "cat":"c++","ph":"B","ts": 94753790, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94757666, "pid":1234, "tid" : 26764 }
+,{"name":"game_controller", "cat":"c++","ph":"B","ts": 94757975, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 94863930, "pid":1234, "tid" : 26764 }
+,{"name":"physics", "cat":"c++","ph":"B","ts": 94865083, "pid":1234, "tid" : 26764 }
+,{"name":"Simulate", "cat":"c++","ph":"B","ts": 94869470, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 95006749, "pid":1234, "tid" : 26764 }
+,{"name":"fetch", "cat":"c++","ph":"B","ts": 95006867, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 95470382, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 95477869, "pid":1234, "tid" : 26764 }
+,{"name":"test_cameras", "cat":"c++","ph":"B","ts": 95485136, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 95558751, "pid":1234, "tid" : 26764 }
+,{"name":"fluid_decals", "cat":"c++","ph":"B","ts": 95559021, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 95571037, "pid":1234, "tid" : 26764 }
+,{"name":"scripting", "cat":"c++","ph":"B","ts": 95571823, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 95576576, "pid":1234, "tid" : 26764 }
+,{"name":"game_ui", "cat":"c++","ph":"B","ts": 95576875, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleGameUI::update", "cat":"c++","ph":"B","ts": 95581878, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 95973978, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 95976064, "pid":1234, "tid" : 26764 }
+,{"name":"game_manager", "cat":"c++","ph":"B","ts": 95978587, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 96027915, "pid":1234, "tid" : 26764 }
+,{"name":"navmesh", "cat":"c++","ph":"B","ts": 96028679, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 96034091, "pid":1234, "tid" : 26764 }
+,{"name":"entities", "cat":"c++","ph":"B","ts": 96036427, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleEntities::update", "cat":"c++","ph":"B","ts": 96043030, "pid":1234, "tid" : 26764 }
+,{"name":"armature", "cat":"c++","ph":"B","ts": 96049500, "pid":1234, "tid" : 26764 }
+,{"name":"updateSkel", "cat":"c++","ph":"B","ts": 96145511, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 96882733, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 96892978, "pid":1234, "tid" : 26764 }
+,{"name":"sCart_controller", "cat":"c++","ph":"B","ts": 96893506, "pid":1234, "tid" : 26764 }
+,{"name":"IAIController", "cat":"c++","ph":"B","ts": 96901207, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 96916426, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 96916786, "pid":1234, "tid" : 26764 }
+,{"name":"character_controller", "cat":"c++","ph":"B","ts": 96916972, "pid":1234, "tid" : 26764 }
+,{"name":"IAIController", "cat":"c++","ph":"B","ts": 96919037, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 97971543, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 97977234, "pid":1234, "tid" : 26764 }
+,{"name":"curve_controller", "cat":"c++","ph":"B","ts": 97979827, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 98022009, "pid":1234, "tid" : 26764 }
+,{"name":"skel_lookat", "cat":"c++","ph":"B","ts": 98022272, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 98168801, "pid":1234, "tid" : 26764 }
+,{"name":"skel_lookat_direction", "cat":"c++","ph":"B","ts": 98182221, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 98777848, "pid":1234, "tid" : 26764 }
+,{"name":"fire_follow", "cat":"c++","ph":"B","ts": 98782158, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99123631, "pid":1234, "tid" : 26764 }
+,{"name":"comp_destroyable_wall", "cat":"c++","ph":"B","ts": 99125971, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99147760, "pid":1234, "tid" : 26764 }
+,{"name":"bt_sushi", "cat":"c++","ph":"B","ts": 99149238, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99158121, "pid":1234, "tid" : 26764 }
+,{"name":"bt_ranged_sushi", "cat":"c++","ph":"B","ts": 99159268, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99171064, "pid":1234, "tid" : 26764 }
+,{"name":"bt_golem", "cat":"c++","ph":"B","ts": 99171818, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99182180, "pid":1234, "tid" : 26764 }
+,{"name":"bt_cupcake", "cat":"c++","ph":"B","ts": 99182941, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99188139, "pid":1234, "tid" : 26764 }
+,{"name":"bt_cupcake_explosive", "cat":"c++","ph":"B","ts": 99189085, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99203348, "pid":1234, "tid" : 26764 }
+,{"name":"kinematic_bullet", "cat":"c++","ph":"B","ts": 99204655, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99214836, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_move_wall", "cat":"c++","ph":"B","ts": 99215163, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99223138, "pid":1234, "tid" : 26764 }
+,{"name":"battery_controller", "cat":"c++","ph":"B","ts": 99223701, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99232356, "pid":1234, "tid" : 26764 }
+,{"name":"comp_fire", "cat":"c++","ph":"B","ts": 99233127, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 99246386, "pid":1234, "tid" : 26764 }
+,{"name":"rigidbody", "cat":"c++","ph":"B","ts": 99247525, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100413527, "pid":1234, "tid" : 26764 }
+,{"name":"camera_flyover", "cat":"c++","ph":"B","ts": 100414235, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100434596, "pid":1234, "tid" : 26764 }
+,{"name":"bone_tracker", "cat":"c++","ph":"B","ts": 100434784, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100477638, "pid":1234, "tid" : 26764 }
+,{"name":"bone_tracker_golem", "cat":"c++","ph":"B","ts": 100478209, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100482416, "pid":1234, "tid" : 26764 }
+,{"name":"ragdoll", "cat":"c++","ph":"B","ts": 100482503, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100488603, "pid":1234, "tid" : 26764 }
+,{"name":"sensor", "cat":"c++","ph":"B","ts": 100488918, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100497848, "pid":1234, "tid" : 26764 }
+,{"name":"hierarchy", "cat":"c++","ph":"B","ts": 100498428, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100507326, "pid":1234, "tid" : 26764 }
+,{"name":"local_aabb", "cat":"c++","ph":"B","ts": 100508556, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100516525, "pid":1234, "tid" : 26764 }
+,{"name":"culling", "cat":"c++","ph":"B","ts": 100516996, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100578275, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 100578501, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100583649, "pid":1234, "tid" : 26764 }
+,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 100583945, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100590397, "pid":1234, "tid" : 26764 }
+,{"name":"comp_scale_gradually", "cat":"c++","ph":"B","ts": 100591463, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100600374, "pid":1234, "tid" : 26764 }
+,{"name":"comp_coffee", "cat":"c++","ph":"B","ts": 100600782, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100607313, "pid":1234, "tid" : 26764 }
+,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 100607491, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentUI", "cat":"c++","ph":"B","ts": 100610991, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100612732, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100613474, "pid":1234, "tid" : 26764 }
+,{"name":"parabolic_launch", "cat":"c++","ph":"B","ts": 100613661, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100744606, "pid":1234, "tid" : 26764 }
+,{"name":"ai_platform_mobile", "cat":"c++","ph":"B","ts": 100745033, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100749140, "pid":1234, "tid" : 26764 }
+,{"name":"comp_madness", "cat":"c++","ph":"B","ts": 100749801, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100759140, "pid":1234, "tid" : 26764 }
+,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 100760007, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100764189, "pid":1234, "tid" : 26764 }
+,{"name":"comp_madness_fountain", "cat":"c++","ph":"B","ts": 100764620, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100767702, "pid":1234, "tid" : 26764 }
+,{"name":"comp_enemy_spawner", "cat":"c++","ph":"B","ts": 100767881, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100770366, "pid":1234, "tid" : 26764 }
+,{"name":"comp_explosive_object", "cat":"c++","ph":"B","ts": 100770562, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 100773140, "pid":1234, "tid" : 26764 }
+,{"name":"camera_3rd_person", "cat":"c++","ph":"B","ts": 100773237, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101091843, "pid":1234, "tid" : 26764 }
+,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 101092124, "pid":1234, "tid" : 26764 }
+,{"name":"aim_controller", "cat":"c++","ph":"B","ts": 101102070, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101191440, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101193120, "pid":1234, "tid" : 26764 }
+,{"name":"follow_light", "cat":"c++","ph":"B","ts": 101193914, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101199498, "pid":1234, "tid" : 26764 }
+,{"name":"light_dir", "cat":"c++","ph":"B","ts": 101200024, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101207337, "pid":1234, "tid" : 26764 }
+,{"name":"comp_spawner", "cat":"c++","ph":"B","ts": 101207930, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101215208, "pid":1234, "tid" : 26764 }
+,{"name":"comp_explode_oncontact", "cat":"c++","ph":"B","ts": 101215428, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101221096, "pid":1234, "tid" : 26764 }
+,{"name":"comp_lookat_camera", "cat":"c++","ph":"B","ts": 101221944, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101226024, "pid":1234, "tid" : 26764 }
+,{"name":"player_animator", "cat":"c++","ph":"B","ts": 101226687, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101239025, "pid":1234, "tid" : 26764 }
+,{"name":"sushi_animator", "cat":"c++","ph":"B","ts": 101239311, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101244049, "pid":1234, "tid" : 26764 }
+,{"name":"prop_animator", "cat":"c++","ph":"B","ts": 101244232, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101247617, "pid":1234, "tid" : 26764 }
+,{"name":"grenade_golem_controller", "cat":"c++","ph":"B","ts": 101247826, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101249981, "pid":1234, "tid" : 26764 }
+,{"name":"comp_teleport", "cat":"c++","ph":"B","ts": 101250279, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101254372, "pid":1234, "tid" : 26764 }
+,{"name":"ai_turret", "cat":"c++","ph":"B","ts": 101255022, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101257625, "pid":1234, "tid" : 26764 }
+,{"name":"turret_bullet_controller", "cat":"c++","ph":"B","ts": 101257962, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101261825, "pid":1234, "tid" : 26764 }
+,{"name":"comp_blackboard", "cat":"c++","ph":"B","ts": 101262214, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101268552, "pid":1234, "tid" : 26764 }
+,{"name":"comp_wind_trap", "cat":"c++","ph":"B","ts": 101269245, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101275853, "pid":1234, "tid" : 26764 }
+,{"name":"comp_blade_trap", "cat":"c++","ph":"B","ts": 101276241, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101281680, "pid":1234, "tid" : 26764 }
+,{"name":"comp_fire_trap", "cat":"c++","ph":"B","ts": 101281871, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101284829, "pid":1234, "tid" : 26764 }
+,{"name":"trigger_damage_zone", "cat":"c++","ph":"B","ts": 101285087, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101287541, "pid":1234, "tid" : 26764 }
+,{"name":"comp_obstacle", "cat":"c++","ph":"B","ts": 101287625, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101291914, "pid":1234, "tid" : 26764 }
+,{"name":"ai_anav", "cat":"c++","ph":"B","ts": 101292058, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101295761, "pid":1234, "tid" : 26764 }
+,{"name":"trigger", "cat":"c++","ph":"B","ts": 101295847, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101298587, "pid":1234, "tid" : 26764 }
+,{"name":"trans_curve_controller", "cat":"c++","ph":"B","ts": 101298744, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101302254, "pid":1234, "tid" : 26764 }
+,{"name":"bolt_billboard", "cat":"c++","ph":"B","ts": 101302456, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101307078, "pid":1234, "tid" : 26764 }
+,{"name":"bolt_sphere", "cat":"c++","ph":"B","ts": 101307228, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101310220, "pid":1234, "tid" : 26764 }
+,{"name":"dust", "cat":"c++","ph":"B","ts": 101310613, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101313147, "pid":1234, "tid" : 26764 }
+,{"name":"air", "cat":"c++","ph":"B","ts": 101313234, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101316994, "pid":1234, "tid" : 26764 }
+,{"name":"trail", "cat":"c++","ph":"B","ts": 101317434, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101321097, "pid":1234, "tid" : 26764 }
+,{"name":"scalable", "cat":"c++","ph":"B","ts": 101321184, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101323115, "pid":1234, "tid" : 26764 }
+,{"name":"comp_slow_disappear", "cat":"c++","ph":"B","ts": 101323203, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101326097, "pid":1234, "tid" : 26764 }
+,{"name":"dynamic_instance", "cat":"c++","ph":"B","ts": 101326752, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101330914, "pid":1234, "tid" : 26764 }
+,{"name":"camera", "cat":"c++","ph":"B","ts": 101331871, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 101335636, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101353232, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 101353829, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101359917, "pid":1234, "tid" : 26764 }
+,{"name":"ComponentCamera", "cat":"c++","ph":"B","ts": 101360031, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101366522, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 101366986, "pid":1234, "tid" : 26764 }
+,{"name":"compute", "cat":"c++","ph":"B","ts": 101367175, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109671950, "pid":1234, "tid" : 26764 }
+,{"name":"removable_camera", "cat":"c++","ph":"B","ts": 109673751, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109677719, "pid":1234, "tid" : 26764 }
+,{"name":"comp_self_destroy", "cat":"c++","ph":"B","ts": 109677989, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109681656, "pid":1234, "tid" : 26764 }
+,{"name":"comp_termoestato", "cat":"c++","ph":"B","ts": 109682050, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109684947, "pid":1234, "tid" : 26764 }
+,{"name":"morph_animation", "cat":"c++","ph":"B","ts": 109685137, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109687460, "pid":1234, "tid" : 26764 }
+,{"name":"comp_increase_power", "cat":"c++","ph":"B","ts": 109687776, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109690746, "pid":1234, "tid" : 26764 }
+,{"name":"comp_interruptor", "cat":"c++","ph":"B","ts": 109690922, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109692969, "pid":1234, "tid" : 26764 }
+,{"name":"enemies_in_tube", "cat":"c++","ph":"B","ts": 109693231, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109696045, "pid":1234, "tid" : 26764 }
+,{"name":"enemies_in_butcher", "cat":"c++","ph":"B","ts": 109696242, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109699863, "pid":1234, "tid" : 26764 }
+,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 109700562, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109748981, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109749443, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109750168, "pid":1234, "tid" : 26764 }
+,{"name":"camera_mixer", "cat":"c++","ph":"B","ts": 109751700, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109817730, "pid":1234, "tid" : 26764 }
+,{"name":"particles", "cat":"c++","ph":"B","ts": 109818036, "pid":1234, "tid" : 26764 }
+,{"name":"particles.update", "cat":"c++","ph":"B","ts": 109820844, "pid":1234, "tid" : 26764 }
+,{"name":"uploadRenderDetailsToGPU", "cat":"c++","ph":"B","ts": 109829109, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109832311, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109832994, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109833730, "pid":1234, "tid" : 26764 }
+,{"name":"render", "cat":"c++","ph":"B","ts": 109834272, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109837655, "pid":1234, "tid" : 26764 }
+,{"name":"gpu_culling", "cat":"c++","ph":"B","ts": 109838121, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109840597, "pid":1234, "tid" : 26764 }
+,{"name":"ui", "cat":"c++","ph":"B","ts": 109841261, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109860638, "pid":1234, "tid" : 26764 }
+,{"name":"scene_manager", "cat":"c++","ph":"B","ts": 109861217, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109864269, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 109864862, "pid":1234, "tid" : 26764 }
+,{"name":"CModuleRender::generateFrame", "cat":"c++","ph":"B","ts": 110588264, "pid":1234, "tid" : 26764 }
+,{"name":"uploadSkinMatricesToGPU", "cat":"c++","ph":"B","ts": 110601048, "pid":1234, "tid" : 26764 }
+,{"name":"updateCtesBones", "cat":"c++","ph":"B","ts": 110604454, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 110625303, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 110625781, "pid":1234, "tid" : 26764 }
+,{"name":"Deferred", "cat":"c++","ph":"B","ts": 110685907, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 117047053, "pid":1234, "tid" : 26764 }
+,{"name":"RenderInMenu", "cat":"c++","ph":"B","ts": 123876735, "pid":1234, "tid" : 26764 }
+,{"name":"destroyAllPendingObjects", "cat":"c++","ph":"B","ts": 124427884, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 124506881, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 124553108, "pid":1234, "tid" : 26764 }
+,{"name":"renderDebugOfComponents", "cat":"c++","ph":"B","ts": 125715437, "pid":1234, "tid" : 26764 }
+,{"name":"ui_controller", "cat":"c++","ph":"B","ts": 125753532, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 127183487, "pid":1234, "tid" : 26764 }
+,{"name":"character_controller", "cat":"c++","ph":"B","ts": 127191983, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 130053452, "pid":1234, "tid" : 26764 }
+,{"name":"collider", "cat":"c++","ph":"B","ts": 130057293, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 131531973, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 131532725, "pid":1234, "tid" : 26764 }
+,{"name":"GPUCulling", "cat":"c++","ph":"B","ts": 136758780, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 136764568, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 137879880, "pid":1234, "tid" : 26764 }
+,{"name":"endImgui", "cat":"c++","ph":"B","ts": 137958175, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 138330912, "pid":1234, "tid" : 26764 }
+,{"name":"CRender::swapChain", "cat":"c++","ph":"B","ts": 138332019, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 138595546, "pid":1234, "tid" : 26764 }
+,{"ph":"E","ts": 138597610, "pid":1234, "tid" : 26764 }
 ,{"name": "thread_name", "ph": "M", "pid": 1234, "tid": 24, "args": {"name":"main_thread" }}
 ]}
