@@ -71,7 +71,28 @@ void TCompFireTrap::update(float dt) {
       c_trans->getAngles(&yaw, &pitch, &roll);
 
       ctx.root_transform.setAngles(yaw, pitch, roll);
-      parseScene("data/prefabs/bullets/fireball.json", ctx);
+      parseScene("data/prefabs/bullets/enemy_fireball.json", ctx);
+
+      //Bullet direction
+      VEC3 _targetDirection = c_trans->getFront();
+
+      //Message to the enemies
+      TMsgDamage msgDamage;
+      msgDamage.h_bullet = CHandle(this).getOwner();
+      msgDamage.bullet_front = _targetDirection;
+      msgDamage.damageType = PowerType::FIRE;
+      msgDamage.senderType = EntityType::ENEMIES;
+      msgDamage.targetType = EntityType::PLAYER;
+      msgDamage.intensityDamage = _fireDamage * Time.delta_unscaled;
+      msgDamage.impactForce = 0.f;
+
+      //Message to the bullet
+      TMsgAssignBulletOwner msg;
+      msg.h_owner = CHandle(this).getOwner();
+      msg.source = c_trans->getPosition();
+      msg.front = _targetDirection;
+      msg.messageToTarget = msgDamage;
+      ctx.entities_loaded[0].sendMsg(msg);
 
       _fireTimer = _fireDelay;
     }
