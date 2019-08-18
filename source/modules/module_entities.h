@@ -20,7 +20,14 @@ public:
   void update(float delta) override;
   void renderDebug() override;
   void renderInMenu() override;
-
+  template< class TMsg >
+  void messageForAll(const TMsg& msg) {
+	  auto om = getObjectManager<CEntity>();
+	  om->forEach([&](CEntity* e) {
+		  CHandle h_e(e);
+		  h_e.sendMsg(msg);
+	  });
+  }
 };
 
 std::vector<CHandle> getAllEntities();

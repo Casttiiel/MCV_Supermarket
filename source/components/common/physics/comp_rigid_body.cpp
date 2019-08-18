@@ -124,7 +124,8 @@ void TCompRigidBody::jump(const VEC3 dir) {
 }
 
 bool TCompRigidBody::isGrounded() { //only for the player, not the enemies
-  return is_grounded || time_on_air <= jump_time_offset;
+
+	return is_grounded || time_on_air <= jump_time_offset;
 }
 
 void TCompRigidBody::doubleJump(const VEC3 dir) {

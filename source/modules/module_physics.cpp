@@ -831,11 +831,13 @@ void CModulePhysics::CustomSimulationEventCallback::onTrigger(PxTriggerPair* pai
 	  
       // Notify the trigger someone entered
       msg.h_entity = h_comp_other.getOwner();
-      e_trigger->sendMsg(msg);
+	  if (e_trigger != nullptr)
+		e_trigger->sendMsg(msg);
 	  
       // Notify that someone he entered in a trigger
       msg.h_entity = h_comp_trigger.getOwner();
-      e_other->sendMsg(msg);
+	  if(e_other != nullptr)
+		e_other->sendMsg(msg);
 	  
     }
     else if (pairs[i].status == PxPairFlag::eNOTIFY_TOUCH_LOST)
