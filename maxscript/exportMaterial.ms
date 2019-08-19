@@ -86,7 +86,7 @@ struct TMaterialExporter (
 			    fs.writeComma()
 				exportMap mat.bumpMap "normal" "null_normal"
 				fs.writeComma()
-				exportMap mat.metalnessMap "metallic" "white"
+				exportMap mat.metalnessMap "metallic" "black"
 				fs.writeComma()
 				exportMap mat.roughnessMap "roughness" "white"
 				fs.writeComma() 
