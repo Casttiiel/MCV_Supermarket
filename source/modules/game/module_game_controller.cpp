@@ -17,6 +17,7 @@
 #include "components/ai/bt/bt_sushi.h"
 #include "modules/gameplay_fragments/module_ambush.h"
 #include "components/ai/bt/bt_ranged_sushi.h"
+#include "components/ai/bt/bt_golem.h"
 #include "components/controllers/comp_curve_controller.h"
 #include "components/controllers/comp_trans_curve_controller.h"
 #include "modules/module_camera_mixer.h"
@@ -632,8 +633,25 @@ void CModuleGameController::setHeightEnemyByHandle(int height, CHandle h_enemy,i
 		if(TYPE_SUSHI == typeEnemy){
 			CEntity* e_enemy = (CEntity*)h_enemy;
 			CBTSushi* sushi = e_enemy->get<CBTSushi>();
-			sushi->setHeightRange(1.f);
+			sushi->setHeightRange(height);
 		}
+		else if (TYPE_GOLEM == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTGolem* golem = e_enemy->get<CBTGolem>();
+			golem->setHeightRange(height);
+		}
+		
+	}
+}
+
+void CModuleGameController::setViewDistanceEnemyByHandle(float distance, CHandle h_enemy, int typeEnemy) {
+	if (h_enemy.isValid()) {
+		if (TYPE_GOLEM == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTGolem* golem = e_enemy->get<CBTGolem>();
+			golem->setViewDistance(70.f);
+		}
+		//...
 	}
 }
 

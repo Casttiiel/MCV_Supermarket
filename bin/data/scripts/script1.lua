@@ -84,7 +84,9 @@ function on_ambush_event_2()
 end
 
 
-
+function setPauseEnemyName(name,state)	
+	GameController:setPauseEnemyByName(name,state);
+end
 
 
 --MILESTONE 3
@@ -139,30 +141,25 @@ function destroy_and_wake_up(name_golem,name_wall,intensity)
 	GameController:wakeUpGolem(name_golem) -- despierta al golem
 end
 
+function setViewDistanceEnemy(distance,handle,type)
+	GameController:setViewDistanceEnemyByHandle(distance,handle,type);
+end
+
 function script_ice_1_player()
 	
 	execDelayedAction("changeScene(\"congelados_scene\")",0)	
 	GameController:resetCamera(); 
 	execDelayedAction("on_cinematic(true)",0);
-	execDelayedAction("on_cinematic_golem(\"golem1\",true)",0);
-	execDelayedAction("on_lock_camera3(false)",0); -- esto bloquea la camara normal o activa la camara de la cinameatica?
-	execDelayedAction("on_blending_camera(\"CameraGolem1\", 5,\"linear\")",0); --poner en mapa la cmara correspondiente a donde estaran ubicados los termoestatos
-	
-    execDelayedAction("destroy_and_wake_up(\"golem1\",\"Box007\", 20)",8); -- el tiempo luego se ajustara
-
-	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"linear\")",12);
+	execDelayedAction("on_lock_camera3(false)",0);
+	execDelayedAction("on_blending_camera(\"CameraPanel001\", 5,\"Quadin\")",0);
+	execDelayedAction("on_blending_camera(\"CameraPanel002\", 5,\"Quadin\")",6);
+    execDelayedAction("destroy_and_wake_up(\"golem2\",\"Box007\", 20)",15); 
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"Quadin\")",12);
+	execDelayedAction("on_cinematic(false)",16);
 	execDelayedAction("on_lock_camera3(true)",16);
-	execDelayedAction("on_cinematic_golem(\"golem1\",false)",15);
-	execDelayedAction("on_cinematic(false)",15);
-
-    -- tocara meter en funciones separadas muchas de estas cosas: (para hacer el delayed action)
-
-	-- cinematica que apunte al golem con el muro -- COMENTAR ESTO CUANDO SE DESCOMENTE LO DE ARRIBA
-	--GameController:destroyWallByName("Box007","golem1", 20) -- rompe el muro de delante del golem
-	--GameController:wakeUpGolem("golem1") -- despierta al golem
-	-- animacion golem golpeando (?)
-	
-
+	handle = GameController:entityByName("golem2");
+	execDelayedAction("setViewDistanceEnemy(80,handle,4)",15.5);
+	GameController:setHeightEnemyByHandle(7.0,handle,4);
 	execDelayedAction("on_delete_handle(\"trigger001\")",0);
 	--Audio
 	GameController:updateSoundtrackID(3);
@@ -183,8 +180,7 @@ end
 function script_ice_3_player()
 
 	--GameController:destroyWallByName("Box016", "golem3", 20)
-	GameController:wakeUpGolem("golem3")
-	GameController:sleepGolem("golem2")
+	execDelayedAction("setPauseEnemyName(\"golem3\",true)", 0);
 	execDelayedAction("on_delete_handle(\"trigger003\")",0);
 	-- despierta al ultimo golem y rompe el ultimo muro
 	-- funcion para despertar al golem y que fije al player pah siempre
@@ -193,26 +189,24 @@ end
 
 
 
-function cinematic_panel_player()
-	GameController:resetCamera();
-	execDelayedAction("on_cinematic(true)",0);
-	execDelayedAction("on_lock_camera3(false)",0.1);
-	execDelayedAction("on_blending_camera(\"CameraPanel001\", 4,\"linear\")",0.3);
-	execDelayedAction("on_blending_camera(\"PlayerCamera\", 4,\"linear\")",6);
-	execDelayedAction("on_lock_camera3(true)",9);
-	execDelayedAction("on_cinematic(false)",9);
-	execDelayedAction("on_delete_handle(\"trigger007\")",0);
+function wake_up_last_golem_player()
+	h_golem = GameController:entityByName("golem3"); 
+	execDelayedAction("setPauseEnemyName(\"golem3\",false)", 0);
+	GameController:setHeightEnemyByHandle(10.0,h_golem,4);
+	--execDelayedAction("on_delete_handle(\"trigger007\")",0);
 end
 
 function in_trap_tube_enemies_player()
 	
 	--GameController:resetCamera();
+	h_golem = GameController:entityByName("golem3"); 
+	execDelayedAction("setPauseEnemyName(\"golem3\",true)", 0);	
 	execDelayedAction("on_cinematic(true)",3);
 	execDelayedAction("on_lock_camera3(false)",3);
 	execDelayedAction("on_blending_camera(\"CameraEnemiesTube\", 5,\"linear\")",3); --poner en mapa la cmara correspondiente a donde estaran ubicados los termoestatos
-	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"linear\")",7);
-	execDelayedAction("on_lock_camera3(true)",7);
-	execDelayedAction("on_cinematic(false)",7);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 2,\"linear\")",7);
+	execDelayedAction("on_lock_camera3(true)", 9);
+	execDelayedAction("on_cinematic(false)",9);
 
 	handle = GameController:entityByName("enemies_in_tube");--prefab
 	t_compenemiestube = toCompEnemiesInTube(toEntity(handle):getCompByName("enemies_in_tube"));

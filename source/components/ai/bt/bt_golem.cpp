@@ -963,3 +963,11 @@ bool CBTGolem::checkHeight() {
 
 	return res;
 }
+
+void CBTGolem::setViewDistance(float distance) {
+	viewDistance = distance;
+}
+
+void CBTGolem::setHeightRange(float height) {
+	this->height_range = height;
+}

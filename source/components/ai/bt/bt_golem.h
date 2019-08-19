@@ -55,8 +55,8 @@ public:
 	bool conditionRandomThrowSimpleCookie();
 
 	bool conditionAttackCinematic();
-
-
+	void setViewDistance(float distance);
+	void setHeightRange(float height);
 private:
 
 

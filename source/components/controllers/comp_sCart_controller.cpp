@@ -249,6 +249,9 @@ void TCompSCartController::grounded(float delta) {
 	treatRumble(delta);
 
   TCompTransform* c_trans = get<TCompTransform>();
+  if (c_trans == nullptr) {
+	  return;
+  }
   VEC3 dir = c_trans->getFront();
   VEC3 dir_aux = dir;
   TCompRigidBody* r_body = get<TCompRigidBody>();

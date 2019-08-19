@@ -25,10 +25,10 @@ void TCompEnemiesInTube::onFinishEnemiesInTube(const TMSgWallDestroyed & msg) {
 
 
 void TCompEnemiesInTube::load(const json& j, TEntityParseContext& ctx){
-	enemiesPosition.push_back(VEC3(140,18,151));//Esto cambiarlo mas adelanta por los nombres de los tubos
-	enemiesPosition.push_back(VEC3(145,18,151));
-	enemiesPosition.push_back(VEC3(150,18,158));
-	enemiesPosition.push_back(VEC3(132,18,159));
+	enemiesPosition.push_back(VEC3(24,10,-6));//Esto cambiarlo mas adelanta por los nombres de los tubos
+	enemiesPosition.push_back(VEC3(14,10,-6));
+	enemiesPosition.push_back(VEC3(13,10,3));
+	enemiesPosition.push_back(VEC3(24,10,2));
 }
 
 
@@ -44,7 +44,7 @@ void TCompEnemiesInTube::update(float dt) {
 			cupcake->setHalfCone(360);
 			cupcake->setLengthCone(300);
 			positionBirth++;
-			if (positionBirth >= enemiesPosition.size() - 1) {
+			if (positionBirth >= enemiesPosition.size() ) {
 				positionBirth = 0;
 			}
 			birthTime = birthTimeReset;

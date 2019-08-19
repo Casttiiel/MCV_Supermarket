@@ -44,7 +44,7 @@ class CModuleGameController : public IModule
     void renderInMenu();
     void updateGameCondition();
 
-	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(300.825,-2.37953 ,151.652),VEC3(130, 7,154),VEC3(55,0.550,-45.8998)};
+	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(300.825,-2.37953 ,151.652),VEC3(14, 15,-6),VEC3(55,0.550,-45.8998)};
 	int positionCheat = 0;
     
     //void switchState(PauseState pause);
@@ -77,6 +77,7 @@ public:
 #define TYPE_SUSHI 1
 #define TYPE_RANGED_SUSHI 2
 #define TYPE_CUPCAKE 3 
+#define TYPE_GOLEM 4 
 
   float yaw_sensivity = 5.f;
   float pitch_sensivity = 2.f;
@@ -230,6 +231,7 @@ public:
 
 	void dbgInLua(std::string text);
 	void setHeightEnemyByHandle(int height, CHandle h_enemy, int typeEnemy);
+	void setViewDistanceEnemyByHandle(float distance, CHandle h_enemy, int typeEnemy);
 };
 
 

@@ -146,6 +146,7 @@ void CModuleScripting::BindGameController() {
 		.set("dbgInLua", &CModuleGameController::dbgInLua)
 		.set("setHeightEnemyByHandle", &CModuleGameController::setHeightEnemyByHandle)
 		.set("saveCheckpoint", &CModuleGameController::saveCheckpoint)
+		.set("setViewDistanceEnemyByHandle",&CModuleGameController::setViewDistanceEnemyByHandle)
 		;
 }
 

@@ -18,69 +18,6 @@
   {
     "entity":
     {
-      "name": "Player"
-      ,
-      "transform":
-      {
-        "pos": "182.337 -1.37954 -15.9316"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "prefab": "data/prefabs/character/player.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box007"
-      ,
-      "transform":
-      {
-        "pos": "155.459 7.62919 -16.0599"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "comp_destroyable_wall":
-      {
-        "type_wall": 1
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_Box007.col_mesh"
-            ,
-            "group": "destroyable_wall"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Box007.mesh"
-        ,
-        "color": "0.0313726 0.0313726 0.533333 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/mat_palillos.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "Box015"
       ,
       "transform":
@@ -102,14 +39,9 @@
         "shapes":
         [
           {
-            "shape": "box"
+            "shape": "trimesh"
             ,
-            "half_size": "7.82904 3.83973 0.99733"
-            ,
-            "offset":
-            {
-              "pos": "0.0 3.83973 0.0"
-            }
+            "collision_mesh": "data/meshes/mapa_congelados_Box015.col_mesh"
             ,
             "group": "destroyable_wall"
           }
@@ -159,53 +91,6 @@
       }
       ,
       "prefab": "data/prefabs/enemies/bt_golem.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box016"
-      ,
-      "transform":
-      {
-        "pos": "65.9952 -3.34011 -2.7154"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "comp_destroyable_wall":
-      {
-        "type_wall": 1
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_Box016.col_mesh"
-            ,
-            "group": "destroyable_wall"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Box016.mesh"
-        ,
-        "color": "0.0313726 0.0313726 0.533333 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/mat_palillos.material"
-        ]
-      }
     }
   }
   ,
@@ -459,7 +344,7 @@
       ,
       "transform":
       {
-        "pos": "58.5271 -3.52968 -2.8935"
+        "pos": "54.8699 -3.73922 -2.99775"
         ,
         "rotation": "0.0 -1.0 0.0 2.8213e-07"
       }
@@ -487,13 +372,29 @@
   {
     "entity":
     {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "182.337 -1.37954 -15.9316"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "Box040"
       ,
       "transform":
       {
         "pos": "147.163 10.781 13.2621"
         ,
-        "rotation": "0.173648 0.0 0.0 -0.984808"
+        "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "abs_aabb": {}
@@ -502,7 +403,7 @@
       ,
       "ai_platform_mobile":
       {
-        "mTravelTime_": 0.15
+        "mTravelTime_": 15
         ,
         "curve": "data/curves/curvaRampaCongelador.curve"
         ,
@@ -657,14 +558,9 @@
         "shapes":
         [
           {
-            "shape": "box"
+            "shape": "trimesh"
             ,
-            "half_size": "7.82904 3.83973 0.99733"
-            ,
-            "offset":
-            {
-              "pos": "0.0 3.83973 0.0"
-            }
+            "collision_mesh": "data/meshes/mapa_congelados_bx5.col_mesh"
             ,
             "group": "destroyable_wall"
           }
@@ -867,9 +763,9 @@
       ,
       "transform":
       {
-        "pos": "156.85 9.40826 -17.4797"
+        "pos": "143.323 -4.87357 1.01111"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
       "collider":
@@ -909,7 +805,7 @@
       ,
       "transform":
       {
-        "pos": "47.034 -3.89349 -10.6658"
+        "pos": "54.6288 -3.8935 -33.7781"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -2073,7 +1969,7 @@
       ,
       "transform":
       {
-        "pos": "79.3335 11.8323 -58.8695"
+        "pos": "53.5182 -3.37094 3.58289"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2085,7 +1981,7 @@
           {
             "shape": "box"
             ,
-            "half_size": "3.61681 3.36464 13.1194"
+            "half_size": "9.03842 3.36464 13.1194"
             ,
             "offset":
             {
@@ -2101,7 +1997,7 @@
       ,
       "trigger":
       {
-        "onEnter": "cinematic_panel"
+        "onEnter": "wake_up_last_golem"
         ,
         "delay": 0
       }
@@ -2173,11 +2069,11 @@
       ,
       "transform":
       {
-        "pos": "36.9742 27.2884 -4.37223"
+        "pos": "36.9742 15.8415 -4.37223"
         ,
-        "rotation": "-0.365053 -0.606174 0.366171 -0.604324"
+        "rotation": "-0.315669 -0.633901 0.31723 -0.630783"
         ,
-        "lookat": "19.3051 18.0 -4.31822"
+        "lookat": "26.0228 7.63992 -4.31821"
       }
       ,
       "camera":
@@ -2188,7 +2084,7 @@
         ,
         "fov": 45.0
         ,
-        "distanceTarget": 19.9618
+        "distanceTarget": 13.6821
       }
     }
   }
@@ -2514,6 +2410,87 @@
       }
       ,
       "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraPanel001"
+      ,
+      "transform":
+      {
+        "pos": "146.844 14.7625 2.73201"
+        ,
+        "rotation": "-0.010573 -0.77884 0.626996 -0.0131336"
+        ,
+        "lookat": "146.266 11.0142 19.8717"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 17.5543
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraPanel002"
+      ,
+      "transform":
+      {
+        "pos": "143.763 8.1243 8.45897"
+        ,
+        "rotation": "0.0283003 -0.768442 0.638385 0.0340658"
+        ,
+        "lookat": "147.291 0.688662 48.1744"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 40.5592
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraPanel003"
+      ,
+      "transform":
+      {
+        "pos": "149.394 12.7269 -41.1805"
+        ,
+        "rotation": "-0.00908486 -0.726473 0.687068 -0.0096059"
+        ,
+        "lookat": "147.793 9.34868 19.3437"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 60.6395
+      }
     }
   }
 ]

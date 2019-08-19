@@ -164,9 +164,31 @@ Interpolator::IInterpolator* CModuleCameraMixer::getInterpolator(std::string int
 		static Interpolator::TLinearInterpolator linear;
 		return &linear;
 	}
-	/*else if () {
-		...
-	}*/
+	else if (interpolator.compare("Quadin") == 0) {
+		static Interpolator::TQuadInInterpolator quadin;
+		return &quadin;
+	}
+	else if (interpolator.compare("Quadout") == 0) {
+		static Interpolator::TQuadOutInterpolator quadout;
+		return &quadout;
+	}
+	else if (interpolator.compare("Quadinout") == 0) {
+		static Interpolator::TQuadInOutInterpolator quadinout;
+		return &quadinout;
+	}
+	else if (interpolator.compare("Cubicin") == 0) {
+		static Interpolator::TCubicInInterpolator cubicin;
+		return &cubicin;
+	}
+	else if (interpolator.compare("Cubicout") == 0) {
+		static Interpolator::TCubicOutInterpolator cubicout;
+		return &cubicout;
+	}
+	else if (interpolator.compare("Cubicinout") == 0) {
+		static Interpolator::TCubicInOutInterpolator cubicinout;
+		return &cubicinout;
+	}
+	
 	return nullptr;
 }
 
