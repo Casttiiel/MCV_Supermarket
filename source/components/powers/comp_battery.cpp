@@ -87,6 +87,27 @@ void TCompBatteryController::onCollision(const TMsgOnContact& msg) {
               CHandle h(this);
               c_bbill->setTargetAim(h.getOwner());
             }
+
+            TEntityParseContext ctx2;
+            ctx2.root_transform = *c_trans;
+            parseScene("data/prefabs/vfx/electric_aura.json", ctx2);
+            CEntity* curr_e3 = ctx2.current_entity;
+            if (curr_e3) {
+              TCompSelfDestroy* c_sdes2 = curr_e3->get<TCompSelfDestroy>();
+              c_sdes2->setDelay(timeEffect);
+              TCompBoltBillboard* c_bbill = curr_e3->get<TCompBoltBillboard>();
+              c_bbill->setTargetPosition(curr_e);
+              CHandle h(this);
+              c_bbill->setTargetAim(h.getOwner());
+            }
+
+            parseScene("data/particles/spark_particles.json", ctx2);
+            CEntity* curr_e4 = ctx2.current_entity;
+            if (curr_e4) {
+              TCompSelfDestroy* c_sdes2 = curr_e4->get<TCompSelfDestroy>();
+              c_sdes2->setDelay(timeEffect);
+            }
+
         }
         //antes 
           //rigid_dynamic->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, true);

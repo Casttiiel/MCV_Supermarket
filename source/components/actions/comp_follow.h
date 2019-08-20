@@ -17,7 +17,7 @@ public:
 
 private:
 	float speed = 2.0f;
-	float minDistance = 3.f;
+	float minDistance = 0.01f;
 	CHandle     h_target;
 	std::string targetName = "";
 	VEC3 offset = VEC3();

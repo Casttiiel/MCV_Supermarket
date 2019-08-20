@@ -1,10 +1,10 @@
 [
   {
     "entity": {
-      "name": "Electric",
+      "name": "ElectricAura",
       "transform": {
-        "pos": "0 1 0",
-        "scale": 1.0
+        "pos": "0 0 0",
+        "scale": 2.0
       },
       "render": {
         "mesh": "unit_quad_xy_centered.mesh",
@@ -14,8 +14,9 @@
           "data/materials/vfx/electric.material"
         ]
       },
-      "comp_follow":{
-        
+      "bolt_billboard":{},
+      "comp_self_destroy" : {
+        "_isEnabled": true
       }
     }
   }

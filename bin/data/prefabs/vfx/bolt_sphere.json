@@ -3,7 +3,7 @@
     "entity": {
       "name": "BoltSphere",
       "transform": {
-        "pos": "0 1 0",
+        "pos": "0 0 0",
         "scale": 0.1
       },
       "render": {
@@ -14,8 +14,9 @@
           "data/materials/vfx/bolt_sphere.material"
         ]
       },
+      "bolt_sphere":{},
       "comp_self_destroy" : {
-        "_isEnabled": false
+        "_isEnabled": true
       }
     }
   }
