@@ -122,6 +122,14 @@ struct TMsgOnCinematic {
 	DECL_MSG_ID();
 };
 
+struct TMsgOnCinematicSpecial {
+	bool cinematic;
+	bool isscart;
+	int type;
+	DECL_MSG_ID();
+};
+
+
 /*
 struct TMsgDamageToEnemy {
 CHandle h_sender;

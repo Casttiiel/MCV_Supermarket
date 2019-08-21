@@ -1,6 +1,7 @@
 #pragma once
 
 #include "modules/module.h"
+
 #include "entity/entity.h"
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
@@ -12,6 +13,8 @@
 #include "components/animation/comp_morph_animation.h"
 #include "components/controllers/comp_enemies_in_tube.h"
 #include "components/common/comp_transform.h"
+#include "components/common/comp_camera.h"
+
 
 class CCheckpoint;
 class CModuleGameplayFragment;
@@ -184,8 +187,10 @@ public:
   void resetCamera();
   //activar modo cinematica en jugador
   void inCinematic(bool active);
-	//activar modo cinematica en golem
-	void inCinematicGolem(std::string name, bool active);
+  //activar modo cinematica special
+  void inCinematicSpecial(bool active,int type);
+  //activar modo cinematica en golem
+  void inCinematicGolem(std::string name, bool active);
   //delete handle
   void destroyCHandleByName(std::string name);
   //activar plataformas
@@ -232,6 +237,8 @@ public:
 	void dbgInLua(std::string text);
 	void setHeightEnemyByHandle(int height, CHandle h_enemy, int typeEnemy);
 	void setViewDistanceEnemyByHandle(float distance, CHandle h_enemy, int typeEnemy);
+	CCamera* getCameraFromHandle(CHandle hCamera);
+	
 };
 
 
@@ -244,3 +251,5 @@ TCompMorphAnimation* toCompMorphAnimation(CHandle h);
 TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 TCompName* toCompName(CHandle h);
 TCompTransform* toCompTransform(CHandle h);
+TCompCamera* toCompCamera(CHandle h);
+//TCompCharacterController* toCompCharacterController_(CHandle h);

@@ -92,7 +92,7 @@ void CModuleScripting::doBingings() {
 	BindSkeleton();
 	BindHandle();
 	BindTransform();
-
+	BindCamera();
 	BindConverters();
 	BindEnemiesInTube();
 	BindName();
@@ -147,6 +147,8 @@ void CModuleScripting::BindGameController() {
 		.set("setHeightEnemyByHandle", &CModuleGameController::setHeightEnemyByHandle)
 		.set("saveCheckpoint", &CModuleGameController::saveCheckpoint)
 		.set("setViewDistanceEnemyByHandle",&CModuleGameController::setViewDistanceEnemyByHandle)
+		.set("getCameraFromHandle", &CModuleGameController::getCameraFromHandle)
+		.set("inCinematicSpecial", &CModuleGameController::inCinematicSpecial)
 		;
 }
 
@@ -158,13 +160,16 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompEnemiesInTube", SLB::FuncCall::create(&toCompEnemiesInTube));
 	m->set("toCompName", SLB::FuncCall::create(&toCompName));
 	m->set("toCompTransform", SLB::FuncCall::create(&toCompTransform));
+	m->set("toCompCamera", SLB::FuncCall::create(&toCompCamera));
+	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
 
 void CModuleScripting::BindCharacterController() {
-
+	
 	SLB::Class<TCompCharacterController>("CharacterController", m)
 		.comment("This is our wrapper of the Player class")
 		.set("heal", &TCompCharacterController::heal)
+	    //.set("changeState",&TCompCharacterController::ChangeState);
 		;
 
 	
@@ -262,6 +267,14 @@ void CModuleScripting::BindTransform() {
 		.set("setScale", &TCompTransform::setScale);
 }
 
+void CModuleScripting::BindCamera() {
+	SLB::Class <TCompCamera>("TCompCamera", m)
+		.comment("TCompCamera wrapper")
+		.constructor()
+		.set("lookAt", &TCompCamera::lookAt);
+}
+
+
 
 void CModuleScripting::BindGlobalFunctions() {
 	
@@ -348,5 +361,4 @@ void execDelayedAction(const std::string &action, float delay) {
 CModuleGameController* getGameController() {
 	return GameController.getPointer();	
 }
-
 

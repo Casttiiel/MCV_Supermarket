@@ -22,6 +22,9 @@ function on_restore_madness()
 	GameController:restoreMadness()
 end
 
+function set_pause_enemy_by_handle(handle,pause)
+	GameController:setPauseEnemyByHandle(handle,pause)
+end
 
 function delete_grietas(name)
 	on_deleteElement(name)
@@ -131,6 +134,11 @@ end
 function on_cinematic(flag)
 	GameController:inCinematic(flag)
 end
+
+function on_cinematic_special(flag,type)
+	GameController:inCinematicSpecial(flag,type)
+end
+
 
 function on_cinematic_golem(name,flag)
 	GameController:inCinematicGolem(name,flag)
@@ -438,15 +446,15 @@ function activePlataformCarniceria_player()
 	--suishis PB
 	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-146,0.316,-202), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn1",h_suishi1);
-	GameController:setPauseEnemyByHandle(h_suishi1,false);
+	GameController:setPauseEnemyByHandle(h_suishi1,true);
 	
 	h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-126,0.316,-191), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn2",h_suishi2);
-	GameController:setPauseEnemyByHandle(h_suishi2,false);
+	GameController:setPauseEnemyByHandle(h_suishi2,true);
 
 	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-125,0.316,-225), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn3",h_suishi3);
-	GameController:setPauseEnemyByHandle(h_suishi3,false);
+	GameController:setPauseEnemyByHandle(h_suishi3,true);
 	--suishis P1
 	--h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-152,6.157,-222), QUAT(0, 0, 0, 1),1);
 	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn4",h_suishi4);
@@ -477,7 +485,11 @@ function activePlataformCarniceria_player()
 
 	--Audio
 	GameController:updateSoundtrackID(5);
-	--saveCheckpointPrueba
+	--PRUEBA CAMERA LOCA
+	execDelayedAction("cinematica_tower()",0.0);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",12.5);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi2,false)",12.5);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",12.5);
 	
 	
 end
@@ -536,6 +548,23 @@ function activarSalidaPanaderia()
 	execDelayedAction("activePlatformByName(\"plat1346469\")",5.2);
 	execDelayedAction("activePlatformByName(\"plat1346470\")",7.2);
 	execDelayedAction("activePlatformByName(\"plat1346471\")",9.2);
+
+end
+
+function cinematica_tower()
+	handleCamera = GameController:entityByName("CameraTower");
+	handlePlayer = GameController:getPlayerHandle();
+	GameController:resetCamera();
+	
+	execDelayedAction("on_lock_camera3(false)",0.0);
+	execDelayedAction("on_blending_camera(\"CameraTower\", 7,\"Cubicinout\")",0.0);
+	execDelayedAction("on_cinematic_special(true,1)",0.0);
+
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",7.0);
+	execDelayedAction("on_lock_camera3(true)",13.0);
+	--t_compCharacterController = toCompCharacterController(toEntity(handlePlayer):getCompByName("character_controller"));
+	--t_compCharacterController:ChangeState("ESPECIAL_CINEMATIC");
+
 
 end
 

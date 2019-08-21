@@ -42,6 +42,11 @@ void TCompCharacterController::Init() {
   //AddState("USINGCHILLI", (statehandler)&TCompCharacterController::attackChilli);
   AddState("NOCLIP", (statehandler)&TCompCharacterController::noclip);
   AddState("IDLE_CINEMATIC", (statehandler)& TCompCharacterController::idleCinematic);
+  
+
+  AddState("ESPECIAL_CINEMATIC", (statehandler)& TCompCharacterController::specialCinematic);
+
+
 
     //ADD MORE STATES FOR BEING HIT, ETC, ETC
 
@@ -136,6 +141,7 @@ void TCompCharacterController::registerMsgs() {
     DECL_MSG(TCompCharacterController, TCompPlayerAnimator::TMsgPlayerAnimationFinished, onAnimationFinish);
 	DECL_MSG(TCompCharacterController, TMsgOnCinematic, onCinematic);
 	DECL_MSG(TCompCharacterController, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	DECL_MSG(TCompCharacterController, TMsgOnCinematicSpecial, onCinematicSpecial);
 }
 
 void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg) {
@@ -178,6 +184,32 @@ void TCompCharacterController::idleCinematic(float delta) {
 		ChangeState("GROUNDED");
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
 		mirilla->getParams()->visible = true;
+	}
+}
+
+
+void TCompCharacterController::specialCinematic(float delta) {
+	//jhuihui
+	
+	float twistSpeed = 10;
+	TCompTransform* c_trans = get<TCompTransform>();
+	VEC3 dir = VEC3();
+	dir = c_trans->getFront() * speedCinematicSpecial;
+	dir *= Time.delta_unscaled;
+	float yaw, pith;
+	c_trans->getAngles(&yaw, &pith);
+	float angle = rad2deg(c_trans->getDeltaYawToAimTo(targetTower));
+	c_trans->rotateTowards(targetTower, twistSpeed, delta);
+	//MOVE PLAYER
+	TCompCollider* comp_collider = get<TCompCollider>();
+	if (!comp_collider || !comp_collider->controller)
+		return;
+	TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+	playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f, true);
+	comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+	float distancia = VEC3::Distance(targetTower, c_trans->getPosition());
+	if (distancia < 0.5) {
+		ChangeState("GROUNDED");
 	}
 }
 
@@ -1171,6 +1203,40 @@ void TCompCharacterController::onCinematic(const TMsgOnCinematic & msg)
 		mirilla->getParams()->visible = false;
 	}
 }
+
+void TCompCharacterController::onCinematicSpecial(const TMsgOnCinematicSpecial & msg)
+{
+	if (!msg.isscart) {
+
+		if (msg.cinematic) {
+			if (msg.type == 1) {//cambiar el por DEFINE
+				TCompTransform* c_trans = get<TCompTransform>();
+				
+				c_trans->rotateTowards(targetTower);
+				ChangeState("ESPECIAL_CINEMATIC");
+			}
+		}
+		cinematic = msg.cinematic;
+		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+		mirilla->getParams()->visible = false;
+	}
+	else {
+		cinematic = msg.cinematic;
+		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+		mirilla->getParams()->visible = false;
+		TCompSCartController* sCart = get<TCompSCartController>();
+		sCart->disable();
+		TCompTransform* c_trans = get<TCompTransform>();
+		c_trans->rotateTowards(targetTower);
+
+		ChangeState("ESPECIAL_CINEMATIC");
+		//dbg("Player changes to MOUNTED\n");
+		
+	}
+}
+
+
+
 
 
 void TCompCharacterController::onBatteryDeactivation(const TMsgBatteryDeactivates& msg) {

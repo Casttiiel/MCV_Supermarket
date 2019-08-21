@@ -1,34 +1,22 @@
 #include "mcv_platform.h"
-#include "engine.h"
+
 #include "module_game_controller.h"
-#include "input/devices/device_mouse.h"
-#include "components/common/comp_tags.h"
 #include "components/controllers/character/comp_character_controller.h"
 #include "components/controllers/comp_sCart_controller.h"
-#include "entity/common_msgs.h"
-#include "entity/msgs.h"
-#include "entity/entity.h"
-#include "entity/entity_parser.h"
-#include "windows/app.h"
 #include "components/objects/checkpoints/checkpoint.h"
 #include "components/common/comp_tags.h"
 #include "input/module_input.h"
-#include "components/common/physics/comp_rigid_body.h"
 #include "components/ai/bt/bt_sushi.h"
 #include "modules/gameplay_fragments/module_ambush.h"
 #include "components/ai/bt/bt_ranged_sushi.h"
 #include "components/ai/bt/bt_golem.h"
-#include "components/controllers/comp_curve_controller.h"
 #include "components/controllers/comp_trans_curve_controller.h"
 #include "modules/module_camera_mixer.h"
-#include "geometry/interpolators.h"
 #include "components/controllers/camera/comp_camera_3rd_person.h"
 #include "components/ai/graph/ai_platform.h"
-#include "components/common/comp_name.h"
-#include "entity/entity.h"
-#include "modules/module_scenes.h"
 #include "components/ai/bt/bt_cupcake.h"
 #include "components/ai/bt/bt_cupcake_explosive.h"
+
 
 
 bool CModuleGameController::start() {
@@ -704,9 +692,22 @@ void CModuleGameController::inCinematic(bool active) {
 	msgOnCinematic.cinematic = active;
 	msgOnCinematic.isscart = isScart;
 	e_player.sendMsg(msgOnCinematic);
-		
-	
 }
+
+void CModuleGameController::inCinematicSpecial(bool active, int type) {
+	CHandle e_player = getEntityByName("Player");
+	CEntity* entity = e_player;
+	TCompSCartController* scartController = entity->get<TCompSCartController>();
+	bool isScart = scartController->isEnabled;
+	TMsgOnCinematicSpecial msgOnCinematicSpec;
+	msgOnCinematicSpec.cinematic = active;
+	msgOnCinematicSpec.isscart = isScart;
+	msgOnCinematicSpec.type = type;
+	e_player.sendMsg(msgOnCinematicSpec);
+}
+
+
+
 
 void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 	CHandle e_golem = getEntityByName(name);
@@ -779,7 +780,16 @@ TCompTransform* toCompTransform(CHandle h) {
 	return t;
 }
 
-
+TCompCamera* toCompCamera(CHandle h) {
+	TCompCamera* c = h;
+	return c;
+}
+/*
+TCompCharacterController* toCompCharacterController_(CHandle h) {
+	TCompCharacterController* c = h;
+	return c;
+}
+*/
 
 
 
@@ -828,3 +838,18 @@ void CModuleGameController::cheatPosition() {
 	}
 	positionCheat++;
 }
+
+CCamera* CModuleGameController::getCameraFromHandle(CHandle hCamera)
+{
+	if (hCamera.isValid())
+	{
+		CEntity* e = hCamera;
+		TCompCamera* cCamera = e->get<TCompCamera>();
+		if (cCamera)
+		{
+			return cCamera;
+		}
+	}
+	return nullptr;
+}
+
