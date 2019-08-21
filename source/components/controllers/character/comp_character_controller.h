@@ -46,7 +46,7 @@ public:
   //madness
   void restoreMadness();
   float getMaxMadness();
-
+  bool getIsMounted() { return isMounted; }
 
   bool unLockableBattery = false;
   bool unLockableTeleport = false;
