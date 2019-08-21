@@ -747,6 +747,12 @@
     <ClCompile Include="components\vfx\comp_fire_follow.cpp">
       <Filter>components\vfx</Filter>
     </ClCompile>
+    <ClCompile Include="render\radial_blur_step.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="components\postfx\comp_render_radial_blur.cpp">
+      <Filter>components\postfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mcv_platform.h" />
@@ -1582,6 +1588,12 @@
     </ClInclude>
     <ClInclude Include="components\vfx\comp_fire_follow.h">
       <Filter>components\vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="render\radial_blur_step.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="components\postfx\comp_render_radial_blur.h">
+      <Filter>components\postfx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
