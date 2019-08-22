@@ -6,7 +6,7 @@
       ,
       "transform":
       {
-        "pos": "-66.6959 8.91395 -18.9506"
+        "pos": "-66.6959 6.81663 -18.9506"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -23048,6 +23048,18 @@
       ,
       "abs_aabb": {}
       ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_suelo_asiatica002.col_mesh"
+          }
+        ]
+      }
+      ,
       "render":
       {
         "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_suelo_asiatica002.mesh"
@@ -23192,6 +23204,8 @@
             "shape": "trimesh"
             ,
             "collision_mesh": "data/meshes/mapa_asiatica_zona_carrito.col_mesh"
+            ,
+            "group": "floor"
           }
         ]
       }
