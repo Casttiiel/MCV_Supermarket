@@ -777,6 +777,9 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
   else if (strcmp("column", name.c_str()) == 0) {
     return CModulePhysics::FilterGroup::Column;
   }
+  else if (strcmp("obstacle", name.c_str()) == 0) {
+	  return CModulePhysics::FilterGroup::Obstacle;
+  }
   
   
   //good solution, if from max is not specified its group, it will be scenario

@@ -170,7 +170,8 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 					| PxHitFlag::eNORMAL
 					;
 				TCompTransform* c_trans = get<TCompTransform>();
-				VEC3 pos = VEC3(c_trans->getPosition());
+				float offsetY = c_trans->getPosition().y + 4.0f;
+				VEC3 pos = VEC3(c_trans->getPosition().x, offsetY, c_trans->getPosition().z);
 				VEC3 direction = c_trans->getFront();
 				auto scene = EnginePhysics.getScene();
 				PxQueryFilterData filter_data = PxQueryFilterData();
