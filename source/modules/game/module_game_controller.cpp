@@ -106,10 +106,10 @@ bool CModuleGameController::deleteCheckpoint() {
 }
 #pragma endregion
 
-CModuleGameController::PauseState CModuleGameController::getCurrentState() {
+/*CModuleGameController::PauseState CModuleGameController::getCurrentState() {
 
     return _currentstate;
-}
+}*/
 
 
 #pragma region Behavior Tree Control
