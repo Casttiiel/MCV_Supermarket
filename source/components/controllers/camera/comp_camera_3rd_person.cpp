@@ -112,142 +112,145 @@ void TCompCamera3rdPerson::resetCamera() {
 
 void TCompCamera3rdPerson::update(float scaled_dt)
 {
-	scaled_dt = Time.delta_unscaled;
-  if (scaled_dt > 1.0)
-    return;
 
-  if (EngineInput[VK_F2].justPressed()) {
-    mouse_active = !mouse_active;
-  }
+	if(!isPause){
+	  scaled_dt = Time.delta_unscaled;
+	  if (scaled_dt > 1.0)
+		return;
 
-  if (!_target.isValid())
-  {
-    _target = getEntityByName(_targetName);
+	  if (EngineInput[VK_F2].justPressed()) {
+		mouse_active = !mouse_active;
+	  }
 
-    if (!_target.isValid())
-      return;
-  }
+	  if (!_target.isValid())
+	  {
+		_target = getEntityByName(_targetName);
 
-  if (EngineInput["reset_camera_"].justPressed()) {
-    resetCamera();
-    return;
-  }
+		if (!_target.isValid())
+		  return;
+	  }
 
-  TCompTransform* cTransform = get<TCompTransform>();
-  if (!cTransform)
-    return;
+	  if (EngineInput["reset_camera_"].justPressed()) {
+		resetCamera();
+		return;
+	  }
 
-  CEntity* eTarget = _target;
-  TCompTransform* cTargetTransform = eTarget->get<TCompTransform>();
-  if (!cTargetTransform)
-    return;
+	  TCompTransform* cTransform = get<TCompTransform>();
+	  if (!cTransform)
+		return;
 
-  // treat input
-  float pitch_rotation = 0.0f;
-  float yaw_rotation = 0.0f;
-  treatInput(yaw_rotation, pitch_rotation);
+	  CEntity* eTarget = _target;
+	  TCompTransform* cTargetTransform = eTarget->get<TCompTransform>();
+	  if (!cTargetTransform)
+		return;
 
-  float newYawOffset = (yaw_rotation)* GameController.yaw_sensivity * scaled_dt;
-  //smooth camera rotation
-  yawOffset = Damp(yawOffset * Time.real_scale_factor, newYawOffset, smoothSpeed, scaled_dt);
-  // yaw update
-  _yaw -= yawOffset;
+	  // treat input
+	  float pitch_rotation = 0.0f;
+	  float yaw_rotation = 0.0f;
+	  treatInput(yaw_rotation, pitch_rotation);
 
-  // pitch update
-  float newRatioOffset = (pitch_rotation) * GameController.pitch_sensivity * scaled_dt;
-  ratioOffset = Damp(ratioOffset * Time.real_scale_factor, newRatioOffset, smoothSpeed, scaled_dt);
-  _ratio = clamp(_ratio + ratioOffset, 0.f, 0.99999f);
+	  float newYawOffset = (yaw_rotation)* GameController.yaw_sensivity * scaled_dt;
+	  //smooth camera rotation
+	  yawOffset = Damp(yawOffset * Time.real_scale_factor, newYawOffset, smoothSpeed, scaled_dt);
+	  // yaw update
+	  _yaw -= yawOffset;
 
-  // curve transform movement
-  float cameraHeight = cameraMovementOnJump();
-  const MAT44 mRotation = MAT44::CreateFromYawPitchRoll(_yaw, 0.f, 0.f);
-  VEC3 playerPos = cTargetTransform->getPosition();
-  /*if (!actualCameraHeight) {//first time only
-    actualCameraHeight = cameraHeight;
-    playerPos.y = cameraHeight;
-  }
-  else {
-    actualCameraHeight = Damp(actualCameraHeight, cameraHeight, smoothSpeed, scaled_dt);
-    //actualCameraHeight += (cameraHeight - actualCameraHeight) * smoothSpeed * scaled_dt; //ASYMPTOTIC AVERAGE ON CAMERA JUMP
-    playerPos.y = actualCameraHeight;
-  }*/
+	  // pitch update
+	  float newRatioOffset = (pitch_rotation) * GameController.pitch_sensivity * scaled_dt;
+	  ratioOffset = Damp(ratioOffset * Time.real_scale_factor, newRatioOffset, smoothSpeed, scaled_dt);
+	  _ratio = clamp(_ratio + ratioOffset, 0.f, 0.99999f);
+
+	  // curve transform movement
+	  float cameraHeight = cameraMovementOnJump();
+	  const MAT44 mRotation = MAT44::CreateFromYawPitchRoll(_yaw, 0.f, 0.f);
+	  VEC3 playerPos = cTargetTransform->getPosition();
+	  /*if (!actualCameraHeight) {//first time only
+		actualCameraHeight = cameraHeight;
+		playerPos.y = cameraHeight;
+	  }
+	  else {
+		actualCameraHeight = Damp(actualCameraHeight, cameraHeight, smoothSpeed, scaled_dt);
+		//actualCameraHeight += (cameraHeight - actualCameraHeight) * smoothSpeed * scaled_dt; //ASYMPTOTIC AVERAGE ON CAMERA JUMP
+		playerPos.y = actualCameraHeight;
+	  }*/
   
-  const VEC3 smoothedPos = Damp(_curveTransform.Translation(), playerPos, smoothSpeed, scaled_dt);
-  const MAT44 mTranslation = MAT44::CreateTranslation(smoothedPos);
-  _curveTransform = mRotation * mTranslation * MAT44::Identity;
+	  const VEC3 smoothedPos = Damp(_curveTransform.Translation(), playerPos, smoothSpeed, scaled_dt);
+	  const MAT44 mTranslation = MAT44::CreateTranslation(smoothedPos);
+	  _curveTransform = mRotation * mTranslation * MAT44::Identity;
 
-  // final entity transform
-  VEC3 posInCurve = _curve->evaluate(_ratio);
+	  // final entity transform
+	  VEC3 posInCurve = _curve->evaluate(_ratio);
 
-  //treat if is aiming or not
-  if (aiming) {
-    actualAimTransitionTime += scaled_dt;
-  }
-  else {
-    actualAimTransitionTime -= scaled_dt;
-  }
-  actualAimTransitionTime = clamp(actualAimTransitionTime, 0.f, aimTransitionTime);
-  interpolation = Interpolator::quadInOut(0.f, 1.f, actualAimTransitionTime / aimTransitionTime);
-  posInCurve = posInCurve + _posOffset + aimOffset * interpolation;
-  VEC3 aimPosInCurve = posInCurve + aimOffset * (1.0f - interpolation);
+	  //treat if is aiming or not
+	  if (aiming) {
+		actualAimTransitionTime += scaled_dt;
+	  }
+	  else {
+		actualAimTransitionTime -= scaled_dt;
+	  }
+	  actualAimTransitionTime = clamp(actualAimTransitionTime, 0.f, aimTransitionTime);
+	  interpolation = Interpolator::quadInOut(0.f, 1.f, actualAimTransitionTime / aimTransitionTime);
+	  posInCurve = posInCurve + _posOffset + aimOffset * interpolation;
+	  VEC3 aimPosInCurve = posInCurve + aimOffset * (1.0f - interpolation);
 
-  VEC3 newPos = VEC3::Transform(posInCurve, _curveTransform);
-  VEC3 aimPos = VEC3::Transform(aimPosInCurve, _curveTransform);
+	  VEC3 newPos = VEC3::Transform(posInCurve, _curveTransform);
+	  VEC3 aimPos = VEC3::Transform(aimPosInCurve, _curveTransform);
 
-  //idle calculations
-  const MAT44 mIdleRotation = MAT44::CreateFromYawPitchRoll(_yaw, 0.f, 0.f);
-  const MAT44 mIdleTranslation = MAT44::CreateTranslation(newPos);
-  _curvePulseTransform = mIdleRotation * mIdleTranslation * MAT44::Identity;
+	  //idle calculations
+	  const MAT44 mIdleRotation = MAT44::CreateFromYawPitchRoll(_yaw, 0.f, 0.f);
+	  const MAT44 mIdleTranslation = MAT44::CreateTranslation(newPos);
+	  _curvePulseTransform = mIdleRotation * mIdleTranslation * MAT44::Identity;
 
-  VEC3 pulsePosInCurve = _curveIdle->evaluate(pulseRatio);
+	  VEC3 pulsePosInCurve = _curveIdle->evaluate(pulseRatio);
 
-  pulsePos = VEC3::Transform(pulsePosInCurve, _curvePulseTransform);
+	  pulsePos = VEC3::Transform(pulsePosInCurve, _curvePulseTransform);
 
-  //if not moving, move camera around pulse curve
-  if (!isPlayerMoving() && !isCameraRotating()) {
-    pulseRatio = clamp(pulseRatio + scaled_dt * 0.05f, 0.f, 0.99999f);
-    if (pulseRatio == 0.99999f)
-      pulseRatio = 0.f;
-  }
+	  //if not moving, move camera around pulse curve
+	  if (!isPlayerMoving() && !isCameraRotating()) {
+		pulseRatio = clamp(pulseRatio + scaled_dt * 0.05f, 0.f, 0.99999f);
+		if (pulseRatio == 0.99999f)
+		  pulseRatio = 0.f;
+	  }
   
-  VEC3 semiFinalPos = pulsePos;
-  putPlayerOnScreen(semiFinalPos);
-  VEC3 finalPos;
-  //dbg("----------\n");
-  if (semiFinalPos == pulsePos) { //NO COLLISION
-    //dbg("No collision\n");
-     if (lastPosWasCollision) { //IF LAST POSITION WAS COLLISION OR TRANSITION FROM COLLISION 
-      // dbg("Transition from collision at %f %f %f  to  %f %f %f \n",lastPos.x, lastPos.y,lastPos.z, semiFinalPos.x, semiFinalPos.y, semiFinalPos.z);
+	  VEC3 semiFinalPos = pulsePos;
+	  putPlayerOnScreen(semiFinalPos);
+	  VEC3 finalPos;
+	  //dbg("----------\n");
+	  if (semiFinalPos == pulsePos) { //NO COLLISION
+		//dbg("No collision\n");
+		 if (lastPosWasCollision) { //IF LAST POSITION WAS COLLISION OR TRANSITION FROM COLLISION 
+		  // dbg("Transition from collision at %f %f %f  to  %f %f %f \n",lastPos.x, lastPos.y,lastPos.z, semiFinalPos.x, semiFinalPos.y, semiFinalPos.z);
 
-       //finalPos = lastPos + (semiFinalPos - lastPos) * smoothSpeed * 8.0f * scaled_dt; //ASYMPTOTIC AVERAGE
-       finalPos = Damp(lastPos, semiFinalPos, smoothSpeed * 8.0f, scaled_dt);
-       if (abs(VEC3::Distance(finalPos, lastPos)) < 0.005f) {//IF THIS NEW POSITION IS THE END OF TRANSITION
-         //dbg("End transition from collision\n");
-         lastPosWasCollision = false;
-       }
-     }
-     else {
-       //dbg("No transition from collision\n");
-       finalPos = semiFinalPos;
-       lastPosWasCollision = false;
-     }
-  }
-  else { //COLLIDES, ASYMPTOTIC AVERAGE ON COLLISION MOVEMENT
-    lastPosWasCollision = true;
-    //finalPos = lastPos + (semiFinalPos - lastPos) * smoothSpeed * 4.0f * scaled_dt; //ASYMPTOTIC AVERAGE
-    finalPos = Damp(lastPos, semiFinalPos, smoothSpeed * 4.0f, scaled_dt);
-    //dbg("Collision at %f %f %f\n", finalPos.x, finalPos.y, finalPos.z);
-  }
-  lastPos = finalPos;
+		   //finalPos = lastPos + (semiFinalPos - lastPos) * smoothSpeed * 8.0f * scaled_dt; //ASYMPTOTIC AVERAGE
+		   finalPos = Damp(lastPos, semiFinalPos, smoothSpeed * 8.0f, scaled_dt);
+		   if (abs(VEC3::Distance(finalPos, lastPos)) < 0.005f) {//IF THIS NEW POSITION IS THE END OF TRANSITION
+			 //dbg("End transition from collision\n");
+			 lastPosWasCollision = false;
+		   }
+		 }
+		 else {
+		   //dbg("No transition from collision\n");
+		   finalPos = semiFinalPos;
+		   lastPosWasCollision = false;
+		 }
+	  }
+	  else { //COLLIDES, ASYMPTOTIC AVERAGE ON COLLISION MOVEMENT
+		lastPosWasCollision = true;
+		//finalPos = lastPos + (semiFinalPos - lastPos) * smoothSpeed * 4.0f * scaled_dt; //ASYMPTOTIC AVERAGE
+		finalPos = Damp(lastPos, semiFinalPos, smoothSpeed * 4.0f, scaled_dt);
+		//dbg("Collision at %f %f %f\n", finalPos.x, finalPos.y, finalPos.z);
+	  }
+	  lastPos = finalPos;
   
-  //target position to look at
-  VEC3 dir = smoothedPos + VEC3(0.f, 2.1f, 0.f) - aimPos;
-  dir.Normalize();
-  VEC3 targetPos = finalPos + dir * distance;
+	  //target position to look at
+	  VEC3 dir = smoothedPos + VEC3(0.f, 2.1f, 0.f) - aimPos;
+	  dir.Normalize();
+	  VEC3 targetPos = finalPos + dir * distance;
 
-  cTransform->lookAt(finalPos, targetPos);
+	  cTransform->lookAt(finalPos, targetPos);
 
-  shouldSwapCamera();
+	  shouldSwapCamera();
+	 }
 }
 
 float TCompCamera3rdPerson::cameraMovementOnJump() {
@@ -410,3 +413,13 @@ void TCompCamera3rdPerson::renderDebug()
     _curveIdle->renderDebug(tr);
   }
 }
+
+void TCompCamera3rdPerson::registerMsgs() {
+	DECL_MSG(TCompCamera3rdPerson, TMsgGamePause, onPauseCam);
+}
+
+void TCompCamera3rdPerson::onPauseCam(const TMsgGamePause &msg) {
+	isPause = msg.isPause;
+}
+
+

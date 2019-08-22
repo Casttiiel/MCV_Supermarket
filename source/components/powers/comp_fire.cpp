@@ -40,27 +40,7 @@ void TCompFireController::load(const json& j, TEntityParseContext& ctx) {
 }
 
 void TCompFireController::renderDebug() {
-    /*if (_enabled) {
-        TCompTransform* c_trans = get<TCompTransform>();
-        TCompCollider* comp_collider = get<TCompCollider>();
-        if (!comp_collider || !comp_collider->controller)
-            return;
-
-        float attackHeight = (float)comp_collider->controller->getHeight();
-        float playerRadius = (float)comp_collider->controller->getRadius();
-        CEntity* e_camera = getEntityByName("PlayerCamera");
-        TCompTransform* c_transcam = e_camera->get<TCompTransform>();
-        float yaw, pitch;
-        c_transcam->getAngles(&yaw, &pitch);
-        float y = sinh(-pitch) * _fireDistance;
-        float x = cosh(-pitch) * _fireDistance;
-        Vector3 damageOrigin = c_trans->getPosition() + VEC3(0.f, attackHeight + y, 0.f) + (c_trans->getFront() * (playerRadius + x));
-
-        MAT44 world = MAT44::CreateFromQuaternion(c_transcam->getRotation()) * MAT44::CreateTranslation(damageOrigin);
-
-        drawWiredAABB(VEC3(), PXVEC3_TO_VEC3(VEC3(_fireWidth, _fireHeight, _fireDistance)), world, VEC4(1, 0, 0, 1));
-    }*/
-
+    
 }
 
 void TCompFireController::enable() {

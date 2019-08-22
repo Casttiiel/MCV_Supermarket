@@ -33,7 +33,7 @@ void TCompGrenadeGolemController::registerMsgs() {
 }
 
 void TCompGrenadeGolemController::onCollision(const TMsgOnContact& msg) {
-	CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
+  CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
   TCompCollider* c_col = source_of_impact->get<TCompCollider>();
 
   dbg("el proyectil cupcake detecta la colision con el suelo - - - - - - - - - - - - - - - -\n");
@@ -41,9 +41,34 @@ void TCompGrenadeGolemController::onCollision(const TMsgOnContact& msg) {
   PxShape* colShape;
   c_col->actor->getShapes(&colShape, 1, 0);
   PxFilterData col_filter_data = colShape->getSimulationFilterData();
-  if (col_filter_data.word0 & EnginePhysics.Scenario) {
+  if (col_filter_data.word0 & EnginePhysics.All) { //EnginePhysics.Scenario
     flagExplota = true;
+	TCompTransform* c_trans = get<TCompTransform>();
+	
+	std::string _prefab = "data/prefabs/enemies/bt_cupcake.json";
+	
+	enemy = GameController.spawnPrefab(_prefab, c_trans->getPosition());
+		
+
+	//Le decimos al cupcake quien es su padre
+	/*
+	TMsgSpawnerCheckin checkin;
+	checkin.spawnerHandle = h_sender;
+	((CEntity*)enemy)->sendMsg(checkin);
+	
+	//Le decimos al golem quien es su hijo
+	TMsgSpawnerFather msg;
+	msg.son = enemy;
+	((CEntity*)h_sender)->sendMsg(msg);
+	*/	
+	CHandle(this).getOwner().destroy();
+	CHandle(this).destroy();
+	
+	
   }
+
+ 
+
 	
 }
 
@@ -68,7 +93,7 @@ void TCompGrenadeGolemController::launch() {
 	CHandle h_player = GameController.getPlayerHandle();
 	CEntity* e_player = (CEntity*)h_player;
 	TCompTransform* player_trans = e_player->get< TCompTransform>();
-	VEC3 targetXZPos = VEC3(player_trans->getPosition().x, 0.0f, player_trans->getPosition().z);
+	VEC3 targetXZPos = VEC3(player_trans->getPosition().x, player_trans->getPosition().y, player_trans->getPosition().z);
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 projectileXZPos = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
 
@@ -81,7 +106,7 @@ void TCompGrenadeGolemController::launch() {
 
 
 	x0 = 0.;
-	y0 = 3.;//harcodeado, poner en un script el bone del golem y lanzarlo desde alli sin mierdas
+	y0 = c_trans->getPosition().y;
 	z0 = 0.;
 
 
@@ -94,9 +119,9 @@ void TCompGrenadeGolemController::launch() {
 	VEC3 vec3r = VEC3(1, 0, 0) * v0x;
 	VEC3 vec3u = VEC3(0, 1, 0) * v0y;
 	VEC3 vec3f = VEC3(0, 0, 1)  * v0z;
-	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3r), PxForceMode::eVELOCITY_CHANGE);
-	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3u), PxForceMode::eVELOCITY_CHANGE);
-	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3f), PxForceMode::eVELOCITY_CHANGE);
+	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3r), PxForceMode::eIMPULSE);
+	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3u), PxForceMode::eIMPULSE);
+	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3f), PxForceMode::eIMPULSE);
 }
 
 VEC3 TCompGrenadeGolemController::getForceFrom(VEC3 fromPos, VEC3 toPos)
@@ -106,56 +131,59 @@ VEC3 TCompGrenadeGolemController::getForceFrom(VEC3 fromPos, VEC3 toPos)
 
 void TCompGrenadeGolemController::onGrenadeInfoMsg(const TMsgAssignBulletOwner& msg) {
 	h_sender = msg.h_owner;
-	c_trans = get<TCompTransform>();
+	TCompTransform* c_trans = get<TCompTransform>();
 	c_trans->setPosition(msg.source);
 	float yaw = vectorToYaw(msg.front);
 	c_trans->setAngles(yaw, 0.f, 0.f);
 
-	dbg("Naces en x:%f,y:%f,z:%f\n", c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
+	dbg("Naces en x:%f,y:%f,z:%f\n", c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z + 1.f);
 	
 	c_collider = get<TCompCollider>();
-	VEC3 new_pos = c_trans->getFront();
-	PxVec3 velocidad = PxVec3(new_pos.x, new_pos.y, new_pos.z);
-
+	
 	physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
 
-	PxVec3 pxvec3 = PxVec3(c_trans->getPosition().x, 3, c_trans->getPosition().z);
+	PxVec3 pxvec3 = PxVec3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
 	PxTransform pxtransf = PxTransform(pxvec3);
 	rigid_dynamic->setGlobalPose(pxtransf);
 	launch();
-	/*
-	float mass = 1.2;
-
-	rigid_dynamic->setMass(mass);//no harcodear
-	PxVec3 vel_ang = PxVec3(1,0,0);
-	rigid_dynamic->setAngularVelocity(vel_ang);
-
-	float speedMultiplicator = 10;
-
-	rigid_dynamic->addForce(velocidad * speedMultiplicator, PxForceMode::eIMPULSE, false) ;
-
-	float y_impulse = 8;
-
-	PxVec3 velocidady = PxVec3(0, new_pos.y + y_impulse, 0);
-	rigid_dynamic->addForce(velocidady, PxForceMode::eIMPULSE, false);
-	*/
+	
 }
 
 void TCompGrenadeGolemController::update(float delta) {//cambiar la condicion un poco antes de la explosion para indicar que va a explotar
 	PROFILE_FUNCTION("GrenadeGolem");
+
 	if (flagExplota) {
+		//Le decimos al cupcake quien es su padre
+	
+		TMsgSpawnerCheckin checkin;
+		checkin.spawnerHandle = h_sender;
+		((CEntity*)enemy)->sendMsg(checkin);
+
+		//Le decimos al golem quien es su hijo
+		TMsgSpawnerFather msg;
+		msg.son = enemy;
+		((CEntity*)h_sender)->sendMsg(msg);
+		flagExplota = false;
+		
+
+	}
+
+	/*if (flagExplota) {
+		
 		TCompTransform* c_trans = get<TCompTransform>();
 		dbg("spawn cupcake");
 		TEntityParseContext ctx;
 		if(c_trans != nullptr) {
 			//ctx.root_transform.setPosition(c_trans->getPosition());
 			//parseScene("data/prefabs/enemies/bt_cupcake.json", ctx);
+			
 			std::string _prefab = "data/prefabs/enemies/bt_cupcake.json";
 
 			VEC3 position = c_trans->getPosition();
 			CHandle enemy = GameController.spawnPrefab(_prefab, position);
 
 			//Le decimos al cupcake quien es su padre
+			
 			TMsgSpawnerCheckin checkin;
 			checkin.spawnerHandle = h_sender;
 			((CEntity*)enemy)->sendMsg(checkin);
@@ -164,13 +192,16 @@ void TCompGrenadeGolemController::update(float delta) {//cambiar la condicion un
 			TMsgSpawnerFather msg;
 			msg.son = enemy;
 			((CEntity*)h_sender)->sendMsg(msg);
-
-
-			//golem h_sender
+			
 
 			CHandle(this).getOwner().destroy();
+			CHandle(this).destroy();
+			//golem h_sender
+			
+			
+			
 		}
-	}
+	}*/
 }
 
 	

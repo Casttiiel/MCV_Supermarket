@@ -4,7 +4,7 @@ class CApplication {
   HWND             hWnd;
   CTimer           time_since_last_render;
   bool             has_focus = false;
-
+  bool			   lost_focus = false;
   HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow);
 
   static CApplication* the_app;
@@ -19,6 +19,12 @@ public:
   void generateFrame();
   bool hasFocus() const {
     return has_focus;
+  }
+  bool lostFocus() const {
+	  return lost_focus;
+  }
+  void setLostFocus(bool val) {
+	  lost_focus = val;
   }
   int width_app;
   int height_app; 

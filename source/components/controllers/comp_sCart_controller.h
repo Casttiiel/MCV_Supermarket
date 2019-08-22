@@ -34,7 +34,8 @@ private:
 	CHandle fakePlayerHandle;
 	//Flags
 	
-
+	
+	float sensitivity = 2.0f;
 	float gravity = -9.81f;
 	float speed = 6.0f;
 	float rowDelay = 1.0f;

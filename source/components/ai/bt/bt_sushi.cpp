@@ -10,7 +10,9 @@
 #include "modules/game/module_fluid_decal_generator.h"
 #include "components/animation/comp_sushi_animation.h"
 #include "components/ai/others/comp_blackboard.h"
+#include "components/objects/comp_enemies_in_butcher.h"
 #include "bt_sushi.h"
+#include "components/controllers/character/comp_character_controller.h"
 
 #include "random"
 
@@ -180,7 +182,7 @@ void CBTSushi::setCurve(const CCurve* curve) {
 	
 	this->_curve = curve; // TO TEST
 	_knots = _curve->_knots;
-
+	this->pathCurve = curve->getName();
 	/*
 		_knots = curve->_knots;
 
@@ -189,10 +191,19 @@ void CBTSushi::setCurve(const CCurve* curve) {
 		positions.push_back(_knots[i]);
 	}
 	*/
-
-	
-
 }
+
+string CBTSushi::getNameCurve() {
+	return pathCurve;
+}
+
+
+
+void CBTSushi::setHeightRange(float height) {
+	this->height_range = height;
+}
+
+
 
 int CBTSushi::actionSeekWaypoint() {
     previousState = currentState;
@@ -580,7 +591,7 @@ int CBTSushi::actionChase() {
 		//wtp 
 		generateNavmesh(position, p_trans->getPosition(), false);
 
-		if (navmeshPath.size() > 0) {
+		if (navmeshPath.size() > 0 &&  hayCamino) {
 			navMeshIndex = 0;
 			nextNavMeshPoint = navmeshPath[navMeshIndex];
 
@@ -948,7 +959,7 @@ int CBTSushi::actionMelee3() {
 int CBTSushi::actionOnAir() {
     previousState = currentState;
     currentState = States::OnAir;
-    if (isGrounded() && impulse.y <= 0.0f) {
+    if (isGrounded() && impulse.y <= 0.0f || isDeadForFallout) {
         impulse.y = 0.0f;
         return LEAVE;
     }
@@ -1126,8 +1137,22 @@ int CBTSushi::actionDeath() {
 
 		//------------------------------------
     TCompTransform* c_trans = get<TCompTransform>();
-    GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
-
+	if (!isDeadForFallout){
+		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+	}
+	//------ENVIO ME HE MUERTO A COMPONENTE DE TRAMPA DE SUISHIS-----
+	
+	CHandle h = GameController.entityByName("enemies_in_butcher");
+	if (h.isValid()) {
+		CEntity* enemies_in_butcher = ((CEntity*)h);
+		TCompEnemiesInButcher* comp = enemies_in_butcher->get<TCompEnemiesInButcher>();
+		if (comp != nullptr) {
+			TMSgEnemyDead msgSushiDead;
+			msgSushiDead.h_entity = CHandle(this).getOwner();
+			msgSushiDead.isDead = true;
+			enemies_in_butcher->sendMsg(msgSushiDead);
+		}
+	}
     CHandle(this).getOwner().destroy();
     CHandle(this).destroy();
     return LEAVE;
@@ -1168,15 +1193,34 @@ bool CBTSushi::conditionPlayerInView() {
 	if (isView() && checkHeight()) {//tiene que estar dentro de ambos rangos
 		res = true;
 	}
-
-	if (use_navmesh)
+	if (use_navmesh) {
+		//raycast de personaje hacia abajo
+		if (!checkHeight()) {
+			inCombat = false;
+			return false;
+		}
+		if (isView()) {
+			if (navmeshPath.size() == 0) {
+				res = false;
+				initialExecution = true;
+				hayCamino = false;
+			}
+			else {
+				hayCamino = true;
+				//inCombat = false;
+			}
+			
+		}
+	}
+	return res;
+	/*if (use_navmesh)
 		isPlayerInNavmesh();
 		if (navmeshPath.size() == 0) {
 			res = false;
 			initialExecution = true;
 			inCombat = false;
 		}
-    return res;
+    return res;*/
 }
 
 bool CBTSushi::conditionSalute() {
@@ -1325,38 +1369,67 @@ bool CBTSushi::isView() {
     TCompTransform* player_position = e_player->get<TCompTransform>();
     TCompTransform* c_trans = get<TCompTransform>();
     float distance = Vector3::Distance(c_trans->getPosition(), player_position->getPosition());
-    if (!inCombat) {
-        //si no estamos en combate, view es dentro del cono y a menos distancia que viewDistance
-        //o
-        //a menos distancia que hearing_radius
-        float angle = rad2deg(c_trans->getDeltaYawToAimTo(player_position->getPosition()));
-        bool sighted = ((abs(angle) <= half_cone) && (distance <= viewDistance)) || distance <= hearing_radius;
-        if (sighted)
-            inCombat = true;
-        return sighted;
-    }
-    else {
-        //si estamos en combate, view es menos distancia que combatViewDistance
-        bool sighted = distance <= combatViewDistance;
-				if (!sighted) {
-					inCombat = false;
-					//------------------------------------ Blackboard
-					
-					CEntity* e_player = (CEntity *)h_player;
-					TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
-					slotsAvailable = c_bb->checkPermission(CHandle(this).getOwner(), SUSHI);
+	if (!inCombat) {
+		//si no estamos en combate, view es dentro del cono y a menos distancia que viewDistance
+		//o
+		//a menos distancia que hearing_radius
+		float angle = rad2deg(c_trans->getDeltaYawToAimTo(player_position->getPosition()));
+		bool sighted = ((abs(angle) <= half_cone) && (distance <= viewDistance)) || distance <= hearing_radius;
+		isPlayerInNavmesh();
+		if (use_navmesh) {
+			if (sighted && hayCamino)
+				inCombat = true;
+			return sighted;
+		}
+		else {
+			if (sighted)
+				inCombat = true;
+			return sighted;
+		}
+	}
+	else {
+		//si estamos en combate, view es menos distancia que combatViewDistance
+		if (use_navmesh) {
+			bool sighted = (distance <= combatViewDistance) && hayCamino;
+			if (!sighted){
+				inCombat = false;
+				//------------------------------------ Blackboard
 
-					if (slotsAvailable) {
-						slotsAvailable = false;
-						c_bb->forgetPlayer(CHandle(this).getOwner(), SUSHI);
-					}
-					
+				CEntity* e_player = (CEntity *)h_player;
+				TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
+				slotsAvailable = c_bb->checkPermission(CHandle(this).getOwner(), SUSHI);
 
-					//------------------------------------
+				if (slotsAvailable) {
+					slotsAvailable = false;
+					c_bb->forgetPlayer(CHandle(this).getOwner(), SUSHI);
 				}
-            
-        return sighted;
-    }
+
+
+				//-----------------------------------
+			}
+			return sighted;
+		}
+		else {
+			bool sighted = (distance <= combatViewDistance);
+			if (!sighted) {
+				inCombat = false;
+				//------------------------------------ Blackboard
+
+				CEntity* e_player = (CEntity *)h_player;
+				TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
+				slotsAvailable = c_bb->checkPermission(CHandle(this).getOwner(), SUSHI);
+
+				if (slotsAvailable) {
+					slotsAvailable = false;
+					c_bb->forgetPlayer(CHandle(this).getOwner(), SUSHI);
+				}
+
+
+				//-----------------------------------
+			}
+			return sighted;
+		}
+	}
     return false;
 }
 
@@ -1475,6 +1548,7 @@ void CBTSushi::load(const json& j, TEntityParseContext& ctx) {
 
     //define curve
     if (j.count("curve") > 0) {
+		pathCurve = j.value("curve", "");
         _curve = Resources.get(j.value("curve", ""))->as<CCurve>();
     }
 
@@ -1546,7 +1620,39 @@ void CBTSushi::registerMsgs() {
     DECL_MSG(CBTSushi, TMsgOnContact, onCollision);
     DECL_MSG(CBTSushi, TMsgGravity, onGravity);
     DECL_MSG(CBTSushi, TMsgBTPaused, onMsgBTPaused);
+	DECL_MSG(CBTSushi, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	//DECL_MSG(CBTSushi, TMsgDamageToAll, onDamageAll);//Nuevo, esto para el caso de que te caes
 }
+
+void CBTSushi::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
+	life -= msg.damage;
+	isDeadForFallout = msg.falloutDead;
+	if (life < 0) {
+		life = 0;
+	}
+}
+
+
+/*
+void CBTSushi::onDamageAll(const TMsgDamageToAll& msg) {//se recibe este mensaje solo cuando se cae por el collider ese triggerDamage
+	life -= msg.intensityDamage;
+	if (life < 0) {
+		life = 0;
+		CHandle h = GameController.entityByName("enemies_in_butcher");
+		if (h.isValid()) {
+			CEntity* enemies_in_butcher = ((CEntity*)h);
+			TCompEnemiesInButcher* comp = enemies_in_butcher->get<TCompEnemiesInButcher>();
+			if (comp != nullptr) {
+				TMSgEnemyDead msgSushiDead;
+				msgSushiDead.h_entity = CHandle(this).getOwner();
+				msgSushiDead.isDead = true;
+				enemies_in_butcher->sendMsg(msgSushiDead);
+			}
+		}
+		CHandle(this).getOwner().destroy();
+		CHandle(this).destroy();
+	}
+}*/
 
 void CBTSushi::onBlackboardMsg(const TMsgBlackboard& msg) {
     player_dead = msg.player_dead;
@@ -1788,9 +1894,10 @@ bool CBTSushi::isPlayerInNavmesh() {
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 position = c_trans->getPosition();
-	//wtp 
-	generateNavmesh(position, p_trans->getPosition(), false);
-	inCombat = false;
+	//wtp
+	VEC3 posPlayer = calculatePositionGround();//Nueva para BUG salto player
+	generateNavmesh(position, posPlayer, false);
+	//inCombat = false;
 	return true;
 	/*if (use_navmesh) {
 		VEC3 m_hitPos = VEC3();
@@ -1808,4 +1915,64 @@ bool CBTSushi::isPlayerInNavmesh() {
 		}
 	}
 	return true;*/
+}
+
+VEC3 CBTSushi::calculatePositionGround() {
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* p_trans = e_player->get<TCompTransform>();
+
+	VEC3 char_pos = p_trans->getPosition();
+	VEC3 positionJump = char_pos;
+	PxReal maxDistance = 10.0f;
+	PxRaycastBuffer hit;
+	PxRaycastHit hitBuffer[10];
+	hit = PxRaycastBuffer(hitBuffer, 10);
+	const PxHitFlags outputFlags =
+		PxHitFlag::eDISTANCE
+		| PxHitFlag::ePOSITION
+		| PxHitFlag::eNORMAL;
+	TCompTransform* c_trans = get<TCompTransform>();
+	PxQueryFilterData filter_data = PxQueryFilterData();
+	filter_data.data.word0 = EnginePhysics.NotPlayer;
+	
+	PxVec3 origin = VEC3_TO_PXVEC3(char_pos);
+	PxVec3 unitDir = VEC3_TO_PXVEC3((-c_trans->getUp()));//direccion abajo
+	bool res = EnginePhysics.gScene->raycast(origin, unitDir, maxDistance, hit, outputFlags, filter_data);
+	if (res) {//colisiona con algo
+		int closestIdx = -1;
+		float closestDist = 1000.0f;
+		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+			if (hit.getAnyHit(i).distance <= closestDist) {
+				closestDist = hit.getAnyHit(i).distance;
+				closestIdx = i;
+			}
+		}
+		if (closestIdx != -1) {
+			CHandle hitCollider;
+			PxShape* colShape;
+			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
+				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				PxFilterData col_filter_data = colShape->getSimulationFilterData();
+				if (col_filter_data.word0 & EnginePhysics.All) {
+					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
+					if (hitCollider.isValid()) {
+						CEntity* candidate = hitCollider.getOwner();
+						if (candidate != nullptr) {
+							//dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						}
+						positionJump = PXVEC3_TO_VEC3(hit.getAnyHit(closestIdx).position);
+					}
+				}
+			}
+		}
+	}
+	/*TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
+	if (!(characterController->is_grounded) ) {
+		dbg("RAYCAST PLAYER: positionJump.x:%f,positionJump.y:%fpositionJump.z:%f\n", positionJump.x, positionJump.y, positionJump.z);
+		VEC3 position = c_trans->getPosition();
+		dbg("POS SUSHY: position.x:%f,position.y:%fposition.z:%f\n", position.x, position.y, position.z);
+		dbg("------------------------------------------\n");
+	}*/	
+	return positionJump;
 }

@@ -135,6 +135,7 @@ void TCompCharacterController::registerMsgs() {
     DECL_MSG(TCompCharacterController, TMsgBatteryDeactivates, onBatteryDeactivation);
     DECL_MSG(TCompCharacterController, TCompPlayerAnimator::TMsgPlayerAnimationFinished, onAnimationFinish);
 	DECL_MSG(TCompCharacterController, TMsgOnCinematic, onCinematic);
+	DECL_MSG(TCompCharacterController, TMSgTriggerFalloutDead, onTriggerFalloutDead);
 }
 
 void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg) {
@@ -216,11 +217,13 @@ void TCompCharacterController::grounded(float delta) {
     else {
         //SwapMesh(0);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 0.5f);
-        //footSteps.stop();
-        if (!footSteps.getPaused()) {
-            footSteps.setPaused(true);
-        }
+		if(playerAnima != nullptr){
+			playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 0.5f);
+			//footSteps.stop();
+			if (!footSteps.getPaused()) {
+				footSteps.setPaused(true);
+			}
+		}
     }
 
     if (time_to_next_dash > 0.0f)
@@ -500,11 +503,11 @@ void TCompCharacterController::dead(float delta) {
     TCompCollider* comp_collider = get<TCompCollider>();
     if (!comp_collider || !comp_collider->controller)
         return;
-
+	
     comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
 
-    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-    playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.f);
+   // TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+   // playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.f);
 
     //------------------
     //TMsgBlackboard msg;
@@ -522,6 +525,8 @@ void TCompCharacterController::dead(float delta) {
 }
 
 void TCompCharacterController::win(float delta) {
+	TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+	playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
     if (EngineInput["checkpoint_"].justPressed()) {
         endGame = false;
         ChangeState("GROUNDED");
@@ -605,10 +610,12 @@ void TCompCharacterController::getInputForce(VEC3 &dir) {
 
     if (isGrounded()) {
         TCompRigidBody* r_body = get<TCompRigidBody>();
-        if (r_body->ground_normal != VEC3::Zero) {
-            VEC3 temp = r_body->ground_normal.Cross(dir);
-            dir = temp.Cross(r_body->ground_normal);
-        }
+		if(r_body != nullptr) {
+			if (r_body->ground_normal != VEC3::Zero) {
+				VEC3 temp = r_body->ground_normal.Cross(dir);
+				dir = temp.Cross(r_body->ground_normal);
+			}
+		}
     }
 
     dir *= speed * length;
@@ -657,7 +664,9 @@ void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool s
 
 bool TCompCharacterController::isGrounded() {
     TCompRigidBody* r_body = get<TCompRigidBody>();
-    return r_body->isGrounded();
+	if(r_body != nullptr) {
+		return r_body->isGrounded();
+	}
 }
 
 void TCompCharacterController::powerSelection() {
@@ -1111,6 +1120,34 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
     }
 }
 
+void TCompCharacterController::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
+	
+	if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+		life -= msg.damage;
+		invulnerabilityTimer = invulnerabilityTimeDuration;
+		//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+		//bar->setRatio((life + 20) / 120.f);
+	}
+
+
+	if (life <= 0.0f) {
+		life = 0.0f;
+		ChangeState("DEAD");
+	}
+	else {
+
+		ChangeState("DAMAGED");
+
+		TCompRigidBody* c_rbody = get<TCompRigidBody>();
+		if (!c_rbody)
+			return;
+		c_rbody->addForce(VEC3(0, 0, 0));
+	}
+
+
+}
+
+
 void TCompCharacterController::onPowerUp(const TMsgPowerUp& msg) {
 
 }
@@ -1118,9 +1155,12 @@ void TCompCharacterController::onPowerUp(const TMsgPowerUp& msg) {
 void TCompCharacterController::onCinematic(const TMsgOnCinematic & msg)
 {
 	if(!msg.isscart){
-		TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-		playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
-		ChangeState("IDLE_CINEMATIC");
+		
+		if(msg.cinematic){
+			TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+			playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
+			ChangeState("IDLE_CINEMATIC");
+		}
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
 		mirilla->getParams()->visible = false;
@@ -1265,7 +1305,8 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
     {
         //TODO
         unLockableBattery = true;
-		//unLockableTeleport = true;
+		//llamada funcion de scripting para poder escapar
+		Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
         break;
     }
     case PowerUpType::ACTIVATE_CHILLI:

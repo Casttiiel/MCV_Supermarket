@@ -246,9 +246,6 @@
     <ClCompile Include="components\ai\others\comp_death_collider.cpp">
       <Filter>components\ai\others</Filter>
     </ClCompile>
-    <ClCompile Include="components\ai\others\power_up.cpp">
-      <Filter>components\ai\others</Filter>
-    </ClCompile>
     <ClCompile Include="components\bullets\comp_grenade_golem.cpp">
       <Filter>components\bullets</Filter>
     </ClCompile>
@@ -464,12 +461,6 @@
     </ClCompile>
     <ClCompile Include="modules\game\module_fluid_decal_generator.cpp">
       <Filter>modules\game</Filter>
-    </ClCompile>
-    <ClCompile Include="components\ai\traps\ai_wind.cpp">
-      <Filter>components\ai\traps</Filter>
-    </ClCompile>
-    <ClCompile Include="components\ai\traps\ai_wind_effect.cpp">
-      <Filter>components\ai\traps</Filter>
     </ClCompile>
     <ClCompile Include="modules\game\module_audio.cpp">
       <Filter>modules\game</Filter>
@@ -737,6 +728,24 @@
     </ClCompile>
     <ClCompile Include="skeleton\comp_bone_tracker_golem.cpp">
       <Filter>skeleton</Filter>
+    </ClCompile>
+    <ClCompile Include="components\actions\comp_follow.cpp">
+      <Filter>components\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="components\objects\comp_enemies_in_butcher.cpp">
+      <Filter>components\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="components\vfx\comp_air.cpp">
+      <Filter>components\vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="components\vfx\comp_slow_disappear.cpp">
+      <Filter>components\vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="components\objects\comp_fire_trap.cpp">
+      <Filter>components\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\game\module_game_manager.cpp">
+      <Filter>modules\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1060,9 +1069,6 @@
     <ClInclude Include="components\ai\others\comp_death_collider.h">
       <Filter>components\ai\others</Filter>
     </ClInclude>
-    <ClInclude Include="components\ai\others\power_up.h">
-      <Filter>components\ai\others</Filter>
-    </ClInclude>
     <ClInclude Include="components\bullets\comp_grenade_golem.h">
       <Filter>components\bullets</Filter>
     </ClInclude>
@@ -1288,12 +1294,6 @@
     </ClInclude>
     <ClInclude Include="modules\game\module_fluid_decal_generator.h">
       <Filter>modules\game</Filter>
-    </ClInclude>
-    <ClInclude Include="components\ai\traps\ai_wind.h">
-      <Filter>components\ai\traps</Filter>
-    </ClInclude>
-    <ClInclude Include="components\ai\traps\ai_wind_effect.h">
-      <Filter>components\ai\traps</Filter>
     </ClInclude>
     <ClInclude Include="modules\game\module_audio.h">
       <Filter>modules\game</Filter>
@@ -1564,6 +1564,24 @@
     </ClInclude>
     <ClInclude Include="skeleton\comp_bone_tracker_golem.h">
       <Filter>skeleton</Filter>
+    </ClInclude>
+    <ClInclude Include="components\actions\comp_follow.h">
+      <Filter>components\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="components\objects\comp_enemies_in_butcher.h">
+      <Filter>components\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="components\vfx\comp_air.h">
+      <Filter>components\vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="components\vfx\comp_slow_disappear.h">
+      <Filter>components\vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="components\objects\comp_fire_trap.h">
+      <Filter>components\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\game\module_game_manager.h">
+      <Filter>modules\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

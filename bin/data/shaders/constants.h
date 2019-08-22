@@ -224,6 +224,9 @@ SHADER_CTE_BUFFER(TCtesParticles, CTE_BUFFER_SLOT_PARTICLES)
   float2 psystem_frame_size;
   float2 psystem_nframes;
   float4 psystem_colors_over_time[8];
+  // Stored as float4 because hlsl will access it as array
+  // Only the .x is currently being used in the shader particles.inc
+  float4 psystem_sizes_over_time[8];
 
   float  emitter_time_between_spawns;         // 1.0
   float3 emitter_center;            

@@ -3,10 +3,13 @@
 #include "entity/entity.h"
 #include "entity/entity_parser.h"
 #include "components/common/comp_transform.h"
+#include "components/common/physics/comp_collider.h"
 #include "entity/common_msgs.h"
+#include "engine.h"
+
+using namespace physx;
 
 DECL_OBJ_MANAGER("hierarchy", TCompHierarchy);
-
 void TCompHierarchy::load(const json& j, TEntityParseContext& ctx) {
   assert(j.count("parent") );
   parent_name = j.value("parent", "");
@@ -56,7 +59,15 @@ void TCompHierarchy::update(float dt) {
   // My Sibling comp transform
   TCompTransform* c_my_transform = h_my_transform;
   assert(c_my_transform);
-
   // Combine the current world transform with my 
   c_my_transform->set(c_parent_transform->combineWith(*this) );
+  //Nuevo:Mover collider a donde esta la transform
+  TCompCollider* col = get<TCompCollider>();
+  physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(col->actor);
+  VEC3 nextPos = c_my_transform->getPosition();
+  QUAT quat = c_my_transform->getRotation();
+  PxVec3 pos = VEC3_TO_PXVEC3(nextPos);
+  PxQuat qua = QUAT_TO_PXQUAT(quat);
+  const PxTransform tr(pos, qua);
+  rigid_dynamic->setGlobalPose(tr);
 }

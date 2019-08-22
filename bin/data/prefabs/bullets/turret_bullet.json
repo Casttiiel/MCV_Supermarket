@@ -17,13 +17,15 @@
 				
 			},		
 			"name" : "turret_bullet",
+			"local_aabb" : {},
+      		"abs_aabb" : {},
 			"collider":{
 				"shape" : "box",
 				"half_size": "0.4 0.4 0.4",
 				"dynamic": true,
 				"density": 100.0,
-				"group": "bullet",
-				"mask":"scenario"
+				"group": "grenade",
+				"mask":"player_scenario"
 			},
 			"turret_bullet_controller" : {
 				"damage": 20.0

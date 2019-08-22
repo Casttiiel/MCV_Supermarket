@@ -9,6 +9,7 @@ struct VS_OUTPUT
   float4 Pos      : SV_POSITION;
   float3 N        : NORMAL;
   float2 Uv       : TEXCOORD0;
+  float3 WorldPos : TEXCOORD1;
   float4 T        : NORMAL1;
 };
 
@@ -74,8 +75,8 @@ VS_OUTPUT VS(
   float4 newPos = getNewVertPosition(Pos, N);
 
   float4 bitangent = float4(cross(N, T.xyz),1.0f);
-  float4 positionAndTangent = getNewVertPosition( Pos + T * 0.01, N );
-  float4 positionAndBitangent = getNewVertPosition( Pos + bitangent * 0.01, N );
+  float4 positionAndTangent = getNewVertPosition( Pos + T * 0.001f, N );
+  float4 positionAndBitangent = getNewVertPosition( Pos + bitangent * 0.001f, N );
   float4 newTangent = ( positionAndTangent - Pos ); // leaves just 'tangent'
   newTangent = normalize(newTangent);
   float4 newBitangent = ( positionAndBitangent - Pos ); // leaves just 'bitangent'
@@ -84,6 +85,7 @@ VS_OUTPUT VS(
   newNormal = normalize(newNormal);
 
   output.Pos = mul(newPos, World);
+  output.WorldPos = output.Pos.xyz;
   output.Pos = mul(output.Pos, ViewProjection);
   output.N = mul(newNormal, (float3x3)World);
   output.T = float4( mul(T.xyz, (float3x3)World), T.w);
@@ -93,15 +95,36 @@ VS_OUTPUT VS(
 
 float4 PS(VS_OUTPUT input) : SV_Target
 {
+  const float freq = 0.5f; //iridiscent frequency
+  const float amplitude = 10.0f; //iridiscent amplitude
+  const float speed = 0.1f; //iridiscent movement bubble
+  const float color_speed = 5.0f; // iridiscent color movement speed
+  const int reflection = 4; //reflection term of iridiscent
+  const int iridiscent_intensity = 1.2f;
+
+  float3 N = normalize(input.N);
+  float3 incident_dir = normalize(input.WorldPos - CameraPosition.xyz);
+  float fresnel_term = 1 - saturate( dot( input.N, -incident_dir) );
+  fresnel_term = pow(fresnel_term, reflection);
+
+  //use the noise function
+  float npatron = txAlbedo.Sample(samLinear, input.Uv * freq + float2(sin(GlobalWorldTime * speed), cos(GlobalWorldTime*speed + 0.66))).x;
+  npatron = sin(amplitude*sin(npatron)) * 0.5f + 0.5f;
+  npatron = pow(npatron, 100);
+
+
+  float3 iridisColor = txAlbedo.Sample(samLinear, input.Uv).xyz;
+  iridisColor += sin(2.*sin(iridisColor*amplitude + GlobalWorldTime*color_speed)+input.Uv.yxyy-input.Uv.yyxy*12.5) * 0.5f + 0.5f;
+  iridisColor = pow(iridisColor, iridiscent_intensity);
+  iridisColor = clamp(normalize(iridisColor), 0.0, 1.0);
+
+
   float2 pos = float2(input.Uv*5.0);
-
-  // Use the noise function
   float n = noise(pos);
+  float3 color2 = float3(n,n,n);
+  color2 += sin(2.*sin(color2*22.+GlobalWorldTime*2.)+input.Uv.yxyy-input.Uv.yyxy*.5)/12.;    // colour transform
 
-  float3 color = float3(n,n,n);
-  color += sin(2.*sin(color*22.+GlobalWorldTime*2.)+input.Uv.yxyy-input.Uv.yyxy*.5)/12.;    // colour transform
-
-  color *= ObjColor;
+  float3 color = lerp(ObjColor.xyz * color2, iridisColor, fresnel_term * npatron);
 
   return float4(color, 1.0f);
 }

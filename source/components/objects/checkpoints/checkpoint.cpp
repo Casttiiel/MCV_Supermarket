@@ -7,6 +7,7 @@
 #include "components/ai/bt/bt_cupcake.h"
 #include "components/ai/bt/bt_sushi.h"
 #include "components/ai/bt/bt_ranged_sushi.h"
+#include "components/ai/bt/bt_cupcake_explosive.h"
 #include "components/ai/bt/bt_golem.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "engine.h"
@@ -63,9 +64,29 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
         status.entityPrefab = comp_registry->getPrefab();
         status.handle = entity;
         status.saved = true;
+		status.entityType = comp_registry->getEntityType();
 
+		if (status.entityType == EntityType::CUPCAKE) {
+			CBTCupcake* comp_enemy = e_entity->get<CBTCupcake>();
+			status.curve = comp_enemy->getNameCurve();//nombre de la curva
+		}
+		else if (status.entityType == EntityType::SUSHI) {
+			CBTSushi* comp_enemy = e_entity->get<CBTSushi>();
+			status.curve = comp_enemy->getNameCurve();//nombre de la curva
+		}
+		else if (status.entityType == EntityType::RANGED_SUSHI) {
+			CBTRangedSushi* comp_enemy = e_entity->get<CBTRangedSushi>();
+			status.curve = comp_enemy->getNameCurve();
+		}
+		else if (status.entityType == EntityType::EXPLOSIVE_CUPCAKE) {
+			CBTCupcake_explosive* comp_enemy = e_entity->get<CBTCupcake_explosive>();
+			status.curve = comp_enemy->getNameCurve();
+		}
         entities.push_back(status);
     }
+
+
+
     saved = true;
 
     dbg("Game saved.\n");
@@ -112,9 +133,32 @@ bool CCheckpoint::loadCheckPoint()
             assert(handle.isValid());
             CEntity* spawnedEntity = (CEntity*)handle;
             TCompName* spawnedEntity_cname = spawnedEntity->get<TCompName>();
-
             //Update its name with the stored value
             spawnedEntity_cname->setName(entity.entityName.c_str());
+
+			if (entity.entityType == EntityType::CUPCAKE) {
+				CBTCupcake* comp_enemy = spawnedEntity->get<CBTCupcake>();
+
+				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
+			}
+			else if (entity.entityType == EntityType::SUSHI) {
+				CBTSushi* comp_enemy = spawnedEntity->get<CBTSushi>();
+				
+				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
+			}
+			else if (entity.entityType == EntityType::RANGED_SUSHI) {
+				CBTRangedSushi* comp_enemy = spawnedEntity->get<CBTRangedSushi>();
+
+				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
+			}
+			else if (entity.entityType == EntityType::EXPLOSIVE_CUPCAKE) {
+				CBTCupcake_explosive* comp_enemy = spawnedEntity->get<CBTCupcake_explosive>();
+
+				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
+			}
+
+
+
         }
         return true;
     }
@@ -173,6 +217,11 @@ void CCheckpoint::debugInMenu()
                             ImGui::Text("Type: GOLEM");
                             break;
                         }
+						case EntityType::EXPLOSIVE_CUPCAKE:
+						{
+							ImGui::Text("Type: EXPLOSIVE_CUPCAKE");
+							break;
+						}
                         }
                         ImGui::TreePop();
                     }
@@ -184,6 +233,7 @@ void CCheckpoint::debugInMenu()
                 for (int i = 0; i < entities.size(); i++) {
                     if (ImGui::TreeNode(entities[i].entityName.c_str())) {
                         ImGui::Text("Position: (%f, %f, %f)", entities[i].entityPos.x, entities[i].entityPos.y, entities[i].entityPos.z);
+						ImGui::Text("Curve: (%f, %f, %f)", entities[i].curve);
                         ImGui::TreePop();
                     }
                 }

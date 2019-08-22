@@ -43,10 +43,10 @@ void CModuleGameUI::update(float delta)
 	PROFILE_FUNCTION("CModuleGameUI::update");
 	CEntity* e_player = getEntityByName("Player");
 	if (EngineInput["pause"].justPressed()) {
-		CEngine::get().getModules().changeToGamestate("gs_paused");//change gamestate
+		//CEngine::get().getModules().changeToGamestate("gs_paused");//change gamestate
 		//pause game
         GameController.pauseGame();
-		Time.real_scale_factor = 0.0f;
+		//Time.real_scale_factor = 0.0f;
 	}
 
 	if(Time.real_scale_factor != 0.0f){

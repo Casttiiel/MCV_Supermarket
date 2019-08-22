@@ -109,7 +109,7 @@ private:
 
 	bool stop = false;
 	
-
+	bool firstTimeRotateDegree = true;
 };
 
 #endif _AI_PLATFORM

@@ -46,11 +46,11 @@ bool createAxis(CMesh& mesh) {
   SimpleVertex axis_data[] =
   {
     { VEC3(0.0f,  0.0f, 0.0f), VEC4(1,0,0,1)},
-    { VEC3(1.0f,  0.0f, 0.0f), VEC4(1,0,0,1)},
+    { VEC3(20.0f,  0.0f, 0.0f), VEC4(1,0,0,1)},
     { VEC3(0.0f,  0.0f, 0.0f), VEC4(0,1,0,1)},
-    { VEC3(0.0f,  2.0f, 0.0f), VEC4(0,1,0,1)},
+    { VEC3(0.0f,  20.0f, 0.0f), VEC4(0,1,0,1)},
     { VEC3(0.0f,  0.0f, 0.0f), VEC4(0,0,1,1)},
-    { VEC3(0.0f,  0.0f, 3.0f), VEC4(0,0,1,1)},
+    { VEC3(0.0f,  0.0f, 20.0f), VEC4(0,0,1,1)},
   };
   return mesh.create(axis_data, 6, sizeof(SimpleVertex), "PosColor", nullptr, 0, 0, CMesh::LINE_LIST);
 }

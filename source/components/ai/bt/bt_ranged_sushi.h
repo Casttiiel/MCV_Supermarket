@@ -62,7 +62,7 @@ public:
 
 	void setCurve(const CCurve* curve);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
-
+	std::string getNameCurve();
   //End Conditions
 private:
   float initialExecution = true;
@@ -217,6 +217,7 @@ private:
   //End Decoy Values
   float height_range = 3.0f;
   bool hayCamino = true;
+  bool isDeadForFallout = false;
   //Utils
   CHandle h_player;
   CHandle h_sender;
@@ -236,6 +237,7 @@ private:
   void onGravity(const TMsgGravity& msg);
   void onFireAreaEnter(const TMsgFireAreaEnter& msg);
   void onFireAreaExit(const TMsgFireAreaExit& msg);
+  void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
   VEC3 getLeapDirection();
   void shoot(ShotType type);
   void singleShot();
@@ -256,7 +258,7 @@ private:
 	float resetSlotDuration = 5.0f;
 	float resetSlotTimer = 0.0f;
 
-
+	std::string pathCurve = "";
   //flag patrol curve or point
   
 	//curve values
@@ -265,7 +267,7 @@ private:
 	float	mTravelTime = 0.22f;
 	float ratio = 0.f;
 	//end curve values
-
+	
   /* DEPRECATED */
   //void LookAt_Player(TCompTransform* c_trans, TCompTransform* player_position);
 };

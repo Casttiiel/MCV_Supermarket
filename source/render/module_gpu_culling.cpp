@@ -36,7 +36,7 @@ struct TSampleDataGenerator {
   bool         prefab_handles_loaded = false;
 
   void createProductPrefabs(const json& j) {
-
+	  
     float radius = j.value("radius", 30.f);
     pmin = VEC3(-radius, 0.f, -radius);
     pmax = VEC3(radius, 1.0f, radius);
@@ -57,7 +57,7 @@ struct TSampleDataGenerator {
       && j_entity.count("comp_increase_power") == 0 && j_entity.count("ai_platform_mobile") == 0  //is not a platform and not a power up
       && j_entity.count("morph_animation") == 0 && j_entity.count("comp_destroyable_wall") == 0 && j_entity.count("comp_interruptor") == 0   //is not a morph and not a destroyable wall
       && j_entity.count("bt_sushi") == 0 && j_entity.count("bt_cupcake") == 0 && j_entity.count("bt_golem") == 0 && j_entity.count("bt_ranged_sushi") == 0 //is not an enemy
-      && j_entity.count("comp_madness_puddle") == 0; //is not a madness puddle
+      && j_entity.count("comp_madness_puddle") == 0 && j_entity.count("comp_wind_trap") == 0; //is not a madness puddle or a wind trap
   }
 
   void create(const std::string& filename, TEntityParseContext& ctx) {
@@ -93,7 +93,6 @@ struct TSampleDataGenerator {
           //this prefab can be a product on a shelve, if it is we will load it only on RELEASE because performance issues
           std::size_t found = prefab_src.find("/products/");
           if (found != std::string::npos) {
-            continue;
             #ifndef NDEBUG
               continue;
             #endif
@@ -622,7 +621,7 @@ void CModuleGPUCulling::renderInMenu() {
       gpu_draw_datas->copyGPUtoCPU();
       TDrawData* dd = (TDrawData*)gpu_draw_datas->cpu_data.data();
       for (uint32_t i = 0; i < draw_datas.size(); ++i, ++dd ) {
-        ImGui::Text("Base:%3d Draw Instances:%3d #Idxs:%4d From:%d Dummy:%d,%d", dd->base, dd->args.instanceCount, dd->args.indexCount, dd->args.firstIndex,dd->dummy[0], dd->dummy[1]);
+        ImGui::Text("Base:%3d Draw Instances:%3d #Idxs:%4d From:%d max_instances:%d dummy:%d", dd->base, dd->args.instanceCount, dd->args.indexCount, dd->args.firstIndex, dd->max_instances, dd->dummy);
       }
       ImGui::TreePop();
     }
@@ -658,14 +657,23 @@ void CModuleGPUCulling::preparePrefabs() {
     }
   }
 
-  uint32_t base = 0;
+  // Clear counts
+  for (auto& dd : draw_datas)
+    dd.max_instances = 0;
+
   for (auto& p : prefabs) {
-    // Each prefab will render 
+    // Each prefab will render potencially in several render types
     for (uint32_t idx = 0; idx < p.num_render_type_ids; ++idx) {
       uint32_t render_type_id = p.render_type_ids[idx];
-      draw_datas[render_type_id].base = base;
-      base += p.total_num_objs;
+      draw_datas[render_type_id].max_instances += p.total_num_objs;
     }
+  }
+
+  // Set the base now that we now how many instances of each render type we have.
+  uint32_t base = 0;
+  for (auto& dd : draw_datas) {
+    dd.base = base;
+    base += dd.max_instances;
   }
 
   uint32_t max_culled_instances = comp_buffers.getBufferByName("culled_instances")->num_elems;

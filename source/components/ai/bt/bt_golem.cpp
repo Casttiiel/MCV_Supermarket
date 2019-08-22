@@ -10,6 +10,7 @@
 #include "skeleton/comp_bone_tracker_golem.h"
 #include "modules/module_physics.h"
 #include "components/animation/comp_golem_animation.h"
+#include "components/controllers/character/comp_character_controller.h"
 #include "bt_golem.h"
 
 
@@ -290,7 +291,7 @@ int CBTGolem::actionThrowCupcake()
 	TCompTransform* player_position = e_player->get<TCompTransform>();
 	TCompTransform* c_trans = get<TCompTransform>();
 
-
+	
 	//ANIMATION-----------------------
 	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
 	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
@@ -301,7 +302,7 @@ int CBTGolem::actionThrowCupcake()
 
 	throwActive = true;
 	throwType = 1;
-
+	
 	return LEAVE;
 
 }
@@ -425,7 +426,15 @@ int CBTGolem::actionChargingMelee() {
 
 bool CBTGolem::conditionView()
 {
-
+	
+	CEntity* e_player = GameController.getPlayerHandle();
+	if (e_player == nullptr) {
+		return false;
+	}
+	TCompCharacterController* character = e_player->get<TCompCharacterController>();
+	if (character->life <= 0) {
+		return false;
+	}
 	/*if (player_dead) {
 		return false; 
 	}*/
@@ -434,7 +443,7 @@ bool CBTGolem::conditionView()
 		return false;
 	}
 	//en realidad, al estar scripteado el isView deja de ser necesario
-	return isView() || golemCinematic; //si es un golem activado por cinematica siempre te ve hasta que se desactive
+	return isView(); /*|| golemCinematic; */ //si es un golem activado por cinematica siempre te ve hasta que se desactive()
 }
 
 bool CBTGolem::conditionCinematic()
@@ -448,7 +457,7 @@ bool CBTGolem::conditionAttackCinematic()
 }
 
 bool CBTGolem::isView() {
-
+	
 	if (!h_player.isValid()) {
 		h_player = GameController.getPlayerHandle();
 	}
@@ -459,20 +468,28 @@ bool CBTGolem::isView() {
 	float angle = rad2deg(c_trans->getDeltaYawToAimTo(player_position->getPosition()));
 
 	bool sighted = ((abs(angle) <= half_cone) && (distance <= viewDistance)) || distance <= hearing_radius;
+	TCompCharacterController* character = e_player->get<TCompCharacterController>();
+	if (character->life <= 0) {
+		return false;
+	}
 
-	return sighted;
+
+	return sighted && checkHeight();
 }
 
 bool CBTGolem::conditionDistanceThrow()
 {
+	
 	//dbg("%s: handling condition distance\n", name.c_str());
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* player_position = e_player->get<TCompTransform>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	float distance = VEC3::Distance(player_position->getPosition(), c_trans->getPosition());
 	//dbg("Distancia %f\n",distance);
+	
 	if (distance > epsilon) {
 		//dbg("Dispara cupcake\n");
+		
 		return true; 
 	}
 	else {
@@ -508,8 +525,10 @@ bool CBTGolem::conditionTimerThrow() {
 }
 
 bool CBTGolem::conditionRandomThrowCupcake() {
+	
+
 	randomNumber = bt_dist_gol(bt_gol);
-	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber) { 
+	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber -1) {
 		return true; //throw cupcake
 	}
 	return false;//check others
@@ -608,7 +627,7 @@ void CBTGolem::load(const json& j, TEntityParseContext& ctx) {
 
 
 void CBTGolem::debugInMenu() {
-	
+	ImGui::Checkbox("_pausedBT", &_pausedBT);
 }
 
 void CBTGolem::renderDebug() {
@@ -754,7 +773,6 @@ void CBTGolem::singleShot() {
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompCollider* c_cc = get<TCompCollider>();
-
 	//Bullet origin
 	TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
 	VEC3 firingPosition = boneTracker->getPosition();
@@ -876,9 +894,10 @@ void CBTGolem::updateBT() {
 		CEntity* c_entity = (CEntity*)c_e;
 		//obtener el nombre de la entidad y ponerselo a comp_bone_tracker_golem
 		TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+		
 		TCompName* myName = get<TCompName>();
 		boneTracker->setParentName(myName->getName());
-
+		
 		//---------------------------------
 
 	}
@@ -888,27 +907,37 @@ void CBTGolem::updateBT() {
 		if (delay <= 0) {
 			TCompTransform* c_trans = get<TCompTransform>();
 			TCompBoneTrackerGolem* boneTracker = get<TCompBoneTrackerGolem>();
+			
+			TCompSkeleton *h_skeleton = get<TCompSkeleton>();
+			
+			VEC3 posBrazoLanzamiento = h_skeleton->getBonePositionByName("Bone011_izq");
 			TEntityParseContext ctx;
-			ctx.root_transform.setPosition(boneTracker->getPosition());
-			ctx.root_transform.setRotation(boneTracker->getRotation());
+			ctx.root_transform.setPosition(posBrazoLanzamiento);
+			
 
 
 			if (throwType == 1) { //cupcake
+				
 				parseScene("data/prefabs/bullets/grenade_golem.json", ctx);
+				TMsgAssignBulletOwner msg;
+				msg.h_owner = CHandle(this).getOwner();
+				msg.source = posBrazoLanzamiento;
+				//msg.source = c_trans->getPosition();
+				msg.front = c_trans->getFront();
+				ctx.entities_loaded[0].sendMsg(msg);
 				//delay = delayCupcake;
+				
 			}
 			else { //parabolic
+
 				parseScene("data/prefabs/bullets/turret_bullet.json", ctx);
 				//delay = projectileDelay;
+				TMsgAssignBulletOwner msg;
+				msg.h_owner = CHandle(this).getOwner();
+				msg.source = posBrazoLanzamiento;
+				msg.front = c_trans->getFront();
+				ctx.entities_loaded[0].sendMsg(msg);
 			}
-
-			TMsgAssignBulletOwner msg;
-			msg.h_owner = CHandle(this).getOwner();
-			msg.source = c_trans->getPosition();
-			msg.front = c_trans->getFront();
-			ctx.entities_loaded[0].sendMsg(msg);
-
-		
 			throwActive = false;
 		}
 		else {
@@ -920,3 +949,17 @@ void CBTGolem::updateBT() {
 }
 
 
+bool CBTGolem::checkHeight() {
+	bool res = false;
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* player_position = e_player->get<TCompTransform>();
+	float playerHeight = player_position->getPosition().y;
+	TCompTransform* c_trans = get<TCompTransform>();
+	float enemyHeight = c_trans->getPosition().y;
+
+	if (height_range > abs(playerHeight - enemyHeight)) {
+		res = true;;
+	}
+
+	return res;
+}

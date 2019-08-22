@@ -12,7 +12,7 @@ class CBTGolem : public BTController {
 	DECL_SIBLING_ACCESS();
 public:
 	void create(string); //init
-
+	bool unCupcake = false;
 	 //acciones == hojas
 	int actionIdle();
 	int nothing();
@@ -78,7 +78,7 @@ private:
 	//end speed values
 
 	//frequency values
-	float throwFrequecy = 1.0f; //cada cuanto reevalua que tipo de disparo hará
+	float throwFrequecy = 1.0f; //cada cuanto reevalua que tipo de disparo harï¿½
 	float timerGrenade = throwFrequecy;
 
 	float meleeFrequency = 1.0f;
@@ -100,16 +100,16 @@ private:
 	int intensityDamage = 0;
 	float meleeDamage = 10;
 	int damage = 10;
-	float _bulletDamage = 7.f;
-	float _bulletForce = 2.5f;
-	float impactForceAttack = 8.0f;
+	float _bulletDamage = 10.f;
+	float _bulletForce = 10.f;
+	float impactForceAttack = 100.0f;
 	//end damage values
 
 	//GAMEPLAY VALUES
 	float life = 100.f;
 	int numberOfCookiesSimple = 5; //number of burst in simple cookie
 	int numberOfCookiesTriple = 3; //number of burst in triple coockie
-	int _spawnMaxNumber = 30; //number of cupcakes
+	int _spawnMaxNumber = 3; //number of cupcakes
 	float battery_time = 0.f;
 	//end gameplay values
 
@@ -137,7 +137,7 @@ private:
 	float delayCupcake = 0.8;
 	float throwActive = false;
 	int throwType = 1; //1 cupcake ; 2 parabolic
-
+	float height_range = 1.5f;
 
 
 	std::vector<CHandle> _currentEnemies;
@@ -153,6 +153,7 @@ private:
 	void updateBT();
 
 	bool isView();
+	bool checkHeight();
 	CHandle h_sender;
 	CHandle h_bullet;
 };

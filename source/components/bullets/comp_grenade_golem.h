@@ -14,10 +14,10 @@ class TCompGrenadeGolemController : public TCompBase {
 	
 	CHandle h_sender;
 	
-	boolean flagExplota = false;
+	bool flagExplota = false;
 
 	int damage = 20;//esto cogerlo del golem 
-	
+	CHandle enemy;
 	
 
 	DECL_SIBLING_ACCESS();
@@ -31,7 +31,6 @@ public:
 	void launch();
 	VEC3 getForceFrom(VEC3 fromPos, VEC3 toPos);
 	TCompCollider* c_collider;
-	TCompTransform* c_trans;
 	float explosion_radius = 2.f;
 	float fly_time = 1.5f;
 	//bool flagColision = false; //quizas cambiar

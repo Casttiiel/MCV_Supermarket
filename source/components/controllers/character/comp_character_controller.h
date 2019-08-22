@@ -122,7 +122,7 @@ private:
 
   float rumble_time = 0.0f;
   
-  
+  bool cinematicFinish = false;
 
 
   CHandle h_camera;
@@ -158,6 +158,7 @@ private:
   void onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg);
   void onCinematic(const TMsgOnCinematic& msg);
   void onTrapWind(const TMsgTrapWind& msg);
+  void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
 
 
   //?????

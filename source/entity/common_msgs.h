@@ -225,6 +225,26 @@ struct TMSgWallDestroyed {
 	DECL_MSG_ID();
 };
 
+struct TMSgEnemyDead {
+	CHandle h_entity;
+	std::string name;
+	bool isDead;
+	DECL_MSG_ID();
+};
+
+struct TMSgTriggerFalloutDead {
+	CHandle h_entity;
+	bool falloutDead;
+	float damage;
+	DECL_MSG_ID();
+};
+
+struct TMsgGamePause {
+	bool isPause;
+	bool playerDead;
+	DECL_MSG_ID();
+};
+
 /*
 struct TMsgTimeOut {
   DECL_MSG_ID();

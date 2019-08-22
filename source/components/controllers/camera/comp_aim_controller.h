@@ -13,6 +13,7 @@ class TCompAimController : public TCompBase {
 
   VEC3                        ray_origin;
   VEC3                        ray_front;
+  VEC4                        constants;
 
   // https://docs.nvidia.com/gameworks/content/gameworkslibrary/physx/guide/Manual/SceneQueries.html
   bool                        hit_status = false;

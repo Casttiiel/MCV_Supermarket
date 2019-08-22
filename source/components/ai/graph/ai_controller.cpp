@@ -3,6 +3,8 @@
 
 void IAIController::update(float dt)
 {
+	
+	
 	if (!_pausedAI) {
 		PROFILE_FUNCTION("IAIController");
 		assert(!state.empty());
@@ -10,6 +12,8 @@ void IAIController::update(float dt)
 		// this is a trusted jump as we've tested for coherence in ChangeState
 		(this->*statemap[state])(Time.delta);
 	}
+	
+	
 }
 
 bool IAIController::isPaused() {
@@ -48,3 +52,4 @@ void IAIController::onMsgAIPaused(const TMsgAIPaused & msg)
 {
     _pausedAI = msg.isPaused;
 }
+

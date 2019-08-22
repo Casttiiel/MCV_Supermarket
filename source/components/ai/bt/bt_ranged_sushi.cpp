@@ -178,6 +178,7 @@ void CBTRangedSushi::setCurve(const CCurve* curve) {
 
 	this->_curve = curve; // TO TEST
 	_knots = _curve->_knots;
+	this->pathCurve = curve->getName();
 	/*_knots = curve->_knots;
 
 	positions.clear();
@@ -824,7 +825,7 @@ int CBTRangedSushi::actionRetreat() {
 int CBTRangedSushi::actionOnAir() {
 	previousState = currentState;
 	currentState = States::OnAir;
-	if (isGrounded() && impulse.y <= 0.0f) {
+	if (isGrounded() && impulse.y <= 0.0f || isDeadForFallout) {
 		impulse.y = 0.0f;
 		return LEAVE;
 	}
@@ -1005,8 +1006,9 @@ int CBTRangedSushi::actionDeath() {
 
 	//------------------------------------
 	TCompTransform* c_trans = get<TCompTransform>();
-	GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
-
+	if (!isDeadForFallout) {
+		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+	}
 	CHandle(this).getOwner().destroy();
 	CHandle(this).destroy();
 	return LEAVE;
@@ -1409,6 +1411,7 @@ void CBTRangedSushi::registerMsgs() {
 	DECL_MSG(CBTRangedSushi, TMsgOnContact, onCollision);
 	DECL_MSG(CBTRangedSushi, TMsgGravity, onGravity);
 	DECL_MSG(CBTRangedSushi, TMsgBTPaused, onMsgBTPaused);
+	DECL_MSG(CBTRangedSushi, TMSgTriggerFalloutDead, onTriggerFalloutDead);
 }
 
 void CBTRangedSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
@@ -1504,6 +1507,16 @@ void CBTRangedSushi::onFireAreaExit(const TMsgFireAreaExit& msg) {
 	dbg("Sushi got out of the fire\n");
 	_onFireArea = false;
 }
+
+
+void CBTRangedSushi::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
+	life -= msg.damage;
+	isDeadForFallout = msg.falloutDead;
+	if (life < 0) {
+		life = 0;
+	}
+}
+
 
 std::string CBTRangedSushi::getState() {
 	switch (currentState) {
@@ -1840,4 +1853,8 @@ bool CBTRangedSushi::checkHeight() {
 	}
 
 	return res;
+}
+
+std::string CBTRangedSushi::getNameCurve() {
+	return pathCurve;
 }

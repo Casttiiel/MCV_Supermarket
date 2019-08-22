@@ -150,8 +150,10 @@ float  TCompAnimator::getAnimationDuration(EAnimation animation) {
 
 bool TCompAnimator::isPlayingAnimation(EAnimation animation) {
 	CEntity* e = ownHandle;
-	TCompSkeleton * compSkeleton = e->get<TCompSkeleton>();
-
+	TCompSkeleton* compSkeleton = e->get<TCompSkeleton>();
+	if (compSkeleton == NULL) {
+		return false;
+	}
 	if (animationsMap.find(animation) == animationsMap.end()) {
 		fatal("Animation doesn't exists");
 	}

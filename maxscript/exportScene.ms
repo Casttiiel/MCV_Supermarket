@@ -45,8 +45,8 @@ fn isMaxShit obj = (
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	--project_path = "C:/Users/Daniel/Desktop/mcv_sm/bin/",
+	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
+	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/mcv_sm/bin/",
 	base_path = "data/",
@@ -56,7 +56,6 @@ struct TSceneExporter (
 	mats_path = base_path + "materials/",
 	curve_path = base_path + "curves/",
 	productsSize = 0.18,
-	numberOfProducts = 3,
 	
 	fn exportCompName obj = (
 		fs.writeKeyValue "name" obj.name
@@ -406,7 +405,16 @@ struct TSceneExporter (
 			convexmes
 			
 		) else if classof obj == Editable_Mesh then (
-			fs.writeKeyValue "shape" "trimesh"
+			
+			
+			local is_platform = getUserProp obj "platform"
+			if is_platform != undefined then (
+				fs.writeKeyValue "shape" "convex"
+				
+			)else (
+				fs.writeKeyValue "shape" "trimesh"
+			)
+			--fs.writeKeyValue "shape" "trimesh"
 			fs.writeComma()
 			-- Warning, order might be incorrect!!!
 			local mesh_name = mesh_path + current_scene_name + "_" + obj.parent.name + ".col_mesh"
@@ -500,7 +508,7 @@ struct TSceneExporter (
 		if candidates.count == 0 then return undefined
 		
 		format "Candidates are %\n" candidates
-		--return truee
+		--return true
 		exportCompCollider obj candidates
 		
 	),
@@ -562,6 +570,27 @@ struct TSceneExporter (
 		)
 	),
 	
+	fn exportHierarch obj = (
+		local isHierarchy = getUserProp obj "isSon"
+		if isHierarchy != undefined then (
+			local pos = getUserProp obj "pos"
+			local rot = getUserProp obj "rotation"
+			local parent = getUserProp obj "parent"
+			fs.writeComma()
+			fs.writeKey "hierarchy"
+			fs.beginObj()
+			fs.writeKeyValue "pos" pos
+			fs.writeComma()
+			if rot != undefined then (
+				fs.writeKeyValue "rotation" rot
+				fs.writeComma()
+			)
+			fs.writeKeyValue "parent" parent
+			fs.endObj()
+			
+		)
+	),
+	
 	
 	fn exportEntity obj = (
 		fs.beginObj()
@@ -577,6 +606,7 @@ struct TSceneExporter (
 			exportCamera obj
 			exportWalls obj
 			exportMorph obj
+			exportHierarch obj
 			--exportCompCurveController obj
 			
 			local nCA = custAttributes.count obj
@@ -639,8 +669,7 @@ struct TSceneExporter (
 							
 				fs.writeComma()
 			
-				local idx = random 1 numberOfProducts
-				local product_str = "data/prefabs/products/product" + idx as string + ".json"
+				local product_str = "data/prefabs/products/product1.json"
 				fs.writeKeyValue "prefab"  product_str
 				
 				fs.endObj()

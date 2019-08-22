@@ -10,7 +10,6 @@
 				"shape" : "sphere",
 				"radius": 0.5,
 				"dynamic": true,
-				"density": 20.0,
 				"group": "grenade",
 				"mask":"scenario"
 			},
@@ -28,7 +27,12 @@
           			,
           			"data/materials/cupcakeeyebrows.material"
         		]
-      		}
+      		},
+			"comp_checkpoint_register":{
+			  "prefab": "data/prefabs/bullets/grenade_golem.json",
+			  "entityTypeString": "GRENADE_GOLEM"
+			},
+			"tags" : ["bullet"]
       	}
 	}
 ]

@@ -14,7 +14,6 @@
 #include "components/common/comp_tags.h"
 #include "input/module_input.h"
 #include "components/common/physics/comp_rigid_body.h"
-#include "components/common/comp_transform.h"
 #include "components/ai/bt/bt_sushi.h"
 #include "modules/gameplay_fragments/module_ambush.h"
 #include "components/ai/bt/bt_ranged_sushi.h"
@@ -248,7 +247,9 @@ void CModuleGameController::resetCamera() {
 
 }
 
-
+void CModuleGameController::dbgInLua(std::string text) {
+	dbg("EN LUA:%s\n",text.c_str());
+}
 
 void CModuleGameController::destroyCHandleByName(std::string name) {
 	if (name != "") {
@@ -586,6 +587,7 @@ void CModuleGameController::updateEnemyCurveByName(std::string _curve, std::stri
 		}
 	}
 }
+
 //modificar nombre de metodo a suishi
 void  CModuleGameController::updateEnemyCurveByHandle(std::string _curve, CHandle h_enemy) {
 	if (h_enemy.isValid()) {
@@ -605,10 +607,11 @@ void  CModuleGameController::updateEnemyCurveByHandle(std::string _curve, CHandl
 	}
 }
 
+
 void  CModuleGameController::updateCupcakeCurveByHandle(std::string _curve, CHandle h_enemy) {
 	if (h_enemy.isValid()) {
 		std::string path = "data/curves/" + _curve + ".curve";
-		//TENER EN CUENTA QUE SI ES UN RANGED O NO
+		//TENER EN CUENTA QUE SI ES UN RANdGED O NO
 		CEntity* e_enemy = (CEntity*)h_enemy;
 
 
@@ -623,6 +626,16 @@ void  CModuleGameController::updateCupcakeCurveByHandle(std::string _curve, CHan
 	}
 }
 
+//de momento sin esclarecer el tipo de enemigo(Es un sushy ahora)
+void CModuleGameController::setHeightEnemyByHandle(int height, CHandle h_enemy,int typeEnemy) {
+	if (h_enemy.isValid()) {
+		if(TYPE_SUSHI == typeEnemy){
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTSushi* sushi = e_enemy->get<CBTSushi>();
+			sushi->setHeightRange(1.f);
+		}
+	}
+}
 
 
 void CModuleGameController::setPauseEnemyByName(std::string enemy, bool active) {
@@ -736,6 +749,16 @@ TCompEnemiesInTube* toCompEnemiesInTube(CHandle h) {
 TCompMorphAnimation* toCompMorphAnimation(CHandle h) {
 	TCompMorphAnimation* m = h;
 	return m;
+}
+
+TCompName* toCompName(CHandle h) {
+	TCompName* n = h;
+	return n;
+}
+
+TCompTransform* toCompTransform(CHandle h) {
+	TCompTransform* t = h;
+	return t;
 }
 
 
