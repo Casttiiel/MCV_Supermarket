@@ -78,6 +78,7 @@ void CModuleGamePaused::onOptionRestart() {
 
 void CModuleGamePaused::onOptionExit() {
 	auto& app = CApplication::get();
+	GameController.deleteCheckpoint();
 	DestroyWindow(app.getHandle());
 	
 }

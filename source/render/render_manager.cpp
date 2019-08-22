@@ -183,12 +183,14 @@ void CRenderManager::render(eRenderCategory category) {
 
     if (it->h_transform != prev_it->h_transform) {
       TCompTransform* c_trans = it->h_transform;
+	  //if (c_trans == nullptr) { return; }
       TCompRender* c_render = it->h_owner;
       activateObject(c_trans->asMatrix(), c_render->color);
     }
 
     if (skin_active) {
       const CEntity* e = it->h_owner.getOwner();
+	  if (e == NULL) { return; }
       TCompSkeleton* skel = e->get<TCompSkeleton>();
       skel->cb_bones.activate();
     }
