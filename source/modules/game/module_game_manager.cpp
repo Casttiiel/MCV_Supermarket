@@ -374,3 +374,8 @@ CModuleGameManager::PauseState CModuleGameManager::getCurrentPauseState() {
 
 	return currentPauseState;
 }
+
+void CModuleGameManager::setCurrentPauseState(CModuleGameManager::PauseState pauseState) {
+
+	currentPauseState = pauseState;
+}

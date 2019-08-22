@@ -88,6 +88,7 @@ void CEngine::start()
   _fluidDecals = new CModuleFluidDecalGenerator("fluid_decals");
   _navmesh = new CModuleNavmesh("navmesh");
   _sceneManager = new CModuleSceneManager("scene_manager");
+  _gameManager = new CModuleGameManager("game_manager");
 
   {
     PROFILE_FUNCTION("Input");
@@ -119,7 +120,7 @@ void CEngine::start()
 
   _modules.registerGameModule(new CModuleBoot("boot"));
   _modules.registerGameModule(new CModuleSplash("splash"));
-  _modules.registerGameModule(new CModuleGameManager("game_manager"));
+  _modules.registerGameModule(_gameManager);
   _modules.registerGameModule(new CModuleMainMenu("main_menu"));
   _modules.registerGameModule(new CModuleGameplay("gameplay"));
   _modules.registerGameModule(new CModuleSampleObjs("sample_objs"));

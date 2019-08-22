@@ -7,6 +7,7 @@
 #include "ui/controllers/ui_menu_controller.h"
 #include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
+#include "module_game_manager.h"
 
 bool CModuleGamePaused::start()
 {
@@ -32,12 +33,13 @@ void CModuleGamePaused::update(float delta)
 {
   PROFILE_FUNCTION("CModuleGamePaused::update");
   if (EngineInput["pause"].justPressed()) {
-    CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
+    
     //unpause game
     GameController.resumeGame();
     Time.real_scale_factor = 1.0f;
-
-
+	//setPauseState(PauseState::menuPause);
+	CEngine::get().getGameManager().setPauseState(CEngine::get().getGameManager().menuNot);
+	CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
   }
   
 }

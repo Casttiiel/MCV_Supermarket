@@ -7,10 +7,10 @@
 
 class CModuleGameManager : public IModule
 {
+	
+public:
 	enum PauseState;
 	PauseState currentPauseState;
-public:
-
 	CModuleGameManager(const std::string& aname) : IModule(aname) { }
   bool start() override;
   void stop() override;
@@ -21,7 +21,8 @@ public:
   bool victoryMenu;
   enum PauseState { menuNot, menuWin, menuDead_, menuPause };
   void setPauseState(PauseState pause);
-
+  CModuleGameManager* getGameManager() { return this; }
+  void setCurrentPauseState(CModuleGameManager::PauseState pauseState);
 private:
 	void gameCondition();
 	
