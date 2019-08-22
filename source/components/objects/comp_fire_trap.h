@@ -27,7 +27,7 @@ private:
   float _disablerTimer = 0.0f;
   float _enablerDelay = 1.0f;
   float _disablerDelay = 3.0f;
-  float _fireDamage = 250.0f;
+  float _fireDamage = 500.0f;
 
 	void enable();
 	void disable();

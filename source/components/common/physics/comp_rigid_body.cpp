@@ -53,14 +53,22 @@ void TCompRigidBody::update(float delta) {
 		}
 		manageImpulseXZ(dt);
 
-        impulse.x = clamp(impulse.x, -10.f, 10.f);
-        impulse.y = clamp(impulse.y, -10.f, 10.f);
-        impulse.z = clamp(impulse.z, -10.f, 10.f);
+    impulse.x = clamp(impulse.x, -10.f, 10.f);
+    impulse.y = clamp(impulse.y, -10.f, 10.f);
+    impulse.z = clamp(impulse.z, -10.f, 10.f);
 
 		PxVec3 velocity = physx::PxVec3(impulse.x, impulse.y, impulse.z);
 
 		physx::PxControllerCollisionFlags col = c_collider->controller->move(velocity * dt, 0.f, dt, physx::PxControllerFilters());
-		is_grounded = col.isSet(physx::PxControllerCollisionFlag::eCOLLISION_DOWN);
+		bool new_is_grounded = col.isSet(physx::PxControllerCollisionFlag::eCOLLISION_DOWN);
+
+    if (!is_grounded && new_is_grounded) {//just landed
+      TCompTransform* c_trans = get<TCompTransform>();
+      TEntityParseContext ctx;
+      ctx.root_transform.setPosition(c_trans->getPosition() - 0.2f* c_trans->getFront());
+      parseScene("data/prefabs/vfx/smoke.json", ctx);
+    }
+    is_grounded = new_is_grounded;
 	}
 }
 

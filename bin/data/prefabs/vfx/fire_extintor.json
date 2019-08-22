@@ -1,19 +1,21 @@
 [
   {
     "entity": {
-      "name": "Fire",
+      "name": "Electric",
       "transform": {
         "pos": "0 1 0",
         "scale": 1.0
       },
       "render": {
-        "mesh": "data/meshes/static_objects/Extintor_Cylinder.mesh",
+        "mesh": "unit_quad_xy_centered.mesh",
         "color": "0.0 0.5 1.0 1.0",
         "materials":
         [
-          "data/materials/vfx/fire.material",
-          "data/materials/vfx/fire.material"
+          "data/materials/vfx/electric.material"
         ]
+      },
+      "comp_follow":{
+        
       }
     }
   }

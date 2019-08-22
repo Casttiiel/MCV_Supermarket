@@ -175,27 +175,3 @@ void TCompFireController::attack(VEC3 origin) {
     msg.messageToTarget = msgDamage;
     ctx.entities_loaded[0].sendMsg(msg);
 }
-//Old power
-/*,
-{
-"entity":
-{
-"name": "fire_power"
-,
-"transform":
-{
-"pos": "0 0 0"
-}
-,
-"render":
-{
-"color": "1.0 0.0 0.0 1.0",
-"mesh": "data/meshes/static_objects/fire_extintor.mesh",
-"materials":
-[
-"data/materials/fire_extintor.material"
-]
-},
-"fire_follow":{}
-}
-}*/

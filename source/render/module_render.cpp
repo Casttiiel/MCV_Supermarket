@@ -11,6 +11,7 @@
 #include "components/common/comp_camera.h"
 #include "components/common/comp_light_dir.h"
 #include "components/postfx/comp_render_blur.h"
+#include "components/postfx/comp_render_radial_blur.h"
 #include "components/postfx/comp_render_focus.h"
 #include "components/postfx/comp_render_bloom.h"
 #include "components/postfx/comp_color_grading.h"
@@ -282,6 +283,10 @@ void CModuleRender::generateFrame() {
     TCompRenderBlur* render_blur = e_camera->get<TCompRenderBlur>();
     if (render_blur)
       current_output = render_blur->apply(current_output);
+
+    TCompRenderRadialBlur* render_radial_blur = e_camera->get<TCompRenderRadialBlur>();
+    if (render_radial_blur)
+      current_output = render_radial_blur->apply(current_output);
 
     // Render focus requires render blur to be enabled also
     TCompRenderFocus* render_focus = e_camera->get<TCompRenderFocus>();

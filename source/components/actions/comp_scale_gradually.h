@@ -6,7 +6,6 @@
 
 class TCompScaleGradually : public TCompBase {
 
-	
 	DECL_SIBLING_ACCESS();
 
 public:
@@ -14,9 +13,9 @@ public:
 	void load(const json& j, TEntityParseContext& ctx);
 	void debugInMenu();
 	static void registerMsgs();
+  bool _enabled = false;
 
 private:
 	float _finalScale = 1.f;
-	float _ratio = 0.1f;
-    bool _unscaledTime = true;
+  float _time = 1.0f;
 };

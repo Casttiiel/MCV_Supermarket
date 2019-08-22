@@ -7,10 +7,10 @@
 class TCompDust :  public TCompBase {
   DECL_SIBLING_ACCESS();
 
-  bool _enabled = false;
+  bool _enabled = true;
 
   float ratio = 0.0f;
-  float speed = 2.0f;
+  float speed = 3.0f;
   VEC4 constants = VEC4::Zero;
 
   public:

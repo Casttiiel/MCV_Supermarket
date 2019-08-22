@@ -1,5 +1,6 @@
 #include "mcv_platform.h"
 #include "comp_bolt_sphere.h"
+#include "components/common/comp_buffers.h"
 #include "components/common/comp_transform.h"
 
 DECL_OBJ_MANAGER("bolt_sphere", TCompBoltSphere);
@@ -9,7 +10,7 @@ void TCompBoltSphere::debugInMenu() {
 }
 
 void TCompBoltSphere::load(const json& j, TEntityParseContext& ctx) {
-
+  speed = j.value("speed", speed);
 }
 
 
@@ -36,8 +37,17 @@ void TCompBoltSphere::update(float delta) {
 
   VEC3 dir = target_position - cTransform->getPosition();
   dir.Normalize();
-  cTransform->setPosition(cTransform->getPosition() + dir * delta);
+  VEC3 newPos = cTransform->getPosition() + dir * delta * speed;
+  cTransform->setPosition(newPos);
 
+  CEntity* e = getEntityByName("Spark Particles");
+  if (e) {
+    TCompBuffers* c_buff = e->get<TCompBuffers>();
+    if (c_buff) {
+      auto buf = c_buff->getCteByName("TCtesParticles");
+      CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
+      data->emitter_center = newPos;
+      data->updateGPU();
+    }
+  }
 }
-
-

@@ -137,6 +137,7 @@ public:
   void updateObjData(int idx, CHandle entity);
   int getObjSize() { return objs.size(); }
   void parseEntities(const std::string& filename, TEntityParseContext& ctx);
+  void clear();
 
 };
 

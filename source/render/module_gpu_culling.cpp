@@ -42,6 +42,10 @@ struct TSampleDataGenerator {
     pmax = VEC3(radius, 1.0f, radius);
     num_instances = j.value("num_instances", num_instances);
 
+    #ifndef NDEBUG
+        return;
+    #endif
+
     std::vector< std::string > prefab_names = j["prefabs"].get< std::vector< std::string > >();
     for (auto& prefab_name : prefab_names) {
       TEntityParseContext ctx;
@@ -49,6 +53,13 @@ struct TSampleDataGenerator {
       assert(is_ok);
       prefabs.push_back( ctx.entities_loaded[0] );
     }
+  }
+
+  void deleteProductPrefabs() {
+    for (auto& pref : prefabs) {
+      pref.destroy();
+    }
+    prefabs.clear();
   }
 
   bool isInstantiable(const json j_entity) {
@@ -314,6 +325,13 @@ TSampleDataGenerator sample_data;
 
 void CModuleGPUCulling::parseEntities(const std::string& filename, TEntityParseContext& ctx) {
   sample_data.create(filename, ctx);
+}
+
+void CModuleGPUCulling::clear() {
+  #ifndef NDEBUG
+    return;
+  #endif
+  sample_data.deleteProductPrefabs();
 }
 
 // ---------------------------------------------------------------

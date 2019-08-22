@@ -115,7 +115,7 @@ bool CMaterial::create(const json& j) {
   if (!textures[TS_NORMAL])
     textures[TS_NORMAL] = Resources.get("data/textures/null_normal.dds")->as<CTexture>();
   if (!textures[TS_METALLIC])
-    textures[TS_METALLIC] = Resources.get("data/textures/white.dds")->as<CTexture>();
+    textures[TS_METALLIC] = Resources.get("data/textures/black.dds")->as<CTexture>();
   if (!textures[TS_ROUGHNESS])
     textures[TS_ROUGHNESS] = Resources.get("data/textures/white.dds")->as<CTexture>();
   if (!textures[TS_EMISSIVE])
