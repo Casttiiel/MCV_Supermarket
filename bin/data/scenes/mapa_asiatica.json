@@ -920,6 +920,102 @@
   {
     "entity":
     {
+      "name": "asian_gate"
+      ,
+      "transform":
+      {
+        "pos": "-63.6072 -0.347149 -93.5169"
+        ,
+        "rotation": "-0.153046 -0.153046 -0.690346 -0.690345"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_asian_gate.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_asian_gate.mesh"
+        ,
+        "color": "0.690196 0.101961 0.101961 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cangrejo"
+      ,
+      "transform":
+      {
+        "pos": "-26.2368 2.86288 -12.8787"
+        ,
+        "rotation": "0.0 -0.707107 0.707107 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_cangrejo.mesh"
+        ,
+        "color": "0.878431 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/mat_cangrejo.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "ojos"
+      ,
+      "transform":
+      {
+        "pos": "-26.2368 2.86288 -12.8787"
+        ,
+        "rotation": "0.0 -0.707107 0.707107 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_ojos.mesh"
+        ,
+        "color": "0.878431 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/mat_cangrejo.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "Box009"
       ,
       "transform":
@@ -1309,6 +1405,74 @@
   {
     "entity":
     {
+      "name": "gato"
+      ,
+      "transform":
+      {
+        "pos": "-40.8746 -3.61449e-06 -82.6899"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_gato.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_gato.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/mat_gato.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pez"
+      ,
+      "transform":
+      {
+        "pos": "-40.8746 -3.61449e-06 -82.6899"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_pez.mesh"
+        ,
+        "color": "0.835294 0.603922 0.898039 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/mat_gato_pez.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "letrero003"
       ,
       "transform":
@@ -1495,6 +1659,34 @@
         "materials":
         [
           "data/materials/mapa_asiatica/mat_estanteria_grande_sushis.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "techochino009"
+      ,
+      "transform":
+      {
+        "pos": "-48.8873 -0.121991 -99.0241"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino009.mesh"
+        ,
+        "color": "0.839216 0.898039 0.65098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -1895,6 +2087,46 @@
         "materials":
         [
           "data/materials/mapa_asiatica/maquina_expendedora.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "asian_gate001"
+      ,
+      "transform":
+      {
+        "pos": "-5.36249 -0.347146 -12.9796"
+        ,
+        "rotation": "0.0 0.0 -0.707107 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_asian_gate001.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_asian_gate001.mesh"
+        ,
+        "color": "0.690196 0.101961 0.101961 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/blanco.material"
         ]
       }
     }
@@ -2844,7 +3076,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -4804,7 +5036,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -6764,7 +6996,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -8693,6 +8925,34 @@
   {
     "entity":
     {
+      "name": "techochino010"
+      ,
+      "transform":
+      {
+        "pos": "-12.0707 -0.121991 -99.0241"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino010.mesh"
+        ,
+        "color": "0.839216 0.898039 0.65098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "estanteria012"
       ,
       "transform":
@@ -8724,7 +8984,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -10653,6 +10913,34 @@
   {
     "entity":
     {
+      "name": "techochino011"
+      ,
+      "transform":
+      {
+        "pos": "3.33159 -0.12199 -93.4241"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino011.mesh"
+        ,
+        "color": "0.839216 0.898039 0.65098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "estanteria013"
       ,
       "transform":
@@ -10684,7 +10972,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -12644,7 +12932,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -14604,7 +14892,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -16533,6 +16821,34 @@
   {
     "entity":
     {
+      "name": "techochino014"
+      ,
+      "transform":
+      {
+        "pos": "3.33159 -0.121988 -32.9783"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino014.mesh"
+        ,
+        "color": "0.839216 0.898039 0.65098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "estanteria016"
       ,
       "transform":
@@ -16564,7 +16880,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -18524,7 +18840,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
     }
@@ -20453,1960 +20769,28 @@
   {
     "entity":
     {
-      "name": "estanteria018"
+      "name": "techochino016"
       ,
       "transform":
       {
-        "pos": "-39.024 -0.121991 -99.0241"
+        "pos": "3.33159 -0.12199 -83.7429"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "0.0 0.707107 0.0 -0.707107"
       }
       ,
       "abs_aabb": {}
       ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_asiatica_estanteria018.col_mesh"
-          }
-        ]
-      }
-      ,
       "render":
       {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_estanteria018.mesh"
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino016.mesh"
         ,
-        "color": "0.898039 0.603922 0.843137 1.0"
+        "color": "0.839216 0.898039 0.65098 1.0"
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta.material"
+          "data/materials/mapa_asiatica/paredes_asiatica.material"
         ]
       }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-41.1263 0.0305137 -98.9961"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-40.9463 0.0305137 -98.9967"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-40.7663 0.0305137 -98.9973"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-40.5863 0.0305137 -98.9979"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-40.4063 0.0305137 -98.9985"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-40.2263 0.0305137 -98.9992"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-40.0463 0.0305137 -98.9998"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-39.8663 0.0305137 -99.0004"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-39.6863 0.0305137 -99.001"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-39.5063 0.0305137 -99.0016"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-39.3263 0.0305137 -99.0023"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-39.1463 0.0305137 -99.0029"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-38.9663 0.0305137 -99.0035"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-38.7863 0.0305137 -99.0041"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-38.6063 0.0305137 -99.0047"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-38.4263 0.0305137 -99.0053"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-38.2463 0.0305137 -99.006"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-38.0663 0.0305137 -99.0066"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-37.8863 0.0305137 -99.0072"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-37.7063 0.0305137 -99.0078"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-37.5263 0.0305137 -99.0084"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-37.3463 0.0305137 -99.0091"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-37.1663 0.0305137 -99.0097"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts051"
-      ,
-      "transform":
-      {
-        "pos": "-36.9863 0.0305137 -99.0103"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-41.1263 0.758053 -98.9961"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-40.9463 0.758053 -98.9967"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-40.7663 0.758053 -98.9973"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-40.5863 0.758053 -98.9979"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-40.4063 0.758053 -98.9985"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-40.2263 0.758053 -98.9992"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-40.0463 0.758053 -98.9998"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-39.8663 0.758053 -99.0004"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-39.6863 0.758053 -99.001"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-39.5063 0.758053 -99.0016"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-39.3263 0.758053 -99.0023"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-39.1463 0.758053 -99.0029"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-38.9663 0.758053 -99.0035"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-38.7863 0.758053 -99.0041"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-38.6063 0.758053 -99.0047"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-38.4263 0.758053 -99.0053"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-38.2463 0.758053 -99.006"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-38.0663 0.758053 -99.0066"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-37.8863 0.758053 -99.0072"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-37.7063 0.758053 -99.0078"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-37.5263 0.758053 -99.0084"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-37.3463 0.758053 -99.0091"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-37.1663 0.758053 -99.0097"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts052"
-      ,
-      "transform":
-      {
-        "pos": "-36.9863 0.758053 -99.0103"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-41.1263 1.40539 -98.9961"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-40.9463 1.40539 -98.9967"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-40.7663 1.40539 -98.9973"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-40.5863 1.40539 -98.9979"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-40.4063 1.40539 -98.9985"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-40.2263 1.40539 -98.9992"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-40.0463 1.40539 -98.9998"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-39.8663 1.40539 -99.0004"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-39.6863 1.40539 -99.001"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-39.5063 1.40539 -99.0016"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-39.3263 1.40539 -99.0023"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-39.1463 1.40539 -99.0029"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-38.9663 1.40539 -99.0035"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-38.7863 1.40539 -99.0041"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-38.6063 1.40539 -99.0047"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-38.4263 1.40539 -99.0053"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-38.2463 1.40539 -99.006"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-38.0663 1.40539 -99.0066"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-37.8863 1.40539 -99.0072"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-37.7063 1.40539 -99.0078"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-37.5263 1.40539 -99.0084"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-37.3463 1.40539 -99.0091"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-37.1663 1.40539 -99.0097"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts053"
-      ,
-      "transform":
-      {
-        "pos": "-36.9863 1.40539 -99.0103"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-41.1263 2.05188 -98.9961"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-40.9463 2.05188 -98.9967"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-40.7663 2.05188 -98.9973"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-40.5863 2.05188 -98.9979"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-40.4063 2.05188 -98.9985"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-40.2263 2.05188 -98.9992"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-40.0463 2.05188 -98.9998"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-39.8663 2.05188 -99.0004"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-39.6863 2.05188 -99.001"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-39.5063 2.05188 -99.0016"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-39.3263 2.05188 -99.0023"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-39.1463 2.05188 -99.0029"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-38.9663 2.05188 -99.0035"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-38.7863 2.05188 -99.0041"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-38.6063 2.05188 -99.0047"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-38.4263 2.05188 -99.0053"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-38.2463 2.05188 -99.006"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-38.0663 2.05188 -99.0066"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-37.8863 2.05188 -99.0072"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-37.7063 2.05188 -99.0078"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-37.5263 2.05188 -99.0084"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-37.3463 2.05188 -99.0091"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-37.1663 2.05188 -99.0097"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts054"
-      ,
-      "transform":
-      {
-        "pos": "-36.9863 2.05188 -99.0103"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-41.1263 2.64355 -98.9961"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-40.9463 2.64355 -98.9967"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-40.7663 2.64355 -98.9973"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-40.5863 2.64355 -98.9979"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-40.4063 2.64355 -98.9985"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-40.2263 2.64355 -98.9992"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-40.0463 2.64355 -98.9998"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-39.8663 2.64355 -99.0004"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-39.6863 2.64355 -99.001"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-39.5063 2.64355 -99.0016"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-39.3263 2.64355 -99.0023"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-39.1463 2.64355 -99.0029"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-38.9663 2.64355 -99.0035"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-38.7863 2.64355 -99.0041"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-38.6063 2.64355 -99.0047"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-38.4263 2.64355 -99.0053"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-38.2463 2.64355 -99.006"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-38.0663 2.64355 -99.0066"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-37.8863 2.64355 -99.0072"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-37.7063 2.64355 -99.0078"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-37.5263 2.64355 -99.0084"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-37.3463 2.64355 -99.0091"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-37.1663 2.64355 -99.0097"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts055"
-      ,
-      "transform":
-      {
-        "pos": "-36.9863 2.64355 -99.0103"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
     }
   }
   ,
@@ -22832,7 +21216,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/suelo_asiatica.material"
+          "data/materials/mapa_asiatica/blanco.material"
         ]
       }
     }
@@ -23319,267 +21703,24 @@
   {
     "entity":
     {
-      "name": "crab_legs"
+      "name": "AACC"
       ,
       "transform":
       {
-        "pos": "-26.1599 5.92528 -12.8619"
-        ,
-        "rotation": "0.0 0.707107 -0.707107 0.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_crab_legs.mesh"
-        ,
-        "color": "0.423529 0.0313726 0.533333 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/crablegs.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "ojos_crab"
-      ,
-      "transform":
-      {
-        "pos": "-26.1599 5.92528 -12.8619"
-        ,
-        "rotation": "0.0 0.707107 -0.707107 0.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_ojos_crab.mesh"
-        ,
-        "color": "0.423529 0.0313726 0.533333 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/crabeyes.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "crab_body001"
-      ,
-      "transform":
-      {
-        "pos": "-26.1599 5.92528 -12.8619"
-        ,
-        "rotation": "0.0 0.707107 -0.707107 0.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_crab_body001.mesh"
-        ,
-        "color": "0.423529 0.0313726 0.533333 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/cangbody.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "asian_gate"
-      ,
-      "transform":
-      {
-        "pos": "-63.3643 -0.534782 -93.4827"
-        ,
-        "rotation": "-0.153046 -0.153046 -0.690346 -0.690345"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_asian_gate.mesh"
-        ,
-        "color": "0.690196 0.101961 0.101961 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/gatetop.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "columnas"
-      ,
-      "transform":
-      {
-        "pos": "-63.3643 -0.534782 -93.4827"
-        ,
-        "rotation": "-0.153046 -0.153046 -0.690346 -0.690345"
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_columnas.mesh"
-        ,
-        "color": "0.690196 0.101961 0.101961 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/columnagate.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "palohorizontal"
-      ,
-      "transform":
-      {
-        "pos": "-63.3643 -0.534782 -93.4827"
-        ,
-        "rotation": "-0.153046 -0.153046 -0.690346 -0.690345"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palohorizontal.mesh"
-        ,
-        "color": "0.690196 0.101961 0.101961 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/puertahorizontal.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "techochino"
-      ,
-      "transform":
-      {
-        "pos": "3.34575 -0.152633 -32.9881"
-        ,
-        "rotation": "0.0 0.707107 0.0 -0.707107"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino.mesh"
-        ,
-        "color": "0.6 0.894118 0.721569 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/estanteria_alta_techo.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "techochino012"
-      ,
-      "transform":
-      {
-        "pos": "3.34575 -0.152635 -83.6835"
-        ,
-        "rotation": "0.0 0.707107 0.0 -0.707107"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino012.mesh"
-        ,
-        "color": "0.6 0.894118 0.721569 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/estanteria_alta_techo.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "techochino013"
-      ,
-      "transform":
-      {
-        "pos": "3.34575 -0.152636 -93.3985"
-        ,
-        "rotation": "0.0 0.707107 0.0 -0.707107"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino013.mesh"
-        ,
-        "color": "0.6 0.894118 0.721569 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/estanteria_alta_techo.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "techochino014"
-      ,
-      "transform":
-      {
-        "pos": "-12.0607 -0.152636 -99.0503"
+        "pos": "-61.3846 19.5361 -55.1169"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "render":
       {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino014.mesh"
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_AACC.mesh"
         ,
-        "color": "0.6 0.894118 0.721569 1.0"
+        "color": "0.0235294 0.529412 0.443137 1.0"
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta_techo.material"
+          "data/materials/mapa_asiatica/columna.material"
         ]
       }
     }
@@ -23588,24 +21729,24 @@
   {
     "entity":
     {
-      "name": "techochino015"
+      "name": "Puerta_de_carga"
       ,
       "transform":
       {
-        "pos": "-48.8195 -0.152636 -99.0503"
+        "pos": "63.8809 -3.6667e-06 -83.8843"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "render":
       {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techochino015.mesh"
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta_de_carga.mesh"
         ,
-        "color": "0.6 0.894118 0.721569 1.0"
+        "color": "0.882353 0.341176 0.560784 1.0"
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/estanteria_alta_techo.material"
+          "data/materials/mapa_asiatica/puerta_carga.material"
         ]
       }
     }
@@ -23614,26 +21755,700 @@
   {
     "entity":
     {
-      "name": "gato001collider"
+      "name": "Puerta"
       ,
       "transform":
       {
-        "pos": "-40.8746 -3.61449e-06 -82.6899"
+        "pos": "75.4091 -3.6667e-06 -83.8843"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
-      "abs_aabb": {}
-      ,
       "render":
       {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_gato001collider.mesh"
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta.mesh"
         ,
-        "color": "0.0313726 0.239216 0.541176 1.0"
+        "color": "0.694118 0.105882 0.345098 1.0"
         ,
         "materials":
         [
-          "data/materials/mapa_asiatica/mat_gato.material"
+          "data/materials/mapa_asiatica/puerta_1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch1"
+      ,
+      "transform":
+      {
+        "pos": "68.0591 1.45282 -83.8316"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch1.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch2"
+      ,
+      "transform":
+      {
+        "pos": "68.0591 1.45282 -83.8316"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch2.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe1"
+      ,
+      "transform":
+      {
+        "pos": "68.0591 1.08166 -83.8316"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_enchufe1.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta_candado"
+      ,
+      "transform":
+      {
+        "pos": "73.5891 -3.91042e-06 -84.0056"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta_candado.mesh"
+        ,
+        "color": "0.882353 0.341176 0.560784 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_candado1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta2LP"
+      ,
+      "transform":
+      {
+        "pos": "79.2781 -3.6667e-06 -83.8843"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta2LP.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta_candado2"
+      ,
+      "transform":
+      {
+        "pos": "70.6074 -3.91042e-06 -84.0056"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta_candado2.mesh"
+        ,
+        "color": "0.882353 0.341176 0.560784 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_candado2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "columna"
+      ,
+      "transform":
+      {
+        "pos": "3.58465 -0.193308 -38.5304"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_columna.mesh"
+        ,
+        "color": "0.341176 0.882353 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta2LP001"
+      ,
+      "transform":
+      {
+        "pos": "-40.6474 -0.193308 -100.519"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta2LP001.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta2LP002"
+      ,
+      "transform":
+      {
+        "pos": "-73.3031 7.55039 -41.5435"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta2LP002.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta_candado003"
+      ,
+      "transform":
+      {
+        "pos": "-19.7789 -0.193307 -13.1302"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta_candado003.mesh"
+        ,
+        "color": "0.882353 0.341176 0.560784 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_candado2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta_candado004"
+      ,
+      "transform":
+      {
+        "pos": "4.39258 -0.19328 -28.1538"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta_candado004.mesh"
+        ,
+        "color": "0.882353 0.341176 0.560784 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_candado2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta2LP003"
+      ,
+      "transform":
+      {
+        "pos": "4.27134 -0.193312 -60.8612"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta2LP003.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta2LP004"
+      ,
+      "transform":
+      {
+        "pos": "-49.4297 7.5504 -13.5617"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta2LP004.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta_candado005"
+      ,
+      "transform":
+      {
+        "pos": "-75.7554 -0.193311 -87.8167"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta_candado005.mesh"
+        ,
+        "color": "0.882353 0.341176 0.560784 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_candado2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe002"
+      ,
+      "transform":
+      {
+        "pos": "-52.8043 9.2127 -13.336"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_enchufe002.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch003"
+      ,
+      "transform":
+      {
+        "pos": "-52.8043 9.58386 -13.336"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch003.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe003"
+      ,
+      "transform":
+      {
+        "pos": "4.54944 1.10741 -26.6387"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_enchufe003.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch004"
+      ,
+      "transform":
+      {
+        "pos": "4.54944 1.47858 -26.6387"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch004.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe004"
+      ,
+      "transform":
+      {
+        "pos": "4.49707 1.10741 -57.7214"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_enchufe004.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch005"
+      ,
+      "transform":
+      {
+        "pos": "4.49707 1.47857 -57.7214"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch005.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe005"
+      ,
+      "transform":
+      {
+        "pos": "-37.3141 1.33763 -100.797"
+        ,
+        "rotation": "0.0 3.01992e-07 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_enchufe005.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch006"
+      ,
+      "transform":
+      {
+        "pos": "-37.3141 1.70879 -100.797"
+        ,
+        "rotation": "0.0 3.01992e-07 0.0 -1.0"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch006.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe006"
+      ,
+      "transform":
+      {
+        "pos": "-73.5288 9.37571 -45.1061"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_enchufe006.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch007"
+      ,
+      "transform":
+      {
+        "pos": "-73.5288 9.74688 -45.1061"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch007.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe007"
+      ,
+      "transform":
+      {
+        "pos": "-75.6337 1.88158 -86.0591"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_enchufe007.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch008"
+      ,
+      "transform":
+      {
+        "pos": "-75.6337 2.25274 -86.0591"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch008.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch1.material"
         ]
       }
     }
