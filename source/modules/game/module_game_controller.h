@@ -147,6 +147,7 @@ public:
   void  healPlayer();
   void  healPlayerPartially(float health);
 	void restoreMadness();
+  void blendPlayerCamera();
 
 	//Damage Generators
 	void generateDamageSphere(VEC3 center, float radius, TMsgDamage message, const char* targetFilter);

@@ -24,6 +24,7 @@
 #include "components/controllers/camera/comp_camera_3rd_person.h"
 #include "components/ai/graph/ai_platform.h"
 #include "components/common/comp_name.h"
+#include "components/postfx/comp_render_radial_blur.h"
 #include "entity/entity.h"
 #include "modules/module_scenes.h"
 #include "components/ai/bt/bt_cupcake.h"
@@ -234,6 +235,16 @@ void CModuleGameController::lockCamera3Person(bool activate) {
 		//t_comp3->_enabled = activate;
 		t_comp3->mouse_active = activate;
 	}
+}
+
+void CModuleGameController::blendPlayerCamera() {
+  static Interpolator::TQuadInOutInterpolator quadInt;
+  CEntity* p_camera = getEntityByName("PlayerCamera");
+  Engine.getCameraMixer().blendCamera(p_camera, 0.3f, &quadInt);
+
+  CEntity* m_camera = getEntityByName("MainCamera");
+  TCompRenderRadialBlur* c_rrb = m_camera->get<TCompRenderRadialBlur>();
+  c_rrb->enable(0.3f);
 }
 
 //resetCamera
