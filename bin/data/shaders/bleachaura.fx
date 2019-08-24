@@ -40,7 +40,16 @@ VS_OUTPUT VS(
 )
 {
   VS_OUTPUT output = (VS_OUTPUT)0;
+
+    //for distortion
+  const float _scrollX = 0.0f;
+  const float _scrollY = 0.05f;
+  //for visuals
+  const float _scale = 4.0f;
+
   float4 newPos = getNewVertPosition(Pos, N);
+  float4 form = txRoughness.SampleLevel(samLinear,  float2((Uv.x + GlobalWorldTime * _scrollX)  ,(Uv.y - GlobalWorldTime * _scrollY)) * float2(_scale,_scale),0);
+  newPos.xyz += form.xyz * N * 0.15;
   output.Pos = mul(newPos, World);
   output.WorldPos = output.Pos.xyz;
   output.Pos = mul(output.Pos, ViewProjection);
@@ -63,17 +72,17 @@ float4 PS(VS_OUTPUT input) : SV_Target
 
   //for distortion
   const float _scrollX = 0.0f;
-  const float _scrollY = 0.6f;
+  const float _scrollY = 0.4f;
   //for visuals
-  const float _threshold = 0.75f;
+  const float _threshold = 0.25f;
   const float _scale = 4.0f;
 
-  float4 form = txAlbedo.Sample(samLinear,  float2((input.Uv.x + GlobalWorldTime * _scrollX)  ,(input.Uv.y - GlobalWorldTime * _scrollY)) * float2(_scale,_scale));
-  float4 voronoi_noise = txNormal.Sample(samLinear, float2((input.Uv.x + GlobalWorldTime * _scrollX)  ,(input.Uv.y - GlobalWorldTime * _scrollY)) * float2(_scale*3,_scale));
+  float4 form = txAlbedo.Sample(samLinear,  float2((input.Uv.y + GlobalWorldTime * _scrollX)  ,(input.Uv.x + GlobalWorldTime * _scrollY)) * float2(_scale,_scale));
+  float4 voronoi_noise = txNormal.Sample(samLinear, float2((input.Uv.y + GlobalWorldTime * _scrollX)  ,(input.Uv.x + GlobalWorldTime * _scrollY)) * float2(_scale,_scale));
   voronoi_noise.a = voronoi_noise.z;
-  float shapetex = lerp(3, -1.0,input.Uv.y);
+  float shapetex = lerp(0.0, 10,input.Uv.x);
   
-  voronoi_noise += shapetex * _threshold * 0.9f;
+  voronoi_noise *= shapetex;
   float4 final_voronoi = voronoi_noise;
 
   float flame = final_voronoi.x > _threshold;

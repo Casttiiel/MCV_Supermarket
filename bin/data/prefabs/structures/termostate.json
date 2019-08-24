@@ -4,16 +4,16 @@
     {
       "name": "termostato",
 			"render" : {
-        "mesh": "data/meshes/prefabs/termometro.mesh",
+        "mesh": "data/meshes/prefabs/termostato2_termostato_LP.mesh",
 
         "materials":
         [
-          "data/materials/termostate.material"
+          "data/materials/mat_termostato.material"
         ]
 			},
       "transform":
       {
-        "scale": 0.3
+        "scale": 2.5
         ,
         "pos": "0 0 0"
       },
@@ -25,11 +25,11 @@
             {
               "shape": "box"
               ,
-              "half_size": "2 3 1"
+              "half_size": "0.32 0.22 0.05"
               ,
               "offset":
               {
-                "pos": "0.0 3.0 0.0"
+                "pos": "0.1 0.0 0.05"
               }
               ,
               "trigger": false,

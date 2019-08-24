@@ -20168,34 +20168,6 @@
   {
     "entity":
     {
-      "name": "letrero004"
-      ,
-      "transform":
-      {
-        "pos": "-65.4998 7.64999 -28.2947"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letrero004.mesh"
-        ,
-        "color": "0.552941 0.027451 0.227451 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/kiosko_mediano_letrero2.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "techo001"
       ,
       "transform":
@@ -20228,7 +20200,7 @@
       ,
       "transform":
       {
-        "pos": "-4.88531 3.93721 -27.3527"
+        "pos": "2.66916 3.59914 -27.1848"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -20374,6 +20346,502 @@
         "materials":
         [
           "data/materials/mapa_asiatica/mat_estanteria_techo_as.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "body"
+      ,
+      "transform":
+      {
+        "pos": "-34.0512 -0.313448 -83.4676"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_body.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_body.mesh"
+        ,
+        "color": "0.552941 0.027451 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/catbody.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "head"
+      ,
+      "transform":
+      {
+        "pos": "-34.0512 -0.313448 -83.4676"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_head.mesh"
+        ,
+        "color": "0.552941 0.027451 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/cathead.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "ears"
+      ,
+      "transform":
+      {
+        "pos": "-34.0512 -0.313448 -83.4676"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_ears.mesh"
+        ,
+        "color": "0.552941 0.027451 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/catears.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "frontpaws"
+      ,
+      "transform":
+      {
+        "pos": "-34.0512 -0.313448 -83.4676"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_frontpaws.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_frontpaws.mesh"
+        ,
+        "color": "0.552941 0.027451 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/catpaws.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "backpaws"
+      ,
+      "transform":
+      {
+        "pos": "-34.0512 -0.313448 -83.4676"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_backpaws.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_backpaws.mesh"
+        ,
+        "color": "0.552941 0.027451 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/catlegs.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "fish"
+      ,
+      "transform":
+      {
+        "pos": "-34.0512 -0.313448 -83.4676"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_fish.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_fish.mesh"
+        ,
+        "color": "0.552941 0.027451 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/catfish.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letrero004"
+      ,
+      "transform":
+      {
+        "pos": "-65.5185 7.64999 -28.251"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letrero004.mesh"
+        ,
+        "color": "0.552941 0.027451 0.227451 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/kiosko_mediano_letrero2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Conjunto_lamparas001"
+      ,
+      "transform":
+      {
+        "pos": "2.66916 3.59914 -33.7425"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Conjunto_lamparas001.mesh"
+        ,
+        "color": "0.341176 0.882353 0.776471 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/lampara_china.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Conjunto_lamparas002"
+      ,
+      "transform":
+      {
+        "pos": "2.66916 3.59914 -80.3514"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Conjunto_lamparas002.mesh"
+        ,
+        "color": "0.341176 0.882353 0.776471 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/lampara_china.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Conjunto_lamparas003"
+      ,
+      "transform":
+      {
+        "pos": "2.66916 3.59913 -86.9091"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Conjunto_lamparas003.mesh"
+        ,
+        "color": "0.341176 0.882353 0.776471 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/lampara_china.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Conjunto_lamparas004"
+      ,
+      "transform":
+      {
+        "pos": "2.66916 3.59913 -90.1833"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Conjunto_lamparas004.mesh"
+        ,
+        "color": "0.341176 0.882353 0.776471 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/lampara_china.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Conjunto_lamparas005"
+      ,
+      "transform":
+      {
+        "pos": "2.66916 3.59913 -96.741"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Conjunto_lamparas005.mesh"
+        ,
+        "color": "0.341176 0.882353 0.776471 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/lampara_china.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Conjunto_lamparas006"
+      ,
+      "transform":
+      {
+        "pos": "-8.83828 3.59913 -99.218"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Conjunto_lamparas006.mesh"
+        ,
+        "color": "0.341176 0.882353 0.776471 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/lampara_china.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Conjunto_lamparas007"
+      ,
+      "transform":
+      {
+        "pos": "-15.396 3.59913 -99.218"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Conjunto_lamparas007.mesh"
+        ,
+        "color": "0.341176 0.882353 0.776471 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/lampara_china.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Conjunto_lamparas008"
+      ,
+      "transform":
+      {
+        "pos": "-45.6742 3.59913 -99.218"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Conjunto_lamparas008.mesh"
+        ,
+        "color": "0.341176 0.882353 0.776471 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/lampara_china.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Conjunto_lamparas009"
+      ,
+      "transform":
+      {
+        "pos": "-52.2319 3.59913 -99.218"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Conjunto_lamparas009.mesh"
+        ,
+        "color": "0.341176 0.882353 0.776471 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/lampara_china.material"
         ]
       }
     }

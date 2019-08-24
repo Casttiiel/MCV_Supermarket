@@ -7,12 +7,19 @@
 			},
 			"abs_aabb": {},
 			"name": "Dumpling Turret",
-			"render": {
-				"mesh": "data/meshes/olla_wok_uvs_Olla004.mesh",
-				"materials": [
-					"data/materials/ollawok.material"
-				]
-			},
+		      "render":
+		      {
+		        "mesh": "data/meshes/olla_wok_uvs/olla_wok_uvs_Olla004.mesh"
+		        ,
+		        "color": "0.898039 0.65098 0.843137 1.0"
+		        ,
+		        "materials":
+		        [
+		          "data/materials/olla_wok_uvs/ollawok.material"
+		          ,
+		          "data/materials/olla_wok_uvs/manijaswok.material"
+		        ]
+		      },
 			"ai_turret": {
 				"halfCone": 180,
 				"lengthCone": 100,
