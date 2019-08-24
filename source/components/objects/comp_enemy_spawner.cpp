@@ -4,6 +4,7 @@
 #include "components/common/comp_transform.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "components/animation/comp_prop_animation.h"
+#include "components/ai/bt/bt_cupcake.h"
 
 DECL_OBJ_MANAGER("comp_enemy_spawner", TCompEnemySpawner);
 
@@ -77,11 +78,21 @@ void TCompEnemySpawner::update(float dt) {
 		if (_isEnabled) {
 			if (_spawnTimer <= 0 && _currentEnemies.size() < _spawnMaxNumber) {
 				dbg("Spawning %s\n", _prefab);
-        TCompPropAnimator* animator = get<TCompPropAnimator>();
-        animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 1.f);
+				TCompPropAnimator* animator = get<TCompPropAnimator>();
+				animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 1.f);
 				TCompTransform* c_trans = get<TCompTransform>();
-        VEC3 spawnPoint = c_trans->getPosition() + (c_trans->getFront() * _spawnOffset);
+				VEC3 spawnPoint = c_trans->getPosition() + (c_trans->getFront() * _spawnOffset);
 				CHandle enemy = GameController.spawnPrefab(_prefab, spawnPoint);
+				
+				//rotamos el cupcake hacia la posicion del jugador al spawnear para que te vea siempre
+				CEntity* player = GameController.getPlayerHandle();
+				CEntity* e_enemy = (CEntity*)enemy;
+				TCompTransform* c_trans_enemy = e_enemy->get<TCompTransform>();
+				if(player != nullptr) {
+					TCompTransform* c_trans_player = player->get<TCompTransform>();
+					c_trans_enemy->rotateTowards(c_trans_player->getPosition());
+				}
+				
 				_currentEnemies.push_back(enemy);
 				TMsgSpawnerCheckin checkin;
 				checkin.spawnerHandle = CHandle(this).getOwner();

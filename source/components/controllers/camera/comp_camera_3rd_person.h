@@ -3,7 +3,7 @@
 #include "components/common/comp_base.h"
 #include "entity/entity.h"
 #include "geometry/curve.h"
-
+#include "entity/common_msgs.h"
 class TCompTransform;
 
 class TCompCamera3rdPerson : public TCompBase
@@ -18,6 +18,8 @@ public:
   bool _enabled = true;
   bool mouse_active = true;
   void resetCamera();
+
+  static void registerMsgs();
 private:
   const CCurve* _curve = nullptr;
   const CCurve* _curveIdle = nullptr;
@@ -63,6 +65,8 @@ private:
   void shouldSwapCamera();
   bool putPlayerOnScreen(VEC3 &newPos);
   float cameraMovementOnJump();
-  
+
+  void onPauseCam(const TMsgGamePause & msg);
+  bool isPause = false;
 };
 

@@ -118,6 +118,7 @@ struct TMsgSpawnerCheckout {
 //parar pj
 struct TMsgOnCinematic {
 	bool cinematic;
+	bool isscart;
 	DECL_MSG_ID();
 };
 
@@ -221,6 +222,26 @@ struct TMsgBlackboard {
 struct TMSgWallDestroyed {
 	CHandle h_entity;
 	bool isDetroyed;
+	DECL_MSG_ID();
+};
+
+struct TMSgEnemyDead {
+	CHandle h_entity;
+	std::string name;
+	bool isDead;
+	DECL_MSG_ID();
+};
+
+struct TMSgTriggerFalloutDead {
+	CHandle h_entity;
+	bool falloutDead;
+	float damage;
+	DECL_MSG_ID();
+};
+
+struct TMsgGamePause {
+	bool isPause;
+	bool playerDead;
 	DECL_MSG_ID();
 };
 

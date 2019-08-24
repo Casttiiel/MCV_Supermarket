@@ -31,6 +31,7 @@ public:
   VEC3 getFront() const;
   VEC3 getUp() const;
   VEC3 getLeft() const;
+  VEC3 getRight() const;
 
   void getAngles(float* yaw, float* pitch, float* roll = nullptr );
   void setAngles(float yaw, float pitch, float roll = 0.0f);
@@ -60,4 +61,5 @@ public:
 
   bool renderInMenu();
 
+  VEC3 getTranslatePositionForAngle(VEC3 startPoint, float distance, float angle);
 };

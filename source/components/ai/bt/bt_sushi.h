@@ -59,8 +59,9 @@ public:
   bool conditionFear();
   bool conditionDeath();
   bool conditionChase();
-
+  std::string getNameCurve();
 	void setCurve(const CCurve* curve);
+	void setHeightRange(float height);
   //End Conditions
 private:
   float initialExecution = true;
@@ -244,12 +245,14 @@ private:
   void onFireAreaEnter(const TMsgFireAreaEnter& msg);
   void onFireAreaExit(const TMsgFireAreaExit& msg);
   void onBlackboardMsg(const TMsgBlackboard& msg);
+  void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
+  //void onDamageAll(const TMsgDamageToAll& msg);
   bool rollDiceCharge();
   bool rollDiceJumpCharge();
   bool rollDice(int probability);
   void generateNavmesh(VEC3 initPos, VEC3 destPos, bool recalc);
 	bool checkHeight();
-
+	VEC3 calculatePositionGround();
   //Flags
   bool inCombat = false;
   bool blocking = false;
@@ -265,8 +268,11 @@ private:
   float impactForceAttack = 8.0f;
   float impactReceived;
   bool isPlayerInNavmesh();
+  bool hayCamino = true;
+  bool isDeadForFallout = false;
 
-  
+  std::string pathCurve = "";
+
 
   /* DEPRECATED */
   //void LookAt_Player(TCompTransform* c_trans, TCompTransform* player_position);

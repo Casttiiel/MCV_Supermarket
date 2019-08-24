@@ -50,6 +50,19 @@ void TCompIncreasePower::enable(const TMsgEntityTriggerEnter & msg) {
 		//dbg("entra en el power up \n");
 		GameController.addPowerUp(chunk, type);
 		destroy = true;
+    TCompTransform* c_trans = get<TCompTransform>();
+    TEntityParseContext ctx;
+    bool result = parseScene("data/particles/shine_particles.json", ctx);
+    assert(result);
+    CEntity* e = ctx.entities_loaded[0];
+    TCompBuffers* c_buff = e->get<TCompBuffers>();
+    if (c_buff) {
+      auto buf = c_buff->getCteByName("TCtesParticles");
+      CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
+      data->emitter_center = c_trans->getPosition();
+      data->updateGPU();
+    }
+
 		if (type == ACTIVATE_BATTERY) {
 			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
 			b->setCurrentState("option_battery");
@@ -80,7 +93,6 @@ void TCompIncreasePower::enable(const TMsgEntityTriggerEnter & msg) {
 }
 
 void TCompIncreasePower::update(float dt) {
-	//una animacion o lo que sea
 	if (destroy) {
 		CHandle(this).getOwner().destroy();
 	}

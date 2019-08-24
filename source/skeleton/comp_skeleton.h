@@ -43,7 +43,10 @@ struct TCompSkeleton : public TCompBase {
   void setFeetId(std::vector<int> feetId);
   std::vector<VEC3> getFeetPositions();
   float getAnimationDuration(int animaId);
-
+  VEC3 getBonePositionByName(const std::string & name);
+  VEC3 setBonePositionByName(const std::string & name);
+  VEC3 getBonePositionById(int id);
+  void setBonePositionById(int id, VEC3 position);
   DECL_SIBLING_ACCESS();
 };
 

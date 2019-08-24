@@ -24,7 +24,7 @@ private:
 	float _spawnDelay = 3.f;
 	float _spawnTimer = _spawnDelay;
 	std::string _prefab = PREFAB_CUPCAKE;
-  float _spawnOffset = 2.f;
+  float _spawnOffset = 2.5f;
 
 	void enable(const TMsgEntityTriggerEnter & msg);
 	void disable(const TMsgEntityTriggerExit & msg);

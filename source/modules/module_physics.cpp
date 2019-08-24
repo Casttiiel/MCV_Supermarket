@@ -161,7 +161,51 @@ bool CModulePhysics::readShape(PxRigidActor* actor, const json& jcfg) {
   }
   else if (geometryType == PxGeometryType::eCONVEXMESH)
   {
-    fatal("Convex mesh not implemented yet");
+   // fatal("Convex mesh not implemented yet");
+	std::string col_mesh_name = jcfg.value("collision_mesh", "");
+	const CCollisionMesh* mesh = Resources.get(col_mesh_name)->as<CCollisionMesh>();
+	dbg("Collision mesh has %d vtxs\n", mesh->header.num_vertex);
+
+	assert(strcmp(mesh->header.vertex_type_name, "Pos") == 0);
+
+	PxConvexMeshDesc meshDesc;
+	meshDesc.points.count = mesh->header.num_vertex;
+	meshDesc.points.stride = sizeof(physx::PxVec3);
+	meshDesc.points.data = mesh->vertices.data();
+
+	meshDesc.flags = physx::PxConvexFlag::eCOMPUTE_CONVEX;
+
+	PxTolerancesScale scale;
+	PxCooking *cooking = PxCreateCooking(PX_PHYSICS_VERSION, gPhysics->getFoundation(), PxCookingParams(scale));
+	physx::PxConvexMeshCookingType::Enum convextype = physx::PxConvexMeshCookingType::eQUICKHULL;
+
+	physx::PxCookingParams params = cooking->getParams();
+	params.convexMeshCookingType = convextype;
+	params.gaussMapLimit = 256;
+	cooking->setParams(params);
+
+	PxDefaultMemoryOutputStream writeBuffer;
+	PxConvexMeshCookingResult::Enum result;
+	bool status = cooking->cookConvexMesh(meshDesc, writeBuffer, &result);
+	assert(status);
+
+	// writeBuffer could be saved to avoid the cooking in the next execution.
+	PxDefaultMemoryInputData readBuffer(writeBuffer.getData(), writeBuffer.getSize());
+	PxConvexMesh* convexMesh = gPhysics->createConvexMesh(readBuffer);
+	shape = gPhysics->createShape(PxConvexMeshGeometry(convexMesh), *gMaterial);
+
+	CMesh* render_mesh = mesh->createRenderMesh();
+	char res_name[64];
+	sprintf(res_name, "Physics_%p", render_mesh);
+	render_mesh->setNameAndType(res_name, getResourceTypeFor<CMesh>());
+	Resources.registerResource(render_mesh);
+
+
+	//shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+	// Bind the render mesh as userData of the SHAPE, not the ACTOR.
+	shape->userData = render_mesh;
+
+
   }
   else if (geometryType == PxGeometryType::eTRIANGLEMESH)
   {
@@ -208,12 +252,10 @@ bool CModulePhysics::readShape(PxRigidActor* actor, const json& jcfg) {
     Resources.registerResource(render_mesh);
 
 	
-	shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
-
-
-	
+	//shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
     // Bind the render mesh as userData of the SHAPE, not the ACTOR.
     shape->userData = render_mesh;
+	
   }
 
   if (jcfg.value("trigger", false))
@@ -789,11 +831,13 @@ void CModulePhysics::CustomSimulationEventCallback::onTrigger(PxTriggerPair* pai
 	  
       // Notify the trigger someone entered
       msg.h_entity = h_comp_other.getOwner();
-      e_trigger->sendMsg(msg);
+	  if (e_trigger != nullptr)
+		e_trigger->sendMsg(msg);
 	  
       // Notify that someone he entered in a trigger
       msg.h_entity = h_comp_trigger.getOwner();
-      e_other->sendMsg(msg);
+	  if(e_other != nullptr)
+		e_other->sendMsg(msg);
 	  
     }
     else if (pairs[i].status == PxPairFlag::eNOTIFY_TOUCH_LOST)

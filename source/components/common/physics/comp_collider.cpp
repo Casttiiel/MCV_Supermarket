@@ -184,6 +184,11 @@ void TCompCollider::debugInMenuShape(physx::PxShape* shape, physx::PxGeometryTyp
       ImGui::LabelText("Tri mesh", "%d verts", trimesh->triangleMesh->getNbVertices());
       break;
     }
+	/*case PxGeometryType::eCONVEXMESH: {
+		PxConvexMesh* convex = (PxConvexMesh*)geom;
+		ImGui::LabelText("Convex", "%d verts", convex->getNbVertices());
+		break;
+	}*/
   }
 }
 

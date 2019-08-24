@@ -62,7 +62,7 @@ public:
 
 	void setCurve(const CCurve* curve);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
-
+	std::string getNameCurve();
   //End Conditions
 private:
   float initialExecution = true;
@@ -74,7 +74,7 @@ private:
   Vector3 currentPosition;
   Vector3 nextPoint;
   VEC3 impulse = VEC3();
-
+  int directionJump;//0 right, 1 left
   enum class States {
     undefined = 0,
 	Idle,
@@ -106,9 +106,9 @@ private:
 
 
   //navmesh values
-  bool use_navmesh = false;
+  bool use_navmesh = true;
   float reevaluatePathTimer = 0;
-  float reevaluatePathDelay = 1.0;
+  float reevaluatePathDelay = 0.2f;
   int navMeshIndex = 0;
   Vector3 nextNavMeshPoint = VEC3().Zero;
   std::vector<VEC3> navmeshPath;
@@ -215,7 +215,9 @@ private:
   float _decoyTeleportDistance = 5.f;
   VEC3 _decoyOrigin = VEC3().Zero;
   //End Decoy Values
-
+  float height_range = 3.0f;
+  bool hayCamino = true;
+  bool isDeadForFallout = false;
   //Utils
   CHandle h_player;
   CHandle h_sender;
@@ -229,18 +231,23 @@ private:
   template <typename T>
   void Send_DamageMessage(CEntity* entity, float dmg);
   bool isGrounded();
+  bool isHole(VEC3 jump);
   void onCollision(const TMsgOnContact& msg);
   void onGenericDamageInfoMsg(const TMsgDamage& msg);
   void onGravity(const TMsgGravity& msg);
   void onFireAreaEnter(const TMsgFireAreaEnter& msg);
   void onFireAreaExit(const TMsgFireAreaExit& msg);
+  void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
   VEC3 getLeapDirection();
   void shoot(ShotType type);
   void singleShot();
   void spreadShot();
   bool rollDice(int probability);
   void generateNavmesh(VEC3 initPos, VEC3 destPos, bool recalc);
-
+  bool isPlayerInNavmesh();
+  bool obstacleInJump();
+  bool checkHeight();
+  VEC3 calculatePositionGround();
   //Flags
   bool inCombat = false;
 
@@ -251,7 +258,7 @@ private:
 	float resetSlotDuration = 5.0f;
 	float resetSlotTimer = 0.0f;
 
-
+	std::string pathCurve = "";
   //flag patrol curve or point
   
 	//curve values
@@ -260,7 +267,7 @@ private:
 	float	mTravelTime = 0.22f;
 	float ratio = 0.f;
 	//end curve values
-
+	
   /* DEPRECATED */
   //void LookAt_Player(TCompTransform* c_trans, TCompTransform* player_position);
 };

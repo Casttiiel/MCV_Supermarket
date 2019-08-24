@@ -65,6 +65,7 @@ public:
 	void onCreated(const TMsgEntityCreated& msg);
 	void onCheckin(const TMsgSpawnerCheckin& msg);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
+	void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
 
 	static void registerMsgs();
 
@@ -79,7 +80,7 @@ public:
 	bool isView(float distance);
 
 	void generatePoints();
-
+	void renderDebug();
 
 	int damage = 10;
 	int fireDamage = 15;
@@ -91,7 +92,7 @@ public:
 	const CCurve* _curve = nullptr;
 	std::vector<VEC3> _knots;
 	//END CURVE VALUES
-
+	std::string getNameCurve();
 private:
     AudioEvent voice;
 
@@ -228,17 +229,21 @@ private:
 
 	float impulseStrenghtSecondSon = 7.f;
 
-	float cone_vision = 14.f;
-	float enemyRadiousView = 9.0f;
+	float cone_vision = 20.f;
+	float enemyRadiousView = 12.0f;
 	bool view_point = false;
-	float length_cone = 15.0f;
+	float length_cone = 20.0f;
 	float half_cone = 45.0f;
 	float height_range = 3.0f;
-
+	bool isDeadForFallout = false;
 	bool checkHeight();
 
 	CHandle h_sender;
 	CHandle h_bullet;
+
+	std::string pathCurve = "";
+
+
 };
 
 

@@ -24,9 +24,9 @@ struct TCurveExporter (
 			return undefined
 		if not isValidName obj.name then
 			return undefined
-		--C:/Users/victo/mcv_sm/bin/data/curves/
+		--C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/data/
 		--C:/Users/mcv17_alumne/Desktop/mcv_sm/bin/data/curves/ --C:\Users\joaki\Desktop\VisualStudioProjects\Proyecto_43\mcv_sm\bin\data\
-		local full_path = "C:/Users/victo/mcv_sm/bin/data/curves/"+obj.name+".curve"
+		local full_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/data/curves/"+obj.name+".curve"
 		format "Exporting to %\n" full_path 
 		fs.begin full_path
 		fs.beginArray()

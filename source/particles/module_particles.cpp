@@ -87,7 +87,7 @@ namespace particles
         curr_emitter = new_emitter;
         nparticles = 0;
 
-        // A chagen in the emitter can trigger a change in the particle type
+        // A change in the emitter can trigger a change in the particle type
         // storage
         TParticlesType& pt = particles_types[curr_emitter->particles_type_idx];
         out = pt.top();

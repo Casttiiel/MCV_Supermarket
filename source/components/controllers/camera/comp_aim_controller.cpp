@@ -1,5 +1,8 @@
 #include "mcv_platform.h"
 #include "comp_aim_controller.h"
+#include "components/common/comp_buffers.h"
+#include "components/common/comp_render.h"
+#include "components/controllers/character/comp_character_controller.h"
 
 
 DECL_OBJ_MANAGER("aim_controller", TCompAimController);
@@ -74,6 +77,27 @@ using namespace physx;
         closest_normal = PXVEC3_TO_VEC3(touch.normal);
       }
     }
+
+	CEntity* line = getEntityByName("AimLineScanner");
+	if (line)
+	{
+		TCompBuffers* c_buff = line->get<TCompBuffers>();
+		auto buf = c_buff->getCteByName("TCtesAimLineScanner");
+		constants.x = closest;
+		buf->updateGPU(&constants);
+	}
+
+	CEntity* en = getEntityByName("Player");
+	TCompCharacterController* p_contr = en->get<TCompCharacterController>();
+	TCompRender* c_render = line->get<TCompRender>();
+	if (p_contr->aiming) {
+		c_render->is_visible = true;
+	}
+	else {
+		c_render->is_visible = false;
+	}
+	c_render->updateRenderManager();
+	
   }
 
 

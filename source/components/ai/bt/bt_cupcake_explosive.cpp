@@ -183,7 +183,9 @@ int CBTCupcake_explosive::actionDeath() {
 	}
 	//------------------------------------
   TCompTransform* c_trans = get<TCompTransform>();
-  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
+  if (!isDeadForFallout) {
+	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
+  }
   EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death");
   voice.stop();
 	CHandle(this).getOwner().destroy();
@@ -409,15 +411,19 @@ int CBTCupcake_explosive::actionImpactReceived() {
 
 
 bool CBTCupcake_explosive::conditionView() {
-	if (player_dead) {
+ 	if (player_dead) {
 		return false; //no lo ve si esta muerto
 	}
-	return true;//temporal para el milestone 2 
+	//return true;//temporal para el milestone 2 
 	TCompTransform* c_trans = get<TCompTransform>();
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* player_position = e_player->get<TCompTransform>();
 	if (Vector3::Distance(player_position->getPosition(), c_trans->getPosition()) > forgetAttackingDistance) {
 		insightPlayer = false; //TODO: esto es temporal para el milestone 2 
+	}
+
+	if (!checkHeight()) { //si el player esta muy alto no lo ve y se olvida de el
+		return false;
 	}
 
 	if (isView(length_cone) || insightPlayer || enemyRadiousView > Vector3::Distance(player_position->getPosition(), c_trans->getPosition())) {
@@ -706,7 +712,7 @@ void CBTCupcake_explosive::registerMsgs() {
 	DECL_MSG(CBTCupcake_explosive, TMsgFireAreaExit, onFireAreaExit);
 	DECL_MSG(CBTCupcake_explosive, TMsgEntityCreated, onCreated);
 	DECL_MSG(CBTCupcake_explosive, TMsgSpawnerCheckin, onCheckin);
-
+	DECL_MSG(CBTCupcake_explosive, TMSgTriggerFalloutDead, onTriggerFalloutDead);
 }
 
 //On death send TMsgSpawnerCheckout message to this CHandle
@@ -740,6 +746,15 @@ c_trans->setScale(normalScale); //todo vuelve a la normalidad
 currentDamage = damage;
 */
 
+}
+
+
+void CBTCupcake_explosive::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
+	life -= msg.damage;
+	isDeadForFallout = msg.falloutDead;
+	if (life < 0) {
+		life = 0;
+	}
 }
 
 bool CBTCupcake_explosive::isGrounded() {
@@ -921,5 +936,24 @@ void CBTCupcake_explosive::setCurve(const CCurve* curve) {
 
 	this->_curve = curve; // TO TEST
 	_knots = _curve->_knots;
+	this->pathCurve = curve->getName();
+}
 
+std::string CBTCupcake_explosive::getNameCurve() {
+	return pathCurve;
+}
+
+bool CBTCupcake_explosive::checkHeight() {
+	bool res = false;
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* player_position = e_player->get<TCompTransform>();
+	float playerHeight = player_position->getPosition().y;
+	TCompTransform* c_trans = get<TCompTransform>();
+	float enemyHeight = c_trans->getPosition().y;
+
+	if (height_range > abs(playerHeight - enemyHeight)) {
+		res = true;;
+	}
+
+	return res;
 }

@@ -75,19 +75,21 @@ void TCompSkeleton::update(float dt) {
   PROFILE_FUNCTION("updateSkel");
   assert(model);
   TCompTransform* tmx = get<TCompTransform>();
-  VEC3 pos = tmx->getPosition();
-  QUAT rot = tmx->getRotation();
-  model->getMixer()->setWorldTransform(DX2Cal(pos), DX2Cal(rot));
-  float _dt;
-  if (_unscaledTime) {
-	  _dt = Time.delta_unscaled;
+  if(tmx != NULL){
+	  VEC3 pos = tmx->getPosition();
+	  QUAT rot = tmx->getRotation();
+	  model->getMixer()->setWorldTransform(DX2Cal(pos), DX2Cal(rot));
+	  float _dt;
+	  if (_unscaledTime) {
+		  _dt = Time.delta_unscaled;
+	  }
+	  else {
+		  _dt = Time.delta;
+	  }
+	  model->update(_dt);
+	  VEC3 root_motion = Cal2DX(model->getMixer()->getAndClearDeltaRootMotion());
+	  tmx->setPosition(pos + root_motion);
   }
-  else {
-	  _dt = Time.delta;
-  }
-  model->update(_dt);
-  VEC3 root_motion = Cal2DX(model->getMixer()->getAndClearDeltaRootMotion());
-  tmx->setPosition(pos + root_motion);
 }
 
 void TCompSkeleton::debugInMenu() {
@@ -381,4 +383,30 @@ float TCompSkeleton::getAnimationDuration(int animaId) {
 	if (core_anima)
 		return core_anima->getDuration();
 	return -1.f;
+}
+
+
+VEC3 TCompSkeleton::getBonePositionByName(const std::string & name) {
+
+	
+	int bone_id = model->getCoreModel()->getCoreSkeleton()->getCoreBoneId(name);
+	return Cal2DX(model->getSkeleton()->getBone(bone_id)->getTranslationAbsolute());
+}
+
+VEC3 TCompSkeleton::setBonePositionByName(const std::string & name) {
+
+	
+	int bone_id = model->getCoreModel()->getCoreSkeleton()->getCoreBoneId(name);
+	return Cal2DX(model->getSkeleton()->getBone(bone_id)->getTranslationAbsolute());
+}
+
+
+
+VEC3 TCompSkeleton::getBonePositionById(int id) {
+	VEC3 pos = Cal2DX(model->getSkeleton()->getBone(id)->getTranslationAbsolute());
+	return pos;
+}
+
+void TCompSkeleton::setBonePositionById(int id, VEC3 position) {
+	model->getSkeleton()->getBone(id)->setTranslation(DX2Cal(position));
 }

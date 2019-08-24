@@ -28,13 +28,14 @@ public:
 	void disable();
 	//End Shopping Cart Public Functions
     bool cinematic = false;
-
+	bool isEnabled = false;
 private:
 	CHandle vehiclePropHandle;
 	CHandle fakePlayerHandle;
 	//Flags
-	bool isEnabled = false;
-
+	
+	
+	float sensitivity = 2.0f;
 	float gravity = -9.81f;
 	float speed = 6.0f;
 	float rowDelay = 1.0f;
@@ -69,7 +70,7 @@ private:
 	bool isGrounded();
 
 	void onCollision(const TMsgOnContact& msg);
-    void onCinematic(const TMsgOnCinematic& msg);
+    void onCinematicScart(const TMsgOnCinematic& msg);
 
 	DECL_SIBLING_ACCESS();
 };

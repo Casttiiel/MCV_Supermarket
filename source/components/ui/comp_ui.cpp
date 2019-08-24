@@ -101,7 +101,7 @@ void TCompUi::update(float delta) {
 			}
 			ImGui::End();
 	*/
-	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize
+	/*ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize
 		| ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
 		| ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoInputs;
 	CHandle h_player = getEntityByName("Player");
@@ -134,7 +134,7 @@ void TCompUi::update(float delta) {
 			ImGui::End();
 		}
 
-	}
+	}*/
 
 }
 

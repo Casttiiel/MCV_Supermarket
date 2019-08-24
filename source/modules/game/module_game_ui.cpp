@@ -12,6 +12,8 @@
 #include "ui/widgets/ui_button.h"
 #include "ui/widgets/ui_image.h"
 #include "components/powers/comp_teleport.h"
+#include "components/powers/comp_coffee.h"
+#include "components/powers/comp_fire.h"
 
 bool CModuleGameUI::start()
 {
@@ -41,10 +43,10 @@ void CModuleGameUI::update(float delta)
 	PROFILE_FUNCTION("CModuleGameUI::update");
 	CEntity* e_player = getEntityByName("Player");
 	if (EngineInput["pause"].justPressed()) {
-		CEngine::get().getModules().changeToGamestate("gs_paused");//change gamestate
+		//CEngine::get().getModules().changeToGamestate("gs_paused");//change gamestate
 		//pause game
         GameController.pauseGame();
-		Time.real_scale_factor = 0.0f;
+		//Time.real_scale_factor = 0.0f;
 	}
 
 	if(Time.real_scale_factor != 0.0f){
@@ -103,8 +105,49 @@ void CModuleGameUI::update(float delta)
 				UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
 				b_cursor->setCurrentState("option_teleport");
 			}
+			
+			/*
+			
+			}*/
+			
+
 		}
-		
+		if (c_controller->unLockableChilli) {
+			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_r1_"));
+			b->getParams()->visible = true;
+			TCompFireController* fire = e_player->get<TCompFireController>();
+			if (fire->isEnabled()) {
+				b->setCurrentState("selected");
+			}
+			else {
+				b->setCurrentState("enabled");
+			}
+		}else{
+			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_r1_"));
+			b->getParams()->visible = false;
+		}
+
+		if (c_controller->unLockableCoffe) {
+			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_l1_"));
+			b->getParams()->visible = true;
+			TCompCoffeeController* tc = e_player->get<TCompCoffeeController>();
+			if (tc->getIsEnabled()) {
+				b->setCurrentState("selected");
+			}
+			else {
+				b->setCurrentState("enabled");
+			}
+		}
+		else {
+			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_l1_"));
+			b->getParams()->visible = false;
+		}
+
+
+
+
+		/*
+		//ANTES PARA QLOS DISPAROS-- NO ERA CORRECTO PORQUE ERAN ITEMS(CAFE Y FUEGO)
 		if (EngineInput["select_aim_"].isPressed()) {
 			UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_l1_"));
 			boton->setCurrentState("selected");
@@ -121,7 +164,7 @@ void CModuleGameUI::update(float delta)
 			boton->setCurrentState("enabled");
 			c_tp->timeAfterTeleportUI = 0.5f;
 		}
-		
+		*/
 		
 	
 		if (e_player != nullptr) {

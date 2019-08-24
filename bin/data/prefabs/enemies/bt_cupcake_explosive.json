@@ -26,7 +26,13 @@
         "explosionDelay" : 2.0,
         "explosion_damage": 25.0,
         "explosionRadius": 4.0,
-        "distanceExplosion" : 5.0
+        "distanceExplosion" : 5.0,
+		"cone_vision" : 14.0,
+		"length_cone" : 5.0,
+		"half_cone" : 25.0
+		
+		
+		
 
       },
       "collider" : {
@@ -39,8 +45,8 @@
       },
       "rigidbody": {},
       "comp_checkpoint_register":{
-        "prefab": "data/prefabs/enemies/bt_cupcake.json",
-        "entityTypeString": "CUPCAKE"
+        "prefab": "data/prefabs/enemies/bt_cupcake_explosive.json",
+        "entityTypeString": "EXPLOSIVE_CUPCAKE"
       },
       "tags" : ["enemy", "cupcake"]
     }

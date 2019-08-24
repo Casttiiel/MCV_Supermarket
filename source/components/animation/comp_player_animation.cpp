@@ -100,6 +100,8 @@ void TCompPlayerAnimator::initializeAnimations() {
 		1.0f
 	);
 
+
+
   /*
 	initializeAnimation(
 		(TCompAnimator::EAnimation)EAnimation::DEAD,

@@ -15,8 +15,6 @@
   ],
   "update": [
     "armature",
-    "comp_wind_effect",
-    "comp_wind",
 	"sCart_controller",
     "character_controller",
 	"curve_controller",
@@ -36,6 +34,7 @@
     "rigidbody",
     "camera_flyover",
     "bone_tracker",
+    "bone_tracker_golem",
     "ragdoll",
     "sensor",
     "hierarchy",
@@ -52,7 +51,6 @@
 	"grenade_golem_controller",
     "comp_madness_fountain",
     "comp_enemy_spawner",
-    "comp_teleportable_object_spawner",
     "comp_explosive_object",
     "camera_3rd_person",
     "aim_controller",
@@ -69,9 +67,9 @@
     "ai_turret",
     "turret_bullet_controller",
     "comp_blackboard",
-    "comp_wind",
-    "comp_wind_effect",
     "comp_wind_trap",
+    "comp_blade_trap",
+    "comp_fire_trap",
     "trigger_damage_zone",
     "comp_obstacle",
     "ai_anav",
@@ -80,8 +78,10 @@
     "bolt_billboard",
     "bolt_sphere",
     "dust",
+    "air",
     "trail",
     "scalable",
+    "comp_slow_disappear",
     "dynamic_instance",
     "camera",
     "compute",
@@ -89,13 +89,14 @@
     "comp_self_destroy",
 	"comp_termoestato",
 	"morph_animation",
-	"comp_blade_trap",
 	"comp_increase_power",
 	"comp_interruptor",
-	"enemies_in_tube"
+	"enemies_in_tube",
+	"enemies_in_butcher"
   ],
   "render_debug": [
-   "ui_controller",
-    "character_controller"
+    "ui_controller",
+    "character_controller",
+    "collider"
   ]
 }
