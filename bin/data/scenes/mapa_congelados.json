@@ -1526,48 +1526,6 @@
   {
     "entity":
     {
-      "name": "estanteria_nevera_pasillo021"
-      ,
-      "transform":
-      {
-        "pos": "136.288 -3.66876 -26.3861"
-        ,
-        "rotation": "0.0 0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo021.col_mesh"
-            ,
-            "group": "obstacle"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo021.mesh"
-        ,
-        "color": "0.0313726 0.239216 0.541176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "estanteria_nevera_pasillo022"
       ,
       "transform":
@@ -2426,9 +2384,9 @@
       ,
       "transform":
       {
-        "pos": "146.844 14.7625 2.73201"
+        "pos": "145.238 14.7625 6.01879"
         ,
-        "rotation": "-0.010573 -0.77884 0.626996 -0.0131336"
+        "rotation": "0.0225122 -0.793345 0.607645 0.0293921"
         ,
         "lookat": "146.266 11.0142 19.8717"
       }
@@ -2441,7 +2399,7 @@
         ,
         "fov": 45.0
         ,
-        "distanceTarget": 17.5543
+        "distanceTarget": 14.3878
       }
     }
   }
@@ -2496,6 +2454,566 @@
         "fov": 45.0
         ,
         "distanceTarget": 60.6395
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta"
+      ,
+      "transform":
+      {
+        "pos": "125.007 -3.65263 -53.9255"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Puerta.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/puerta_1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch1"
+      ,
+      "transform":
+      {
+        "pos": "157.376 181.453 -7.30054"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_switch1.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/switch1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe1"
+      ,
+      "transform":
+      {
+        "pos": "157.376 181.082 -7.30054"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_enchufe1.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta_candado"
+      ,
+      "transform":
+      {
+        "pos": "155.346 -3.65261 -7.55091"
+        ,
+        "rotation": "0.0 -0.999456 0.0 -0.0329902"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Puerta_candado.mesh"
+        ,
+        "color": "0.882353 0.341176 0.560784 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/puerta_candado1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "columna"
+      ,
+      "transform":
+      {
+        "pos": "138.391 -3.65261 -13.7377"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_columna.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_columna.mesh"
+        ,
+        "color": "0.341176 0.882353 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "acc_congelados"
+      ,
+      "transform":
+      {
+        "pos": "120.392 6.03088 -59.7545"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_acc_congelados.mesh"
+        ,
+        "color": "0.0235294 0.529412 0.443137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object004"
+      ,
+      "transform":
+      {
+        "pos": "146.029 6.0783 39.5272"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Object004.mesh"
+        ,
+        "color": "0.0235294 0.529412 0.443137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta_candado003"
+      ,
+      "transform":
+      {
+        "pos": "60.0113 -2.02762 -64.3118"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Puerta_candado003.mesh"
+        ,
+        "color": "0.882353 0.341176 0.560784 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/puerta_candado1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "columna002"
+      ,
+      "transform":
+      {
+        "pos": "41.2518 -3.65261 7.82429"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_columna002.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_columna002.mesh"
+        ,
+        "color": "0.341176 0.882353 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "columna003"
+      ,
+      "transform":
+      {
+        "pos": "43.7928 -3.65261 -15.3847"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_columna003.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_columna003.mesh"
+        ,
+        "color": "0.341176 0.882353 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta001"
+      ,
+      "transform":
+      {
+        "pos": "135.088 -3.65262 -22.4806"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Puerta001.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/puerta_1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "columna004"
+      ,
+      "transform":
+      {
+        "pos": "137.14 -3.65261 -32.0522"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_columna004.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_columna004.mesh"
+        ,
+        "color": "0.341176 0.882353 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "columna005"
+      ,
+      "transform":
+      {
+        "pos": "142.114 -3.65261 -47.6154"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_columna005.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_columna005.mesh"
+        ,
+        "color": "0.341176 0.882353 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "columna006"
+      ,
+      "transform":
+      {
+        "pos": "127.9 -3.65261 -70.2488"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_columna006.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_columna006.mesh"
+        ,
+        "color": "0.341176 0.882353 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "columna007"
+      ,
+      "transform":
+      {
+        "pos": "120.409 -3.65261 -55.4068"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_columna007.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_columna007.mesh"
+        ,
+        "color": "0.341176 0.882353 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe002"
+      ,
+      "transform":
+      {
+        "pos": "58.2848 361.082 -64.3941"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_enchufe002.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch003"
+      ,
+      "transform":
+      {
+        "pos": "58.2848 361.453 -64.3941"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_switch003.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/switch1.material"
+        ]
       }
     }
   }

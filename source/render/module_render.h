@@ -14,6 +14,7 @@ class CModuleRender : public IModule
 
   CDeferredRenderer* deferred = nullptr;
   CRenderToTexture* deferred_output = nullptr;
+  CRenderToTexture* ui_output = nullptr;
 
   void uploadSkinMatricesToGPU();
   void parsePipelines(const std::string& filename);
