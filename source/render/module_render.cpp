@@ -213,7 +213,7 @@ bool CModuleRender::setupDeferredOutput() {
 
   //do the same for the ui_output
   if (ui_output->getWidth() != Render.width || ui_output->getHeight() != Render.height) {
-    if (!ui_output->createRT("g_ui_output.dds", Render.width, Render.height, DXGI_FORMAT_R16G16B16A16_FLOAT, DXGI_FORMAT_R32_TYPELESS, false, 1))
+    if (!ui_output->createRT("g_ui_output.dds", Render.width, Render.height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_UNKNOWN))
       return false;
   }
 
@@ -329,12 +329,7 @@ void CModuleRender::generateFrame() {
 
  // 
   //change output rendertarget for the next frame
-  Render.startRenderingBackBuffer();
 
-  assert(current_output);
-  {
-    drawFullScreenQuad("presentation.tech", current_output);
-  }
 
   {
     PROFILE_FUNCTION("RenderInMenu");
@@ -353,7 +348,7 @@ void CModuleRender::generateFrame() {
   //CRenderManager::get().render(eRenderCategory::CATEGORY_UI);
   CGpuScope gpu_scope("UI");
   ui_output->activateRT();
-  ui_output->clear(VEC4(0, 0, 0, 0));
+  ui_output->clear(VEC4(0.0f, 0.0f, 0.0f, 0.0f));
   CEngine::get().getUI().render();
 
   CTexture* current_ui_output = ui_output;
@@ -363,13 +358,19 @@ void CModuleRender::generateFrame() {
       current_ui_output = render_chromatic->apply(ui_output);
     }
   }
+  
+  // 
+  //change output rendertarget for the next frame
+  Render.startRenderingBackBuffer();
+
+  assert(current_output);
+  {
+    drawFullScreenQuad("presentation.tech", current_output);
+  }
 
   assert(current_ui_output);
   {
     drawFullScreenQuad("presentation_ui.tech", current_ui_output);
   }
 
-  // 
-  //change output rendertarget for the next frame
-  Render.startRenderingBackBuffer();
 }

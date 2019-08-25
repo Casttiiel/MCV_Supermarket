@@ -12,8 +12,10 @@ float4 PS(
   float4 distorsion_r = txAlbedo.Sample(samClampLinear, iTex0 + DistortionAmount * 0.01 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed)); 
   float4 distorsion_g = txAlbedo.Sample(samClampLinear, iTex0 - DistortionAmount * 0.01 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed));
   float4 distorsion_b = txAlbedo.Sample(samClampLinear, iTex0 + DistortionAmount * 0.01 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed));
+  float4 distorsion_a = txAlbedo.Sample(samClampLinear, iTex0 - DistortionAmount * 0.01 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed));
 
-  return float4(distorsion_r.r, distorsion_g.g, distorsion_b.b, 1);
+  float alpha = (distorsion_r.a+distorsion_g.a+distorsion_b.a) / 3;
+  return float4(distorsion_r.r, distorsion_g.g, distorsion_b.b, alpha);
 }
  
 

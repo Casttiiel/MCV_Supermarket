@@ -15,5 +15,5 @@ float4 PS(
 
   float4 ui = txAlbedo.Sample(samLinear, iUV);
 
-  return float4( ui.xyz, 1 );
+  return ui;
 }

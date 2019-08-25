@@ -160,12 +160,6 @@
     "vs": "VS_DebugLine",
     "vdecl": "PosColor"
   },
-  "ui_additive": {
-    "vs_fx": "data/shaders/ui.fx",
-    "vdecl": "PosUvColor",
-    "blend": "additive",
-    "z" : "disable_all"
-  },
   "objs_alpha": {
     "vs_fx": "data/shaders/pbr.fx",
     "ps" : "PS_alpha",
@@ -208,7 +202,8 @@
     "vs_fx": "data/shaders/screen_quad.fx",
     "vdecl": "PosColor",
     "ps_fx": "data/shaders/presentation_ui.fx",
-    "z": "disable_all"
+    "z": "disable_all",
+    "blend":"combinative"
   },
   "pbr_ambient": {
     "vs_fx": "data/shaders/screen_quad.fx",
