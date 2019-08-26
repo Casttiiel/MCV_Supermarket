@@ -302,14 +302,17 @@ function createEnemies_player()
 	--suishis piso superior (Quizas setear el height para que no te ataquen antes de tiempo)
 	h_suishi9 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-47,7.632,-18), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica9",h_suishi9);
+	GameController:setHeightEnemyByHandle(1,h_suishi9,1);
 	GameController:setPauseEnemyByHandle(h_suishi9,true);
 
 	h_suishi10 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-53,7.632,-17), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica10",h_suishi10);
+	GameController:setHeightEnemyByHandle(1,h_suishi10,1);
 	GameController:setPauseEnemyByHandle(h_suishi10,true);
 
-	h_suishi11 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-64,7.632,-23), QUAT(0, 0, 0, 1),1);
+	h_suishi11 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-60,7.632,-23), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica11",h_suishi11);
+	GameController:setHeightEnemyByHandle(1,h_suishi11,1);
 	GameController:setPauseEnemyByHandle(h_suishi11,true);
 
 	--h_suishi12 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(80,7.632,137), QUAT(0, 0, 0, 1),1);--quitar este
@@ -349,7 +352,7 @@ function wakeUpSuishisSecondFloor()
 	
 		GameController:setPauseEnemyByHandle(h_suishi11,false);
 		
-		GameController:setPauseEnemyByHandle(h_suishi12,false);
+		--GameController:setPauseEnemyByHandle(h_suishi12,false);
 	end
 end
 
@@ -410,8 +413,8 @@ function on_ambush()
 		GameController:setPauseEnemyByHandle(h_suishi13,false);
 		GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica14",h_suishi14);
 		GameController:setPauseEnemyByHandle(h_suishi14,false);
-		GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica15",h_suishi15);
-		GameController:setPauseEnemyByHandle(h_suishi15,false);
+		--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica15",h_suishi15);
+		--GameController:setPauseEnemyByHandle(h_suishi15,false);
 	end
 end
 
