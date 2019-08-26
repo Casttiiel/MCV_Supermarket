@@ -95,10 +95,10 @@ void TCompBatteryController::onCollision(const TMsgOnContact& msg) {
             if (curr_e3) {
               TCompSelfDestroy* c_sdes2 = curr_e3->get<TCompSelfDestroy>();
               c_sdes2->setDelay(timeEffect);
-              TCompBoltBillboard* c_bbill = curr_e3->get<TCompBoltBillboard>();
+              /*TCompBoltBillboard* c_bbill = curr_e3->get<TCompBoltBillboard>();
               c_bbill->setTargetPosition(curr_e);
               CHandle h(this);
-              c_bbill->setTargetAim(h.getOwner());
+              c_bbill->setTargetAim(h.getOwner());*/
             }
 
             parseScene("data/particles/spark_particles.json", ctx2);

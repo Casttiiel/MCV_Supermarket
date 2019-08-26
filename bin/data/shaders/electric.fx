@@ -21,7 +21,12 @@ VS_OUTPUT VS(
 )
 {
   VS_OUTPUT output = (VS_OUTPUT)0;
-  output.Pos = mul(Pos, World);
+
+  float3 localPos = Pos.x * CameraLeft
+                  + Pos.y * CameraUp;
+  float3 p = localPos;
+
+  //output.Pos = mul(localPos, World);
 
   output.Pos = mul(output.Pos, ViewProjection);
   output.Color = Color * ObjColor;
