@@ -40,6 +40,7 @@ void TCompBoltBillboard::update(float delta) {
 
   //cTransform->rotateTowards(pos_to_aim);
   //cTransform->inclineTo(pos_to_aim);
+  
   CEntity* e_cam = getEntityByName("MainCamera");
   TCompTransform* cam_trans = e_cam->get<TCompTransform>();
   VEC3 front = pos_to_aim - t_pos->getPosition();

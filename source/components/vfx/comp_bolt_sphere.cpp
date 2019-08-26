@@ -27,7 +27,7 @@ void TCompBoltSphere::onCreation(const TMsgEntityCreated& msgC) {
   if (c_trans) {
     c_trans = get<TCompTransform>();
     VEC3 pos = c_trans->getPosition();
-    target_position = pos + VEC3(0,1,0);
+    target_position = pos + VEC3(0,2,0);
   }
 }
 
@@ -36,6 +36,9 @@ void TCompBoltSphere::update(float delta) {
   TCompTransform* cTransform = get<TCompTransform>();
 
   VEC3 dir = target_position - cTransform->getPosition();
+  if (dir.Length() < 0.1f)
+    return;
+
   dir.Normalize();
   VEC3 newPos = cTransform->getPosition() + dir * delta * speed;
   cTransform->setPosition(newPos);
