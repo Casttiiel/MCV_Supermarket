@@ -46,7 +46,7 @@ bool CRenderToTexture::createRT(
   // Create color buffer
   color_format = new_color_format;
   if (color_format != DXGI_FORMAT_UNKNOWN) {
-    if (!create(new_xres, new_yres, color_format, CREATE_RENDER_TARGET, mip_level)) //PASAR AQUI EL MIP LEVEL PARA LA TEXTURA FINAL DE ACC LIGHTS
+    if (!create(new_xres, new_yres, color_format, CREATE_RENDER_TARGET, mip_level))
       return false;
     setDXName(texture, new_name);
     setDXName(shader_resource_view, new_name);

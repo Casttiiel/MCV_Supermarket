@@ -70,6 +70,10 @@ function on_deleteElement(id)
 	GameController:deleteElement(id)
 end
 
+function blendPlayerCamera()
+	GameController:blendPlayerCamera()
+end
+
 function on_ambush_event_1()
 	on_wake_sushi("002")
 	on_wake_sushi("003")

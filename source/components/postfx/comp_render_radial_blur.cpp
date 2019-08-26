@@ -41,7 +41,7 @@ void TCompRenderRadialBlur::debugInMenu() {
     global_distance = 2.0f;
     //nactive_steps = 2;
   }
-  ImGui::DragFloat("global_distance", &global_distance, 0.01f, 0.1f, 16.0f);
+  ImGui::DragFloat("global_distance", &global_distance, 0.01f, 0.1f, 32.0f);
   ImGui::InputFloat("Distance 2nd Tap", &distance_factors.x);
   ImGui::InputFloat("Distance 3rd Tap", &distance_factors.y);
   ImGui::InputFloat("Distance 4th Tap", &distance_factors.z);
@@ -117,4 +117,20 @@ CTexture* TCompRenderRadialBlur::apply( CTexture* in_texture) {
   }
 
   return output;
+}
+
+void TCompRenderRadialBlur::update(float delta) {
+  if (!enabled)
+    return;
+  ratio = clamp(ratio + (delta / time), 0.0f, 1.0f);
+
+
+  if (ratio == 1.0f)
+    enabled = false;
+}
+
+void TCompRenderRadialBlur::enable(float t) {
+  ratio = 0.0f;
+  time = t;
+  enabled = true;
 }

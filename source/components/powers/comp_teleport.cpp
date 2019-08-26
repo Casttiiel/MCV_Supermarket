@@ -17,7 +17,8 @@ using namespace physx;
 DECL_OBJ_MANAGER("comp_teleport", TCompTeleport);
 
 
-void TCompTeleport::update(float delta) {
+void TCompTeleport::update(float delta)
+{
   timeAfterTeleport += delta;
   timeAfterTeleportUI -= delta;
 }
@@ -223,14 +224,19 @@ void TCompTeleport::manageCameras() {
 
   TEntityParseContext ctx;
   ctx.root_transform = *c_pcam;
+  parseScene("data/prefabs/cameras/teleport_camera_fov.json", ctx);
   parseScene("data/prefabs/cameras/teleport_camera.json", ctx);
 
   static Interpolator::TQuadInOutInterpolator quadInt;
   CEntity* e_camera = getEntityByName("TeleportCamera");
-  //BLEND TELEPORT CAMERA INSTANTLY
-  Engine.getCameraMixer().blendCamera(e_camera, 0.f, &quadInt);
+  CEntity* e_camera_fov = getEntityByName("TeleportCameraFov");
+
+  //BLEND TELEPORT CAMERA INSTANTLY, SO THE CAMERA DOESNT MOVE
+  Engine.getCameraMixer().blendCamera(e_camera, 0.0f, &quadInt);
+  Engine.getCameraMixer().blendCamera(e_camera_fov, 0.3f, &quadInt);
+
   //BLEND TO PLAYER CAMERA
-  Engine.getCameraMixer().blendCamera(p_camera, 0.5f, &quadInt);
+  execDelayedAction("blendPlayerCamera()", 0.3f);
   
 }
 

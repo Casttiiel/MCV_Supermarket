@@ -65,7 +65,7 @@ struct TMaterialExporter (
 				fs.writeKeyValue "technique" "objs_culled_by_gpu.tech"
 				fs.writeComma()
 			)else (
-				format "% wont be instantiated with % material\n\n\n\n" obj.name mat.name
+				format "% wont be instantiated with % material is_morph: % isPlatform % aabb : % walltype: % isPaneL: %\n\n\n\n" obj.name mat.name is_morphed isPlatform aabb walltype isPanel
 			)
 			if is_morphed != undefined then(
 				fs.writeKeyValue "technique" "objs_morph.tech"

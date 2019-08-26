@@ -2269,7 +2269,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_panaderia/blanco.material"
+          "data/materials/mapa_panaderia/suelopanaderia.material"
         ]
       }
     }
@@ -2402,7 +2402,7 @@
   {
     "entity":
     {
-      "name": "pared2_tutorial"
+      "name": "paredes_altas"
       ,
       "transform":
       {
@@ -2420,94 +2420,14 @@
           {
             "shape": "trimesh"
             ,
-            "collision_mesh": "data/meshes/mapa_panaderia_pared2_tutorial.col_mesh"
+            "collision_mesh": "data/meshes/mapa_panaderia_paredes_altas.col_mesh"
           }
         ]
       }
       ,
       "render":
       {
-        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_pared2_tutorial.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_panaderia/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "pared3_tutorial"
-      ,
-      "transform":
-      {
-        "pos": "187.986 -38.188 -53.8248"
-        ,
-        "rotation": "0.0 0.0 -0.707107 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_panaderia_pared3_tutorial.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_pared3_tutorial.mesh"
-        ,
-        "color": "0.529412 0.231373 0.0313726 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_panaderia/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "pared4_tutorial"
-      ,
-      "transform":
-      {
-        "pos": "165.986 -38.188 -53.8248"
-        ,
-        "rotation": "0.0 0.0 -0.707107 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_panaderia_pared4_tutorial.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_pared4_tutorial.mesh"
+        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_paredes_altas.mesh"
         ,
         "color": "0.529412 0.231373 0.0313726 1.0"
         ,
@@ -2642,47 +2562,7 @@
   {
     "entity":
     {
-      "name": "Box017"
-      ,
-      "transform":
-      {
-        "pos": "165.953 -13.7043 -22.3239"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_panaderia_Box017.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_Box017.mesh"
-        ,
-        "color": "0.898039 0.603922 0.843137 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_panaderia/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Box018"
+      "name": "pared1"
       ,
       "transform":
       {
@@ -2700,20 +2580,20 @@
           {
             "shape": "trimesh"
             ,
-            "collision_mesh": "data/meshes/mapa_panaderia_Box018.col_mesh"
+            "collision_mesh": "data/meshes/mapa_panaderia_pared1.col_mesh"
           }
         ]
       }
       ,
       "render":
       {
-        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_Box018.mesh"
+        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_pared1.mesh"
         ,
         "color": "0.898039 0.603922 0.843137 1.0"
         ,
         "materials":
         [
-          "data/materials/mapa_panaderia/blanco.material"
+          "data/materials/mapa_panaderia/pared1panaderia.material"
         ]
       }
     }
@@ -2742,6 +2622,90 @@
         "fov": 45.0
         ,
         "distanceTarget": 44.2019
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared4_tutorial001collider"
+      ,
+      "transform":
+      {
+        "pos": "165.986 -38.188 -53.8248"
+        ,
+        "rotation": "0.0 0.0 -0.707107 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_pared4_tutorial001collider.mesh"
+        ,
+        "color": "0.529412 0.231373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_panaderia/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box018collider"
+      ,
+      "transform":
+      {
+        "pos": "165.953 -13.7043 -22.3239"
+        ,
+        "rotation": "-2.8213e-07 2.8213e-07 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_Box018collider.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_panaderia/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared002"
+      ,
+      "transform":
+      {
+        "pos": "165.906 -13.7043 -22.3239"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_panaderia/mapa_panaderia_pared002.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_panaderia/blanco.material"
+        ]
       }
     }
   }

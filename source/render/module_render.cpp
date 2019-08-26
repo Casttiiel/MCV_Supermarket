@@ -35,6 +35,7 @@ bool CModuleRender::start() {
 
   deferred = new CDeferredRenderer();
   deferred_output = new CRenderToTexture();
+  ui_output = new CRenderToTexture();
 
   setupDeferredOutput();
   onResolutionUpdated();
@@ -117,6 +118,7 @@ void CModuleRender::stop() {
   // Render targets are owned by the Resources obj
   deferred = nullptr;
   deferred_output = nullptr;
+  ui_output = nullptr;
 
   ImGui_ImplDX11_Shutdown();
   ImGui_ImplWin32_Shutdown();
@@ -206,6 +208,12 @@ bool CModuleRender::setupDeferredOutput() {
   assert(deferred_output);
   if (deferred_output->getWidth() != Render.width || deferred_output->getHeight() != Render.height) {
     if (!deferred_output->createRT("g_deferred_output.dds", Render.width, Render.height, DXGI_FORMAT_R16G16B16A16_FLOAT, DXGI_FORMAT_UNKNOWN, true, 1 ))
+      return false;
+  }
+
+  //do the same for the ui_output
+  if (ui_output->getWidth() != Render.width || ui_output->getHeight() != Render.height) {
+    if (!ui_output->createRT("g_ui_output.dds", Render.width, Render.height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_UNKNOWN))
       return false;
   }
 
@@ -299,11 +307,6 @@ void CModuleRender::generateFrame() {
       render_bloom->addBloom();
     }
 
-    TCompChromaticAberration* render_chromatic = e_camera->get<TCompChromaticAberration>();
-    if (render_chromatic) {
-      current_output = render_chromatic->apply(current_output);
-    }
-
     //WE PASS TO LDR BECAUSE FXAA NEEDS IT
     TCompToneMapping* render_tone_map = e_camera->get<TCompToneMapping>();
     assert(render_tone_map); //this should never jump
@@ -325,15 +328,8 @@ void CModuleRender::generateFrame() {
   }
 
  // 
-  Render.startRenderingBackBuffer();
-  //Render.clearBackground(clear_color);
-
-  assert(current_output);
-  {
-    drawFullScreenQuad("presentation.tech", current_output);
-  }
-
   //change output rendertarget for the next frame
+
 
   {
     PROFILE_FUNCTION("RenderInMenu");
@@ -350,5 +346,31 @@ void CModuleRender::generateFrame() {
   camera_ortho.setOrthoParams(false, 0.0f, (float)Render.width / (float)Render.height, 0.f, 1.0f, -1.0f, 1.0f);
   activateCamera(camera_ortho, Render.width, Render.height);
   //CRenderManager::get().render(eRenderCategory::CATEGORY_UI);
+  CGpuScope gpu_scope("UI");
+  ui_output->activateRT();
+  ui_output->clear(VEC4(0.0f, 0.0f, 0.0f, 0.0f));
   CEngine::get().getUI().render();
+
+  CTexture* current_ui_output = ui_output;
+  if (e_camera) {
+    TCompChromaticAberration* render_chromatic = e_camera->get<TCompChromaticAberration>();
+    if (render_chromatic) {
+      current_ui_output = render_chromatic->apply(ui_output);
+    }
+  }
+  
+  // 
+  //change output rendertarget for the next frame
+  Render.startRenderingBackBuffer();
+
+  assert(current_output);
+  {
+    drawFullScreenQuad("presentation.tech", current_output);
+  }
+
+  assert(current_ui_output);
+  {
+    drawFullScreenQuad("presentation_ui.tech", current_ui_output);
+  }
+
 }

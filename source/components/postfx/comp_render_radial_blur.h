@@ -18,6 +18,12 @@ struct TCompRenderRadialBlur : public TCompBase {
   void load(const json& j, TEntityParseContext& ctx);
   void debugInMenu();
   CTexture* apply(CTexture* in_texture);
+  float ratio = 0.0f;
+  float time = 0.0f;
+
+public:
+  void update(float delta);
+  void enable(float t);
 };
 
 #endif
