@@ -21,6 +21,7 @@ VS_OUTPUT VS(
 )
 {
   VS_OUTPUT output = (VS_OUTPUT)0;
+
   output.Pos = mul(Pos, World);
 
   output.Pos = mul(output.Pos, ViewProjection);

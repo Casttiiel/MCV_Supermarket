@@ -7,9 +7,6 @@
 #include "components/common/comp_transform.h"
 #include "modules/game/audio/audioEvent.h"
 
-
-
-
 class TCompBatteryController : public TCompBase {
 
 
@@ -20,7 +17,7 @@ class TCompBatteryController : public TCompBase {
 	CHandle h_sender;
 	bool flagColisiona = false;
 	TCompCollider* colliderAmover;
-	float timeEffect = 5.f;
+	float timeEffect = 50.f;
 	float distance = 1.5f;
 	float distanceFire = 1.f;
 	float atractionForce = 20.f;
@@ -32,6 +29,7 @@ class TCompBatteryController : public TCompBase {
 	float limitTime = timeEffect + 5.0f;
 	float gravityOriginHeight = 3.f;
 	float velocityCurve = 20.f;
+  bool startedEffect = false;
 
 public:
 	void update(float dt);

@@ -327,9 +327,14 @@ void CModuleRender::generateFrame() {
 
   }
 
- // 
+  // 
   //change output rendertarget for the next frame
+  Render.startRenderingBackBuffer();
 
+  assert(current_output);
+  {
+    drawFullScreenQuad("presentation.tech", current_output);
+  }
 
   {
     PROFILE_FUNCTION("RenderInMenu");
@@ -358,15 +363,8 @@ void CModuleRender::generateFrame() {
       current_ui_output = render_chromatic->apply(ui_output);
     }
   }
-  
-  // 
-  //change output rendertarget for the next frame
-  Render.startRenderingBackBuffer();
 
-  assert(current_output);
-  {
-    drawFullScreenQuad("presentation.tech", current_output);
-  }
+  Render.startRenderingBackBuffer();
 
   assert(current_ui_output);
   {
