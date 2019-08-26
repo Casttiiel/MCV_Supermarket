@@ -74,14 +74,14 @@ void TCompBatteryController::onCollision(const TMsgOnContact& msg) {
             CEntity* curr_e = ctx.current_entity;
             if (curr_e) {
               TCompSelfDestroy* c_sdes = curr_e->get<TCompSelfDestroy>();
-              c_sdes->setDelay(timeEffect);
+              c_sdes->setDelay(limitTime);
             }
             //spawn a bolt from the sphere to this
             parseScene("data/prefabs/vfx/bolt.json",ctx);
             CEntity* curr_e2 = ctx.current_entity;
             if (curr_e2) {
               TCompSelfDestroy* c_sdes2 = curr_e2->get<TCompSelfDestroy>();
-              c_sdes2->setDelay(timeEffect);
+              c_sdes2->setDelay(limitTime);
               TCompBoltBillboard* c_bbill = curr_e2->get<TCompBoltBillboard>();
               c_bbill->setTargetPosition(curr_e);
               CHandle h(this);
@@ -105,7 +105,7 @@ void TCompBatteryController::onCollision(const TMsgOnContact& msg) {
             CEntity* curr_e4 = ctx2.current_entity;
             if (curr_e4) {
               TCompSelfDestroy* c_sdes2 = curr_e4->get<TCompSelfDestroy>();
-              c_sdes2->setDelay(timeEffect);
+              c_sdes2->setDelay(limitTime);
             }
 
         }
@@ -234,7 +234,7 @@ void TCompBatteryController::update(float delta) {
                               CEntity* curr_e2 = ctx.current_entity;
                               if (entityContact) {
                                 TCompSelfDestroy* c_sdes2 = curr_e2->get<TCompSelfDestroy>();
-                                c_sdes2->setDelay(timeEffect);
+                                c_sdes2->setDelay(limitTime);
                                 TCompBoltBillboard* c_bbill = curr_e2->get<TCompBoltBillboard>();
                                 CEntity* e_bolt = getEntityByName("BoltSphere");
                                 c_bbill->setTargetPosition(e_bolt);
