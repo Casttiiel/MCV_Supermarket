@@ -17,7 +17,7 @@ class TCompBatteryController : public TCompBase {
 	CHandle h_sender;
 	bool flagColisiona = false;
 	TCompCollider* colliderAmover;
-	float timeEffect = 50.f;
+	float timeEffect = 5.f;
 	float distance = 1.5f;
 	float distanceFire = 1.f;
 	float atractionForce = 20.f;
