@@ -103,15 +103,15 @@ function on_create_enemies_zone_cupcake_player()
 
 	execDelayedAction("changeScene(\"tutorial_scene\")",0)	
 
-	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(185, -49, -86), QUAT(0, 0, 0, 1),1);
+	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(183, -48.460, -66), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakePanaderia1",h_cupcake1);
 	GameController:setPauseEnemyByHandle(h_cupcake1,false);
 	
-	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(184, -49, -75), QUAT(0, 0, 0, 1),1);
+	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(175, -48.460, -72), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakePanaderia2",h_cupcake2);
 	GameController:setPauseEnemyByHandle(h_cupcake2,false);
 
-	h_cupcake3 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(176, -49, -81), QUAT(0, 0, 0, 1),1);
+	h_cupcake3 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(184, -48.460, -74), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakePanaderia3",h_cupcake3);
 	GameController:setPauseEnemyByHandle(h_cupcake3,false);
 	execDelayedAction("on_delete_handle(\"triggerCreacionCupcackes\")",0);
