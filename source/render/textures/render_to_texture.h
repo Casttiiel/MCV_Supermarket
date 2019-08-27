@@ -33,6 +33,8 @@ public:
   void destroy();
 
   CRenderToTexture* activateRT();
+  CRenderToTexture* activateRT(CRenderToTexture* rt);
+
   void activateViewport();
 
   void clear(VEC4 clear_color);
@@ -46,6 +48,7 @@ public:
 
   int getWidth() const { return xres; }
   int getHeight() const { return yres; }
+  ID3D11DepthStencilView* getDepthStencilView() const { return depth_stencil_view; }
 
   void renderInMenu() override;
 };

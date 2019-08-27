@@ -47,6 +47,7 @@ void TCompRenderBloom::load(const json& j, TEntityParseContext& ctx) {
 
   tech_filter = Resources.get("bloom_filter.tech")->as<CTechnique>();
   tech_add = Resources.get("bloom_add.tech")->as<CTechnique>();
+  tech_add_shines = Resources.get("presentation_ui.tech")->as<CTechnique>(); //it will do fine
   mesh = Resources.get("unit_quad_xy.mesh")->as<CMesh>();
 }
 
@@ -106,6 +107,11 @@ void TCompRenderBloom::generateHighlights(CTexture* in_texture) {
   tech_filter->activate();
   mesh->activateAndRender();
 
+  //add to the highlights the shine category
+  t_shine->activate(TS_ALBEDO);
+  tech_add_shines->activate();
+  mesh->activateAndRender();
+
   // Blur the highlights
   TCompRenderBlur::apply(rt_highlights);
 
@@ -113,3 +119,6 @@ void TCompRenderBloom::generateHighlights(CTexture* in_texture) {
   prev_rt->activateRT();
 }
 
+void TCompRenderBloom::setShineTexture(CTexture* tex) {
+  t_shine = tex;
+}
