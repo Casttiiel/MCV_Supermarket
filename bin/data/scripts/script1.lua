@@ -463,36 +463,36 @@ function activePlataformCarniceria_player()
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn3",h_suishi3);
 	GameController:setPauseEnemyByHandle(h_suishi3,true);
 	--suishis P1
-	--h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-152,6.157,-222), QUAT(0, 0, 0, 1),1);
-	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn4",h_suishi4);
-	--GameController:setPauseEnemyByHandle(h_suishi4,false);
-	--t_compname4 = toCompName(toEntity(h_suishi4):getCompByName("name"));
-	--t_compname4:setName("Sushi004");
+	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-152,6.157,-222), QUAT(0, 0, 0, 1),1);
+	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn4",h_suishi4);
+	GameController:setPauseEnemyByHandle(h_suishi4,false);
+	t_compname4 = toCompName(toEntity(h_suishi4):getCompByName("name"));
+	t_compname4:setName("Sushi004");
 	--suishis P2
-	--h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-151,12.182,-189), QUAT(0, 0, 0, 1),1);
-	--GameController:setHeightEnemyByHandle(1.0,h_suishi5,1);
-	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
-	--GameController:setPauseEnemyByHandle(h_suishi5,false);
-	--t_compname5 = toCompName(toEntity(h_suishi5):getCompByName("name"));
-	--t_compname5:setName("Sushi005");
+	h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-151,12.182,-189), QUAT(0, 0, 0, 1),1);
+	GameController:setHeightEnemyByHandle(1.0,h_suishi5,1);
+	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
+	GameController:setPauseEnemyByHandle(h_suishi5,false);
+	t_compname5 = toCompName(toEntity(h_suishi5):getCompByName("name"));
+	t_compname5:setName("Sushi005");
 	--suishis P3
-	--h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-107,14.962,-192), QUAT(0, 0, 0, 1),1);
-	--GameController:setHeightEnemyByHandle(1.0,h_suishi6,1);
-	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn6",h_suishi6);
-	--GameController:setPauseEnemyByHandle(h_suishi6,false);
-	--t_compname6 = toCompName(toEntity(h_suishi6):getCompByName("name"));
-	--t_compname6:setName("Sushi006");
+	h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-107,14.962,-192), QUAT(0, 0, 0, 1),1);
+	GameController:setHeightEnemyByHandle(1.0,h_suishi6,1);
+	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn6",h_suishi6);
+	GameController:setPauseEnemyByHandle(h_suishi6,false);
+	t_compname6 = toCompName(toEntity(h_suishi6):getCompByName("name"));
+	t_compname6:setName("Sushi006");
 	--suishis P4
-	--h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-112,22.063,-231), QUAT(0, 0, 0, 1),1);
-	--GameController:setHeightEnemyByHandle(1.0,h_suishi7,1);
-	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn7",h_suishi7);
-	--GameController:setPauseEnemyByHandle(h_suishi7,false);
+	h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-112,22.063,-231), QUAT(0, 0, 0, 1),1);
+	GameController:setHeightEnemyByHandle(1.0,h_suishi7,1);
+	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn7",h_suishi7);
+	GameController:setPauseEnemyByHandle(h_suishi7,false);
 	--creacion de la trampa de los suishis
 	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
 
 	--Audio
 	GameController:updateSoundtrackID(5);
-	--PRUEBA CAMERA LOCA
+	-- CAMERA LOCA
 	execDelayedAction("cinematica_tower()",0.0);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi2,false)",12.5);
@@ -569,6 +569,7 @@ function cinematica_tower()
 
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",7.0);
 	execDelayedAction("on_lock_camera3(true)",13.0);
+	execDelayedAction("on_cinematic_special(false,1)",13.0);
 	--t_compCharacterController = toCompCharacterController(toEntity(handlePlayer):getCompByName("character_controller"));
 	--t_compCharacterController:ChangeState("ESPECIAL_CINEMATIC");
 
