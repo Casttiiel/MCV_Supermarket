@@ -439,8 +439,9 @@
     "vs_fx": "data/shaders/electric.fx",
     "vdecl": "PosUvColor",
     "noise": "data/textures/noise_cloud2.dds",
-    "blend": "combinative",
-    "rs": "cull_none"
+    "rs": "cull_none",
+    "blend": "additive_by_src_alpha",
+    "z": "test_but_no_write"
   },
   "bolt_effect": {
     "vs_fx": "data/shaders/bolt.fx",
@@ -448,6 +449,8 @@
     "noise": "data/textures/noise_cloud2.dds",
     "blend": "combinative",
     "rs": "cull_none",
+    "blend": "additive",
+    "z": "test_but_no_write",
     "ctes_buffers": {
       "TCtesBolt": 13
     }
