@@ -36,6 +36,7 @@ bool CModuleRender::start() {
   deferred = new CDeferredRenderer();
   deferred_output = new CRenderToTexture();
   ui_output = new CRenderToTexture();
+  shine_output = new CRenderToTexture();
 
   setupDeferredOutput();
   onResolutionUpdated();
@@ -119,6 +120,7 @@ void CModuleRender::stop() {
   deferred = nullptr;
   deferred_output = nullptr;
   ui_output = nullptr;
+  shine_output = nullptr;
 
   ImGui_ImplDX11_Shutdown();
   ImGui_ImplWin32_Shutdown();
@@ -213,7 +215,13 @@ bool CModuleRender::setupDeferredOutput() {
 
   //do the same for the ui_output
   if (ui_output->getWidth() != Render.width || ui_output->getHeight() != Render.height) {
-    if (!ui_output->createRT("g_ui_output.dds", Render.width, Render.height, DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_FORMAT_UNKNOWN))
+    if (!ui_output->createRT("g_ui_output.dds", Render.width, Render.height, DXGI_FORMAT_R16G16B16A16_FLOAT, DXGI_FORMAT_UNKNOWN))
+      return false;
+  }
+
+  //do the same for the shine_output
+  if (shine_output->getWidth() != Render.width || shine_output->getHeight() != Render.height) {
+    if (!shine_output->createRT("g_shine_output.dds", Render.width, Render.height, DXGI_FORMAT_R16G16B16A16_FLOAT, DXGI_FORMAT_UNKNOWN))
       return false;
   }
 
@@ -285,6 +293,12 @@ void CModuleRender::generateFrame() {
   // Still rendering over deferred_output....
   CRenderManager::get().render(eRenderCategory::CATEGORY_DISTORSIONS);
 
+  //it should render over deferred_output and shine_output
+  renderShine();  
+
+  //back to render to deferred_output
+  deferred_output->activateRT();
+
   // Apply post FX effects
   e_camera = h_camera;
   if (e_camera) {
@@ -303,6 +317,7 @@ void CModuleRender::generateFrame() {
 
     TCompRenderBloom* render_bloom = e_camera->get<TCompRenderBloom>();
     if (render_bloom) {
+      render_bloom->setShineTexture(shine_output);
       render_bloom->generateHighlights(deferred_output);
       render_bloom->addBloom();
     }
@@ -370,5 +385,35 @@ void CModuleRender::generateFrame() {
   {
     drawFullScreenQuad("presentation_ui.tech", current_ui_output);
   }
+
+}
+
+void CModuleRender::renderShine() {
+  //shine_output->activateRT(deferred_output);
+
+
+  //CTexture::setNullTexture(TS_DEFERRED_ALBEDOS);
+
+  // Activate el multi-render-target MRT
+  const int nrender_targets = 2;
+  ID3D11RenderTargetView* rts[nrender_targets] = {
+    deferred_output->getRenderTargetView(),
+    shine_output->getRenderTargetView()
+  };
+
+  // We use our 2 rt's and the Zbuffer of the Deferred Buffer
+  Render.ctx->OMSetRenderTargets(nrender_targets, rts, deferred_output->getDepthStencilView());
+  deferred_output->activateViewport();   // Any rt will do...
+
+  // Clear only the shine buffer, we will write over the deferred buffer
+  shine_output->clear(VEC4(0, 0, 0, 0));  
+
+  // Render the shining objects that output to the Deferred buffer and Shine buffer
+  CRenderManager::get().render(eRenderCategory::CATEGORY_SHINE);
+
+  // Disable rendering to all render targets.
+  ID3D11RenderTargetView* rt_nulls[nrender_targets];
+  for (int i = 0; i < nrender_targets; ++i) rt_nulls[i] = nullptr;
+  Render.ctx->OMSetRenderTargets(nrender_targets, rt_nulls, nullptr);
 
 }

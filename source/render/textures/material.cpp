@@ -55,6 +55,7 @@ RenderCategoryNames::TEntry render_category_names[] = {
   {eRenderCategory::CATEGORY_DECALS, "decals"},
   {eRenderCategory::CATEGORY_TRANSPARENTS, "transparent"},
   {eRenderCategory::CATEGORY_SHADOWS, "shadows"},
+  {eRenderCategory::CATEGORY_SHINE, "shine"},
 };
 RenderCategoryNames category_names(render_category_names, sizeof(render_category_names) / sizeof(RenderCategoryNames::TEntry));
 

@@ -209,7 +209,9 @@ v2p VS(
 }
 
 //--------------------------------------------------------------------------------------
-float4 PS(v2p input) : SV_Target {
+void PS(v2p input
+, out float4 o_deferred : SV_Target0
+, out float4 o_shine : SV_Target1   ){
   const float2x2 rot_matrix = { cos(input.aux.x), -sin(input.aux.x),
     sin(input.aux.x), cos(input.aux.x)
   };
@@ -254,5 +256,6 @@ float4 PS(v2p input) : SV_Target {
   finalcolor *= length(input.Uv - float2(0.5f,0.5f)) < 0.4f;
 
   //return input.Color * 4;
-  return finalcolor * input.Color; // + float4( 1,1,1,0); finalcolor * input.Color
+  o_deferred = finalcolor * input.Color; // + float4( 1,1,1,0); finalcolor * input.Color
+  o_shine = finalcolor * input.Color; // + float4( 1,1,1,0); finalcolor * input.Color
 }

@@ -93,6 +93,15 @@ CRenderToTexture* CRenderToTexture::activateRT() {
   return prev_rt;
 }
 
+// used to paint on a RT using the depth/stencil from another one
+CRenderToTexture* CRenderToTexture::activateRT(CRenderToTexture* rt){
+  CRenderToTexture* prev_rt = current_rt;
+  Render.ctx->OMSetRenderTargets(1, &render_target_view, rt->depth_stencil_view);
+  activateViewport();
+  current_rt = this;
+  return prev_rt;
+}
+
 void CRenderToTexture::activateViewport() {
   D3D11_VIEWPORT vp;
   vp.Width = (float)xres;

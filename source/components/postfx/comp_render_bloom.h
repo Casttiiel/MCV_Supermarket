@@ -7,8 +7,10 @@
 struct TCompRenderBloom : public TCompRenderBlur {
   CCteBuffer< TCtesBloom >      cte_bloom;
   CRenderToTexture*             rt_highlights = nullptr;
+  CTexture*                     t_shine = nullptr;
   const CTechnique*             tech_filter = nullptr;
   const CTechnique*             tech_add = nullptr;
+  const CTechnique*             tech_add_shines = nullptr;
   const CMesh*                  mesh = nullptr;
   VEC4                          add_weights;
   float                         threshold_min = 0.8f;
@@ -23,6 +25,7 @@ struct TCompRenderBloom : public TCompRenderBlur {
   void load(const json& j, TEntityParseContext& ctx);
   void debugInMenu();
   void addBloom();
+  void setShineTexture(CTexture* tex);
 
 };
 
