@@ -19,6 +19,26 @@
         "bone": "Bone002",
         "parent": "Player"
       },
+      "comp_melee_trigger":{},
+      "collider":
+        {
+          "shapes":
+          [
+            {
+              "shape": "box"
+              ,
+              "half_size": "0.1 0.8 0.1"
+              ,
+              "offset":
+              {
+                "pos": "0.0 -0.2 0.0"
+              }
+              ,
+              "trigger": true,
+              "group":"VulnerableToMelee"
+            }
+          ]
+        },
 	   "tags" : ["weapon"]
     }
   },

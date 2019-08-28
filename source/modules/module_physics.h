@@ -63,6 +63,7 @@ public:
     NotPlayer = Scenario | Grenade | Enemy,
     TpRay = TeleportableEnemy | Scenario | TeleportableObj | Grenade,
     CameraCollision = Scenario,
+    VulnerableToMelee = Enemy | Puddle | DestroyableWall | Panel,
 	  NotSpawnerObjects = TeleportableObj | Enemy | Player,
       VulnerableToFire = ExplosiveObj | Enemy | DestroyableWall,
       VulnerableToExplosions = ExplosiveObj | Characters,
