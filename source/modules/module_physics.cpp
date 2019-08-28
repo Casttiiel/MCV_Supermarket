@@ -625,7 +625,7 @@ void CModulePhysics::update(float delta) {
 
   {
     PROFILE_FUNCTION("Simulate");
-    gScene->simulate(delta);
+	gScene->simulate(Time.delta_unscaled);
   }
   {
     PROFILE_FUNCTION("fetch");

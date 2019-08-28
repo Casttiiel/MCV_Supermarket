@@ -548,8 +548,8 @@ function activarSalidaPanaderia()
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraPanaderiaPlat\", 5,\"linear\")",0.1);
 	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",11.5);
-	execDelayedAction("on_lock_camera3(true)",16);
-	execDelayedAction("on_cinematic(false)",16);
+	execDelayedAction("on_lock_camera3(true)",16.5);
+	execDelayedAction("on_cinematic(false)",16.5);
 
 
 	execDelayedAction("activePlatformByName(\"plat1346469\")",5.2);
