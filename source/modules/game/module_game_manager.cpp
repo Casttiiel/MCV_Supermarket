@@ -109,7 +109,7 @@ void CModuleGameManager::gameCondition() {
 
 	}
 	
-	if (!isPaused && EngineInput["pause"].justPressed() || (!menuVisible && CApplication::get().lostFocus())) {
+	if (!isPaused && EngineInput["pause"].justPressed() /*|| (!menuVisible && CApplication::get().lostFocus())*/) {
 		
 	
 		//juego en pausa y jugador vivo

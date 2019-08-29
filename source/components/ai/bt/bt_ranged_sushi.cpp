@@ -462,6 +462,9 @@ int CBTRangedSushi::actionLeap() {
 	currentState = States::Leap;
 	VEC3 jumpForce = getLeapDirection();
 	TCompTransform* c_trans = get<TCompTransform>();
+
+	bool enemyInSide = isOtherEnemyInSide();
+
 	if (_hasBounced || conditionGravityReceived() || conditionImpactReceived() || conditionFear() || !isHole(jumpForce)) {
 		_shootTimer = _shootDelay;
 		_isLeaping = false;
@@ -1393,6 +1396,62 @@ void CBTRangedSushi::renderDebug() {
 		drawLine(pos + half_cone_1 * combatViewDistance, pos + half_cone_2 * combatViewDistance, VEC4(1, 0, 0, 1));
 
 	}
+
+
+	CHandle player = GameController.getPlayerHandle();
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* trans_p = e_player->get<TCompTransform>();
+
+	/*VEC3 directionToPlayer = c_trans->getPosition() - trans_p->getPosition();
+	if (directionToPlayer.z < 0) {
+		VEC3 char_pos_right = c_trans->getPosition();
+		char_pos_right.y = 0.5f;
+		char_pos_right.x = c_trans->getPosition().x - 0.5f;
+		PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+
+		VEC3 char_pos_left = c_trans->getPosition();
+		char_pos_left.y = 0.5f;
+		char_pos_left.x = c_trans->getPosition().x + 0.5f;
+		PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+		drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
+		drawLine(PXVEC3_TO_VEC3(origin_left), (PXVEC3_TO_VEC3(origin_left) + PXVEC3_TO_VEC3(c_trans->getLeft()) * 10), VEC4(1, 1, 0, 1));
+
+	}
+	else {
+		VEC3 char_pos_right = c_trans->getPosition();
+		char_pos_right.y = 0.5f;
+		char_pos_right.x = c_trans->getPosition().x + 0.5f;
+		PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+
+		VEC3 char_pos_left = c_trans->getPosition();
+		char_pos_left.y = 0.5f;
+		char_pos_left.x = c_trans->getPosition().x - 0.5f;
+		PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+		drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
+		drawLine(PXVEC3_TO_VEC3(origin_left), (PXVEC3_TO_VEC3(origin_left) + PXVEC3_TO_VEC3(c_trans->getLeft()) * 10), VEC4(1, 1, 0, 1));
+	}*/
+
+	TCompCollider* coll_p = e_player->get<TCompCollider>();
+	
+	
+	PxExtendedVec3 footPos = coll_p->controller->getFootPosition();
+	VEC3 posFoot = VEC3(footPos.x, footPos.y, footPos.z);
+
+	VEC3 char_pos_right = c_trans->getPosition();
+	char_pos_right.y = posFoot.y;
+	char_pos_right.x = c_trans->getPosition().x;
+
+	VEC3 char_pos_left = c_trans->getPosition();
+	char_pos_left.y = posFoot.y;
+	char_pos_left.x = c_trans->getPosition().x;
+	PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+	PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+	drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
+	drawLine(PXVEC3_TO_VEC3(origin_left), (PXVEC3_TO_VEC3(origin_left) + PXVEC3_TO_VEC3(c_trans->getLeft()) * 10), VEC4(1, 1, 0, 1));
+	
+	
+	
+
 }
 
 void CBTRangedSushi::onBlackboardMsg(const TMsgBlackboard& msg) {
@@ -1857,4 +1916,103 @@ bool CBTRangedSushi::checkHeight() {
 
 std::string CBTRangedSushi::getNameCurve() {
 	return pathCurve;
+}
+
+
+bool CBTRangedSushi::isOtherEnemyInSide() {
+
+
+
+	
+	bool hayEnemy = false;
+	PxReal maxDistance = 10.f;
+	PxRaycastBuffer hit;
+	PxRaycastHit hitBuffer[10];
+	hit = PxRaycastBuffer(hitBuffer, 10);
+	// [in] Define what parts of PxRaycastHit we're interested in
+	const PxHitFlags outputFlags =
+		PxHitFlag::eDISTANCE
+		| PxHitFlag::ePOSITION
+		| PxHitFlag::eNORMAL
+		;
+
+	TCompTransform* c_trans = get<TCompTransform>();
+	VEC3 char_pos_right = c_trans->getPosition();
+	char_pos_right.y = 0.5f;
+	char_pos_right.x = 1.f;
+	PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+	PxVec3 unitDirRight = VEC3_TO_PXVEC3(c_trans->getRight());
+	PxVec3 unitDirLeft = VEC3_TO_PXVEC3(c_trans->getLeft());
+	PxQueryFilterData filter_data = PxQueryFilterData();
+	filter_data.data.word0 = EnginePhysics.Enemy;
+
+	//se mira a la izquierda si hay un enemigo 
+	
+	bool res = EnginePhysics.gScene->raycast(origin_right, unitDirRight, maxDistance, hit, outputFlags, filter_data);
+	if (res) {//colisiona con algo
+		int closestIdx = -1;
+		float closestDist = 1000.0f;
+		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+			if (hit.getAnyHit(i).distance <= closestDist) {
+				closestDist = hit.getAnyHit(i).distance;
+				closestIdx = i;
+			}
+		}
+		if (closestIdx != -1) {
+			CHandle hitCollider;
+			PxShape* colShape;
+			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
+				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				PxFilterData col_filter_data = colShape->getSimulationFilterData();
+				if (col_filter_data.word0 & EnginePhysics.Enemy) {
+					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
+					if (hitCollider.isValid()) {
+						CEntity* candidate = hitCollider.getOwner();
+						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						return  true;
+					}
+				}
+			}
+		}
+	}
+
+
+	//se mira a la izquierda si hay un enemigo 
+	VEC3 char_pos_left = c_trans->getPosition();
+	char_pos_left.y = 0.5f;
+	char_pos_left.x = -1.f;
+	PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+	res = EnginePhysics.gScene->raycast(origin_left, unitDirLeft, maxDistance, hit, outputFlags, filter_data);
+	if (res) {//colisiona con algo
+		int closestIdx = -1;
+		float closestDist = 1000.0f;
+		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+			if (hit.getAnyHit(i).distance <= closestDist) {
+				closestDist = hit.getAnyHit(i).distance;
+				closestIdx = i;
+			}
+		}
+		if (closestIdx != -1) {
+			CHandle hitCollider;
+			PxShape* colShape;
+			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
+				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				PxFilterData col_filter_data = colShape->getSimulationFilterData();
+				if (col_filter_data.word0 & EnginePhysics.Enemy) {
+					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
+					if (hitCollider.isValid()) {
+						CEntity* candidate = hitCollider.getOwner();
+						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						return true;
+					}
+				}
+			}
+		}
+	}
+	
+
+	return false;
+
 }

@@ -232,6 +232,7 @@ private:
   void Send_DamageMessage(CEntity* entity, float dmg);
   bool isGrounded();
   bool isHole(VEC3 jump);
+  bool isOtherEnemyInSide();
   void onCollision(const TMsgOnContact& msg);
   void onGenericDamageInfoMsg(const TMsgDamage& msg);
   void onGravity(const TMsgGravity& msg);
@@ -261,6 +262,9 @@ private:
 	std::string pathCurve = "";
   //flag patrol curve or point
   
+
+	
+
 	//curve values
 	const CCurve* _curve = nullptr;
 	std::vector<VEC3> _knots;
