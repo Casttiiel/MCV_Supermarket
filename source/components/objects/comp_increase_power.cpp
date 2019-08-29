@@ -57,6 +57,8 @@ void TCompIncreasePower::enable(const TMsgEntityTriggerEnter & msg) {
     CEntity* e = ctx.entities_loaded[0];
     TCompBuffers* c_buff = e->get<TCompBuffers>();
     if (c_buff) {
+      VEC3 pos = c_trans->getPosition();
+      dbg("%f %f %f \n", pos.x, pos.y, pos.z);
       auto buf = c_buff->getCteByName("TCtesParticles");
       CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
       data->emitter_center = c_trans->getPosition();

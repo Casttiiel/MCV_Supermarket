@@ -1090,38 +1090,6 @@
   {
     "entity":
     {
-      "name": "Player"
-      ,
-      "transform":
-      {
-        "pos": "-79.8308 -9.27242e-06 -212.128"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/character/player.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Cafe"
-      ,
-      "transform":
-      {
-        "pos": "-114.359 -9.29232e-06 -212.583"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/powers/powerUp_cafe.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "Golem"
       ,
       "transform":
@@ -1416,46 +1384,6 @@
       }
       ,
       "prefab": "data/prefabs/structures/madness_fountain.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "torre"
-      ,
-      "transform":
-      {
-        "pos": "-130.876 -9.30715e-06 -212.923"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_carnes_torre.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_carnes/mapa_carnes_torre.mesh"
-        ,
-        "color": "0.894118 0.6 0.721569 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_carnes/suelo_carnes.material"
-        ]
-      }
     }
   }
   ,
@@ -1930,58 +1858,6 @@
       "render":
       {
         "mesh": "data/meshes/mapa_carnes/mapa_carnes_Plane004.mesh"
-        ,
-        "color": "0.105882 0.694118 0.105882 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/vfx/fire.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Plane006"
-      ,
-      "transform":
-      {
-        "pos": "-103.229 13.7365 -229.38"
-        ,
-        "rotation": "-1.0 0.0 0.0 0.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Plane006.mesh"
-        ,
-        "color": "0.105882 0.694118 0.105882 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/vfx/fire.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Plane007"
-      ,
-      "transform":
-      {
-        "pos": "-103.229 13.7365 -223.657"
-        ,
-        "rotation": "-1.0 0.0 0.0 0.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Plane007.mesh"
         ,
         "color": "0.105882 0.694118 0.105882 1.0"
         ,
@@ -2703,6 +2579,146 @@
           "data/materials/mapa_carnes/pared7_carnes.material"
         ]
       }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_ext1"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_carnes_pared_ext1.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_ext1.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat05.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_ext_2"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_ext_2.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat05.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pred_ext_4"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pred_ext_4.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat05.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_ext_3"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_ext_3.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat05.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Dummy001"
+      ,
+      "transform":
+      {
+        "pos": "-111.757 -9.25109e-06 -211.64"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/powers/powerUp_cafe.json"
     }
   }
 ]
