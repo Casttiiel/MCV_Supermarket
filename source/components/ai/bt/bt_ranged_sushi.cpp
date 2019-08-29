@@ -465,7 +465,7 @@ int CBTRangedSushi::actionLeap() {
 
 	bool enemyInSide = isOtherEnemyInSide();
 
-	if (_hasBounced || conditionGravityReceived() || conditionImpactReceived() || conditionFear() || !isHole(jumpForce)) {
+	if (_hasBounced || conditionGravityReceived() || conditionImpactReceived() || conditionFear() || !isHole(jumpForce) || enemyInSide) {
 		_shootTimer = _shootDelay;
 		_isLeaping = false;
 		_hasFired = false;
@@ -1434,16 +1434,15 @@ void CBTRangedSushi::renderDebug() {
 	TCompCollider* coll_p = e_player->get<TCompCollider>();
 	
 	
-	PxExtendedVec3 footPos = coll_p->controller->getFootPosition();
-	VEC3 posFoot = VEC3(footPos.x, footPos.y, footPos.z);
+	
 
 	VEC3 char_pos_right = c_trans->getPosition();
-	char_pos_right.y = posFoot.y;
-	char_pos_right.x = c_trans->getPosition().x;
+	char_pos_right.y = 0.f;
+	char_pos_right.x = c_trans->getPosition().x + coll_p->controller->getRadius();
 
 	VEC3 char_pos_left = c_trans->getPosition();
-	char_pos_left.y = posFoot.y;
-	char_pos_left.x = c_trans->getPosition().x;
+	char_pos_left.y = 0.f;
+	char_pos_left.x = c_trans->getPosition().x - coll_p->controller->getRadius();
 	PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
 	PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
 	drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
@@ -1939,7 +1938,6 @@ bool CBTRangedSushi::isOtherEnemyInSide() {
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 char_pos_right = c_trans->getPosition();
 	char_pos_right.y = 0.5f;
-	char_pos_right.x = 1.f;
 	PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
 	PxVec3 unitDirRight = VEC3_TO_PXVEC3(c_trans->getRight());
 	PxVec3 unitDirLeft = VEC3_TO_PXVEC3(c_trans->getLeft());
@@ -1954,23 +1952,35 @@ bool CBTRangedSushi::isOtherEnemyInSide() {
 		float closestDist = 1000.0f;
 		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
 		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+			
+
 			if (hit.getAnyHit(i).distance <= closestDist) {
 				closestDist = hit.getAnyHit(i).distance;
 				closestIdx = i;
 			}
 		}
 		if (closestIdx != -1) {
-			CHandle hitCollider;
+			
 			PxShape* colShape;
 			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
 				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				CHandle h_comp_physics;
+				h_comp_physics.fromVoidPtr(hit.getAnyHit(i).actor->userData);
+				CEntity* entityContact = h_comp_physics.getOwner();
+				dbg("Entidad con quien choco--->%s\n", entityContact->getName());
+				
+
 				PxFilterData col_filter_data = colShape->getSimulationFilterData();
-				if (col_filter_data.word0 & EnginePhysics.Enemy) {
+				CEntity* mine = CHandle(this).getOwner();
+				dbg("YO--->%s\n", mine->getName());
+				
+				if (col_filter_data.word0 & EnginePhysics.Enemy && entityContact != (mine)) {
+					CHandle hitCollider;
 					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
 					if (hitCollider.isValid()) {
 						CEntity* candidate = hitCollider.getOwner();
 						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
-						return  true;
+						hayEnemy = true;
 					}
 				}
 			}
@@ -1981,7 +1991,7 @@ bool CBTRangedSushi::isOtherEnemyInSide() {
 	//se mira a la izquierda si hay un enemigo 
 	VEC3 char_pos_left = c_trans->getPosition();
 	char_pos_left.y = 0.5f;
-	char_pos_left.x = -1.f;
+	
 	PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
 	res = EnginePhysics.gScene->raycast(origin_left, unitDirLeft, maxDistance, hit, outputFlags, filter_data);
 	if (res) {//colisiona con algo
@@ -1989,23 +1999,35 @@ bool CBTRangedSushi::isOtherEnemyInSide() {
 		float closestDist = 1000.0f;
 		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
 		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+
+
 			if (hit.getAnyHit(i).distance <= closestDist) {
 				closestDist = hit.getAnyHit(i).distance;
 				closestIdx = i;
 			}
 		}
 		if (closestIdx != -1) {
-			CHandle hitCollider;
+
 			PxShape* colShape;
 			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
 				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				CHandle h_comp_physics;
+				h_comp_physics.fromVoidPtr(hit.getAnyHit(i).actor->userData);
+				CEntity* entityContact = h_comp_physics.getOwner();
+				dbg("Entidad con quien choco--->%s\n", entityContact->getName());
+
+
 				PxFilterData col_filter_data = colShape->getSimulationFilterData();
-				if (col_filter_data.word0 & EnginePhysics.Enemy) {
+				CEntity* mine = CHandle(this).getOwner();
+				dbg("YO--->%s\n", mine->getName());
+
+				if (col_filter_data.word0 & EnginePhysics.Enemy && entityContact != (mine)) {
+					CHandle hitCollider;
 					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
 					if (hitCollider.isValid()) {
 						CEntity* candidate = hitCollider.getOwner();
 						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
-						return true;
+						hayEnemy = true;
 					}
 				}
 			}
@@ -2013,6 +2035,6 @@ bool CBTRangedSushi::isOtherEnemyInSide() {
 	}
 	
 
-	return false;
+	return hayEnemy;
 
 }
