@@ -14,11 +14,11 @@ float4 PS_filter(
 
   //for color bloom approach
   GBuffer g;
-  decodeGBuffer( iTex0 * float2(1280.0f,640.0f), g );
+  decodeGBuffer( iTex0 * (1 / CameraInvResolution), g );
 
-  float amount = smoothstep( bloom_threshold_min, bloom_threshold_max, lum + g.emissive / emissive_bloom_factor);
+  float amount = smoothstep( bloom_threshold_min, bloom_threshold_max, g.emissive / emissive_bloom_factor);
 
-  return float4( in_color.xyz * amount, 1 );
+  return float4( in_color.xyz * g.emissive, 1 );
 }
 
 //--------------------------------------------------------------------------------------
