@@ -80,12 +80,12 @@ void TCompCharacterController::debugInMenu() {
     ImGui::DragFloat("Speed", &speed, 0.1f, 0.f, 10.f);
     ImGui::DragFloat("Dash Speed", &dash_speed, 0.1f, 0.f, 10.f);
     ImGui::DragFloat("Rotation speed", &rotation_speed, 0.1f, 0.f, 10.f);
-    ImGui::DragFloat("Life", &life, 0.10f, 0.f, 100.f);
+    ImGui::DragFloat("Life", &life, 0.10f, 0.f, maxLife);
     ImGui::DragFloat("Distance to aim", &distance_to_aim, 0.10f, 0.f, 100.f);
     ImGui::Checkbox("UnLockable Battery", &unLockableBattery);
-	ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
-	ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
-	ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);
+	  ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
+	  ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
+	  ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);
 }
 
 void TCompCharacterController::renderDebug() {

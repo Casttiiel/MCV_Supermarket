@@ -7,6 +7,7 @@ using namespace physx;
 DECL_OBJ_MANAGER("comp_madness", TCompMadnessController);
 
 void TCompMadnessController::debugInMenu() {
+  ImGui::DragFloat("Madness", &_remainingMadness, 0.10f, 0.f, _maximumMadness);
 }
 
 void TCompMadnessController::load(const json& j, TEntityParseContext& ctx) {
