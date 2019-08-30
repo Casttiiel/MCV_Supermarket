@@ -35,6 +35,7 @@ private:
   float _radius = 0.6f;
   float _startDestroy = 3.0f;
   float _destroyVar = 0.8f;
+  float distanceThreshold = 6.f;
 
 	CHandle player;
 
