@@ -53,14 +53,14 @@ struct TElapsedTime {
   int    ceroFrames = 10;
   int    num = 1;
   void set(double new_time) {
-	  delta_unscaled = (float)(new_time - current) * real_scale_factor;
-	  current = new_time;
-	  delta = delta_unscaled * scale_factor;
-
-	  if (num <= ceroFrames) {
-		  num++;
-		  loadedFrame();
-	  }
+    delta_unscaled = (float)(new_time - current) * real_scale_factor;
+    current = new_time;
+    delta = delta_unscaled * scale_factor;
+    
+    if (num <= ceroFrames) {
+      num++;
+      loadedFrame();
+    }
   }
   void loadedFrame() {
     delta_unscaled = 0.f;

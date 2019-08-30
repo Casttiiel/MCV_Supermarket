@@ -62,7 +62,7 @@ public:
     TeleportableEnemy = Cupcake | Sushi,
     NotPlayer = Scenario | Grenade | Enemy,
     TpRay = TeleportableEnemy | Scenario | TeleportableObj | Grenade,
-    CameraCollision = Scenario,
+    CameraCollision = Scenario | TeleportableObj | ExplosiveObj | DestroyableWall,
     VulnerableToMelee = Enemy | Puddle | DestroyableWall | Panel,
 	  NotSpawnerObjects = TeleportableObj | Enemy | Player,
       VulnerableToFire = ExplosiveObj | Enemy | DestroyableWall,
