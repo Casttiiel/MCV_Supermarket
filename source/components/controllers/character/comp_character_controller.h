@@ -29,6 +29,7 @@ public:
 
   void setMeleeMultiplier(float newMulti);
   void setSpeed(float newSpeed);
+  void setDashSpeed(float dashSpeed) { dash_speed = dashSpeed; }
   float getBaseSpeed();
 
   //Shopping Cart

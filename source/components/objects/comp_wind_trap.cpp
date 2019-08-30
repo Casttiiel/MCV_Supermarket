@@ -5,6 +5,7 @@
 #include "components/common/comp_render.h"
 #include "components/vfx/comp_air.h"
 #include "components/ai/others/self_destroy.h"
+#include "components/controllers/character/comp_character_controller.h"
 
 DECL_OBJ_MANAGER("comp_wind_trap", TCompWindTrap);
 
@@ -45,6 +46,9 @@ void TCompWindTrap::enable(const TMsgEntityTriggerEnter & msg) {
 	if (msg.h_entity == GameController.getPlayerHandle()) {
 		_isEnabled = true;
 		player = msg.h_entity;
+		CEntity* player_e = (CEntity*)player;
+		TCompCharacterController* comp_ch= player_e->get<TCompCharacterController>();
+		comp_ch->setDashSpeed(5.f);
 		dbg("Enemy spawner enabled.\n");
 	}
 }
@@ -52,6 +56,10 @@ void TCompWindTrap::enable(const TMsgEntityTriggerEnter & msg) {
 void TCompWindTrap::disable(const TMsgEntityTriggerExit & msg) {
 	if (msg.h_entity == GameController.getPlayerHandle()) {
 		_isEnabled = false;
+		player = msg.h_entity;
+		CEntity* player_e = (CEntity*)player;
+		TCompCharacterController* comp_ch = player_e->get<TCompCharacterController>();
+		comp_ch->setDashSpeed(35.f);
 		dbg("Enemy spawner disabled.\n");
 	}
 }
