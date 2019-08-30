@@ -147,6 +147,7 @@ void TCompMadnessController::update(float delta) {
 			//if we have less than _passiveThreshold, 
 			//and we haven't used it in _passiveRegenerationDelay, start regenerating up to _passiveThreshold
 			_remainingMadness += _madnessPassiveRestorationRate * delta;
+      dbg("restoring\n");
 		}
 	}
 

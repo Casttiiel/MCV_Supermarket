@@ -59,6 +59,8 @@ void TCompFireController::disable() {
 }
 
 void TCompFireController::update(float dt) {
+
+  dbg("------------\n");
     if (_buffRemaining > 0.f) {
         _buffRemaining -= Time.delta_unscaled;
     }
@@ -96,7 +98,7 @@ void TCompFireController::update(float dt) {
 
     //If trigger just released or we've run out of madness, disable
     TCompMadnessController* m_c = get<TCompMadnessController>();
-    if (EngineInput["fire_attack_"].justReleased() || (m_c->getRemainingMadness() < m_c->getPowerCost(PowerType::FIRE) && !GameController.getGodMode())) {
+    if (EngineInput["fire_attack_"].justReleased() || (m_c->getRemainingMadness() < m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled && !GameController.getGodMode())) {
         disable();
         return;
     }

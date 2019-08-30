@@ -16,25 +16,6 @@ namespace UI
 
   void CBar::setRatio(float newRatio)
   {
-	   /*float clampMax = 1.0f;
-	   if (newRatio >= 0.8) {
-		   clampMax = newRatio - 0.2;
-	   }
-	   else {
-		    clampMax = 0.8;
-			newRatio = newRatio + 0.2;
-		   
-	   }*/
 	  _barParams.ratio = clamp(newRatio, 0.f, 1.f);
-	  /*
-	  dbg("RATIO:%f\n", newRatio);
-	  if (newRatio <= 0.19) {
-		  newRatio = newRatio + 0.19;
-		  _barParams.ratio = clamp(newRatio, 0.f, 1.f);
-	  }
-	  else {
-		  _barParams.ratio = clamp(newRatio, 0.f, 1.0f);
-	  }
-	 */
   }
 }
