@@ -9,6 +9,8 @@
 #include "modules/module_physics.h"
 
 using namespace physx;
+std::mt19937 bt_mt_bu(std::random_device{}());
+std::uniform_int_distribution<int> bt_mt_bu_dist(0, 10);
 
 DECL_OBJ_MANAGER("turret_bullet_controller", TCompTurretBulletController);
 
@@ -155,7 +157,20 @@ void TCompTurretBulletController::launch() {
 	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3r), PxForceMode::eVELOCITY_CHANGE);
 	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3u), PxForceMode::eVELOCITY_CHANGE);
 	rigid_dynamic->addForce(VEC3_TO_PXVEC3(vec3f), PxForceMode::eVELOCITY_CHANGE);
+
+	float x_angular, y_angular, z_angular;
+	//int dice = bt_mt_bu_dist(bt_mt_bu);
+	x_angular = bt_mt_bu_dist(bt_mt_bu);
+	y_angular = bt_mt_bu_dist(bt_mt_bu);
+	z_angular = bt_mt_bu_dist(bt_mt_bu);
+	
+
+	rigid_dynamic->setAngularVelocity(VEC3_TO_PXVEC3(VEC3(x_angular, y_angular, z_angular)));
+
 }
+
+
+
 
 
 
