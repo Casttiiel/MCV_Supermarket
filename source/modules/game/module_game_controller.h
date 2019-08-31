@@ -13,6 +13,7 @@
 #include "components/controllers/comp_enemies_in_tube.h"
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
+#include "components/controllers/character/comp_character_controller.h"
 
 
 class CBTGolem;

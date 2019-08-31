@@ -1,7 +1,7 @@
 #include "mcv_platform.h"
 
 #include "module_game_controller.h"
-#include "components/controllers/character/comp_character_controller.h"
+
 #include "components/controllers/comp_sCart_controller.h"
 #include "components/objects/checkpoints/checkpoint.h"
 #include "components/common/comp_tags.h"
