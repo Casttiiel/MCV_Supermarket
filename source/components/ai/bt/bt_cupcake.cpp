@@ -242,7 +242,7 @@ int CBTCupcake::actionDeath() {
   if (!isDeadForFallout) {
 	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
   }
-  AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death");
+  AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
   death.set3DAttributes(*c_trans);
   voice.stop();
 	CHandle(this).getOwner().destroy();
