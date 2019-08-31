@@ -1262,6 +1262,7 @@ void TCompCharacterController::mount(CHandle vehicle) {
         //dbg("Player changes to MOUNTED\n");
         ChangeState("MOUNTED");
         //SwapMesh(1);
+        footSteps.setPaused(true);
     }
 }
 
@@ -1271,6 +1272,7 @@ void TCompCharacterController::dismount() {
     //While moving appear behind sCart
     //While stationary appear in front of sCart
     //SwapMesh(0);
+    footSteps.setPaused(false);
 }
 
 void TCompCharacterController::mounted(float delta) {
