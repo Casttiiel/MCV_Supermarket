@@ -31,6 +31,7 @@ public:
 
     bool getPaused() const;
     float getVolume() const;
+    float getLength() const;
     float getPitch() const;
     float getParameter(const std::string& name);
 

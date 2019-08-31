@@ -23,6 +23,7 @@ public:
 
 private:
     bool _destroyOnCollission = true;
+    bool _requestAudioPermission = false;
     bool _isEnabled = true;
 	  float _speed = 17.f;
 	VEC3 _targetDirection = VEC3().Zero;

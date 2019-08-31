@@ -95,6 +95,15 @@ float AudioEvent::getVolume() const {
     return volume;
 }
 
+float AudioEvent::getLength() const {
+    float length = 0.f;
+    auto event = EngineAudio.getEventInstance(myID);
+    if (event) {
+        length = event->getDescription.getLength();
+    }
+    return length;
+}
+
 float AudioEvent::getPitch() const {
     float pitch = 0.f;
     auto event = EngineAudio.getEventInstance(myID);
