@@ -29,6 +29,10 @@ void TCompSCartController::Init() {
 
 	//ADD MORE STATES FOR BEING HIT, ETC, ETC
 
+    _movementAudio = EngineAudio.playEvent("event:/Character/SCart/Movement");
+    _movementAudio.setPaused(true);
+    _crashAudio = EngineAudio.playEvent("event:/Character/SCart/Crash");
+    _crashAudio.stop();
 	ChangeState("SCART_DISABLED");
 }
 
@@ -209,6 +213,9 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 									CEntity* candidate = hitCollider.getOwner();
 									if (candidate != nullptr) {
 										rowImpulseLeft = 0.0f;
+                                        if (!_crashAudio.isPlaying()) {
+                                            _crashAudio = EngineAudio.playEvent("event:/Character/SCart/Crash");
+                                        }
 									}
 									
 								}
@@ -386,6 +393,29 @@ void TCompSCartController::grounded(float delta) {
 	}
 
 	dir *= delta * rowImpulseLeft;
+
+    if (dir != VEC3().Zero) {
+        //SwapMesh(2);
+        //TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        //playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f);
+        //Play sound
+        if (_movementAudio.getPaused()) {
+            _movementAudio.setPaused(false);
+            _movementAudio.restart();
+        }
+    }
+    else {
+        //SwapMesh(0);
+        //TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        //if (playerAnima != nullptr) {
+        //    playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 0.5f);
+        //    //footSteps.stop();
+        //    
+        //}
+        if (!_movementAudio.getPaused()) {
+            _movementAudio.setPaused(true);
+        }
+    }
 
 	//MOVE PLAYER
 	TCompCollider* comp_collider = get<TCompCollider>();
