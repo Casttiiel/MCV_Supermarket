@@ -39,7 +39,7 @@ void TCompFireController::load(const json& j, TEntityParseContext& ctx) {
     srand(1234);
 
     _hitAudio = EngineAudio.playEvent(_hitAudioName);
-    _hitAudio.setPaused(true);
+    _hitAudio.stop();
 }
 
 void TCompFireController::registerMsgs() {
@@ -47,9 +47,8 @@ void TCompFireController::registerMsgs() {
 }
 
 void TCompFireController::onSoundRequest(const TMsgSoundRequest& msg) {
-    if (msg.name == _hitAudioName && _hitAudioTimer <= 0) {
+    if (msg.name == _hitAudioName && !_hitAudio.isPlaying()) {
         _hitAudio = EngineAudio.playEvent(_hitAudioName);
-        _hitAudioTimer = _hitAudio.getLength();
     }
 }
 
@@ -73,8 +72,6 @@ void TCompFireController::disable() {
 }
 
 void TCompFireController::update(float dt) {
-    _hitAudioTimer -= Time.delta_unscaled;
-
     if (_buffRemaining > 0.f) {
         _buffRemaining -= Time.delta_unscaled;
     }

@@ -99,7 +99,7 @@ int AudioEvent::getLength() const {
     int length = 0;
     auto event = EngineAudio.getEventInstance(myID);
     if (event) {
-        FMOD::Studio::EventDescription **description = NULL;
+        FMOD::Studio::EventDescription **description = NULL;{};
         event->getDescription(description);
         (*description)->getLength(&length);
     }
