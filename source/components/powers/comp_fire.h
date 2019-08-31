@@ -38,8 +38,8 @@ private:
     float _fireTimer = 0.f;
 
     std::string _hitAudioName = "event:/Character/Powers/Fire/Fire_Hit_1";
-    float _hitAudioDuration = 0.f;
-    float _hitAudioTimer = 0.f;
+    int _hitAudioDuration = 0;
+    int _hitAudioTimer = 0;
     AudioEvent _hitAudio;
     //End Fire Values
 

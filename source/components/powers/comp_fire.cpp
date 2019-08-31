@@ -47,7 +47,7 @@ void TCompFireController::registerMsgs() {
 }
 
 void TCompFireController::onSoundRequest(const TMsgSoundRequest& msg) {
-    if (msg.name == _hitAudioName && _hitAudioTimer <= 0.f) {
+    if (msg.name == _hitAudioName && _hitAudioTimer <= 0) {
         _hitAudio = EngineAudio.playEvent(_hitAudioName);
         _hitAudioTimer = _hitAudio.getLength();
     }

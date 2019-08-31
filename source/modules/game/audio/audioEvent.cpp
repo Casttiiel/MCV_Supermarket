@@ -95,11 +95,13 @@ float AudioEvent::getVolume() const {
     return volume;
 }
 
-float AudioEvent::getLength() const {
-    float length = 0.f;
+int AudioEvent::getLength() const {
+    int length = 0;
     auto event = EngineAudio.getEventInstance(myID);
     if (event) {
-        length = event->getDescription.getLength();
+        FMOD::Studio::EventDescription **description = NULL;
+        event->getDescription(description);
+        (*description)->getLength(&length);
     }
     return length;
 }
