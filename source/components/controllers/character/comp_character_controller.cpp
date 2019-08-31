@@ -325,7 +325,7 @@ void TCompCharacterController::grounded(float delta) {
                 c_fire->comboAttack(c_trans->getPosition());
             }
         }
-        else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE)) {
+        else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) {
             if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
         //Enable fire, keep it enabled while holding trigger, disable on release
                 TCompFireController* c_fire = get<TCompFireController>();

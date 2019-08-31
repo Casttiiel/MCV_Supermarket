@@ -60,7 +60,6 @@ void TCompFireController::disable() {
 
 void TCompFireController::update(float dt) {
 
-  dbg("------------\n");
     if (_buffRemaining > 0.f) {
         _buffRemaining -= Time.delta_unscaled;
     }
