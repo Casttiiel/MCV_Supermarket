@@ -145,7 +145,7 @@ void TCompCharacterController::registerMsgs() {
 }
 
 void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg) {
-    switch (msg.animation)
+    /*switch (msg.animation)
     {
     case TCompPlayerAnimator::IDLE:
         dbg("Animation IDLE callback received.\n");
@@ -173,7 +173,7 @@ void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsg
         break;
     default:
         break;
-    }
+    }*/
 }
 //STATES
 
@@ -250,7 +250,7 @@ void TCompCharacterController::grounded(float delta) {
         //SwapMesh(0);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
 		if(playerAnima != nullptr){
-			playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 0.5f);
+			playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f);
 			//footSteps.stop();
 			if (!footSteps.getPaused()) {
 				footSteps.setPaused(true);
@@ -268,6 +268,8 @@ void TCompCharacterController::grounded(float delta) {
         shoot();
     }
     if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
         ChangeState("DASHING");
         dash = dash_limit;
         startDash = true;
@@ -280,7 +282,7 @@ void TCompCharacterController::grounded(float delta) {
         EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
         c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::JUMP, 1.3f);
+        playerAnima->playAnimation(TCompPlayerAnimator::JUMP_START, 1.0f);
         //Commented because the state machine will transition to it on its own
         //ChangeState("ON_AIR");
     }
@@ -311,6 +313,8 @@ void TCompCharacterController::grounded(float delta) {
       //dbg("switch coffe ground\n");
         TCompCoffeeController* c_coffee = get<TCompCoffeeController>();
         c_coffee->switchState();
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f);
     }
     else if (EngineInput["fire_attack_"].isPressed() && unLockableChilli) { //FIRE
         TCompTeleport* c_tp = get<TCompTeleport>();
@@ -353,6 +357,11 @@ void TCompCharacterController::grounded(float delta) {
 	else if (EngineInput[VK_F3]) {
 		GameController.cheatPosition();
 	}
+
+    if (power_selected == PowerType::BATTERY && unLockableBattery && aiming) {
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
+    }
 
     dir *= Time.delta_unscaled;
 
@@ -415,6 +424,8 @@ void TCompCharacterController::dashing(float delta) {
 }
 
 void TCompCharacterController::onAir(float delta) {
+    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+    playerAnima->playAnimation(TCompPlayerAnimator::ON_AIR, 1.0f);
     //WE NEED THE CAMERA TO BE CREATED TO MOVE FROM ITS PERSPECTIVE
     if (!h_camera.isValid()) {
         h_camera = getEntityByName("Camera");
@@ -424,6 +435,7 @@ void TCompCharacterController::onAir(float delta) {
     if (isGrounded()) {
         ChangeState("GROUNDED");
         EngineAudio.playEvent("event:/Character/Footsteps/Landing");
+        playerAnima->playAnimation(TCompPlayerAnimator::JUMP_END, 1.0f);
         return;
     }
 
@@ -461,7 +473,7 @@ void TCompCharacterController::onAir(float delta) {
         EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
         c_rbody->doubleJump(VEC3(0.0f, double_jump_force, 0.0f));
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::JUMP, 1.f);
+        playerAnima->playAnimation(TCompPlayerAnimator::DOUBLE_JUMP, 1.f);
     }
     else if (EngineInput["attack_"].justPressed() && !aiming && meleeTimer <= 0) {//ATTACK
         ChangeState("ATTACKING");
@@ -558,7 +570,7 @@ void TCompCharacterController::dead(float delta) {
 
 void TCompCharacterController::win(float delta) {
 	TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-	playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
+	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.f, true);
     if (EngineInput["checkpoint_"].justPressed()) {
         endGame = false;
         ChangeState("GROUNDED");
@@ -792,7 +804,7 @@ void TCompCharacterController::attack(float delta) {
     if (attackFirstExecution) {
         //Execute animation
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::ATTACK, 1.f, true);
+        playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_FULL, 1.f, true);
         EngineAudio.playEvent("event:/Character/Attacks/Melee_Swing");
         attackFirstExecution = false;
     }
@@ -1190,7 +1202,7 @@ void TCompCharacterController::onCinematic(const TMsgOnCinematic & msg)
 		
 		if(msg.cinematic){
 			TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-			playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 1.f, true);
+			playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.f, true);
 			ChangeState("IDLE_CINEMATIC");
 		}
 		cinematic = msg.cinematic;

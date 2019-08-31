@@ -10,7 +10,27 @@ class TCompPlayerAnimator;
 class TCompPlayerAnimator : public TCompAnimator
 {
 public:
-	enum EAnimation { IDLE = 0, ATTACK, RUN, JUMP, THROW, SCAN, DEAD, PRUEBA};
+	enum EAnimation { 
+        IDLE_MELEE = 0, 
+        IDLE_FIRE, 
+        IDLE_COMBAT, 
+        MELEE1_FULL, 
+        MELEE1_PARTIAL, 
+        MELEE2_FULL, 
+        MELEE2_PARTIAL, 
+        AIM_THROW, 
+        DAMAGED, 
+        DASH, 
+        DOUBLE_JUMP, 
+        DRINK, 
+        JUMP_END, 
+        JUMP_START, 
+        ON_AIR, 
+        RUN, 
+        SCAN, 
+        THROW, 
+        WALK
+    };
 	struct TMsgExecuteAnimation {
 
 		TCompPlayerAnimator::EAnimation animation;
