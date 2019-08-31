@@ -82,7 +82,7 @@ private:
 	float timerGrenade = throwFrequecy;
 
 	float meleeFrequency = 1.0f;
-	float timerMelee = meleeFrequency;
+	float timerMelee = 0.f;
 
 	float _burstDelay = .5f;
 	float _burstTimer = 0.f;
