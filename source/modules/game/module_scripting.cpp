@@ -164,6 +164,8 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompName", SLB::FuncCall::create(&toCompName));
 	m->set("toCompTransform", SLB::FuncCall::create(&toCompTransform));
 	m->set("toCompCamera", SLB::FuncCall::create(&toCompCamera));
+	m->set("toCBTGolem", SLB::FuncCall::create(&toCBTGolem));
+	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
 

@@ -5,6 +5,7 @@
 #include "modules/module_physics.h"
 #include "components/common/comp_transform.h"
 
+
 DECL_OBJ_MANAGER("rigidbody", TCompRigidBody);
 
 using namespace physx;

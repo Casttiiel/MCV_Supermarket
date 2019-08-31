@@ -47,8 +47,9 @@ function on_active_enemies(active)
 end
 
 function setAttackCinematicGolem(nameGolem,active)
-	handle = GameController:entityByName("golem2");
-	t_compGolem = toCompGolem(toEntity(handle):getCompByName("bt_golem"));
+	handle = GameController:entityByName(nameGolem);
+	t_compGolem = toCBTGolem(toEntity(handle):getCompByName("bt_golem"));
+	t_compGolem:setAttackCinematic(active);
 end
 
 function on_gameplay_fragment_activate(modl)
@@ -579,6 +580,13 @@ function cinematica_tower()
 	--t_compCharacterController:ChangeState("ESPECIAL_CINEMATIC");
 
 
+end
+
+
+
+function in_disable_throw_cupcakes_golem2_player()
+	execDelayedAction("setAttackCinematicGolem(\"golem2\",true)", 0);
+	execDelayedAction("on_delete_handle(\"trigger009\")",0);
 end
 
 --Prueba carga de escena desde trigger, de momento carga NAVMESH

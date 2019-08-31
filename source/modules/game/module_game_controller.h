@@ -13,8 +13,9 @@
 #include "components/controllers/comp_enemies_in_tube.h"
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
-#include "components/controllers/character/comp_character_controller.h"
 
+
+class CBTGolem;
 class CCheckpoint;
 class CModuleGameplayFragment;
 
@@ -252,4 +253,5 @@ TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 TCompName* toCompName(CHandle h);
 TCompTransform* toCompTransform(CHandle h);
 TCompCamera* toCompCamera(CHandle h);
+CBTGolem* toCBTGolem(CHandle h);
 //TCompCharacterController* toCompCharacterController_(CHandle h);

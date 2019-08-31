@@ -2,67 +2,6 @@
   {
     "entity":
     {
-      "name": "Box026"
-      ,
-      "transform":
-      {
-        "pos": "57.5411 -0.846185 -33.617"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "1.39942 0.899626 1.84368"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.899626 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Box026.mesh"
-        ,
-        "color": "0.345098 0.345098 0.882353 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-    {
-    "entity":
-    {
-      "name": "Player"
-      ,
-      "transform":
-      {
-        "pos": "160 -3.43138 -10"
-        ,
-        "rotation": "0.0 0.707107 0.0 -0.707107"
-      }
-      ,
-      "prefab": "data/prefabs/character/player.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "zBox015"
       ,
       "transform":
@@ -136,6 +75,51 @@
       }
       ,
       "prefab": "data/prefabs/enemies/bt_golem.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Box026"
+      ,
+      "transform":
+      {
+        "pos": "57.5411 -0.846185 -33.617"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "1.39942 0.899626 1.84368"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.899626 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Box026.mesh"
+        ,
+        "color": "0.345098 0.345098 0.882353 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
     }
   }
   ,
@@ -366,6 +350,22 @@
       }
       ,
       "prefab": "data/prefabs/powers/powerUp_madness.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "175.544 -1.37954 -17.3293"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
     }
   }
   ,
@@ -3039,6 +3039,48 @@
       }
       ,
       "prefab": "data/prefabs/powers/powerUp_extintor.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "trigger009"
+      ,
+      "transform":
+      {
+        "pos": "147.579 -4.27469 41.7934"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "15.0139 8.30846 0.847878"
+            ,
+            "offset":
+            {
+              "pos": "0.0 8.30846 0.0"
+            }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
+          }
+        ]
+      }
+      ,
+      "trigger":
+      {
+        "onEnter": "in_disable_throw_cupcakes_golem2"
+        ,
+        "delay": 0
+      }
     }
   }
 ]

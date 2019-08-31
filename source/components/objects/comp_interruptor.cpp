@@ -40,6 +40,7 @@ void TCompInterruptor::onActivate(const TMsgDamage & msg) {
 				execDelayedAction("on_cinematic(false)", 14);
 				execDelayedAction("on_active_enemies(true)", 13.0);
 				execDelayedAction("setPauseEnemyName(\"golem2\",false)", 13);
+				execDelayedAction("setAttackCinematicGolem(\"golem2\",false)", 13);
 			}
 			/*else if (nombre.compare("panel_prueba2") == 0) {
 				//nombre de plataforma a mover
