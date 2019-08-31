@@ -55,7 +55,7 @@ TInstance spawnParticle( uint unique_id ) {
   p.unique_id = unique_id;
   p.time_normalized = 0.0;
   p.time_factor = 1.0 / duration;
-  p.scale = 1.0;
+  p.scale = 0.1;
   p.color = float4(1,1,0,1);
   p.dummy1 = rnd5;
   p.dummy2 = rnd6;
@@ -74,6 +74,7 @@ TInstance spawnParticle( uint unique_id ) {
 void updateParticle( inout TInstance p ) {
   p.prev_pos = p.pos;
   p.color = sampleColor( p.time_normalized );
+  p.scale = sampleScale( p.time_normalized );
   p.dir += p.acc * GlobalDeltaTime;
   p.pos += p.dir * GlobalDeltaTime;
   /*if( p.pos.y < 0 ) {

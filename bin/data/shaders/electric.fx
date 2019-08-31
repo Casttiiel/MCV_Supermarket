@@ -33,7 +33,9 @@ VS_OUTPUT VS(
 //--------------------------------------------------------------------------------------
 // Pixel Shader
 //--------------------------------------------------------------------------------------
-float4 PS(VS_OUTPUT input) : SV_Target
+void PS(VS_OUTPUT input
+  , out float4 o_deferred : SV_Target0
+  , out float4 o_shine : SV_Target1)
 {
   const float power = 5.0f;
   const float thickness = 0.5f;
@@ -64,5 +66,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
   dist = 1 - (dist > 0.4f ? ((dist - 0.4f)/0.1f) : 0.0f);
 
   float alpha = clamp(final_noise * dist, 0.0,1.0);
-  return float4(ObjColor.xyz,alpha);
+
+  o_deferred = float4(ObjColor.xyz, alpha);
+  o_shine = float4(ObjColor.xyz, alpha);
 }
