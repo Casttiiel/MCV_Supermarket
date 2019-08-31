@@ -87,7 +87,8 @@ private:
 	float invulnerabilityTimeDuration = 1.0;
 
   //Audio Values
-  AudioEvent footSteps;
+    AudioEvent damagedAudio;
+    AudioEvent footSteps;
   //Audio Values
 
   //Melee Values
