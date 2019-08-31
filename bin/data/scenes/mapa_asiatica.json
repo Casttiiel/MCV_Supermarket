@@ -86,112 +86,16 @@
   {
     "entity":
     {
-      "name": "cubosHielo_033"
+      "name": "Player"
       ,
       "transform":
       {
-        "pos": "-66.6273 3.5151 -99.7399"
+        "pos": "-4.7231 -0.193275 -1.05582"
         ,
-        "rotation": "-0.623275 -0.032376 0.22858 -0.747149"
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
       ,
-      "abs_aabb": {}
-      ,
-      "buffers":
-      {
-        "TCtesMorph":
-        {
-          "total_bytes": 16
-          ,
-          "slot": 13
-        }
-      }
-      ,
-      "morph_animation":
-      {
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_asiatica_cubosHielo_033.col_mesh"
-            ,
-            "group": "scenario"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_cubosHielo_033.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/interactive.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubosHielo_034"
-      ,
-      "transform":
-      {
-        "pos": "-55.5494 4.65012 -64.298"
-        ,
-        "rotation": "0.0 -0.258819 0.0 -0.965926"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "buffers":
-      {
-        "TCtesMorph":
-        {
-          "total_bytes": 16
-          ,
-          "slot": 13
-        }
-      }
-      ,
-      "morph_animation":
-      {
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_asiatica_cubosHielo_034.col_mesh"
-            ,
-            "group": "scenario"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_cubosHielo_034.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/interactive.material"
-        ]
-      }
+      "prefab": "data/prefabs/character/player.json"
     }
   }
   ,
@@ -21058,6 +20962,114 @@
         "materials":
         [
           "data/materials/mapa_asiatica/switch2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cubosHielo_034"
+      ,
+      "transform":
+      {
+        "pos": "-66.6273 3.5151 -99.7399"
+        ,
+        "rotation": "-0.623275 -0.032376 0.22858 -0.747149"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "buffers":
+      {
+        "TCtesMorph":
+        {
+          "total_bytes": 16
+          ,
+          "slot": 13
+        }
+      }
+      ,
+      "morph_animation":
+      {
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_cubosHielo_034.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_cubosHielo_034.mesh"
+        ,
+        "color": "0.882353 0.560784 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/Hielo_8.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cubosHielo_033"
+      ,
+      "transform":
+      {
+        "pos": "-55.5494 4.65012 -64.298"
+        ,
+        "rotation": "0.0 -0.258819 0.0 -0.965926"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "buffers":
+      {
+        "TCtesMorph":
+        {
+          "total_bytes": 16
+          ,
+          "slot": 13
+        }
+      }
+      ,
+      "morph_animation":
+      {
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_cubosHielo_033.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_cubosHielo_033.mesh"
+        ,
+        "color": "0.882353 0.560784 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/hielo_7.material"
         ]
       }
     }
