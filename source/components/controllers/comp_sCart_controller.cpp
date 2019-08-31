@@ -63,6 +63,7 @@ void TCompSCartController::enable(CHandle vehicle) {
 		SwapMesh(1);
 		//Generate fake player mounted
 		fakePlayerHandle = GameController.spawnPrefab("data/prefabs/props/fake_player_mounted.json", c_trans->getPosition());
+        EngineAudio.playEvent("event:/Character/SCart/Mount");
 	}
 
 
@@ -394,7 +395,7 @@ void TCompSCartController::grounded(float delta) {
 
 	dir *= delta * rowImpulseLeft;
 
-    if (dir != VEC3().Zero) {
+    if (rowImpulseLeft > 0.f) {
         //SwapMesh(2);
         //TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         //playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f);
