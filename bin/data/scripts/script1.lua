@@ -39,11 +39,16 @@ function on_god_mode(active)
 end
 
 function on_active_enemies(active)
-	if active == "true" then
+	if active then
 		GameController:resumeEnemies()
 	else
 		GameController:stopEnemies()
 	end
+end
+
+function setAttackCinematicGolem(nameGolem,active)
+	handle = GameController:entityByName("golem2");
+	t_compGolem = toCompGolem(toEntity(handle):getCompByName("bt_golem"));
 end
 
 function on_gameplay_fragment_activate(modl)

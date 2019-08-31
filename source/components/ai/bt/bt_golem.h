@@ -57,6 +57,7 @@ public:
 	bool conditionAttackCinematic();
 	void setViewDistance(float distance);
 	void setHeightRange(float height);
+	void setAttackCinematic(bool value);
 private:
 
 

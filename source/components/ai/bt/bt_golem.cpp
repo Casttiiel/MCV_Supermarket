@@ -526,10 +526,11 @@ bool CBTGolem::conditionTimerThrow() {
 
 bool CBTGolem::conditionRandomThrowCupcake() {
 	
-
-	randomNumber = bt_dist_gol(bt_gol);
-	if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber -1) {
-		return true; //throw cupcake
+	if(!attackCinematic) {
+		randomNumber = bt_dist_gol(bt_gol);
+		if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber -1) {
+			return true; //throw cupcake
+		}
 	}
 	return false;//check others
 }
@@ -970,4 +971,8 @@ void CBTGolem::setViewDistance(float distance) {
 
 void CBTGolem::setHeightRange(float height) {
 	this->height_range = height;
+}
+
+void CBTGolem::setAttackCinematic(bool value) {
+	this->attackCinematic = value;
 }

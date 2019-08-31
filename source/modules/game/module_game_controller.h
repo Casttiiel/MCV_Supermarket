@@ -1,7 +1,6 @@
 #pragma once
 
 #include "modules/module.h"
-
 #include "entity/entity.h"
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
@@ -14,7 +13,7 @@
 #include "components/controllers/comp_enemies_in_tube.h"
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
-
+#include "components/controllers/character/comp_character_controller.h"
 
 class CCheckpoint;
 class CModuleGameplayFragment;

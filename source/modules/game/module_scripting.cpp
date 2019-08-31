@@ -17,6 +17,7 @@
 #include "skeleton/comp_skel_lookat.h"
 #include <experimental/filesystem>
 #include "SLB/include/SLB/SLB.hpp"
+#include "components/ai/bt/bt_golem.h"
 
 SLB::Manager* m = new SLB::Manager;
 SLB::Script* s = new SLB::Script(m);
@@ -96,6 +97,7 @@ void CModuleScripting::doBingings() {
 	BindConverters();
 	BindEnemiesInTube();
 	BindName();
+	BindGolem();
 }
 
 
@@ -195,6 +197,15 @@ void CModuleScripting::BindName() {
 		.constructor()
 		.set("setName", &TCompName::setName)
 		.set("getName", &TCompName::getName)
+		;
+}
+
+
+void CModuleScripting::BindGolem() {
+	SLB::Class<CBTGolem>("CBTGolem", m)
+		.comment("This is our wrapper of compGolem class")
+		.constructor()
+		.set("setAttackCinematic", &CBTGolem::setAttackCinematic)
 		;
 }
 
