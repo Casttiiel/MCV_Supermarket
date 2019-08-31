@@ -253,6 +253,10 @@ struct TMsgGamePause {
 	DECL_MSG_ID();
 };
 
+struct TMsgSoundRequest {
+    std::string name;
+    DECL_MSG_ID();
+};
 /*
 struct TMsgTimeOut {
   DECL_MSG_ID();

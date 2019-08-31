@@ -52,6 +52,8 @@ void TCompCharacterController::Init() {
 
     footSteps = EngineAudio.playEvent("event:/Character/Footsteps/Footsteps");
     footSteps.setPaused(true);
+    damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+    damagedAudio.stop();
     ChangeState("GROUNDED");
 }
 
@@ -1100,8 +1102,8 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
         if (msg.senderType == ENEMIES) {
           //	c_rbody->addForce(direction_to_damage * 8.0f);
         }
-        if (&(msg.impactForce) != nullptr && msg.impactForce > 0) {
-          EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+        if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && !damagedAudio.isPlaying()) {
+            damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
           //ChangeState("DAMAGED");
         }
       }
@@ -1143,8 +1145,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 if (msg.senderType == ENEMIES) {
                     //	c_rbody->addForce(direction_to_damage * 8.0f);
                 }
-                if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0) {
-                    EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+                if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
+                    damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
                     //ChangeState("DAMAGED");
                 }
             }
@@ -1260,6 +1262,7 @@ void TCompCharacterController::mount(CHandle vehicle) {
         //dbg("Player changes to MOUNTED\n");
         ChangeState("MOUNTED");
         //SwapMesh(1);
+        footSteps.setPaused(true);
     }
 }
 
@@ -1269,6 +1272,7 @@ void TCompCharacterController::dismount() {
     //While moving appear behind sCart
     //While stationary appear in front of sCart
     //SwapMesh(0);
+    footSteps.setPaused(false);
 }
 
 void TCompCharacterController::mounted(float delta) {
@@ -1356,6 +1360,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
         maxLife = maxLife + quantity;
         heal();
         GameController.increaseHpBarSize(extraBarSize);
+        EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
         break;
     }
     case PowerUpType::MADNESS_UP:
@@ -1365,6 +1370,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
         madness->setMaximumMadness(madness->getMaximumMadness() + quantity);
         restoreMadness();
         GameController.increaseMadnessBarSize(extraBarSize);
+        EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
         break;
     }
     case PowerUpType::ACTIVATE_BATTERY:
@@ -1373,23 +1379,27 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
         unLockableBattery = true;
 		//llamada funcion de scripting para poder escapar
 		Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
         break;
     }
     case PowerUpType::ACTIVATE_CHILLI:
     {
         //TODO
 		unLockableChilli = true;
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
         break;
     }
     case PowerUpType::ACTIVATE_COFFEE:
     {
         //TODO
 		unLockableCoffe = true;
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
         break;
     }
     case PowerUpType::ACTIVATE_TELEPORT:
     {
 		unLockableTeleport = true;
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
         break;
     }
     }

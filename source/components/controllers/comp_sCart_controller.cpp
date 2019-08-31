@@ -29,6 +29,10 @@ void TCompSCartController::Init() {
 
 	//ADD MORE STATES FOR BEING HIT, ETC, ETC
 
+    _movementAudio = EngineAudio.playEvent("event:/Character/SCart/Movement");
+    _movementAudio.setPaused(true);
+    _crashAudio = EngineAudio.playEvent("event:/Character/SCart/Crash");
+    _crashAudio.stop();
 	ChangeState("SCART_DISABLED");
 }
 
@@ -59,6 +63,7 @@ void TCompSCartController::enable(CHandle vehicle) {
 		SwapMesh(1);
 		//Generate fake player mounted
 		fakePlayerHandle = GameController.spawnPrefab("data/prefabs/props/fake_player_mounted.json", c_trans->getPosition());
+        EngineAudio.playEvent("event:/Character/SCart/Mount");
 	}
 
 
@@ -209,6 +214,9 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 									CEntity* candidate = hitCollider.getOwner();
 									if (candidate != nullptr) {
 										rowImpulseLeft = 0.0f;
+                                        if (!_crashAudio.isPlaying()) {
+                                            _crashAudio = EngineAudio.playEvent("event:/Character/SCart/Crash");
+                                        }
 									}
 									
 								}
@@ -386,6 +394,29 @@ void TCompSCartController::grounded(float delta) {
 	}
 
 	dir *= delta * rowImpulseLeft;
+
+    if (rowImpulseLeft > 0.f) {
+        //SwapMesh(2);
+        //TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        //playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f);
+        //Play sound
+        if (_movementAudio.getPaused()) {
+            _movementAudio.setPaused(false);
+            _movementAudio.restart();
+        }
+    }
+    else {
+        //SwapMesh(0);
+        //TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        //if (playerAnima != nullptr) {
+        //    playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 0.5f);
+        //    //footSteps.stop();
+        //    
+        //}
+        if (!_movementAudio.getPaused()) {
+            _movementAudio.setPaused(true);
+        }
+    }
 
 	//MOVE PLAYER
 	TCompCollider* comp_collider = get<TCompCollider>();

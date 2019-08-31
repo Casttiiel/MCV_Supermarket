@@ -116,7 +116,7 @@ void CModuleGameManager::gameCondition() {
 
 		isPaused = true;
 		CApplication::get().setLostFocus(false);
-
+        GameController.pauseGame();
 		//envio de mensaje de pausa
 		
 		// hacemos visualizar puntero en el menu
@@ -129,7 +129,8 @@ void CModuleGameManager::gameCondition() {
 
 		//jugador no muerto y juego en pausa
 		exitPauseGame();//quitamos pausa
-	}	
+        GameController.resumeGame();
+    }
 }
 
 

@@ -10,7 +10,7 @@
 class TCompFireController : public TCompBase {
 
     DECL_SIBLING_ACCESS();
-
+    void onSoundRequest(const TMsgSoundRequest& msg);
 public:
     void update(float dt);
     void load(const json& j, TEntityParseContext& ctx);
@@ -22,6 +22,7 @@ public:
     void comboAttack(VEC3 pos);
     bool isEnabled() { return _enabled; }
     bool isBuffActive();
+    static void registerMsgs();
 
 private:
 
@@ -35,6 +36,9 @@ private:
     float _fireImpactForce = 5.f;
     float _fireDelay = 0.1f;
     float _fireTimer = 0.f;
+
+    std::string _hitAudioName = "event:/Character/Powers/Fire/Fire_Hit_1";
+    AudioEvent _hitAudio;
     //End Fire Values
 
     //Spheres Values

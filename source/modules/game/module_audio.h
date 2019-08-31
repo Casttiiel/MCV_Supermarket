@@ -31,6 +31,7 @@ private:
     std::unordered_map<unsigned int, FMOD::Studio::EventInstance*> myEventInstances;
     std::unordered_map<unsigned int, FMOD::Studio::EventInstance*> myPreloadedEventInstances;
     std::unordered_map<std::string, FMOD::Studio::Bus*> myBuses;
+    std::unordered_map<std::string, float> nonRepeatableEvents;
 
     std::unordered_map<std::string, AudioEvent> preloadedSoundEventObjects;
 
@@ -69,6 +70,7 @@ public:
     void unloadAllBanks();
 
     AudioEvent playEvent(const std::string& name);
+    AudioEvent playEventNoRepeat(const std::string& name);
     AudioEvent preloadEvent(const std::string& name);
 
     CHandle getListener() { return h_listener; };
