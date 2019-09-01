@@ -22,5 +22,8 @@ private:
 	void onOptionDash();
 	void onOptionJump();
 	void onOptionMop();
+
+  float actualLifeRatioBar = -1.0f;
+  float actualMadnessRatioBar = -1.0f;
 };
 

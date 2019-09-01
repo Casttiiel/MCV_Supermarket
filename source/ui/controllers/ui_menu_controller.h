@@ -16,7 +16,7 @@ namespace UI
 
     void registerOption(CButton* button, Callback callback);
     void setCurrentOption(int idx);
-	int getPosInButton(VEC2 mouse_pos);
+	  int getPosInButton(VEC2 mouse_pos);
 
   private:
     struct TOption
@@ -26,6 +26,7 @@ namespace UI
     };
     std::vector<TOption> _options;
     int _currentOption = -1;
-	VEC2 lastPosMouse = VEC2::Zero;
+	  VEC2 lastPosMouse = VEC2::Zero;
+    
   };
 }

@@ -82,12 +82,12 @@ void TCompCharacterController::debugInMenu() {
     ImGui::DragFloat("Speed", &speed, 0.1f, 0.f, 10.f);
     ImGui::DragFloat("Dash Speed", &dash_speed, 0.1f, 0.f, 10.f);
     ImGui::DragFloat("Rotation speed", &rotation_speed, 0.1f, 0.f, 10.f);
-    ImGui::DragFloat("Life", &life, 0.10f, 0.f, 100.f);
+    ImGui::DragFloat("Life", &life, 0.10f, 0.f, maxLife);
     ImGui::DragFloat("Distance to aim", &distance_to_aim, 0.10f, 0.f, 100.f);
     ImGui::Checkbox("UnLockable Battery", &unLockableBattery);
-	ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
-	ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
-	ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);
+	  ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
+	  ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
+	  ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);
 }
 
 void TCompCharacterController::renderDebug() {
@@ -327,7 +327,7 @@ void TCompCharacterController::grounded(float delta) {
                 c_fire->comboAttack(c_trans->getPosition());
             }
         }
-        else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE)) {
+        else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) {
             if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
         //Enable fire, keep it enabled while holding trigger, disable on release
                 TCompFireController* c_fire = get<TCompFireController>();

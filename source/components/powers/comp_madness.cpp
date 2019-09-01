@@ -7,6 +7,7 @@ using namespace physx;
 DECL_OBJ_MANAGER("comp_madness", TCompMadnessController);
 
 void TCompMadnessController::debugInMenu() {
+  ImGui::DragFloat("Madness", &_remainingMadness, 0.10f, 0.f, _maximumMadness);
 }
 
 void TCompMadnessController::load(const json& j, TEntityParseContext& ctx) {
@@ -146,6 +147,7 @@ void TCompMadnessController::update(float delta) {
 			//if we have less than _passiveThreshold, 
 			//and we haven't used it in _passiveRegenerationDelay, start regenerating up to _passiveThreshold
 			_remainingMadness += _madnessPassiveRestorationRate * delta;
+      _remainingMadness = clamp(_remainingMadness, 0.0f, _passiveThreshold);
 		}
 	}
 

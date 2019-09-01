@@ -48,7 +48,7 @@ namespace UI
     else if (type == "text")      widget = parseText(jData);
     else if (type == "button")    widget = parseButton(jData);
     else if (type == "progress")  widget = parseProgress(jData);
-	else if (type == "bar")		  widget = parseBar(jData);
+	  else if (type == "bar")		    widget = parseBar(jData);
     else                          widget = parseWidget(jData);
 
     widget->_name = name;
