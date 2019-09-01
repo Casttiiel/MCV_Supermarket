@@ -239,7 +239,7 @@ void TCompCharacterController::grounded(float delta) {
     if (dir != VEC3().Zero) {
         //SwapMesh(2);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f);
+        playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.2f);
         //Play sound
         if(footSteps.getPaused()){
             footSteps.setPaused(false);
@@ -250,7 +250,7 @@ void TCompCharacterController::grounded(float delta) {
         //SwapMesh(0);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
 		if(playerAnima != nullptr){
-			playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f);
+			playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.0f);
 			//footSteps.stop();
 			if (!footSteps.getPaused()) {
 				footSteps.setPaused(true);
@@ -269,7 +269,7 @@ void TCompCharacterController::grounded(float delta) {
     }
     if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
+        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
         ChangeState("DASHING");
         dash = dash_limit;
         startDash = true;
@@ -792,6 +792,7 @@ void TCompCharacterController::shoot() {
             front.Normalize();
             TCompBatteryController* c_bat = get<TCompBatteryController>();
             c_bat->shoot(front);
+            aiming = false;
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::THROW, 1.f, true);
             EngineAudio.playEvent("event:/Character/Powers/Battery/Throw");
@@ -1114,6 +1115,8 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
         }
         if (&(msg.impactForce) != nullptr && msg.impactForce > 0) {
           EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+          TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+          playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.0f);
           //ChangeState("DAMAGED");
         }
       }
@@ -1157,6 +1160,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 }
                 if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0) {
                     EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+                    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+                    playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.0f);
                     //ChangeState("DAMAGED");
                 }
             }

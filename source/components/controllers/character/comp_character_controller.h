@@ -71,7 +71,7 @@ private:
   float dash_speed = 35.0f;
   float dash_limit = 0.15f;
   float dash = dash_limit;
-  float time_between_dashes = 0.5f;
+  float time_between_dashes = 1.5f;
   float time_to_next_dash = 0.0f;
   float jump_force = 7.f;
   float double_jump_force = 4.f;

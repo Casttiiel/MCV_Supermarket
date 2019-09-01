@@ -77,17 +77,6 @@ void TCompPlayerAnimator::debugInMenu() {
 void TCompPlayerAnimator::initializeAnimations() {
 
     initializeAnimation(
-        (TCompAnimator::EAnimation)EAnimation::IDLE_COMBAT,
-        EAnimationType::CYCLIC,
-        EAnimationSize::SINGLE,
-        "IDLE_COMBAT",
-        "",
-        "",
-        1.0f,
-        1.0f
-    );
-
-    initializeAnimation(
         (TCompAnimator::EAnimation)EAnimation::IDLE_MELEE,
         EAnimationType::CYCLIC,
         EAnimationSize::SINGLE,
@@ -97,23 +86,23 @@ void TCompPlayerAnimator::initializeAnimations() {
         1.0f,
         1.0f
     );
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::IDLE_COMBAT,
+        EAnimationType::CYCLIC,
+        EAnimationSize::SINGLE,
+        "IDLE_COMBAT",
+        "",
+        "",
+        0.5f,
+        1.0f
+    );
+
 
     initializeAnimation(
         (TCompAnimator::EAnimation)EAnimation::IDLE_FIRE,
         EAnimationType::CYCLIC,
         EAnimationSize::SINGLE,
         "IDLE_FIRE",
-        "",
-        "",
-        1.0f,
-        1.0f
-    );
-
-    initializeAnimation(
-        (TCompAnimator::EAnimation)EAnimation::IDLE_COMBAT,
-        EAnimationType::CYCLIC,
-        EAnimationSize::SINGLE,
-        "IDLE_COMBAT",
         "",
         "",
         1.0f,
@@ -171,7 +160,7 @@ void TCompPlayerAnimator::initializeAnimations() {
         "AIM_THROW",
         "",
         "",
-        1.0f,
+        1.5f,
         1.0f
     );
 
@@ -259,7 +248,7 @@ void TCompPlayerAnimator::initializeAnimations() {
         "RUN",
         "",
         "",
-        1.0f,
+        0.15f,
         1.0f
     );
 
@@ -292,7 +281,7 @@ void TCompPlayerAnimator::initializeAnimations() {
         "WALK",
         "",
         "",
-        1.0f,
+        0.5f,
         1.0f
     );
 
