@@ -26,7 +26,11 @@ bool CModuleGameManager::start()
 	windowWidth = 250;
 	windowHeight = 70;
 	
-
+	
+		
+	Input::CMouse mouse = EngineInput.mouse();
+	mouse.setLockMouse(true);
+	
 
 	return true;
 }
@@ -63,7 +67,8 @@ void CModuleGameManager::gameCondition() {
 			ImGui::Text("GAME OVER, press key T for continue");
 			ImGui::End();*/
 
-
+			Input::CMouse mouse = EngineInput.mouse();
+			mouse.setLockMouse(false);
 			
 			menuDead = true;
 			
@@ -78,6 +83,7 @@ void CModuleGameManager::gameCondition() {
 
 			
 		}
+		//si estas vivo y no es pausa seear el puntero
 		//if (c_controller->endGame) {
 
 		if (c_controller->endGame) {
@@ -97,6 +103,8 @@ void CModuleGameManager::gameCondition() {
 				DestroyWindow(app.getHandle());
 			}
 			ImGui::End();*/
+			Input::CMouse mouse = EngineInput.mouse();
+			mouse.setLockMouse(false);
 			victoryMenu = true;
 			TMsgGamePause msg;
 			msg.isPause = true;
@@ -109,7 +117,7 @@ void CModuleGameManager::gameCondition() {
 
 	}
 	
-	if (!isPaused && EngineInput["pause"].justPressed() /*|| (!menuVisible && CApplication::get().lostFocus())*/) {
+	if (!isPaused && EngineInput["pause"].justPressed() || (!menuVisible && CApplication::get().lostFocus())) {
 		
 	
 		//juego en pausa y jugador vivo
@@ -120,13 +128,16 @@ void CModuleGameManager::gameCondition() {
 		//envio de mensaje de pausa
 		
 		// hacemos visualizar puntero en el menu
-		
+		Input::CMouse mouse = EngineInput.mouse();
+		mouse.setLockMouse(false);
 
 		menuVisible = true;
 		Time.real_scale_factor = 0.0f;
 	}
 	else if (isPaused && EngineInput["pause"].justPressed()) {
 
+		Input::CMouse mouse = EngineInput.mouse();
+		mouse.setLockMouse(true);
 		//jugador no muerto y juego en pausa
 		exitPauseGame();//quitamos pausa
 	}	
@@ -224,7 +235,7 @@ void CModuleGameManager::renderDebug()
 		ImGui::End();
 		
 		*/
-
+		
 		ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight));
 		ImGui::Begin("YOU DIED", false, window_flags);
 		ImGui::CaptureMouseFromApp(false);
@@ -239,7 +250,8 @@ void CModuleGameManager::renderDebug()
 			}
 			TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
 			if ((c_controller->life <= 0)) {
-
+				Input::CMouse mouse = EngineInput.mouse();
+				mouse.setLockMouse(true);
 				//quitar puntero de raton
 				menuDead = false;
 				c_controller->ChangeState("GROUNDED");
@@ -283,4 +295,6 @@ void CModuleGameManager::exitPauseGame() {
 	
 
 	menuVisible = false;
+	Input::CMouse mouse = EngineInput.mouse();
+	mouse.setLockMouse(true);
 }
