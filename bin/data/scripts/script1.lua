@@ -205,7 +205,16 @@ function script_ice_3_player()
 	-- funcion que rompa el muro en varios trozos
 end
 
+function create_cupcakes_in_frost()
+	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(150, -3.653, 11), QUAT(0, 0, 0, 1),1);
+	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados1",h_cupcake1);
+	GameController:setPauseEnemyByHandle(h_cupcake1,false);
+	
+	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(140, -3.653, 5), QUAT(0, 0, 0, 1),1);
+	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados2",h_cupcake2);
+	GameController:setPauseEnemyByHandle(h_cupcake2,false);
 
+end
 
 function wake_up_last_golem_player()
 	h_golem = GameController:entityByName("golem3"); 
