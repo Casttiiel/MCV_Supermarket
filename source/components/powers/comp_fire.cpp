@@ -28,7 +28,7 @@ void TCompFireController::load(const json& j, TEntityParseContext& ctx) {
 
     _buffDuration = j.value("_buffDuration", _buffDuration);
 
-    bone_name = j.value("bone", "Bip001 Head");
+    bone_name = j.value("bone", "Bone_indice01_der");
     parent_name = j.value("parent", "Player");
     assert(!bone_name.empty());
     assert(!parent_name.empty());
