@@ -63,6 +63,8 @@ public:
 	void setCurve(const CCurve* curve);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
 	std::string getNameCurve();
+	void setViewDistance(float value);
+	void setHalfCone(float halfCone);
   //End Conditions
 private:
   float initialExecution = true;

@@ -655,7 +655,33 @@ void CModuleGameController::setViewDistanceEnemyByHandle(float distance, CHandle
 			CBTGolem* golem = e_enemy->get<CBTGolem>();
 			golem->setViewDistance(70.f);
 		}
+		else if (TYPE_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTSushi* sushi = e_enemy->get<CBTSushi>();
+			sushi->setViewDistance(distance);
+		}
+		else if (TYPE_RANGED_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTRangedSushi* ranged_sushi = e_enemy->get<CBTRangedSushi>();
+			ranged_sushi->setViewDistance(distance);
+		}
 		//...
+	}
+}
+
+void CModuleGameController::setHalfConeEnemyByHandle(float half_cone, CHandle h_enemy, int typeEnemy) {
+	if (h_enemy.isValid()) {
+		if (TYPE_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTSushi* sushi = e_enemy->get<CBTSushi>();
+			sushi->setHalfCone(half_cone);
+		}
+		else if (TYPE_RANGED_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTRangedSushi* ranged_sushi = e_enemy->get<CBTRangedSushi>();
+			ranged_sushi->setHalfCone(half_cone);
+		}
+		
 	}
 }
 

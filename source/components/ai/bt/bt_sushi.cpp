@@ -202,7 +202,13 @@ string CBTSushi::getNameCurve() {
 void CBTSushi::setHeightRange(float height) {
 	this->height_range = height;
 }
+void CBTSushi::setViewDistance(float value) {
+	this->viewDistance = value;
+}
 
+void CBTSushi::setHalfCone(float halfCone) {
+	this->half_cone = halfCone;
+}
 
 
 int CBTSushi::actionSeekWaypoint() {
@@ -1478,6 +1484,11 @@ void CBTSushi::load(const json& j, TEntityParseContext& ctx) {
     hearing_radius = j.value("hearingRadius", hearing_radius);
     combatViewDistance = j.value("combatViewDistance", combatViewDistance);
     viewDistance = j.value("viewDistance", viewDistance);
+
+	//half_cone = 360;
+	//viewDistance = 1000;
+	
+
     //End View Ranges
 
     //Core Values
@@ -1887,6 +1898,10 @@ bool CBTSushi::checkBlackboard() {
     slotsAvailable = c_bb->checkPermission(CHandle(this).getOwner(), SUSHI);
     return slotsAvailable;
 }
+
+
+
+
 
 bool CBTSushi::isPlayerInNavmesh() {
 

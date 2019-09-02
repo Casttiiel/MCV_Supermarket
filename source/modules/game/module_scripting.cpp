@@ -151,7 +151,8 @@ void CModuleScripting::BindGameController() {
 		.set("setViewDistanceEnemyByHandle",&CModuleGameController::setViewDistanceEnemyByHandle)
 		.set("getCameraFromHandle", &CModuleGameController::getCameraFromHandle)
 		.set("inCinematicSpecial", &CModuleGameController::inCinematicSpecial)
-    .set("blendPlayerCamera", &CModuleGameController::blendPlayerCamera)
+		.set("blendPlayerCamera", &CModuleGameController::blendPlayerCamera)
+		.set("setHalfConeEnemyByHandle", &CModuleGameController::setHalfConeEnemyByHandle)
 		;
 }
 

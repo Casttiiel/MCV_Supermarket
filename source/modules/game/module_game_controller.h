@@ -239,6 +239,7 @@ public:
 	void dbgInLua(std::string text);
 	void setHeightEnemyByHandle(int height, CHandle h_enemy, int typeEnemy);
 	void setViewDistanceEnemyByHandle(float distance, CHandle h_enemy, int typeEnemy);
+	void setHalfConeEnemyByHandle(float half_cone, CHandle h_enemy, int typeEnemy);
 	CCamera* getCameraFromHandle(CHandle hCamera);
 	
 };

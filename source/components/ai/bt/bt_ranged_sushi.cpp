@@ -1917,12 +1917,16 @@ std::string CBTRangedSushi::getNameCurve() {
 	return pathCurve;
 }
 
+void CBTRangedSushi::setViewDistance(float value) {
+	this->viewDistance = value;
+}
+
+void CBTRangedSushi::setHalfCone(float halfCone) {
+	this->half_cone = halfCone;
+}
+
 
 bool CBTRangedSushi::isOtherEnemyInSide() {
-
-
-
-	
 	bool hayEnemy = false;
 	PxReal maxDistance = 10.f;
 	PxRaycastBuffer hit;

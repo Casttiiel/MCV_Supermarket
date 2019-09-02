@@ -62,6 +62,8 @@ public:
   std::string getNameCurve();
 	void setCurve(const CCurve* curve);
 	void setHeightRange(float height);
+	void setViewDistance(float distance);
+	void setHalfCone(float halfCone);
   //End Conditions
 private:
   float initialExecution = true;
@@ -121,7 +123,7 @@ private:
   float hearing_radius = 3.0f;
   float combatViewDistance = 30.0f;
   float viewDistance = 15.f;
-	float height_range = 3.0f;
+  float height_range = 3.0f;
   //End View Ranges
 
   //Core Values

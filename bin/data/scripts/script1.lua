@@ -3,6 +3,15 @@ SLB.using(SLB)
 GameController = getGameController()
 
 --variables globales
+h_suishi1 = nil
+h_suishi2 = nil
+h_suishi3 = nil
+h_suishi4 = nil
+h_suishi5 = nil
+h_suishi6 = nil
+h_suishi7 = nil
+
+
 h_suishi9 = nil
 h_suishi10 = nil
 h_suishi11 = nil
@@ -163,6 +172,11 @@ function setViewDistanceEnemy(distance,handle,type)
 	GameController:setViewDistanceEnemyByHandle(distance,handle,type);
 end
 
+
+function sethalfConeEnemy(halfCone,handle,type)
+	GameController:setHalfConeEnemyByHandle(halfCone,handle,type)
+end
+
 function script_ice_1_player()
 	
 	execDelayedAction("changeScene(\"congelados_scene\")",0)	
@@ -268,6 +282,31 @@ function cinematic_scene_termoestatos_player()
 	--prueba de cargar la sgunda escena
 	--execDelayedAction("changeScene(\"tutorial_scene\")",0);--Prueba de cambio de escena
 	--eliminar trigger de animacion
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi1,1)",19);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi1,1)",19);
+	
+	execDelayedAction("sethalfConeEnemy(360,h_suishi4,2)",19);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi4,2)",19);
+	
+	execDelayedAction("sethalfConeEnemy(360,h_suishi6,2)",19);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi6,2)",19);
+	
+	execDelayedAction("sethalfConeEnemy(360,h_suishi9,1)",19);
+	execDelayedAction("setViewDistanceEnemy(70,h_suishi9,1)",19);
+	
+	execDelayedAction("sethalfConeEnemy(360,h_suishi10,1)",19);
+	execDelayedAction("setViewDistanceEnemy(70,h_suishi10,1)",19);
+	
+	execDelayedAction("sethalfConeEnemy(360,h_suishi11,1)",19);
+	execDelayedAction("setViewDistanceEnemy(70,h_suishi11,1)",19);
+
+	execDelayedAction("sethalfConeEnemy(360,h_suishi13,1)",19);
+	execDelayedAction("setViewDistanceEnemy(100,h_suishi13,1)",19);
+
+	execDelayedAction("sethalfConeEnemy(360,h_suishi14,1)",19);
+	execDelayedAction("setViewDistanceEnemy(100,h_suishi14,1)",19);
+	
+
 	execDelayedAction("on_delete_handle(\"trigger3\")",0);
 	--execDelayedAction("spawn(\"data/prefabs/enemies/sushi.json\", VEC3(-10, 0, -43.5), QUAT(0, 0, 0, 1),1)",0);
 	
@@ -291,7 +330,7 @@ function createEnemies_player()
 	GameController:setPauseEnemyByHandle(h_suishi2,false);
 
 	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-65,-0.193,-69), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica3",h_suishi3);	
+	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica3",h_suishi3);
 	GameController:setPauseEnemyByHandle(h_suishi3,false);
 
 	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-2,-0.193, -73), QUAT(0, 0, 0, 1),1);
@@ -310,9 +349,9 @@ function createEnemies_player()
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica7",h_suishi7);
 	GameController:setPauseEnemyByHandle(h_suishi7,false);
 
-	--h_suishi8 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(104,-0.193,88), QUAT(0, 0, 0, 1),1);--quitar este
-	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica8",h_suishi8);
-	--GameController:setPauseEnemyByHandle(h_suishi8,false); --GameController:setPauseEnemyByHandle(h_suishi8,false);
+	h_suishi8 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(104,-0.193,88), QUAT(0, 0, 0, 1),1);--quitar este
+	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica8",h_suishi8);
+	GameController:setPauseEnemyByHandle(h_suishi8,false); --GameController:setPauseEnemyByHandle(h_suishi8,false);
 
 	--suishis piso superior (Quizas setear el height para que no te ataquen antes de tiempo)
 	h_suishi9 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-47,7.632,-18), QUAT(0, 0, 0, 1),1);
