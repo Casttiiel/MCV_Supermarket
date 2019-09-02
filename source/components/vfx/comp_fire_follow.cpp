@@ -34,23 +34,24 @@ void TCompFireFollow::update(float delta) {
       CEntity* cam = getEntityByName("PlayerCamera");
       TCompTransform* cam_trans = cam->get<TCompTransform>();
       data->emitter_dir = cam_trans->getFront();
-	}
-	else {
-	  data->emitter_dir = c_trans_pl->getFront();
-	}
+    }else {
+      data->emitter_dir = c_trans_pl->getFront();
+      CEntity* cam = getEntityByName("PlayerCamera");
+      TCompTransform* cam_trans = cam->get<TCompTransform>();
+      data->emitter_dir = cam_trans->getFront();
+    }
 
     //bool emision
     TCompFireController* c_fire = en->get<TCompFireController>();
     TCompRender* c_render = get<TCompRender>();
     if (c_fire->isEnabled()) {
-      data->emitter_num_particles_per_spawn = 4;
+      data->emitter_num_particles_per_spawn = 10;
     }
     else {
       data->emitter_num_particles_per_spawn = 0;
     }
-
     data->updateGPU();
-  }
+	}
 }
 
 
