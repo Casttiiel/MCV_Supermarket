@@ -526,7 +526,7 @@ bool CBTGolem::conditionTimerThrow() {
 
 bool CBTGolem::conditionRandomThrowCupcake() {
 	
-	if(!attackCinematic) {
+	if(!noThrowCupcake) {
 		randomNumber = bt_dist_gol(bt_gol);
 		if (randomNumber < throwCupcakeProbability && _currentEnemies.size() < _spawnMaxNumber -1) {
 			return true; //throw cupcake
@@ -973,6 +973,6 @@ void CBTGolem::setHeightRange(float height) {
 	this->height_range = height;
 }
 
-void CBTGolem::setAttackCinematic(bool value) {
-	this->attackCinematic = value;
+void CBTGolem::setNotThrowCupcake(bool value) {
+	this->noThrowCupcake = value;
 }

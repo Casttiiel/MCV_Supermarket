@@ -46,10 +46,10 @@ function on_active_enemies(active)
 	end
 end
 
-function setAttackCinematicGolem(nameGolem,active)
+function setNotThrowCupcake(nameGolem,active)
 	handle = GameController:entityByName(nameGolem);
 	t_compGolem = toCBTGolem(toEntity(handle):getCompByName("bt_golem"));
-	t_compGolem:setAttackCinematic(active);
+	t_compGolem:setNotThrowCupcake(active);
 end
 
 function on_gameplay_fragment_activate(modl)
@@ -594,7 +594,7 @@ end
 
 
 function in_disable_throw_cupcakes_golem2_player()
-	execDelayedAction("setAttackCinematicGolem(\"golem2\",true)", 0);
+	execDelayedAction("setNotThrowCupcake(\"golem2\",true)", 0);
 	execDelayedAction("on_delete_handle(\"trigger009\")",0);
 end
 

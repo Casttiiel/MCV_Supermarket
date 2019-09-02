@@ -57,7 +57,7 @@ public:
 	bool conditionAttackCinematic();
 	void setViewDistance(float distance);
 	void setHeightRange(float height);
-	void setAttackCinematic(bool value);
+	void setNotThrowCupcake(bool value);
 private:
 
 
@@ -132,6 +132,7 @@ private:
 	bool golemCinematic = false;
 	bool inCinematic = false;
 
+	bool noThrowCupcake = false;
 	bool firstExec= true;
 	float projectileDelay = 0.83;
 	float delay = projectileDelay;

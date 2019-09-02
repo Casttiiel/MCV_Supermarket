@@ -207,7 +207,7 @@ void CModuleScripting::BindGolem() {
 	SLB::Class<CBTGolem>("CBTGolem", m)
 		.comment("This is our wrapper of compGolem class")
 		.constructor()
-		.set("setAttackCinematic", &CBTGolem::setAttackCinematic)
+		.set("setNotThrowCupcake", &CBTGolem::setNotThrowCupcake)
 		;
 }
 
