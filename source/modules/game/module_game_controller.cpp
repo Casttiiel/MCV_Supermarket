@@ -226,6 +226,8 @@ void CModuleGameController::lockCamera3Person(bool activate) {
 	if (t_comp3 != nullptr) {
 		//t_comp3->_enabled = activate;
 		t_comp3->mouse_active = activate;
+		t_comp3->_enabled = activate;
+	
 	}
 }
 
