@@ -171,12 +171,44 @@ void CModuleGameUI::update(float delta)
 			//Mana
 			TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
 			TCompMadnessController* madness_controller = e_player->get<TCompMadnessController>();
-			float madness = (madness_controller->getRemainingMadness() + 20) / (c_controller->getMaxMadness() + 20);//ofset de las barras de vida
 			UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("mana_bar_r"));
-			bar->setRatio(madness);
+      UI::CBar* bar2 = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+      float realMadnessBar = (madness_controller->getRemainingMadness() + 20) / (c_controller->getMaxMadness() + 20);//ofset de las barras de vida
+      float realLifeBar = (c_controller->life + 20) / 120.f;
 
-			UI::CBar* bar2 = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
-			bar2->setRatio((c_controller->life + 20)/120.f); // 20 y 120 son offset de la barra de vida
+      if (actualLifeRatioBar == -1.0f) {
+        actualLifeRatioBar = realLifeBar;
+        bar2->setRatio(actualLifeRatioBar); // 20 y 120 son offset de la barra de vida
+      }
+        
+
+      if (actualMadnessRatioBar == -1.0f) {
+        actualMadnessRatioBar = realMadnessBar;
+        bar->setRatio(actualMadnessRatioBar);
+      }
+
+      float dirLifeBar = realLifeBar - actualLifeRatioBar;
+      float dirMadnessBar = realMadnessBar - actualMadnessRatioBar;
+
+      if (abs(dirLifeBar) > 0.01f) {
+        if (dirLifeBar > 0.0f) {
+          actualLifeRatioBar = clamp(actualLifeRatioBar + (sign(dirLifeBar) * delta * 0.5f), 0.0f, realLifeBar);
+        }
+        else {
+          actualLifeRatioBar = clamp(actualLifeRatioBar + (sign(dirLifeBar) * delta * 0.5f), realLifeBar, 1.0f);
+        }
+        bar2->setRatio(actualLifeRatioBar); // 20 y 120 son offset de la barra de vida
+      }
+
+      if (abs(dirMadnessBar) > 0.01f) {
+        if (dirMadnessBar > 0.0f) {
+          actualMadnessRatioBar = clamp(actualMadnessRatioBar + (sign(dirMadnessBar) * delta * 0.5f), 0.0f, realMadnessBar);
+        }
+        else {
+          actualMadnessRatioBar = clamp(actualMadnessRatioBar + (sign(dirMadnessBar) * delta * 0.5f), realMadnessBar, 1.0f);
+        }
+        bar->setRatio(actualMadnessRatioBar);
+      }
 
 		}
 	}

@@ -73,10 +73,6 @@ void updateParticle( inout TInstance p ) {
   p.scale = sampleScale( p.time_normalized );
   p.dir += p.acc * GlobalDeltaTime;
   p.pos += p.dir * GlobalDeltaTime;
-  if( p.pos.y < 0 ) {
-    p.pos.y = -p.pos.y;
-    p.dir.y = -p.dir.y;
-  }
 }
 
 // --------------------------------------------------------------

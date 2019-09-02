@@ -243,6 +243,8 @@ private:
 
 	std::string pathCurve = "";
 
+  std::string state = "";
+  std::string getState();
 
 };
 

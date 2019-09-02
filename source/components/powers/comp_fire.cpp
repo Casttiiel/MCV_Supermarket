@@ -37,6 +37,19 @@ void TCompFireController::load(const json& j, TEntityParseContext& ctx) {
     if (e_parent)
         h_skeleton = e_parent->get<TCompSkeleton>();
     srand(1234);
+
+    _hitAudio = EngineAudio.playEvent(_hitAudioName);
+    _hitAudio.stop();
+}
+
+void TCompFireController::registerMsgs() {
+    DECL_MSG(TCompFireController, TMsgSoundRequest, onSoundRequest);
+}
+
+void TCompFireController::onSoundRequest(const TMsgSoundRequest& msg) {
+    if (msg.name == _hitAudioName && !_hitAudio.isPlaying()) {
+        _hitAudio = EngineAudio.playEvent(_hitAudioName);
+    }
 }
 
 void TCompFireController::renderDebug() {
@@ -59,6 +72,7 @@ void TCompFireController::disable() {
 }
 
 void TCompFireController::update(float dt) {
+
     if (_buffRemaining > 0.f) {
         _buffRemaining -= Time.delta_unscaled;
     }
@@ -96,7 +110,7 @@ void TCompFireController::update(float dt) {
 
     //If trigger just released or we've run out of madness, disable
     TCompMadnessController* m_c = get<TCompMadnessController>();
-    if (EngineInput["fire_attack_"].justReleased() || (m_c->getRemainingMadness() < m_c->getPowerCost(PowerType::FIRE) && !GameController.getGodMode())) {
+    if (EngineInput["fire_attack_"].justReleased() || (m_c->getRemainingMadness() < m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled && !GameController.getGodMode())) {
         disable();
         return;
     }

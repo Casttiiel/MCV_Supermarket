@@ -2,10 +2,10 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{8b0279cc-8fb9-4e23-aaa2-f667fe635ff9}">
 		<property name="name">
-			<value>Pickup</value>
+			<value>Weapon_Pickup</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{c73fdb7d-75ac-4fe0-af50-f42a98be3cf6}</destination>
@@ -59,11 +59,18 @@
 	<object class="EventAutomatableProperties" id="{cacb2894-0b27-40a4-820a-c8c7f8295afb}" />
 	<object class="MarkerTrack" id="{afbe8e71-eeef-478b-b553-be188ebf8eb9}" />
 	<object class="GroupTrack" id="{a259b393-9c23-4bfd-b493-036e12fb9ac1}">
+		<relationship name="modules">
+			<destination>{a9125b3b-db81-4e18-b5d6-93aa5df69f9a}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{8ef9773a-fcb6-4e7e-91cb-a118e54fd631}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{846f32d9-8964-497f-b650-1017bcb0641d}" />
+	<object class="Timeline" id="{846f32d9-8964-497f-b650-1017bcb0641d}">
+		<relationship name="modules">
+			<destination>{a9125b3b-db81-4e18-b5d6-93aa5df69f9a}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{37aa7c85-a058-4c6c-aa97-df672237383d}">
 		<relationship name="effectChain">
 			<destination>{fe75dc82-2c00-4b54-b8c9-0b514070f985}</destination>
@@ -81,7 +88,18 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{fb6244b1-fc63-4d75-81f9-788438fe5026}" />
+	<object class="SingleSound" id="{a9125b3b-db81-4e18-b5d6-93aa5df69f9a}">
+		<property name="length">
+			<value>1.5626666666666666</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{7c3634f2-376b-4106-bda8-d6e2c0d316e4}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{8ef9773a-fcb6-4e7e-91cb-a118e54fd631}">
+		<property name="volume">
+			<value>-8</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>

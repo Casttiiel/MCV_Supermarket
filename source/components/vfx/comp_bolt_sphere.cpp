@@ -43,7 +43,7 @@ void TCompBoltSphere::update(float delta) {
   VEC3 newPos = cTransform->getPosition() + dir * delta * speed;
   cTransform->setPosition(newPos);
 
-  CEntity* e = getEntityByName("Spark Particles");
+  CEntity* e = getEntityByName("SparkParticles");
   if (e) {
     TCompBuffers* c_buff = e->get<TCompBuffers>();
     if (c_buff) {

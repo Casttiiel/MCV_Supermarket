@@ -99,7 +99,7 @@ VS_OUTPUT VS_morph (
   VS_INPUT_MORPH input_morph
 )
 {
-  float amount_of_next = morph_weight_target; //saturate( ( cos(GlobalWorldTime) + 1 ) * 0.5 );
+  float amount_of_next = morph_weight_target; //saturate((cos(GlobalWorldTime) + 1) * 0.5)
   VS_INPUT input;
   input.Pos = input_morph.Pos * ( 1.0 - amount_of_next ) + input_morph.Pos1 * amount_of_next;
   input.N   = input_morph.N   * ( 1.0 - amount_of_next ) + input_morph.N1   * amount_of_next;
