@@ -125,39 +125,6 @@ VS_OUTPUT VS(
 
 float4 PS(VS_OUTPUT input) : SV_Target
 {
-	float2 p = input.Uv.xy / input.Uv.xy;
-  	float2 q = input.Uv;
-    float2 o, n;
-    n = input.N.xy
-    float3 fe = txAlbedo.Sample(samLinear,q);
-    float3 col = float3(-0.91620,-0.91620,-0.91620);  
-	col = lerp( 0, 1, fe.x ); 
-    col = lerp( float3(0.2,0.1,0.4), col * float3(0.13,0.05,0.05), f );
-    col = lerp( col, float3(0.19,0.9,0.9), dot(n,n)*n.x*1.357 );
-    col = lerp( col, float3(0.5,0.2,0.2), 0.5*o.y*o.y );
-	col += 0.05*lerp( col, float3(0.9,0.9,0.9), dot(n,n) );
-    col = lerp( col, float3(0.0,0.2,0.4), 0.5*smoothstep(1.02,1.3,abs(n.y)+abs(n.x*n.x)) );
-    col *= f*(5.92+(1.1*cos(GlobalWorldTime)));//animate glowy translucent underbits
-   
-	col = lerp( col, float3(-1.0,0.2,0.4), 0.5*smoothstep(1.02,1.3,abs(n.y)+abs(n.x*n.x)) );   
-	col = lerp( col, float3(0.40,0.92,0.4), 0.5*smoothstep(0.602,1.93,abs(n.y)+abs(n.x*n.x)) );    
-    
-    float2 ex = -1.* float2( 2.0 / input.Uv.x, 0.0 );
-    float2 ey = -1.*float2( 0.0, 2.0 / input.Uv.y );
-	float3 nor = normalize( float3( funcs(q+ex) - f, ex.x, funcs(q+ey) - f ) );
-    float3 lig = normalize( float3( 0.19, -0.2, -0.4 ) );
-    float dif = clamp( 0.03+0.7*dot( nor, lig ), 0.0, 1.0 );
 
-    float3 bdrf;
-    bdrf  = float3(0.85,0.90,0.95)*(nor.y*0.5+0.5);
-    bdrf += float3(0.15,0.10,0.05)*dif;
-    col *= bdrf/f;
-    col = float3(0.8,0.8,0.8)-col;
-    col = col*col;
-    col *= float3(0.8,1.15,1.2);    
-	col *= 0.45 + 0.5 * sqrt(16.0*p.x*p.y*p.y*(2.0-p.x)*(1.0-p.y)) * float3(1.,0.3,0.);
-
-    col = clamp(col,0.0,1.0);
-
-  	return float4(col.xyz,1);
+  	return float4(ObjColor.xyz,1);
 }
