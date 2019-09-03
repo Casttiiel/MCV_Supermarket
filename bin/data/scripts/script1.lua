@@ -592,6 +592,24 @@ function trampaSushisButcher_player()
 end
 
 
+function changeTimeDelayInOvenTrap(t_compname)
+	t_compname.working = true
+end
+
+function  on_init_trap_oven_player()
+	handle1 = GameController:entityByName("horno008");
+	t_compname1 = toCompEnemySpawnerSpecialTrap(toEntity(handle1):getCompByName("comp_enemy_spawner_special_trap"));
+	handle2 = GameController:entityByName("horno009");
+	t_compname2 = toCompEnemySpawnerSpecialTrap(toEntity(handle2):getCompByName("comp_enemy_spawner_special_trap"));
+	t_compname1:setSpawnDelay(1.0)
+	t_compname2:setSpawnDelay(2.0)
+	execDelayedAction("changeTimeDelayInOvenTrap(t_compname1)",0);
+	execDelayedAction("changeTimeDelayInOvenTrap(t_compname2)",1);
+	--t_compname1.working = true
+	--t_compname2.working = true
+	execDelayedAction("on_delete_handle(\"triggerSpecialOven\")",0);
+	
+end
 
 --Mapa Tutorial panaderia
 

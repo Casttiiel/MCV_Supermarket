@@ -13,6 +13,7 @@
 #include "components/controllers/comp_enemies_in_tube.h"
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
+#include "components/objects/comp_enemy_spawner_special_trap.h"
 #include "components/controllers/character/comp_character_controller.h"
 
 
@@ -255,5 +256,7 @@ TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 TCompName* toCompName(CHandle h);
 TCompTransform* toCompTransform(CHandle h);
 TCompCamera* toCompCamera(CHandle h);
+TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
+
 CBTGolem* toCBTGolem(CHandle h);
 //TCompCharacterController* toCompCharacterController_(CHandle h);

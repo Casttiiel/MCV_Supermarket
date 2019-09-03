@@ -835,6 +835,11 @@ CBTGolem* toCBTGolem(CHandle h) {
 	return g;
 }
 
+TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
+	TCompEnemySpawnerSpecialTrap* t = h;
+	return t;
+}
+
 /*
 TCompCharacterController* toCompCharacterController_(CHandle h) {
 	TCompCharacterController* c = h;

@@ -98,6 +98,7 @@ void CModuleScripting::doBingings() {
 	BindEnemiesInTube();
 	BindName();
 	BindGolem();
+	BindEnemySpawnerSpecial();
 }
 
 
@@ -166,6 +167,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompTransform", SLB::FuncCall::create(&toCompTransform));
 	m->set("toCompCamera", SLB::FuncCall::create(&toCompCamera));
 	m->set("toCBTGolem", SLB::FuncCall::create(&toCBTGolem));
+	m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -209,6 +211,15 @@ void CModuleScripting::BindGolem() {
 		.comment("This is our wrapper of compGolem class")
 		.constructor()
 		.set("setNotThrowCupcake", &CBTGolem::setNotThrowCupcake)
+		;
+}
+
+void CModuleScripting::BindEnemySpawnerSpecial() {
+	SLB::Class<TCompEnemySpawnerSpecialTrap>("TCompEnemySpawnerSpecialTrap", m)
+		.comment("This is ouTCompEnemySpawnerSpecialTrapr wrapper of TCompEnemySpawnerSpecialTrap class")
+		.constructor()
+		.property("working", &TCompEnemySpawnerSpecialTrap::working)
+		.set("setSpawnDelay", &TCompEnemySpawnerSpecialTrap::setSpawnDelay)
 		;
 }
 
