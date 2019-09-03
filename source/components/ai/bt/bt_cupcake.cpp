@@ -817,7 +817,7 @@ void CBTCupcake::onCreated(const TMsgEntityCreated& msg) {
 	TCompTransform* c_trans = get<TCompTransform>();
 
 	initialPos = c_trans->getPosition();
-  //voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice");
+    voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
 
 }
 

@@ -93,6 +93,8 @@ void TCompSCartController::disable() {
     rowImpulseLeft = 0.f;
 	//Remove fake player
 	fakePlayerHandle.destroy();
+    EngineAudio.playEvent("event:/Character/SCart/Dismount");
+    _movementAudio.setPaused(true);
 }
 
 void TCompSCartController::disabled() {

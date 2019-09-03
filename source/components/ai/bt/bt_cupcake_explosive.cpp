@@ -186,7 +186,7 @@ int CBTCupcake_explosive::actionDeath() {
   if (!isDeadForFallout) {
 	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
   }
-  EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death");
+  EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
   voice.stop();
 	CHandle(this).getOwner().destroy();
 	CHandle(this).destroy();
@@ -685,7 +685,7 @@ void CBTCupcake_explosive::onCreated(const TMsgEntityCreated& msg) {
 	TCompTransform* c_trans = get<TCompTransform>();
 
 	initialPos = c_trans->getPosition();
-  voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice");
+  voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
 
 }
 
