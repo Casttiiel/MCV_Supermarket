@@ -179,7 +179,7 @@ end
 
 function script_ice_1_player()
 	
-	execDelayedAction("changeScene(\"congelados_scene\")",0)	
+	--execDelayedAction("changeScene(\"congelados_scene\")",0)	
 	GameController:resetCamera(); 
 	execDelayedAction("on_cinematic(true)",0);
 	execDelayedAction("on_lock_camera3(false)",0);
@@ -219,14 +219,16 @@ function script_ice_3_player()
 	-- funcion que rompa el muro en varios trozos
 end
 
-function create_cupcakes_in_frost()
-	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(150, -3.653, 11), QUAT(0, 0, 0, 1),1);
+function create_cupcakes_in_frost_player()
+	execDelayedAction("changeScene(\"congelados_scene\")",0)
+	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(150, -3.653, -2), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados1",h_cupcake1);
 	GameController:setPauseEnemyByHandle(h_cupcake1,false);
 	
-	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(140, -3.653, 5), QUAT(0, 0, 0, 1),1);
+	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(139, -3.653, 1), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados2",h_cupcake2);
 	GameController:setPauseEnemyByHandle(h_cupcake2,false);
+	execDelayedAction("on_delete_handle(\"trigger010\")",0);
 
 end
 

@@ -262,6 +262,22 @@
   {
     "entity":
     {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "175.544 -1.37954 -17.3293"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "Box040"
       ,
       "transform":
@@ -3024,6 +3040,48 @@
         [
           "data/materials/mapa_congelados/hielo_1.material"
         ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "trigger010"
+      ,
+      "transform":
+      {
+        "pos": "170.026 -3.89349 -17.4797"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "3.15054 1.65042 14.2903"
+            ,
+            "offset":
+            {
+              "pos": "0.0 1.65042 0.0"
+            }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
+          }
+        ]
+      }
+      ,
+      "trigger":
+      {
+        "onEnter": "create_cupcakes_in_frost"
+        ,
+        "delay": 0
       }
     }
   }
