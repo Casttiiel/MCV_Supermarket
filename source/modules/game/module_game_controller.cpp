@@ -265,6 +265,17 @@ void CModuleGameController::destroyCHandleByName(std::string name) {
 	}
 }
 
+
+void CModuleGameController::deleteCupcake()
+{
+	VHandles enemies = CTagsManager::get().getAllEntitiesByTag(getID("cupcake"));
+	for (auto h : enemies) {
+		h.destroy();
+	}
+}
+
+
+
 void CModuleGameController::activatePlatformByName(std::string name) {
 	if (name != "") {
 		CEntity* e_platform = getEntityByName(name);
@@ -295,10 +306,11 @@ void CModuleGameController::deleteByTag(const char* tag) {
 	VHandles handles_in_scene = CTagsManager::get().getAllEntitiesByTag(getID(tag));
 	for (auto& instance : handles_in_scene) {
 		auto hm = CHandleManager::getByType(instance.getType());
-		if (hm)
+		if (hm) {
 			hm->destroyHandle(instance);
 		instance.getOwner().destroy();
 		instance.destroy();
+		}
 	}
 }
 #pragma endregion

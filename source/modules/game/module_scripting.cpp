@@ -154,6 +154,7 @@ void CModuleScripting::BindGameController() {
 		.set("inCinematicSpecial", &CModuleGameController::inCinematicSpecial)
 		.set("blendPlayerCamera", &CModuleGameController::blendPlayerCamera)
 		.set("setHalfConeEnemyByHandle", &CModuleGameController::setHalfConeEnemyByHandle)
+		.set("deleteByTag", &CModuleGameController::deleteByTag)
 		;
 }
 

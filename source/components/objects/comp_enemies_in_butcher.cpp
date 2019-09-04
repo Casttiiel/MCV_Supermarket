@@ -22,7 +22,7 @@ void TCompEnemiesInButcher::load(const json& j, TEntityParseContext& ctx){
 
 
 void TCompEnemiesInButcher::update(float dt) {
-	if (count >= 3) {
+	if (count >= 5) {
 		Scripting.execActionDelayed("activeElevatorInitCarniceria_player()", 0.0);
 		//desactivar llamas de la plataforma cuando este listo
 		GameController.destroyCHandleByName("enemies_in_butcher");

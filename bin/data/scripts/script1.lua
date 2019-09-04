@@ -220,6 +220,7 @@ function script_ice_3_player()
 end
 
 function create_cupcakes_in_frost_player()
+	--GameController:deleteByTag("cupcake");
 	execDelayedAction("changeScene(\"congelados_scene\")",0)
 	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(150, -3.653, -2), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados1",h_cupcake1);
@@ -507,42 +508,42 @@ function activePlataformCarniceria_player()
 	execDelayedAction("activePlatformByName(\"trap003\")",0.3);
 	execDelayedAction("on_delete_handle(\"triggerActivarPlataformas\")",0);
 	--suishis PB
-	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-146,0.316,-202), QUAT(0, 0, 0, 1),1);
+	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-127,0.316,-228), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn1",h_suishi1);
 	GameController:setPauseEnemyByHandle(h_suishi1,true);
 	
-	h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-126,0.316,-191), QUAT(0, 0, 0, 1),1);
+	h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-121,0.316,-190), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn2",h_suishi2);
 	GameController:setPauseEnemyByHandle(h_suishi2,true);
 
-	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-125,0.316,-225), QUAT(0, 0, 0, 1),1);
+	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-141,0.316,-194), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn3",h_suishi3);
 	GameController:setPauseEnemyByHandle(h_suishi3,true);
-	--suishis P1
-	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-152,6.157,-222), QUAT(0, 0, 0, 1),1);
+	
+	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-154,0.316,-201), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn4",h_suishi4);
-	GameController:setPauseEnemyByHandle(h_suishi4,false);
-	t_compname4 = toCompName(toEntity(h_suishi4):getCompByName("name"));
-	t_compname4:setName("Sushi004");
-	--suishis P2
-	h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-151,12.182,-189), QUAT(0, 0, 0, 1),1);
-	GameController:setHeightEnemyByHandle(1.0,h_suishi5,1);
+	GameController:setPauseEnemyByHandle(h_suishi4,true);
+	--t_compname4 = toCompName(toEntity(h_suishi4):getCompByName("name"));
+	--t_compname4:setName("Sushi004");
+	
+	h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-121,0.316,-218), QUAT(0, 0, 0, 1),1);
+	--GameController:setHeightEnemyByHandle(1.0,h_suishi5,1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
-	GameController:setPauseEnemyByHandle(h_suishi5,false);
-	t_compname5 = toCompName(toEntity(h_suishi5):getCompByName("name"));
-	t_compname5:setName("Sushi005");
-	--suishis P3
-	h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-107,14.962,-192), QUAT(0, 0, 0, 1),1);
-	GameController:setHeightEnemyByHandle(1.0,h_suishi6,1);
-	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn6",h_suishi6);
-	GameController:setPauseEnemyByHandle(h_suishi6,false);
-	t_compname6 = toCompName(toEntity(h_suishi6):getCompByName("name"));
-	t_compname6:setName("Sushi006");
-	--suishis P4
-	h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-112,22.063,-231), QUAT(0, 0, 0, 1),1);
-	GameController:setHeightEnemyByHandle(1.0,h_suishi7,1);
-	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn7",h_suishi7);
-	GameController:setPauseEnemyByHandle(h_suishi7,false);
+	GameController:setPauseEnemyByHandle(h_suishi5,true);
+	--t_compname5 = toCompName(toEntity(h_suishi5):getCompByName("name"));
+	--t_compname5:setName("Sushi005");
+	
+	--h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-107,14.962,-192), QUAT(0, 0, 0, 1),1);
+	--GameController:setHeightEnemyByHandle(1.0,h_suishi6,1);
+	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn6",h_suishi6);
+	--GameController:setPauseEnemyByHandle(h_suishi6,false);
+	--t_compname6 = toCompName(toEntity(h_suishi6):getCompByName("name"));
+	--t_compname6:setName("Sushi006");
+	
+	--h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-112,22.063,-231), QUAT(0, 0, 0, 1),1);
+	--GameController:setHeightEnemyByHandle(1.0,h_suishi7,1);
+	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn7",h_suishi7);
+	--GameController:setPauseEnemyByHandle(h_suishi7,false);
 	--creacion de la trampa de los suishis
 	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
 
@@ -553,7 +554,20 @@ function activePlataformCarniceria_player()
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi2,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",12.5);
-	
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",12.5);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi5,false)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi1,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi1,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi2,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi2,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(40,h_suishi3,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi3,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(40,h_suishi4,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi4,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi5,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi5,1)",12.5);
+
+
 	
 end
 
