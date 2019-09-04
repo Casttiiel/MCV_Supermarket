@@ -6,7 +6,25 @@
         "pos": "0 1 0"
       },
       "render": {
-        "mesh": "data/meshes/static_objects/UnitSphere.mesh",
+        "mesh": "data/meshes/static_objects/deathetiquetamesh.mesh",
+        "color": "0.36 0.36 0.36 1.0",
+        "materials":
+        [
+          "data/materials/vfx/death.material"
+        ]
+      }
+    }
+  },
+  {
+    "entity": {
+      "name": "DeathSphere2",
+      "transform": {
+        "pos": "0 1 0",
+        "scale": 0.5,
+        "yaw": 90
+      },
+      "render": {
+        "mesh": "data/meshes/static_objects/deathetiquetamesh.mesh",
         "color": "0.36 0.36 0.36 1.0",
         "materials":
         [
