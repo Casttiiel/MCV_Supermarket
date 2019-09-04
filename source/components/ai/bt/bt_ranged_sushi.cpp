@@ -285,8 +285,6 @@ void CBTRangedSushi::shoot(ShotType type) {
 			spreadShot();
 	    }
 		break;
-	default:
-		break;
 	}
 }
 

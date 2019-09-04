@@ -686,7 +686,7 @@ void CBTCupcake_explosive::onCreated(const TMsgEntityCreated& msg) {
 
 	initialPos = c_trans->getPosition();
   voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
-
+  voice.set3DAttributes(*c_trans);
 }
 
 void CBTCupcake_explosive::onBlackboardMsg(const TMsgBlackboard& msg) {
