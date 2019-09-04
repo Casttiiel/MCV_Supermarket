@@ -6,6 +6,7 @@
 #include "entity/common_msgs.h"
 #include "bt_controller.h"
 #include "geometry/curve.h"
+#include "modules/game/audio/audioEvent.h"
 
 class CBTRangedSushi : public BTController {
 
@@ -106,7 +107,8 @@ private:
 	  Random
   };
 
-
+  AudioEvent _audioPlaying;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  bool hasPlayedTripleThrowAudio = false;
   //navmesh values
   bool use_navmesh = true;
   float reevaluatePathTimer = 0;

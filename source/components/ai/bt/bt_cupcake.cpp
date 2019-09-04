@@ -814,11 +814,7 @@ void CBTCupcake::Send_DamageMessage(CEntity* entity, float dmg) {
 }
 
 void CBTCupcake::onCreated(const TMsgEntityCreated& msg) {
-	TCompTransform* c_trans = get<TCompTransform>();
-
-	initialPos = c_trans->getPosition();
-  //voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice");
-
+	
 }
 
 void CBTCupcake::onBlackboardMsg(const TMsgBlackboard& msg) {
@@ -959,6 +955,10 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 dir = VEC3();
+    if (!voice.isPlaying()) {
+        voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
+    }    
+    voice.set3DAttributes(*c_trans);
 
 	//MOVE
 	if (isGrounded() && (jump || seek)) {//IF GROUNDED AND JUMPING CUPCAKE CANNOT MOVE, JUST TURN
