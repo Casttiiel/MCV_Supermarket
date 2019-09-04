@@ -276,21 +276,23 @@ void CBTRangedSushi::shoot(ShotType type) {
 	case ShotType::Burst:
 		/*should consider adding burst to the random pool, although that would require coroutines*/
 		break;
-	case ShotType::Random: {
+	case ShotType::Random: 
 		int dice = bt_dist_rs(bt_mt_rs);
-		if (dice > 0 && dice < 50)
-			singleShot();
-		else if (dice > 50 && dice < 100)
+        if (dice > 0 && dice < 50) {
+            singleShot();
+        }
+        else if (dice > 50 && dice < 100){
 			spreadShot();
-	}
-						   break;
+	    }
+		break;
 	default:
 		break;
 	}
 }
 
 void CBTRangedSushi::singleShot() {
-	CEntity* e_player = (CEntity *)h_player;
+    EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SingleThrow");
+    CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
@@ -332,7 +334,8 @@ void CBTRangedSushi::singleShot() {
 }
 
 void CBTRangedSushi::spreadShot() {
-	CEntity* e_player = (CEntity *)h_player;
+    EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SpreadThrow");
+    CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
@@ -440,7 +443,10 @@ int CBTRangedSushi::actionBurstShot() {
 
 			TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 			sushiAnimator->playAnimation(_isLeaping ? TCompSushiAnimator::THROW_AIR : TCompSushiAnimator::THROW_LAND, 2.f);
-
+            if (!hasPlayedTripleThrowAudio) {
+                EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_TripleThrow");
+                hasPlayedTripleThrowAudio = true;
+            }
 			singleShot();
 			_burstTimer = _burstDelay;
 			_shotsFired++;
@@ -453,6 +459,7 @@ int CBTRangedSushi::actionBurstShot() {
 	else {
 		_shootTimer = _shootDelay;
 		_shotsFired = 0;
+        hasPlayedTripleThrowAudio = false;
 		return LEAVE;
 	}
 }
@@ -475,7 +482,8 @@ int CBTRangedSushi::actionLeap() {
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
 
-		//Start leap
+        EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump_NoVoice");
+        //Start leap
 		dbg("Ranged Sushi LEAPS\n");
 		_isLeaping = true;
 		//VEC3 jumpForce = getLeapDirection(); //VEC3(1.0, 0.0, 0.0);
@@ -584,6 +592,7 @@ int CBTRangedSushi::actionBounce() {
 	if (!_isLeaping) {
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
+        EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump");
 
 		//Start leap
 		dbg("Ranged Sushi BOUNCES\n");

@@ -6,6 +6,7 @@
 #include "entity/common_msgs.h"
 #include "bt_controller.h"
 #include "geometry/curve.h"
+#include "modules/game/audio/audioEvent.h"
 
 class CBTSushi : public BTController {
 
@@ -72,7 +73,7 @@ private:
   Vector3 currentPosition;
   Vector3 nextPoint;
   VEC3 impulse = VEC3();
-
+  AudioEvent _audioPlaying;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
 	//curve values
   const CCurve* _curve = nullptr;
   std::vector<VEC3> _knots;
