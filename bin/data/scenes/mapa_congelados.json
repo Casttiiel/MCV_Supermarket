@@ -2805,6 +2805,20 @@
         "type_wall": 0
       }
       ,
+      "buffers":
+      {
+        "TCtesMorph":
+        {
+          "total_bytes": 16
+          ,
+          "slot": 13
+        }
+      }
+      ,
+      "morph_animation":
+      {
+      }
+      ,
       "collider":
       {
         "shapes":
@@ -2892,6 +2906,20 @@
         "type_wall": 0
       }
       ,
+      "buffers":
+      {
+        "TCtesMorph":
+        {
+          "total_bytes": 16
+          ,
+          "slot": 13
+        }
+      }
+      ,
+      "morph_animation":
+      {
+      }
+      ,
       "collider":
       {
         "shapes":
@@ -2937,6 +2965,20 @@
       "comp_destroyable_wall":
       {
         "type_wall": 3
+      }
+      ,
+      "buffers":
+      {
+        "TCtesMorph":
+        {
+          "total_bytes": 16
+          ,
+          "slot": 13
+        }
+      }
+      ,
+      "morph_animation":
+      {
       }
       ,
       "collider":
@@ -3024,6 +3066,48 @@
         [
           "data/materials/mapa_congelados/hielo_1.material"
         ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "trigger010"
+      ,
+      "transform":
+      {
+        "pos": "170.026 -3.89349 -17.4797"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "3.15054 1.65042 14.2903"
+            ,
+            "offset":
+            {
+              "pos": "0.0 1.65042 0.0"
+            }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
+          }
+        ]
+      }
+      ,
+      "trigger":
+      {
+        "onEnter": "create_cupcakes_in_frost"
+        ,
+        "delay": 0
       }
     }
   }
