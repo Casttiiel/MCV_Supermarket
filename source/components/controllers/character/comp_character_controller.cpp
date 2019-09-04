@@ -190,9 +190,7 @@ void TCompCharacterController::idleCinematic(float delta) {
 }
 
 
-void TCompCharacterController::specialCinematic(float delta) {
-	//jhuihui
-	
+void TCompCharacterController::specialCinematic(float delta) {	
 	float twistSpeed = 10;
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 dir = VEC3();

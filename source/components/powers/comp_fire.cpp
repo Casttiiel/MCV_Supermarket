@@ -142,7 +142,16 @@ void TCompFireController::comboAttack(VEC3 pos) {
     msg.impactForce = 20.f;
     float radius = 5.f;
     GameController.generateDamageSphere(pos, radius, msg, "enemy");
-    GameController.spawnPrefab("data/prefabs/props/explosion_sphere.json", pos, QUAT().Identity, radius);
+    CHandle c = GameController.spawnPrefab("data/prefabs/props/explosion_sphere.json", pos, QUAT().Identity, radius);
+    CEntity* e_sphere = c;
+
+    TCompBuffers* c_buff = e_sphere->get<TCompBuffers>();
+    if (c_buff) {
+      auto buf = c_buff->getCteByName("TCtesParticles");
+      CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
+      data->emitter_center = pos + VEC3::Up;
+      data->updateGPU();
+    }
 }
 
 void TCompFireController::attack(VEC3 origin) {
