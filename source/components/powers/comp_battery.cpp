@@ -236,7 +236,7 @@ void TCompBatteryController::update(float delta) {
                   buf.getAnyHit(i).actor->getShapes(&colShape, 1, 0);
                   PxFilterData col_filter_data = colShape->getSimulationFilterData();
 
-                  if (!found && !(col_filter_data.word0 & EnginePhysics.Spawner)) {
+                  if (!found) {
                     TEntityParseContext ctx;
                     parseScene("data/prefabs/vfx/bolt.json", ctx);
                     CEntity* curr_e2 = ctx.current_entity;
