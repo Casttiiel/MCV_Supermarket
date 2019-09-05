@@ -384,6 +384,11 @@ int CBTCupcake::actionRecoilReceived() {
 		firstImpact = true;
 		return LEAVE;
 	}
+
+	if (life <= 0) {
+		return LEAVE;
+	}
+
 	return STAY;
 }
 
