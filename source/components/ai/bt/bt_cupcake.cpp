@@ -351,6 +351,9 @@ int CBTCupcake::actionGravityReceived() { //TODO : COMPROBAR QUE ESTO FUNCIONE C
 		if (c_cc) {
 			c_cc->controller->move(VEC3_TO_PXVEC3(resultingForce), 0.0f, dt, PxControllerFilters());
 		}
+		if (life <= 0) {
+			return LEAVE;
+		}
 		return STAY;
 	}
 	else {
@@ -433,6 +436,10 @@ int CBTCupcake::actionImpactReceived() {
 	else {
 
 		timerStun = limitTimeStun;
+		return LEAVE;
+	}
+
+	if (life <= 0) {
 		return LEAVE;
 	}
 
