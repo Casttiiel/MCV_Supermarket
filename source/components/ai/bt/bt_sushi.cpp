@@ -1146,6 +1146,9 @@ int CBTSushi::actionDeath() {
 	if (!isDeadForFallout){
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
 	}
+	if (!isDeadForTrigger) {
+		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+	}
 	//------ENVIO ME HE MUERTO A COMPONENTE DE TRAMPA DE SUISHIS-----
 	
 	CHandle h = GameController.entityByName("enemies_in_butcher");
@@ -1632,6 +1635,8 @@ void CBTSushi::registerMsgs() {
     DECL_MSG(CBTSushi, TMsgGravity, onGravity);
     DECL_MSG(CBTSushi, TMsgBTPaused, onMsgBTPaused);
 	DECL_MSG(CBTSushi, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	DECL_MSG(CBTSushi, TMsgDeleteTrigger, onDeleteTrigger);
+	//
 	//DECL_MSG(CBTSushi, TMsgDamageToAll, onDamageAll);//Nuevo, esto para el caso de que te caes
 }
 
@@ -1641,6 +1646,11 @@ void CBTSushi::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
 	if (life < 0) {
 		life = 0;
 	}
+}
+
+void CBTSushi::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
+	isDeadForTrigger = true;
+	life = 0;
 }
 
 

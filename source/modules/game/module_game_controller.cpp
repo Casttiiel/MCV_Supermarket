@@ -20,7 +20,7 @@
 #include "modules/module_scenes.h"
 #include "components/ai/bt/bt_cupcake.h"
 #include "components/ai/bt/bt_cupcake_explosive.h"
-
+#include "components/ai/others/comp_blackboard.h"
 
 
 bool CModuleGameController::start() {
@@ -195,6 +195,7 @@ void CModuleGameController::setDamage(const std::string name_origin, int damage)
 	entity->sendMsg(message);
 }
 
+
 //bindear componente curva
 void CModuleGameController::bindInCurve(std::string _curve, std::string name_origin) {
 
@@ -270,10 +271,38 @@ void CModuleGameController::deleteCupcake()
 {
 	VHandles enemies = CTagsManager::get().getAllEntitiesByTag(getID("cupcake"));
 	for (auto h : enemies) {
-		h.destroy();
+
+		TMsgDeleteTrigger msg;
+		msg.deleteForTrigger = true;
+		msg.h_entity = h;
+		msg.damage = 100.f;
+
+		CEntity* e_enemy = (CEntity*)h;
+		e_enemy->sendMsg(msg);
 	}
 }
-
+void CModuleGameController::deleteSushi()
+{
+	VHandles enemies = CTagsManager::get().getAllEntitiesByTag(getID("sushi"));
+	for (auto h : enemies) {
+		
+		TMsgDeleteTrigger msg;
+		msg.deleteForTrigger = true;
+		msg.h_entity = h;
+		msg.damage = 100.f;
+		
+		CEntity* e_enemy = (CEntity*)h;
+		e_enemy->sendMsg(msg);
+	}
+} 
+void CModuleGameController::deleteGolem(std::string name)
+{
+	CEntity* e_golem = getEntityByName(name);
+	
+	TCompSelfDestroy* comp = e_golem->get<TCompSelfDestroy>();
+	comp->setEnabled(true);
+	
+}
 
 
 void CModuleGameController::activatePlatformByName(std::string name) {
@@ -314,6 +343,7 @@ void CModuleGameController::deleteByTag(const char* tag) {
 	}
 }
 #pragma endregion
+
 
 #pragma region Time Control
 void CModuleGameController::stopTime() {
@@ -851,6 +881,12 @@ TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
 	TCompEnemySpawnerSpecialTrap* t = h;
 	return t;
 }
+
+TCompSelfDestroy* toCompSelfDestroy(CHandle h) {
+	TCompSelfDestroy* s = h;
+	return s;
+}
+
 
 /*
 TCompCharacterController* toCompCharacterController_(CHandle h) {

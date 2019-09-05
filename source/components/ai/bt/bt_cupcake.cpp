@@ -846,6 +846,7 @@ void CBTCupcake::registerMsgs() {
 	DECL_MSG(CBTCupcake, TMsgEntityCreated, onCreated);
 	DECL_MSG(CBTCupcake, TMsgSpawnerCheckin, onCheckin);
 	DECL_MSG(CBTCupcake, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	DECL_MSG(CBTCupcake, TMsgDeleteTrigger, onDeleteTrigger);
 
 }
 
@@ -1097,8 +1098,7 @@ void CBTCupcake::generateNavmesh(VEC3 initPos, VEC3 destPos, bool recalc)
 void CBTCupcake::updateBT() {
 
 	//--------------------------navmesh
-
-		TCompTransform* c_trans = get<TCompTransform>();
+	TCompTransform* c_trans = get<TCompTransform>();
 	if (nextNavMeshPoint != VEC3().Zero	&& use_navmesh){ //update path point
 		if (Vector3::Distance(nextNavMeshPoint, c_trans->getPosition()) < distanceCheckThreshold) {
 			navMeshIndex++;
@@ -1182,4 +1182,10 @@ void CBTCupcake::renderDebug() {
 	drawLine(pos + half_cone_1 * length_cone, pos + half_cone_2 * length_cone, c_render->color);
 	
 	
+}
+
+
+void CBTCupcake::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
+	isDeadForTrigger = true;
+	life = 0;
 }

@@ -257,6 +257,14 @@ struct TMsgSoundRequest {
     std::string name;
     DECL_MSG_ID();
 };
+
+struct TMsgDeleteTrigger {
+	CHandle h_entity;
+	bool deleteForTrigger;
+	float damage;
+	DECL_MSG_ID();
+};
+
 /*
 struct TMsgTimeOut {
   DECL_MSG_ID();

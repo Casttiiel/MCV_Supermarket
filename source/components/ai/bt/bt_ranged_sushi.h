@@ -219,6 +219,7 @@ private:
   //End Decoy Values
   float height_range = 3.0f;
   bool hayCamino = true;
+  bool isDeadForTrigger = false;
   bool isDeadForFallout = false;
   //Utils
   CHandle h_player;
@@ -241,6 +242,7 @@ private:
   void onFireAreaEnter(const TMsgFireAreaEnter& msg);
   void onFireAreaExit(const TMsgFireAreaExit& msg);
   void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
+  void onDeleteTrigger(const TMsgDeleteTrigger& msg);
   VEC3 getLeapDirection();
   void shoot(ShotType type);
   void singleShot();

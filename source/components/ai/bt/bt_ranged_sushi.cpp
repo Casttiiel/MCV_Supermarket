@@ -1012,6 +1012,9 @@ int CBTRangedSushi::actionDeath() {
 	if (!isDeadForFallout) {
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
 	}
+	if (!isDeadForTrigger) {
+		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+	}
 	CHandle(this).getOwner().destroy();
 	CHandle(this).destroy();
 	return LEAVE;
@@ -1470,6 +1473,7 @@ void CBTRangedSushi::registerMsgs() {
 	DECL_MSG(CBTRangedSushi, TMsgGravity, onGravity);
 	DECL_MSG(CBTRangedSushi, TMsgBTPaused, onMsgBTPaused);
 	DECL_MSG(CBTRangedSushi, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	DECL_MSG(CBTRangedSushi, TMsgDeleteTrigger, onDeleteTrigger);
 }
 
 void CBTRangedSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
@@ -2041,4 +2045,10 @@ bool CBTRangedSushi::isOtherEnemyInSide() {
 
 	return hayEnemy;
 
+}
+
+
+void CBTRangedSushi::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
+	isDeadForTrigger = true;
+	life = 0;
 }

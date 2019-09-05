@@ -66,7 +66,7 @@ public:
 	void onCheckin(const TMsgSpawnerCheckin& msg);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
 	void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
-
+	void onDeleteTrigger(const TMsgDeleteTrigger& msg);
 	static void registerMsgs();
 
 	template <typename T>
@@ -236,6 +236,7 @@ private:
 	float half_cone = 45.0f;
 	float height_range = 3.0f;
 	bool isDeadForFallout = false;
+	bool isDeadForTrigger = false;
 	bool checkHeight();
 
 	CHandle h_sender;

@@ -155,6 +155,9 @@ void CModuleScripting::BindGameController() {
 		.set("blendPlayerCamera", &CModuleGameController::blendPlayerCamera)
 		.set("setHalfConeEnemyByHandle", &CModuleGameController::setHalfConeEnemyByHandle)
 		.set("deleteByTag", &CModuleGameController::deleteByTag)
+		.set("deleteCupcake", &CModuleGameController::deleteCupcake)
+		.set("deleteSushi", &CModuleGameController::deleteSushi)
+		.set("deleteGolem", &CModuleGameController::deleteGolem)
 		;
 }
 
@@ -169,6 +172,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompCamera", SLB::FuncCall::create(&toCompCamera));
 	m->set("toCBTGolem", SLB::FuncCall::create(&toCBTGolem));
 	m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
+	m->set("toCompSelfDestroy", SLB::FuncCall::create(&toCompSelfDestroy));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -292,6 +296,14 @@ void CModuleScripting::BindTransform() {
 		.set("getDeltaYawToAimTo", &TCompTransform::getDeltaYawToAimTo)
 		.set("getScale", &TCompTransform::getScale)
 		.set("setScale", &TCompTransform::setScale);
+}
+
+
+void CModuleScripting::BindSelfDestroy() {
+	SLB::Class <TCompSelfDestroy>("TCompSelfDestroy", m)
+		.comment("TCompSelfDestroy wrapper")
+		.constructor()
+		.set("setEnabled", &TCompSelfDestroy::setEnabled);
 }
 
 void CModuleScripting::BindCamera() {

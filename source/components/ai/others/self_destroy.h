@@ -12,7 +12,7 @@ public:
 	void load(const json& j, TEntityParseContext& ctx);
 	void debugInMenu();
   void setDelay(float delay) { _selfDestructDelay = delay; _selfDestructTimer = delay; }
-
+  void setEnabled(bool value) { _isEnabled = value; }
 	void enable();
 
 private:

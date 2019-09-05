@@ -14,6 +14,7 @@
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
 #include "components/objects/comp_enemy_spawner_special_trap.h"
+#include "components/ai/others/self_destroy.h"
 #include "components/controllers/character/comp_character_controller.h"
 
 
@@ -243,6 +244,8 @@ public:
 	void setHalfConeEnemyByHandle(float half_cone, CHandle h_enemy, int typeEnemy);
 	CCamera* getCameraFromHandle(CHandle hCamera);
 	void deleteCupcake();
+	void deleteSushi();
+	void deleteGolem(std::string name);
 };
 
 
@@ -257,6 +260,6 @@ TCompName* toCompName(CHandle h);
 TCompTransform* toCompTransform(CHandle h);
 TCompCamera* toCompCamera(CHandle h);
 TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
-
+TCompSelfDestroy* toCompSelfDestroy(CHandle h);
 CBTGolem* toCBTGolem(CHandle h);
 //TCompCharacterController* toCompCharacterController_(CHandle h);

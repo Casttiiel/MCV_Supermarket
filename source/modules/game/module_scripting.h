@@ -42,6 +42,7 @@ public:
 	void BindCamera();
 	void BindGolem();
 	void BindEnemySpawnerSpecial();
+	void BindSelfDestroy();
 
 	void runScript(std::string nameScript, const std::string& params = "", float delay = 0.f);
 	bool execAction(const std::string& action);

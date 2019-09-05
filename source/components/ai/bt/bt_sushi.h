@@ -64,6 +64,7 @@ public:
 	void setHeightRange(float height);
 	void setViewDistance(float distance);
 	void setHalfCone(float halfCone);
+	void setSlotsAvailable(bool slotsAvailable_) { slotsAvailable = slotsAvailable_; }
   //End Conditions
 private:
   float initialExecution = true;
@@ -248,13 +249,14 @@ private:
   void onFireAreaExit(const TMsgFireAreaExit& msg);
   void onBlackboardMsg(const TMsgBlackboard& msg);
   void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
+  void onDeleteTrigger(const TMsgDeleteTrigger& msg);
   //void onDamageAll(const TMsgDamageToAll& msg);
   bool rollDiceCharge();
   bool rollDiceJumpCharge();
   bool rollDice(int probability);
   void generateNavmesh(VEC3 initPos, VEC3 destPos, bool recalc);
-	bool checkHeight();
-	VEC3 calculatePositionGround();
+  bool checkHeight();
+ VEC3 calculatePositionGround();
   //Flags
   bool inCombat = false;
   bool blocking = false;
@@ -272,7 +274,7 @@ private:
   bool isPlayerInNavmesh();
   bool hayCamino = true;
   bool isDeadForFallout = false;
-
+  bool isDeadForTrigger = false;
   std::string pathCurve = "";
 
 
