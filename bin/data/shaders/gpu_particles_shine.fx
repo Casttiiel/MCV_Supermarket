@@ -125,3 +125,34 @@ void cs_particles_shine_spawn(
   indirect_update.Store(8, 1);
   system[0].num_particles_to_update = nparticles_active;
 }
+
+// --------------------------------------------------------------
+[numthreads(NUM_PARTICLES_PER_THREAD_GROUP, 1, 1)]
+void cs_particles_shine_update( 
+  uint thread_id : SV_DispatchThreadID,
+  StructuredBuffer<TInstance> instances : register(t0),
+  StructuredBuffer<TSystem>   system    : register(t1),
+  RWStructuredBuffer<TInstance> instances_active : register(u0),
+  RWByteAddressBuffer indirect_draw : register(u2)
+) {
+
+  if( thread_id >= system[0].num_particles_to_update )
+    return;
+
+  TInstance p = instances[ thread_id ];
+
+  // Has died?
+  p.time_normalized += GlobalDeltaTime * p.time_factor;
+  if( p.time_normalized >= 1 ) 
+    return;
+
+  // Call the specific method to update each particle
+  updateParticle( p );
+
+  // Update indirect draw call args
+  uint index;
+  indirect_draw.InterlockedAdd( OFFSET_NUM_PARTICLES_TO_DRAW, 1, index );
+
+  // Save in the nexts buffer
+  instances_active[index] = p;
+}

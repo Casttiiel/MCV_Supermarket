@@ -51,6 +51,7 @@ enum eRenderCategory {
   CATEGORY_DECALS,
   CATEGORY_UI,
   CATEGORY_SHADOWS,
+  CATEGORY_SHINE,
   // ...
 };
 

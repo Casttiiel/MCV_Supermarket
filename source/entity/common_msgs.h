@@ -122,6 +122,14 @@ struct TMsgOnCinematic {
 	DECL_MSG_ID();
 };
 
+struct TMsgOnCinematicSpecial {
+	bool cinematic;
+	bool isscart;
+	int type;
+	DECL_MSG_ID();
+};
+
+
 /*
 struct TMsgDamageToEnemy {
 CHandle h_sender;
@@ -245,6 +253,10 @@ struct TMsgGamePause {
 	DECL_MSG_ID();
 };
 
+struct TMsgSoundRequest {
+    std::string name;
+    DECL_MSG_ID();
+};
 /*
 struct TMsgTimeOut {
   DECL_MSG_ID();

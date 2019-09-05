@@ -37,4 +37,5 @@ public:
 	void launch();
 	static void registerMsgs();
 	float fly_time = 1.5f;//tiempo de vuelo
+	
 };

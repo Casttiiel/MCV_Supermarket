@@ -13,7 +13,7 @@ public:
   void debugInMenu();
   void load(const json& j, TEntityParseContext& ctx);
  
-
+  void update(float delta);
   static void registerMsgs();
 
 private:
@@ -21,6 +21,8 @@ private:
 	bool _isEnabled = false;
 
 	void onBattery(const TMsgGravity & msg);
+
+	
 	
 };
 

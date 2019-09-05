@@ -242,7 +242,8 @@ int CBTCupcake::actionDeath() {
   if (!isDeadForFallout) {
 	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
   }
-  EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death");
+  AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  death.set3DAttributes(*c_trans);
   voice.stop();
 	CHandle(this).getOwner().destroy();
 	CHandle(this).destroy();
@@ -292,46 +293,11 @@ int CBTCupcake::actionDivide() {
 }
 
 int CBTCupcake::actionGravityReceived() { //TODO : COMPROBAR QUE ESTO FUNCIONE CUANDO LA BATERIA ESTE ARREGLADA :D
-	/*
-  TCompTransform* c_trans = get<TCompTransform>();
-  CEntity* e_player = (CEntity *)h_player;
-  TCompTransform* p_trans = e_player->get<TCompTransform>();
-  if (battery_time > 0) {
-	battery_time -= dt;
-	//moverme hacia battery_position y si estoy en batery position no moverme
-	float distancia = VEC3::Distance(battery_position, c_trans->getPosition());
-	VEC3 dir = VEC3();
-	dir = battery_position - c_trans->getPosition();
-	dir.Normalize();
-	dir *= 20.f; // attractionForce; --> pillar esto de la pila??
-	dir *= dt;
-	//switch between attraction and repulsion, a few frames each
-	TCompCollider* c_cc = get<TCompCollider>();
-	if (distancia < distanceToBattery) {
-	  //Repulsion
-	  if (c_cc) {
-		c_cc->controller->move(VEC3_TO_PXVEC3(-dir), 0.0f, dt, PxControllerFilters());
-	  }
-	}
-	else {
-	  //Attraction
-	  if (c_cc) {
-		c_cc->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, dt, PxControllerFilters());
-	  }
-
-	}
-
-	return STAY;
-  }
-  else {
-	beingAttracted = false;
-	impacted = false;
-	return LEAVE;
-  }
-  */
 	if (life <= 0) {
+    state = "OTHER";
 		return LEAVE;
 	}
+  state = "ON_GRAVITY";
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	CEntity* e_player = (CEntity *)h_player;
@@ -393,7 +359,8 @@ int CBTCupcake::actionGravityReceived() { //TODO : COMPROBAR QUE ESTO FUNCIONE C
 		c_cc->actor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, false);
 		resultingForce = Vector3().Zero;
 		repulsionTimer = 0.f;
-		//ChangeState("CHASE");
+		
+    state = "OTHER";
 		return LEAVE;
 	}
 
@@ -669,13 +636,17 @@ bool CBTCupcake::conditionRecoilReceived() {
 	return false;
 }
 
+std::string CBTCupcake::getState() {
+  return state;
+}
+
 //pasive
 
 void CBTCupcake::onCollision(const TMsgOnContact& msg) { //no se utiliza 
 	if (isPaused()) {
 		return;
 	}
-	CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
+ 	CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
 	if (source_of_impact) {
 		TCompCollider* c_tag = source_of_impact->get<TCompCollider>();
 		if (c_tag) {
@@ -689,7 +660,7 @@ void CBTCupcake::onCollision(const TMsgOnContact& msg) { //no se utiliza
 					recoiled = true;
 					//SEND MSG TO PLAYER
 
-					if (damageTimer <= 0) {
+					if (damageTimer <= 0 && getState() != "ON_GRAVITY" ) {
 						damageTimer = damageDelay;
 						Send_DamageMessage<TMsgDamage>(source_of_impact, currentDamage);
 					}
@@ -843,11 +814,7 @@ void CBTCupcake::Send_DamageMessage(CEntity* entity, float dmg) {
 }
 
 void CBTCupcake::onCreated(const TMsgEntityCreated& msg) {
-	TCompTransform* c_trans = get<TCompTransform>();
-
-	initialPos = c_trans->getPosition();
-  //voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice");
-
+	
 }
 
 void CBTCupcake::onBlackboardMsg(const TMsgBlackboard& msg) {
@@ -988,6 +955,10 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 dir = VEC3();
+    if (!voice.isPlaying()) {
+        voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
+    }    
+    voice.set3DAttributes(*c_trans);
 
 	//MOVE
 	if (isGrounded() && (jump || seek)) {//IF GROUNDED AND JUMPING CUPCAKE CANNOT MOVE, JUST TURN

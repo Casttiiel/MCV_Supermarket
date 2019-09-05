@@ -29,6 +29,7 @@ public:
 
   void setMeleeMultiplier(float newMulti);
   void setSpeed(float newSpeed);
+  void setDashSpeed(float dashSpeed) { dash_speed = dashSpeed; }
   float getBaseSpeed();
 
   //Shopping Cart
@@ -46,7 +47,7 @@ public:
   //madness
   void restoreMadness();
   float getMaxMadness();
-
+  bool getIsMounted() { return isMounted; }
 
   bool unLockableBattery = false;
   bool unLockableTeleport = false;
@@ -65,6 +66,7 @@ private:
   std::string statePrevious = "";
   float distance_to_aim = 20.0f;
   float speed = 7.f;
+  
   float base_speed = speed;
   float rotation_speed = 4.0f;
   float dash_speed = 35.0f;
@@ -86,7 +88,8 @@ private:
 	float invulnerabilityTimeDuration = 1.0;
 
   //Audio Values
-  AudioEvent footSteps;
+    AudioEvent damagedAudio;
+    AudioEvent footSteps;
   //Audio Values
 
   //Melee Values
@@ -124,6 +127,8 @@ private:
   
   bool cinematicFinish = false;
 
+  float speedCinematicSpecial = 3.f;
+  VEC3 targetTower = VEC3(-103, -0.057, -211);
 
   CHandle h_camera;
 
@@ -136,6 +141,7 @@ private:
   void win(float delta);
   void noclip(float delta);
   void idleCinematic(float delta);
+  void specialCinematic(float delta);
 
    //UTILS
   void treatRumble(float delta);
@@ -157,6 +163,7 @@ private:
   void onBatteryDeactivation(const TMsgBatteryDeactivates& msg);
   void onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg);
   void onCinematic(const TMsgOnCinematic& msg);
+  void onCinematicSpecial(const TMsgOnCinematicSpecial& msg);
   void onTrapWind(const TMsgTrapWind& msg);
   void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
 

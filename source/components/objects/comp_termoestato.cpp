@@ -13,17 +13,38 @@ void TCompTermoestato::debugInMenu() {
 }
 
 void TCompTermoestato::load(const json& j, TEntityParseContext& ctx) {
-
+	
 }
 
 void TCompTermoestato::registerMsgs() {
 	DECL_MSG(TCompTermoestato, TMsgGravity, onBattery);
 }
 
+void TCompTermoestato::update(float delta) {
+	if (!_isEnabled) {
+		TCompCollider* c_collider = get<TCompCollider>();
+		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
+		if (c_collider != nullptr) {
+			
+			#ifndef NDEBUG
+				return;
+			#endif
+
+			/*--OK--*/
+			rigid_dynamic->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, false);
+			rigid_dynamic->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, true); //en release OK
+			rigid_dynamic->addForce(physx::PxVec3(0,0,0), physx::PxForceMode::eFORCE); // en release OK
+			/*-----*/
+		}
+	}
+	_isEnabled = true;
+}
+
+
 
 
 void TCompTermoestato::onBattery(const TMsgGravity & msg) {
-	_isEnabled = false;
+	
     EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
 	//llamar a funcion de fragment
 	int n = GameController.getNumThermoStatesActives();
@@ -45,8 +66,22 @@ void TCompTermoestato::onBattery(const TMsgGravity & msg) {
 
 	}
 	*/
-	CHandle(this).getOwner().destroy();
+	//CHandle(this).getOwner().destroy();
+	//CHandle(this).destroy();
+
+	TCompCollider* c_collider = get<TCompCollider>();
+	physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
+	#ifndef NDEBUG
+		rigid_dynamic->setRigidBodyFlag(physx::PxRigidBodyFlag::eKINEMATIC, false);
+		CHandle(this).destroy();
+		return;	
+	#endif
+	
+	/*  OK  */
+	rigid_dynamic->setActorFlag(physx::PxActorFlag::eDISABLE_GRAVITY, false);//en release OK
+	rigid_dynamic->addForce(physx::PxVec3(0, 9.81, 0), physx::PxForceMode::eFORCE);//en release OK
 	CHandle(this).destroy();
+	/* -------    */
 }
 	
 

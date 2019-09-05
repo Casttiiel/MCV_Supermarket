@@ -12,7 +12,12 @@
 #include "components/animation/comp_morph_animation.h"
 #include "components/controllers/comp_enemies_in_tube.h"
 #include "components/common/comp_transform.h"
+#include "components/common/comp_camera.h"
+#include "components/objects/comp_enemy_spawner_special_trap.h"
+#include "components/controllers/character/comp_character_controller.h"
 
+
+class CBTGolem;
 class CCheckpoint;
 class CModuleGameplayFragment;
 
@@ -44,7 +49,7 @@ class CModuleGameController : public IModule
     void renderInMenu();
     void updateGameCondition();
 
-	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(300.825,-2.37953 ,151.652),VEC3(130, 7,154),VEC3(55,0.550,-45.8998)};
+	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(2,7 ,-1),VEC3(14, 15,-6),VEC3(-69,2,-114),VEC3(-83,5,-212) };
 	int positionCheat = 0;
     
     //void switchState(PauseState pause);
@@ -77,12 +82,13 @@ public:
 #define TYPE_SUSHI 1
 #define TYPE_RANGED_SUSHI 2
 #define TYPE_CUPCAKE 3 
+#define TYPE_GOLEM 4 
 
   float yaw_sensivity = 5.f;
   float pitch_sensivity = 2.f;
 
-	enum PauseState { none, main, win, defeat, editor1, editor1unpaused, editor2, void_state };
-    PauseState _currentstate;
+	//enum PauseState { none, main, win, defeat, editor1, editor1unpaused, editor2, void_state };
+    //PauseState _currentstate;
 
 	CModuleGameController() : IModule("KK") {};
 	CModuleGameController(const std::string& name) : IModule(name) {}
@@ -95,7 +101,7 @@ public:
     bool start() override;
     void update(float delta) override;
     void stop() override;
-    PauseState getCurrentState();
+    //PauseState getCurrentState();
 	  CHandle getPlayerHandle();
     bool getGodMode() { return god_mode; }
 	void setGodMode(bool _god_mode);
@@ -147,6 +153,7 @@ public:
   void  healPlayer();
   void  healPlayerPartially(float health);
 	void restoreMadness();
+  void blendPlayerCamera();
 
 	//Damage Generators
 	void generateDamageSphere(VEC3 center, float radius, TMsgDamage message, const char* targetFilter);
@@ -183,8 +190,10 @@ public:
   void resetCamera();
   //activar modo cinematica en jugador
   void inCinematic(bool active);
-	//activar modo cinematica en golem
-	void inCinematicGolem(std::string name, bool active);
+  //activar modo cinematica special
+  void inCinematicSpecial(bool active,int type);
+  //activar modo cinematica en golem
+  void inCinematicGolem(std::string name, bool active);
   //delete handle
   void destroyCHandleByName(std::string name);
   //activar plataformas
@@ -230,6 +239,10 @@ public:
 
 	void dbgInLua(std::string text);
 	void setHeightEnemyByHandle(int height, CHandle h_enemy, int typeEnemy);
+	void setViewDistanceEnemyByHandle(float distance, CHandle h_enemy, int typeEnemy);
+	void setHalfConeEnemyByHandle(float half_cone, CHandle h_enemy, int typeEnemy);
+	CCamera* getCameraFromHandle(CHandle hCamera);
+	
 };
 
 
@@ -242,3 +255,8 @@ TCompMorphAnimation* toCompMorphAnimation(CHandle h);
 TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 TCompName* toCompName(CHandle h);
 TCompTransform* toCompTransform(CHandle h);
+TCompCamera* toCompCamera(CHandle h);
+TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
+
+CBTGolem* toCBTGolem(CHandle h);
+//TCompCharacterController* toCompCharacterController_(CHandle h);

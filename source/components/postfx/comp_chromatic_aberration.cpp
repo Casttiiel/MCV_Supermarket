@@ -1,6 +1,7 @@
 #include "mcv_platform.h"
 #include "comp_chromatic_aberration.h"
 #include "resources/resource.h"
+#include "components/controllers/character/comp_character_controller.h"
 
 DECL_OBJ_MANAGER("chromatic_aberration", TCompChromaticAberration);
 
@@ -46,4 +47,16 @@ CTexture* TCompChromaticAberration::apply( CTexture* texture) {
   mesh->activateAndRender();
 
   return rt;
+}
+
+void TCompChromaticAberration::update(float delta) {
+  if (!h_player.isValid()) {
+    h_player = getEntityByName("Player");
+  }
+  
+  CEntity* e_player = h_player;
+  TCompCharacterController* c_char = e_player->get<TCompCharacterController>();
+  if (c_char) {
+    amount = 1 - (c_char->life / c_char->maxLife);
+  }
 }

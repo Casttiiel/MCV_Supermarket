@@ -72,7 +72,7 @@ void CModuleGamePaused::onOptionRestart() {
 	Time.real_scale_factor = 1.0f;
 	UI::CModuleUI& ui = Engine.getUI();
 	ui.unregisterController();
-	//GameController.loadCheckpoint();
+	GameController.loadCheckpoint();
 
 }
 

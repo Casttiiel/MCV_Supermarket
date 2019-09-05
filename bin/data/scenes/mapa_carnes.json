@@ -968,7 +968,7 @@
       ,
       "transform":
       {
-        "pos": "-92.7228 -9.26355e-06 -211.925"
+        "pos": "-92.7228 -9.27574e-06 -212.204"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -980,7 +980,7 @@
           {
             "shape": "box"
             ,
-            "half_size": "6.09949 1.96619 5.4698"
+            "half_size": "6.09949 1.96619 2.35701"
             ,
             "offset":
             {
@@ -1100,22 +1100,6 @@
       }
       ,
       "prefab": "data/prefabs/character/player.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Cafe"
-      ,
-      "transform":
-      {
-        "pos": "-114.359 -9.29232e-06 -212.583"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/powers/powerUp_cafe.json"
     }
   }
   ,
@@ -1422,51 +1406,11 @@
   {
     "entity":
     {
-      "name": "torre"
-      ,
-      "transform":
-      {
-        "pos": "-130.876 -9.30715e-06 -212.923"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_carnes_torre.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_carnes/mapa_carnes_torre.mesh"
-        ,
-        "color": "0.894118 0.6 0.721569 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_carnes/suelo_carnes.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "suelo_boss"
       ,
       "transform":
       {
-        "pos": "-130.185 39.5865 -212.307"
+        "pos": "-130.185 34.7152 -212.307"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1493,7 +1437,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/mat05.material"
         ]
       }
     }
@@ -1533,7 +1477,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/mat05.material"
         ]
       }
     }
@@ -1561,7 +1505,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1589,7 +1533,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1617,7 +1561,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1645,7 +1589,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1673,7 +1617,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1701,7 +1645,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1729,7 +1673,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1757,7 +1701,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1785,7 +1729,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1813,7 +1757,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1841,7 +1785,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1869,47 +1813,7 @@
         ,
         "materials":
         [
-          "data/materials/mapa_carnes/suelo_carnes.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "pasarela2"
-      ,
-      "transform":
-      {
-        "pos": "-91.3466 -9.28189e-06 -212.345"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_carnes_pasarela2.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pasarela2.mesh"
-        ,
-        "color": "0.552941 0.027451 0.227451 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_carnes/suelo_carnes.material"
+          "data/materials/mapa_carnes/black.material"
         ]
       }
     }
@@ -1930,58 +1834,6 @@
       "render":
       {
         "mesh": "data/meshes/mapa_carnes/mapa_carnes_Plane004.mesh"
-        ,
-        "color": "0.105882 0.694118 0.105882 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/vfx/fire.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Plane006"
-      ,
-      "transform":
-      {
-        "pos": "-103.229 13.7365 -229.38"
-        ,
-        "rotation": "-1.0 0.0 0.0 0.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Plane006.mesh"
-        ,
-        "color": "0.105882 0.694118 0.105882 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/vfx/fire.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Plane007"
-      ,
-      "transform":
-      {
-        "pos": "-103.229 13.7365 -223.657"
-        ,
-        "rotation": "-1.0 0.0 0.0 0.0"
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Plane007.mesh"
         ,
         "color": "0.105882 0.694118 0.105882 1.0"
         ,
@@ -2451,6 +2303,1473 @@
         "onEnter": "trampaSushisButcher"
         ,
         "delay": 0
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraTower"
+      ,
+      "transform":
+      {
+        "pos": "-31.0735 83.2499 -303.569"
+        ,
+        "rotation": "-0.219711 -0.768859 0.493246 -0.342479"
+        ,
+        "lookat": "-129.684 22.4128 -214.842"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 145.938
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_int_atras"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_int_atras.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/pared1_carnes.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_int_1"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_int_1.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/pared4_carnes.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_int_der"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_int_der.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/pared2_carnes.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_int_izq"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_int_izq.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/pared3_carnes.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_int_izq2"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_int_izq2.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/pared8_carnes.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_int_2"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_int_2.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/pared5_carnes.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_int_der2"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_int_der2.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/pared6_carnes.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_int_atras2"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_int_atras2.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/pared7_carnes.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_ext1"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_carnes_pared_ext1.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_ext1.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/paredext1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_ext_2"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_ext_2.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/paredext2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pred_ext_4"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pred_ext_4.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/paredext4.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pared_ext_3"
+      ,
+      "transform":
+      {
+        "pos": "-130.876 -9.30715e-06 -212.923"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_pared_ext_3.mesh"
+        ,
+        "color": "0.894118 0.6 0.721569 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/paredext3.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Dummy001"
+      ,
+      "transform":
+      {
+        "pos": "-111.757 -9.25109e-06 -211.64"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/powers/powerUp_cafe.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo"
+      ,
+      "transform":
+      {
+        "pos": "-108.895 63.0723 -194.435"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object003"
+      ,
+      "transform":
+      {
+        "pos": "-108.871 63.6473 -189.349"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object003.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object004"
+      ,
+      "transform":
+      {
+        "pos": "-108.871 63.6473 -198.999"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object004.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo001"
+      ,
+      "transform":
+      {
+        "pos": "-108.895 63.0723 -203.23"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo001.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object005"
+      ,
+      "transform":
+      {
+        "pos": "-108.871 63.6473 -207.239"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object005.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo002"
+      ,
+      "transform":
+      {
+        "pos": "-108.895 63.0723 -211.371"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo002.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object006"
+      ,
+      "transform":
+      {
+        "pos": "-108.871 63.6473 -216.355"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object006.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object007"
+      ,
+      "transform":
+      {
+        "pos": "-108.871 63.6473 -226.005"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object007.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object008"
+      ,
+      "transform":
+      {
+        "pos": "-108.871 63.6473 -234.245"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object008.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo003"
+      ,
+      "transform":
+      {
+        "pos": "-108.895 63.0723 -221.44"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo003.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo004"
+      ,
+      "transform":
+      {
+        "pos": "-108.895 63.0723 -230.236"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo004.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object009"
+      ,
+      "transform":
+      {
+        "pos": "-149.596 63.6473 -189.349"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object009.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object010"
+      ,
+      "transform":
+      {
+        "pos": "-149.596 63.6473 -198.999"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object010.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object011"
+      ,
+      "transform":
+      {
+        "pos": "-149.596 63.6473 -207.239"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object011.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object012"
+      ,
+      "transform":
+      {
+        "pos": "-149.596 63.6473 -216.355"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object012.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object013"
+      ,
+      "transform":
+      {
+        "pos": "-149.596 63.6473 -226.005"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object013.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object014"
+      ,
+      "transform":
+      {
+        "pos": "-149.596 63.6473 -234.245"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object014.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo005"
+      ,
+      "transform":
+      {
+        "pos": "-149.62 63.0723 -194.435"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo005.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo006"
+      ,
+      "transform":
+      {
+        "pos": "-149.62 63.0723 -203.23"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo006.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo007"
+      ,
+      "transform":
+      {
+        "pos": "-149.62 63.0723 -211.371"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo007.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo008"
+      ,
+      "transform":
+      {
+        "pos": "-149.62 63.0723 -221.44"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo008.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo009"
+      ,
+      "transform":
+      {
+        "pos": "-149.62 63.0723 -230.236"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo009.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object015"
+      ,
+      "transform":
+      {
+        "pos": "-76.9575 3.35093 -207.663"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object015.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object016"
+      ,
+      "transform":
+      {
+        "pos": "-85.8187 3.35093 -208.123"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object016.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object017"
+      ,
+      "transform":
+      {
+        "pos": "-93.8727 3.35093 -208.665"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object017.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo010"
+      ,
+      "transform":
+      {
+        "pos": "-81.6318 2.99602 -207.808"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo010.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo011"
+      ,
+      "transform":
+      {
+        "pos": "-89.9304 2.99602 -208.4"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo011.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo012"
+      ,
+      "transform":
+      {
+        "pos": "-97.4463 2.99602 -208.877"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo012.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object018"
+      ,
+      "transform":
+      {
+        "pos": "-97.8708 3.35093 -215.719"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object018.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object019"
+      ,
+      "transform":
+      {
+        "pos": "-89.0097 3.35093 -216.296"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object019.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Object020"
+      ,
+      "transform":
+      {
+        "pos": "-80.9557 3.35093 -216.868"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Object020.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/tenedor.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo013"
+      ,
+      "transform":
+      {
+        "pos": "-93.1966 2.99601 -216.041"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo013.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo014"
+      ,
+      "transform":
+      {
+        "pos": "-84.8979 2.99601 -216.573"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo014.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo015"
+      ,
+      "transform":
+      {
+        "pos": "-77.382 2.99601 -216.933"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo015.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letrero1"
+      ,
+      "transform":
+      {
+        "pos": "-99.5655 7.42711 -202.874"
+        ,
+        "rotation": "0.0 0.0 0.662593 -0.748979"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_letrero1.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/letrerocarnes1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letrero002"
+      ,
+      "transform":
+      {
+        "pos": "-99.5655 7.42711 -220.959"
+        ,
+        "rotation": "0.0 0.0 0.662593 -0.748979"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_letrero002.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/letrerocarnes2.material"
+        ]
       }
     }
   }

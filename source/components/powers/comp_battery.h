@@ -7,9 +7,6 @@
 #include "components/common/comp_transform.h"
 #include "modules/game/audio/audioEvent.h"
 
-
-
-
 class TCompBatteryController : public TCompBase {
 
 
@@ -32,6 +29,7 @@ class TCompBatteryController : public TCompBase {
 	float limitTime = timeEffect + 5.0f;
 	float gravityOriginHeight = 3.f;
 	float velocityCurve = 20.f;
+  bool startedEffect = false;
 
 public:
 	void update(float dt);

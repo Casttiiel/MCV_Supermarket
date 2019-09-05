@@ -6,6 +6,7 @@
 #include "entity/common_msgs.h"
 #include "bt_controller.h"
 #include "geometry/curve.h"
+#include "modules/game/audio/audioEvent.h"
 
 class CBTRangedSushi : public BTController {
 
@@ -63,6 +64,8 @@ public:
 	void setCurve(const CCurve* curve);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
 	std::string getNameCurve();
+	void setViewDistance(float value);
+	void setHalfCone(float halfCone);
   //End Conditions
 private:
   float initialExecution = true;
@@ -104,7 +107,8 @@ private:
 	  Random
   };
 
-
+  AudioEvent _audioPlaying;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  bool hasPlayedTripleThrowAudio = false;
   //navmesh values
   bool use_navmesh = true;
   float reevaluatePathTimer = 0;
@@ -232,6 +236,7 @@ private:
   void Send_DamageMessage(CEntity* entity, float dmg);
   bool isGrounded();
   bool isHole(VEC3 jump);
+  bool isOtherEnemyInSide();
   void onCollision(const TMsgOnContact& msg);
   void onGenericDamageInfoMsg(const TMsgDamage& msg);
   void onGravity(const TMsgGravity& msg);
@@ -261,6 +266,9 @@ private:
 	std::string pathCurve = "";
   //flag patrol curve or point
   
+
+	
+
 	//curve values
 	const CCurve* _curve = nullptr;
 	std::vector<VEC3> _knots;

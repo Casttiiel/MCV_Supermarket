@@ -42,11 +42,18 @@ void TCompCharacterController::Init() {
   //AddState("USINGCHILLI", (statehandler)&TCompCharacterController::attackChilli);
   AddState("NOCLIP", (statehandler)&TCompCharacterController::noclip);
   AddState("IDLE_CINEMATIC", (statehandler)& TCompCharacterController::idleCinematic);
+  
+
+  AddState("ESPECIAL_CINEMATIC", (statehandler)& TCompCharacterController::specialCinematic);
+
+
 
     //ADD MORE STATES FOR BEING HIT, ETC, ETC
 
     footSteps = EngineAudio.playEvent("event:/Character/Footsteps/Footsteps");
     footSteps.setPaused(true);
+    damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+    damagedAudio.stop();
     ChangeState("GROUNDED");
 }
 
@@ -75,12 +82,12 @@ void TCompCharacterController::debugInMenu() {
     ImGui::DragFloat("Speed", &speed, 0.1f, 0.f, 10.f);
     ImGui::DragFloat("Dash Speed", &dash_speed, 0.1f, 0.f, 10.f);
     ImGui::DragFloat("Rotation speed", &rotation_speed, 0.1f, 0.f, 10.f);
-    ImGui::DragFloat("Life", &life, 0.10f, 0.f, 100.f);
+    ImGui::DragFloat("Life", &life, 0.10f, 0.f, maxLife);
     ImGui::DragFloat("Distance to aim", &distance_to_aim, 0.10f, 0.f, 100.f);
     ImGui::Checkbox("UnLockable Battery", &unLockableBattery);
-	ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
-	ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
-	ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);
+	  ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
+	  ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
+	  ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);
 }
 
 void TCompCharacterController::renderDebug() {
@@ -136,6 +143,7 @@ void TCompCharacterController::registerMsgs() {
     DECL_MSG(TCompCharacterController, TCompPlayerAnimator::TMsgPlayerAnimationFinished, onAnimationFinish);
 	DECL_MSG(TCompCharacterController, TMsgOnCinematic, onCinematic);
 	DECL_MSG(TCompCharacterController, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	DECL_MSG(TCompCharacterController, TMsgOnCinematicSpecial, onCinematicSpecial);
 }
 
 void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg) {
@@ -178,6 +186,30 @@ void TCompCharacterController::idleCinematic(float delta) {
 		ChangeState("GROUNDED");
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
 		mirilla->getParams()->visible = true;
+	}
+}
+
+
+void TCompCharacterController::specialCinematic(float delta) {	
+	float twistSpeed = 10;
+	TCompTransform* c_trans = get<TCompTransform>();
+	VEC3 dir = VEC3();
+	dir = c_trans->getFront() * speedCinematicSpecial;
+	dir *= Time.delta_unscaled;
+	float yaw, pith;
+	c_trans->getAngles(&yaw, &pith);
+	float angle = rad2deg(c_trans->getDeltaYawToAimTo(targetTower));
+	c_trans->rotateTowards(targetTower, twistSpeed, delta);
+	//MOVE PLAYER
+	TCompCollider* comp_collider = get<TCompCollider>();
+	if (!comp_collider || !comp_collider->controller)
+		return;
+	TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+	playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f, true);
+	comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
+	float distancia = VEC3::Distance(targetTower, c_trans->getPosition());
+	if (distancia < 0.5) {
+		ChangeState("GROUNDED");
 	}
 }
 
@@ -293,7 +325,7 @@ void TCompCharacterController::grounded(float delta) {
                 c_fire->comboAttack(c_trans->getPosition());
             }
         }
-        else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE)) {
+        else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) {
             if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
         //Enable fire, keep it enabled while holding trigger, disable on release
                 TCompFireController* c_fire = get<TCompFireController>();
@@ -1068,8 +1100,8 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
         if (msg.senderType == ENEMIES) {
           //	c_rbody->addForce(direction_to_damage * 8.0f);
         }
-        if (&(msg.impactForce) != nullptr && msg.impactForce > 0) {
-          EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+        if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && !damagedAudio.isPlaying()) {
+            damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
           //ChangeState("DAMAGED");
         }
       }
@@ -1111,8 +1143,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 if (msg.senderType == ENEMIES) {
                     //	c_rbody->addForce(direction_to_damage * 8.0f);
                 }
-                if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0) {
-                    EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+                if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
+                    damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
                     //ChangeState("DAMAGED");
                 }
             }
@@ -1172,6 +1204,40 @@ void TCompCharacterController::onCinematic(const TMsgOnCinematic & msg)
 	}
 }
 
+void TCompCharacterController::onCinematicSpecial(const TMsgOnCinematicSpecial & msg)
+{
+	if (!msg.isscart) {
+
+		if (msg.cinematic) {
+			if (msg.type == 1) {//cambiar el por DEFINE
+				TCompTransform* c_trans = get<TCompTransform>();
+				
+				c_trans->rotateTowards(targetTower);
+				ChangeState("ESPECIAL_CINEMATIC");
+			}
+		}
+		cinematic = msg.cinematic;
+		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+		mirilla->getParams()->visible = false;
+	}
+	else {
+		cinematic = msg.cinematic;
+		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+		mirilla->getParams()->visible = false;
+		TCompSCartController* sCart = get<TCompSCartController>();
+		sCart->disable();
+		TCompTransform* c_trans = get<TCompTransform>();
+		c_trans->rotateTowards(targetTower);
+
+		ChangeState("ESPECIAL_CINEMATIC");
+		//dbg("Player changes to MOUNTED\n");
+		
+	}
+}
+
+
+
+
 
 void TCompCharacterController::onBatteryDeactivation(const TMsgBatteryDeactivates& msg) {
     isBatteryAlive = false;
@@ -1194,6 +1260,7 @@ void TCompCharacterController::mount(CHandle vehicle) {
         //dbg("Player changes to MOUNTED\n");
         ChangeState("MOUNTED");
         //SwapMesh(1);
+        footSteps.setPaused(true);
     }
 }
 
@@ -1203,6 +1270,7 @@ void TCompCharacterController::dismount() {
     //While moving appear behind sCart
     //While stationary appear in front of sCart
     //SwapMesh(0);
+    footSteps.setPaused(false);
 }
 
 void TCompCharacterController::mounted(float delta) {
@@ -1290,6 +1358,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
         maxLife = maxLife + quantity;
         heal();
         GameController.increaseHpBarSize(extraBarSize);
+        EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
         break;
     }
     case PowerUpType::MADNESS_UP:
@@ -1299,6 +1368,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
         madness->setMaximumMadness(madness->getMaximumMadness() + quantity);
         restoreMadness();
         GameController.increaseMadnessBarSize(extraBarSize);
+        EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
         break;
     }
     case PowerUpType::ACTIVATE_BATTERY:
@@ -1307,23 +1377,27 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
         unLockableBattery = true;
 		//llamada funcion de scripting para poder escapar
 		Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
         break;
     }
     case PowerUpType::ACTIVATE_CHILLI:
     {
         //TODO
 		unLockableChilli = true;
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
         break;
     }
     case PowerUpType::ACTIVATE_COFFEE:
     {
         //TODO
 		unLockableCoffe = true;
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
         break;
     }
     case PowerUpType::ACTIVATE_TELEPORT:
     {
 		unLockableTeleport = true;
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
         break;
     }
     }

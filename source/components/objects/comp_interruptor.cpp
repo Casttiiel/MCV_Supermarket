@@ -27,17 +27,20 @@ void TCompInterruptor::onActivate(const TMsgDamage & msg) {
 		if(!isOn){
 			//cambiar por nombres que nos pasen en el mapa
 			if (nombre.compare("panelRampa") == 0) {
-				
+				CHandle entity = getEntityByName("golem2");
+				GameController.setPauseEnemyByHandle(entity,true);
 			 	Scripting.execActionDelayed("activePlatformByName(\"Box040\")", 0.0);
 			    GameController.resetCamera();
-				execDelayedAction("on_cinematic(true)", 0.1);
-				execDelayedAction("on_lock_camera3(false)", 0.2);
-				execDelayedAction("on_blending_camera(\"CameraRampa002\", 4,\"linear\")", 0.5);
-				execDelayedAction("on_blending_camera(\"PlayerCamera\", 4,\"linear\")", 6);
-				execDelayedAction("on_lock_camera3(true)", 9);
-				execDelayedAction("on_cinematic(false)", 9);
-
-
+				execDelayedAction("on_cinematic(true)", 0.0);
+				execDelayedAction("on_lock_camera3(false)", 0.0);
+				execDelayedAction("on_active_enemies(false)",0.0);
+				execDelayedAction("on_blending_camera(\"CameraPanel003\", 6,\"linear\")", 0.5);
+				execDelayedAction("on_blending_camera(\"PlayerCamera\", 6,\"linear\")", 8);
+				execDelayedAction("on_lock_camera3(true)", 14);
+				execDelayedAction("on_cinematic(false)", 14);
+				execDelayedAction("on_active_enemies(true)", 13.0);
+				execDelayedAction("setPauseEnemyName(\"golem2\",false)", 13);
+				execDelayedAction("setNotThrowCupcake(\"golem2\",false)", 13);
 			}
 			/*else if (nombre.compare("panel_prueba2") == 0) {
 				//nombre de plataforma a mover

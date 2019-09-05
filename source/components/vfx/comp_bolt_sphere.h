@@ -9,6 +9,7 @@ class TCompBoltSphere :  public TCompBase {
 
   VEC3 target_position;
   void onCreation(const TMsgEntityCreated& msg); 
+  float speed = 1.0f;
 
   public:
     void load(const json& j, TEntityParseContext& ctx);

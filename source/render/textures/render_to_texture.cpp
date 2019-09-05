@@ -46,7 +46,7 @@ bool CRenderToTexture::createRT(
   // Create color buffer
   color_format = new_color_format;
   if (color_format != DXGI_FORMAT_UNKNOWN) {
-    if (!create(new_xres, new_yres, color_format, CREATE_RENDER_TARGET, mip_level)) //PASAR AQUI EL MIP LEVEL PARA LA TEXTURA FINAL DE ACC LIGHTS
+    if (!create(new_xres, new_yres, color_format, CREATE_RENDER_TARGET, mip_level))
       return false;
     setDXName(texture, new_name);
     setDXName(shader_resource_view, new_name);
@@ -88,6 +88,15 @@ bool CRenderToTexture::createRT(
 CRenderToTexture* CRenderToTexture::activateRT() {
   CRenderToTexture* prev_rt = current_rt;
   Render.ctx->OMSetRenderTargets(1, &render_target_view, depth_stencil_view);
+  activateViewport();
+  current_rt = this;
+  return prev_rt;
+}
+
+// used to paint on a RT using the depth/stencil from another one
+CRenderToTexture* CRenderToTexture::activateRT(CRenderToTexture* rt){
+  CRenderToTexture* prev_rt = current_rt;
+  Render.ctx->OMSetRenderTargets(1, &render_target_view, rt->depth_stencil_view);
   activateViewport();
   current_rt = this;
   return prev_rt;

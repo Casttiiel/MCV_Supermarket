@@ -1,33 +1,26 @@
 #include "mcv_platform.h"
-#include "engine.h"
+
 #include "module_game_controller.h"
-#include "input/devices/device_mouse.h"
-#include "components/common/comp_tags.h"
-#include "components/controllers/character/comp_character_controller.h"
+
 #include "components/controllers/comp_sCart_controller.h"
-#include "entity/common_msgs.h"
-#include "entity/msgs.h"
-#include "entity/entity.h"
-#include "entity/entity_parser.h"
-#include "windows/app.h"
 #include "components/objects/checkpoints/checkpoint.h"
 #include "components/common/comp_tags.h"
 #include "input/module_input.h"
-#include "components/common/physics/comp_rigid_body.h"
 #include "components/ai/bt/bt_sushi.h"
 #include "modules/gameplay_fragments/module_ambush.h"
 #include "components/ai/bt/bt_ranged_sushi.h"
-#include "components/controllers/comp_curve_controller.h"
+#include "components/ai/bt/bt_golem.h"
 #include "components/controllers/comp_trans_curve_controller.h"
 #include "modules/module_camera_mixer.h"
-#include "geometry/interpolators.h"
 #include "components/controllers/camera/comp_camera_3rd_person.h"
 #include "components/ai/graph/ai_platform.h"
 #include "components/common/comp_name.h"
+#include "components/postfx/comp_render_radial_blur.h"
 #include "entity/entity.h"
 #include "modules/module_scenes.h"
 #include "components/ai/bt/bt_cupcake.h"
 #include "components/ai/bt/bt_cupcake_explosive.h"
+
 
 
 bool CModuleGameController::start() {
@@ -117,10 +110,10 @@ bool CModuleGameController::deleteCheckpoint() {
 }
 #pragma endregion
 
-CModuleGameController::PauseState CModuleGameController::getCurrentState() {
+/*CModuleGameController::PauseState CModuleGameController::getCurrentState() {
 
     return _currentstate;
-}
+}*/
 
 
 #pragma region Behavior Tree Control
@@ -233,7 +226,19 @@ void CModuleGameController::lockCamera3Person(bool activate) {
 	if (t_comp3 != nullptr) {
 		//t_comp3->_enabled = activate;
 		t_comp3->mouse_active = activate;
+		t_comp3->_enabled = activate;
+	
 	}
+}
+
+void CModuleGameController::blendPlayerCamera() {
+  static Interpolator::TQuadInOutInterpolator quadInt;
+  CEntity* p_camera = getEntityByName("PlayerCamera");
+  Engine.getCameraMixer().blendCamera(p_camera, 0.3f, &quadInt);
+
+  CEntity* m_camera = getEntityByName("MainCamera");
+  TCompRenderRadialBlur* c_rrb = m_camera->get<TCompRenderRadialBlur>();
+  c_rrb->enable(0.3f);
 }
 
 //resetCamera
@@ -632,8 +637,51 @@ void CModuleGameController::setHeightEnemyByHandle(int height, CHandle h_enemy,i
 		if(TYPE_SUSHI == typeEnemy){
 			CEntity* e_enemy = (CEntity*)h_enemy;
 			CBTSushi* sushi = e_enemy->get<CBTSushi>();
-			sushi->setHeightRange(1.f);
+			sushi->setHeightRange(height);
 		}
+		else if (TYPE_GOLEM == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTGolem* golem = e_enemy->get<CBTGolem>();
+			golem->setHeightRange(height);
+		}
+		
+	}
+}
+
+void CModuleGameController::setViewDistanceEnemyByHandle(float distance, CHandle h_enemy, int typeEnemy) {
+	if (h_enemy.isValid()) {
+		if (TYPE_GOLEM == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTGolem* golem = e_enemy->get<CBTGolem>();
+			golem->setViewDistance(70.f);
+		}
+		else if (TYPE_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTSushi* sushi = e_enemy->get<CBTSushi>();
+			sushi->setViewDistance(distance);
+		}
+		else if (TYPE_RANGED_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTRangedSushi* ranged_sushi = e_enemy->get<CBTRangedSushi>();
+			ranged_sushi->setViewDistance(distance);
+		}
+		//...
+	}
+}
+
+void CModuleGameController::setHalfConeEnemyByHandle(float half_cone, CHandle h_enemy, int typeEnemy) {
+	if (h_enemy.isValid()) {
+		if (TYPE_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTSushi* sushi = e_enemy->get<CBTSushi>();
+			sushi->setHalfCone(half_cone);
+		}
+		else if (TYPE_RANGED_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTRangedSushi* ranged_sushi = e_enemy->get<CBTRangedSushi>();
+			ranged_sushi->setHalfCone(half_cone);
+		}
+		
 	}
 }
 
@@ -657,6 +705,9 @@ void CModuleGameController::setPauseEnemyByHandle(CHandle h_enemy, bool active) 
 		e_enemy->sendMsg(msg);
 	}
 }
+
+
+
 
 void CModuleGameController::setTransformObject(std::string name,VEC3 pos,float yaw, float pith, float roll) {
 	if (name != "") {
@@ -686,9 +737,22 @@ void CModuleGameController::inCinematic(bool active) {
 	msgOnCinematic.cinematic = active;
 	msgOnCinematic.isscart = isScart;
 	e_player.sendMsg(msgOnCinematic);
-		
-	
 }
+
+void CModuleGameController::inCinematicSpecial(bool active, int type) {
+	CHandle e_player = getEntityByName("Player");
+	CEntity* entity = e_player;
+	TCompSCartController* scartController = entity->get<TCompSCartController>();
+	bool isScart = scartController->isEnabled;
+	TMsgOnCinematicSpecial msgOnCinematicSpec;
+	msgOnCinematicSpec.cinematic = active;
+	msgOnCinematicSpec.isscart = isScart;
+	msgOnCinematicSpec.type = type;
+	e_player.sendMsg(msgOnCinematicSpec);
+}
+
+
+
 
 void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 	CHandle e_golem = getEntityByName(name);
@@ -761,7 +825,27 @@ TCompTransform* toCompTransform(CHandle h) {
 	return t;
 }
 
+TCompCamera* toCompCamera(CHandle h) {
+	TCompCamera* c = h;
+	return c;
+}
 
+CBTGolem* toCBTGolem(CHandle h) {
+	CBTGolem* g = h;
+	return g;
+}
+
+TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
+	TCompEnemySpawnerSpecialTrap* t = h;
+	return t;
+}
+
+/*
+TCompCharacterController* toCompCharacterController_(CHandle h) {
+	TCompCharacterController* c = h;
+	return c;
+}
+*/
 
 
 
@@ -810,3 +894,18 @@ void CModuleGameController::cheatPosition() {
 	}
 	positionCheat++;
 }
+
+CCamera* CModuleGameController::getCameraFromHandle(CHandle hCamera)
+{
+	if (hCamera.isValid())
+	{
+		CEntity* e = hCamera;
+		TCompCamera* cCamera = e->get<TCompCamera>();
+		if (cCamera)
+		{
+			return cCamera;
+		}
+	}
+	return nullptr;
+}
+

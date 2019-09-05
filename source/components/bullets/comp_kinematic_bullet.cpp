@@ -21,6 +21,7 @@ void TCompKinematicBullet::debugInMenu() {
 void TCompKinematicBullet::load(const json& j, TEntityParseContext& ctx) {
     _speed = j.value("_speed", _speed);
     _destroyOnCollission = j.value("_destroyOnCollission", _destroyOnCollission);
+    _requestAudioPermission = j.value("_requestAudioPermission", _requestAudioPermission);
     _audioOnHit = j.value("_audioOnHit", _audioOnHit);
 }
 
@@ -40,7 +41,19 @@ void TCompKinematicBullet::onCollision(const TMsgEntityTriggerEnter& msg) {
         _isEnabled = false;
     if (_audioOnHit != "") {
         dbg(_audioOnHit.c_str());
-        EngineAudio.playEvent(_audioOnHit);
+        //This is for those instances in which a sound would be repeated too many times so we ask someone else to play it
+        //Example: Fire
+        if (_requestAudioPermission) {
+            CEntity* e_entity = getEntityByName("Player");
+            if (e_entity) {
+                TMsgSoundRequest soundRequest;
+                soundRequest.name = _audioOnHit;
+                e_entity->sendMsg(soundRequest);
+            }
+        }
+        else {
+            EngineAudio.playEvent(_audioOnHit);
+        }
     }
 }
 

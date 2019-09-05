@@ -73,11 +73,11 @@
     <ClCompile Include="components\controllers\comp_sCart_controller.cpp" />
     <ClCompile Include="components\controllers\comp_trans_curve_controller.cpp" />
     <ClCompile Include="components\john\comp_circular_controller.cpp" />
-    <ClCompile Include="components\john\comp_fire_follow.cpp" />
     <ClCompile Include="components\john\comp_msg_logger.cpp" />
     <ClCompile Include="components\john\comp_sensor.cpp" />
     <ClCompile Include="components\objects\comp_blade_trap.cpp" />
     <ClCompile Include="components\objects\comp_enemies_in_butcher.cpp" />
+    <ClCompile Include="components\objects\comp_enemy_spawner_special_trap.cpp" />
     <ClCompile Include="components\objects\comp_fire_trap.cpp" />
     <ClCompile Include="components\objects\comp_interruptor.cpp" />
     <ClCompile Include="components\objects\comp_termoestato.cpp" />
@@ -100,11 +100,13 @@
     <ClCompile Include="components\objects\triggers\comp_trigger_damage_zone.cpp" />
     <ClCompile Include="components\objects\triggers\comp_trigger_move_wall.cpp" />
     <ClCompile Include="components\obstacle\comp_obstacle.cpp" />
+    <ClCompile Include="components\postfx\comp_render_radial_blur.cpp" />
     <ClCompile Include="components\postfx\comp_tone_mapping.cpp" />
     <ClCompile Include="components\powers\comp_battery.cpp" />
     <ClCompile Include="components\powers\comp_fire.cpp" />
     <ClCompile Include="components\powers\comp_coffee.cpp" />
     <ClCompile Include="components\powers\comp_madness.cpp" />
+    <ClCompile Include="components\powers\comp_melee_trigger.cpp" />
     <ClCompile Include="components\powers\comp_teleport.cpp" />
     <ClCompile Include="components\ui\comp_ui.cpp" />
     <ClCompile Include="components\postfx\comp_render_ao.cpp" />
@@ -112,9 +114,11 @@
     <ClCompile Include="components\postfx\comp_render_blur.cpp" />
     <ClCompile Include="components\postfx\comp_render_focus.cpp" />
     <ClCompile Include="components\vfx\comp_air.cpp" />
+    <ClCompile Include="components\vfx\comp_bolt_aura_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_sphere.cpp" />
     <ClCompile Include="components\vfx\comp_dust.cpp" />
+    <ClCompile Include="components\vfx\comp_fire_follow.cpp" />
     <ClCompile Include="components\vfx\comp_scalable.cpp" />
     <ClCompile Include="components\vfx\comp_slow_disappear.cpp" />
     <ClCompile Include="components\vfx\comp_trail.cpp" />
@@ -230,6 +234,7 @@
     <ClCompile Include="render\module_gpu_culling.cpp" />
     <ClCompile Include="render\module_render.cpp" />
     <ClCompile Include="render\primitives.cpp" />
+    <ClCompile Include="render\radial_blur_step.cpp" />
     <ClCompile Include="render\render.cpp" />
     <ClCompile Include="render\render_manager.cpp" />
     <ClCompile Include="render\render_utils.cpp" />
@@ -336,13 +341,13 @@
     <ClInclude Include="components\john\comp_circular_controller.h" />
     <ClInclude Include="components\objects\comp_blade_trap.h" />
     <ClInclude Include="components\objects\comp_enemies_in_butcher.h" />
+    <ClInclude Include="components\objects\comp_enemy_spawner_special_trap.h" />
     <ClInclude Include="components\objects\comp_fire_trap.h" />
     <ClInclude Include="components\objects\comp_interruptor.h" />
     <ClInclude Include="components\objects\comp_termoestato.h" />
     <ClInclude Include="components\postfx\comp_antialiasing.h" />
     <ClInclude Include="components\postfx\comp_chromatic_aberration.h" />
     <ClInclude Include="components\postfx\comp_color_grading.h" />
-    <ClInclude Include="components\john\comp_fire_follow.h" />
     <ClInclude Include="components\objects\checkpoints\checkpoint.h" />
     <ClInclude Include="components\objects\checkpoints\comp_trigger_checkpoint.h" />
     <ClInclude Include="components\objects\comp_destroyable_wall.h" />
@@ -359,17 +364,21 @@
     <ClInclude Include="components\objects\triggers\comp_trigger_damage_zone.h" />
     <ClInclude Include="components\objects\triggers\comp_trigger_move_wall.h" />
     <ClInclude Include="components\obstacle\comp_obstacle.h" />
+    <ClInclude Include="components\postfx\comp_render_radial_blur.h" />
     <ClInclude Include="components\postfx\comp_tone_mapping.h" />
     <ClInclude Include="components\powers\comp_battery.h" />
     <ClInclude Include="components\powers\comp_fire.h" />
     <ClInclude Include="components\powers\comp_coffee.h" />
     <ClInclude Include="components\powers\comp_madness.h" />
+    <ClInclude Include="components\powers\comp_melee_trigger.h" />
     <ClInclude Include="components\powers\comp_teleport.h" />
     <ClInclude Include="components\ui\comp_ui.h" />
     <ClInclude Include="components\vfx\comp_air.h" />
+    <ClInclude Include="components\vfx\comp_bolt_aura_billboard.h" />
     <ClInclude Include="components\vfx\comp_bolt_billboard.h" />
     <ClInclude Include="components\vfx\comp_bolt_sphere.h" />
     <ClInclude Include="components\vfx\comp_dust.h" />
+    <ClInclude Include="components\vfx\comp_fire_follow.h" />
     <ClInclude Include="components\vfx\comp_scalable.h" />
     <ClInclude Include="components\vfx\comp_slow_disappear.h" />
     <ClInclude Include="components\vfx\comp_trail.h" />
@@ -501,6 +510,7 @@
     <ClInclude Include="render\module_gpu_culling.h" />
     <ClInclude Include="render\primitives.h" />
     <ClInclude Include="render\module_render.h" />
+    <ClInclude Include="render\radial_blur_step.h" />
     <ClInclude Include="render\render.h" />
     <ClInclude Include="render\render_manager.h" />
     <ClInclude Include="render\render_utils.h" />
@@ -545,6 +555,7 @@
     <ClInclude Include="utils\murmur3\murmur3.h" />
     <ClInclude Include="utils\named_values.h" />
     <ClInclude Include="utils\PerlinNoise.hpp" />
+    <ClInclude Include="utils\time.h" />
     <ClInclude Include="utils\utils.h" />
     <ClInclude Include="windows\app.h" />
   </ItemGroup>
@@ -590,19 +601,19 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

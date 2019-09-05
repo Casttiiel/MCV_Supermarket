@@ -6,6 +6,7 @@
 #include "entity/common_msgs.h"
 #include "bt_controller.h"
 #include "geometry/curve.h"
+#include "modules/game/audio/audioEvent.h"
 
 class CBTSushi : public BTController {
 
@@ -62,6 +63,8 @@ public:
   std::string getNameCurve();
 	void setCurve(const CCurve* curve);
 	void setHeightRange(float height);
+	void setViewDistance(float distance);
+	void setHalfCone(float halfCone);
   //End Conditions
 private:
   float initialExecution = true;
@@ -72,7 +75,7 @@ private:
   Vector3 currentPosition;
   Vector3 nextPoint;
   VEC3 impulse = VEC3();
-
+  AudioEvent _audioPlaying;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
 	//curve values
   const CCurve* _curve = nullptr;
   std::vector<VEC3> _knots;
@@ -121,7 +124,7 @@ private:
   float hearing_radius = 3.0f;
   float combatViewDistance = 30.0f;
   float viewDistance = 15.f;
-	float height_range = 3.0f;
+  float height_range = 3.0f;
   //End View Ranges
 
   //Core Values

@@ -276,21 +276,21 @@ void CBTRangedSushi::shoot(ShotType type) {
 	case ShotType::Burst:
 		/*should consider adding burst to the random pool, although that would require coroutines*/
 		break;
-	case ShotType::Random: {
+	case ShotType::Random: 
 		int dice = bt_dist_rs(bt_mt_rs);
-		if (dice > 0 && dice < 50)
-			singleShot();
-		else if (dice > 50 && dice < 100)
+        if (dice > 0 && dice < 50) {
+            singleShot();
+        }
+        else if (dice > 50 && dice < 100){
 			spreadShot();
-	}
-						   break;
-	default:
+	    }
 		break;
 	}
 }
 
 void CBTRangedSushi::singleShot() {
-	CEntity* e_player = (CEntity *)h_player;
+    EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SingleThrow");
+    CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
@@ -332,7 +332,8 @@ void CBTRangedSushi::singleShot() {
 }
 
 void CBTRangedSushi::spreadShot() {
-	CEntity* e_player = (CEntity *)h_player;
+    EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SpreadThrow");
+    CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
@@ -440,7 +441,10 @@ int CBTRangedSushi::actionBurstShot() {
 
 			TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 			sushiAnimator->playAnimation(_isLeaping ? TCompSushiAnimator::THROW_AIR : TCompSushiAnimator::THROW_LAND, 2.f);
-
+            if (!hasPlayedTripleThrowAudio) {
+                EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_TripleThrow");
+                hasPlayedTripleThrowAudio = true;
+            }
 			singleShot();
 			_burstTimer = _burstDelay;
 			_shotsFired++;
@@ -453,6 +457,7 @@ int CBTRangedSushi::actionBurstShot() {
 	else {
 		_shootTimer = _shootDelay;
 		_shotsFired = 0;
+        hasPlayedTripleThrowAudio = false;
 		return LEAVE;
 	}
 }
@@ -462,7 +467,10 @@ int CBTRangedSushi::actionLeap() {
 	currentState = States::Leap;
 	VEC3 jumpForce = getLeapDirection();
 	TCompTransform* c_trans = get<TCompTransform>();
-	if (_hasBounced || conditionGravityReceived() || conditionImpactReceived() || conditionFear() || !isHole(jumpForce)) {
+
+	bool enemyInSide = isOtherEnemyInSide();
+
+	if (_hasBounced || conditionGravityReceived() || conditionImpactReceived() || conditionFear() || !isHole(jumpForce) || enemyInSide) {
 		_shootTimer = _shootDelay;
 		_isLeaping = false;
 		_hasFired = false;
@@ -472,7 +480,8 @@ int CBTRangedSushi::actionLeap() {
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
 
-		//Start leap
+        EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump_NoVoice");
+        //Start leap
 		dbg("Ranged Sushi LEAPS\n");
 		_isLeaping = true;
 		//VEC3 jumpForce = getLeapDirection(); //VEC3(1.0, 0.0, 0.0);
@@ -581,6 +590,7 @@ int CBTRangedSushi::actionBounce() {
 	if (!_isLeaping) {
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
+        EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump");
 
 		//Start leap
 		dbg("Ranged Sushi BOUNCES\n");
@@ -1393,6 +1403,61 @@ void CBTRangedSushi::renderDebug() {
 		drawLine(pos + half_cone_1 * combatViewDistance, pos + half_cone_2 * combatViewDistance, VEC4(1, 0, 0, 1));
 
 	}
+
+
+	CHandle player = GameController.getPlayerHandle();
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* trans_p = e_player->get<TCompTransform>();
+
+	/*VEC3 directionToPlayer = c_trans->getPosition() - trans_p->getPosition();
+	if (directionToPlayer.z < 0) {
+		VEC3 char_pos_right = c_trans->getPosition();
+		char_pos_right.y = 0.5f;
+		char_pos_right.x = c_trans->getPosition().x - 0.5f;
+		PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+
+		VEC3 char_pos_left = c_trans->getPosition();
+		char_pos_left.y = 0.5f;
+		char_pos_left.x = c_trans->getPosition().x + 0.5f;
+		PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+		drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
+		drawLine(PXVEC3_TO_VEC3(origin_left), (PXVEC3_TO_VEC3(origin_left) + PXVEC3_TO_VEC3(c_trans->getLeft()) * 10), VEC4(1, 1, 0, 1));
+
+	}
+	else {
+		VEC3 char_pos_right = c_trans->getPosition();
+		char_pos_right.y = 0.5f;
+		char_pos_right.x = c_trans->getPosition().x + 0.5f;
+		PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+
+		VEC3 char_pos_left = c_trans->getPosition();
+		char_pos_left.y = 0.5f;
+		char_pos_left.x = c_trans->getPosition().x - 0.5f;
+		PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+		drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
+		drawLine(PXVEC3_TO_VEC3(origin_left), (PXVEC3_TO_VEC3(origin_left) + PXVEC3_TO_VEC3(c_trans->getLeft()) * 10), VEC4(1, 1, 0, 1));
+	}*/
+
+	TCompCollider* coll_p = e_player->get<TCompCollider>();
+	
+	
+	
+
+	VEC3 char_pos_right = c_trans->getPosition();
+	char_pos_right.y = 0.f;
+	char_pos_right.x = c_trans->getPosition().x + coll_p->controller->getRadius();
+
+	VEC3 char_pos_left = c_trans->getPosition();
+	char_pos_left.y = 0.f;
+	char_pos_left.x = c_trans->getPosition().x - coll_p->controller->getRadius();
+	PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+	PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+	drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
+	drawLine(PXVEC3_TO_VEC3(origin_left), (PXVEC3_TO_VEC3(origin_left) + PXVEC3_TO_VEC3(c_trans->getLeft()) * 10), VEC4(1, 1, 0, 1));
+	
+	
+	
+
 }
 
 void CBTRangedSushi::onBlackboardMsg(const TMsgBlackboard& msg) {
@@ -1857,4 +1922,130 @@ bool CBTRangedSushi::checkHeight() {
 
 std::string CBTRangedSushi::getNameCurve() {
 	return pathCurve;
+}
+
+void CBTRangedSushi::setViewDistance(float value) {
+	this->viewDistance = value;
+}
+
+void CBTRangedSushi::setHalfCone(float halfCone) {
+	this->half_cone = halfCone;
+}
+
+
+bool CBTRangedSushi::isOtherEnemyInSide() {
+	bool hayEnemy = false;
+	PxReal maxDistance = 10.f;
+	PxRaycastBuffer hit;
+	PxRaycastHit hitBuffer[10];
+	hit = PxRaycastBuffer(hitBuffer, 10);
+	// [in] Define what parts of PxRaycastHit we're interested in
+	const PxHitFlags outputFlags =
+		PxHitFlag::eDISTANCE
+		| PxHitFlag::ePOSITION
+		| PxHitFlag::eNORMAL
+		;
+
+	TCompTransform* c_trans = get<TCompTransform>();
+	VEC3 char_pos_right = c_trans->getPosition();
+	char_pos_right.y = 0.5f;
+	PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+	PxVec3 unitDirRight = VEC3_TO_PXVEC3(c_trans->getRight());
+	PxVec3 unitDirLeft = VEC3_TO_PXVEC3(c_trans->getLeft());
+	PxQueryFilterData filter_data = PxQueryFilterData();
+	filter_data.data.word0 = EnginePhysics.Enemy;
+
+	//se mira a la izquierda si hay un enemigo 
+	
+	bool res = EnginePhysics.gScene->raycast(origin_right, unitDirRight, maxDistance, hit, outputFlags, filter_data);
+	if (res) {//colisiona con algo
+		int closestIdx = -1;
+		float closestDist = 1000.0f;
+		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+			
+
+			if (hit.getAnyHit(i).distance <= closestDist) {
+				closestDist = hit.getAnyHit(i).distance;
+				closestIdx = i;
+			}
+		}
+		if (closestIdx != -1) {
+			
+			PxShape* colShape;
+			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
+				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				CHandle h_comp_physics;
+				h_comp_physics.fromVoidPtr(hit.getAnyHit(i).actor->userData);
+				CEntity* entityContact = h_comp_physics.getOwner();
+				dbg("Entidad con quien choco--->%s\n", entityContact->getName());
+				
+
+				PxFilterData col_filter_data = colShape->getSimulationFilterData();
+				CEntity* mine = CHandle(this).getOwner();
+				dbg("YO--->%s\n", mine->getName());
+				
+				if (col_filter_data.word0 & EnginePhysics.Enemy && entityContact != (mine)) {
+					CHandle hitCollider;
+					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
+					if (hitCollider.isValid()) {
+						CEntity* candidate = hitCollider.getOwner();
+						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						hayEnemy = true;
+					}
+				}
+			}
+		}
+	}
+
+
+	//se mira a la izquierda si hay un enemigo 
+	VEC3 char_pos_left = c_trans->getPosition();
+	char_pos_left.y = 0.5f;
+	
+	PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+	res = EnginePhysics.gScene->raycast(origin_left, unitDirLeft, maxDistance, hit, outputFlags, filter_data);
+	if (res) {//colisiona con algo
+		int closestIdx = -1;
+		float closestDist = 1000.0f;
+		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+
+
+			if (hit.getAnyHit(i).distance <= closestDist) {
+				closestDist = hit.getAnyHit(i).distance;
+				closestIdx = i;
+			}
+		}
+		if (closestIdx != -1) {
+
+			PxShape* colShape;
+			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
+				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				CHandle h_comp_physics;
+				h_comp_physics.fromVoidPtr(hit.getAnyHit(i).actor->userData);
+				CEntity* entityContact = h_comp_physics.getOwner();
+				dbg("Entidad con quien choco--->%s\n", entityContact->getName());
+
+
+				PxFilterData col_filter_data = colShape->getSimulationFilterData();
+				CEntity* mine = CHandle(this).getOwner();
+				dbg("YO--->%s\n", mine->getName());
+
+				if (col_filter_data.word0 & EnginePhysics.Enemy && entityContact != (mine)) {
+					CHandle hitCollider;
+					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
+					if (hitCollider.isValid()) {
+						CEntity* candidate = hitCollider.getOwner();
+						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						hayEnemy = true;
+					}
+				}
+			}
+		}
+	}
+	
+
+	return hayEnemy;
+
 }

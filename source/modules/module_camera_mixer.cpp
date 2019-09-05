@@ -106,6 +106,8 @@ void CModuleCameraMixer::update(float delta)
       ratio = mc.interpolator->blend(0.f, 1.f, ratio);
     }
 
+    if (isnan(ratio))
+      ratio = 0.f;
     blendCameras(&result, camera, ratio, result);
   }
 
@@ -153,6 +155,8 @@ void CModuleCameraMixer::blendCamera(CHandle camera, float blendTime, Interpolat
   mc.camera = camera;
   mc.blendTime = blendTime;
   mc.interpolator = interpolation;
+  mc.blendedWeight = 0.f;
+  mc.appliedWeight = 0.f;
 
   _mixedCameras.push_back(std::move(mc));
 }
@@ -164,9 +168,31 @@ Interpolator::IInterpolator* CModuleCameraMixer::getInterpolator(std::string int
 		static Interpolator::TLinearInterpolator linear;
 		return &linear;
 	}
-	/*else if () {
-		...
-	}*/
+	else if (interpolator.compare("Quadin") == 0) {
+		static Interpolator::TQuadInInterpolator quadin;
+		return &quadin;
+	}
+	else if (interpolator.compare("Quadout") == 0) {
+		static Interpolator::TQuadOutInterpolator quadout;
+		return &quadout;
+	}
+	else if (interpolator.compare("Quadinout") == 0) {
+		static Interpolator::TQuadInOutInterpolator quadinout;
+		return &quadinout;
+	}
+	else if (interpolator.compare("Cubicin") == 0) {
+		static Interpolator::TCubicInInterpolator cubicin;
+		return &cubicin;
+	}
+	else if (interpolator.compare("Cubicout") == 0) {
+		static Interpolator::TCubicOutInterpolator cubicout;
+		return &cubicout;
+	}
+	else if (interpolator.compare("Cubicinout") == 0) {
+		static Interpolator::TCubicInOutInterpolator cubicinout;
+		return &cubicinout;
+	}
+	
 	return nullptr;
 }
 

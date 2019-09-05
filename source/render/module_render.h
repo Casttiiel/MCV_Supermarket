@@ -14,10 +14,13 @@ class CModuleRender : public IModule
 
   CDeferredRenderer* deferred = nullptr;
   CRenderToTexture* deferred_output = nullptr;
+  CRenderToTexture* ui_output = nullptr;
+  CRenderToTexture* shine_output = nullptr;
 
   void uploadSkinMatricesToGPU();
   void parsePipelines(const std::string& filename);
   bool setupDeferredOutput();
+  void renderShine();
 
 public:
   CModuleRender(const std::string& name)

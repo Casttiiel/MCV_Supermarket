@@ -29,6 +29,10 @@ void TCompSCartController::Init() {
 
 	//ADD MORE STATES FOR BEING HIT, ETC, ETC
 
+    _movementAudio = EngineAudio.playEvent("event:/Character/SCart/Movement");
+    _movementAudio.setPaused(true);
+    _crashAudio = EngineAudio.playEvent("event:/Character/SCart/Crash");
+    _crashAudio.stop();
 	ChangeState("SCART_DISABLED");
 }
 
@@ -59,6 +63,7 @@ void TCompSCartController::enable(CHandle vehicle) {
 		SwapMesh(1);
 		//Generate fake player mounted
 		fakePlayerHandle = GameController.spawnPrefab("data/prefabs/props/fake_player_mounted.json", c_trans->getPosition());
+        EngineAudio.playEvent("event:/Character/SCart/Mount");
 	}
 
 
@@ -88,6 +93,8 @@ void TCompSCartController::disable() {
     rowImpulseLeft = 0.f;
 	//Remove fake player
 	fakePlayerHandle.destroy();
+    EngineAudio.playEvent("event:/Character/SCart/Dismount");
+    _movementAudio.setPaused(true);
 }
 
 void TCompSCartController::disabled() {
@@ -153,7 +160,83 @@ void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
 }
 
 void TCompSCartController::onCollision(const TMsgOnContact& msg) {
+	CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
+	TCompCharacterController* cc = get<TCompCharacterController>();
+	if (source_of_impact && cc->getIsMounted()) {
+		TCompCollider* c_tag = source_of_impact->get<TCompCollider>();
+		if (c_tag) {
+			PxShape* colShape;
+			c_tag->actor->getShapes(&colShape, 1, 0);
+			PxFilterData col_filter_data = colShape->getSimulationFilterData();
+			
+			//If I collide with the player while I'm charging, I send TMsgDamageToPlayer
+			if (col_filter_data.word0 & EnginePhysics.Obstacle) {
+				const PxHitFlags outputFlags =
+					PxHitFlag::eDISTANCE
+					| PxHitFlag::ePOSITION
+					| PxHitFlag::eNORMAL
+					;
+				TCompTransform* c_trans = get<TCompTransform>();
+				float offsetY = c_trans->getPosition().y + 4.0f;
+				VEC3 pos = VEC3(c_trans->getPosition().x, offsetY, c_trans->getPosition().z);
+				VEC3 direction = c_trans->getFront();
+				auto scene = EnginePhysics.getScene();
+				PxQueryFilterData filter_data = PxQueryFilterData();
+				PxRaycastBuffer hit;
+				PxRaycastHit hitBuffer[10];
+				hit = PxRaycastBuffer(hitBuffer, 10);
+				PxReal _maxDistance = 1.f;
+				bool colDetected = scene->raycast(
+					VEC3_TO_PXVEC3(pos),
+					VEC3_TO_PXVEC3(direction),
+					_maxDistance,
+					hit,
+					outputFlags,
+					filter_data
+				);
+				if (colDetected) {
+					int closestIdx = -1;
+					float closestDist = 1000.0f;
+					//dbg("Number of hits: %i \n", hit.getNbAnyHits());
+					for (int i = 0; i < hit.getNbAnyHits(); i++) {
+						if (hit.getAnyHit(i).distance <= closestDist) {
+							closestDist = hit.getAnyHit(i).distance;
+							closestIdx = i;
+						}
+					}
+					if (closestIdx != -1) {
+						CHandle hitCollider;
+						PxShape* colShape;
+						for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
+							hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+							PxFilterData col_filter_data = colShape->getSimulationFilterData();
+							if (col_filter_data.word0 & EnginePhysics.Obstacle) {
+								hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
+								if (hitCollider.isValid()) {
+									CEntity* candidate = hitCollider.getOwner();
+									if (candidate != nullptr) {
+										rowImpulseLeft = 0.0f;
+                                        if (!_crashAudio.isPlaying()) {
+                                            _crashAudio = EngineAudio.playEvent("event:/Character/SCart/Crash");
+                                        }
+									}
+									
+								}
+							}
+						}
+					}
 
+					
+				}
+
+
+
+			}
+		}
+	}
+
+
+	/*
 	if (isEnabled) {
 		CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
 		if (source_of_impact) {
@@ -166,13 +249,7 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 				}
 				if (strcmp("cupcake", tag2.c_str()) == 0) {
 					if (strcmp("DAMAGED", state.c_str()) != 0) {
-						/*CAICupcake* cup = source_of_impact->get<CAICupcake>();
-						life -= cup->damage;
-						ChangeState("SCART_DAMAGED");
-						if (life <= 0.0f) {
-							life = 0.0f;
-							ChangeState("SCART_DEAD");
-						}*/
+						
 					}
 				}
 			}
@@ -180,7 +257,7 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 	}
 	else {
 		//ChangeState("SCART_DISABLED");
-	}
+	}*/
 }
 
 void TCompSCartController::onDamage(const TMsgDamage& msg) {
@@ -249,6 +326,9 @@ void TCompSCartController::grounded(float delta) {
 	treatRumble(delta);
 
   TCompTransform* c_trans = get<TCompTransform>();
+  if (c_trans == nullptr) {
+	  return;
+  }
   VEC3 dir = c_trans->getFront();
   VEC3 dir_aux = dir;
   TCompRigidBody* r_body = get<TCompRigidBody>();
@@ -316,6 +396,29 @@ void TCompSCartController::grounded(float delta) {
 	}
 
 	dir *= delta * rowImpulseLeft;
+
+    if (rowImpulseLeft > 0.f) {
+        //SwapMesh(2);
+        //TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        //playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f);
+        //Play sound
+        if (_movementAudio.getPaused()) {
+            _movementAudio.setPaused(false);
+            _movementAudio.restart();
+        }
+    }
+    else {
+        //SwapMesh(0);
+        //TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        //if (playerAnima != nullptr) {
+        //    playerAnima->playAnimation(TCompPlayerAnimator::IDLE, 0.5f);
+        //    //footSteps.stop();
+        //    
+        //}
+        if (!_movementAudio.getPaused()) {
+            _movementAudio.setPaused(true);
+        }
+    }
 
 	//MOVE PLAYER
 	TCompCollider* comp_collider = get<TCompCollider>();

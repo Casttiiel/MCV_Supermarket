@@ -79,6 +79,8 @@ private:
 	float _passiveLossTimer = _passiveLossDelay;
 	//End Time
 
-
+	void onCinematic(const TMsgOnCinematic& msg);
+	void onCinematicSpecial(const TMsgOnCinematicSpecial& msg);
+	bool isCinematic = false;
 };
 

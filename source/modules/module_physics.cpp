@@ -625,7 +625,7 @@ void CModulePhysics::update(float delta) {
 
   {
     PROFILE_FUNCTION("Simulate");
-    gScene->simulate(delta);
+    gScene->simulate(Time.delta_unscaled);
   }
   {
     PROFILE_FUNCTION("fetch");
@@ -777,6 +777,12 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
   else if (strcmp("column", name.c_str()) == 0) {
     return CModulePhysics::FilterGroup::Column;
   }
+  else if (strcmp("obstacle", name.c_str()) == 0) {
+	  return CModulePhysics::FilterGroup::Obstacle;
+  }
+  else if (strcmp("VulnerableToMelee", name.c_str()) == 0) {
+      return CModulePhysics::FilterGroup::VulnerableToMelee;
+  }
   
   
   //good solution, if from max is not specified its group, it will be scenario
@@ -818,7 +824,6 @@ void CModulePhysics::CustomSimulationEventCallback::onTrigger(PxTriggerPair* pai
 
     CHandle h_comp_trigger;
     h_comp_trigger.fromVoidPtr(pairs[i].triggerActor->userData);
-    
     CHandle h_comp_other;
     h_comp_other.fromVoidPtr(pairs[i].otherActor->userData);
 
