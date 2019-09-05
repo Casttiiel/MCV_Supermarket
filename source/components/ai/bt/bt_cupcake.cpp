@@ -239,7 +239,7 @@ int CBTCupcake::actionDeath() {
 	}
 	//------------------------------------
   TCompTransform* c_trans = get<TCompTransform>();
-  if (!isDeadForFallout) {
+  if (!isDeadForFallout && !isDeadForTrigger) {
 	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
   }
   AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
@@ -1188,4 +1188,5 @@ void CBTCupcake::renderDebug() {
 void CBTCupcake::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
 	isDeadForTrigger = true;
 	life = 0;
+	num_of_divisions = 0;
 }

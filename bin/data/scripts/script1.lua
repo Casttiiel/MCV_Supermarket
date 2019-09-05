@@ -223,6 +223,7 @@ end
 
 function create_cupcakes_in_frost_player()
 	GameController:deleteCupcake();
+
 	execDelayedAction("changeScene(\"congelados_scene\")",0)
 	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(150, -3.653, -2), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados1",h_cupcake1);
@@ -537,7 +538,7 @@ function activePlataformCarniceria_player()
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
 	GameController:setPauseEnemyByHandle(h_suishi5,true);
 	
-	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
+	--trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
 
 	--Audio
 	GameController:updateSoundtrackID(5);
@@ -596,6 +597,7 @@ end
 
 function trampaSushisButcher_player()
 	execDelayedAction("saveCheckpoint()",0.0);
+	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
 	--por si queremos poner cinematicas enfocando el fuego o hacer que empiece a llamear el ascensor
 end
 

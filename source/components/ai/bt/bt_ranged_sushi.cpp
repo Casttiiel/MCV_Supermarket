@@ -1009,12 +1009,11 @@ int CBTRangedSushi::actionDeath() {
 
 	//------------------------------------
 	TCompTransform* c_trans = get<TCompTransform>();
-	if (!isDeadForFallout) {
+	if (!isDeadForFallout && !isDeadForTrigger) {
+
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
 	}
-	if (!isDeadForTrigger) {
-		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
-	}
+	
 	CHandle(this).getOwner().destroy();
 	CHandle(this).destroy();
 	return LEAVE;

@@ -1143,10 +1143,7 @@ int CBTSushi::actionDeath() {
 
 		//------------------------------------
     TCompTransform* c_trans = get<TCompTransform>();
-	if (!isDeadForFallout){
-		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
-	}
-	if (!isDeadForTrigger) {
+	if (!isDeadForFallout && !isDeadForTrigger) {
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
 	}
 	//------ENVIO ME HE MUERTO A COMPONENTE DE TRAMPA DE SUISHIS-----
