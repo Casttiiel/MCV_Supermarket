@@ -1259,8 +1259,9 @@ bool CBTSushi::conditionJumpCharge() {
     TCompTransform* c_trans = get<TCompTransform>();
     VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
     VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 100);
-
-    bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
+		if (use_navmesh) {
+			bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
+		}
     //if (!charge) {
     return rollDiceJumpCharge() && checkBlackboard();
     //}
@@ -1272,7 +1273,9 @@ bool CBTSushi::conditionCharge() {
     TCompTransform* c_trans = get<TCompTransform>();
     VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
     VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 100);
-    bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
+		if (use_navmesh) {
+			bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
+		}
     //if (!charge) {
     return rollDiceCharge() && checkBlackboard();
     //}
@@ -1391,8 +1394,9 @@ bool CBTSushi::isView() {
         //a menos distancia que hearing_radius
         float angle = rad2deg(c_trans->getDeltaYawToAimTo(player_position->getPosition()));
         bool sighted = ((abs(angle) <= half_cone) && (distance <= viewDistance)) || distance <= hearing_radius;
-        isPlayerInNavmesh();
+        
         if (use_navmesh) {
+					isPlayerInNavmesh();
             if (sighted && hayCamino)
                 inCombat = true;
             return sighted;
