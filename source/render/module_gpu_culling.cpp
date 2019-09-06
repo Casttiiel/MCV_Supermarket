@@ -437,6 +437,34 @@ void CModuleGPUCulling::clear() {
   sample_data.deleteProductPrefabs();
 }
 
+void CModuleGPUCulling::deleteActualProducts() {
+  //for the CPU / update / collision
+  getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
+    // remove it
+    CHandle h(di);
+    CHandle owner = h.getOwner();
+    owner.destroy();
+  });
+
+  //for the GPU / render
+  objs.erase(objs.begin() + first_prod_index, objs.begin() + last_prod_index + 1);
+
+  is_dirty = true;
+
+  first_prod_index = 50000;
+  last_prod_index = -1;
+}
+
+int CModuleGPUCulling::getObjSize() { 
+  //this is called to bind the component to the index of the product 
+  int val = objs.size();
+  if (first_prod_index > val)
+    first_prod_index = val;
+  if (last_prod_index < val)
+    last_prod_index = val;
+  return val; 
+}
+
 // ---------------------------------------------------------------
 bool CModuleGPUCulling::start() {
 

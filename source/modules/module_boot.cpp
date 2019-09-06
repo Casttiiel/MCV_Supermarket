@@ -31,6 +31,14 @@ bool CModuleBoot::start()
   TEntityParseContext ctx;
   CEngine::get().getGPUCulling().parseProducts(p, ctx);
 
+  //CEngine::get().getGPUCulling().deleteActualProducts();
+
+  /*std::string p2 = "data/scenes/mapa_asiatica.json";
+  TFileContext fc2(p2);
+  TEntityParseContext ctx2;
+  CEngine::get().getGPUCulling().parseProducts(p2, ctx2);*/
+  
+
   EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
 
    prefabs = json["prefabs_to_prefaload"].get< std::vector< std::string > >();
