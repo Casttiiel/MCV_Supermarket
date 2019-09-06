@@ -93,6 +93,7 @@ bool debugCteInMenu<TCtesParticles>(TCtesParticles& d) {
   changed |= ImGui::DragFloat("time_between_spawns", &d.emitter_time_between_spawns, 0.01f, 0.01f, 2.0f);
   changed |= ImGui::DragInt("num_particles_per_spawn", (int*)&d.emitter_num_particles_per_spawn, 0.1f, 1, 12);
   changed |= ImGui::DragFloat3("center", &d.emitter_center.x, 0.01f, -15.f, 15.f);
+  changed |= ImGui::DragFloat3("dir", &d.emitter_dir.x, 0.01f, -15.f, 15.f);
   changed |= ImGui::DragFloat("center_radius", &d.emitter_center_radius, 0.01f, 0.0f, 50.0f);
   changed |= ImGui::DragFloat("dir_aperture", &d.emitter_dir_aperture, 0.01f, 0.0f, 2.0f);
   changed |= ImGui::DragFloat2("speed", &d.emitter_speed.x, 0.01f, 0.f, 15.f);
