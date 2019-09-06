@@ -453,6 +453,9 @@ void CModuleGPUCulling::deleteActualProducts() {
 
   first_prod_index = 50000;
   last_prod_index = -1;
+
+  //this will make the game to not update
+  Time.actual_frame = 0;
 }
 
 int CModuleGPUCulling::getObjSize() { 
