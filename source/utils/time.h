@@ -58,7 +58,7 @@ struct TElapsedTime {
     current = new_time;
     delta = delta_unscaled * scale_factor;
     
-    if (num_frames > actual_frame || delta_unscaled >= 0.066f) { //less than 15 frames per second it will be loading, but we check it only on release   
+    if (num_frames > actual_frame) { 
       #ifndef NDEBUG
             return;
       #endif

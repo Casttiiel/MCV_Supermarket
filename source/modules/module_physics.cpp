@@ -618,8 +618,9 @@ bool CModulePhysics::start()
 
 // ------------------------------------------------------------------
 void CModulePhysics::update(float delta) {
-	if (delta > threshold) {
-		delta = threshold;
+	if (Time.delta_unscaled >= 0.066f) { //less than 15 frames per second it will be loading
+    delta = 0.03333f; //update it as if it was moving normally
+    
 	}
 
 
