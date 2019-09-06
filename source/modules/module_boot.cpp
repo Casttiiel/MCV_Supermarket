@@ -12,6 +12,7 @@ bool CModuleBoot::start()
 	
   json json = loadJson("data/boot.json");
   auto prefabs = json["scenes_to_load"].get< std::vector< std::string > >();
+  CEngine::get().getGPUCulling().createPrefabProducts();
   for (auto& p : prefabs) {
     TFileContext fc(p);
     TEntityParseContext ctx;
@@ -19,13 +20,18 @@ bool CModuleBoot::start()
     dbg("Parsing boot prefab %s\n", p.c_str());
     //Instead of parsing it with parseScene, lets parse it with the GPU Culling Module
     //parseScene(p, ctx);
+    //This only parses the entities and prefabs, not products
     CEngine::get().getGPUCulling().parseEntities(p, ctx);
 
    //this makes the fetchresults from physx to be faster, but.. doesnt looks like
-   EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
   }
 
-  CEngine::get().getGPUCulling().clear();
+  std::string p = "data/scenes/mapa_panaderia.json";
+  TFileContext fc(p);
+  TEntityParseContext ctx;
+  CEngine::get().getGPUCulling().parseProducts(p, ctx);
+
+  EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
 
    prefabs = json["prefabs_to_prefaload"].get< std::vector< std::string > >();
   for (auto& p : prefabs) {
