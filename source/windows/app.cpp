@@ -158,7 +158,6 @@ void CApplication::runMainLoop() {
     {
 
 		
-		#ifndef NDEBUG
 			if (GameController.getInvisibleBlock()) {
 				if (hasFocus()) {
 					VEC2 centerInScreen = (VEC2(float(CApplication::get().width_app), CApplication::get().height_app) * 0.5);
@@ -176,7 +175,6 @@ void CApplication::runMainLoop() {
 				Input::CMouse mouse = EngineInput.mouse();
 				mouse.setLockMouse(false);
 			}
-		#endif
         generateFrame();
     }
   }
