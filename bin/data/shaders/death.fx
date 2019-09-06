@@ -24,7 +24,10 @@ VS_OUTPUT VS(
 )
 {
   VS_OUTPUT output = (VS_OUTPUT)0;
-  output.WorldPos = mul(Pos, World);
+  float3 displa = ((txNormal.SampleLevel(samLinear,Uv + GlobalWorldTime * 0.5f,0).xyz * 2.0f) - 1.0f) * 0.05f;
+  float4 auxPos = Pos;
+  auxPos.xyz += displa * N;
+  output.WorldPos = mul(auxPos, World);
   output.Pos = mul(output.WorldPos, ViewProjection);
   output.N = mul(N, (float3x3)World);
   output.T = float4( mul(T.xyz, (float3x3)World), T.w);
@@ -32,8 +35,35 @@ VS_OUTPUT VS(
   return output;
 }
 
-float4 PS(VS_OUTPUT input) : SV_Target
+void PS(VS_OUTPUT input
+  , out float4 o_deferred : SV_Target0
+  , out float4 o_shine : SV_Target1)
 {
-    float4 color = txAlbedo.Sample(samLinear,input.Uv);
-  	return float4(color.xyz,1);
+
+  float displ = txNormal.Sample(samLinear,input.Uv+GlobalWorldTime * 0.5f * sign(sin(GlobalWorldTime))).x * 0.1f;
+  float displ2 = txNormal.Sample(samLinear,input.Uv-GlobalWorldTime * 0.5f * sign(sin(GlobalWorldTime))* 0.5f).x * 0.3;
+  float3 border_color = txMetallic.Sample(samLinear,input.Uv + GlobalWorldTime);
+  border_color = pow(border_color,2);
+
+
+  float3 view_dir = normalize(input.WorldPos - CameraPosition);
+  float  NdV = (1 - saturate(dot(input.N, -view_dir)));
+  NdV = pow(NdV,2.0f);
+
+  NdV = NdV > 0.2f + displ - displ2 ? 1.0f : 0.0f;
+
+  float2 uv = input.Uv - float2(0.5f,0.5f);
+  float a = atan2(uv.y, uv.x) / (2.0f * PI);
+  float b = length(uv);
+  float2 polar = float2(a,b);
+
+  float4 center_color = txAlbedo.Sample(samLinear,polar + GlobalWorldTime * 0.25f);
+  float4 color_aux = txRoughness.Sample(samLinear,polar - GlobalWorldTime * 0.25f);
+  center_color = pow((1- pow(center_color,4)) * color_aux,8);
+
+
+  float3 final_color = border_color * ObjColor.xyz * NdV + center_color * (1 - NdV);
+
+  o_deferred = float4(final_color,1.0f);
+  o_shine = float4(final_color,1.0f);
 }
