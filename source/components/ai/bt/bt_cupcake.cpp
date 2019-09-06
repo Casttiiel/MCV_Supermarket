@@ -12,6 +12,7 @@
 #include "modules/game/module_fluid_decal_generator.h"
 #include "bt_cupcake.h"
 #include "components/ai/others/comp_blackboard.h"
+#include "components/ai/others/self_destroy.h"
 #include "random"
 
 using namespace physx;
@@ -34,6 +35,7 @@ void CBTCupcake::create(string s)//crear el arbol
 
 	addChild("CUPCAKE", "ON_DIVIDE", ACTION, (btcondition)&CBTCupcake::conditionDivide, (btaction)&CBTCupcake::actionDivide);
 	addChild("CUPCAKE", "ON_DEATH", ACTION, (btcondition)&CBTCupcake::conditionDeath, (btaction)&CBTCupcake::actionDeath);
+  addChild("CUPCAKE", "DEATH", ACTION, (btcondition)& CBTCupcake::conditionDeathAnimation, (btaction)& CBTCupcake::actionDeathStay);
 	addChild("CUPCAKE", "ON_GRAVITY", ACTION, (btcondition)&CBTCupcake::conditionGravityReceived, (btaction)&CBTCupcake::actionGravityReceived);
 	//addChild("CUPCAKE", "ON_FEAR", ACTION, (btcondition)&CBTCupcake::conditionFear, (btaction)&CBTCupcake::actionFear);
 	addChild("CUPCAKE", "ON_IMPACT", ACTION, (btcondition)&CBTCupcake::conditionImpactReceived, (btaction)&CBTCupcake::actionImpactReceived);
@@ -245,9 +247,25 @@ int CBTCupcake::actionDeath() {
   AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
   death.set3DAttributes(*c_trans);
   voice.stop();
-	CHandle(this).getOwner().destroy();
-	CHandle(this).destroy();
+
+  TEntityParseContext ctx;
+  ctx.root_transform = *c_trans;
+  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+  c_sd->setDelay(0.25f);
+  c_sd->enable();
+
+  death_animation_started = true;
+  /*CHandle(this).getOwner().destroy();
+  CHandle(this).destroy();*/
+
 	return LEAVE;
+}
+
+int CBTCupcake::actionDeathStay() {
+
+  return STAY;
 }
 
 int CBTCupcake::actionDivide() {
@@ -601,7 +619,11 @@ bool CBTCupcake::conditionRandom() {
 }
 
 bool CBTCupcake::conditionDeath() {
-	return life <= 0.f;
+	return life <= 0.f && !death_animation_started;
+}
+
+bool CBTCupcake::conditionDeathAnimation() {
+  return life <= 0.f && death_animation_started;
 }
 
 bool CBTCupcake::conditionDivide() {

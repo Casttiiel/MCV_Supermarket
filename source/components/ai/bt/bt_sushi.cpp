@@ -13,6 +13,7 @@
 #include "components/objects/comp_enemies_in_butcher.h"
 #include "bt_sushi.h"
 #include "components/controllers/character/comp_character_controller.h"
+#include "components/ai/others/self_destroy.h"
 
 #include "random"
 
@@ -37,6 +38,7 @@ void CBTSushi::create(string s)//crear el arbol
               // padre - hijo - tipo - condition - action
     createRoot("SUSHI", PRIORITY, NULL, NULL);
     addChild("SUSHI", "ON_DEATH", ACTION, (btcondition)&CBTSushi::conditionDeath, (btaction)&CBTSushi::actionDeath);
+    addChild("SUSHI", "DEATH", ACTION, (btcondition)& CBTSushi::conditionDeathAnimation, (btaction)& CBTSushi::actionDeathStay);
     addChild("SUSHI", "ON_GRAVITY", ACTION, (btcondition)&CBTSushi::conditionGravityReceived, (btaction)&CBTSushi::actionGravityReceived);
     addChild("SUSHI", "ON_FEAR", ACTION, (btcondition)&CBTSushi::conditionFear, (btaction)&CBTSushi::actionFear);
     addChild("SUSHI", "ON_IMPACT", ACTION, (btcondition)&CBTSushi::conditionImpactReceived, (btaction)&CBTSushi::actionImpactReceived);
@@ -75,6 +77,15 @@ void CBTSushi::create(string s)//crear el arbol
 
 
 
+}
+
+bool CBTSushi::conditionDeathAnimation() {
+  return life <= 0.f && death_animation_started;
+}
+
+int CBTSushi::actionDeathStay() {
+
+  return STAY;
 }
 
 void CBTSushi::updateBT() {
@@ -1153,9 +1164,19 @@ int CBTSushi::actionDeath() {
 			enemies_in_butcher->sendMsg(msgSushiDead);
 		}
 	}
-    CHandle(this).getOwner().destroy();
-    CHandle(this).destroy();
-    return LEAVE;
+
+  TEntityParseContext ctx;
+  ctx.root_transform = *c_trans;
+  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+  c_sd->setDelay(0.25f);
+  c_sd->enable();
+
+  death_animation_started = true;
+  /*CHandle(this).getOwner().destroy();
+  CHandle(this).destroy();*/
+  return LEAVE;
 }
 #pragma endregion
 //End Actions
@@ -1296,7 +1317,7 @@ bool CBTSushi::conditionGravityReceived() {
 }
 
 bool CBTSushi::conditionDeath() {
-    return life <= 0.f;
+    return life <= 0.f && !death_animation_started;
 }
 #pragma endregion
 //End Conditions

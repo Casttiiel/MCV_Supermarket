@@ -12,6 +12,7 @@
 #include "components/ai/others/comp_blackboard.h"
 #include "bt_ranged_sushi.h"
 #include "components/controllers/character/comp_character_controller.h"
+#include "components/ai/others/self_destroy.h"
 
 #include "random"
 
@@ -30,6 +31,7 @@ void CBTRangedSushi::create(string s)//crear el arbol
 	addChild("SUSHI", "ON_FEAR", ACTION, (btcondition)&CBTRangedSushi::conditionFear, (btaction)&CBTRangedSushi::actionFear);
 	addChild("SUSHI", "ON_IMPACT", ACTION, (btcondition)&CBTRangedSushi::conditionImpactReceived, (btaction)&CBTRangedSushi::actionImpactReceived);
 	addChild("SUSHI", "ON_AIR", ACTION, (btcondition)&CBTRangedSushi::conditionOnAir, (btaction)&CBTRangedSushi::actionOnAir);
+  addChild("SUSHI", "DEATH", ACTION, (btcondition)& CBTRangedSushi::conditionDeathAnimation, (btaction)& CBTRangedSushi::actionDeathStay);
 
 	addChild("SUSHI", "VIEW", PRIORITY, (btcondition)&CBTRangedSushi::conditionPlayerInView, NULL);
 	//addChild("VIEW", "SALUTE", ACTION, (btcondition)&CBTRangedSushi::conditionSalute, (btaction)&CBTRangedSushi::actionSalute);
@@ -69,6 +71,15 @@ void CBTRangedSushi::create(string s)//crear el arbol
 	}
 
 
+}
+
+bool CBTRangedSushi::conditionDeathAnimation() {
+  return life <= 0.f && death_animation_started;
+}
+
+int CBTRangedSushi::actionDeathStay() {
+
+  return STAY;
 }
 
 void CBTRangedSushi::updateBT() {
@@ -1012,8 +1023,18 @@ int CBTRangedSushi::actionDeath() {
 	if (!isDeadForFallout) {
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
 	}
-	CHandle(this).getOwner().destroy();
-	CHandle(this).destroy();
+
+  TEntityParseContext ctx;
+  ctx.root_transform = *c_trans;
+  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+  c_sd->setDelay(0.25f);
+  c_sd->enable();
+
+  death_animation_started = true;
+  /*CHandle(this).getOwner().destroy();
+  CHandle(this).destroy();*/
 	return LEAVE;
 }
 
@@ -1174,7 +1195,7 @@ bool CBTRangedSushi::conditionGravityReceived() {
 }
 
 bool CBTRangedSushi::conditionDeath() {
-	return life <= 0.f;
+	return life <= 0.f && !death_animation_started;
 }
 
 bool CBTRangedSushi::conditionDecoy() {
