@@ -1155,6 +1155,11 @@ void CBTCupcake::setHalfCone(float half_cone) {
 	this->half_cone = half_cone;
 }
 
+void CBTCupcake::setLife(float life_) {
+	this->life = life_;
+}
+
+
 void CBTCupcake::renderDebug() {
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompRender* c_render = get<TCompRender>();

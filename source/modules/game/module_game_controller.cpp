@@ -811,6 +811,26 @@ void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 	}
 }
 
+void CModuleGameController::setLifeEnemy(CHandle h,int typeEnemy,float life) {
+	CEntity* e_enemy = (CEntity*)h;
+
+	if (typeEnemy == TYPE_CUPCAKE) {
+		CBTCupcake* cupcake = e_enemy->get<CBTCupcake>();
+		cupcake->setLife(life);
+	}
+	if (typeEnemy == TYPE_SUSHI) {
+		CBTSushi* sushi_n = e_enemy->get<CBTSushi>();
+		//sushi_n->setLifesetLife no esta el set en la clase
+	}
+	if (typeEnemy == TYPE_RANGED_SUSHI) {
+		CBTRangedSushi* sushi_r = e_enemy->get<CBTRangedSushi>();
+		//sushi_n->setLifesetLife: no esta el set en la clase
+	}
+
+}
+
+
+
 void CModuleGameController::loadScene(const std::string name) {
 	SceneManager.getSceneManager()->loadScene(name);
 }

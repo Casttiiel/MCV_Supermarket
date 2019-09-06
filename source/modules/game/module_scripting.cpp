@@ -158,6 +158,7 @@ void CModuleScripting::BindGameController() {
 		.set("deleteCupcake", &CModuleGameController::deleteCupcake)
 		.set("deleteSushi", &CModuleGameController::deleteSushi)
 		.set("deleteGolem", &CModuleGameController::deleteGolem)
+		.set("setLifeEnemy", &CModuleGameController::setLifeEnemy)
 		;
 }
 
