@@ -50,7 +50,7 @@ struct TElapsedTime {
   float  scale_factor = 1.0f;
   float  delta_unscaled = 0.f;
   float  real_scale_factor = 1.0f;
-  int    num_frames = 10;
+  int    num_frames = 30;
   int    actual_frame = 0;
 
   void set(double new_time) {
@@ -58,7 +58,7 @@ struct TElapsedTime {
     current = new_time;
     delta = delta_unscaled * scale_factor;
     
-    if (num_frames > actual_frame) { //less than 15 frames per second it will be loading, but we check it only on release   delta_unscaled >= 0.066f
+    if (num_frames > actual_frame || delta_unscaled >= 0.066f) { //less than 15 frames per second it will be loading, but we check it only on release   
       #ifndef NDEBUG
             return;
       #endif
