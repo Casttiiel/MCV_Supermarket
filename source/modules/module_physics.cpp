@@ -618,7 +618,8 @@ bool CModulePhysics::start()
 
 // ------------------------------------------------------------------
 void CModulePhysics::update(float delta) {
-	if (Time.delta_unscaled >= 0.066f) { //less than 15 frames per second it will be loading
+  delta = Time.delta_unscaled;
+	if (delta >= 0.03333f) { //less than 30 frames per second it will be loading
     delta = 0.03333f; //update it as if it was moving normally
     
 	}
@@ -626,7 +627,7 @@ void CModulePhysics::update(float delta) {
 
   {
     PROFILE_FUNCTION("Simulate");
-    gScene->simulate(Time.delta_unscaled);
+    gScene->simulate(delta);
   }
   {
     PROFILE_FUNCTION("fetch");
