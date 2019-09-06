@@ -108,27 +108,10 @@ void TCompParabolicLaunch::update(float dt) {
 		float yawPj, pitchPj;
 		transformPlayer->getAngles(&yawPj, &pitchPj);
 		loadValuesParabola(heightPj, pitch, yawPj);
-		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = false;
-
+		/*UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+		mirilla->getParams()->visible = false;*/
   }
-  else {
-    TCompBuffers* c_buff = get<TCompBuffers>();
-    if (c_buff) {
-      auto buf = c_buff->getCteByName("TCtesAimCurve");
-      constants.x = 0.0f;
-      constants.y = 0.0f;
-      constants.z = 0.0f;
-      constants.w = 0.0f;
-      buf->updateGPU(&constants);
 
-	  TCompCharacterController* c_player = ((CEntity*)h_player)->get<TCompCharacterController>();
-	  if (!c_player->cinematic) {
-		  UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		  mirilla->getParams()->visible = true;
-	  }
-    }
-  }
 	
 }
 

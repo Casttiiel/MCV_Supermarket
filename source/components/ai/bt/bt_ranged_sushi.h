@@ -40,6 +40,7 @@ public:
   int actionGravityReceived();
   int actionFear();
   int actionDeath();
+  int actionDeathStay();
   int actionIdle();
   int actionIdleCombat();
   int actionDecoy();
@@ -59,6 +60,7 @@ public:
   bool conditionGravityReceived();
   bool conditionFear();
   bool conditionDeath();
+  bool conditionDeathAnimation();
   bool conditionDecoy();
 
 	void setCurve(const CCurve* curve);
@@ -78,6 +80,7 @@ private:
   Vector3 nextPoint;
   VEC3 impulse = VEC3();
   int directionJump;//0 right, 1 left
+  bool death_animation_started = false;
   enum class States {
     undefined = 0,
 	Idle,

@@ -46,8 +46,8 @@ TInstance spawnParticle( uint unique_id ) {
   float  speed  = emitter_speed.x + ( emitter_speed.y - emitter_speed.x ) * rnd3.y;
 
   TInstance p;
-  p.pos = emitter_center;
-  p.pos.y += 0.2f;
+  p.pos = emitter_center + float3(rnd2.x,0,rnd2.y) * emitter_dir;
+  p.pos.y += 0.7f;
   p.prev_pos = p.pos;
   p.acc = float3(0,0,0);
   p.dir = emitter_dir;
@@ -61,11 +61,6 @@ TInstance spawnParticle( uint unique_id ) {
   p.dummy3 = 0;
   p.dummy4 = 0;
 
-  p.pos += float3( rnd2.x, 0, rnd2.y) * emitter_center_radius;
-  p.dir += float3( rnd2.y, 0, rnd2.x) * emitter_dir_aperture;
-  p.dir *= speed;
-  p.dir = 0.0f;
-
   return p;
 }
 
@@ -74,8 +69,8 @@ TInstance spawnParticle( uint unique_id ) {
 void updateParticle( inout TInstance p ) {
   p.prev_pos = p.pos;
   p.color = sampleColor( p.time_normalized );
-  p.dir += p.acc * GlobalDeltaTime;
-  p.pos += p.dir * GlobalDeltaTime;
+  //p.dir += p.acc * GlobalDeltaTime;
+  //p.pos += p.dir * GlobalDeltaTime;
   p.scale = sin(p.time_normalized * PI) * p.dummy1;
   /*if( p.pos.y < 0 ) {
     p.pos.y = -p.pos.y;
@@ -223,6 +218,6 @@ float4 PS(v2p input) : SV_Target {
   }else if(input.time > 1.0f - 0.3f){
     color.a *= (1.0f - input.time) / 0.3f;
   }
-  color.a *= 0.25f;
+  color.a *= 0.01f;
   return color; // + float4( 1,1,1,0);
 }

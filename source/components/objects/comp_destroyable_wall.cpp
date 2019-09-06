@@ -27,8 +27,11 @@ void TCompDestroyableWall::registerMsgs() {
 void TCompDestroyableWall::onPlayerAttack(const TMsgDamage & msg) {
 	if (msg.damageType == FIRE && typeWall == 0) {//ice wall
 		//generar animacion de descongelamiento
-		CHandle(this).getOwner().destroy();
-		CHandle(this).destroy();
+    TCompMorphAnimation* c_morph = get<TCompMorphAnimation>();
+    if (c_morph) {
+      c_morph->setIncrement(0.5f);
+      c_morph->playMorph();
+    }
 	}
 	else if (typeWall == 1) { //destroyable wall
 		if (msg.damageType == MELEE)  {
@@ -153,28 +156,44 @@ void TCompDestroyableWall::onPlayerAttack(const TMsgDamage & msg) {
 		if (msg.damageType == FIRE) {
 			//esto debe durar X segundos, o tener un limite de vida
 			timer_ice_wall -= msg.intensityDamage;
-			if (timer_ice_wall <= 0) {
-				CHandle h = GameController.entityByName("enemies_in_tube");
-				if(h.isValid()){
-					CEntity* enemies_in_tube = ((CEntity*)h);
-					TCompEnemiesInTube* comp = enemies_in_tube->get<TCompEnemiesInTube>();
-					if(comp != nullptr){//nos aseguramos de que es el del puzzle
-						TMSgWallDestroyed msg;
-						msg.h_entity = h;
-						msg.isDetroyed = true;
-						enemies_in_tube->sendMsg(msg);
-					}
-				}
-				CHandle(this).getOwner().destroy();
-				CHandle(this).destroy();
-			}
+      last_fire_hit = 0.0f;
+      TCompMorphAnimation* c_morph = get<TCompMorphAnimation>();
+      if (c_morph) {
+        c_morph->setIncrement(0.05f);
+        c_morph->playMorph();
+      }
 		}
 	}
-
-
 }
 
 void TCompDestroyableWall::update(float dt) {
+  if (typeWall != 3)
+    return;
 
+  last_fire_hit += dt;
+  if (last_fire_hit > max_last_fire_hit) {
+    TCompMorphAnimation* c_morph = get<TCompMorphAnimation>();
+    if (c_morph) {
+      float actualWeight = c_morph->getWeight();
+      if (actualWeight < 0.58f) {
+        c_morph->stopMorph();
+      }
+      else if (!enemies_in_tube_deleted) {
+        c_morph->setIncrement(0.5f);
+        enemies_in_tube_deleted = true;
+        CHandle h = GameController.entityByName("enemies_in_tube");
+        if (h.isValid()) {
+          CEntity* enemies_in_tube = ((CEntity*)h);
+          TCompEnemiesInTube* comp = enemies_in_tube->get<TCompEnemiesInTube>();
+          if (comp != nullptr) {//nos aseguramos de que es el del puzzle
+            TMSgWallDestroyed msg;
+            msg.h_entity = h;
+            msg.isDetroyed = true;
+            enemies_in_tube->sendMsg(msg);
+          }
+        }
+      }
+    }
+  }
 }
 

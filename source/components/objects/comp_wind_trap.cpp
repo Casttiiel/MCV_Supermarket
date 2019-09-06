@@ -65,14 +65,11 @@ void TCompWindTrap::disable(const TMsgEntityTriggerExit & msg) {
 }
 
 void TCompWindTrap::onBattery(const TMsgGravity & msg) {
-
-	float distance = VEC3::Distance(msg.position, c_trans->getPosition());
-	if(distance <= distanceThreshold){
-		_isEnabled = false;
-		//Animate or start particle system, do something
-		CHandle(this).getOwner().destroy();
-		CHandle(this).destroy();
-	}
+	_isEnabled = false;
+  is_destroyed = true;
+	//Animate or start particle system, do something
+	/*CHandle(this).getOwner().destroy();
+	CHandle(this).destroy();*/
 }
 
 void TCompWindTrap::update(float dt) {
@@ -80,6 +77,8 @@ void TCompWindTrap::update(float dt) {
     player = getEntityByName("Player");
     return;
   }
+  if (is_destroyed)
+    return;
 		
 	if (_isEnabled) {
 		c_trans = get<TCompTransform>();

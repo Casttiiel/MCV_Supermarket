@@ -20,13 +20,14 @@ public:
   void update(float dt);
   void playMorph();
   void stopMorph();
+  void setIncrement(float i);
+  void updateMorphData(float amount);
+  float getWeight();
   bool play_ = false;
 
 private:
 	 
-	 float increment = 0.5;
-	
-	 
+	 float increment = 0.5;	 
 	 
 };
 

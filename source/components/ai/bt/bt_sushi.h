@@ -41,6 +41,7 @@ public:
   int actionGravityReceived();
   int actionFear();
   int actionDeath();
+  int actionDeathStay();
   int actionIdleCombat();
   //End Actions
 
@@ -59,6 +60,7 @@ public:
   bool conditionGravityReceived();
   bool conditionFear();
   bool conditionDeath();
+  bool conditionDeathAnimation();
   bool conditionChase();
   std::string getNameCurve();
 	void setCurve(const CCurve* curve);
@@ -76,6 +78,8 @@ private:
   Vector3 nextPoint;
   VEC3 impulse = VEC3();
   AudioEvent _audioPlaying;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  bool death_animation_started = false;
+
 	//curve values
   const CCurve* _curve = nullptr;
   std::vector<VEC3> _knots;

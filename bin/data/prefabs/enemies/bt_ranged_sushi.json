@@ -74,8 +74,12 @@
 			  "prefab": "data/prefabs/enemies/bt_ranged_sushi.json",
 			  "entityTypeString": "RANGED_SUSHI"
 			},
+			"comp_self_destroy":{
+				"_selfDestructDelay" : 0,
+				"_isEnabled" : false	
+			},
 			"tags": [
-				"enemy"
+				"enemy","sushi"
 			]
 		}
 	}

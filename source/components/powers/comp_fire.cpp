@@ -138,7 +138,7 @@ void TCompFireController::comboAttack(VEC3 pos) {
     msg.targetType = EntityType::ENEMIES;
     msg.damageType = PowerType::FIRECOMBO;
     msg.position = pos;
-    msg.intensityDamage = _fireDamage;
+    msg.intensityDamage = 50.0f;
     msg.impactForce = 20.f;
     float radius = 5.f;
     GameController.generateDamageSphere(pos, radius, msg, "enemy");
