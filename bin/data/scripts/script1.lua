@@ -133,6 +133,8 @@ function on_create_enemies_zone_cupcake_player()
 
 	--Audio
 	GameController:updateSoundtrackID(2);
+
+	GameController:deleteProducts();
 end
 
 

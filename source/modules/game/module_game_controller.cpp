@@ -685,6 +685,17 @@ void CModuleGameController::setHalfConeEnemyByHandle(float half_cone, CHandle h_
 	}
 }
 
+void CModuleGameController::deleteProducts() {
+  CEngine::get().getGPUCulling().deleteActualProducts();
+}
+
+void CModuleGameController::loadProducts(std::string zona) {
+  TFileContext fc(zona);
+  TEntityParseContext ctx;
+  CEngine::get().getGPUCulling().parseProducts(zona, ctx);
+
+  EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
+}
 
 void CModuleGameController::setPauseEnemyByName(std::string enemy, bool active) {
 	

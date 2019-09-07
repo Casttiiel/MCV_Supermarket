@@ -218,6 +218,9 @@ public:
 	//destruir un muro
 	void destroyWallByName(std::string name, std::string golemName, float intensity = 20);
 
+  void deleteProducts();
+  void loadProducts(std::string zona);
+
 	//despertar golem
 	void wakeUpGolem(std::string name);
 	//dormir al golem
