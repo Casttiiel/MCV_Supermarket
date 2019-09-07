@@ -1218,12 +1218,12 @@ void TCompCharacterController::onCinematicSpecial(const TMsgOnCinematicSpecial &
 		}
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = false;
+		mirilla->getParams()->visible = !cinematic;
 	}
 	else {
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = false;
+		mirilla->getParams()->visible = !cinematic;
 		TCompSCartController* sCart = get<TCompSCartController>();
 		sCart->disable();
 		TCompTransform* c_trans = get<TCompTransform>();

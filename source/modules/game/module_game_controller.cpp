@@ -298,10 +298,14 @@ void CModuleGameController::deleteSushi()
 } 
 void CModuleGameController::deleteGolem(std::string name)
 {
-	CEntity* e_golem = getEntityByName(name);
 	
-	TCompSelfDestroy* comp = e_golem->get<TCompSelfDestroy>();
-	comp->setEnabled(true);
+	if(name != ""){
+		CEntity* e_golem = getEntityByName(name);
+		if (e_golem != nullptr){
+			TCompSelfDestroy* comp = e_golem->get<TCompSelfDestroy>();
+			comp->setEnabled(true);
+		}
+	}
 	
 }
 
