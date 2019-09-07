@@ -32,6 +32,7 @@ void TCompEnemySpawnerSpecialTrap::registerMsgs() {
 void TCompEnemySpawnerSpecialTrap::onBattery(const TMsgGravity & msg) {
 	_isEnabled = false;
   EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
+  is_destroyed = true;
   //Animate or start particle system, do something
     /*
 	if (!working) { //cambiar esto a u posible nuevo componenete termometro
@@ -46,8 +47,8 @@ void TCompEnemySpawnerSpecialTrap::onBattery(const TMsgGravity & msg) {
 	*/
   
 
-	CHandle(this).getOwner().destroy();
-	CHandle(this).destroy();
+	//CHandle(this).getOwner().destroy();
+	//CHandle(this).destroy();
 }
 
 void TCompEnemySpawnerSpecialTrap::onCheckout(const TMsgSpawnerCheckout & msg) {
@@ -61,7 +62,7 @@ void TCompEnemySpawnerSpecialTrap::onCheckout(const TMsgSpawnerCheckout & msg) {
 }
 
 void TCompEnemySpawnerSpecialTrap::update(float dt) {
-	if (working) {
+	if (working && !is_destroyed) {
 		if (_spawnTimer <= 0 && _currentEnemies.size() < _spawnMaxNumber) {
 			dbg("Spawning %s\n", _prefab);
 			TCompPropAnimator* animator = get<TCompPropAnimator>();
