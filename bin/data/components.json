@@ -1,7 +1,7 @@
 {
   "sizes" : {
-    "default" : 2048,
-  "transform" : 2048
+    "default" : 4095,
+    "transform" : 4095
   },
   "init_order" : {
     "entity" : 100,
@@ -102,8 +102,6 @@
   ],
   "render_debug": [
     "ui_controller",
-    "character_controller",
-	"comp_wind_trap",
-	"collider"
+    "character_controller"
   ]
 }

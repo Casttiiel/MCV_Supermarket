@@ -2,10 +2,7 @@
 #include "comp_morph_animation.h"
 #include "components/common/comp_transform.h"
 #include "components/common/comp_buffers.h"
-//#include "utils/utils.h"
-//#include "engine.h"
-//#include "input/input.h"
-//#include "input/module_input.h"
+
 
 DECL_OBJ_MANAGER("morph_animation", TCompMorphAnimation);
 
@@ -42,7 +39,11 @@ void TCompMorphAnimation::update(float dt)
 			//buf->updateGPU(&dt);
 			if (morph_weights.a <= 1.0) {
 				morph_weights.a += increment * dt;
-			}
+      }
+      else {
+        CHandle(this).getOwner().destroy();
+        CHandle(this).destroy();
+      }
 			buf->updateGPU(&morph_weights);
 		}
 	}
@@ -54,4 +55,28 @@ void TCompMorphAnimation::playMorph() {
 
 void TCompMorphAnimation::stopMorph() {
 	play_ = false;
+}
+
+void TCompMorphAnimation::setIncrement(float i) {
+  increment = i;
+}
+
+void TCompMorphAnimation::updateMorphData(float amount) {
+  TCompBuffers* c_buff = get<TCompBuffers>();
+  if (c_buff) {
+    auto buf = c_buff->getCteByName("TCtesMorph");
+    //buf->updateGPU(&dt);
+    if (morph_weights.a <= 1.0) {
+      morph_weights.a = amount;
+    }
+    else {
+      CHandle(this).getOwner().destroy();
+      CHandle(this).destroy();
+    }
+    buf->updateGPU(&morph_weights);
+  }
+}
+
+float TCompMorphAnimation::getWeight() {
+  return morph_weights.a;
 }

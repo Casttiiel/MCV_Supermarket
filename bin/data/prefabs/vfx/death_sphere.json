@@ -3,15 +3,26 @@
     "entity": {
       "name": "DeathSphere",
       "transform": {
-        "pos": "0 1 0"
+        "pos": "0 1 0",
+        "scale": 0
       },
       "render": {
-        "mesh": "data/meshes/static_objects/UnitSphere.mesh",
-        "color": "0.36 0.36 0.36 1.0",
+        "mesh": "data/meshes/static_objects/GeoSphere.mesh",
+        "color": "0.3 0.0 0.3 1.0",
         "materials":
         [
           "data/materials/vfx/death.material"
         ]
+      },
+      "comp_self_destroy":{
+        "_selfDestructDelay" : 1,
+        "_isEnabled" : true
+      },
+      "scalable":{
+        "final_scale": 1.0,
+        "time_to_scale": 0.25,
+        "return" : true,
+        "wait_til_return": 0.5
       }
     }
   }

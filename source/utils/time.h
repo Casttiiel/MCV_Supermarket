@@ -50,15 +50,19 @@ struct TElapsedTime {
   float  scale_factor = 1.0f;
   float  delta_unscaled = 0.f;
   float  real_scale_factor = 1.0f;
-  int    ceroFrames = 10;
-  int    num = 1;
+  int    num_frames = 30;
+  int    actual_frame = 0;
+
   void set(double new_time) {
     delta_unscaled = (float)(new_time - current) * real_scale_factor;
     current = new_time;
     delta = delta_unscaled * scale_factor;
     
-    if (num <= ceroFrames) {
-      num++;
+    if (num_frames > actual_frame) { 
+      #ifndef NDEBUG
+            return;
+      #endif
+      actual_frame++;
       loadedFrame();
     }
   }

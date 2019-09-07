@@ -12,6 +12,7 @@
 #include "components/ai/others/comp_blackboard.h"
 #include "bt_ranged_sushi.h"
 #include "components/controllers/character/comp_character_controller.h"
+#include "components/ai/others/self_destroy.h"
 
 #include "random"
 
@@ -30,6 +31,7 @@ void CBTRangedSushi::create(string s)//crear el arbol
 	addChild("SUSHI", "ON_FEAR", ACTION, (btcondition)&CBTRangedSushi::conditionFear, (btaction)&CBTRangedSushi::actionFear);
 	addChild("SUSHI", "ON_IMPACT", ACTION, (btcondition)&CBTRangedSushi::conditionImpactReceived, (btaction)&CBTRangedSushi::actionImpactReceived);
 	addChild("SUSHI", "ON_AIR", ACTION, (btcondition)&CBTRangedSushi::conditionOnAir, (btaction)&CBTRangedSushi::actionOnAir);
+  addChild("SUSHI", "DEATH", ACTION, (btcondition)& CBTRangedSushi::conditionDeathAnimation, (btaction)& CBTRangedSushi::actionDeathStay);
 
 	addChild("SUSHI", "VIEW", PRIORITY, (btcondition)&CBTRangedSushi::conditionPlayerInView, NULL);
 	//addChild("VIEW", "SALUTE", ACTION, (btcondition)&CBTRangedSushi::conditionSalute, (btaction)&CBTRangedSushi::actionSalute);
@@ -69,6 +71,15 @@ void CBTRangedSushi::create(string s)//crear el arbol
 	}
 
 
+}
+
+bool CBTRangedSushi::conditionDeathAnimation() {
+  return life <= 0.f && death_animation_started;
+}
+
+int CBTRangedSushi::actionDeathStay() {
+
+  return STAY;
 }
 
 void CBTRangedSushi::updateBT() {
@@ -276,21 +287,21 @@ void CBTRangedSushi::shoot(ShotType type) {
 	case ShotType::Burst:
 		/*should consider adding burst to the random pool, although that would require coroutines*/
 		break;
-	case ShotType::Random: {
+	case ShotType::Random: 
 		int dice = bt_dist_rs(bt_mt_rs);
-		if (dice > 0 && dice < 50)
-			singleShot();
-		else if (dice > 50 && dice < 100)
+        if (dice > 0 && dice < 50) {
+            singleShot();
+        }
+        else if (dice > 50 && dice < 100){
 			spreadShot();
-	}
-						   break;
-	default:
+	    }
 		break;
 	}
 }
 
 void CBTRangedSushi::singleShot() {
-	CEntity* e_player = (CEntity *)h_player;
+    EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SingleThrow");
+    CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
@@ -332,7 +343,8 @@ void CBTRangedSushi::singleShot() {
 }
 
 void CBTRangedSushi::spreadShot() {
-	CEntity* e_player = (CEntity *)h_player;
+    EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SpreadThrow");
+    CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
@@ -440,7 +452,10 @@ int CBTRangedSushi::actionBurstShot() {
 
 			TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 			sushiAnimator->playAnimation(_isLeaping ? TCompSushiAnimator::THROW_AIR : TCompSushiAnimator::THROW_LAND, 2.f);
-
+            if (!hasPlayedTripleThrowAudio) {
+                EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_TripleThrow");
+                hasPlayedTripleThrowAudio = true;
+            }
 			singleShot();
 			_burstTimer = _burstDelay;
 			_shotsFired++;
@@ -453,6 +468,7 @@ int CBTRangedSushi::actionBurstShot() {
 	else {
 		_shootTimer = _shootDelay;
 		_shotsFired = 0;
+        hasPlayedTripleThrowAudio = false;
 		return LEAVE;
 	}
 }
@@ -475,7 +491,8 @@ int CBTRangedSushi::actionLeap() {
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
 
-		//Start leap
+        EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump_NoVoice");
+        //Start leap
 		dbg("Ranged Sushi LEAPS\n");
 		_isLeaping = true;
 		//VEC3 jumpForce = getLeapDirection(); //VEC3(1.0, 0.0, 0.0);
@@ -584,6 +601,7 @@ int CBTRangedSushi::actionBounce() {
 	if (!_isLeaping) {
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
+        EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump");
 
 		//Start leap
 		dbg("Ranged Sushi BOUNCES\n");
@@ -1013,9 +1031,18 @@ int CBTRangedSushi::actionDeath() {
 
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
 	}
-	
-	CHandle(this).getOwner().destroy();
-	CHandle(this).destroy();
+
+  TEntityParseContext ctx;
+  ctx.root_transform = *c_trans;
+  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+  c_sd->setDelay(0.25f);
+  c_sd->enable();
+
+  death_animation_started = true;
+  /*CHandle(this).getOwner().destroy();
+  CHandle(this).destroy();*/
 	return LEAVE;
 }
 
@@ -1176,7 +1203,7 @@ bool CBTRangedSushi::conditionGravityReceived() {
 }
 
 bool CBTRangedSushi::conditionDeath() {
-	return life <= 0.f;
+	return life <= 0.f && !death_animation_started;
 }
 
 bool CBTRangedSushi::conditionDecoy() {
