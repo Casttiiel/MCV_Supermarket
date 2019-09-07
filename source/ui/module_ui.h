@@ -12,6 +12,15 @@ namespace UI
   public:
     CModuleUI(const std::string& name);
 
+	struct WidgetClass {
+		std::string name;//Tipo de si es vida, stamina,boton,creditos,fondo negro...
+		std::string path;
+		CWidget *widget;
+		CController *_controller;
+		bool enabled = false;
+	};
+
+	std::map<std::string, WidgetClass> _widgetStructureMap;
     bool start() override;
     void update(float dt) override;
     void render();
@@ -21,6 +30,8 @@ namespace UI
     void registerWidget(CWidget* widget);
     void activateWidget(const std::string& name);
     void deactivateWidget(const std::string& name);
+	void registerWidgetClass(std::string wdgt_type, std::string wdgt_path, CController *wdgt_controller = nullptr);
+
 
     void registerAlias(CWidget* widget);
     void registerController(CController* controller);

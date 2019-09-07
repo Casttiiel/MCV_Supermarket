@@ -32,6 +32,19 @@ namespace UI
     }
   }
 
+  void CModuleUI::registerWidgetClass(std::string wdgt_type, std::string wdgt_path, CController *wdgt_controller) {//Controller *wdgt_controller = nullptr
+
+	  WidgetClass wdgt_class;
+	  CParser parser;
+	 // wdgt_class.path = parser.parseFile(wdgt_path);
+	  wdgt_class.name = wdgt_type;
+	 // wdgt_class.widget = getWidget(wdgt_struct._widgetName);
+	  wdgt_class._controller = wdgt_controller;
+	  _widgetStructureMap[wdgt_type] = wdgt_class;
+  }
+
+
+
   void CModuleUI::render()
   {
     for (auto widget : _activeWidgets)
