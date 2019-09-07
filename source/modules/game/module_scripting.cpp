@@ -176,6 +176,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
 	m->set("toCompSelfDestroy", SLB::FuncCall::create(&toCompSelfDestroy));
 	m->set("toCBTCupcake", SLB::FuncCall::create(&toCBTCupcake));
+	m->set("toCompEnemySpawner", SLB::FuncCall::create(&toCompEnemySpawner));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }

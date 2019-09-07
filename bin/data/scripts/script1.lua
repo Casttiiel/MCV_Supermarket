@@ -136,6 +136,23 @@ function on_create_enemies_zone_cupcake_player()
 	GameController:setLifeEnemy(h_cupcake3,3,350.0);
 
 	
+	h_oven1 =  GameController:entityByName("horno1");
+	h_oven2 =  GameController:entityByName("horno5");
+	h_oven3 =  GameController:entityByName("horno6");
+	h_oven4 =  GameController:entityByName("horno007");
+
+	
+	t_compSpawnOven1 = toCompEnemySpawner(toEntity(h_oven1):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven2 = toCompEnemySpawner(toEntity(h_oven2):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven3 = toCompEnemySpawner(toEntity(h_oven3):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven4 = toCompEnemySpawner(toEntity(h_oven4):getCompByName("comp_enemy_spawner"));
+
+	t_compSpawnOven1:setLifeSpawner(350.0);
+	t_compSpawnOven2:setLifeSpawner(350.0);
+	t_compSpawnOven3:setLifeSpawner(350.0);
+	t_compSpawnOven4:setLifeSpawner(350.0);
+
+
 	execDelayedAction("on_delete_handle(\"triggerCreacionCupcackes\")",0);
 
 	--Audio
@@ -642,6 +659,24 @@ function activarSalidaPanaderia()
 	execDelayedAction("activePlatformByName(\"plat1346469\")",5.2);
 	execDelayedAction("activePlatformByName(\"plat1346470\")",7.2);
 	execDelayedAction("activePlatformByName(\"plat1346471\")",9.2);
+
+
+	h_oven1 =  GameController:entityByName("horno1");
+	h_oven2 =  GameController:entityByName("horno5");
+	h_oven3 =  GameController:entityByName("horno6");
+	h_oven4 =  GameController:entityByName("horno007");
+
+	
+	t_compSpawnOven1 = toCompEnemySpawner(toEntity(h_oven1):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven2 = toCompEnemySpawner(toEntity(h_oven2):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven3 = toCompEnemySpawner(toEntity(h_oven3):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven4 = toCompEnemySpawner(toEntity(h_oven4):getCompByName("comp_enemy_spawner"));
+
+	t_compSpawnOven1:setLifeSpawner(50.0);
+	t_compSpawnOven2:setLifeSpawner(50.0);
+	t_compSpawnOven3:setLifeSpawner(50.0);
+	t_compSpawnOven4:setLifeSpawner(50.0);
+
 
 end
 

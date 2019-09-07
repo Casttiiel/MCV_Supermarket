@@ -80,6 +80,11 @@ void TCompEnemySpawner::update(float dt) {
 					TCompTransform* c_trans_player = player->get<TCompTransform>();
 					c_trans_enemy->rotateTowards(c_trans_player->getPosition());
 				}
+
+				if (_prefab == PREFAB_CUPCAKE_) {
+					CBTCupcake* cbt = e_enemy->get<CBTCupcake>();
+					cbt->setLife(lifePrefabSpawner);
+				}
 				
 				_currentEnemies.push_back(enemy);
 				TMsgSpawnerCheckin checkin;
