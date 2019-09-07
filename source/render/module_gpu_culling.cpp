@@ -440,12 +440,12 @@ void CModuleGPUCulling::clear() {
 
 void CModuleGPUCulling::deleteActualProducts() {
   //for the CPU / update / collision
-  getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
-    // remove it
-    /*CHandle h(di);
-    CHandle owner = h.getOwner();
-    owner.destroy();*/
 
+  if (first_prod_index = 50000 && last_prod_index == -1)
+    return;
+
+
+  getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
     TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
     c_sd->enable();
   });
@@ -530,6 +530,10 @@ void CModuleGPUCulling::stop() {
 }
 
 void CModuleGPUCulling::updateObjData(int idx, CHandle entity) {
+  if (objs.size() < idx) {
+    return;
+  }
+
   CEntity* e = entity;
   TCompTransform* c_trans = e->get<TCompTransform>();
   objs.at(idx).world = c_trans->asMatrix();
