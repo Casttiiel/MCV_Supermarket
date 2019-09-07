@@ -19,6 +19,7 @@
 #include "entity/entity_parser.h"
 #include "render/compute/compute_shader.h"
 #include "utils/json_resource.h"
+#include "components/ai/others/self_destroy.h"
 
 AABB getRotatedBy(AABB src, const MAT44 &model);
 
@@ -441,9 +442,12 @@ void CModuleGPUCulling::deleteActualProducts() {
   //for the CPU / update / collision
   getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
     // remove it
-    CHandle h(di);
+    /*CHandle h(di);
     CHandle owner = h.getOwner();
-    owner.destroy();
+    owner.destroy();*/
+
+    TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
+    c_sd->enable();
   });
 
   //for the GPU / render
