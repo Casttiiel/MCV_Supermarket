@@ -1166,9 +1166,34 @@ int CBTSushi::actionDeath() {
     TCompTransform* c_trans = get<TCompTransform>();
 	if (!isDeadForFallout && !isDeadForTrigger) {
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+
+		TEntityParseContext ctx;
+		ctx.root_transform = *c_trans;
+		parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+		TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+		c_sd->setDelay(0.25f);
+		c_sd->enable();
+
+		death_animation_started = true;
+	}
+	else {
+		CHandle h = GameController.entityByName("enemies_in_butcher");
+		if (h.isValid()) {
+			CEntity* enemies_in_butcher = ((CEntity*)h);
+			TCompEnemiesInButcher* comp = enemies_in_butcher->get<TCompEnemiesInButcher>();
+			if (comp != nullptr) {
+				TMSgEnemyDead msgSushiDead;
+				msgSushiDead.h_entity = CHandle(this).getOwner();
+				msgSushiDead.isDead = true;
+				enemies_in_butcher->sendMsg(msgSushiDead);
+			}
+		}
+		CHandle(this).getOwner().destroy();
+		CHandle(this).destroy();
 	}
 	//------ENVIO ME HE MUERTO A COMPONENTE DE TRAMPA DE SUISHIS-----
-	
+	/*
 	CHandle h = GameController.entityByName("enemies_in_butcher");
 	if (h.isValid()) {
 		CEntity* enemies_in_butcher = ((CEntity*)h);
@@ -1179,8 +1204,8 @@ int CBTSushi::actionDeath() {
 			msgSushiDead.isDead = true;
 			enemies_in_butcher->sendMsg(msgSushiDead);
 		}
-	}
-
+	}*/
+	/*
   TEntityParseContext ctx;
   ctx.root_transform = *c_trans;
   parseScene("data/prefabs/vfx/death_sphere.json", ctx);
@@ -1189,9 +1214,8 @@ int CBTSushi::actionDeath() {
   c_sd->setDelay(0.25f);
   c_sd->enable();
 
-  death_animation_started = true;
-  /*CHandle(this).getOwner().destroy();
-  CHandle(this).destroy();*/
+  death_animation_started = true;*/
+ 
   return LEAVE;
 }
 #pragma endregion

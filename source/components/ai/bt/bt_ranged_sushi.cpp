@@ -1030,19 +1030,22 @@ int CBTRangedSushi::actionDeath() {
 	if (!isDeadForFallout && !isDeadForTrigger) {
 
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+		TEntityParseContext ctx;
+		ctx.root_transform = *c_trans;
+		parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+		TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+		c_sd->setDelay(0.25f);
+		c_sd->enable();
+
+		death_animation_started = true;
+	}
+	else {
+		CHandle(this).getOwner().destroy();
+		CHandle(this).destroy();
 	}
 
-  TEntityParseContext ctx;
-  ctx.root_transform = *c_trans;
-  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
-
-  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
-  c_sd->setDelay(0.25f);
-  c_sd->enable();
-
-  death_animation_started = true;
-  /*CHandle(this).getOwner().destroy();
-  CHandle(this).destroy();*/
+  
 	return LEAVE;
 }
 
