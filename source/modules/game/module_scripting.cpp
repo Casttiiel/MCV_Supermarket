@@ -99,6 +99,7 @@ void CModuleScripting::doBingings() {
 	BindName();
 	BindGolem();
 	BindEnemySpawnerSpecial();
+	BindEnemySpawner();
 }
 
 
@@ -174,6 +175,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCBTGolem", SLB::FuncCall::create(&toCBTGolem));
 	m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
 	m->set("toCompSelfDestroy", SLB::FuncCall::create(&toCompSelfDestroy));
+	m->set("toCBTCupcake", SLB::FuncCall::create(&toCBTCupcake));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -220,12 +222,24 @@ void CModuleScripting::BindGolem() {
 		;
 }
 
+
+
+
 void CModuleScripting::BindEnemySpawnerSpecial() {
 	SLB::Class<TCompEnemySpawnerSpecialTrap>("TCompEnemySpawnerSpecialTrap", m)
 		.comment("This is ouTCompEnemySpawnerSpecialTrapr wrapper of TCompEnemySpawnerSpecialTrap class")
 		.constructor()
 		.property("working", &TCompEnemySpawnerSpecialTrap::working)
 		.set("setSpawnDelay", &TCompEnemySpawnerSpecialTrap::setSpawnDelay)
+		;
+}
+
+
+void CModuleScripting::BindEnemySpawner() {
+	SLB::Class<TCompEnemySpawner>("TCompEnemySpawner", m)
+		.comment("This is ouTCompEnemySpawnerSpecialTrapr wrapper of TCompEnemySpawnerSpecialTrap class")
+		.constructor()
+		.set("setLifeSpawner", &TCompEnemySpawner::setLifeSpawner)
 		;
 }
 

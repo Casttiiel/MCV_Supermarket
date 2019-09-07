@@ -41,6 +41,7 @@ public:
 	void BindName();
 	void BindCamera();
 	void BindGolem();
+	void BindEnemySpawner();
 	void BindEnemySpawnerSpecial();
 	void BindSelfDestroy();
 

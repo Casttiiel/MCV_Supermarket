@@ -135,7 +135,7 @@ function on_create_enemies_zone_cupcake_player()
 	GameController:setPauseEnemyByHandle(h_cupcake3,false);
 	GameController:setLifeEnemy(h_cupcake3,3,350.0);
 
-
+	
 	execDelayedAction("on_delete_handle(\"triggerCreacionCupcackes\")",0);
 
 	--Audio

@@ -13,11 +13,14 @@
 #include "components/controllers/comp_enemies_in_tube.h"
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
+#include "components/objects/comp_enemy_spawner.h"
 #include "components/objects/comp_enemy_spawner_special_trap.h"
 #include "components/ai/others/self_destroy.h"
 #include "components/controllers/character/comp_character_controller.h"
 
 
+
+class CBTCupcake;
 class CBTGolem;
 class CCheckpoint;
 class CModuleGameplayFragment;
@@ -263,4 +266,6 @@ TCompCamera* toCompCamera(CHandle h);
 TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
 TCompSelfDestroy* toCompSelfDestroy(CHandle h);
 CBTGolem* toCBTGolem(CHandle h);
+CBTCupcake* toCBTCupcake(CHandle h);
+TCompEnemySpawner* toCompEnemySpawner(CHandle h);
 //TCompCharacterController* toCompCharacterController_(CHandle h);

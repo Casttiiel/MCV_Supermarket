@@ -23,6 +23,7 @@
 #include "components/ai/others/comp_blackboard.h"
 
 
+
 bool CModuleGameController::start() {
 
    /* window_flags = 0;
@@ -905,6 +906,16 @@ TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
 TCompSelfDestroy* toCompSelfDestroy(CHandle h) {
 	TCompSelfDestroy* s = h;
 	return s;
+}
+
+CBTCupcake* toCBTCupcake(CHandle h) {
+	CBTCupcake* c = h;
+	return c;
+}
+
+TCompEnemySpawner* toCompEnemySpawner(CHandle h) {
+	TCompEnemySpawner* c = h;
+	return c;
 }
 
 
