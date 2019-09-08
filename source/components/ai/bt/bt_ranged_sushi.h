@@ -70,7 +70,8 @@ public:
 	void setHalfCone(float halfCone);
   //End Conditions
 private:
-  float initialExecution = true;
+    AudioEvent _footSteps;
+    float initialExecution = true;
   //Pathing
   int nWaypoints = 0;
   std::vector<Vector3> positions;

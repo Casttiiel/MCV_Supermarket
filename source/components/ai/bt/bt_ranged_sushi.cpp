@@ -70,7 +70,8 @@ void CBTRangedSushi::create(string s)//crear el arbol
 		setPaused(true);
 	}
 
-
+    _footSteps = EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Footsteps");
+    _footSteps.setPaused(true);
 }
 
 bool CBTRangedSushi::conditionDeathAnimation() {
@@ -94,7 +95,8 @@ void CBTRangedSushi::updateBT() {
 	reevaluatePathTimer -= dt;
 
 	TCompTransform* c_trans = get<TCompTransform>();
-	if (nextNavMeshPoint != VEC3().Zero	&& use_navmesh) { //update path point
+    _footSteps.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
+    if (nextNavMeshPoint != VEC3().Zero	&& use_navmesh) { //update path point
 		if (Vector3::Distance(nextNavMeshPoint, c_trans->getPosition()) < distanceCheckThreshold) {
 			navMeshIndex++;
 			if (navMeshIndex < navmeshPath.size()) {
@@ -129,6 +131,7 @@ int CBTRangedSushi::actionIdle() {
 	currentState = States::Idle;
 	TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 	sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
+    _footSteps.setPaused(true);
 	return LEAVE;
 }
 
@@ -141,6 +144,7 @@ int CBTRangedSushi::actionIdleCombat() {
 	c_trans->rotateTowards(p_trans->getPosition());
 	TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 	sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
+    _footSteps.setPaused(true);
 	return LEAVE;
 }
 
@@ -223,6 +227,7 @@ int CBTRangedSushi::actionSeekWaypoint() {
 
 	if (Vector3::Distance(nextPoint, c_trans->getPosition()) < distanceCheckThreshold) {
 		//ChangeState("NEXTWPT");
+        _footSteps.setPaused(true);
 		return LEAVE;
 	}
 	else {
@@ -251,7 +256,8 @@ int CBTRangedSushi::actionSeekWaypoint() {
 		}
 
 		//------------------------------- end navmesh code
-		return STAY;
+        _footSteps.setPaused(false);
+        return STAY;
 	}
 }
 
@@ -300,13 +306,14 @@ void CBTRangedSushi::shoot(ShotType type) {
 }
 
 void CBTRangedSushi::singleShot() {
-    EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SingleThrow");
     CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompCollider* c_cc = get<TCompCollider>();
 
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SingleThrow");
+    audio.set3DAttributes(*c_trans);
 	//Bullet origin
 	VEC3 firingPosition = c_trans->getPosition();
 	firingPosition.y += c_cc->controller->getHeight();
@@ -343,12 +350,13 @@ void CBTRangedSushi::singleShot() {
 }
 
 void CBTRangedSushi::spreadShot() {
-    EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SpreadThrow");
     CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompCollider* c_cc = get<TCompCollider>();
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SpreadThrow");
+    audio.set3DAttributes(*c_trans);
 
 	//STRAIGHT BULLET
 	//Bullet origin
@@ -453,7 +461,8 @@ int CBTRangedSushi::actionBurstShot() {
 			TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 			sushiAnimator->playAnimation(_isLeaping ? TCompSushiAnimator::THROW_AIR : TCompSushiAnimator::THROW_LAND, 2.f);
             if (!hasPlayedTripleThrowAudio) {
-                EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_TripleThrow");
+                AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_TripleThrow");
+                audio.set3DAttributes(*c_trans);
                 hasPlayedTripleThrowAudio = true;
             }
 			singleShot();
@@ -478,6 +487,7 @@ int CBTRangedSushi::actionLeap() {
 	currentState = States::Leap;
 	VEC3 jumpForce = getLeapDirection();
 	TCompTransform* c_trans = get<TCompTransform>();
+    _footSteps.setPaused(true);
 
 	bool enemyInSide = isOtherEnemyInSide();
 
@@ -491,7 +501,8 @@ int CBTRangedSushi::actionLeap() {
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
 
-        EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump_NoVoice");
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump_NoVoice");
+        audio.set3DAttributes(*c_trans);
         //Start leap
 		dbg("Ranged Sushi LEAPS\n");
 		_isLeaping = true;
@@ -598,15 +609,17 @@ int CBTRangedSushi::actionBounce() {
 		_hasBounced = false;
 		return LEAVE;
 	}
-	if (!_isLeaping) {
+    _footSteps.setPaused(true);
+    if (!_isLeaping) {
+		TCompTransform* c_trans = get<TCompTransform>();
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
-        EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump");
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump");
+        audio.set3DAttributes(*c_trans);
 
 		//Start leap
 		dbg("Ranged Sushi BOUNCES\n");
 		_isLeaping = true;
-		TCompTransform* c_trans = get<TCompTransform>();
 		VEC3 aux = c_trans->getPosition();
 		VEC3 jumpForce = _jumpSource - aux;
 		jumpForce.y = 1.f;
@@ -700,7 +713,8 @@ int CBTRangedSushi::actionChase() {
 
 	//------------------------------- end navmesh code
 	//End Rotation Control
-	return LEAVE;
+    _footSteps.setPaused(false);
+    return LEAVE;
 }
 
 int CBTRangedSushi::actionRetreat() {
@@ -726,7 +740,8 @@ int CBTRangedSushi::actionRetreat() {
 	//LookAt_Player(c_trans, player_position);
 	c_trans->rotateTowards(p_trans->getPosition(), rotationSpeed, dt);
 	//End Rotation Control
-	return LEAVE;
+    _footSteps.setPaused(false);
+    return LEAVE;
 }
 
 //int CBTRangedSushi::actionOrbitRight() {
@@ -846,7 +861,8 @@ int CBTRangedSushi::actionRetreat() {
 int CBTRangedSushi::actionOnAir() {
 	previousState = currentState;
 	currentState = States::OnAir;
-	if (isGrounded() && impulse.y <= 0.0f || isDeadForFallout) {
+    _footSteps.setPaused(true);
+    if (isGrounded() && impulse.y <= 0.0f || isDeadForFallout) {
 		impulse.y = 0.0f;
 		return LEAVE;
 	}
@@ -908,7 +924,8 @@ int CBTRangedSushi::actionImpactReceived() {
 int CBTRangedSushi::actionGravityReceived() {
 	previousState = currentState;
 	currentState = States::GravityReceived;
-	TCompTransform* c_trans = get<TCompTransform>();
+    _footSteps.setPaused(true);
+    TCompTransform* c_trans = get<TCompTransform>();
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	inCombat = true;
@@ -984,7 +1001,8 @@ int CBTRangedSushi::actionFear() {
 		_fearTimer = _fearDuration;
 	}
 	if (_fearTimer > 0.f) {
-		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
+        _footSteps.setPaused(false);
+        TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::WALK_LOOP, 2.0f);
 
 		TCompTransform* c_trans = get<TCompTransform>();
@@ -1042,7 +1060,8 @@ int CBTRangedSushi::actionDeath() {
   death_animation_started = true;
   /*CHandle(this).getOwner().destroy();
   CHandle(this).destroy();*/
-	return LEAVE;
+  _footSteps.setPaused(true);
+  return LEAVE;
 }
 
 int CBTRangedSushi::actionDecoy() {
@@ -1061,7 +1080,13 @@ int CBTRangedSushi::actionDecoy() {
 	VEC3 ori = c_trans->getPosition();
 	VEC3 posibleDestination = c_trans->getTranslatePositionForAngle(ori, _decoyTeleportDistance, 180);//si me voi hacia atras y hay vacio o pared no sigo retrocediendo
 	VEC3 hit_navmesh = VEC3();
-	bool r = EngineNavmesh.raycast(ori, posibleDestination, hit_navmesh);//true: hay interseccion limite navmesh
+    bool r;
+    if (use_navmesh) {
+        r = EngineNavmesh.raycast(ori, posibleDestination, hit_navmesh);//true: hay interseccion limite navmesh
+    }
+    else {
+        r = false;
+    }
 	if (hit.position != physx::PxVec3(0) || r) {
 		//There is something behind me, can't teleport
 		dbg("DECOY failed, obstacle behind.\n");
@@ -1666,7 +1691,9 @@ void CBTRangedSushi::debugInMenu() {
 }
 
 bool CBTRangedSushi::isHole(VEC3 direction) {
-
+    if (!use_navmesh) {
+        return true;
+    }
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 char_pos = c_trans->getPosition();
