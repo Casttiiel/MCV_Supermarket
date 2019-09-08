@@ -343,7 +343,8 @@ int CBTSushi::actionPrepareJumpCharge() {
         //Start animation
         sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
         sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_LOOP, 1.f);
-        EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump");
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump");
+        audio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
         return STAY;
     }
 
@@ -353,7 +354,8 @@ int CBTSushi::actionPrepareJumpCharge() {
         //ChangeState("JUMPCHARGE");
         jumpPosition = VEC3().Zero;
         chargeObjective = p_trans->getPosition();
-        EngineAudio.playEvent("event:/Enemies/Sushi/Melee_ReadyWeapon");
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_ReadyWeapon");
+        audio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
         return LEAVE;
     }
     else {
@@ -370,8 +372,15 @@ int CBTSushi::actionJumpCharge() {
         collided = false;
         return LEAVE;
     }
-    if (!_audioPlaying.isPlaying()) {
-        _audioPlaying = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Charge");
+    TCompTransform* c_trans = get<TCompTransform>();
+    if (!_jumpChargeAudioPlaying) {
+        _jumpChargeAudio = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Charge");
+        _jumpChargeAudio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
+        dbg("starting jumpcharge audio\n");
+        _jumpChargeAudioPlaying = true;
+    }
+    else {
+        _jumpChargeAudio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
     }
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::JUMPCHARGE_LOOP, 1.f);
@@ -379,7 +388,6 @@ int CBTSushi::actionJumpCharge() {
     c_rb->enableGravity(false);
     TCompName* cname = get<TCompName>();
     CEntity* e_player = (CEntity*)h_player;
-    TCompTransform* c_trans = get<TCompTransform>();
     TCompTransform* player_position = e_player->get<TCompTransform>();
     //Move towards that direction
     VEC3 dir = (chargeObjective - c_trans->getPosition()) * jumpChargeSpeed;
@@ -413,7 +421,9 @@ int CBTSushi::actionJumpCharge() {
         GameController.generateDamageSphere(c_trans->getPosition(), explosionRadius, msg, "player");
         GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
         FluidDecalGenerator.generateSingleFluidUncapped(5.f, c_trans->getPosition());
-        _audioPlaying.stop();
+        _jumpChargeAudio.stop();
+        _jumpChargeAudioPlaying = false;
+        dbg("stopping jumpcharge audio\n");
         return LEAVE;
     }
     else {
@@ -428,15 +438,16 @@ int CBTSushi::actionPrepareCharge() {
     if (conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    TCompTransform* c_trans = get<TCompTransform>();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     if (!sushiAnimator->isPlaying(TCompSushiAnimator::WAKEUP)) {
         sushiAnimator->playAnimation(TCompSushiAnimator::WAKEUP, 1.f);
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_ReadyWeapon");
+        audio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
     }
-    EngineAudio.playEvent("event:/Enemies/Sushi/Melee_ReadyWeapon");
     //PREPARING CHARGE
     chargeTimer -= dt;
 
-    TCompTransform* c_trans = get<TCompTransform>();
 
     CEntity* e_player = (CEntity*)h_player;
 
@@ -478,13 +489,19 @@ int CBTSushi::actionCharge() {
     }
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::JUMPCHARGE_LOOP, 1.f);
-    if (!_audioPlaying.isPlaying()) {
-        _audioPlaying = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Charge");
+    TCompTransform* c_trans = get<TCompTransform>();
+    if (!_chargeAudioPlaying) {
+        _chargeAudio = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Charge");
+        _chargeAudio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
+        dbg("starting charge audio\n");
+        _chargeAudioPlaying = true;
+    }
+    else {
+        _chargeAudio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
     }
 
     c_rb->enableGravity(false);
     CEntity* e_player = (CEntity*)h_player;
-    TCompTransform* c_trans = get<TCompTransform>();
     TCompTransform* player_position = e_player->get<TCompTransform>();
 
     //Move towards that direction
@@ -496,47 +513,49 @@ int CBTSushi::actionCharge() {
     }
     //TODO: HACER UN RAYCAST PARA DELANTE Y COMPROBAR SI CHOCA CON ALGO
     //raycast para no caer al vacio
+    //Si se para antes de colisionar, nunca hará daño al jugador con esto, lo comento
+    //VEC3 pos = c_trans->getPosition();//se lanza el raycast desde la posicion del sushi en la direccion que esta mirando
+    //PxF32 attackHeight = c_cc->controller->getHeight() / 2;
+    //pos.y = c_trans->getPosition().y + (float)attackHeight;
+    //VEC3 direction = c_trans->getFront();
+    //VEC3 aux1 = c_trans->getLeft();
+    //VEC3 aux2 = c_trans->getUp();
+    //direction.Normalize();
+    ////VEC3 source = pos;
 
-    VEC3 pos = c_trans->getPosition();//se lanza el raycast desde la posicion del sushi en la direccion que esta mirando
-    VEC3 direction = c_trans->getFront();
-    VEC3 aux1 = c_trans->getLeft();
-    VEC3 aux2 = c_trans->getUp();
-    direction.Normalize();
-    //VEC3 source = pos;
+    //auto scene = EnginePhysics.getScene();
+    //PxQueryFilterData filter_data = PxQueryFilterData();
+    //filter_data.data.word0 = EnginePhysics.All;//no utilizamos ningun filtro
 
-    auto scene = EnginePhysics.getScene();
-    PxQueryFilterData filter_data = PxQueryFilterData();
-    filter_data.data.word0 = EnginePhysics.All;//no utilizamos ningun filtro
+    //// [in] Define what parts of PxRaycastHit we're interested in
+    //const PxHitFlags outputFlags =
+    //    PxHitFlag::eDISTANCE
+    //    | PxHitFlag::ePOSITION
+    //    | PxHitFlag::eNORMAL
+    //    ;
 
-    // [in] Define what parts of PxRaycastHit we're interested in
-    const PxHitFlags outputFlags =
-        PxHitFlag::eDISTANCE
-        | PxHitFlag::ePOSITION
-        | PxHitFlag::eNORMAL
-        ;
+    //PxRaycastBuffer hit;
+    //PxRaycastHit hitBuffer[10];
+    //hit = PxRaycastBuffer(hitBuffer, 10);
+    //PxReal _maxDistance = 0.5f; //TEST: este valor habra que modificarlo
+    //bool colDetected = scene->raycast(
+    //    VEC3_TO_PXVEC3(pos),
+    //    VEC3_TO_PXVEC3(direction),
+    //    _maxDistance,
+    //    hit,
+    //    outputFlags,
+    //    filter_data
+    //);
 
-    PxRaycastBuffer hit;
-    PxRaycastHit hitBuffer[10];
-    hit = PxRaycastBuffer(hitBuffer, 10);
-    PxReal _maxDistance = 10.f; //TEST: este valor habra que modificarlo
-    bool colDetected = scene->raycast(
-        VEC3_TO_PXVEC3(pos),
-        VEC3_TO_PXVEC3(direction),
-        _maxDistance,
-        hit,
-        outputFlags,
-        filter_data
-    );
+    //if (colDetected) {
+    //    //entonces sigue
+    //}
+    //else {
+    //    //para la carga
+    //    stopCharge = true;
+    //}
 
-    if (colDetected) {
-        //entonces sigue
-    }
-    else {
-        //para la carga
-        stopCharge = true;
-    }
-
-    //end raycast
+    ////end raycast
 
     chargeElapsed += dt;
     if (chargeElapsed >= chargeDuration || collided || stopCharge) {//TODO: AQUI ADD UNA CONDICION QUE SEA QUE VA A CAER Y PARAR A TIEMPO
@@ -561,9 +580,11 @@ int CBTSushi::actionCharge() {
         }
 
 
+        _chargeAudio.stop();
+        _chargeAudioPlaying = false;
         //------------------------------------
 
-        _audioPlaying.stop();
+        dbg("stopping charge audio\n");
         return LEAVE;
     }
     else {
@@ -821,7 +842,8 @@ int CBTSushi::actionMelee1() {
     c_trans->rotateTowards(p_trans->getPosition(), rotationSpeed, dt);
     //End Rotation Control
     if (meleeTimer <= 0) {
-        EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Attack");
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Attack");
+        audio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
         sushiAnimator->playAnimation(TCompSushiAnimator::ATTACK1, 1.2f);
 
         TCompName* cname = get<TCompName>();
@@ -882,7 +904,8 @@ int CBTSushi::actionMelee2() {
     c_trans->rotateTowards(p_trans->getPosition(), rotationSpeed, dt);
     //End Rotation Control
     if (meleeTimer <= 0) {
-        EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Attack");
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Attack");
+        audio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
         sushiAnimator->playAnimation(TCompSushiAnimator::ATTACK2, 1.2f);
 
         TCompName* cname = get<TCompName>();
@@ -942,7 +965,8 @@ int CBTSushi::actionMelee3() {
     c_trans->rotateTowards(p_trans->getPosition(), rotationSpeed, dt);
     //End Rotation Control
     if (meleeTimer <= 0) {
-        EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Attack");
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Attack");
+        audio.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
         sushiAnimator->playAnimation(TCompSushiAnimator::ATTACK3, 1.3f);
 
         TCompName* cname = get<TCompName>();
@@ -1713,17 +1737,18 @@ void CBTSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
         return;
     }
     if (msg.targetType & EntityType::SUSHI) {
+            TCompTransform* c_trans = get<TCompTransform>();
         if (isBlocking && msg.senderType == EntityType::PLAYER && msg.damageType != PowerType::CHARGED_ATTACK) {
             dbg("Damage blocked\n");
             if (!_audioPlaying.isPlaying()) {
                 _audioPlaying = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Parry");
+                _audioPlaying.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
             }
         }
         else {
             h_sender = msg.h_sender;
             damageSource = msg.position;
             life -= msg.intensityDamage;
-            TCompTransform* c_trans = get<TCompTransform>();
             direction_to_damage = c_trans->getPosition() - msg.position;
             impactForce = msg.impactForce;
             //direction_to_damage.y = 1.0f;

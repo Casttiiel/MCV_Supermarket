@@ -77,7 +77,11 @@ private:
   Vector3 currentPosition;
   Vector3 nextPoint;
   VEC3 impulse = VEC3();
-  AudioEvent _audioPlaying;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  AudioEvent _jumpChargeAudio;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  AudioEvent _chargeAudio;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  AudioEvent _audioPlaying;
+  bool _chargeAudioPlaying = false;
+  bool _jumpChargeAudioPlaying = false;
   bool death_animation_started = false;
 
 	//curve values
@@ -172,7 +176,7 @@ private:
   float chargeCooldownTimer = 0.f;
   VEC3 chargeObjective = VEC3();
   VEC3 chargePoint = VEC3();
-  float chargeDistanceThreshold = 4.f;
+  float chargeDistanceThreshold = 2.f;
   //End Charge Values
 
   //Jump Charge Values
@@ -184,7 +188,7 @@ private:
   float jumpChargeDamage = 20.0f;
   float jumpChargeCooldown = 6.f;
   float jumpChargeCooldownTimer = 0.f;
-  float jumpChargeDistanceThreshold = 4.5f;
+  float jumpChargeDistanceThreshold = 3.f;
   float explosionRadius = 3.f;
   float explosionDamage = 20.f;
   //End Jump Charge Values
