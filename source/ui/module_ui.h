@@ -13,8 +13,8 @@ namespace UI
     CModuleUI(const std::string& name);
 
 	struct WidgetClass {
-		std::string name;//Tipo de si es vida, stamina,boton,creditos,fondo negro...
-		std::string path;
+		std::string name;//nombre del widget en el json es el name
+		std::string type; //Tipo de si es vida, stamina, boton, creditos, fondo negro... (lo que se nos antoje)
 		CWidget *widget;
 		CController *_controller;
 		bool enabled = false;
@@ -31,7 +31,7 @@ namespace UI
     void activateWidget(const std::string& name);
     void deactivateWidget(const std::string& name);
 	void registerWidgetClass(std::string wdgt_type, std::string wdgt_path, CController *wdgt_controller = nullptr);
-
+	void initWidgetClass();
 
     void registerAlias(CWidget* widget);
     void registerController(CController* controller);

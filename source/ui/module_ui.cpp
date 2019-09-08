@@ -15,7 +15,7 @@ namespace UI
   {
     CParser parser;
     parser.loadFile("data/ui/ui.json");
-
+	 //initWidgetClass();
     return true;
   }
 
@@ -36,11 +36,15 @@ namespace UI
 
 	  WidgetClass wdgt_class;
 	  CParser parser;
-	 // wdgt_class.path = parser.parseFile(wdgt_path);
-	  wdgt_class.name = wdgt_type;
-	 // wdgt_class.widget = getWidget(wdgt_struct._widgetName);
+	  wdgt_class.name = parser.loadFileByName(wdgt_path);
+	  wdgt_class.type = wdgt_type;
+	  wdgt_class.widget = getWidgetByName(wdgt_class.name);
 	  wdgt_class._controller = wdgt_controller;
 	  _widgetStructureMap[wdgt_type] = wdgt_class;
+  }
+
+  void CModuleUI::initWidgetClass() {
+	  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
   }
 
 
@@ -111,6 +115,7 @@ namespace UI
     auto it = _registeredWidgets.find(name);
     return it != _registeredWidgets.end() ? it->second : nullptr;
   }
+
 
   CWidget* CModuleUI::getWidgetByAlias(const std::string& name)
   {

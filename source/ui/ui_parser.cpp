@@ -36,6 +36,19 @@ namespace UI
     Engine.getUI().registerWidget(widget);
   }
 
+  std::string CParser::loadFileByName(const std::string& file) {
+	  json jData = loadJson(file);
+	  std::string mainName;
+	  CWidget* widget = parseWidget(jData, nullptr);
+	  widget->updateTransform();
+	  Engine.getUI().registerWidget(widget);
+	  const std::string& name = jData["name"];
+	  return name;
+  }
+	
+
+
+
   CWidget* CParser::parseWidget(const json& jData, CWidget* parent)
   {
     const std::string& name = jData["name"];

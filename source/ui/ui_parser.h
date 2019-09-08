@@ -15,6 +15,8 @@ namespace UI
   public:
     void loadFile(const std::string& widgetsListFile);
     void loadWidget(const std::string& widgetFile);
+	std::string loadFileByName(const std::string& file);
+
 
     CWidget* parseWidget(const json& jData, CWidget* parent);
 
