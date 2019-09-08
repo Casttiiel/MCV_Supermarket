@@ -76,7 +76,8 @@ void CBTSushi::create(string s)//crear el arbol
     addChild("COMBAT_HOLDER", "IDLE_COMBAT", ACTION, NULL, (btaction)& CBTSushi::actionIdleCombat);
 
 
-
+    _footSteps = EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Footsteps");
+    _footSteps.setPaused(true);
 }
 
 bool CBTSushi::conditionDeathAnimation() {
@@ -101,6 +102,7 @@ void CBTSushi::updateBT() {
     meleeTimer -= dt;
     damageStunTimer -= dt;
     TCompTransform* c_trans = get<TCompTransform>();
+    _footSteps.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
     if (nextNavMeshPoint != VEC3().Zero && use_navmesh) { //update path point
         if (Vector3::Distance(nextNavMeshPoint, c_trans->getPosition()) < distanceCheckThreshold) {
             navMeshIndex++;
@@ -247,9 +249,13 @@ int CBTSushi::actionSeekWaypoint() {
 
     if (Vector3::Distance(nextPoint, c_trans->getPosition()) < distanceCheckThreshold) {
         //ChangeState("NEXTWPT");
+        _footSteps.setPaused(true);
         return LEAVE;
     }
     else {
+        if (_footSteps.getPaused()) {
+            _footSteps.setPaused(false);
+        }
         //------------------------------- navmesh code
 
         if (use_navmesh) {
@@ -288,6 +294,7 @@ int CBTSushi::actionIdleCombat() {
     c_trans->rotateTowards(p_trans->getPosition());
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
+    _footSteps.setPaused(true);
     return LEAVE;
 }
 
@@ -298,6 +305,7 @@ int CBTSushi::actionSalute() {
     if (conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _footSteps.setPaused(true);
     TCompName* cname = get<TCompName>();
     if (saluteElapsed < saluteDuration) {
         //dbg("%s executes Salute\n", cname->getName());
@@ -324,6 +332,7 @@ int CBTSushi::actionPrepareJumpCharge() {
     if (conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _footSteps.setPaused(true);
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     TCompName* cname = get<TCompName>();
     TCompTransform* c_trans = get<TCompTransform>();
@@ -367,6 +376,7 @@ int CBTSushi::actionJumpCharge() {
     previousState = currentState;
     currentState = States::JumpCharge;
     TCompRigidBody* c_rb = get<TCompRigidBody>();
+    _footSteps.setPaused(true);
     if (conditionGravityReceived() || conditionImpactReceived() || collided || conditionFear()) {
         c_rb->enableGravity(true);
         collided = false;
@@ -438,6 +448,7 @@ int CBTSushi::actionPrepareCharge() {
     if (conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _footSteps.setPaused(true);
     TCompTransform* c_trans = get<TCompTransform>();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     if (!sushiAnimator->isPlaying(TCompSushiAnimator::WAKEUP)) {
@@ -483,6 +494,7 @@ int CBTSushi::actionCharge() {
     previousState = currentState;
     currentState = States::Charge;
     TCompRigidBody* c_rb = get<TCompRigidBody>();
+    _footSteps.setPaused(true);
     if (conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         c_rb->enableGravity(true);
         return LEAVE;
@@ -679,6 +691,9 @@ int CBTSushi::actionChase() {
     }
 
     //------------------------------- end navmesh code
+    if (_footSteps.getPaused()) {
+        _footSteps.setPaused(false);
+    }
 
     //End Rotation Control
     return LEAVE;
@@ -695,6 +710,7 @@ int CBTSushi::actionBlock() {
         blockRemaining -= dt;
         TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
         sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_LOOP, 1.f);
+        _footSteps.setPaused(true);
         return STAY;
     }
     else {
@@ -832,6 +848,7 @@ int CBTSushi::actionMelee1() {
     if (conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _footSteps.setPaused(true);
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
     TCompTransform* c_trans = get<TCompTransform>();
@@ -895,6 +912,7 @@ int CBTSushi::actionMelee2() {
     }
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
+    _footSteps.setPaused(true);
 
     TCompTransform* c_trans = get<TCompTransform>();
     CEntity* e_player = (CEntity*)h_player;
@@ -956,6 +974,7 @@ int CBTSushi::actionMelee3() {
     }
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
+    _footSteps.setPaused(true);
 
     TCompTransform* c_trans = get<TCompTransform>();
     CEntity* e_player = (CEntity*)h_player;
@@ -1017,6 +1036,7 @@ int CBTSushi::actionOnAir() {
 
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_LOOP, 1.f);
+    _footSteps.setPaused(true);
 
     //Movement Control
     impulse.x *= 1 - (0.05f * dt);
@@ -1070,6 +1090,7 @@ int CBTSushi::actionImpactReceived() {
 int CBTSushi::actionGravityReceived() {
     previousState = currentState;
     currentState = States::GravityReceived;
+    _footSteps.setPaused(true);
     TCompTransform* c_trans = get<TCompTransform>();
     CEntity* e_player = (CEntity*)h_player;
     TCompTransform* p_trans = e_player->get<TCompTransform>();
@@ -1214,6 +1235,7 @@ int CBTSushi::actionDeath() {
   c_sd->enable();
 
   death_animation_started = true;
+  _footSteps.setPaused(true);
   /*CHandle(this).getOwner().destroy();
   CHandle(this).destroy();*/
   return LEAVE;

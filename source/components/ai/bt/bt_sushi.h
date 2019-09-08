@@ -79,6 +79,7 @@ private:
   VEC3 impulse = VEC3();
   AudioEvent _jumpChargeAudio;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
   AudioEvent _chargeAudio;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  AudioEvent _footSteps;
   AudioEvent _audioPlaying;
   bool _chargeAudioPlaying = false;
   bool _jumpChargeAudioPlaying = false;
