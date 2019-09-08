@@ -202,6 +202,7 @@ public:
   void toNamePrefab(const std::string name, CHandle handle);
   //cargar escena
   void loadScene(const std::string name);
+  void GPUloadScene(const std::string name);
   template <typename T>
   void broadcastMessage(T message);
 

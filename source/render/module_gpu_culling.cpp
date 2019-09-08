@@ -42,10 +42,10 @@ struct TSampleDataGenerator {
     pmin = VEC3(-radius, 0.f, -radius);
     pmax = VEC3(radius, 1.0f, radius);
     num_instances = j.value("num_instances", num_instances);
-
+    /*
     #ifndef NDEBUG
         return;
-    #endif
+    #endif*/
 
     std::vector< std::string > prefab_names = j["prefabs"].get< std::vector< std::string > >();
     for (auto& prefab_name : prefab_names) {
@@ -99,9 +99,9 @@ struct TSampleDataGenerator {
           //this prefab is a product on a shelve, so we will load it only on RELEASE because performance issues
           std::size_t found = prefab_src.find("/products/");
           if (found != std::string::npos) {
-            #ifndef NDEBUG
+            /*#ifndef NDEBUG
               continue;
-            #endif
+            #endif*/
             // Get delta transform where we should instantiate this transform
             CTransform delta_transform;
             if (j_entity.count("transform"))
@@ -311,12 +311,6 @@ struct TSampleDataGenerator {
 
             scene_prefabs.insert(std::pair<const std::string, CHandle>(temp_prefab_name, h_e));
 
-            //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
-            TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
-            if (c_di) {
-              c_di->set_idx(mod->getObjSize());
-            }
-
             //ADD DATA TO MODULE GPU CULLING
             addPrefabToModule(h_e, j_transform);
           }
@@ -329,18 +323,11 @@ struct TSampleDataGenerator {
             CHandle h(c_render);
             h.destroy();
 
-            //JOHN HERE IS THE PROBLEM
             TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
             CHandle h2(c_absaabb);
             h2.destroy();
             TCompName* n = e->get<TCompName>();
             std::string a = n->getName();
-
-            //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
-            TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
-            if (c_di) {
-              c_di->set_idx(mod->getObjSize());
-            }
 
             //ADD DATA TO MODULE GPU CULLING
             addPrefabToModule(scene_prefabs.at(temp_prefab_name), j_transform);
@@ -424,9 +411,9 @@ void CModuleGPUCulling::parseProducts(const std::string& filename, TEntityParseC
 }
 
 void CModuleGPUCulling::createPrefabProducts() {
-  #ifndef NDEBUG
+  /*#ifndef NDEBUG
     return;
-  #endif
+  #endif*/
   json j = loadJson("data/gpu_culling.json");
   sample_data.createProductPrefabs(j["sample_data"]);
 }
@@ -439,23 +426,24 @@ void CModuleGPUCulling::clear() {
 }
 
 void CModuleGPUCulling::deleteActualProducts() {
-  //for the CPU / update / collision
-
-  if (first_prod_index = 50000 && last_prod_index == -1)
+  if (first_prod_index == 5000 && last_prod_index == -1)
     return;
 
+  //for the GPU / render
+  dbg("first  %d   last %d   objs size %d", first_prod_index, last_prod_index, objs.size());
 
+  objs.erase(objs.begin() + first_prod_index, objs.begin() + last_prod_index + 1);
+
+  //for the CPU / update / collision
   getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
     TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
     c_sd->enable();
   });
 
-  //for the GPU / render
-  objs.erase(objs.begin() + first_prod_index, objs.begin() + last_prod_index + 1);
 
   is_dirty = true;
 
-  first_prod_index = 50000;
+  first_prod_index = 5000;
   last_prod_index = -1;
 
   //this will make the game to not update
@@ -465,10 +453,12 @@ void CModuleGPUCulling::deleteActualProducts() {
 int CModuleGPUCulling::getObjSize() { 
   //this is called to bind the component to the index of the product 
   int val = objs.size();
+
   if (first_prod_index > val)
     first_prod_index = val;
   if (last_prod_index < val)
     last_prod_index = val;
+
   return val; 
 }
 

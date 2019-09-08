@@ -133,8 +133,6 @@ function on_create_enemies_zone_cupcake_player()
 
 	--Audio
 	GameController:updateSoundtrackID(2);
-
-	GameController:deleteProducts();
 end
 
 
@@ -142,6 +140,10 @@ end
 
 function on_blending_camera(name,speed,typeInterpolator)
 	GameController:blendingCamera(name,speed,typeInterpolator)
+end
+
+function on_load_gpu_scene(name)
+	GameController:GPUloadScene(name)
 end
 
 function on_lock_camera3(activate)
@@ -623,9 +625,10 @@ function activarSalidaPanaderia()
 	execDelayedAction("on_cinematic(true)",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraPanaderiaPlat\", 5,\"linear\")",0.1);
-	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",11.5);
-	execDelayedAction("on_lock_camera3(true)",16.5);
-	execDelayedAction("on_cinematic(false)",16.5);
+	execDelayedAction("on_load_gpu_scene(\"data/scenes/mapa_congelados.json\")",11.5);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",13.5);
+	execDelayedAction("on_lock_camera3(true)",18.5);
+	execDelayedAction("on_cinematic(false)",18.5);
 
 
 	execDelayedAction("activePlatformByName(\"plat1346469\")",5.2);

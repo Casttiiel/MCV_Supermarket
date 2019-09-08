@@ -91,7 +91,7 @@ class CModuleGPUCulling : public IModule {
   std::vector< TRenderTypeID >  render_types;
   bool                          is_dirty = false;
   bool                          show_debug = true;
-  int                           first_prod_index = 50000;
+  int                           first_prod_index = 5000;
   int                           last_prod_index = -1;
 
   CCamera                       culling_camera;
