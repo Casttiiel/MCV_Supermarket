@@ -138,6 +138,7 @@ void CModuleScripting::BindGameController() {
 		.set("getPlayerHandle", &CModuleGameController::getPlayerHandle)
 		.set("loadScene", &CModuleGameController::loadScene)
     .set("GPUloadScene", &CModuleGameController::GPUloadScene)
+    .set("GPUdeleteScene", &CModuleGameController::GPUdeleteScene)
 		.set("updatePlatformCurveByName", &CModuleGameController::updatePlatformCurveByName)
 		.set("playAnimationMorph", &CModuleGameController::playAnimationMorph)
         .set("stopAnimationMorph", &CModuleGameController::stopAnimationMorph)

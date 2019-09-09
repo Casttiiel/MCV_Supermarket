@@ -203,6 +203,7 @@ public:
   //cargar escena
   void loadScene(const std::string name);
   void GPUloadScene(const std::string name);
+  void GPUdeleteScene(const std::string name);
   template <typename T>
   void broadcastMessage(T message);
 

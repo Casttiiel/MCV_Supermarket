@@ -20,6 +20,7 @@
 #include "render/compute/compute_shader.h"
 #include "utils/json_resource.h"
 #include "components/ai/others/self_destroy.h"
+#include "components/common/comp_tags.h"
 
 AABB getRotatedBy(AABB src, const MAT44 &model);
 
@@ -312,6 +313,7 @@ struct TSampleDataGenerator {
             scene_prefabs.insert(std::pair<const std::string, CHandle>(temp_prefab_name, h_e));
 
             //ADD DATA TO MODULE GPU CULLING
+            mod->setupMapIndexes(filename);
             addPrefabToModule(h_e, j_transform);
           }
           else { //ALREADY PARSED GPU PREFAB
@@ -330,6 +332,7 @@ struct TSampleDataGenerator {
             std::string a = n->getName();
 
             //ADD DATA TO MODULE GPU CULLING
+            mod->setupMapIndexes(filename);
             addPrefabToModule(scene_prefabs.at(temp_prefab_name), j_transform);
           }
         }
@@ -402,18 +405,45 @@ struct TSampleDataGenerator {
 
 TSampleDataGenerator sample_data;
 
+void CModuleGPUCulling::setupMapIndexes(const std::string& filename) {
+  if (strcmp(filename.c_str(),"data/scenes/mapa_panaderia.json")) {
+    int val = objs.size();
+    if (first_panaderia_index > val)
+      first_panaderia_index = val;
+    if (last_panaderia_index < val)
+      last_panaderia_index = val;
+  }
+  else if (strcmp(filename .c_str(),"data/scenes/mapa_congelados.json")) {
+    int val = objs.size();
+    if (first_congelados_index > val)
+      first_congelados_index = val;
+    if (last_congelados_index < val)
+      last_congelados_index = val;
+  }
+  /*else if (strcmp(filename.c_str(),"data/scenes/mapa_asiatica.json")) {
+    int val = objs.size();
+    if (first_asiatica_index > val)
+      first_asiatica_index = val;
+    if (last_asiatica_index < val)
+      last_asiatica_index = val;
+  }*/
+}
+
 void CModuleGPUCulling::parseEntities(const std::string& filename, TEntityParseContext& ctx) {
   sample_data.create(filename, ctx);
 }
 
 void CModuleGPUCulling::parseProducts(const std::string& filename, TEntityParseContext& ctx) {
+  #ifndef NDEBUG
+    return;
+  #endif
   sample_data.createProducts(filename, ctx);
 }
 
 void CModuleGPUCulling::createPrefabProducts() {
-  /*#ifndef NDEBUG
+  #ifndef NDEBUG
     return;
-  #endif*/
+  #endif
   json j = loadJson("data/gpu_culling.json");
   sample_data.createProductPrefabs(j["sample_data"]);
 }
@@ -425,13 +455,66 @@ void CModuleGPUCulling::clear() {
   sample_data.deleteProductPrefabs();
 }
 
+void CModuleGPUCulling::deleteScene(const std::string& filename) {
+  if (strcmp(filename.c_str(), "data/scenes/mapa_panaderia.json")) {
+    uint32_t tag_id = getID("data/scenes/mapa_panaderia.json");
+
+    //for the GPU / render
+    objs.erase(objs.begin() + first_panaderia_index, objs.begin() + last_panaderia_index + 1);
+
+    //for the CPU / update / collision
+    getObjectManager<TCompTags>()->forEach([tag_id](TCompTags* t) {
+      if (t->hasTag(tag_id)) {
+        //add a self_destroy component
+      }
+    });
+
+    //correr los indices de la siguiente zona
+    int deletionLength = last_panaderia_index - first_panaderia_index;
+    if (first_prod_index != 5000 && last_prod_index != -1)
+      deletionLength += last_prod_index - first_prod_index;
+
+    first_congelados_index -= deletionLength;
+    last_congelados_index -= deletionLength;
+
+    is_dirty = true;
+
+    deleteActualProducts();
+
+    //this will make the game to not update
+    Time.actual_frame = 0;
+  }
+  else if (strcmp(filename.c_str(), "data/scenes/mapa_congelados.json")) {
+    if (first_prod_index == 5000 && last_prod_index == -1)
+      return;
+
+    //for the GPU / render
+    dbg("first  %d   last %d   objs size %d", first_prod_index, last_prod_index, objs.size());
+
+    objs.erase(objs.begin() + first_prod_index, objs.begin() + last_prod_index + 1);
+
+    //for the CPU / update / collision
+    getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
+      TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
+      c_sd->enable();
+      });
+
+
+    is_dirty = true;
+
+    first_prod_index = 5000;
+    last_prod_index = -1;
+
+    //this will make the game to not update
+    Time.actual_frame = 0;
+  }
+}
+
 void CModuleGPUCulling::deleteActualProducts() {
   if (first_prod_index == 5000 && last_prod_index == -1)
     return;
 
   //for the GPU / render
-  dbg("first  %d   last %d   objs size %d", first_prod_index, last_prod_index, objs.size());
-
   objs.erase(objs.begin() + first_prod_index, objs.begin() + last_prod_index + 1);
 
   //for the CPU / update / collision
