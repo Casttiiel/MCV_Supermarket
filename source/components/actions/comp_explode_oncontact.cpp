@@ -31,6 +31,8 @@ void TCompExplodeOnContact::onCollision(const TMsgOnContact& msgC) {
 	GameController.generateDamageSphere(c_trans->getPosition(), _explosionRadius, msg, "VulnerableToExplosions");
 	_collided = true;
 	GameController.spawnPrefab("data/prefabs/props/explosion_sphere.json", c_trans->getPosition());
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Hazards/Explosion");
+    audio.set3DAttributes(*c_trans);
 }
 
 void TCompExplodeOnContact::update(float dt) {
