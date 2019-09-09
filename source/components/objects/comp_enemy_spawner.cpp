@@ -69,7 +69,7 @@ void TCompEnemySpawner::update(float dt) {
 				TCompPropAnimator* animator = get<TCompPropAnimator>();
 				animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 1.f);
 				TCompTransform* c_trans = get<TCompTransform>();
-				VEC3 spawnPoint = c_trans->getPosition() + (c_trans->getFront() * _spawnOffset);
+				VEC3 spawnPoint = c_trans->getPosition() + VEC3(0,1.5,0) +  (c_trans->getFront() * _spawnOffset);;
 				CHandle enemy = GameController.spawnPrefab(_prefab, spawnPoint);
 				
 				//rotamos el cupcake hacia la posicion del jugador al spawnear para que te vea siempre
