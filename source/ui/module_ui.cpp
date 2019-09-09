@@ -1,8 +1,12 @@
 #include "mcv_platform.h"
+#include "engine.h"
 #include "ui/module_ui.h"
 #include "ui/ui_parser.h"
 #include "ui/ui_widget.h"
 #include "ui/ui_controller.h"
+#include "ui/controllers/ui_menu_controller.h"
+#include "windows/app.h"
+
 
 namespace UI
 {
@@ -14,8 +18,8 @@ namespace UI
   bool CModuleUI::start()
   {
     CParser parser;
-    parser.loadFile("data/ui/ui.json");
-	 //initWidgetClass();
+    //parser.loadFile("data/ui/ui.json");
+	initWidgetClass();
     return true;
   }
 
@@ -31,7 +35,7 @@ namespace UI
       widget->update(dt);
     }
   }
-
+  //nuevos metodos
   void CModuleUI::registerWidgetClass(std::string wdgt_type, std::string wdgt_path, CController *wdgt_controller) {//Controller *wdgt_controller = nullptr
 
 	  WidgetClass wdgt_class;
@@ -43,12 +47,79 @@ namespace UI
 	  _widgetStructureMap[wdgt_type] = wdgt_class;
   }
 
+
   void CModuleUI::initWidgetClass() {
+	  /*MENU PRINCIPAL*/
+	  auto mpNewGame = []() {//nuevo juego
+		  CEngine::get().getModules().changeToGamestate("gs_gameplay");
+	  };
+
+	  auto mpCredits = []() {
+		  printf("Credits\n");
+	  };
+
+
+	  auto mpExitGame = []() {
+		  auto& app = CApplication::get();
+		  DestroyWindow(app.getHandle());
+	  };
+	  
+	  registerWidgetClass("MAIN_MENU_BACKGROUND", "data/ui/widgets/main_menu_background.json", nullptr);
+	  CMenuController* mmb = new CMenuController();
+	  registerWidgetClass("MAIN_MENU_BUTTONS", "data/ui/widgets/main_menu_buttons.json", mmb);
+	  mmb = (CMenuController*)getWidgetController("MAIN_MENU_BUTTONS");
+	  mmb->registerOption("bt_start", mpNewGame);
+	  mmb->registerOption("bt_continue", mpCredits);
+	  mmb->registerOption("bt_exit", mpExitGame);
+	  mmb->setCurrentOption(0);
+
+	  //GAMEPLAY SIN CARRITO
 	  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
   }
 
 
+  CWidget* CModuleUI::activateWidgetClass(const std::string& name) {
+	  WidgetClass wdgtClass = _widgetStructureMap[name];
+	  if (wdgtClass.enabled) return nullptr;
+	  CWidget* widget = getWidgetByName(wdgtClass.name);
+	  if (widget)
+	  {
+		  widget->onActivate();
+		  wdgtClass.enabled = true;
+		  _widgetStructureMap[name] = wdgtClass;
+		  _activeWidgets.push_back(widget);
 
+		  if (wdgtClass._controller != nullptr) {
+			  registerController(wdgtClass._controller);
+		  }
+		  return widget;
+	  }
+	  else {
+		  return nullptr;
+	  }
+  }
+  void CModuleUI::deactivateWidgetClass(const std::string& name) {
+	  WidgetClass wdgtClass = _widgetStructureMap[name];
+	  CWidget* widgt = getWidgetByName(wdgtClass.name);
+	  for (auto it = _activeWidgets.begin(); it != _activeWidgets.end();) {
+		  if (*it == widgt) {
+
+			  (*it)->onDeactivate();
+			  _activeWidgets.erase(it);
+			  break;
+		  }
+		  it++;
+	  }
+
+	  wdgtClass.enabled = false;
+	  _widgetStructureMap[name] = wdgtClass;
+	  if (wdgtClass._controller != nullptr) {
+		  unregisterController(wdgtClass._controller);
+	  }
+  }
+
+
+  //hasta aqui, los nuevos metodos
   void CModuleUI::render()
   {
     for (auto widget : _activeWidgets)
@@ -105,6 +176,19 @@ namespace UI
     _activeControllers.push_back(controller);
   }
 
+
+  //nuevo metodo tmb
+  void CModuleUI::unregisterController(CController* controller)
+  {
+	  auto it = std::find(_activeControllers.begin(), _activeControllers.end(), controller);
+	  if (it != _activeControllers.end())
+	  {
+		  _activeControllers.erase(it);
+	  }
+  }
+  //hasta aqui
+
+
   void CModuleUI::unregisterController()
   {
 	  _activeControllers.clear();
@@ -122,4 +206,11 @@ namespace UI
     auto it = _registeredAlias.find(name);
     return it != _registeredAlias.end() ? it->second : nullptr;
   }
+
+  CController* CModuleUI::getWidgetController(std::string type) {
+	  WidgetClass wdgt_class = _widgetStructureMap[type];
+	  CController* controller = wdgt_class._controller;
+	  return controller;
+  }
+
 }

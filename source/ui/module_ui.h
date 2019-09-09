@@ -27,12 +27,17 @@ namespace UI
 
     void renderInMenu() override;
 	void unregisterController();
+	void unregisterController(CController* controller);
     void registerWidget(CWidget* widget);
     void activateWidget(const std::string& name);
     void deactivateWidget(const std::string& name);
+	//Nuevos metodos pra la causa
 	void registerWidgetClass(std::string wdgt_type, std::string wdgt_path, CController *wdgt_controller = nullptr);
 	void initWidgetClass();
+	CWidget* activateWidgetClass(const std::string& name);
+	void deactivateWidgetClass(const std::string& name);
 
+	CController* getWidgetController(std::string type);
     void registerAlias(CWidget* widget);
     void registerController(CController* controller);
 

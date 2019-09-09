@@ -41,6 +41,7 @@ namespace UI
 	  std::string mainName;
 	  CWidget* widget = parseWidget(jData, nullptr);
 	  widget->updateTransform();
+	 // widget->computeAbsolute();
 	  Engine.getUI().registerWidget(widget);
 	  const std::string& name = jData["name"];
 	  return name;

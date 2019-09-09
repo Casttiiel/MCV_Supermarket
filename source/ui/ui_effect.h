@@ -12,7 +12,7 @@ namespace UI
     virtual void start() {}
     virtual void stop() {}
     virtual void update(float dt) {}
-
+	virtual void onDeactivate() {};
   protected:
     CWidget* _owner = nullptr;
     
