@@ -188,6 +188,7 @@ function script_ice_1_player()
 	execDelayedAction("on_cinematic(true)",0);
 	execDelayedAction("on_lock_camera3(false)",0);
 	execDelayedAction("on_blending_camera(\"CameraPanel001\", 5,\"Quadin\")",0);
+	execDelayedAction("GPUdeleteScene(\"data/scenes/mapa_panaderia\")",5);
 	execDelayedAction("on_blending_camera(\"CameraPanel002\", 5,\"Quadin\")",6);
     execDelayedAction("destroy_and_wake_up(\"golem2\",\"Box007\", 20)",15); 
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"Quadin\")",12);
@@ -626,6 +627,13 @@ function activarSalidaPanaderia()
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraPanaderiaPlat\", 5,\"linear\")",0.1);
 	execDelayedAction("on_load_gpu_scene(\"data/scenes/mapa_congelados.json\")",11.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/cold_particles.json\")",11.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles.json\")",5.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles2.json\")",6.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles3.json\")",6.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles4.json\")",7.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles5.json\")",8.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles6.json\")",9.5);
 	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",13.5);
 	execDelayedAction("on_lock_camera3(true)",18.5);
 	execDelayedAction("on_cinematic(false)",18.5);

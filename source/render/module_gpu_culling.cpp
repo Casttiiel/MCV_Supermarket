@@ -204,6 +204,8 @@ struct TSampleDataGenerator {
 
   void create(const std::string& filename, TEntityParseContext& ctx) {
     ctx.filename = filename;
+    uint32_t tag_id = getID(filename.c_str());
+    CTagsManager::get().registerTagName(tag_id, filename.c_str());
 
     const json& j_scene = Resources.get(filename)->as<CJson>()->getJson();
     assert(j_scene.is_array());
@@ -353,16 +355,36 @@ struct TSampleDataGenerator {
       e_root_of_group->set(h_group.getType(), h_group);
       // Now add the rest of entities created to the group, starting at 1 because 0 is the head
       TCompGroup* c_group = h_group;
-      for (size_t i = 1; i < ctx.entities_loaded.size(); ++i)
+      
+      //also put a tag on it so we know from which map it is
+      TCompTags* e_tag = e_root_of_group->get<TCompTags>();
+      if (!e_tag) {
+        CHandle h_tag = getObjectManager<TCompTags>()->createHandle();
+        if (h_tag.isValid()) {
+          e_root_of_group->set(h_tag.getType(), h_tag);
+          TCompTags* c_tag = h_tag;
+          c_tag->addTag(tag_id);
+        }
+      }
+      else {
+        e_tag->addTag(tag_id);
+      }
+
+      for (size_t i = 1; i < ctx.entities_loaded.size(); ++i) {
+        CEntity* e = ctx.entities_loaded[i];
+        TCompName* c_name = e->get<TCompName>();
+        if (strcmp(c_name->getName(), "Player") == 0)
+          continue;
         c_group->add(ctx.entities_loaded[i]);
+      }
     }
 
     // Notify each entity created that we have finished
     // processing this file
     TMsgEntitiesGroupCreated msg = { ctx };
-    for (auto h : ctx.entities_loaded)
+    for (auto h : ctx.entities_loaded) {
       h.sendMsg(msg);
-
+    }
 
     //REMOVE PREFABS FROM SCENE, THE MODULE WILL RENDER THEM
     for (auto h_prefab : scene_prefabs) {
@@ -406,14 +428,14 @@ struct TSampleDataGenerator {
 TSampleDataGenerator sample_data;
 
 void CModuleGPUCulling::setupMapIndexes(const std::string& filename) {
-  if (strcmp(filename.c_str(),"data/scenes/mapa_panaderia.json")) {
+  if (strcmp(filename.c_str(),"data/scenes/mapa_panaderia.json") == 0) {
     int val = objs.size();
     if (first_panaderia_index > val)
       first_panaderia_index = val;
     if (last_panaderia_index < val)
       last_panaderia_index = val;
   }
-  else if (strcmp(filename .c_str(),"data/scenes/mapa_congelados.json")) {
+  else if (strcmp(filename .c_str(),"data/scenes/mapa_congelados.json") == 0) {
     int val = objs.size();
     if (first_congelados_index > val)
       first_congelados_index = val;
@@ -456,16 +478,22 @@ void CModuleGPUCulling::clear() {
 }
 
 void CModuleGPUCulling::deleteScene(const std::string& filename) {
-  if (strcmp(filename.c_str(), "data/scenes/mapa_panaderia.json")) {
+  if (strcmp(filename.c_str(), "data/scenes/mapa_panaderia.json") == 0) {
     uint32_t tag_id = getID("data/scenes/mapa_panaderia.json");
 
     //for the GPU / render
     objs.erase(objs.begin() + first_panaderia_index, objs.begin() + last_panaderia_index + 1);
 
     //for the CPU / update / collision
+    //CTagsManager::get().registerTagName(tag_id, filename.c_str());
+
     getObjectManager<TCompTags>()->forEach([tag_id](TCompTags* t) {
       if (t->hasTag(tag_id)) {
         //add a self_destroy component
+        CHandle h_del = getObjectManager<TCompSelfDestroy>()->createHandle();
+        CHandle h_t = t;
+        CEntity* e = h_t.getOwner();
+        e->set(h_del.getType(), h_del);
       }
     });
 
@@ -484,26 +512,24 @@ void CModuleGPUCulling::deleteScene(const std::string& filename) {
     //this will make the game to not update
     Time.actual_frame = 0;
   }
-  else if (strcmp(filename.c_str(), "data/scenes/mapa_congelados.json")) {
-    if (first_prod_index == 5000 && last_prod_index == -1)
-      return;
+  else if (strcmp(filename.c_str(), "data/scenes/mapa_congelados.json") == 0) {
+    uint32_t tag_id = getID("data/scenes/mapa_congelados.json");
 
     //for the GPU / render
-    dbg("first  %d   last %d   objs size %d", first_prod_index, last_prod_index, objs.size());
-
-    objs.erase(objs.begin() + first_prod_index, objs.begin() + last_prod_index + 1);
+    objs.erase(objs.begin() + first_congelados_index, objs.begin() + last_congelados_index + 1);
 
     //for the CPU / update / collision
-    getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
-      TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
-      c_sd->enable();
-      });
-
+    getObjectManager<TCompTags>()->forEach([tag_id](TCompTags* t) {
+      if (t->hasTag(tag_id)) {
+        //add a self_destroy component
+        CHandle h_del = getObjectManager<TCompSelfDestroy>()->createHandle();
+        CHandle h_t = t;
+        CEntity* e = h_t.getOwner();
+        e->set(h_del.getType(), h_del);
+      }
+     });
 
     is_dirty = true;
-
-    first_prod_index = 5000;
-    last_prod_index = -1;
 
     //this will make the game to not update
     Time.actual_frame = 0;
