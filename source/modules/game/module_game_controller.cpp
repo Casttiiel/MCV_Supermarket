@@ -309,6 +309,40 @@ void CModuleGameController::deleteGolem(std::string name)
 	
 }
 
+void CModuleGameController::setLifeEnemiesByTag(const char* tagName,float life) {
+	VHandles enemies = CTagsManager::get().getAllEntitiesByTag(getID(tagName));
+	for (auto h : enemies) {
+		CEntity* e_enemy = (CEntity*)h;
+
+		if (strcmp(tagName,"cupcake") == 0) {
+			CBTCupcake* cbt = e_enemy->get<CBTCupcake>();
+			cbt->setLife(life);
+		}
+		else if (strcmp(tagName, "golem") == 0) {
+
+
+		}
+		else if (strcmp(tagName, "sushi") == 0) {
+
+		}
+	}
+	/*
+	if (typeEnemy == TYPE_CUPCAKE) {
+		CBTCupcake* cupcake = e_enemy->get<CBTCupcake>();
+		cupcake->setLife(life);
+	}
+	if (typeEnemy == TYPE_SUSHI) {
+		CBTSushi* sushi_n = e_enemy->get<CBTSushi>();
+		//sushi_n->setLifesetLife no esta el set en la clase
+	}
+	if (typeEnemy == TYPE_RANGED_SUSHI) {
+		CBTRangedSushi* sushi_r = e_enemy->get<CBTRangedSushi>();
+		//sushi_n->setLifesetLife: no esta el set en la clase
+	}*/
+
+}
+
+
 
 void CModuleGameController::activatePlatformByName(std::string name) {
 	if (name != "") {

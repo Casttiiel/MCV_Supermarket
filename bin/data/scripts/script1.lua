@@ -678,6 +678,9 @@ function activarSalidaPanaderia()
 	t_compSpawnOven4:setLifeSpawner(50.0);
 
 
+	GameController:setLifeEnemiesByTag("cupcake",50.0);
+
+
 end
 
 function cinematica_tower()
