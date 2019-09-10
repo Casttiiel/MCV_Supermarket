@@ -44,6 +44,23 @@ namespace UI
     CWidget* getWidgetByName(const std::string& name);
     CWidget* getWidgetByAlias(const std::string& alias);
 
+	void lerp(float *init_value, float value_to_lerp, float initial_time, float lerp_time);
+
+
+	struct WidgetToLerp {
+
+		float *element_to_lerp;
+		float max_element_to_lerp;
+		float value_to_lerp;
+		float time_to_start_lerping = 0.0;
+		float time_to_end_lerp;
+		float current_time = 0.0;
+		bool first_frame = true;
+	};
+
+	std::vector<WidgetToLerp>widgetsToLerp;
+
+
   private:
     std::map<std::string_view, CWidget*> _registeredWidgets;
     std::map<std::string_view, CWidget*> _registeredAlias;

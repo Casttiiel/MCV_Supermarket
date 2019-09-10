@@ -34,6 +34,36 @@ namespace UI
     {
       widget->update(dt);
     }
+
+
+	if (widgetsToLerp.size() > 0) { 
+		
+		std::vector<WidgetToLerp>::iterator it = widgetsToLerp.begin();
+		while (it != widgetsToLerp.end()) {
+			if ((*it).current_time >= (*it).time_to_start_lerping) {
+				if ((*it).first_frame) {
+					(*it).max_element_to_lerp = *(*it).element_to_lerp;
+					(*it).first_frame = false;
+				}
+				float diff = (*it).value_to_lerp - (*it).max_element_to_lerp;
+				float percentage = clamp(((((*it).current_time - (*it).time_to_start_lerping)) / (*it).time_to_end_lerp), 0.0f, 1.0f);
+				*(*it).element_to_lerp = (*it).max_element_to_lerp + (diff * percentage);
+			}
+			(*it).current_time += dt;
+
+			if (((*it).current_time - (*it).time_to_start_lerping) >= (*it).time_to_end_lerp) {
+				*(*it).element_to_lerp = (*it).value_to_lerp;
+				it = widgetsToLerp.erase(it);
+			}
+			else {
+				it++;
+			}
+		}
+		
+	}
+
+
+
   }
   //nuevos metodos
   void CModuleUI::registerWidgetClass(std::string wdgt_type, std::string wdgt_path, CController *wdgt_controller) {//Controller *wdgt_controller = nullptr
@@ -50,12 +80,13 @@ namespace UI
 
   void CModuleUI::initWidgetClass() {
 	  /*MENU PRINCIPAL*/
+
 	  auto mpNewGame = []() {//nuevo juego
 		  CEngine::get().getModules().changeToGamestate("gs_gameplay");
 	  };
 
 	  auto mpCredits = []() {
-		  printf("Credits\n");
+		  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true,0,1);
 	  };
 
 
@@ -75,6 +106,7 @@ namespace UI
 
 	  //GAMEPLAY SIN CARRITO
 	  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
+	  registerWidgetClass("BLACK_SCREEN", "data/ui//widgets/black_background.json", nullptr);
   }
 
 
@@ -212,5 +244,18 @@ namespace UI
 	  CController* controller = wdgt_class._controller;
 	  return controller;
   }
+
+
+  void CModuleUI::lerp(float *init_value, float value_to_lerp, float initial_time, float lerp_time) {
+	  WidgetToLerp windgetToLerp;
+	  windgetToLerp.element_to_lerp = init_value;
+	  windgetToLerp.max_element_to_lerp = *init_value;
+	  windgetToLerp.value_to_lerp = value_to_lerp;
+	  windgetToLerp.current_time = 0.0f;
+	  windgetToLerp.time_to_end_lerp = lerp_time;
+	  windgetToLerp.time_to_start_lerping = initial_time;
+	  widgetsToLerp.push_back(windgetToLerp);
+  }
+
 
 }
