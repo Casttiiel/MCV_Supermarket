@@ -494,6 +494,8 @@ void CModuleGPUCulling::deleteScene(const std::string& filename) {
         CHandle h_t = t;
         CEntity* e = h_t.getOwner();
         e->set(h_del.getType(), h_del);
+        TCompSelfDestroy* c_self = h_del;
+        c_self->enable();
       }
     });
 
@@ -507,7 +509,7 @@ void CModuleGPUCulling::deleteScene(const std::string& filename) {
 
     is_dirty = true;
 
-    deleteActualProducts();
+    //deleteActualProducts();
 
     //this will make the game to not update
     Time.actual_frame = 0;
@@ -526,6 +528,8 @@ void CModuleGPUCulling::deleteScene(const std::string& filename) {
         CHandle h_t = t;
         CEntity* e = h_t.getOwner();
         e->set(h_del.getType(), h_del);
+        TCompSelfDestroy* c_self = h_del;
+        c_self->enable();
       }
      });
 
