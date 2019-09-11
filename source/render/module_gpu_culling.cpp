@@ -108,54 +108,66 @@ struct TSampleDataGenerator {
             if (j_entity.count("transform"))
               delta_transform.load(j_entity["transform"]);
 
-            // Parse the prefab, if any other child is created they will inherit our ctx transform
-            TEntityParseContext prefab_ctx(ctx, delta_transform);
-            prefab_ctx.parsing_prefab = true;
-            if (!parseScene(prefab_src, prefab_ctx))
-              continue;
+            int rand_idx = rand();
+            if (rand_idx % 3 == 0) { //instantiate without being an entity
 
-            assert(!prefab_ctx.entities_loaded.empty());
-
-            // Create a new fresh entity
-            h_e = prefab_ctx.entities_loaded[0];
-
-            // Cast to entity object
-            CEntity* e = h_e;
-
-            // We give an option to 'reload' the prefab by modifying existing components, 
-            // like changing the name, add other components, etc, but we don't want to parse again 
-            // the comp_transform, because it was already parsed as part of the root
-            // As the json is const as it's a resouce, we make a copy of the prefab section and
-            // remove the transform
-            json j_entity_without_transform = j_entity;
-            j_entity_without_transform.erase("transform");
-
-            // Do the parse now outside the 'prefab' context
-            prefab_ctx.parsing_prefab = false;
-            e->load(j_entity_without_transform, prefab_ctx);
-
-            int idx = rand() % prefabs.size();
-            CHandle prefab = prefabs[idx];
-            CEntity* ep = prefab;
-            assert(e);
-
-            TCompRender* c_render = e->get<TCompRender>();
-            CHandle h(c_render);
-            h.destroy();
-
-            TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
-            CHandle h2(c_absaabb);
-            h2.destroy();
-
-            //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
-            TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
-            if (c_di) {
-              c_di->set_idx(mod->getObjSize());
+              //ADD DATA TO MODULE GPU CULLING
+              int idx = rand() % prefabs.size();
+              CHandle prefab = prefabs[idx];
+              CEntity* ep = prefab;
+              assert(ep);
+              addPrefabToModule(ep, j_entity["transform"]);
             }
+            else { //create it as an entity so we can hit it
+              // Parse the prefab, if any other child is created they will inherit our ctx transform
+              TEntityParseContext prefab_ctx(ctx, delta_transform);
+              prefab_ctx.parsing_prefab = true;
+              if (!parseScene(prefab_src, prefab_ctx))
+                continue;
 
-            //ADD DATA TO MODULE GPU CULLING
-            addPrefabToModule(ep, j_entity["transform"]);
-            ctx.entities_loaded.push_back(h_e);
+              assert(!prefab_ctx.entities_loaded.empty());
+
+              // Create a new fresh entity
+              h_e = prefab_ctx.entities_loaded[0];
+
+              // Cast to entity object
+              CEntity* e = h_e;
+
+              // We give an option to 'reload' the prefab by modifying existing components, 
+              // like changing the name, add other components, etc, but we don't want to parse again 
+              // the comp_transform, because it was already parsed as part of the root
+              // As the json is const as it's a resouce, we make a copy of the prefab section and
+              // remove the transform
+              json j_entity_without_transform = j_entity;
+              j_entity_without_transform.erase("transform");
+
+              // Do the parse now outside the 'prefab' context
+              prefab_ctx.parsing_prefab = false;
+              e->load(j_entity_without_transform, prefab_ctx);
+
+              int idx = rand() % prefabs.size();
+              CHandle prefab = prefabs[idx];
+              CEntity* ep = prefab;
+              assert(e);
+
+              TCompRender* c_render = e->get<TCompRender>();
+              CHandle h(c_render);
+              h.destroy();
+
+              TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
+              CHandle h2(c_absaabb);
+              h2.destroy();
+
+              //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
+              TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
+              if (c_di) {
+                c_di->set_idx(mod->getObjSize());
+              }
+
+              //ADD DATA TO MODULE GPU CULLING
+              addPrefabToModule(ep, j_entity["transform"]);
+              ctx.entities_loaded.push_back(h_e);
+            }
           }
         }
       }
@@ -191,7 +203,6 @@ struct TSampleDataGenerator {
       CHandle h(c_render);
       h.destroy();
 
-      //JOHN HERE IS ALSO THE PROBLEM
       TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
       CHandle h2(c_absaabb);
       h2.destroy();
@@ -456,24 +467,24 @@ void CModuleGPUCulling::parseEntities(const std::string& filename, TEntityParseC
 }
 
 void CModuleGPUCulling::parseProducts(const std::string& filename, TEntityParseContext& ctx) {
-  #ifndef NDEBUG
+  /*#ifndef NDEBUG
     return;
-  #endif
+  #endif*/
   sample_data.createProducts(filename, ctx);
 }
 
 void CModuleGPUCulling::createPrefabProducts() {
-  #ifndef NDEBUG
+  /*#ifndef NDEBUG
     return;
-  #endif
+  #endif*/
   json j = loadJson("data/gpu_culling.json");
   sample_data.createProductPrefabs(j["sample_data"]);
 }
 
 void CModuleGPUCulling::clear() {
-  #ifndef NDEBUG
+  /*#ifndef NDEBUG
     return;
-  #endif
+  #endif*/
   sample_data.deleteProductPrefabs();
 }
 
@@ -486,7 +497,6 @@ void CModuleGPUCulling::deleteScene(const std::string& filename) {
 
     //for the CPU / update / collision
     //CTagsManager::get().registerTagName(tag_id, filename.c_str());
-
     getObjectManager<TCompTags>()->forEach([tag_id](TCompTags* t) {
       if (t->hasTag(tag_id)) {
         //add a self_destroy component
@@ -549,8 +559,11 @@ void CModuleGPUCulling::deleteActualProducts() {
 
   //for the CPU / update / collision
   getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
-    TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
-    c_sd->enable();
+    TCompName* c_name = di->get<TCompName>();
+    if (c_name->getName().c_str().find("line") != std::string::npos) {
+      TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
+      c_sd->enable();
+    }
   });
 
 
@@ -835,6 +848,8 @@ void CModuleGPUCulling::updateCullingPlanes(const CCamera& camera) {
 void CModuleGPUCulling::renderInMenu() {
   if (ImGui::TreeNode("GPU Culling")) {
     ImGui::Text("%ld objects", (uint32_t)objs.size());
+    ImGui::Text("from %ld to %ld products: %ld", first_prod_index, last_prod_index, last_prod_index - first_prod_index);
+    ImGui::Text("from %ld to %ld panaderia objects: %ld", first_panaderia_index, last_panaderia_index, last_panaderia_index - first_panaderia_index);
     ImGui::Checkbox("Show Debug", &show_debug);
 
     if (ImGui::TreeNode("All objs...")) {

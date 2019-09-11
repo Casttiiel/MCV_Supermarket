@@ -201,7 +201,6 @@ function script_ice_1_player()
 	execDelayedAction("on_lock_camera3(false)",0);
 	execDelayedAction("on_blending_camera(\"CameraPanel001\", 5,\"Quadin\")",0);
 	execDelayedAction("on_GPUdeleteScene(\"data/scenes/mapa_panaderia.json\")",3);
-	execDelayedAction("on_load_gpu_scene(\"data/scenes/mapa_asiatica.json\")",5.0);
 	--execDelayedAction("on_load_gpu_products(\"data/scenes/mapa_asiatica.json\")",8.0);
 	execDelayedAction("on_blending_camera(\"CameraPanel002\", 5,\"Quadin\")",6);	
     execDelayedAction("destroy_and_wake_up(\"golem2\",\"Box007\", 20)",15); 
