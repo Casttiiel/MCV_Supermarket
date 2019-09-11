@@ -100,6 +100,7 @@ void CModuleScripting::doBingings() {
 	BindGolem();
 	BindEnemySpawnerSpecial();
 	BindEnemySpawner();
+	
 }
 
 
@@ -161,6 +162,8 @@ void CModuleScripting::BindGameController() {
 		.set("deleteGolem", &CModuleGameController::deleteGolem)
 		.set("setLifeEnemy", &CModuleGameController::setLifeEnemy)
 		.set("setLifeEnemiesByTag", &CModuleGameController::setLifeEnemiesByTag)
+		.set("changeGameState", &CModuleGameController::changeGameState)
+		
 		;
 }
 

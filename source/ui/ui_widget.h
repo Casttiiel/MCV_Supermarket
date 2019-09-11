@@ -43,7 +43,8 @@ namespace UI
 
 	MAT44 getAbsolute() { return _absolute; };
 
-	void childAppears(bool getFromChildren, float initial_time, float lerp_time);
+	void childAppears(bool getFromChildren, bool darkalfa, float initial_time, float lerp_time);
+	
 
   protected:
     void computePivot();

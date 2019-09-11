@@ -645,6 +645,7 @@ end
 
 --Mapa Tutorial panaderia
 
+
 function activarSalidaPanaderia()
 
 	GameController:resetCamera();
@@ -712,6 +713,11 @@ end
 --Prueba carga de escena desde trigger, de momento carga NAVMESH
 function changeScene(name)
 	GameController:loadScene(name);
+end
+
+
+function changeGameState(name)
+	GameController:changeGameState(name)
 end
 
 

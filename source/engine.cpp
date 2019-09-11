@@ -30,6 +30,7 @@
 #include "modules/game/module_game_paused.h"
 #include "modules/game/module_game_ui.h"
 #include "modules/game/module_game_manager.h"
+#include "modules/game/module_game_loading.h"
 #include "modules/module_boot.h"
 
 #include "input/devices/device_keyboard.h"
@@ -86,6 +87,7 @@ void CEngine::start()
   _audioManager = new CModuleAudio("audio_manager");
   _scripting = new CModuleScripting("scripting");
   _fluidDecals = new CModuleFluidDecalGenerator("fluid_decals");
+  _boot = new CModuleBoot("boot");
   _navmesh = new CModuleNavmesh("navmesh");
   _sceneManager = new CModuleSceneManager("scene_manager");
 
@@ -117,7 +119,7 @@ void CEngine::start()
 	_modules.registerSystemModule(_sceneManager);
   }
 
-  _modules.registerGameModule(new CModuleBoot("boot"));
+  _modules.registerGameModule(_boot);
   _modules.registerGameModule(new CModuleSplash("splash"));
   _modules.registerGameModule(new CModuleGameManager("game_manager"));
   _modules.registerGameModule(new CModuleMainMenu("main_menu"));
@@ -127,6 +129,7 @@ void CEngine::start()
   _modules.registerGameModule(new CModuleCameraShaker("camera_shaker"));
   _modules.registerGameModule(new CModuleGamePaused("pause_menu"));
   _modules.registerGameModule(new CModuleGameUI("game_ui"));
+  _modules.registerGameModule(new CModuleGameLoading("loading"));
   _modules.registerGameModule(_fluidDecals);
 
   _modules.start();

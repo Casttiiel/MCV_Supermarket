@@ -2,7 +2,7 @@
 #include "module_boot.h"
 #include "engine.h"
 #include "entity/entity_parser.h"
-
+#include "ui/module_ui.h"
 CModuleBoot::CModuleBoot(const std::string& name)
   : IModule(name)
 {}
@@ -10,6 +10,7 @@ CModuleBoot::CModuleBoot(const std::string& name)
 bool CModuleBoot::start()
 {
 	
+
   json json = loadJson("data/boot.json");
   auto prefabs = json["scenes_to_load"].get< std::vector< std::string > >();
   CEngine::get().getGPUCulling().createPrefabProducts();
@@ -56,8 +57,8 @@ bool CModuleBoot::start()
 
   Time.loadedFrame();
 
+  isLoadAll = true;
+
   return true;
 }
-
-
 

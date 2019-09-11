@@ -123,7 +123,7 @@ namespace UI
     _parent = nullptr;
   }
 
-  void CWidget::childAppears(bool getFromChildren, float initial_time, float lerp_time) {
+  void CWidget::childAppears(bool getFromChildren,bool alfaPos,float initial_time, float lerp_time) {
 
 	  if (this == nullptr) {
 		  return;
@@ -135,14 +135,19 @@ namespace UI
 	  for (int i = 0; i < _childrens.size(); i++) {
 		  TImageParams* img = _childrens[i]->getImageParams();
 		  if (img != nullptr) {
-			  img->color.w = 0.0f;
-			  CEngine::get().getUI().lerp(&img->color.w, 1.0f,  initial_time,  lerp_time);
-			  //EngineLerp.lerpElement(&img->color.w, 1.0f, time_to_lerp, time_to_start);
-			  //_childrens[i]->getImageParams()->color.w = 0.9;
-			
+			  if (alfaPos) {
+				  img->color.w = 0.0f;
+				  CEngine::get().getUI().lerp(&img->color.w, 1.0f, initial_time, lerp_time);
+			  }
+			  else {
+				  img->color.w = 1.0f;
+				  CEngine::get().getUI().lerp(&img->color.w, 0.0f, initial_time, lerp_time);
+			  }
 		  }
 	  }
   }
+
+
 
 
 }

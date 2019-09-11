@@ -251,6 +251,9 @@ public:
 	void deleteGolem(std::string name);
 	void setLifeEnemy(CHandle h, int typeEnemy, float life);
 	void setLifeEnemiesByTag(const char* tagName, float life);
+
+	void changeGameState(std::string name);
+
 };
 
 

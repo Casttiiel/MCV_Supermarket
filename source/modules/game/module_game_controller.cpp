@@ -834,7 +834,6 @@ void CModuleGameController::inCinematicSpecial(bool active, int type) {
 
 
 
-
 void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 	CHandle e_golem = getEntityByName(name);
 	CHandle e_player = getEntityByName("Player");
@@ -849,6 +848,11 @@ void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 		e_golem.sendMsg(msgOnCinematic);
 	}
 }
+
+void CModuleGameController::changeGameState(std::string name) {
+	CEngine::get().getModules().changeToGamestate(name);
+}
+
 
 void CModuleGameController::setLifeEnemy(CHandle h,int typeEnemy,float life) {
 	CEntity* e_enemy = (CEntity*)h;

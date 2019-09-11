@@ -25,6 +25,7 @@ namespace UI
 
   void CModuleUI::update(float dt)
   {
+	  
     for (auto controller : _activeControllers)
     {
       controller->update(dt);
@@ -82,11 +83,17 @@ namespace UI
 	  /*MENU PRINCIPAL*/
 
 	  auto mpNewGame = []() {//nuevo juego
-		  CEngine::get().getModules().changeToGamestate("gs_gameplay");
+		  //CEngine::get().getModules().changeToGamestate("gs_gameplay");
+		  
+		  UI::CModuleUI& ui = Engine.getUI();
+		  CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
+		  //ejecutar dede LUA el gs_loading
+		  Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);
+		  //CEngine::get().getModules().changeToGamestate("gs_loading");
 	  };
 
 	  auto mpCredits = []() {
-		  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true,0,1);
+		  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true,true,0.0,1.0);
 	  };
 
 
@@ -106,7 +113,12 @@ namespace UI
 
 	  //GAMEPLAY SIN CARRITO
 	  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
+	  //PANTALLA EN NEGRO
 	  registerWidgetClass("BLACK_SCREEN", "data/ui//widgets/black_background.json", nullptr);
+	  //PANTALLA DE CARGA
+	  registerWidgetClass("LOAD_SCREEN", "data/ui/widgets/load_background.json", nullptr);
+
+	  
   }
 
 
