@@ -49,13 +49,13 @@ namespace UI
 
 	struct WidgetToLerp {
 
-		float *element_to_lerp;
-		float max_element_to_lerp;
-		float value_to_lerp;
-		float time_to_start_lerping = 0.0;
-		float time_to_end_lerp;
-		float current_time = 0.0;
-		bool first_frame = true;
+		float *element;
+		float maxElement;
+		float value;
+		float initialTime = 0.0;
+		float lerpTime;
+		float currentTime = 0.0;
+		bool isFirstFrame = true;
 	};
 
 	std::vector<WidgetToLerp>widgetsToLerp;

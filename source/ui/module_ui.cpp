@@ -40,19 +40,19 @@ namespace UI
 		
 		std::vector<WidgetToLerp>::iterator it = widgetsToLerp.begin();
 		while (it != widgetsToLerp.end()) {
-			if ((*it).current_time >= (*it).time_to_start_lerping) {
-				if ((*it).first_frame) {
-					(*it).max_element_to_lerp = *(*it).element_to_lerp;
-					(*it).first_frame = false;
+			if ((*it).currentTime >= (*it).initialTime) {
+				if ((*it).isFirstFrame) {
+					(*it).maxElement = *(*it).element;
+					(*it).isFirstFrame = false;
 				}
-				float diff = (*it).value_to_lerp - (*it).max_element_to_lerp;
-				float percentage = clamp(((((*it).current_time - (*it).time_to_start_lerping)) / (*it).time_to_end_lerp), 0.0f, 1.0f);
-				*(*it).element_to_lerp = (*it).max_element_to_lerp + (diff * percentage);
+				float diff = (*it).value - (*it).maxElement;
+				float percentage = clamp(((((*it).currentTime - (*it).initialTime)) / (*it).lerpTime), 0.0f, 1.0f);
+				*(*it).element = (*it).maxElement + (diff * percentage);
 			}
-			(*it).current_time += dt;
+			(*it).currentTime += dt;
 
-			if (((*it).current_time - (*it).time_to_start_lerping) >= (*it).time_to_end_lerp) {
-				*(*it).element_to_lerp = (*it).value_to_lerp;
+			if (((*it).currentTime - (*it).initialTime) >= (*it).lerpTime) {
+				*(*it).element <= (*it).value;
 				it = widgetsToLerp.erase(it);
 			}
 			else {
@@ -248,12 +248,12 @@ namespace UI
 
   void CModuleUI::lerp(float *init_value, float value_to_lerp, float initial_time, float lerp_time) {
 	  WidgetToLerp windgetToLerp;
-	  windgetToLerp.element_to_lerp = init_value;
-	  windgetToLerp.max_element_to_lerp = *init_value;
-	  windgetToLerp.value_to_lerp = value_to_lerp;
-	  windgetToLerp.current_time = 0.0f;
-	  windgetToLerp.time_to_end_lerp = lerp_time;
-	  windgetToLerp.time_to_start_lerping = initial_time;
+	  windgetToLerp.element = init_value;
+	  windgetToLerp.maxElement = *init_value;
+	  windgetToLerp.value = value_to_lerp;
+	  windgetToLerp.initialTime = initial_time;
+	  windgetToLerp.currentTime = 0.0f;
+	  windgetToLerp.lerpTime = lerp_time;
 	  widgetsToLerp.push_back(windgetToLerp);
   }
 
