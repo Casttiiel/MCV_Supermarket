@@ -87,6 +87,7 @@ namespace UI
 		  
 		  UI::CModuleUI& ui = Engine.getUI();
 		  CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
+		  //CEngine::get().getUI().activateWidgetClass("LOAD_SPRITE")->childAppears(true, true, 0.0, 1);
 		  //ejecutar dede LUA el gs_loading
 		  Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);
 		  //CEngine::get().getModules().changeToGamestate("gs_loading");
@@ -94,6 +95,7 @@ namespace UI
 
 	  auto mpCredits = []() {
 		  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true,true,0.0,1.0);
+		  CEngine::get().getUI().activateWidgetClass("LOAD_SPRITE")->childAppears(true, true, 0.0, 1.0);
 	  };
 
 
@@ -117,8 +119,8 @@ namespace UI
 	  registerWidgetClass("BLACK_SCREEN", "data/ui//widgets/black_background.json", nullptr);
 	  //PANTALLA DE CARGA
 	  registerWidgetClass("LOAD_SCREEN", "data/ui/widgets/load_background.json", nullptr);
-
-	  
+	  //SPRITE
+	  registerWidgetClass("LOAD_SPRITE", "data/ui/widgets/loading_sprite.json", nullptr);
   }
 
 
