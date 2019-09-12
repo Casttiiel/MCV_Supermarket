@@ -73,6 +73,7 @@ void TCompWindTrap::onBattery(const TMsgGravity & msg) {
 }
 
 void TCompWindTrap::update(float dt) {
+  return;
   if (!player.isValid()) {
     player = getEntityByName("Player");
     return;

@@ -109,7 +109,7 @@ struct TSampleDataGenerator {
               delta_transform.load(j_entity["transform"]);
 
             int rand_idx = rand();
-            if (rand_idx % 3 == 0) { //instantiate without being an entity
+            if (rand_idx % 3 == 0 || last_prod_index - first_prod_index > 2000) { //instantiate without being an entity
 
               //ADD DATA TO MODULE GPU CULLING
               int idx = rand() % prefabs.size();
@@ -560,7 +560,8 @@ void CModuleGPUCulling::deleteActualProducts() {
   //for the CPU / update / collision
   getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
     TCompName* c_name = di->get<TCompName>();
-    if (c_name->getName().c_str().find("line") != std::string::npos) {
+    std::string str = c_name->getName();
+    if (str.compare("line") != -1) {
       TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
       c_sd->enable();
     }
