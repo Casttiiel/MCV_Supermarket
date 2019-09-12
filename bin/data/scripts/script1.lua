@@ -665,6 +665,7 @@ function cinematica_tower()
 	handleCamera = GameController:entityByName("CameraTower");
 	handlePlayer = GameController:getPlayerHandle();
 	GameController:resetCamera();
+	GameController:deleteProducts();
 	
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraTower\", 7,\"Cubicinout\")",0.0);

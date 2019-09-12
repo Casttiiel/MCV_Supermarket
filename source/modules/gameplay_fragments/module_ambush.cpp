@@ -55,6 +55,8 @@ void CModuleAmbush::firstEvent() {
 void CModuleAmbush::secondEvent() {
 	Scripting.execActionDelayed("defrost2()", 0.0); 
 	Scripting.execActionDelayed("on_ambush()", 0.0); 
+  Scripting.execActionDelayed("on_GPUdeleteScene(\"data/scenes/mapa_congelados.json\")", 0.0);
+  Scripting.execActionDelayed("on_load_gpu_scene(\"data/scenes/mapa_carnes.json\")", 3.0);
 	//descongelar suishis finales
   //CONGELAR ENEMIGOS Y PLAYER
   //CINEMATICA

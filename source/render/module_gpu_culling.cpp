@@ -109,13 +109,14 @@ struct TSampleDataGenerator {
               delta_transform.load(j_entity["transform"]);
 
             int rand_idx = rand();
-            if (rand_idx % 3 == 0 || last_prod_index - first_prod_index > 2000) { //instantiate without being an entity
+            if (rand_idx % 3 == 0 || mod->last_prod_index - mod->first_prod_index > 2000) { //instantiate without being an entity
 
               //ADD DATA TO MODULE GPU CULLING
               int idx = rand() % prefabs.size();
               CHandle prefab = prefabs[idx];
               CEntity* ep = prefab;
               assert(ep);
+              mod->getObjSize(); // so we increase the variables that hold the limits containing the number of products
               addPrefabToModule(ep, j_entity["transform"]);
             }
             else { //create it as an entity so we can hit it
@@ -209,7 +210,7 @@ struct TSampleDataGenerator {
 
       //h_prefab.second.destroy(); //probably not destroy, just remove render and AABB components so we mantain the collider
     }
-    scene_prefabs.clear();
+    //scene_prefabs.clear();
 
   }
 
@@ -561,12 +562,11 @@ void CModuleGPUCulling::deleteActualProducts() {
   getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
     TCompName* c_name = di->get<TCompName>();
     std::string str = c_name->getName();
-    if (str.compare("line") != -1) {
+    if (str.find("line")!= std::string::npos) {
       TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
       c_sd->enable();
     }
   });
-
 
   is_dirty = true;
 
