@@ -19,6 +19,8 @@
 #include "entity/entity_parser.h"
 #include "render/compute/compute_shader.h"
 #include "utils/json_resource.h"
+#include "components/ai/others/self_destroy.h"
+#include "components/common/comp_tags.h"
 
 AABB getRotatedBy(AABB src, const MAT44 &model);
 
@@ -41,10 +43,10 @@ struct TSampleDataGenerator {
     pmin = VEC3(-radius, 0.f, -radius);
     pmax = VEC3(radius, 1.0f, radius);
     num_instances = j.value("num_instances", num_instances);
-
+    /*
     #ifndef NDEBUG
         return;
-    #endif
+    #endif*/
 
     std::vector< std::string > prefab_names = j["prefabs"].get< std::vector< std::string > >();
     for (auto& prefab_name : prefab_names) {
@@ -98,62 +100,75 @@ struct TSampleDataGenerator {
           //this prefab is a product on a shelve, so we will load it only on RELEASE because performance issues
           std::size_t found = prefab_src.find("/products/");
           if (found != std::string::npos) {
-            #ifndef NDEBUG
+            /*#ifndef NDEBUG
               continue;
-            #endif
+            #endif*/
             // Get delta transform where we should instantiate this transform
             CTransform delta_transform;
             if (j_entity.count("transform"))
               delta_transform.load(j_entity["transform"]);
 
-            // Parse the prefab, if any other child is created they will inherit our ctx transform
-            TEntityParseContext prefab_ctx(ctx, delta_transform);
-            prefab_ctx.parsing_prefab = true;
-            if (!parseScene(prefab_src, prefab_ctx))
-              continue;
+            int rand_idx = rand();
+            if (rand_idx % 3 == 0 || mod->last_prod_index - mod->first_prod_index > 3000) { //instantiate without being an entity
 
-            assert(!prefab_ctx.entities_loaded.empty());
-
-            // Create a new fresh entity
-            h_e = prefab_ctx.entities_loaded[0];
-
-            // Cast to entity object
-            CEntity* e = h_e;
-
-            // We give an option to 'reload' the prefab by modifying existing components, 
-            // like changing the name, add other components, etc, but we don't want to parse again 
-            // the comp_transform, because it was already parsed as part of the root
-            // As the json is const as it's a resouce, we make a copy of the prefab section and
-            // remove the transform
-            json j_entity_without_transform = j_entity;
-            j_entity_without_transform.erase("transform");
-
-            // Do the parse now outside the 'prefab' context
-            prefab_ctx.parsing_prefab = false;
-            e->load(j_entity_without_transform, prefab_ctx);
-
-            int idx = rand() % prefabs.size();
-            CHandle prefab = prefabs[idx];
-            CEntity* ep = prefab;
-            assert(e);
-
-            TCompRender* c_render = e->get<TCompRender>();
-            CHandle h(c_render);
-            h.destroy();
-
-            TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
-            CHandle h2(c_absaabb);
-            h2.destroy();
-
-            //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
-            TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
-            if (c_di) {
-              c_di->set_idx(mod->getObjSize());
+              //ADD DATA TO MODULE GPU CULLING
+              int idx = rand() % prefabs.size();
+              CHandle prefab = prefabs[idx];
+              CEntity* ep = prefab;
+              assert(ep);
+              mod->getObjSize(); // so we increase the variables that hold the limits containing the number of products
+              addPrefabToModule(ep, j_entity["transform"]);
             }
+            else { //create it as an entity so we can hit it
+              // Parse the prefab, if any other child is created they will inherit our ctx transform
+              TEntityParseContext prefab_ctx(ctx, delta_transform);
+              prefab_ctx.parsing_prefab = true;
+              if (!parseScene(prefab_src, prefab_ctx))
+                continue;
 
-            //ADD DATA TO MODULE GPU CULLING
-            addPrefabToModule(ep, j_entity["transform"]);
-            ctx.entities_loaded.push_back(h_e);
+              assert(!prefab_ctx.entities_loaded.empty());
+
+              // Create a new fresh entity
+              h_e = prefab_ctx.entities_loaded[0];
+
+              // Cast to entity object
+              CEntity* e = h_e;
+
+              // We give an option to 'reload' the prefab by modifying existing components, 
+              // like changing the name, add other components, etc, but we don't want to parse again 
+              // the comp_transform, because it was already parsed as part of the root
+              // As the json is const as it's a resouce, we make a copy of the prefab section and
+              // remove the transform
+              json j_entity_without_transform = j_entity;
+              j_entity_without_transform.erase("transform");
+
+              // Do the parse now outside the 'prefab' context
+              prefab_ctx.parsing_prefab = false;
+              e->load(j_entity_without_transform, prefab_ctx);
+
+              int idx = rand() % prefabs.size();
+              CHandle prefab = prefabs[idx];
+              CEntity* ep = prefab;
+              assert(e);
+
+              TCompRender* c_render = e->get<TCompRender>();
+              CHandle h(c_render);
+              h.destroy();
+
+              TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
+              CHandle h2(c_absaabb);
+              h2.destroy();
+
+              //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
+              TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
+              if (c_di) {
+                c_di->set_idx(mod->getObjSize());
+              }
+
+              //ADD DATA TO MODULE GPU CULLING
+              addPrefabToModule(ep, j_entity["transform"]);
+              ctx.entities_loaded.push_back(h_e);
+            }
           }
         }
       }
@@ -189,19 +204,20 @@ struct TSampleDataGenerator {
       CHandle h(c_render);
       h.destroy();
 
-      //JOHN HERE IS ALSO THE PROBLEM
       TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
       CHandle h2(c_absaabb);
       h2.destroy();
 
       //h_prefab.second.destroy(); //probably not destroy, just remove render and AABB components so we mantain the collider
     }
-    scene_prefabs.clear();
+    //scene_prefabs.clear();
 
   }
 
   void create(const std::string& filename, TEntityParseContext& ctx) {
     ctx.filename = filename;
+    uint32_t tag_id = getID(filename.c_str());
+    CTagsManager::get().registerTagName(tag_id, filename.c_str());
 
     const json& j_scene = Resources.get(filename)->as<CJson>()->getJson();
     assert(j_scene.is_array());
@@ -310,13 +326,8 @@ struct TSampleDataGenerator {
 
             scene_prefabs.insert(std::pair<const std::string, CHandle>(temp_prefab_name, h_e));
 
-            //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
-            TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
-            if (c_di) {
-              c_di->set_idx(mod->getObjSize());
-            }
-
             //ADD DATA TO MODULE GPU CULLING
+            mod->setupMapIndexes(filename);
             addPrefabToModule(h_e, j_transform);
           }
           else { //ALREADY PARSED GPU PREFAB
@@ -328,20 +339,14 @@ struct TSampleDataGenerator {
             CHandle h(c_render);
             h.destroy();
 
-            //JOHN HERE IS THE PROBLEM
             TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
             CHandle h2(c_absaabb);
             h2.destroy();
             TCompName* n = e->get<TCompName>();
             std::string a = n->getName();
 
-            //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
-            TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
-            if (c_di) {
-              c_di->set_idx(mod->getObjSize());
-            }
-
             //ADD DATA TO MODULE GPU CULLING
+            mod->setupMapIndexes(filename);
             addPrefabToModule(scene_prefabs.at(temp_prefab_name), j_transform);
           }
         }
@@ -362,16 +367,36 @@ struct TSampleDataGenerator {
       e_root_of_group->set(h_group.getType(), h_group);
       // Now add the rest of entities created to the group, starting at 1 because 0 is the head
       TCompGroup* c_group = h_group;
-      for (size_t i = 1; i < ctx.entities_loaded.size(); ++i)
+      
+      //also put a tag on it so we know from which map it is
+      TCompTags* e_tag = e_root_of_group->get<TCompTags>();
+      if (!e_tag) {
+        CHandle h_tag = getObjectManager<TCompTags>()->createHandle();
+        if (h_tag.isValid()) {
+          e_root_of_group->set(h_tag.getType(), h_tag);
+          TCompTags* c_tag = h_tag;
+          c_tag->addTag(tag_id);
+        }
+      }
+      else {
+        e_tag->addTag(tag_id);
+      }
+
+      for (size_t i = 1; i < ctx.entities_loaded.size(); ++i) {
+        CEntity* e = ctx.entities_loaded[i];
+        TCompName* c_name = e->get<TCompName>();
+        if (strcmp(c_name->getName(), "Player") == 0)
+          continue;
         c_group->add(ctx.entities_loaded[i]);
+      }
     }
 
     // Notify each entity created that we have finished
     // processing this file
     TMsgEntitiesGroupCreated msg = { ctx };
-    for (auto h : ctx.entities_loaded)
+    for (auto h : ctx.entities_loaded) {
       h.sendMsg(msg);
-
+    }
 
     //REMOVE PREFABS FROM SCENE, THE MODULE WILL RENDER THEM
     for (auto h_prefab : scene_prefabs) {
@@ -414,44 +439,165 @@ struct TSampleDataGenerator {
 
 TSampleDataGenerator sample_data;
 
+void CModuleGPUCulling::setupMapIndexes(const std::string& filename) {
+  if (strcmp(filename.c_str(),"data/scenes/mapa_panaderia.json") == 0) {
+    int val = objs.size();
+    if (first_panaderia_index > val)
+      first_panaderia_index = val;
+    if (last_panaderia_index < val)
+      last_panaderia_index = val;
+  }
+  else if (strcmp(filename .c_str(),"data/scenes/mapa_congelados.json") == 0) {
+    int val = objs.size();
+    if (first_congelados_index > val)
+      first_congelados_index = val;
+    if (last_congelados_index < val)
+      last_congelados_index = val;
+  }
+  else if (strcmp(filename.c_str(),"data/scenes/mapa_asiatica.json") == 0) {
+    int val = objs.size();
+    if (first_asiatica_index > val)
+      first_asiatica_index = val;
+    if (last_asiatica_index < val)
+      last_asiatica_index = val;
+  }
+  else if (strcmp(filename.c_str(), "data/scenes/mapa_carnes.json") == 0) {
+    int val = objs.size();
+    if (first_carnes_index > val)
+      first_carnes_index = val;
+    if (last_carnes_index < val)
+      last_carnes_index = val;
+  }
+}
+
 void CModuleGPUCulling::parseEntities(const std::string& filename, TEntityParseContext& ctx) {
   sample_data.create(filename, ctx);
 }
 
 void CModuleGPUCulling::parseProducts(const std::string& filename, TEntityParseContext& ctx) {
+  /*#ifndef NDEBUG
+    return;
+  #endif*/
   sample_data.createProducts(filename, ctx);
 }
 
 void CModuleGPUCulling::createPrefabProducts() {
-  #ifndef NDEBUG
+  /*#ifndef NDEBUG
     return;
-  #endif
+  #endif*/
   json j = loadJson("data/gpu_culling.json");
   sample_data.createProductPrefabs(j["sample_data"]);
 }
 
 void CModuleGPUCulling::clear() {
-  #ifndef NDEBUG
+  /*#ifndef NDEBUG
     return;
-  #endif
+  #endif*/
   sample_data.deleteProductPrefabs();
 }
 
+void CModuleGPUCulling::deleteScene(const std::string& filename) {
+  if (strcmp(filename.c_str(), "data/scenes/mapa_panaderia.json") == 0) {
+    uint32_t tag_id = getID("data/scenes/mapa_panaderia.json");
+
+    //for the GPU / render
+    objs.erase(objs.begin() + first_panaderia_index, objs.begin() + last_panaderia_index + 1);
+
+    //for the CPU / update / collision
+    //CTagsManager::get().registerTagName(tag_id, filename.c_str());
+    getObjectManager<TCompTags>()->forEach([tag_id](TCompTags* t) {
+      if (t->hasTag(tag_id)) {
+        //add a self_destroy component
+        CHandle h_del = getObjectManager<TCompSelfDestroy>()->createHandle();
+        CHandle h_t = t;
+        CEntity* e = h_t.getOwner();
+        e->set(h_del.getType(), h_del);
+        TCompSelfDestroy* c_self = h_del;
+        c_self->enable();
+      }
+    });
+
+    //correr los indices de la siguiente zona
+    int deletionLength = (last_panaderia_index - first_panaderia_index) + 1;
+
+    first_congelados_index -= deletionLength;
+    last_congelados_index -= deletionLength;
+
+    is_dirty = true;
+
+    first_panaderia_index = 5000;
+    last_panaderia_index = -1;
+
+    //this will make the game to not update
+    Time.actual_frame = 0;
+  }
+  else if (strcmp(filename.c_str(), "data/scenes/mapa_congelados.json") == 0) {
+    uint32_t tag_id = getID("data/scenes/mapa_congelados.json");
+
+    //for the GPU / render
+    objs.erase(objs.begin() + first_congelados_index, objs.begin() + last_congelados_index + 1);
+
+    //for the CPU / update / collision
+    getObjectManager<TCompTags>()->forEach([tag_id](TCompTags* t) {
+      if (t->hasTag(tag_id)) {
+        //add a self_destroy component
+        CHandle h_del = getObjectManager<TCompSelfDestroy>()->createHandle();
+        CHandle h_t = t;
+        CEntity* e = h_t.getOwner();
+        TCompSelfDestroy* e_sd = e->get<TCompSelfDestroy>();
+        if (e_sd) {
+          e_sd->enable();
+        }
+        else {
+          e->set(h_del.getType(), h_del);
+          TCompSelfDestroy* c_self = h_del;
+          c_self->enable();
+        }        
+      }
+     });
+
+    is_dirty = true;
+
+    int deletionLength = (last_congelados_index - first_congelados_index) + 1;
+    /*if (first_prod_index != 5000 && last_prod_index != -1)
+      deletionLength += last_prod_index - first_prod_index;*/
+    first_asiatica_index -= deletionLength;
+    last_asiatica_index -= deletionLength;
+    first_prod_index -= deletionLength;
+    last_prod_index -= deletionLength;
+
+    first_congelados_index = 5000;
+    last_congelados_index = -1;
+
+    //this will make the game to not update
+    Time.actual_frame = 0;
+  }
+}
+
 void CModuleGPUCulling::deleteActualProducts() {
-  //for the CPU / update / collision
-  getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
-    // remove it
-    CHandle h(di);
-    CHandle owner = h.getOwner();
-    owner.destroy();
-  });
+  if (first_prod_index == 5000 && last_prod_index == -1)
+    return;
 
   //for the GPU / render
   objs.erase(objs.begin() + first_prod_index, objs.begin() + last_prod_index + 1);
 
+  //for the CPU / update / collision
+  getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
+    TCompName* c_name = di->get<TCompName>();
+    std::string str = c_name->getName();
+    if (str.find("line")!= std::string::npos) {
+      TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
+      c_sd->enable();
+    }
+  });
+
   is_dirty = true;
 
-  first_prod_index = 50000;
+  int deletionLength = (last_prod_index - first_prod_index) + 1;
+  first_congelados_index -= deletionLength;
+  last_congelados_index -= deletionLength;
+
+  first_prod_index = 5000;
   last_prod_index = -1;
 
   //this will make the game to not update
@@ -461,10 +607,12 @@ void CModuleGPUCulling::deleteActualProducts() {
 int CModuleGPUCulling::getObjSize() { 
   //this is called to bind the component to the index of the product 
   int val = objs.size();
+
   if (first_prod_index > val)
     first_prod_index = val;
   if (last_prod_index < val)
     last_prod_index = val;
+
   return val; 
 }
 
@@ -526,6 +674,10 @@ void CModuleGPUCulling::stop() {
 }
 
 void CModuleGPUCulling::updateObjData(int idx, CHandle entity) {
+  if (objs.size() < idx) {
+    return;
+  }
+
   CEntity* e = entity;
   TCompTransform* c_trans = e->get<TCompTransform>();
   objs.at(idx).world = c_trans->asMatrix();
@@ -724,6 +876,11 @@ void CModuleGPUCulling::updateCullingPlanes(const CCamera& camera) {
 void CModuleGPUCulling::renderInMenu() {
   if (ImGui::TreeNode("GPU Culling")) {
     ImGui::Text("%ld objects", (uint32_t)objs.size());
+    ImGui::Text("from %ld to %ld products: %ld", first_prod_index, last_prod_index, last_prod_index - first_prod_index + 1);
+    ImGui::Text("from %ld to %ld panaderia objects: %ld", first_panaderia_index, last_panaderia_index, last_panaderia_index - first_panaderia_index + 1);
+    ImGui::Text("from %ld to %ld congelados objects: %ld", first_congelados_index, last_congelados_index, last_congelados_index - first_congelados_index + 1);
+    ImGui::Text("from %ld to %ld asiatica objects: %ld", first_asiatica_index, last_asiatica_index, last_asiatica_index - first_asiatica_index + 1);
+    ImGui::Text("from %ld to %ld carnes objects: %ld", first_carnes_index, last_carnes_index, last_carnes_index - first_carnes_index + 1);
     ImGui::Checkbox("Show Debug", &show_debug);
 
     if (ImGui::TreeNode("All objs...")) {

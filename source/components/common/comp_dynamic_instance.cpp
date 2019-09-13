@@ -46,17 +46,20 @@ void TCompDynamicInstance::onCreate(const TMsgEntityCreated&) {
 
 void TCompDynamicInstance::update(float delta) {
   TCompCollider* c_collider = (TCompCollider*) h_coll;
-  rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
-  
-  //si no esta en reposo...
-  if (!rigid_dynamic->isSleeping()) {
-    //cojes el modulo de gpu culling y actualizas los datos de este obj (transform y aabb)
-    //assert(my_unique_idx > -1);
-    if (my_unique_idx < 0)
-      return;
+
+  if (c_collider) {
+    rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
+
+    //si no esta en reposo...
+    if (!rigid_dynamic->isSleeping()) {
+      //cojes el modulo de gpu culling y actualizas los datos de este obj (transform y aabb)
+      //assert(my_unique_idx > -1);
+      if (my_unique_idx < 0)
+        return;
       CHandle h(this);
       CEngine::get().getGPUCulling().updateObjData(my_unique_idx, h.getOwner());
       //pones is_dirty = true
       CEngine::get().getGPUCulling().setDirty();
+    }
   }
 }

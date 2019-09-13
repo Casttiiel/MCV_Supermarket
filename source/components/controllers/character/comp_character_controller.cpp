@@ -1352,54 +1352,55 @@ float TCompCharacterController::getMaxMadness() {
 void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, float extraBarSize) {
 
     switch (type) {
-    case PowerUpType::HEALTH_UP:
-    {
-        //dbg("aplica el power up de life \n");
-        maxLife = maxLife + quantity;
-        heal();
-        GameController.increaseHpBarSize(extraBarSize);
-        EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
-        break;
-    }
-    case PowerUpType::MADNESS_UP:
-    {
-        //dbg("aplica el power up de la locura \n");
-        TCompMadnessController* madness = get<TCompMadnessController>();
-        madness->setMaximumMadness(madness->getMaximumMadness() + quantity);
-        restoreMadness();
-        GameController.increaseMadnessBarSize(extraBarSize);
-        EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
-        break;
-    }
-    case PowerUpType::ACTIVATE_BATTERY:
-    {
-        //TODO
-        unLockableBattery = true;
-		//llamada funcion de scripting para poder escapar
-		Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
-        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-        break;
-    }
-    case PowerUpType::ACTIVATE_CHILLI:
-    {
-        //TODO
-		unLockableChilli = true;
-        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-        break;
-    }
-    case PowerUpType::ACTIVATE_COFFEE:
-    {
-        //TODO
-		unLockableCoffe = true;
-        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-        break;
-    }
-    case PowerUpType::ACTIVATE_TELEPORT:
-    {
-		unLockableTeleport = true;
-        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-        break;
-    }
+      case PowerUpType::HEALTH_UP:
+      {
+          //dbg("aplica el power up de life \n");
+          maxLife = maxLife + quantity;
+          heal();
+          GameController.increaseHpBarSize(extraBarSize);
+          EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
+          break;
+      }
+      case PowerUpType::MADNESS_UP:
+      {
+          //dbg("aplica el power up de la locura \n");
+          TCompMadnessController* madness = get<TCompMadnessController>();
+          madness->setMaximumMadness(madness->getMaximumMadness() + quantity);
+          restoreMadness();
+          GameController.increaseMadnessBarSize(extraBarSize);
+          EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
+          break;
+      }
+      case PowerUpType::ACTIVATE_BATTERY:
+      {
+          //TODO
+          unLockableBattery = true;
+		      //llamada funcion de scripting para poder escapar
+		      Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
+          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+          break;
+      }
+      case PowerUpType::ACTIVATE_CHILLI:
+      {
+          //TODO
+		      unLockableChilli = true;
+          GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
+          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+          break;
+      }
+      case PowerUpType::ACTIVATE_COFFEE:
+      {
+          //TODO
+		      unLockableCoffe = true;
+          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+          break;
+      }
+      case PowerUpType::ACTIVATE_TELEPORT:
+      {
+		      unLockableTeleport = true;
+          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+          break;
+      }
     }
 
 }

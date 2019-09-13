@@ -91,8 +91,17 @@ class CModuleGPUCulling : public IModule {
   std::vector< TRenderTypeID >  render_types;
   bool                          is_dirty = false;
   bool                          show_debug = true;
-  int                           first_prod_index = 50000;
-  int                           last_prod_index = -1;
+
+  //for the map
+  int                           first_panaderia_index = 5000;
+  int                           last_panaderia_index = -1;
+  int                           first_congelados_index = 5000;
+  int                           last_congelados_index = -1;
+  int                           first_asiatica_index = 5000;
+  int                           last_asiatica_index = -1;
+  int                           first_carnes_index = 5000;
+  int                           last_carnes_index = -1;
+
 
   CCamera                       culling_camera;
   TCullingPlanes                culling_planes;
@@ -139,11 +148,17 @@ public:
   void updateObjData(int idx, CHandle entity);
   int getObjSize();
   void parseEntities(const std::string& filename, TEntityParseContext& ctx);
+  void deleteScene(const std::string& filename);
   void parseProducts(const std::string& filename, TEntityParseContext& ctx);
+  void setupMapIndexes(const std::string& filename);
   void createPrefabProducts();
   void deleteActualProducts();
   void clear();
 
+
+  //for the products
+  int                           first_prod_index = 5000;
+  int                           last_prod_index = -1;
 };
 
 

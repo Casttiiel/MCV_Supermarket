@@ -166,6 +166,14 @@ function on_blending_camera(name,speed,typeInterpolator)
 	GameController:blendingCamera(name,speed,typeInterpolator)
 end
 
+function on_GPUdeleteScene(name)
+	GameController:GPUdeleteScene(name)
+end
+
+function on_load_gpu_scene(name)
+	GameController:GPUloadScene(name)
+end
+
 function on_lock_camera3(activate)
 	GameController:lockCamera3Person(activate)
 end
@@ -201,6 +209,14 @@ function sethalfConeEnemy(halfCone,handle,type)
 	GameController:setHalfConeEnemyByHandle(halfCone,handle,type)
 end
 
+function on_load_gpu_products(filename)
+	GameController:loadProducts(filename);
+end
+
+function on_delete_gpu_products()
+	GameController:deleteProducts();
+end
+
 function script_ice_1_player()
 	
 	--execDelayedAction("changeScene(\"congelados_scene\")",0)	
@@ -208,7 +224,9 @@ function script_ice_1_player()
 	execDelayedAction("on_cinematic(true)",0);
 	execDelayedAction("on_lock_camera3(false)",0);
 	execDelayedAction("on_blending_camera(\"CameraPanel001\", 5,\"Quadin\")",0);
-	execDelayedAction("on_blending_camera(\"CameraPanel002\", 5,\"Quadin\")",6);
+	execDelayedAction("on_GPUdeleteScene(\"data/scenes/mapa_panaderia.json\")",3);
+	--execDelayedAction("on_load_gpu_products(\"data/scenes/mapa_asiatica.json\")",8.0);
+	execDelayedAction("on_blending_camera(\"CameraPanel002\", 5,\"Quadin\")",6);	
     execDelayedAction("destroy_and_wake_up(\"golem2\",\"Box007\", 20)",15); 
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"Quadin\")",12);
 	execDelayedAction("on_cinematic(false)",16);
@@ -256,6 +274,9 @@ function create_cupcakes_in_frost_player()
 	GameController:setPauseEnemyByHandle(h_cupcake2,false);
 	execDelayedAction("on_delete_handle(\"trigger010\")",0);
 
+	execDelayedAction("on_lock_camera3(false)",0);
+	execDelayedAction("on_delete_gpu_products()",1);
+	execDelayedAction("on_lock_camera3(true)",2);
 end
 
 function wake_up_last_golem_player()
@@ -273,6 +294,7 @@ function in_trap_tube_enemies_player()
 	execDelayedAction("on_cinematic(true)",3);
 	execDelayedAction("on_lock_camera3(false)",3);
 	execDelayedAction("on_blending_camera(\"CameraEnemiesTube\", 5,\"linear\")",3); --poner en mapa la cmara correspondiente a donde estaran ubicados los termoestatos
+	execDelayedAction("on_load_gpu_products(\"data/scenes/mapa_asiatica.json\")",5);
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 2,\"linear\")",7);
 	execDelayedAction("on_lock_camera3(true)", 9);
 	execDelayedAction("on_cinematic(false)",9);
@@ -652,9 +674,17 @@ function activarSalidaPanaderia()
 	execDelayedAction("on_cinematic(true)",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraPanaderiaPlat\", 5,\"linear\")",0.1);
-	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",11.5);
-	execDelayedAction("on_lock_camera3(true)",16.5);
-	execDelayedAction("on_cinematic(false)",16.5);
+	execDelayedAction("on_load_gpu_scene(\"data/scenes/mapa_congelados.json\")",11.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/cold_particles.json\")",11.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles.json\")",5.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles2.json\")",6.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles3.json\")",6.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles4.json\")",7.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles5.json\")",8.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles6.json\")",9.5);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",13.5);
+	execDelayedAction("on_lock_camera3(true)",15.5);
+	execDelayedAction("on_cinematic(false)",15.5);
 
 
 	execDelayedAction("activePlatformByName(\"plat1346469\")",5.2);
@@ -690,7 +720,9 @@ function cinematica_tower()
 	handlePlayer = GameController:getPlayerHandle();
 	GameController:resetCamera();
 	
+	
 	execDelayedAction("on_lock_camera3(false)",0.0);
+	execDelayedAction("on_delete_gpu_products()",7);
 	execDelayedAction("on_blending_camera(\"CameraTower\", 7,\"Cubicinout\")",0.0);
 	execDelayedAction("on_cinematic_special(true,1)",0.0);
 
