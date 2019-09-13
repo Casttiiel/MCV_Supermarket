@@ -548,14 +548,14 @@ function activePlataformCarniceria_player()
 
 
 	execDelayedAction("changeScene(\"carniceria_scene\")",0);
-	execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos001_v2\",\"trampa_pinchos001\")",0);
-	execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos002_v2\",\"trampa_pinchos002\")",0);
-	execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos003_v2\",\"trampa_pinchos003\")",0);
-	execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos004_v2\",\"trampa_pinchos004\")",0);
-	execDelayedAction("activePlatformByName(\"trampa_pinchos001\")",0.1);
-	execDelayedAction("activePlatformByName(\"trampa_pinchos002\")",0.3);
-	execDelayedAction("activePlatformByName(\"trampa_pinchos003\")",0.5);
-	execDelayedAction("activePlatformByName(\"trampa_pinchos004\")",0.7);
+	--execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos001_v2\",\"trampa_pinchos001\")",0);
+	--execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos002_v2\",\"trampa_pinchos002\")",0);
+	--execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos003_v2\",\"trampa_pinchos003\")",0);
+	--execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos004_v2\",\"trampa_pinchos004\")",0);
+	--execDelayedAction("activePlatformByName(\"trampa_pinchos001\")",0.1);
+	--execDelayedAction("activePlatformByName(\"trampa_pinchos002\")",0.3);
+	--execDelayedAction("activePlatformByName(\"trampa_pinchos003\")",0.5);
+	--execDelayedAction("activePlatformByName(\"trampa_pinchos004\")",0.7);
 	execDelayedAction("activePlatformByName(\"trap001\")",0);
 	execDelayedAction("activePlatformByName(\"trap002\")",0.5);
 	execDelayedAction("activePlatformByName(\"trap003\")",0.3);

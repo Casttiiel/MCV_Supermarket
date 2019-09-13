@@ -43,10 +43,10 @@ struct TSampleDataGenerator {
     pmin = VEC3(-radius, 0.f, -radius);
     pmax = VEC3(radius, 1.0f, radius);
     num_instances = j.value("num_instances", num_instances);
-    /*
+    
     #ifndef NDEBUG
         return;
-    #endif*/
+    #endif
 
     std::vector< std::string > prefab_names = j["prefabs"].get< std::vector< std::string > >();
     for (auto& prefab_name : prefab_names) {
@@ -100,9 +100,9 @@ struct TSampleDataGenerator {
           //this prefab is a product on a shelve, so we will load it only on RELEASE because performance issues
           std::size_t found = prefab_src.find("/products/");
           if (found != std::string::npos) {
-            /*#ifndef NDEBUG
+            #ifndef NDEBUG
               continue;
-            #endif*/
+            #endif
             // Get delta transform where we should instantiate this transform
             CTransform delta_transform;
             if (j_entity.count("transform"))
@@ -475,24 +475,24 @@ void CModuleGPUCulling::parseEntities(const std::string& filename, TEntityParseC
 }
 
 void CModuleGPUCulling::parseProducts(const std::string& filename, TEntityParseContext& ctx) {
-  /*#ifndef NDEBUG
+  #ifndef NDEBUG
     return;
-  #endif*/
+  #endif
   sample_data.createProducts(filename, ctx);
 }
 
 void CModuleGPUCulling::createPrefabProducts() {
-  /*#ifndef NDEBUG
+  #ifndef NDEBUG
     return;
-  #endif*/
+  #endif
   json j = loadJson("data/gpu_culling.json");
   sample_data.createProductPrefabs(j["sample_data"]);
 }
 
 void CModuleGPUCulling::clear() {
-  /*#ifndef NDEBUG
+  #ifndef NDEBUG
     return;
-  #endif*/
+  #endif
   sample_data.deleteProductPrefabs();
 }
 
