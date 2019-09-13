@@ -805,7 +805,7 @@ void TCompCharacterController::attack(float delta) {
     if (attackFirstExecution) {
         //Execute animation
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_FULL, 1.f, true);
+        playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_PARTIAL, 1.f, true);
         EngineAudio.playEvent("event:/Character/Attacks/Melee_Swing");
         attackFirstExecution = false;
     }
