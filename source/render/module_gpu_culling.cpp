@@ -109,7 +109,7 @@ struct TSampleDataGenerator {
               delta_transform.load(j_entity["transform"]);
 
             int rand_idx = rand();
-            if (rand_idx % 3 == 0 || mod->last_prod_index - mod->first_prod_index > 2000) { //instantiate without being an entity
+            if (rand_idx % 3 == 0 || mod->last_prod_index - mod->first_prod_index > 3000) { //instantiate without being an entity
 
               //ADD DATA TO MODULE GPU CULLING
               int idx = rand() % prefabs.size();
