@@ -2,13 +2,14 @@
   {
     "entity":
     {
-      "name": "product3"
+      "name": "product8"
       ,
       "transform":
       {
         "pos": "0 0 0"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "0.0 0.0 0.0 -1.0",
+        "scale" : 1.5
       }
       ,
       "collider":
@@ -30,18 +31,22 @@
       ,
       "render":
       {
-        "mesh": "data/meshes/products/ketchupBottle01.mesh"
+        "mesh": "data/meshes/scene_products/scene_products_Box002.mesh"
         ,
         "color": "0.603922 0.603922 0.898039 1.0"
         ,
         "materials":
         [
-          "data/materials/products/mat_prod2.material"
+          "data/materials/scene_products/group4mat.material"
         ]
       },
       "abs_aabb":{},
       "local_aabb": {},
-      "dynamic_instance":{}
+      "dynamic_instance":{},
+      "comp_self_destroy":{
+        "_selfDestructDelay" : 0,
+        "_isEnabled" : false
+      }
     }
   }
 ]

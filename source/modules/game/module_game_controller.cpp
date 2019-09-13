@@ -766,7 +766,6 @@ void CModuleGameController::setHalfConeEnemyByHandle(float half_cone, CHandle h_
 	}
 }
 
-
 void CModuleGameController::setPauseEnemyByName(std::string enemy, bool active) {
 	
 	CEntity* e_enemy = getEntityByName(enemy);
@@ -876,6 +875,33 @@ void CModuleGameController::setLifeEnemy(CHandle h,int typeEnemy,float life) {
 
 void CModuleGameController::loadScene(const std::string name) {
 	SceneManager.getSceneManager()->loadScene(name);
+}
+
+void CModuleGameController::GPUloadScene(const std::string name) {
+  TFileContext fc(name);
+  TEntityParseContext ctx;
+  PROFILE_FUNCTION_COPY_TEXT(name.c_str());
+  dbg("Parsing boot prefab %s\n", name.c_str());
+  //Instead of parsing it with parseScene, lets parse it with the GPU Culling Module
+  //parseScene(p, ctx);
+  //This only parses the entities and prefabs, not products
+  CEngine::get().getGPUCulling().parseEntities(name, ctx);
+}
+
+void CModuleGameController::GPUdeleteScene(const std::string name) {
+  CEngine::get().getGPUCulling().deleteScene(name);
+}
+
+void CModuleGameController::deleteProducts() {
+  CEngine::get().getGPUCulling().deleteActualProducts();
+}
+
+void CModuleGameController::loadProducts(std::string zona) {
+  TFileContext fc(zona);
+  TEntityParseContext ctx;
+  CEngine::get().getGPUCulling().parseProducts(zona, ctx);
+
+  EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
 }
 
 CHandle CModuleGameController::entityByName(std::string name) {

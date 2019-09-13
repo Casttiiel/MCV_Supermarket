@@ -24,22 +24,14 @@ bool CModuleBoot::start()
     //This only parses the entities and prefabs, not products
     CEngine::get().getGPUCulling().parseEntities(p, ctx);
 
-   //this makes the fetchresults from physx to be faster, but.. doesnt looks like
   }
 
   std::string p = "data/scenes/mapa_panaderia.json";
   TFileContext fc(p);
   TEntityParseContext ctx;
   CEngine::get().getGPUCulling().parseProducts(p, ctx);
-
-  //CEngine::get().getGPUCulling().deleteActualProducts();
-
-  /*std::string p2 = "data/scenes/mapa_asiatica.json";
-  TFileContext fc2(p2);
-  TEntityParseContext ctx2;
-  CEngine::get().getGPUCulling().parseProducts(p2, ctx2);*/
   
-
+  //this makes the fetchresults from physx to be faster, but.. doesnt looks like
   EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
 
    prefabs = json["prefabs_to_prefaload"].get< std::vector< std::string > >();
