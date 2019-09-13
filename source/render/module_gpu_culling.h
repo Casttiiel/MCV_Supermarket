@@ -97,8 +97,10 @@ class CModuleGPUCulling : public IModule {
   int                           last_panaderia_index = -1;
   int                           first_congelados_index = 5000;
   int                           last_congelados_index = -1;
-  /*int                           first_asiatica_index = 5000;
-  int                           last_asiatica_index = 5000;*/
+  int                           first_asiatica_index = 5000;
+  int                           last_asiatica_index = -1;
+  int                           first_carnes_index = 5000;
+  int                           last_carnes_index = -1;
 
 
   CCamera                       culling_camera;

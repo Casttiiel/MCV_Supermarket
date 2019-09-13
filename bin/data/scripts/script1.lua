@@ -268,6 +268,7 @@ function in_trap_tube_enemies_player()
 	execDelayedAction("on_cinematic(true)",3);
 	execDelayedAction("on_lock_camera3(false)",3);
 	execDelayedAction("on_blending_camera(\"CameraEnemiesTube\", 5,\"linear\")",3); --poner en mapa la cmara correspondiente a donde estaran ubicados los termoestatos
+	execDelayedAction("on_load_gpu_products(\"data/scenes/mapa_asiatica.json\")",5);
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 2,\"linear\")",7);
 	execDelayedAction("on_lock_camera3(true)", 9);
 	execDelayedAction("on_cinematic(false)",9);
@@ -665,9 +666,10 @@ function cinematica_tower()
 	handleCamera = GameController:entityByName("CameraTower");
 	handlePlayer = GameController:getPlayerHandle();
 	GameController:resetCamera();
-	GameController:deleteProducts();
+	
 	
 	execDelayedAction("on_lock_camera3(false)",0.0);
+	execDelayedAction("on_delete_gpu_products()",7);
 	execDelayedAction("on_blending_camera(\"CameraTower\", 7,\"Cubicinout\")",0.0);
 	execDelayedAction("on_cinematic_special(true,1)",0.0);
 

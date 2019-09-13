@@ -454,13 +454,20 @@ void CModuleGPUCulling::setupMapIndexes(const std::string& filename) {
     if (last_congelados_index < val)
       last_congelados_index = val;
   }
-  /*else if (strcmp(filename.c_str(),"data/scenes/mapa_asiatica.json")) {
+  else if (strcmp(filename.c_str(),"data/scenes/mapa_asiatica.json") == 0) {
     int val = objs.size();
     if (first_asiatica_index > val)
       first_asiatica_index = val;
     if (last_asiatica_index < val)
       last_asiatica_index = val;
-  }*/
+  }
+  else if (strcmp(filename.c_str(), "data/scenes/mapa_carnes.json") == 0) {
+    int val = objs.size();
+    if (first_carnes_index > val)
+      first_carnes_index = val;
+    if (last_carnes_index < val)
+      last_carnes_index = val;
+  }
 }
 
 void CModuleGPUCulling::parseEntities(const std::string& filename, TEntityParseContext& ctx) {
@@ -511,16 +518,15 @@ void CModuleGPUCulling::deleteScene(const std::string& filename) {
     });
 
     //correr los indices de la siguiente zona
-    int deletionLength = last_panaderia_index - first_panaderia_index;
-    if (first_prod_index != 5000 && last_prod_index != -1)
-      deletionLength += last_prod_index - first_prod_index;
+    int deletionLength = (last_panaderia_index - first_panaderia_index) + 1;
 
     first_congelados_index -= deletionLength;
     last_congelados_index -= deletionLength;
 
     is_dirty = true;
 
-    //deleteActualProducts();
+    first_panaderia_index = 5000;
+    last_panaderia_index = -1;
 
     //this will make the game to not update
     Time.actual_frame = 0;
@@ -538,13 +544,30 @@ void CModuleGPUCulling::deleteScene(const std::string& filename) {
         CHandle h_del = getObjectManager<TCompSelfDestroy>()->createHandle();
         CHandle h_t = t;
         CEntity* e = h_t.getOwner();
-        e->set(h_del.getType(), h_del);
-        TCompSelfDestroy* c_self = h_del;
-        c_self->enable();
+        TCompSelfDestroy* e_sd = e->get<TCompSelfDestroy>();
+        if (e_sd) {
+          e_sd->enable();
+        }
+        else {
+          e->set(h_del.getType(), h_del);
+          TCompSelfDestroy* c_self = h_del;
+          c_self->enable();
+        }        
       }
      });
 
     is_dirty = true;
+
+    int deletionLength = (last_congelados_index - first_congelados_index) + 1;
+    /*if (first_prod_index != 5000 && last_prod_index != -1)
+      deletionLength += last_prod_index - first_prod_index;*/
+    first_asiatica_index -= deletionLength;
+    last_asiatica_index -= deletionLength;
+    first_prod_index -= deletionLength;
+    last_prod_index -= deletionLength;
+
+    first_congelados_index = 5000;
+    last_congelados_index = -1;
 
     //this will make the game to not update
     Time.actual_frame = 0;
@@ -569,6 +592,10 @@ void CModuleGPUCulling::deleteActualProducts() {
   });
 
   is_dirty = true;
+
+  int deletionLength = (last_prod_index - first_prod_index) + 1;
+  first_congelados_index -= deletionLength;
+  last_congelados_index -= deletionLength;
 
   first_prod_index = 5000;
   last_prod_index = -1;
@@ -849,8 +876,11 @@ void CModuleGPUCulling::updateCullingPlanes(const CCamera& camera) {
 void CModuleGPUCulling::renderInMenu() {
   if (ImGui::TreeNode("GPU Culling")) {
     ImGui::Text("%ld objects", (uint32_t)objs.size());
-    ImGui::Text("from %ld to %ld products: %ld", first_prod_index, last_prod_index, last_prod_index - first_prod_index);
-    ImGui::Text("from %ld to %ld panaderia objects: %ld", first_panaderia_index, last_panaderia_index, last_panaderia_index - first_panaderia_index);
+    ImGui::Text("from %ld to %ld products: %ld", first_prod_index, last_prod_index, last_prod_index - first_prod_index + 1);
+    ImGui::Text("from %ld to %ld panaderia objects: %ld", first_panaderia_index, last_panaderia_index, last_panaderia_index - first_panaderia_index + 1);
+    ImGui::Text("from %ld to %ld congelados objects: %ld", first_congelados_index, last_congelados_index, last_congelados_index - first_congelados_index + 1);
+    ImGui::Text("from %ld to %ld asiatica objects: %ld", first_asiatica_index, last_asiatica_index, last_asiatica_index - first_asiatica_index + 1);
+    ImGui::Text("from %ld to %ld carnes objects: %ld", first_carnes_index, last_carnes_index, last_carnes_index - first_carnes_index + 1);
     ImGui::Checkbox("Show Debug", &show_debug);
 
     if (ImGui::TreeNode("All objs...")) {

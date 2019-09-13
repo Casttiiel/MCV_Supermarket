@@ -1385,7 +1385,6 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
           //TODO
 		      unLockableChilli = true;
           GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
-          GameController.loadProducts("data/scenes/mapa_asiatica.json");
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }
