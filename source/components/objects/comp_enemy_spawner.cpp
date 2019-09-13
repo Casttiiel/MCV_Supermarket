@@ -102,3 +102,7 @@ void TCompEnemySpawner::update(float dt) {
 void TCompEnemySpawner::setLifeSpawner(float new_value) {
 	lifePrefabSpawner = new_value;
 }
+
+float TCompEnemySpawner::getLifeSpawner() {
+	return lifePrefabSpawner;
+}

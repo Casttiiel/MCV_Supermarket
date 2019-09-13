@@ -1377,6 +1377,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
           unLockableBattery = true;
 		      //llamada funcion de scripting para poder escapar
 		      Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
+			  Scripting.execActionDelayed("saveCheckpoint()", 1);
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }

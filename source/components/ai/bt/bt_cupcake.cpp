@@ -1229,3 +1229,7 @@ void CBTCupcake::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
 	life = 0;
 	num_of_divisions = 0;
 }
+
+float CBTCupcake::getLife() {
+	return life;
+}
