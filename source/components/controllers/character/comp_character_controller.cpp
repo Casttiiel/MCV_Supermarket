@@ -1179,8 +1179,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 if (msg.senderType == ENEMIES) {
                     //	c_rbody->addForce(direction_to_damage * 8.0f);
                 }
-                if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0) {
-                    EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+                if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
+                    damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
                     //ChangeState("DAMAGED");
                 }
             }
