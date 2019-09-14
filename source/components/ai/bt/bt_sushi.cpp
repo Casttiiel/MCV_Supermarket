@@ -1176,8 +1176,6 @@ int CBTSushi::actionDeath() {
 		c_sd->enable();
 
 		death_animation_started = true;
-	}
-	else {
 		CHandle h = GameController.entityByName("enemies_in_butcher");
 		if (h.isValid()) {
 			CEntity* enemies_in_butcher = ((CEntity*)h);
@@ -1189,6 +1187,11 @@ int CBTSushi::actionDeath() {
 				enemies_in_butcher->sendMsg(msgSushiDead);
 			}
 		}
+
+
+	}
+	else {
+		
 		CHandle(this).getOwner().destroy();
 		CHandle(this).destroy();
 	}

@@ -582,7 +582,7 @@ function activePlataformCarniceria_player()
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
 	GameController:setPauseEnemyByHandle(h_suishi5,true);
 	
-	--trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
+	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
 
 	--Audio
 	GameController:updateSoundtrackID(5);
