@@ -80,7 +80,7 @@ private:
   float damaged_force = 5.0f;
   bool can_double_jump = true;
   bool enemy_in_range = true;
-
+  bool animation1Done = false;
   bool isBatteryAlive = false;
 
 	float invulnerabilityTimer = 0.f;
