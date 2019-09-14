@@ -74,7 +74,7 @@ void TCompWindTrap::onBattery(const TMsgGravity & msg) {
 
 void TCompWindTrap::update(float dt) {
   if (!player.isValid()) {
-    player = getEntityByName("Player");
+    player = GameController.getPlayerHandle();
     return;
   }
   if (is_destroyed)

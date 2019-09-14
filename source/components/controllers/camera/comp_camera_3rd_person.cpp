@@ -112,6 +112,10 @@ void TCompCamera3rdPerson::resetCamera() {
 
 void TCompCamera3rdPerson::update(float scaled_dt)
 {
+  scaled_dt = Time.delta_unscaled;
+  if (scaled_dt >= 0.03333f) { //less than 30 frames per second it will be loading
+    scaled_dt = 0.03333f; //update it as if it was moving normally
+  }
 
 	if(!isPause){
 	  scaled_dt = Time.delta_unscaled;
