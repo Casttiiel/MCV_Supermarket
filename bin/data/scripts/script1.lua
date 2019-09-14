@@ -685,6 +685,7 @@ function activarSalidaPanaderia()
 	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",13.5);
 	execDelayedAction("on_lock_camera3(true)",15.5);
 	execDelayedAction("on_cinematic(false)",15.5);
+	
 
 
 	execDelayedAction("activePlatformByName(\"plat1346469\")",5.2);
@@ -710,7 +711,7 @@ function activarSalidaPanaderia()
 
 
 	GameController:setLifeEnemiesByTag("cupcake",50.0);
-
+	
 
 end
 

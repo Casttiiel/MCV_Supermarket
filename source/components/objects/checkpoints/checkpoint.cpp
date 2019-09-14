@@ -148,7 +148,9 @@ bool CCheckpoint::loadCheckPoint()
 			if (entity.entityType == EntityType::CUPCAKE) {
 				CBTCupcake* comp_enemy = spawnedEntity->get<CBTCupcake>();
 				comp_enemy->setLife(entity.lifeCupcake);
-				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
+				if (entity.curve != "") {
+					comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
+				}
 			}
 			else if (entity.entityType == EntityType::SUSHI) {
 				CBTSushi* comp_enemy = spawnedEntity->get<CBTSushi>();
