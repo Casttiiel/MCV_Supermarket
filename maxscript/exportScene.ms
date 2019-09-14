@@ -45,8 +45,8 @@ fn isMaxShit obj = (
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	--project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
+	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
+	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/mcv_sm/bin/",
 	base_path = "data/",
@@ -612,7 +612,9 @@ struct TSceneExporter (
 			local nCA = custAttributes.count obj
 			for idx = 1 to nCA do (
 				local ca_data = custAttributes.get obj idx
-				ca_data.exportAsComponent fs
+				if ca_data != undefined then(
+					ca_data.exportAsComponent fs
+				)
 			)
 			
 			exportChildrenColliders obj
