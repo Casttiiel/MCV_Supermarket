@@ -239,7 +239,7 @@ void TCompCharacterController::grounded(float delta) {
     if (dir != VEC3().Zero) {
         //SwapMesh(2);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.2f);
+        playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
         //Play sound
         if(footSteps.getPaused()){
             footSteps.setPaused(false);
@@ -269,7 +269,7 @@ void TCompCharacterController::grounded(float delta) {
     }
     if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
+        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
         ChangeState("DASHING");
         dash = dash_limit;
         startDash = true;
