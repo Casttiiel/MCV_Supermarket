@@ -91,6 +91,9 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
  				status.lifeCupcake = comp_enemy->getLifeSpawner();
 			}
 		}
+		else if (status.entityType == EntityType::GOLEM) {
+			
+		}
         entities.push_back(status);
     }
 
