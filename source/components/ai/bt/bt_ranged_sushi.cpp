@@ -1045,21 +1045,24 @@ int CBTRangedSushi::actionDeath() {
 
 	//------------------------------------
 	TCompTransform* c_trans = get<TCompTransform>();
-	if (!isDeadForFallout) {
+	if (!isDeadForFallout && !isDeadForTrigger) {
+
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+		TEntityParseContext ctx;
+		ctx.root_transform = *c_trans;
+		parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+		TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+		c_sd->setDelay(0.25f);
+		c_sd->enable();
+
+		death_animation_started = true;
+	}
+	else {
+		CHandle(this).getOwner().destroy();
+		CHandle(this).destroy();
 	}
 
-  TEntityParseContext ctx;
-  ctx.root_transform = *c_trans;
-  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
-
-  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
-  c_sd->setDelay(0.25f);
-  c_sd->enable();
-
-  death_animation_started = true;
-  /*CHandle(this).getOwner().destroy();
-  CHandle(this).destroy();*/
   _footSteps.setPaused(true);
   return LEAVE;
 }
@@ -1523,6 +1526,7 @@ void CBTRangedSushi::registerMsgs() {
 	DECL_MSG(CBTRangedSushi, TMsgGravity, onGravity);
 	DECL_MSG(CBTRangedSushi, TMsgBTPaused, onMsgBTPaused);
 	DECL_MSG(CBTRangedSushi, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	DECL_MSG(CBTRangedSushi, TMsgDeleteTrigger, onDeleteTrigger);
 }
 
 void CBTRangedSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
@@ -2096,4 +2100,10 @@ bool CBTRangedSushi::isOtherEnemyInSide() {
 
 	return hayEnemy;
 
+}
+
+
+void CBTRangedSushi::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
+	isDeadForTrigger = true;
+	life = 0;
 }

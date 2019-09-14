@@ -116,19 +116,43 @@ end
 
 function on_create_enemies_zone_cupcake_player()
 
+
+	
 	execDelayedAction("changeScene(\"tutorial_scene\")",0)	
 
 	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(183, -48.460, -66), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakePanaderia1",h_cupcake1);
 	GameController:setPauseEnemyByHandle(h_cupcake1,false);
+	GameController:setLifeEnemy(h_cupcake1,3,350.0);
 	
 	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(175, -48.460, -72), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakePanaderia2",h_cupcake2);
 	GameController:setPauseEnemyByHandle(h_cupcake2,false);
+	GameController:setLifeEnemy(h_cupcake2,3,350.0);
 
 	h_cupcake3 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(184, -48.460, -74), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakePanaderia3",h_cupcake3);
 	GameController:setPauseEnemyByHandle(h_cupcake3,false);
+	GameController:setLifeEnemy(h_cupcake3,3,350.0);
+
+	
+	h_oven1 =  GameController:entityByName("horno1");
+	h_oven2 =  GameController:entityByName("horno5");
+	h_oven3 =  GameController:entityByName("horno6");
+	h_oven4 =  GameController:entityByName("horno007");
+
+	
+	t_compSpawnOven1 = toCompEnemySpawner(toEntity(h_oven1):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven2 = toCompEnemySpawner(toEntity(h_oven2):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven3 = toCompEnemySpawner(toEntity(h_oven3):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven4 = toCompEnemySpawner(toEntity(h_oven4):getCompByName("comp_enemy_spawner"));
+
+	t_compSpawnOven1:setLifeSpawner(350.0);
+	t_compSpawnOven2:setLifeSpawner(350.0);
+	t_compSpawnOven3:setLifeSpawner(350.0);
+	t_compSpawnOven4:setLifeSpawner(350.0);
+
+
 	execDelayedAction("on_delete_handle(\"triggerCreacionCupcackes\")",0);
 
 	--Audio
@@ -140,6 +164,14 @@ end
 
 function on_blending_camera(name,speed,typeInterpolator)
 	GameController:blendingCamera(name,speed,typeInterpolator)
+end
+
+function on_GPUdeleteScene(name)
+	GameController:GPUdeleteScene(name)
+end
+
+function on_load_gpu_scene(name)
+	GameController:GPUloadScene(name)
 end
 
 function on_lock_camera3(activate)
@@ -177,6 +209,14 @@ function sethalfConeEnemy(halfCone,handle,type)
 	GameController:setHalfConeEnemyByHandle(halfCone,handle,type)
 end
 
+function on_load_gpu_products(filename)
+	GameController:loadProducts(filename);
+end
+
+function on_delete_gpu_products()
+	GameController:deleteProducts();
+end
+
 function script_ice_1_player()
 	
 	--execDelayedAction("changeScene(\"congelados_scene\")",0)	
@@ -184,7 +224,9 @@ function script_ice_1_player()
 	execDelayedAction("on_cinematic(true)",0);
 	execDelayedAction("on_lock_camera3(false)",0);
 	execDelayedAction("on_blending_camera(\"CameraPanel001\", 5,\"Quadin\")",0);
-	execDelayedAction("on_blending_camera(\"CameraPanel002\", 5,\"Quadin\")",6);
+	execDelayedAction("on_GPUdeleteScene(\"data/scenes/mapa_panaderia.json\")",3);
+	--execDelayedAction("on_load_gpu_products(\"data/scenes/mapa_asiatica.json\")",8.0);
+	execDelayedAction("on_blending_camera(\"CameraPanel002\", 5,\"Quadin\")",6);	
     execDelayedAction("destroy_and_wake_up(\"golem2\",\"Box007\", 20)",15); 
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"Quadin\")",12);
 	execDelayedAction("on_cinematic(false)",16);
@@ -220,6 +262,8 @@ function script_ice_3_player()
 end
 
 function create_cupcakes_in_frost_player()
+	GameController:deleteCupcake();
+
 	execDelayedAction("changeScene(\"congelados_scene\")",0)
 	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(150, -3.653, -2), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados1",h_cupcake1);
@@ -230,6 +274,9 @@ function create_cupcakes_in_frost_player()
 	GameController:setPauseEnemyByHandle(h_cupcake2,false);
 	execDelayedAction("on_delete_handle(\"trigger010\")",0);
 
+	execDelayedAction("on_lock_camera3(false)",0);
+	execDelayedAction("on_delete_gpu_products()",1);
+	execDelayedAction("on_lock_camera3(true)",2);
 end
 
 function wake_up_last_golem_player()
@@ -247,6 +294,7 @@ function in_trap_tube_enemies_player()
 	execDelayedAction("on_cinematic(true)",3);
 	execDelayedAction("on_lock_camera3(false)",3);
 	execDelayedAction("on_blending_camera(\"CameraEnemiesTube\", 5,\"linear\")",3); --poner en mapa la cmara correspondiente a donde estaran ubicados los termoestatos
+	execDelayedAction("on_load_gpu_products(\"data/scenes/mapa_asiatica.json\")",5);
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 2,\"linear\")",7);
 	execDelayedAction("on_lock_camera3(true)", 9);
 	execDelayedAction("on_cinematic(false)",9);
@@ -321,7 +369,9 @@ end
 
 function createEnemies_player()
 
-
+	GameController:deleteGolem("golem2");
+	GameController:deleteGolem("golem3");
+	GameController:deleteCupcake();
 	execDelayedAction("changeScene(\"asiatic_scene\")",0);
 	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-33,-0.193,-52), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica1",h_suishi1);
@@ -493,57 +543,45 @@ end
 
 --activar plataformas en torre carniceria y creacion de suishis
 function activePlataformCarniceria_player()
+	
+	GameController:deleteSushi();
+
+
 	execDelayedAction("changeScene(\"carniceria_scene\")",0);
-	execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos001_v2\",\"trampa_pinchos001\")",0);
-	execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos002_v2\",\"trampa_pinchos002\")",0);
-	execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos003_v2\",\"trampa_pinchos003\")",0);
-	execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos004_v2\",\"trampa_pinchos004\")",0);
-	execDelayedAction("activePlatformByName(\"trampa_pinchos001\")",0.1);
-	execDelayedAction("activePlatformByName(\"trampa_pinchos002\")",0.3);
-	execDelayedAction("activePlatformByName(\"trampa_pinchos003\")",0.5);
-	execDelayedAction("activePlatformByName(\"trampa_pinchos004\")",0.7);
+	--execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos001_v2\",\"trampa_pinchos001\")",0);
+	--execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos002_v2\",\"trampa_pinchos002\")",0);
+	--execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos003_v2\",\"trampa_pinchos003\")",0);
+	--execDelayedAction("changeCurvePlatform(\"curvaTrampaPinchos004_v2\",\"trampa_pinchos004\")",0);
+	--execDelayedAction("activePlatformByName(\"trampa_pinchos001\")",0.1);
+	--execDelayedAction("activePlatformByName(\"trampa_pinchos002\")",0.3);
+	--execDelayedAction("activePlatformByName(\"trampa_pinchos003\")",0.5);
+	--execDelayedAction("activePlatformByName(\"trampa_pinchos004\")",0.7);
 	execDelayedAction("activePlatformByName(\"trap001\")",0);
 	execDelayedAction("activePlatformByName(\"trap002\")",0.5);
 	execDelayedAction("activePlatformByName(\"trap003\")",0.3);
 	execDelayedAction("on_delete_handle(\"triggerActivarPlataformas\")",0);
 	--suishis PB
-	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-146,0.316,-202), QUAT(0, 0, 0, 1),1);
+	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-127,0.316,-228), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn1",h_suishi1);
 	GameController:setPauseEnemyByHandle(h_suishi1,true);
 	
-	h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-126,0.316,-191), QUAT(0, 0, 0, 1),1);
+	h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-121,0.316,-190), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn2",h_suishi2);
 	GameController:setPauseEnemyByHandle(h_suishi2,true);
 
-	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-125,0.316,-225), QUAT(0, 0, 0, 1),1);
+	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-141,0.316,-194), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn3",h_suishi3);
 	GameController:setPauseEnemyByHandle(h_suishi3,true);
-	--suishis P1
-	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-152,6.157,-222), QUAT(0, 0, 0, 1),1);
+	
+	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-154,0.316,-201), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn4",h_suishi4);
-	GameController:setPauseEnemyByHandle(h_suishi4,false);
-	t_compname4 = toCompName(toEntity(h_suishi4):getCompByName("name"));
-	t_compname4:setName("Sushi004");
-	--suishis P2
-	h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-151,12.182,-189), QUAT(0, 0, 0, 1),1);
-	GameController:setHeightEnemyByHandle(1.0,h_suishi5,1);
+	GameController:setPauseEnemyByHandle(h_suishi4,true);
+	
+	
+	h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-121,0.316,-218), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
-	GameController:setPauseEnemyByHandle(h_suishi5,false);
-	t_compname5 = toCompName(toEntity(h_suishi5):getCompByName("name"));
-	t_compname5:setName("Sushi005");
-	--suishis P3
-	h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-107,14.962,-192), QUAT(0, 0, 0, 1),1);
-	GameController:setHeightEnemyByHandle(1.0,h_suishi6,1);
-	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn6",h_suishi6);
-	GameController:setPauseEnemyByHandle(h_suishi6,false);
-	t_compname6 = toCompName(toEntity(h_suishi6):getCompByName("name"));
-	t_compname6:setName("Sushi006");
-	--suishis P4
-	h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-112,22.063,-231), QUAT(0, 0, 0, 1),1);
-	GameController:setHeightEnemyByHandle(1.0,h_suishi7,1);
-	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn7",h_suishi7);
-	GameController:setPauseEnemyByHandle(h_suishi7,false);
-	--creacion de la trampa de los suishis
+	GameController:setPauseEnemyByHandle(h_suishi5,true);
+	
 	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
 
 	--Audio
@@ -553,7 +591,20 @@ function activePlataformCarniceria_player()
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi2,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",12.5);
-	
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",12.5);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi5,false)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi1,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi1,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi2,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi2,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(40,h_suishi3,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi3,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(40,h_suishi4,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi4,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi5,1)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi5,1)",12.5);
+
+
 	
 end
 
@@ -590,6 +641,7 @@ end
 
 function trampaSushisButcher_player()
 	execDelayedAction("saveCheckpoint()",0.0);
+	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
 	--por si queremos poner cinematicas enfocando el fuego o hacer que empiece a llamear el ascensor
 end
 
@@ -615,29 +667,63 @@ end
 
 --Mapa Tutorial panaderia
 
+
 function activarSalidaPanaderia()
 
 	GameController:resetCamera();
 	execDelayedAction("on_cinematic(true)",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraPanaderiaPlat\", 5,\"linear\")",0.1);
-	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",11.5);
-	execDelayedAction("on_lock_camera3(true)",16.5);
-	execDelayedAction("on_cinematic(false)",16.5);
+	execDelayedAction("on_load_gpu_scene(\"data/scenes/mapa_congelados.json\")",11.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/cold_particles.json\")",11.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles.json\")",5.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles2.json\")",6.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles3.json\")",6.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles4.json\")",7.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles5.json\")",8.5);
+	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles6.json\")",9.5);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",13.5);
+	execDelayedAction("on_lock_camera3(true)",15.5);
+	execDelayedAction("on_cinematic(false)",15.5);
+	
 
 
 	execDelayedAction("activePlatformByName(\"plat1346469\")",5.2);
 	execDelayedAction("activePlatformByName(\"plat1346470\")",7.2);
 	execDelayedAction("activePlatformByName(\"plat1346471\")",9.2);
 
+
+	h_oven1 =  GameController:entityByName("horno1");
+	h_oven2 =  GameController:entityByName("horno5");
+	h_oven3 =  GameController:entityByName("horno6");
+	h_oven4 =  GameController:entityByName("horno007");
+
+	
+	t_compSpawnOven1 = toCompEnemySpawner(toEntity(h_oven1):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven2 = toCompEnemySpawner(toEntity(h_oven2):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven3 = toCompEnemySpawner(toEntity(h_oven3):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven4 = toCompEnemySpawner(toEntity(h_oven4):getCompByName("comp_enemy_spawner"));
+
+	t_compSpawnOven1:setLifeSpawner(50.0);
+	t_compSpawnOven2:setLifeSpawner(50.0);
+	t_compSpawnOven3:setLifeSpawner(50.0);
+	t_compSpawnOven4:setLifeSpawner(50.0);
+
+
+	GameController:setLifeEnemiesByTag("cupcake",50.0);
+	
+
 end
 
 function cinematica_tower()
+	
 	handleCamera = GameController:entityByName("CameraTower");
 	handlePlayer = GameController:getPlayerHandle();
 	GameController:resetCamera();
 	
+	
 	execDelayedAction("on_lock_camera3(false)",0.0);
+	execDelayedAction("on_delete_gpu_products()",7);
 	execDelayedAction("on_blending_camera(\"CameraTower\", 7,\"Cubicinout\")",0.0);
 	execDelayedAction("on_cinematic_special(true,1)",0.0);
 
@@ -660,6 +746,11 @@ end
 --Prueba carga de escena desde trigger, de momento carga NAVMESH
 function changeScene(name)
 	GameController:loadScene(name);
+end
+
+
+function changeGameState(name)
+	GameController:changeGameState(name)
 end
 
 

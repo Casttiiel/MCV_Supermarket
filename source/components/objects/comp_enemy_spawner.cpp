@@ -69,7 +69,7 @@ void TCompEnemySpawner::update(float dt) {
 				TCompPropAnimator* animator = get<TCompPropAnimator>();
 				animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 1.f);
 				TCompTransform* c_trans = get<TCompTransform>();
-				VEC3 spawnPoint = c_trans->getPosition() + (c_trans->getFront() * _spawnOffset);
+				VEC3 spawnPoint = c_trans->getPosition() + VEC3(0,1.5,0) +  (c_trans->getFront() * _spawnOffset);;
 				CHandle enemy = GameController.spawnPrefab(_prefab, spawnPoint);
 				
 				//rotamos el cupcake hacia la posicion del jugador al spawnear para que te vea siempre
@@ -79,6 +79,11 @@ void TCompEnemySpawner::update(float dt) {
 				if(player != nullptr) {
 					TCompTransform* c_trans_player = player->get<TCompTransform>();
 					c_trans_enemy->rotateTowards(c_trans_player->getPosition());
+				}
+
+				if (_prefab == PREFAB_CUPCAKE_) {
+					CBTCupcake* cbt = e_enemy->get<CBTCupcake>();
+					cbt->setLife(lifePrefabSpawner);
 				}
 				
 				_currentEnemies.push_back(enemy);
@@ -92,6 +97,12 @@ void TCompEnemySpawner::update(float dt) {
 			}
 		}
 	}
+}
 
-	
+void TCompEnemySpawner::setLifeSpawner(float new_value) {
+	lifePrefabSpawner = new_value;
+}
+
+float TCompEnemySpawner::getLifeSpawner() {
+	return lifePrefabSpawner;
 }

@@ -99,6 +99,8 @@ void CModuleScripting::doBingings() {
 	BindName();
 	BindGolem();
 	BindEnemySpawnerSpecial();
+	BindEnemySpawner();
+	
 }
 
 
@@ -137,6 +139,8 @@ void CModuleScripting::BindGameController() {
 		.set("inCinematicGolem", &CModuleGameController::inCinematicGolem)
 		.set("getPlayerHandle", &CModuleGameController::getPlayerHandle)
 		.set("loadScene", &CModuleGameController::loadScene)
+    .set("GPUloadScene", &CModuleGameController::GPUloadScene)
+    .set("GPUdeleteScene", &CModuleGameController::GPUdeleteScene)
 		.set("updatePlatformCurveByName", &CModuleGameController::updatePlatformCurveByName)
 		.set("playAnimationMorph", &CModuleGameController::playAnimationMorph)
         .set("stopAnimationMorph", &CModuleGameController::stopAnimationMorph)
@@ -154,6 +158,16 @@ void CModuleScripting::BindGameController() {
 		.set("inCinematicSpecial", &CModuleGameController::inCinematicSpecial)
 		.set("blendPlayerCamera", &CModuleGameController::blendPlayerCamera)
 		.set("setHalfConeEnemyByHandle", &CModuleGameController::setHalfConeEnemyByHandle)
+		.set("deleteByTag", &CModuleGameController::deleteByTag)
+		.set("deleteCupcake", &CModuleGameController::deleteCupcake)
+		.set("deleteSushi", &CModuleGameController::deleteSushi)
+		.set("deleteGolem", &CModuleGameController::deleteGolem)
+		.set("setLifeEnemy", &CModuleGameController::setLifeEnemy)
+		.set("setLifeEnemiesByTag", &CModuleGameController::setLifeEnemiesByTag)
+		.set("changeGameState", &CModuleGameController::changeGameState)
+		
+    .set("deleteProducts",&CModuleGameController::deleteProducts)
+    .set("loadProducts", &CModuleGameController::loadProducts)
 		;
 }
 
@@ -168,6 +182,9 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompCamera", SLB::FuncCall::create(&toCompCamera));
 	m->set("toCBTGolem", SLB::FuncCall::create(&toCBTGolem));
 	m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
+	m->set("toCompSelfDestroy", SLB::FuncCall::create(&toCompSelfDestroy));
+	m->set("toCBTCupcake", SLB::FuncCall::create(&toCBTCupcake));
+	m->set("toCompEnemySpawner", SLB::FuncCall::create(&toCompEnemySpawner));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -214,12 +231,24 @@ void CModuleScripting::BindGolem() {
 		;
 }
 
+
+
+
 void CModuleScripting::BindEnemySpawnerSpecial() {
 	SLB::Class<TCompEnemySpawnerSpecialTrap>("TCompEnemySpawnerSpecialTrap", m)
 		.comment("This is ouTCompEnemySpawnerSpecialTrapr wrapper of TCompEnemySpawnerSpecialTrap class")
 		.constructor()
 		.property("working", &TCompEnemySpawnerSpecialTrap::working)
 		.set("setSpawnDelay", &TCompEnemySpawnerSpecialTrap::setSpawnDelay)
+		;
+}
+
+
+void CModuleScripting::BindEnemySpawner() {
+	SLB::Class<TCompEnemySpawner>("TCompEnemySpawner", m)
+		.comment("This is ouTCompEnemySpawnerSpecialTrapr wrapper of TCompEnemySpawnerSpecialTrap class")
+		.constructor()
+		.set("setLifeSpawner", &TCompEnemySpawner::setLifeSpawner)
 		;
 }
 
@@ -291,6 +320,14 @@ void CModuleScripting::BindTransform() {
 		.set("getDeltaYawToAimTo", &TCompTransform::getDeltaYawToAimTo)
 		.set("getScale", &TCompTransform::getScale)
 		.set("setScale", &TCompTransform::setScale);
+}
+
+
+void CModuleScripting::BindSelfDestroy() {
+	SLB::Class <TCompSelfDestroy>("TCompSelfDestroy", m)
+		.comment("TCompSelfDestroy wrapper")
+		.constructor()
+		.set("setEnabled", &TCompSelfDestroy::setEnabled);
 }
 
 void CModuleScripting::BindCamera() {

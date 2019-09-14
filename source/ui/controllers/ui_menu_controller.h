@@ -15,6 +15,7 @@ namespace UI
     void update(float dt) override;
 
     void registerOption(CButton* button, Callback callback);
+	void registerOption(std::string name, Callback callback);
     void setCurrentOption(int idx);
 	  int getPosInButton(VEC2 mouse_pos);
 

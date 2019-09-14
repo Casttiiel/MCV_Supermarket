@@ -1254,12 +1254,12 @@ void TCompCharacterController::onCinematicSpecial(const TMsgOnCinematicSpecial &
 		}
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = false;
+		mirilla->getParams()->visible = !cinematic;
 	}
 	else {
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = false;
+		mirilla->getParams()->visible = !cinematic;
 		TCompSCartController* sCart = get<TCompSCartController>();
 		sCart->disable();
 		TCompTransform* c_trans = get<TCompTransform>();
@@ -1388,54 +1388,71 @@ float TCompCharacterController::getMaxMadness() {
 void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, float extraBarSize) {
 
     switch (type) {
-    case PowerUpType::HEALTH_UP:
-    {
-        //dbg("aplica el power up de life \n");
-        maxLife = maxLife + quantity;
-        heal();
-        GameController.increaseHpBarSize(extraBarSize);
-        EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
-        break;
-    }
-    case PowerUpType::MADNESS_UP:
-    {
-        //dbg("aplica el power up de la locura \n");
-        TCompMadnessController* madness = get<TCompMadnessController>();
-        madness->setMaximumMadness(madness->getMaximumMadness() + quantity);
-        restoreMadness();
-        GameController.increaseMadnessBarSize(extraBarSize);
-        EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
-        break;
-    }
-    case PowerUpType::ACTIVATE_BATTERY:
-    {
-        //TODO
-        unLockableBattery = true;
-		//llamada funcion de scripting para poder escapar
-		Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
-        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-        break;
-    }
-    case PowerUpType::ACTIVATE_CHILLI:
-    {
-        //TODO
-		unLockableChilli = true;
-        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-        break;
-    }
-    case PowerUpType::ACTIVATE_COFFEE:
-    {
-        //TODO
-		unLockableCoffe = true;
-        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-        break;
-    }
-    case PowerUpType::ACTIVATE_TELEPORT:
-    {
-		unLockableTeleport = true;
-        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-        break;
-    }
+      case PowerUpType::HEALTH_UP:
+      {
+          //dbg("aplica el power up de life \n");
+          maxLife = maxLife + quantity;
+          heal();
+          GameController.increaseHpBarSize(extraBarSize);
+          EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
+          break;
+      }
+      case PowerUpType::MADNESS_UP:
+      {
+          //dbg("aplica el power up de la locura \n");
+          TCompMadnessController* madness = get<TCompMadnessController>();
+          madness->setMaximumMadness(madness->getMaximumMadness() + quantity);
+          restoreMadness();
+          GameController.increaseMadnessBarSize(extraBarSize);
+          EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
+          break;
+      }
+      case PowerUpType::ACTIVATE_BATTERY:
+      {
+          //TODO
+          unLockableBattery = true;
+		      //llamada funcion de scripting para poder escapar
+		      Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
+			  Scripting.execActionDelayed("saveCheckpoint()", 20.0);
+          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+          break;
+      }
+      case PowerUpType::ACTIVATE_CHILLI:
+      {
+          //TODO
+		      unLockableChilli = true;
+          GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
+          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+          CEntity* e1 = getEntityByName("Hielo2_LP");
+          TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
+          c_ma1->updateMorphData(0.0f);
+          CEntity* e2 = getEntityByName("Hielo5_LP");
+          TCompMorphAnimation* c_ma2 = e2->get<TCompMorphAnimation>();
+          c_ma2->updateMorphData(0.0f);
+          CEntity* e3 = getEntityByName("Hielo6_LP");
+          TCompMorphAnimation* c_ma3 = e3->get<TCompMorphAnimation>();
+          c_ma3->updateMorphData(0.0f);
+          CEntity* e4 = getEntityByName("cubosHielo_033");
+          TCompMorphAnimation* c_ma4 = e4->get<TCompMorphAnimation>();
+          c_ma4->updateMorphData(0.0f);
+          CEntity* e5 = getEntityByName("cubosHielo_034");
+          TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
+          c_ma5->updateMorphData(0.0f);
+          break;
+      }
+      case PowerUpType::ACTIVATE_COFFEE:
+      {
+          //TODO
+		      unLockableCoffe = true;
+          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+          break;
+      }
+      case PowerUpType::ACTIVATE_TELEPORT:
+      {
+		      unLockableTeleport = true;
+          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+          break;
+      }
     }
 
 }

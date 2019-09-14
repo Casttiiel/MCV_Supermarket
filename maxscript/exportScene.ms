@@ -612,7 +612,9 @@ struct TSceneExporter (
 			local nCA = custAttributes.count obj
 			for idx = 1 to nCA do (
 				local ca_data = custAttributes.get obj idx
-				ca_data.exportAsComponent fs
+				if ca_data != undefined then(
+					ca_data.exportAsComponent fs
+				)
 			)
 			
 			exportChildrenColliders obj

@@ -2,6 +2,7 @@
 
 #include "mcv_platform.h"
 #include "ui/ui_params.h"
+#include "ui/ui_effect.h"
 
 namespace UI
 {
@@ -22,11 +23,28 @@ namespace UI
     virtual TParams* getParams() { return &_params; }
     virtual TImageParams* getImageParams() { return nullptr; }
 
+
+	virtual void onActivate() {
+		for (auto& child : _children)
+			child->onActivate();
+	}
+	virtual void onDeactivate() {
+		for (auto& effect : _effects) {
+			effect->onDeactivate();
+		}
+
+		for (auto& child : _children)
+			child->onDeactivate();
+
+	}
     void updateTransform();
     void setParent(CWidget* parent);
     void removeFromParent();
 
 	MAT44 getAbsolute() { return _absolute; };
+
+	void childAppears(bool getFromChildren, bool darkalfa, float initial_time, float lerp_time);
+	
 
   protected:
     void computePivot();

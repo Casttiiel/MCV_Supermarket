@@ -13,10 +13,14 @@
 #include "components/controllers/comp_enemies_in_tube.h"
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
+#include "components/objects/comp_enemy_spawner.h"
 #include "components/objects/comp_enemy_spawner_special_trap.h"
+#include "components/ai/others/self_destroy.h"
 #include "components/controllers/character/comp_character_controller.h"
 
 
+
+class CBTCupcake;
 class CBTGolem;
 class CCheckpoint;
 class CModuleGameplayFragment;
@@ -49,7 +53,7 @@ class CModuleGameController : public IModule
     void renderInMenu();
     void updateGameCondition();
 
-	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(2,7 ,-1),VEC3(14, 15,-6),VEC3(-69,2,-114),VEC3(-83,5,-212) };
+	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(176,4 ,-17),VEC3(2,7 ,-1),VEC3(14, 15,-6),VEC3(-69,2,-114),VEC3(-83,5,-212) };
 	int positionCheat = 0;
     
     //void switchState(PauseState pause);
@@ -202,6 +206,8 @@ public:
   void toNamePrefab(const std::string name, CHandle handle);
   //cargar escena
   void loadScene(const std::string name);
+  void GPUloadScene(const std::string name);
+  void GPUdeleteScene(const std::string name);
   template <typename T>
   void broadcastMessage(T message);
 
@@ -217,6 +223,9 @@ public:
 
 	//destruir un muro
 	void destroyWallByName(std::string name, std::string golemName, float intensity = 20);
+
+  void deleteProducts();
+  void loadProducts(std::string zona);
 
 	//despertar golem
 	void wakeUpGolem(std::string name);
@@ -242,7 +251,14 @@ public:
 	void setViewDistanceEnemyByHandle(float distance, CHandle h_enemy, int typeEnemy);
 	void setHalfConeEnemyByHandle(float half_cone, CHandle h_enemy, int typeEnemy);
 	CCamera* getCameraFromHandle(CHandle hCamera);
-	
+	void deleteCupcake();
+	void deleteSushi();
+	void deleteGolem(std::string name);
+	void setLifeEnemy(CHandle h, int typeEnemy, float life);
+	void setLifeEnemiesByTag(const char* tagName, float life);
+
+	void changeGameState(std::string name);
+
 };
 
 
@@ -257,6 +273,8 @@ TCompName* toCompName(CHandle h);
 TCompTransform* toCompTransform(CHandle h);
 TCompCamera* toCompCamera(CHandle h);
 TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
-
+TCompSelfDestroy* toCompSelfDestroy(CHandle h);
 CBTGolem* toCBTGolem(CHandle h);
+CBTCupcake* toCBTCupcake(CHandle h);
+TCompEnemySpawner* toCompEnemySpawner(CHandle h);
 //TCompCharacterController* toCompCharacterController_(CHandle h);

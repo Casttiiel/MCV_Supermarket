@@ -4,19 +4,28 @@
 #include "entity/entity.h"
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
+#include "modules/game/module_game_manager.h"
+
 
 class TCompEnemySpawner : public TCompBase
 {
   DECL_SIBLING_ACCESS();
 
 public:
+
+   
+
   void debugInMenu();
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
-
+  void setLifeSpawner(float new_life);
+  float getLifeSpawner();
   static void registerMsgs();
 
 private:
+
+	#define PREFAB_CUPCAKE_ "data/prefabs/enemies/bt_cupcake.json"
+
 	bool working = true; //temporal :)
 	bool _isEnabled = false;
   bool is_destroyed = false;
@@ -24,9 +33,9 @@ private:
 	std::vector<CHandle> _currentEnemies;
 	float _spawnDelay = 3.f;
 	float _spawnTimer = _spawnDelay;
-	std::string _prefab = PREFAB_CUPCAKE;
-  float _spawnOffset = 2.5f;
-
+	std::string _prefab = PREFAB_CUPCAKE_;
+    float _spawnOffset = 2.5f;
+    float lifePrefabSpawner = 50.f;
 	void enable(const TMsgEntityTriggerEnter & msg);
 	void disable(const TMsgEntityTriggerExit & msg);
 	void onBattery(const TMsgGravity & msg);

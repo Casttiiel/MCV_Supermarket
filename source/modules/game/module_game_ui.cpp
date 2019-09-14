@@ -18,8 +18,8 @@
 bool CModuleGameUI::start()
 {
 	UI::CModuleUI& ui = Engine.getUI();
-	ui.activateWidget("game_ui");
-	
+	//ui.activateWidget("game_ui");
+	CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
 	/*
 	NO CREAR UN CMENUCONTROLER EN EL MODULO GAMEPLAY--- SI SE NECESITA CREAR OTRO 
 	UI::CMenuController* menu = new UI::CMenuController; 

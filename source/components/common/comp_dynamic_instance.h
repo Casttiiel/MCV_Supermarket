@@ -8,7 +8,6 @@
 using namespace physx;
 
 class TCompDynamicInstance : public TCompBase {
-  DECL_SIBLING_ACCESS();
   int my_unique_idx = -1;
   physx::PxRigidDynamic* rigid_dynamic = nullptr;
   CHandle h_coll;
@@ -24,4 +23,6 @@ public:
   void set_idx(int idx) { my_unique_idx = idx; }
 
   static void registerMsgs();
+
+  DECL_SIBLING_ACCESS();
 };

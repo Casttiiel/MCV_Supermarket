@@ -1,0 +1,21 @@
+{
+	"name" : "load_background",
+	"alias" :"load_background_root",
+	"children" : 
+	[
+		{
+			"name" : "load_screen",
+			"type" : "widget",
+			"size" : "1280 640",
+			"children" : 
+			[
+				{
+					"name" : "background_load_Screen",
+					"type" : "image",
+					"size" : "1280 640",
+					"texture" : "data/ui/textures/market/background_load.dds"
+				}
+			]
+		}
+	]
+}

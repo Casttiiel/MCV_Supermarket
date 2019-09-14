@@ -27,6 +27,7 @@ struct EntityStatus {
     CHandle handle;
     bool saved = false;
 	string curve = "";
+	float lifeCupcake = 50.f;
 };
 
 class CCheckpoint {

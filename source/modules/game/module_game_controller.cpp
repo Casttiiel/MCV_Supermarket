@@ -20,6 +20,7 @@
 #include "modules/module_scenes.h"
 #include "components/ai/bt/bt_cupcake.h"
 #include "components/ai/bt/bt_cupcake_explosive.h"
+#include "components/ai/others/comp_blackboard.h"
 
 
 
@@ -195,6 +196,7 @@ void CModuleGameController::setDamage(const std::string name_origin, int damage)
 	entity->sendMsg(message);
 }
 
+
 //bindear componente curva
 void CModuleGameController::bindInCurve(std::string _curve, std::string name_origin) {
 
@@ -265,6 +267,83 @@ void CModuleGameController::destroyCHandleByName(std::string name) {
 	}
 }
 
+
+void CModuleGameController::deleteCupcake()
+{
+	VHandles enemies = CTagsManager::get().getAllEntitiesByTag(getID("cupcake"));
+	for (auto h : enemies) {
+
+		TMsgDeleteTrigger msg;
+		msg.deleteForTrigger = true;
+		msg.h_entity = h;
+		msg.damage = 100.f;
+
+		CEntity* e_enemy = (CEntity*)h;
+		e_enemy->sendMsg(msg);
+	}
+}
+void CModuleGameController::deleteSushi()
+{
+	VHandles enemies = CTagsManager::get().getAllEntitiesByTag(getID("sushi"));
+	for (auto h : enemies) {
+		
+		TMsgDeleteTrigger msg;
+		msg.deleteForTrigger = true;
+		msg.h_entity = h;
+		msg.damage = 100.f;
+		
+		CEntity* e_enemy = (CEntity*)h;
+		e_enemy->sendMsg(msg);
+	}
+} 
+void CModuleGameController::deleteGolem(std::string name)
+{
+	
+	if(name != ""){
+		CEntity* e_golem = getEntityByName(name);
+		if (e_golem != nullptr){
+			TCompSelfDestroy* comp = e_golem->get<TCompSelfDestroy>();
+			comp->setEnabled(true);
+		}
+	}
+	
+}
+
+void CModuleGameController::setLifeEnemiesByTag(const char* tagName,float life) {
+	VHandles enemies = CTagsManager::get().getAllEntitiesByTag(getID(tagName));
+	for (auto h : enemies) {
+		CEntity* e_enemy = (CEntity*)h;
+
+		if (strcmp(tagName,"cupcake") == 0) {
+			CBTCupcake* cbt = e_enemy->get<CBTCupcake>();
+			cbt->setLife(life);
+		}
+		else if (strcmp(tagName, "golem") == 0) {
+
+
+		}
+		else if (strcmp(tagName, "sushi") == 0) {
+
+		}
+	}
+	/*
+	if (typeEnemy == TYPE_CUPCAKE) {
+		CBTCupcake* cupcake = e_enemy->get<CBTCupcake>();
+		cupcake->setLife(life);
+	}
+	if (typeEnemy == TYPE_SUSHI) {
+		CBTSushi* sushi_n = e_enemy->get<CBTSushi>();
+		//sushi_n->setLifesetLife no esta el set en la clase
+	}
+	if (typeEnemy == TYPE_RANGED_SUSHI) {
+		CBTRangedSushi* sushi_r = e_enemy->get<CBTRangedSushi>();
+		//sushi_n->setLifesetLife: no esta el set en la clase
+	}*/
+
+}
+
+
+
 void CModuleGameController::activatePlatformByName(std::string name) {
 	if (name != "") {
 		CEntity* e_platform = getEntityByName(name);
@@ -295,13 +374,15 @@ void CModuleGameController::deleteByTag(const char* tag) {
 	VHandles handles_in_scene = CTagsManager::get().getAllEntitiesByTag(getID(tag));
 	for (auto& instance : handles_in_scene) {
 		auto hm = CHandleManager::getByType(instance.getType());
-		if (hm)
+		if (hm) {
 			hm->destroyHandle(instance);
 		instance.getOwner().destroy();
 		instance.destroy();
+		}
 	}
 }
 #pragma endregion
+
 
 #pragma region Time Control
 void CModuleGameController::stopTime() {
@@ -685,7 +766,6 @@ void CModuleGameController::setHalfConeEnemyByHandle(float half_cone, CHandle h_
 	}
 }
 
-
 void CModuleGameController::setPauseEnemyByName(std::string enemy, bool active) {
 	
 	CEntity* e_enemy = getEntityByName(enemy);
@@ -753,7 +833,6 @@ void CModuleGameController::inCinematicSpecial(bool active, int type) {
 
 
 
-
 void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 	CHandle e_golem = getEntityByName(name);
 	CHandle e_player = getEntityByName("Player");
@@ -769,8 +848,60 @@ void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 	}
 }
 
+void CModuleGameController::changeGameState(std::string name) {
+	CEngine::get().getModules().changeToGamestate(name);
+}
+
+
+void CModuleGameController::setLifeEnemy(CHandle h,int typeEnemy,float life) {
+	CEntity* e_enemy = (CEntity*)h;
+
+	if (typeEnemy == TYPE_CUPCAKE) {
+		CBTCupcake* cupcake = e_enemy->get<CBTCupcake>();
+		cupcake->setLife(life);
+	}
+	if (typeEnemy == TYPE_SUSHI) {
+		CBTSushi* sushi_n = e_enemy->get<CBTSushi>();
+		//sushi_n->setLifesetLife no esta el set en la clase
+	}
+	if (typeEnemy == TYPE_RANGED_SUSHI) {
+		CBTRangedSushi* sushi_r = e_enemy->get<CBTRangedSushi>();
+		//sushi_n->setLifesetLife: no esta el set en la clase
+	}
+
+}
+
+
+
 void CModuleGameController::loadScene(const std::string name) {
 	SceneManager.getSceneManager()->loadScene(name);
+}
+
+void CModuleGameController::GPUloadScene(const std::string name) {
+  TFileContext fc(name);
+  TEntityParseContext ctx;
+  PROFILE_FUNCTION_COPY_TEXT(name.c_str());
+  dbg("Parsing boot prefab %s\n", name.c_str());
+  //Instead of parsing it with parseScene, lets parse it with the GPU Culling Module
+  //parseScene(p, ctx);
+  //This only parses the entities and prefabs, not products
+  CEngine::get().getGPUCulling().parseEntities(name, ctx);
+}
+
+void CModuleGameController::GPUdeleteScene(const std::string name) {
+  CEngine::get().getGPUCulling().deleteScene(name);
+}
+
+void CModuleGameController::deleteProducts() {
+  CEngine::get().getGPUCulling().deleteActualProducts();
+}
+
+void CModuleGameController::loadProducts(std::string zona) {
+  TFileContext fc(zona);
+  TEntityParseContext ctx;
+  CEngine::get().getGPUCulling().parseProducts(zona, ctx);
+
+  EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
 }
 
 CHandle CModuleGameController::entityByName(std::string name) {
@@ -839,6 +970,22 @@ TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
 	TCompEnemySpawnerSpecialTrap* t = h;
 	return t;
 }
+
+TCompSelfDestroy* toCompSelfDestroy(CHandle h) {
+	TCompSelfDestroy* s = h;
+	return s;
+}
+
+CBTCupcake* toCBTCupcake(CHandle h) {
+	CBTCupcake* c = h;
+	return c;
+}
+
+TCompEnemySpawner* toCompEnemySpawner(CHandle h) {
+	TCompEnemySpawner* c = h;
+	return c;
+}
+
 
 /*
 TCompCharacterController* toCompCharacterController_(CHandle h) {

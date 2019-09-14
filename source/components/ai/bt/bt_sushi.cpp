@@ -525,7 +525,7 @@ int CBTSushi::actionCharge() {
     }
     //TODO: HACER UN RAYCAST PARA DELANTE Y COMPROBAR SI CHOCA CON ALGO
     //raycast para no caer al vacio
-    //Si se para antes de colisionar, nunca hará daño al jugador con esto, lo comento
+    //Si se para antes de colisionar, nunca harï¿½ daï¿½o al jugador con esto, lo comento
     //VEC3 pos = c_trans->getPosition();//se lanza el raycast desde la posicion del sushi en la direccion que esta mirando
     //PxF32 attackHeight = c_cc->controller->getHeight() / 2;
     //pos.y = c_trans->getPosition().y + (float)attackHeight;
@@ -1209,11 +1209,39 @@ int CBTSushi::actionDeath() {
 
     //------------------------------------
     TCompTransform* c_trans = get<TCompTransform>();
-	if (!isDeadForFallout){
+	if (!isDeadForFallout && !isDeadForTrigger) {
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+
+		TEntityParseContext ctx;
+		ctx.root_transform = *c_trans;
+		parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+		TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+		c_sd->setDelay(0.25f);
+		c_sd->enable();
+
+		death_animation_started = true;
+		CHandle h = GameController.entityByName("enemies_in_butcher");
+		if (h.isValid()) {
+			CEntity* enemies_in_butcher = ((CEntity*)h);
+			TCompEnemiesInButcher* comp = enemies_in_butcher->get<TCompEnemiesInButcher>();
+			if (comp != nullptr) {
+				TMSgEnemyDead msgSushiDead;
+				msgSushiDead.h_entity = CHandle(this).getOwner();
+				msgSushiDead.isDead = true;
+				enemies_in_butcher->sendMsg(msgSushiDead);
+			}
+		}
+
+
+	}
+	else {
+		
+		CHandle(this).getOwner().destroy();
+		CHandle(this).destroy();
 	}
 	//------ENVIO ME HE MUERTO A COMPONENTE DE TRAMPA DE SUISHIS-----
-	
+	/*
 	CHandle h = GameController.entityByName("enemies_in_butcher");
 	if (h.isValid()) {
 		CEntity* enemies_in_butcher = ((CEntity*)h);
@@ -1224,8 +1252,8 @@ int CBTSushi::actionDeath() {
 			msgSushiDead.isDead = true;
 			enemies_in_butcher->sendMsg(msgSushiDead);
 		}
-	}
-
+	}*/
+	/*
   TEntityParseContext ctx;
   ctx.root_transform = *c_trans;
   parseScene("data/prefabs/vfx/death_sphere.json", ctx);
@@ -1234,10 +1262,8 @@ int CBTSushi::actionDeath() {
   c_sd->setDelay(0.25f);
   c_sd->enable();
 
-  death_animation_started = true;
-  _footSteps.setPaused(true);
-  /*CHandle(this).getOwner().destroy();
-  CHandle(this).destroy();*/
+  death_animation_started = true;*/
+   _footSteps.setPaused(true);
   return LEAVE;
 }
 #pragma endregion
@@ -1712,8 +1738,10 @@ void CBTSushi::registerMsgs() {
     DECL_MSG(CBTSushi, TMsgOnContact, onCollision);
     DECL_MSG(CBTSushi, TMsgGravity, onGravity);
     DECL_MSG(CBTSushi, TMsgBTPaused, onMsgBTPaused);
-    DECL_MSG(CBTSushi, TMSgTriggerFalloutDead, onTriggerFalloutDead);
-    //DECL_MSG(CBTSushi, TMsgDamageToAll, onDamageAll);//Nuevo, esto para el caso de que te caes
+	DECL_MSG(CBTSushi, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	DECL_MSG(CBTSushi, TMsgDeleteTrigger, onDeleteTrigger);
+	//
+	//DECL_MSG(CBTSushi, TMsgDamageToAll, onDamageAll);//Nuevo, esto para el caso de que te caes
 }
 
 void CBTSushi::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
@@ -1722,6 +1750,11 @@ void CBTSushi::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
     if (life < 0) {
         life = 0;
     }
+}
+
+void CBTSushi::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
+	isDeadForTrigger = true;
+	life = 0;
 }
 
 

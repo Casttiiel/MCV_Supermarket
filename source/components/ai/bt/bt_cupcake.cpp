@@ -241,25 +241,25 @@ int CBTCupcake::actionDeath() {
 	}
 	//------------------------------------
   TCompTransform* c_trans = get<TCompTransform>();
-  if (!isDeadForFallout) {
+  if (!isDeadForFallout && !isDeadForTrigger) {
 	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
+	  TEntityParseContext ctx;
+	  ctx.root_transform = *c_trans;
+	  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+	  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+	  c_sd->setDelay(0.25f);
+	  c_sd->enable();
+
+	  death_animation_started = true;
+  }
+  else {
+	  CHandle(this).getOwner().destroy();
+	  CHandle(this).destroy();
   }
   AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
   death.set3DAttributes(*c_trans);
   voice.stop();
-
-  TEntityParseContext ctx;
-  ctx.root_transform = *c_trans;
-  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
-
-  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
-  c_sd->setDelay(0.25f);
-  c_sd->enable();
-
-  death_animation_started = true;
-  /*CHandle(this).getOwner().destroy();
-  CHandle(this).destroy();*/
-
 	return LEAVE;
 }
 
@@ -876,6 +876,7 @@ void CBTCupcake::registerMsgs() {
 	DECL_MSG(CBTCupcake, TMsgEntityCreated, onCreated);
 	DECL_MSG(CBTCupcake, TMsgSpawnerCheckin, onCheckin);
 	DECL_MSG(CBTCupcake, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	DECL_MSG(CBTCupcake, TMsgDeleteTrigger, onDeleteTrigger);
 
 }
 
@@ -1131,8 +1132,7 @@ void CBTCupcake::generateNavmesh(VEC3 initPos, VEC3 destPos, bool recalc)
 void CBTCupcake::updateBT() {
 
 	//--------------------------navmesh
-
-		TCompTransform* c_trans = get<TCompTransform>();
+	TCompTransform* c_trans = get<TCompTransform>();
 	if (nextNavMeshPoint != VEC3().Zero	&& use_navmesh){ //update path point
 		if (Vector3::Distance(nextNavMeshPoint, c_trans->getPosition()) < distanceCheckThreshold) {
 			navMeshIndex++;
@@ -1189,6 +1189,11 @@ void CBTCupcake::setHalfCone(float half_cone) {
 	this->half_cone = half_cone;
 }
 
+void CBTCupcake::setLife(float life_) {
+	this->life = life_;
+}
+
+
 void CBTCupcake::renderDebug() {
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompRender* c_render = get<TCompRender>();
@@ -1216,4 +1221,15 @@ void CBTCupcake::renderDebug() {
 	drawLine(pos + half_cone_1 * length_cone, pos + half_cone_2 * length_cone, c_render->color);
 	
 	
+}
+
+
+void CBTCupcake::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
+	isDeadForTrigger = true;
+	life = 0;
+	num_of_divisions = 0;
+}
+
+float CBTCupcake::getLife() {
+	return life;
 }

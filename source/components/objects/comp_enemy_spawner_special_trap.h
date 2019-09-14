@@ -20,6 +20,7 @@ public:
 private:
 	
 	bool _isEnabled = false;
+	bool is_destroyed = false;
 	int _spawnMaxNumber = 2;
 	std::vector<CHandle> _currentEnemies;
 	float _spawnDelay = 0.f;

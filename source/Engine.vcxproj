@@ -155,6 +155,7 @@
     <ClCompile Include="modules\game\module_camera_shaker.cpp" />
     <ClCompile Include="modules\game\module_fluid_decal_generator.cpp" />
     <ClCompile Include="modules\game\module_game_controller.cpp" />
+    <ClCompile Include="modules\game\module_game_loading.cpp" />
     <ClCompile Include="modules\game\module_game_manager.cpp" />
     <ClCompile Include="modules\game\module_game_paused.cpp" />
     <ClCompile Include="modules\game\module_game_ui.cpp" />
@@ -267,6 +268,7 @@
     <ClCompile Include="ui\widgets\ui_button.cpp" />
     <ClCompile Include="ui\widgets\ui_image.cpp" />
     <ClCompile Include="ui\widgets\ui_progress.cpp" />
+    <ClCompile Include="ui\widgets\ui_sprite.cpp" />
     <ClCompile Include="ui\widgets\ui_text.cpp" />
     <ClCompile Include="utils\json_resource.cpp" />
     <ClCompile Include="utils\murmur3\murmur3.cpp" />
@@ -436,6 +438,7 @@
     <ClInclude Include="modules\game\module_camera_shaker.h" />
     <ClInclude Include="modules\game\module_fluid_decal_generator.h" />
     <ClInclude Include="modules\game\module_game_controller.h" />
+    <ClInclude Include="modules\game\module_game_loading.h" />
     <ClInclude Include="modules\game\module_game_manager.h" />
     <ClInclude Include="modules\game\module_game_paused.h" />
     <ClInclude Include="modules\game\module_game_ui.h" />
@@ -549,6 +552,7 @@
     <ClInclude Include="ui\widgets\ui_button.h" />
     <ClInclude Include="ui\widgets\ui_image.h" />
     <ClInclude Include="ui\widgets\ui_progress.h" />
+    <ClInclude Include="ui\widgets\ui_sprite.h" />
     <ClInclude Include="ui\widgets\ui_text.h" />
     <ClInclude Include="utils\data_provider.h" />
     <ClInclude Include="utils\directory_watcher.h" />
@@ -603,19 +607,19 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
