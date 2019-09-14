@@ -3263,7 +3263,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_carnes_ascensor002.col_mesh"
           }
@@ -3602,7 +3602,7 @@
         "shapes":
         [
           {
-            "shape": "trimesh"
+            "shape": "convex"
             ,
             "collision_mesh": "data/meshes/mapa_carnes_ascensor.col_mesh"
           }
@@ -3639,6 +3639,13 @@
         "pos": "-136.531 22.9743 -229.062"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "hierarchy":
+      {
+        "pos": "0 2 0"
+        ,
+        "parent": "ascensor002"
       }
       ,
       "prefab": "data/prefabs/structures/teleport_box.json"
@@ -3976,7 +3983,7 @@
       ,
       "transform":
       {
-        "pos": "-167.157 9.15011 -216.817"
+        "pos": "-167.157 9.15011 -215.965"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -4042,7 +4049,7 @@
       ,
       "transform":
       {
-        "pos": "-167.157 10.4985 -208.937"
+        "pos": "-167.157 10.4985 -209.716"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -4108,7 +4115,7 @@
       ,
       "transform":
       {
-        "pos": "-167.157 11.6534 -204.661"
+        "pos": "-167.157 11.6534 -203.628"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
