@@ -802,20 +802,6 @@ void TCompCharacterController::shoot() {
 }
 
 void TCompCharacterController::attack(float delta) {
-    if (attackFirstExecution) {
-        //Execute animation
-        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        if (animation1Done) {
-            playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_PARTIAL, 1.f, true);
-            animation1Done = false;
-        }
-        else {
-            playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_PARTIAL, 1.f, true);
-            animation1Done = true;
-        }
-        EngineAudio.playEvent("event:/Character/Attacks/Melee_Swing");
-        attackFirstExecution = false;
-    }
     //Change weapon mesh
     CEntity* weapon = getEntityByName("Mop");
     TCompRender* w_r = weapon->get<TCompRender>();
@@ -838,6 +824,33 @@ void TCompCharacterController::attack(float delta) {
     if (!comp_collider || !comp_collider->controller)
         return;
 
+    if (attackFirstExecution) {
+        //Execute animation
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        if (dir != VEC3().Zero) {
+            if (animation1Done) {
+                playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_PARTIAL, 1.f, true);
+                animation1Done = false;
+            }
+            else {
+                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_PARTIAL, 1.f, true);
+                animation1Done = true;
+            }
+        }
+        else {
+            if (animation1Done) {
+                playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_FULL, 1.f, true);
+                animation1Done = false;
+            }
+            else {
+                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_FULL, 1.f, true);
+                animation1Done = true;
+            }
+        }
+        
+        EngineAudio.playEvent("event:/Character/Attacks/Melee_Swing");
+        attackFirstExecution = false;
+    }
 
     TCompTeleport* c_tp = get<TCompTeleport>();
     TCompTransform* c_trans = get<TCompTransform>();
