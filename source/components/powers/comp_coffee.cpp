@@ -36,12 +36,12 @@ void TCompCoffeeController::setScales() {
 	c_cc->setSpeed(c_cc->getBaseSpeed() * (1.f + (_playerSpeedModifier - 1.f) * proportion));
 	TCompRigidBody* c_rb = get<TCompRigidBody>();
 
-  if (proportion > 0.f) {
-    c_rb->setUsingUnscaledTime(true);
-  }
-  else {
-    c_rb->setUsingUnscaledTime(false);
-  }
+	if (proportion > 0.f) {
+	c_rb->setUsingUnscaledTime(true);
+	}
+	else {
+	c_rb->setUsingUnscaledTime(false);
+	}
 }
 
 void TCompCoffeeController::switchState() {
@@ -62,38 +62,41 @@ void TCompCoffeeController::switchState() {
 void TCompCoffeeController::update(float delta) {
   //dbg("--------------\n");
 	//If it's enabled, try to spend madness, if we can't, disable
-  delta = Time.delta_unscaled;
-  if (_enabling) {
-    time_switching += delta;
-    if (time_switching > time_to_enable_disable)
-      time_switching = time_to_enable_disable;
-    //proportion = clamp(0.f, 1.f, time_switching / time_to_enable);
-    //dbg("enabling %f\n", time_switching);
-    proportion = Interpolator::quadInOut(0.f, 1.f, time_switching / time_to_enable_disable);
+	TCompCharacterController* c_cc = get<TCompCharacterController>();
+	if(c_cc != nullptr) {
+		delta = Time.delta_unscaled;
+		if (_enabling) {
+			time_switching += delta;
+			if (time_switching > time_to_enable_disable)
+				time_switching = time_to_enable_disable;
+			//proportion = clamp(0.f, 1.f, time_switching / time_to_enable);
+			//dbg("enabling %f\n", time_switching);
+			proportion = Interpolator::quadInOut(0.f, 1.f, time_switching / time_to_enable_disable);
 
-    setScales();
-  }
-  else if (_disabling) {
-    time_switching -= delta;
-    if (time_switching < 0.f)
-      time_switching = 0.f;
-    //proportion = clamp(0.f, 1.f, time_switching / time_to_enable_disable);
-    //dbg("desabling %f\n", time_switching);
-    proportion = Interpolator::quadInOut(0.f, 1.f, time_switching / time_to_enable_disable);
+			setScales();
+		}
+		else if (_disabling) {
+			time_switching -= delta;
+		if (time_switching < 0.f)
+			time_switching = 0.f;
+		//proportion = clamp(0.f, 1.f, time_switching / time_to_enable_disable);
+		//dbg("desabling %f\n", time_switching);
+		proportion = Interpolator::quadInOut(0.f, 1.f, time_switching / time_to_enable_disable);
 
-    setScales();
-  }
+		setScales();
+		}
 
-  ctes_shared.CoffeeRatio = proportion;
+		ctes_shared.CoffeeRatio = proportion;
 
-	if (_isEnabled) {
-		TCompMadnessController* m_c = get<TCompMadnessController>();
-		if (!m_c->spendMadness(m_c->getPowerCost(PowerType::COFFEE) * delta) && !GameController.getGodMode()) {
-      _isEnabled = false;
-      _disabling = true;
-      _enabling = false;
-      audioEffect.stop();
-    }
+		if (_isEnabled) {
+			TCompMadnessController* m_c = get<TCompMadnessController>();
+			if (!m_c->spendMadness(m_c->getPowerCost(PowerType::COFFEE) * delta) && !GameController.getGodMode()) {
+				_isEnabled = false;
+				_disabling = true;
+				_enabling = false;
+				audioEffect.stop();
+			}
+		}
 	}
 }
 
