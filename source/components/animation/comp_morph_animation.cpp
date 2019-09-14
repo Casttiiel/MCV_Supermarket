@@ -66,13 +66,7 @@ void TCompMorphAnimation::updateMorphData(float amount) {
   if (c_buff) {
     auto buf = c_buff->getCteByName("TCtesMorph");
     //buf->updateGPU(&dt);
-    if (morph_weights.a <= 1.0) {
-      morph_weights.a = amount;
-    }
-    else {
-      CHandle(this).getOwner().destroy();
-      CHandle(this).destroy();
-    }
+    morph_weights.a = amount;
     buf->updateGPU(&morph_weights);
   }
 }
