@@ -6,6 +6,7 @@
 #include "entity/common_msgs.h"
 #include "bt_controller.h"
 #include "geometry/curve.h"
+#include "modules/game/audio/audioEvent.h"
 
 class CBTSushi : public BTController {
 
@@ -40,6 +41,7 @@ public:
   int actionGravityReceived();
   int actionFear();
   int actionDeath();
+  int actionDeathStay();
   int actionIdleCombat();
   //End Actions
 
@@ -58,10 +60,13 @@ public:
   bool conditionGravityReceived();
   bool conditionFear();
   bool conditionDeath();
+  bool conditionDeathAnimation();
   bool conditionChase();
   std::string getNameCurve();
 	void setCurve(const CCurve* curve);
 	void setHeightRange(float height);
+	void setViewDistance(float distance);
+	void setHalfCone(float halfCone);
   //End Conditions
 private:
   float initialExecution = true;
@@ -72,6 +77,13 @@ private:
   Vector3 currentPosition;
   Vector3 nextPoint;
   VEC3 impulse = VEC3();
+  AudioEvent _jumpChargeAudio;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  AudioEvent _chargeAudio;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  AudioEvent _footSteps;
+  AudioEvent _audioPlaying;
+  bool _chargeAudioPlaying = false;
+  bool _jumpChargeAudioPlaying = false;
+  bool death_animation_started = false;
 
 	//curve values
   const CCurve* _curve = nullptr;
@@ -121,7 +133,7 @@ private:
   float hearing_radius = 3.0f;
   float combatViewDistance = 30.0f;
   float viewDistance = 15.f;
-	float height_range = 3.0f;
+  float height_range = 3.0f;
   //End View Ranges
 
   //Core Values
@@ -165,7 +177,7 @@ private:
   float chargeCooldownTimer = 0.f;
   VEC3 chargeObjective = VEC3();
   VEC3 chargePoint = VEC3();
-  float chargeDistanceThreshold = 4.f;
+  float chargeDistanceThreshold = 2.f;
   //End Charge Values
 
   //Jump Charge Values
@@ -177,7 +189,7 @@ private:
   float jumpChargeDamage = 20.0f;
   float jumpChargeCooldown = 6.f;
   float jumpChargeCooldownTimer = 0.f;
-  float jumpChargeDistanceThreshold = 4.5f;
+  float jumpChargeDistanceThreshold = 3.f;
   float explosionRadius = 3.f;
   float explosionDamage = 20.f;
   //End Jump Charge Values

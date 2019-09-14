@@ -1,7 +1,7 @@
 #include "mcv_platform.h"
 
 #include "module_game_controller.h"
-#include "components/controllers/character/comp_character_controller.h"
+
 #include "components/controllers/comp_sCart_controller.h"
 #include "components/objects/checkpoints/checkpoint.h"
 #include "components/common/comp_tags.h"
@@ -226,6 +226,8 @@ void CModuleGameController::lockCamera3Person(bool activate) {
 	if (t_comp3 != nullptr) {
 		//t_comp3->_enabled = activate;
 		t_comp3->mouse_active = activate;
+		t_comp3->_enabled = activate;
+	
 	}
 }
 
@@ -653,7 +655,33 @@ void CModuleGameController::setViewDistanceEnemyByHandle(float distance, CHandle
 			CBTGolem* golem = e_enemy->get<CBTGolem>();
 			golem->setViewDistance(70.f);
 		}
+		else if (TYPE_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTSushi* sushi = e_enemy->get<CBTSushi>();
+			sushi->setViewDistance(distance);
+		}
+		else if (TYPE_RANGED_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTRangedSushi* ranged_sushi = e_enemy->get<CBTRangedSushi>();
+			ranged_sushi->setViewDistance(distance);
+		}
 		//...
+	}
+}
+
+void CModuleGameController::setHalfConeEnemyByHandle(float half_cone, CHandle h_enemy, int typeEnemy) {
+	if (h_enemy.isValid()) {
+		if (TYPE_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTSushi* sushi = e_enemy->get<CBTSushi>();
+			sushi->setHalfCone(half_cone);
+		}
+		else if (TYPE_RANGED_SUSHI == typeEnemy) {
+			CEntity* e_enemy = (CEntity*)h_enemy;
+			CBTRangedSushi* ranged_sushi = e_enemy->get<CBTRangedSushi>();
+			ranged_sushi->setHalfCone(half_cone);
+		}
+		
 	}
 }
 
@@ -677,6 +705,9 @@ void CModuleGameController::setPauseEnemyByHandle(CHandle h_enemy, bool active) 
 		e_enemy->sendMsg(msg);
 	}
 }
+
+
+
 
 void CModuleGameController::setTransformObject(std::string name,VEC3 pos,float yaw, float pith, float roll) {
 	if (name != "") {
@@ -798,6 +829,17 @@ TCompCamera* toCompCamera(CHandle h) {
 	TCompCamera* c = h;
 	return c;
 }
+
+CBTGolem* toCBTGolem(CHandle h) {
+	CBTGolem* g = h;
+	return g;
+}
+
+TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
+	TCompEnemySpawnerSpecialTrap* t = h;
+	return t;
+}
+
 /*
 TCompCharacterController* toCompCharacterController_(CHandle h) {
 	TCompCharacterController* c = h;

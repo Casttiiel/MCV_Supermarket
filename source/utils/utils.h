@@ -24,6 +24,10 @@ template <typename T>
 inline T Lerp(T a, T b, T percent) {
   return (a + percent * (b - a));
 }
+template <typename T> 
+int sign(T val) {
+  return (T(0) < val) - (val < T(0));
+}
 
 //http://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
 inline float Damp(float a, float b, float lambda, float dt) {

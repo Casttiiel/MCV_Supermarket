@@ -29,6 +29,7 @@ public:
 
   void setMeleeMultiplier(float newMulti);
   void setSpeed(float newSpeed);
+  void setDashSpeed(float dashSpeed) { dash_speed = dashSpeed; }
   float getBaseSpeed();
 
   //Shopping Cart
@@ -87,7 +88,8 @@ private:
 	float invulnerabilityTimeDuration = 1.0;
 
   //Audio Values
-  AudioEvent footSteps;
+    AudioEvent damagedAudio;
+    AudioEvent footSteps;
   //Audio Values
 
   //Melee Values

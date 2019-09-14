@@ -156,23 +156,25 @@ void CApplication::runMainLoop() {
     }
     else
     {
-		if (GameController.getInvisibleBlock()) {
-			if (hasFocus()) {
-				VEC2 centerInScreen = (VEC2(float(CApplication::get().width_app), CApplication::get().height_app) * 0.5);
-				POINT pt{ LONG(centerInScreen.x), LONG(centerInScreen.y) };
-				ClientToScreen(CApplication::get().getHandle(), &pt);
-				SetCursorPos(pt.x, pt.y);
-				Input::CMouse mouse = EngineInput.mouse();
-				mouse.setLockMouse(true);
+
+		
+			if (GameController.getInvisibleBlock()) {
+				if (hasFocus()) {
+					VEC2 centerInScreen = (VEC2(float(CApplication::get().width_app), CApplication::get().height_app) * 0.5);
+					POINT pt{ LONG(centerInScreen.x), LONG(centerInScreen.y) };
+					ClientToScreen(CApplication::get().getHandle(), &pt);
+					SetCursorPos(pt.x, pt.y);
+					Input::CMouse mouse = EngineInput.mouse();
+					mouse.setLockMouse(true);
 				
-				//ShowCursor(false);
-				//_currPosition = centerInScreen;
+					//ShowCursor(false);
+					//_currPosition = centerInScreen;
+				}
 			}
-		}
-		else {
-			Input::CMouse mouse = EngineInput.mouse();
-			mouse.setLockMouse(false);
-		}
+			else {
+				Input::CMouse mouse = EngineInput.mouse();
+				mouse.setLockMouse(false);
+			}
         generateFrame();
     }
   }

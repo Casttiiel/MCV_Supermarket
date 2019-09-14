@@ -11,6 +11,11 @@ class TCompScalable :  public TCompBase {
   float final_scale = 1.0f;
   float time_to_scale = 1.0f;
   float speed = 0.0f;
+  bool has_to_return = false;
+  bool end_reached = false;
+  bool enabled = true;
+  float wait_til_return = 0.0f;
+  float timer = 0.0f;
   void onCreation(const TMsgEntityCreated& msg);
 
   public:

@@ -32,10 +32,14 @@
                 "pos": "0.1 0.0 0.05"
               }
               ,
-              "trigger": false,
               "group":"spawner"
             }
           ]
+		  ,
+		  "dynamic": true,
+		  "kinematic":true
+		  
+		 
       },
 	  "comp_termoestato":{},
       "tags" : ["enemy", "scenario"]

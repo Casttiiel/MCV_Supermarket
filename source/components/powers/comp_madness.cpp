@@ -7,6 +7,7 @@ using namespace physx;
 DECL_OBJ_MANAGER("comp_madness", TCompMadnessController);
 
 void TCompMadnessController::debugInMenu() {
+  ImGui::DragFloat("Madness", &_remainingMadness, 0.10f, 0.f, _maximumMadness);
 }
 
 void TCompMadnessController::load(const json& j, TEntityParseContext& ctx) {
@@ -42,7 +43,32 @@ void TCompMadnessController::load(const json& j, TEntityParseContext& ctx) {
 }
 
 void TCompMadnessController::registerMsgs() {
+	DECL_MSG(TCompMadnessController, TMsgOnCinematic, onCinematic);
+	DECL_MSG(TCompMadnessController, TMsgOnCinematicSpecial, onCinematicSpecial);
+
 }
+
+
+void TCompMadnessController::onCinematic(const TMsgOnCinematic& msg) {
+	if (msg.cinematic) {
+		isCinematic = true;
+	}
+	else {
+		isCinematic = false;
+	}
+}
+
+void TCompMadnessController::onCinematicSpecial(const TMsgOnCinematicSpecial& msg) {
+	if (msg.cinematic) {
+		isCinematic = true;
+	}
+	else {
+		isCinematic = false;
+	}
+}
+
+
+
 
 float TCompMadnessController::getRemainingMadness() {
 	return _remainingMadness;
@@ -133,29 +159,32 @@ void TCompMadnessController::restoreMadness(){
 }
 
 void TCompMadnessController::update(float delta) {
-	if (_remainingMadness > _passiveThreshold) {
-		//Above threshold logic
-		if (_passiveLossTimer <= 0) {
-			//if we haven't gained madness in _passiveLossDelay, start losing until we reach _passiveThreshold
-			_remainingMadness -= _madnessPassiveLossRate * delta;
+	if(!isCinematic){
+		if (_remainingMadness > _passiveThreshold) {
+			//Above threshold logic
+			if (_passiveLossTimer <= 0) {
+				//if we haven't gained madness in _passiveLossDelay, start losing until we reach _passiveThreshold
+				_remainingMadness -= _madnessPassiveLossRate * delta;
+			}
 		}
-	}
-	else if(_remainingMadness < _passiveThreshold){
-		//Below threshold logic
-		if (_passiveRegenerationTimer <= 0) {
-			//if we have less than _passiveThreshold, 
-			//and we haven't used it in _passiveRegenerationDelay, start regenerating up to _passiveThreshold
-			_remainingMadness += _madnessPassiveRestorationRate * delta;
+		else if(_remainingMadness < _passiveThreshold){
+			//Below threshold logic
+			if (_passiveRegenerationTimer <= 0) {
+				//if we have less than _passiveThreshold, 
+				//and we haven't used it in _passiveRegenerationDelay, start regenerating up to _passiveThreshold
+				_remainingMadness += _madnessPassiveRestorationRate * delta;
+      _remainingMadness = clamp(_remainingMadness, 0.0f, _passiveThreshold);
+			}
 		}
-	}
 
-	//quitar esto TODO
-	if (GameController.getGodMode()) {
-		_remainingMadness = _maximumMadness;
+		//quitar esto TODO
+		if (GameController.getGodMode()) {
+			_remainingMadness = _maximumMadness;
+		}
+		//Update timers
+		_passiveLossTimer -= delta;
+		_passiveRegenerationTimer -= delta;
 	}
-	//Update timers
-	_passiveLossTimer -= delta;
-	_passiveRegenerationTimer -= delta;
 }
 
 void TCompMadnessController::renderDebug() {

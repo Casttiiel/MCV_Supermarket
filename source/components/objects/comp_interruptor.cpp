@@ -33,11 +33,14 @@ void TCompInterruptor::onActivate(const TMsgDamage & msg) {
 			    GameController.resetCamera();
 				execDelayedAction("on_cinematic(true)", 0.0);
 				execDelayedAction("on_lock_camera3(false)", 0.0);
+				execDelayedAction("on_active_enemies(false)",0.0);
 				execDelayedAction("on_blending_camera(\"CameraPanel003\", 6,\"linear\")", 0.5);
 				execDelayedAction("on_blending_camera(\"PlayerCamera\", 6,\"linear\")", 8);
 				execDelayedAction("on_lock_camera3(true)", 14);
 				execDelayedAction("on_cinematic(false)", 14);
+				execDelayedAction("on_active_enemies(true)", 13.0);
 				execDelayedAction("setPauseEnemyName(\"golem2\",false)", 13);
+				execDelayedAction("setNotThrowCupcake(\"golem2\",false)", 13);
 			}
 			/*else if (nombre.compare("panel_prueba2") == 0) {
 				//nombre de plataforma a mover

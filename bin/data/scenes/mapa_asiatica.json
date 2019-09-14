@@ -86,118 +86,6 @@
   {
     "entity":
     {
-      "name": "cubosHielo_033"
-      ,
-      "transform":
-      {
-        "pos": "-66.6273 3.5151 -99.7399"
-        ,
-        "rotation": "-0.623275 -0.032376 0.22858 -0.747149"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "buffers":
-      {
-        "TCtesMorph":
-        {
-          "total_bytes": 16
-          ,
-          "slot": 13
-        }
-      }
-      ,
-      "morph_animation":
-      {
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_asiatica_cubosHielo_033.col_mesh"
-            ,
-            "group": "scenario"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_cubosHielo_033.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/interactive.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "cubosHielo_034"
-      ,
-      "transform":
-      {
-        "pos": "-55.5494 4.65012 -64.298"
-        ,
-        "rotation": "0.0 -0.258819 0.0 -0.965926"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "buffers":
-      {
-        "TCtesMorph":
-        {
-          "total_bytes": 16
-          ,
-          "slot": 13
-        }
-      }
-      ,
-      "morph_animation":
-      {
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_asiatica_cubosHielo_034.col_mesh"
-            ,
-            "group": "scenario"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_cubosHielo_034.mesh"
-        ,
-        "color": "0.882353 0.560784 0.341176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/interactive.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "Player"
       ,
       "transform":
@@ -266,7 +154,7 @@
       ,
       "transform":
       {
-        "pos": "-6.85569 14.0527 -81.7359"
+        "pos": "-6.53599 14.0527 -81.7359"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -298,7 +186,7 @@
       ,
       "transform":
       {
-        "pos": "-65.2923 17.3257 -18.9116"
+        "pos": "-65.2923 14.4181 -18.9116"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -484,49 +372,6 @@
       }
       ,
       "prefab": "data/prefabs/powers/sCart.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "deathTrigger001"
-      ,
-      "transform":
-      {
-        "pos": "-37.1005 -16.2873 -91.1727"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "123.847 2.0589 47.7548"
-            ,
-            "offset":
-            {
-              "pos": "0.0 2.0589 0.0"
-            }
-            ,
-            "group": "trigger"
-            ,
-            "trigger": true
-          }
-        ]
-      }
-      ,
-      "trigger":
-      {
-      }
-      ,
-      "trigger_damage_zone":
-      {
-      }
     }
   }
   ,
@@ -747,7 +592,7 @@
       {
         "pos": "-14.1238 0.562981 -81.9759"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "0.0 0.707107 0.0 -0.707107"
       }
       ,
       "abs_aabb": {}
@@ -1548,7 +1393,7 @@
       ,
       "transform":
       {
-        "pos": "-21.7668 -1.26169e-06 -28.864"
+        "pos": "-21.598 -1.26169e-06 -28.864"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1677,7 +1522,7 @@
       ,
       "transform":
       {
-        "pos": "-44.2872 -3.15004e-06 -72.0644"
+        "pos": "-44.744 -3.15004e-06 -72.0644"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1722,7 +1567,7 @@
       ,
       "transform":
       {
-        "pos": "-40.2225 -3.15004e-06 -72.0644"
+        "pos": "-40.5782 -3.16635e-06 -72.4376"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1767,7 +1612,7 @@
       ,
       "transform":
       {
-        "pos": "-36.1914 -3.15004e-06 -72.0644"
+        "pos": "-36.6511 -3.15004e-06 -72.0644"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1812,7 +1657,7 @@
       ,
       "transform":
       {
-        "pos": "-36.1914 -3.35272e-06 -76.7012"
+        "pos": "-36.6295 -3.35272e-06 -76.7012"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1857,7 +1702,7 @@
       ,
       "transform":
       {
-        "pos": "-40.2281 -3.35272e-06 -76.7012"
+        "pos": "-40.6448 -3.35272e-06 -76.7012"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1902,7 +1747,7 @@
       ,
       "transform":
       {
-        "pos": "-44.3742 -3.35272e-06 -76.7012"
+        "pos": "-44.7155 -3.36903e-06 -77.0744"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1947,7 +1792,7 @@
       ,
       "transform":
       {
-        "pos": "-21.7668 -1.50951e-06 -34.5337"
+        "pos": "-21.598 -1.50951e-06 -34.5337"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1992,7 +1837,7 @@
       ,
       "transform":
       {
-        "pos": "-21.7668 -1.77471e-06 -40.6006"
+        "pos": "-21.598 -1.77471e-06 -40.6006"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2037,7 +1882,7 @@
       ,
       "transform":
       {
-        "pos": "-7.52753 -1.26169e-06 -28.864"
+        "pos": "-7.35878 -1.26169e-06 -28.864"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2082,7 +1927,7 @@
       ,
       "transform":
       {
-        "pos": "-7.52753 -1.50951e-06 -34.5337"
+        "pos": "-7.35878 -1.50951e-06 -34.5337"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2127,7 +1972,7 @@
       ,
       "transform":
       {
-        "pos": "-7.52753 -1.77471e-06 -40.6006"
+        "pos": "-7.35878 -1.77471e-06 -40.6006"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2172,7 +2017,7 @@
       ,
       "transform":
       {
-        "pos": "-21.7668 -2.3324e-06 -53.3592"
+        "pos": "-21.598 -2.3324e-06 -53.3592"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2217,7 +2062,7 @@
       ,
       "transform":
       {
-        "pos": "-21.7668 -2.58023e-06 -59.0288"
+        "pos": "-21.598 -2.58023e-06 -59.0288"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2262,7 +2107,7 @@
       ,
       "transform":
       {
-        "pos": "-21.7668 -2.84543e-06 -65.0958"
+        "pos": "-21.598 -2.84543e-06 -65.0958"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2307,7 +2152,7 @@
       ,
       "transform":
       {
-        "pos": "-7.52753 -2.3324e-06 -53.3592"
+        "pos": "-7.35878 -2.3324e-06 -53.3592"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2352,7 +2197,7 @@
       ,
       "transform":
       {
-        "pos": "-7.52753 -2.58023e-06 -59.0288"
+        "pos": "-7.35878 -2.58023e-06 -59.0288"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2397,7 +2242,7 @@
       ,
       "transform":
       {
-        "pos": "-7.52753 -2.84543e-06 -65.0958"
+        "pos": "-7.35878 -2.84543e-06 -65.0958"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -18353,6 +18198,18 @@
       ,
       "abs_aabb": {}
       ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_letrerocable.col_mesh"
+          }
+        ]
+      }
+      ,
       "render":
       {
         "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letrerocable.mesh"
@@ -18538,48 +18395,6 @@
         "materials":
         [
           "data/materials/mapa_asiatica/suelo_asiatica.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "zona_carrito"
-      ,
-      "transform":
-      {
-        "pos": "-70.1088 -4.7083e-06 -107.713"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_asiatica_zona_carrito.col_mesh"
-            ,
-            "group": "floor"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_zona_carrito.mesh"
-        ,
-        "color": "0.580392 0.694118 0.105882 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/blanco.material"
         ]
       }
     }
@@ -19999,6 +19814,18 @@
       ,
       "abs_aabb": {}
       ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_techo.col_mesh"
+          }
+        ]
+      }
+      ,
       "render":
       {
         "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techo.mesh"
@@ -20140,34 +19967,6 @@
   {
     "entity":
     {
-      "name": "letrero003"
-      ,
-      "transform":
-      {
-        "pos": "-65.4998 7.64999 -28.2947"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letrero003.mesh"
-        ,
-        "color": "0.109804 0.109804 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/kiosko_mediano_letrero.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "techo001"
       ,
       "transform":
@@ -20178,6 +19977,18 @@
       }
       ,
       "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_techo001.col_mesh"
+          }
+        ]
+      }
       ,
       "render":
       {
@@ -20842,6 +20653,1178 @@
         "materials":
         [
           "data/materials/mapa_asiatica/lampara_china.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe008"
+      ,
+      "transform":
+      {
+        "pos": "-18.0559 1.14091 -13.0258"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_enchufe008.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch009"
+      ,
+      "transform":
+      {
+        "pos": "-18.0559 1.51207 -13.0258"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch009.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "AACC_pasillo"
+      ,
+      "transform":
+      {
+        "pos": "-56.2747 15.3805 -145.354"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_AACC_pasillo.mesh"
+        ,
+        "color": "0.0235294 0.529412 0.443137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/columna.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Puerta2LP001_pasillo"
+      ,
+      "transform":
+      {
+        "pos": "-54.9204 0.299903 -179.245"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_Puerta2LP001_pasillo.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/puerta_2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "enchufe003_pasillo"
+      ,
+      "transform":
+      {
+        "pos": "-52.6151 1.64418 -181.351"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_enchufe003_pasillo.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/enchufe.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "switch006_pasillo"
+      ,
+      "transform":
+      {
+        "pos": "-52.6151 2.01535 -181.351"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_switch006_pasillo.mesh"
+        ,
+        "color": "0.109804 0.109804 0.694118 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/switch2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cubosHielo_033"
+      ,
+      "transform":
+      {
+        "pos": "-66.6273 3.5151 -99.7399"
+        ,
+        "rotation": "-0.623275 -0.032376 0.22858 -0.747149"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "buffers":
+      {
+        "TCtesMorph":
+        {
+          "total_bytes": 16
+          ,
+          "slot": 13
+        }
+      }
+      ,
+      "morph_animation":
+      {
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_cubosHielo_033.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_cubosHielo_033.mesh"
+        ,
+        "color": "0.882353 0.560784 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/Hielo_8.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cubosHielo_034"
+      ,
+      "transform":
+      {
+        "pos": "-55.5494 4.65012 -64.298"
+        ,
+        "rotation": "0.0 -0.258819 0.0 -0.965926"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "buffers":
+      {
+        "TCtesMorph":
+        {
+          "total_bytes": 16
+          ,
+          "slot": 13
+        }
+      }
+      ,
+      "morph_animation":
+      {
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_cubosHielo_034.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_cubosHielo_034.mesh"
+        ,
+        "color": "0.882353 0.560784 0.341176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/hielo_7.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "paredes_zona_carrito001"
+      ,
+      "transform":
+      {
+        "pos": "-70.1088 -4.7083e-06 -107.713"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_paredes_zona_carrito001.col_mesh"
+            ,
+            "group": "floor"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_paredes_zona_carrito001.mesh"
+        ,
+        "color": "0.580392 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/pared_carrito_asiatica.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "techo_zonacarrito"
+      ,
+      "transform":
+      {
+        "pos": "-70.1088 -4.7083e-06 -107.713"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_techo_zonacarrito.mesh"
+        ,
+        "color": "0.580392 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/techo_asiatica.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "suelo_zonacarrito"
+      ,
+      "transform":
+      {
+        "pos": "-70.1088 -4.7083e-06 -107.713"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_asiatica_suelo_zonacarrito.col_mesh"
+            ,
+            "group": "floor"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_suelo_zonacarrito.mesh"
+        ,
+        "color": "0.580392 0.694118 0.105882 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/suelo_carrito_asiatica.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales"
+      ,
+      "transform":
+      {
+        "pos": "-74.7991 8.85693 -153.695"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal"
+      ,
+      "transform":
+      {
+        "pos": "-79.394 10.0471 -153.516"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales001"
+      ,
+      "transform":
+      {
+        "pos": "-64.5027 8.85693 -143.004"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales001.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal001"
+      ,
+      "transform":
+      {
+        "pos": "-59.9078 10.0471 -142.825"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal001.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal002"
+      ,
+      "transform":
+      {
+        "pos": "-71.1077 10.0471 -133.839"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal002.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales002"
+      ,
+      "transform":
+      {
+        "pos": "-73.502 7.8186 -134.035"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales002.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer3.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales003"
+      ,
+      "transform":
+      {
+        "pos": "-63.9158 7.8186 -159.904"
+        ,
+        "rotation": "0.0 -1.0 0.0 1.50996e-07"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales003.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal003"
+      ,
+      "transform":
+      {
+        "pos": "-66.2033 10.0471 -160.637"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal003.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales004"
+      ,
+      "transform":
+      {
+        "pos": "-58.001 8.85693 -174.145"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales004.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer4.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal004"
+      ,
+      "transform":
+      {
+        "pos": "-61.5343 10.0471 -177.088"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal004.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales006"
+      ,
+      "transform":
+      {
+        "pos": "-70.6975 7.8186 -166.104"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales006.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer3.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal006"
+      ,
+      "transform":
+      {
+        "pos": "-68.3731 10.0471 -165.498"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal006.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales007"
+      ,
+      "transform":
+      {
+        "pos": "-35.4771 7.81859 -195.732"
+        ,
+        "rotation": "0.0 -1.0 0.0 1.50996e-07"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales007.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal007"
+      ,
+      "transform":
+      {
+        "pos": "-37.7646 10.0471 -196.466"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal007.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales008"
+      ,
+      "transform":
+      {
+        "pos": "-50.207 8.85693 -179.841"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales008.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer5.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal008"
+      ,
+      "transform":
+      {
+        "pos": "-53.2446 10.0471 -183.293"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal008.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales009"
+      ,
+      "transform":
+      {
+        "pos": "-45.119 8.85693 -191.964"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales009.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer5.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal009"
+      ,
+      "transform":
+      {
+        "pos": "-49.6707 10.0471 -192.617"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal009.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales010"
+      ,
+      "transform":
+      {
+        "pos": "-49.4059 7.81859 -200.226"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales010.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer3.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal010"
+      ,
+      "transform":
+      {
+        "pos": "-47.3809 10.0471 -201.518"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal010.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales011"
+      ,
+      "transform":
+      {
+        "pos": "-43.4491 7.81859 -205.875"
+        ,
+        "rotation": "0.0 -1.0 0.0 1.19209e-07"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales011.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal011"
+      ,
+      "transform":
+      {
+        "pos": "-45.7419 10.0471 -205.157"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal011.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales012"
+      ,
+      "transform":
+      {
+        "pos": "-60.9634 8.85692 -208.195"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales012.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer5.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal012"
+      ,
+      "transform":
+      {
+        "pos": "-62.3183 10.0471 -203.801"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal012.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales014"
+      ,
+      "transform":
+      {
+        "pos": "-66.3915 7.81859 -214.603"
+        ,
+        "rotation": "0.0 -1.0 0.0 1.19209e-07"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales014.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer3.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal014"
+      ,
+      "transform":
+      {
+        "pos": "-66.7504 10.0471 -212.228"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal014.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "letro_sales015"
+      ,
+      "transform":
+      {
+        "pos": "-73.583 7.81859 -208.446"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_letro_sales015.mesh"
+        ,
+        "color": "0.529412 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/offer1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "palo_metal015"
+      ,
+      "transform":
+      {
+        "pos": "-73.2397 10.0471 -210.824"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_palo_metal015.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
         ]
       }
     }

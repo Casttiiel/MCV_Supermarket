@@ -4,6 +4,7 @@
 #include "entity/entity.h"
 #include "entity/common_msgs.h"
 #include "components/common/physics/comp_collider.h"
+#include "modules/game/audio/audioEvent.h"
 
 class TCompExplodeOnContact : public TCompBase {
 

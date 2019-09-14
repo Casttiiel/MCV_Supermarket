@@ -45,22 +45,10 @@ void TCompEnemySpawner::disable(const TMsgEntityTriggerExit & msg) {
 void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 	_isEnabled = false;
   EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
+  is_destroyed = true;
   //Animate or start particle system, do something
-    /*
-	if (!working) { //cambiar esto a u posible nuevo componenete termometro
-		
-		CHandle h_player = GameController.getPlayerHandle();
-		CEntity* e_player = (CEntity *)h_player;
-		TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
-		c_bb->incrementTermostateBroken();
-		
-
-	}
-	*/
-  
-
-	CHandle(this).getOwner().destroy();
-	CHandle(this).destroy();
+	/*CHandle(this).getOwner().destroy();
+	CHandle(this).destroy();*/
 }
 
 void TCompEnemySpawner::onCheckout(const TMsgSpawnerCheckout & msg) {
@@ -74,7 +62,7 @@ void TCompEnemySpawner::onCheckout(const TMsgSpawnerCheckout & msg) {
 }
 
 void TCompEnemySpawner::update(float dt) {
-	if (working) {
+	if (working && !is_destroyed) {
 		if (_isEnabled) {
 			if (_spawnTimer <= 0 && _currentEnemies.size() < _spawnMaxNumber) {
 				dbg("Spawning %s\n", _prefab);

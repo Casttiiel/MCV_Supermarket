@@ -14,11 +14,13 @@ public:
   void debugInMenu();
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
+  bool canBeDestroyed(VEC3 battery_pos);
 
   static void registerMsgs();
 
 private:
 	bool _isEnabled = false;
+  bool is_destroyed = false;
 	float windForce = 50.f;
   
   float windLength = 0.6f;
@@ -35,6 +37,7 @@ private:
   float _radius = 0.6f;
   float _startDestroy = 3.0f;
   float _destroyVar = 0.8f;
+  float distanceThreshold = 8.f;
 
 	CHandle player;
 

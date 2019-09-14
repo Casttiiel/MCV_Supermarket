@@ -1,4 +1,5 @@
 #include "mcv_platform.h"
+#include "engine.h"
 #include "checkpoint.h"
 #include "components/common/comp_tags.h"
 #include "components/common/comp_name.h"

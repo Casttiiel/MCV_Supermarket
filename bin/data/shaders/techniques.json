@@ -317,6 +317,10 @@
     "cs" : "cs_particles_shine_spawn",
     "cs_fx" : "data/shaders/gpu_particles_shine.fx"
   },
+  "cs_particles_shine_update" : {
+    "cs" : "cs_particles_shine_update",
+    "cs_fx" : "data/shaders/gpu_particles_shine.fx"
+  },
   "cs_particles_flow_spawn" : {
     "cs" : "cs_particles_flow_spawn",
     "cs_fx" : "data/shaders/gpu_particles_flow.fx"
@@ -514,6 +518,12 @@
     "ctes_buffers": {
       "TCtesSmokeDust": 13
     }
+  },
+  "death": {
+    "vs_fx": "data/shaders/death.fx",
+    "vdecl": "PosNUvT",
+    "blend": "combinative",
+    "rs": "cull_none"
   },
   "blob": {
     "vs_fx": "data/shaders/blob.fx",

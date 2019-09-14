@@ -33,6 +33,7 @@ public:
 
 	int actionDivide();
 	int actionDeath();
+  int actionDeathStay();
 	int actionGravityReceived();
 	int actionImpactReceived();
 	int actionRecoilReceived();
@@ -47,6 +48,7 @@ public:
 
 
 	bool conditionDeath();
+  bool conditionDeathAnimation();
 	bool conditionDivide();
 	bool conditionGravityReceived();
 	bool conditionImpactReceived();
@@ -85,6 +87,7 @@ public:
 	int damage = 10;
 	int fireDamage = 15;
 	int currentDamage = damage;
+  bool death_animation_started = false;
 
 	//CURVE  VALUES
 	float	mTravelTime = 0.22f;
@@ -243,6 +246,8 @@ private:
 
 	std::string pathCurve = "";
 
+  std::string state = "";
+  std::string getState();
 
 };
 

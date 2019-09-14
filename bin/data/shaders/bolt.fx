@@ -39,7 +39,9 @@ VS_OUTPUT VS(
 //--------------------------------------------------------------------------------------
 // Pixel Shader
 //--------------------------------------------------------------------------------------
-float4 PS(VS_OUTPUT input) : SV_Target
+void PS(VS_OUTPUT input
+  , out float4 o_deferred : SV_Target0
+  , out float4 o_shine : SV_Target1)
 {
   float lineSize = 0.02f / lineBoltScale;
 
@@ -59,7 +61,9 @@ float4 PS(VS_OUTPUT input) : SV_Target
   float4 white = float4(1,1,1,1);
   float4 color = lerp(white, ObjColor, value);
   float3 texture_color = color * uv;
-  return float4(texture_color,uv);
+
+  o_deferred = float4(texture_color, uv);
+  o_shine = float4(texture_color, uv);
 }
 
 struct VS_OUTPUT2
@@ -95,7 +99,9 @@ VS_OUTPUT2 VS_bolt_sphere(
 //--------------------------------------------------------------------------------------
 // Pixel Shader
 //--------------------------------------------------------------------------------------
-float4 PS_bolt_sphere(VS_OUTPUT2 input) : SV_Target
+void PS_bolt_sphere(VS_OUTPUT2 input
+  , out float4 o_deferred : SV_Target0
+  , out float4 o_shine : SV_Target1)
 { 
   float3 dir = normalize(CameraPosition.xyz - input.WorldPos);
   float3 N = normalize(input.N);
@@ -105,5 +111,6 @@ float4 PS_bolt_sphere(VS_OUTPUT2 input) : SV_Target
   float variance = sin(GlobalWorldTime* 2) / 6.666f + 1.30f;
   float3 color = lerp(ObjColor.xyz, white, NdV) * variance;
 
-  return float4(color,1.0);
+  o_deferred = float4(color, 1.0);
+  o_shine = float4(color, 1.0);
 }

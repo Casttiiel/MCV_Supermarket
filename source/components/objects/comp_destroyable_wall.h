@@ -27,5 +27,8 @@ private:
   float factor = 1.5f;
 	float factor2 = 2.5f;
 	float timer_ice_wall = 150.0;
+  float last_fire_hit = 0.0f;
+  float max_last_fire_hit = 0.25f;
+  bool enemies_in_tube_deleted = false;
 };
 

@@ -6,6 +6,7 @@
 #include "entity/common_msgs.h"
 #include "bt_controller.h"
 #include "geometry/curve.h"
+#include "modules/game/audio/audioEvent.h"
 
 class CBTRangedSushi : public BTController {
 
@@ -39,6 +40,7 @@ public:
   int actionGravityReceived();
   int actionFear();
   int actionDeath();
+  int actionDeathStay();
   int actionIdle();
   int actionIdleCombat();
   int actionDecoy();
@@ -58,14 +60,18 @@ public:
   bool conditionGravityReceived();
   bool conditionFear();
   bool conditionDeath();
+  bool conditionDeathAnimation();
   bool conditionDecoy();
 
 	void setCurve(const CCurve* curve);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
 	std::string getNameCurve();
+	void setViewDistance(float value);
+	void setHalfCone(float halfCone);
   //End Conditions
 private:
-  float initialExecution = true;
+    AudioEvent _footSteps;
+    float initialExecution = true;
   //Pathing
   int nWaypoints = 0;
   std::vector<Vector3> positions;
@@ -75,6 +81,7 @@ private:
   Vector3 nextPoint;
   VEC3 impulse = VEC3();
   int directionJump;//0 right, 1 left
+  bool death_animation_started = false;
   enum class States {
     undefined = 0,
 	Idle,
@@ -104,7 +111,8 @@ private:
 	  Random
   };
 
-
+  AudioEvent _audioPlaying;// = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+  bool hasPlayedTripleThrowAudio = false;
   //navmesh values
   bool use_navmesh = true;
   float reevaluatePathTimer = 0;
@@ -232,6 +240,7 @@ private:
   void Send_DamageMessage(CEntity* entity, float dmg);
   bool isGrounded();
   bool isHole(VEC3 jump);
+  bool isOtherEnemyInSide();
   void onCollision(const TMsgOnContact& msg);
   void onGenericDamageInfoMsg(const TMsgDamage& msg);
   void onGravity(const TMsgGravity& msg);
@@ -261,6 +270,9 @@ private:
 	std::string pathCurve = "";
   //flag patrol curve or point
   
+
+	
+
 	//curve values
 	const CCurve* _curve = nullptr;
 	std::vector<VEC3> _knots;

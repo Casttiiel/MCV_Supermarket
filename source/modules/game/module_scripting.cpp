@@ -17,6 +17,7 @@
 #include "skeleton/comp_skel_lookat.h"
 #include <experimental/filesystem>
 #include "SLB/include/SLB/SLB.hpp"
+#include "components/ai/bt/bt_golem.h"
 
 SLB::Manager* m = new SLB::Manager;
 SLB::Script* s = new SLB::Script(m);
@@ -96,6 +97,8 @@ void CModuleScripting::doBingings() {
 	BindConverters();
 	BindEnemiesInTube();
 	BindName();
+	BindGolem();
+	BindEnemySpawnerSpecial();
 }
 
 
@@ -149,7 +152,8 @@ void CModuleScripting::BindGameController() {
 		.set("setViewDistanceEnemyByHandle",&CModuleGameController::setViewDistanceEnemyByHandle)
 		.set("getCameraFromHandle", &CModuleGameController::getCameraFromHandle)
 		.set("inCinematicSpecial", &CModuleGameController::inCinematicSpecial)
-    .set("blendPlayerCamera", &CModuleGameController::blendPlayerCamera)
+		.set("blendPlayerCamera", &CModuleGameController::blendPlayerCamera)
+		.set("setHalfConeEnemyByHandle", &CModuleGameController::setHalfConeEnemyByHandle)
 		;
 }
 
@@ -162,6 +166,9 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompName", SLB::FuncCall::create(&toCompName));
 	m->set("toCompTransform", SLB::FuncCall::create(&toCompTransform));
 	m->set("toCompCamera", SLB::FuncCall::create(&toCompCamera));
+	m->set("toCBTGolem", SLB::FuncCall::create(&toCBTGolem));
+	m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
+	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
 
@@ -195,6 +202,24 @@ void CModuleScripting::BindName() {
 		.constructor()
 		.set("setName", &TCompName::setName)
 		.set("getName", &TCompName::getName)
+		;
+}
+
+
+void CModuleScripting::BindGolem() {
+	SLB::Class<CBTGolem>("CBTGolem", m)
+		.comment("This is our wrapper of compGolem class")
+		.constructor()
+		.set("setNotThrowCupcake", &CBTGolem::setNotThrowCupcake)
+		;
+}
+
+void CModuleScripting::BindEnemySpawnerSpecial() {
+	SLB::Class<TCompEnemySpawnerSpecialTrap>("TCompEnemySpawnerSpecialTrap", m)
+		.comment("This is ouTCompEnemySpawnerSpecialTrapr wrapper of TCompEnemySpawnerSpecialTrap class")
+		.constructor()
+		.property("working", &TCompEnemySpawnerSpecialTrap::working)
+		.set("setSpawnDelay", &TCompEnemySpawnerSpecialTrap::setSpawnDelay)
 		;
 }
 

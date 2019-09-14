@@ -5,6 +5,7 @@
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
 #include "components/ai/graph/ai_controller.h"
+#include "modules/game/audio/audioEvent.h"
 
 class TCompSCartController : public IAIController
 {
@@ -34,6 +35,10 @@ private:
 	CHandle fakePlayerHandle;
 	//Flags
 	
+    //Audio Values
+    AudioEvent _movementAudio;
+    AudioEvent _crashAudio;
+    //Audio Values
 	
 	float sensitivity = 2.0f;
 	float gravity = -9.81f;

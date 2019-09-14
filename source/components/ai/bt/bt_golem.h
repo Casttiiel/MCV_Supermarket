@@ -5,6 +5,7 @@
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
 #include "bt_controller.h"
+#include "modules/game/audio/audioEvent.h"
 
 
 class CBTGolem : public BTController {
@@ -57,6 +58,7 @@ public:
 	bool conditionAttackCinematic();
 	void setViewDistance(float distance);
 	void setHeightRange(float height);
+	void setNotThrowCupcake(bool value);
 private:
 
 
@@ -78,11 +80,11 @@ private:
 	//end speed values
 
 	//frequency values
-	float throwFrequecy = 1.0f; //cada cuanto reevalua que tipo de disparo har�
+	float throwFrequecy = 0.5f; //cada cuanto reevalua que tipo de disparo hara
 	float timerGrenade = throwFrequecy;
 
 	float meleeFrequency = 1.0f;
-	float timerMelee = meleeFrequency;
+	float timerMelee = 0.f;
 
 	float _burstDelay = .5f;
 	float _burstTimer = 0.f;
@@ -131,6 +133,7 @@ private:
 	bool golemCinematic = false;
 	bool inCinematic = false;
 
+	bool noThrowCupcake = false;
 	bool firstExec= true;
 	float projectileDelay = 0.83;
 	float delay = projectileDelay;
@@ -156,6 +159,8 @@ private:
 	bool checkHeight();
 	CHandle h_sender;
 	CHandle h_bullet;
+    AudioEvent _painAudio;
+    bool throwAudio = false;
 };
 
 

@@ -5,6 +5,7 @@
 #include "modules/module_physics.h"
 #include "components/common/comp_transform.h"
 
+
 DECL_OBJ_MANAGER("rigidbody", TCompRigidBody);
 
 using namespace physx;
@@ -54,7 +55,7 @@ void TCompRigidBody::update(float delta) {
 		manageImpulseXZ(dt);
 
     impulse.x = clamp(impulse.x, -10.f, 10.f);
-    impulse.y = clamp(impulse.y, -10.f, 10.f);
+    impulse.y = clamp(impulse.y, -20.f, 10.f);
     impulse.z = clamp(impulse.z, -10.f, 10.f);
 
 		PxVec3 velocity = physx::PxVec3(impulse.x, impulse.y, impulse.z);

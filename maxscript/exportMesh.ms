@@ -314,7 +314,7 @@ function exportMesh the_obj out_filename vtx_fmt = (
 					
 					new_vert = #(posLocal.x, posLocal.y, posLocal.z, N.x, N.y, N.z, uvA.x, 1.0 - uvA.y )
 					join new_vert #(posLocal2.x, posLocal2.y, posLocal2.z, N2.x, N2.y, N2.z )
-					
+										
 					-- Restore morph to default pose
 					WM3_MC_SetValue modmorph 1 0.0
 				)
@@ -350,7 +350,7 @@ function exportMesh the_obj out_filename vtx_fmt = (
 		--local export_path = "C:/Users/victo/mcv_sm/bin/data/meshes/
 		--C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/meshes/
 		--local export_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/meshes/" 
-		local export_path = "C:/Users/MajoGC/Desktop/MCV_Supermarket/bin/data/meshes/static_objects/"
+		local export_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/data/meshes/static_objects/"
 		out_filename = export_path + the_obj.name + ".mesh"
 	)
 	writeMeshToFile out_filename verts idxs vtx_fmt subgroups

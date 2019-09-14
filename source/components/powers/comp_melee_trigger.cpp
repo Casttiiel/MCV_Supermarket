@@ -29,11 +29,6 @@ void TCompMeleeTrigger::registerMsgs() {
 void TCompMeleeTrigger::onCollision(const TMsgEntityTriggerEnter& msg) {
     if (!_isEnabled)
         return;
-
-    if (_audioOnHit != "") {
-        dbg(_audioOnHit.c_str());
-        EngineAudio.playEvent(_audioOnHit);
-    }
 }
 
 

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="components\actions\comp_audioPlayer.cpp" />
     <ClCompile Include="components\actions\comp_checkpoint_register.cpp" />
     <ClCompile Include="components\actions\comp_explode_oncontact.cpp" />
     <ClCompile Include="components\actions\comp_follow.cpp" />
@@ -77,6 +78,7 @@
     <ClCompile Include="components\john\comp_sensor.cpp" />
     <ClCompile Include="components\objects\comp_blade_trap.cpp" />
     <ClCompile Include="components\objects\comp_enemies_in_butcher.cpp" />
+    <ClCompile Include="components\objects\comp_enemy_spawner_special_trap.cpp" />
     <ClCompile Include="components\objects\comp_fire_trap.cpp" />
     <ClCompile Include="components\objects\comp_interruptor.cpp" />
     <ClCompile Include="components\objects\comp_termoestato.cpp" />
@@ -275,6 +277,7 @@
   <ItemGroup>
     <ClInclude Include="..\bin\data\shaders\constants.h" />
     <ClInclude Include="..\bin\data\shaders\platform.h" />
+    <ClInclude Include="components\actions\comp_audioPlayer.h" />
     <ClInclude Include="components\actions\comp_checkpoint_register.h" />
     <ClInclude Include="components\actions\comp_explode_oncontact.h" />
     <ClInclude Include="components\actions\comp_follow.h" />
@@ -340,6 +343,7 @@
     <ClInclude Include="components\john\comp_circular_controller.h" />
     <ClInclude Include="components\objects\comp_blade_trap.h" />
     <ClInclude Include="components\objects\comp_enemies_in_butcher.h" />
+    <ClInclude Include="components\objects\comp_enemy_spawner_special_trap.h" />
     <ClInclude Include="components\objects\comp_fire_trap.h" />
     <ClInclude Include="components\objects\comp_interruptor.h" />
     <ClInclude Include="components\objects\comp_termoestato.h" />
@@ -553,6 +557,7 @@
     <ClInclude Include="utils\murmur3\murmur3.h" />
     <ClInclude Include="utils\named_values.h" />
     <ClInclude Include="utils\PerlinNoise.hpp" />
+    <ClInclude Include="utils\time.h" />
     <ClInclude Include="utils\utils.h" />
     <ClInclude Include="windows\app.h" />
   </ItemGroup>
@@ -598,19 +603,19 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

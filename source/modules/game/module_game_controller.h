@@ -1,7 +1,6 @@
 #pragma once
 
 #include "modules/module.h"
-
 #include "entity/entity.h"
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
@@ -14,8 +13,11 @@
 #include "components/controllers/comp_enemies_in_tube.h"
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
+#include "components/objects/comp_enemy_spawner_special_trap.h"
+#include "components/controllers/character/comp_character_controller.h"
 
 
+class CBTGolem;
 class CCheckpoint;
 class CModuleGameplayFragment;
 
@@ -47,7 +49,7 @@ class CModuleGameController : public IModule
     void renderInMenu();
     void updateGameCondition();
 
-	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(2,7 ,-1),VEC3(14, 15,-6),VEC3(-69,2,-114)};
+	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(2,7 ,-1),VEC3(14, 15,-6),VEC3(-69,2,-114),VEC3(-83,5,-212) };
 	int positionCheat = 0;
     
     //void switchState(PauseState pause);
@@ -238,6 +240,7 @@ public:
 	void dbgInLua(std::string text);
 	void setHeightEnemyByHandle(int height, CHandle h_enemy, int typeEnemy);
 	void setViewDistanceEnemyByHandle(float distance, CHandle h_enemy, int typeEnemy);
+	void setHalfConeEnemyByHandle(float half_cone, CHandle h_enemy, int typeEnemy);
 	CCamera* getCameraFromHandle(CHandle hCamera);
 	
 };
@@ -253,4 +256,7 @@ TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 TCompName* toCompName(CHandle h);
 TCompTransform* toCompTransform(CHandle h);
 TCompCamera* toCompCamera(CHandle h);
+TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
+
+CBTGolem* toCBTGolem(CHandle h);
 //TCompCharacterController* toCompCharacterController_(CHandle h);

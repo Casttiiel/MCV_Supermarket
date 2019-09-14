@@ -81,7 +81,7 @@
         },
         {
           "desc" : "Updating as many thread groups as required & defined by the buffer indirect_update", 
-          "cs" : "cs_particles_cold_update.compute",
+          "cs" : "cs_particles_shine_update.compute",
           "sizes" : { 
             "buffer": "indirect_update", 
             "offset" : 0 

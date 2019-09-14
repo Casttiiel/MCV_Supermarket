@@ -37,6 +37,19 @@ void TCompFireController::load(const json& j, TEntityParseContext& ctx) {
     if (e_parent)
         h_skeleton = e_parent->get<TCompSkeleton>();
     srand(1234);
+
+    _hitAudio = EngineAudio.playEvent(_hitAudioName);
+    _hitAudio.stop();
+}
+
+void TCompFireController::registerMsgs() {
+    DECL_MSG(TCompFireController, TMsgSoundRequest, onSoundRequest);
+}
+
+void TCompFireController::onSoundRequest(const TMsgSoundRequest& msg) {
+    if (msg.name == _hitAudioName && !_hitAudio.isPlaying()) {
+        _hitAudio = EngineAudio.playEvent(_hitAudioName);
+    }
 }
 
 void TCompFireController::renderDebug() {
@@ -59,6 +72,7 @@ void TCompFireController::disable() {
 }
 
 void TCompFireController::update(float dt) {
+
     if (_buffRemaining > 0.f) {
         _buffRemaining -= Time.delta_unscaled;
     }
@@ -96,7 +110,7 @@ void TCompFireController::update(float dt) {
 
     //If trigger just released or we've run out of madness, disable
     TCompMadnessController* m_c = get<TCompMadnessController>();
-    if (EngineInput["fire_attack_"].justReleased() || (m_c->getRemainingMadness() < m_c->getPowerCost(PowerType::FIRE) && !GameController.getGodMode())) {
+    if (EngineInput["fire_attack_"].justReleased() || (m_c->getRemainingMadness() < m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled && !GameController.getGodMode())) {
         disable();
         return;
     }
@@ -124,11 +138,20 @@ void TCompFireController::comboAttack(VEC3 pos) {
     msg.targetType = EntityType::ENEMIES;
     msg.damageType = PowerType::FIRECOMBO;
     msg.position = pos;
-    msg.intensityDamage = _fireDamage;
+    msg.intensityDamage = 50.0f;
     msg.impactForce = 20.f;
     float radius = 5.f;
     GameController.generateDamageSphere(pos, radius, msg, "enemy");
-    GameController.spawnPrefab("data/prefabs/props/explosion_sphere.json", pos, QUAT().Identity, radius);
+    CHandle c = GameController.spawnPrefab("data/prefabs/props/explosion_sphere.json", pos, QUAT().Identity, radius);
+    CEntity* e_sphere = c;
+
+    TCompBuffers* c_buff = e_sphere->get<TCompBuffers>();
+    if (c_buff) {
+      auto buf = c_buff->getCteByName("TCtesParticles");
+      CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
+      data->emitter_center = pos + VEC3::Up;
+      data->updateGPU();
+    }
 }
 
 void TCompFireController::attack(VEC3 origin) {

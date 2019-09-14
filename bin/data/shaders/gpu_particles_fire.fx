@@ -55,7 +55,7 @@ TInstance spawnParticle( uint unique_id ) {
   p.unique_id = unique_id;
   p.time_normalized = 0.0;
   p.time_factor = 1.0 / duration;
-  p.scale = 1.0;
+  p.scale = 0.1;
   p.color = float4(1,1,0,1);
   p.dummy1 = rnd5;
   p.dummy2 = rnd6;
@@ -74,6 +74,7 @@ TInstance spawnParticle( uint unique_id ) {
 void updateParticle( inout TInstance p ) {
   p.prev_pos = p.pos;
   p.color = sampleColor( p.time_normalized );
+  p.scale = sampleScale( p.time_normalized );
   p.dir += p.acc * GlobalDeltaTime;
   p.pos += p.dir * GlobalDeltaTime;
   /*if( p.pos.y < 0 ) {
@@ -209,7 +210,9 @@ v2p VS(
 }
 
 //--------------------------------------------------------------------------------------
-float4 PS(v2p input) : SV_Target {
+void PS(v2p input
+, out float4 o_deferred : SV_Target0
+, out float4 o_shine : SV_Target1   ){
   const float2x2 rot_matrix = { cos(input.aux.x), -sin(input.aux.x),
     sin(input.aux.x), cos(input.aux.x)
   };
@@ -254,5 +257,6 @@ float4 PS(v2p input) : SV_Target {
   finalcolor *= length(input.Uv - float2(0.5f,0.5f)) < 0.4f;
 
   //return input.Color * 4;
-  return finalcolor * input.Color; // + float4( 1,1,1,0); finalcolor * input.Color
+  o_deferred = finalcolor * input.Color; // + float4( 1,1,1,0); finalcolor * input.Color
+  o_shine = finalcolor * input.Color; // + float4( 1,1,1,0); finalcolor * input.Color
 }

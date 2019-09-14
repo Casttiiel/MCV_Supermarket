@@ -21,7 +21,7 @@ class TCompBatteryController : public TCompBase {
 	float distance = 1.5f;
 	float distanceFire = 1.f;
 	float atractionForce = 20.f;
-	float battery_radius_hit = 10.f;
+	float battery_radius_hit = 8.f;
 	float battery_radius_trajectory_hit = 0.1f;
 	float mass = 100.f;
 	float force = 10.0f;

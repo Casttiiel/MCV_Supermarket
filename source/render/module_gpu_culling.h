@@ -91,6 +91,8 @@ class CModuleGPUCulling : public IModule {
   std::vector< TRenderTypeID >  render_types;
   bool                          is_dirty = false;
   bool                          show_debug = true;
+  int                           first_prod_index = 50000;
+  int                           last_prod_index = -1;
 
   CCamera                       culling_camera;
   TCullingPlanes                culling_planes;
@@ -135,8 +137,11 @@ public:
   void renderCategory(eRenderCategory category);
   void setDirty() { is_dirty = true; }
   void updateObjData(int idx, CHandle entity);
-  int getObjSize() { return objs.size(); }
+  int getObjSize();
   void parseEntities(const std::string& filename, TEntityParseContext& ctx);
+  void parseProducts(const std::string& filename, TEntityParseContext& ctx);
+  void createPrefabProducts();
+  void deleteActualProducts();
   void clear();
 
 };

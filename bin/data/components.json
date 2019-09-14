@@ -1,7 +1,7 @@
 {
   "sizes" : {
-    "default" : 2048,
-  "transform" : 2048
+    "default" : 4095,
+    "transform" : 4095
   },
   "init_order" : {
     "entity" : 100,
@@ -20,6 +20,8 @@
 	"curve_controller",
     "skel_lookat",
     "skel_lookat_direction",
+    "comp_teleport",
+    "comp_fire",
     "fire_follow",
 	"comp_destroyable_wall",
     "bt_sushi",
@@ -30,7 +32,6 @@
     "kinematic_bullet",
 	"trigger_move_wall",
     "battery_controller",
-	"comp_fire",
     "rigidbody",
     "camera_flyover",
     "bone_tracker",
@@ -44,6 +45,7 @@
     "comp_increase_power",
     "comp_scale_gradually",
     "comp_coffee",
+    "comp_melee_trigger",
     "ui_controller",
     "parabolic_launch",
     "ai_platform_mobile",
@@ -63,7 +65,6 @@
     "sushi_animator",
     "prop_animator",
     "grenade_golem_controller",
-    "comp_teleport",
     "ai_turret",
     "turret_bullet_controller",
     "comp_blackboard",
@@ -96,12 +97,11 @@
 	"comp_increase_power",
 	"comp_interruptor",
 	"enemies_in_tube",
-	"enemies_in_butcher"
+	"enemies_in_butcher",
+	"comp_enemy_spawner_special_trap"
   ],
   "render_debug": [
     "ui_controller",
-    "character_controller",
-    "trigger",
-    "collider"
+    "character_controller"
   ]
 }

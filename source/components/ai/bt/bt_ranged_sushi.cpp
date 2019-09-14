@@ -12,6 +12,7 @@
 #include "components/ai/others/comp_blackboard.h"
 #include "bt_ranged_sushi.h"
 #include "components/controllers/character/comp_character_controller.h"
+#include "components/ai/others/self_destroy.h"
 
 #include "random"
 
@@ -30,6 +31,7 @@ void CBTRangedSushi::create(string s)//crear el arbol
 	addChild("SUSHI", "ON_FEAR", ACTION, (btcondition)&CBTRangedSushi::conditionFear, (btaction)&CBTRangedSushi::actionFear);
 	addChild("SUSHI", "ON_IMPACT", ACTION, (btcondition)&CBTRangedSushi::conditionImpactReceived, (btaction)&CBTRangedSushi::actionImpactReceived);
 	addChild("SUSHI", "ON_AIR", ACTION, (btcondition)&CBTRangedSushi::conditionOnAir, (btaction)&CBTRangedSushi::actionOnAir);
+  addChild("SUSHI", "DEATH", ACTION, (btcondition)& CBTRangedSushi::conditionDeathAnimation, (btaction)& CBTRangedSushi::actionDeathStay);
 
 	addChild("SUSHI", "VIEW", PRIORITY, (btcondition)&CBTRangedSushi::conditionPlayerInView, NULL);
 	//addChild("VIEW", "SALUTE", ACTION, (btcondition)&CBTRangedSushi::conditionSalute, (btaction)&CBTRangedSushi::actionSalute);
@@ -68,7 +70,17 @@ void CBTRangedSushi::create(string s)//crear el arbol
 		setPaused(true);
 	}
 
+    _footSteps = EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Footsteps");
+    _footSteps.setPaused(true);
+}
 
+bool CBTRangedSushi::conditionDeathAnimation() {
+  return life <= 0.f && death_animation_started;
+}
+
+int CBTRangedSushi::actionDeathStay() {
+
+  return STAY;
 }
 
 void CBTRangedSushi::updateBT() {
@@ -83,7 +95,8 @@ void CBTRangedSushi::updateBT() {
 	reevaluatePathTimer -= dt;
 
 	TCompTransform* c_trans = get<TCompTransform>();
-	if (nextNavMeshPoint != VEC3().Zero	&& use_navmesh) { //update path point
+    _footSteps.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
+    if (nextNavMeshPoint != VEC3().Zero	&& use_navmesh) { //update path point
 		if (Vector3::Distance(nextNavMeshPoint, c_trans->getPosition()) < distanceCheckThreshold) {
 			navMeshIndex++;
 			if (navMeshIndex < navmeshPath.size()) {
@@ -118,6 +131,7 @@ int CBTRangedSushi::actionIdle() {
 	currentState = States::Idle;
 	TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 	sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
+    _footSteps.setPaused(true);
 	return LEAVE;
 }
 
@@ -130,6 +144,7 @@ int CBTRangedSushi::actionIdleCombat() {
 	c_trans->rotateTowards(p_trans->getPosition());
 	TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 	sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
+    _footSteps.setPaused(true);
 	return LEAVE;
 }
 
@@ -212,6 +227,7 @@ int CBTRangedSushi::actionSeekWaypoint() {
 
 	if (Vector3::Distance(nextPoint, c_trans->getPosition()) < distanceCheckThreshold) {
 		//ChangeState("NEXTWPT");
+        _footSteps.setPaused(true);
 		return LEAVE;
 	}
 	else {
@@ -240,7 +256,8 @@ int CBTRangedSushi::actionSeekWaypoint() {
 		}
 
 		//------------------------------- end navmesh code
-		return STAY;
+        _footSteps.setPaused(false);
+        return STAY;
 	}
 }
 
@@ -276,26 +293,27 @@ void CBTRangedSushi::shoot(ShotType type) {
 	case ShotType::Burst:
 		/*should consider adding burst to the random pool, although that would require coroutines*/
 		break;
-	case ShotType::Random: {
+	case ShotType::Random: 
 		int dice = bt_dist_rs(bt_mt_rs);
-		if (dice > 0 && dice < 50)
-			singleShot();
-		else if (dice > 50 && dice < 100)
+        if (dice > 0 && dice < 50) {
+            singleShot();
+        }
+        else if (dice > 50 && dice < 100){
 			spreadShot();
-	}
-						   break;
-	default:
+	    }
 		break;
 	}
 }
 
 void CBTRangedSushi::singleShot() {
-	CEntity* e_player = (CEntity *)h_player;
+    CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompCollider* c_cc = get<TCompCollider>();
 
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SingleThrow");
+    audio.set3DAttributes(*c_trans);
 	//Bullet origin
 	VEC3 firingPosition = c_trans->getPosition();
 	firingPosition.y += c_cc->controller->getHeight();
@@ -332,11 +350,13 @@ void CBTRangedSushi::singleShot() {
 }
 
 void CBTRangedSushi::spreadShot() {
-	CEntity* e_player = (CEntity *)h_player;
+    CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	TCompCollider* p_col = e_player->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompCollider* c_cc = get<TCompCollider>();
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_SpreadThrow");
+    audio.set3DAttributes(*c_trans);
 
 	//STRAIGHT BULLET
 	//Bullet origin
@@ -440,7 +460,11 @@ int CBTRangedSushi::actionBurstShot() {
 
 			TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 			sushiAnimator->playAnimation(_isLeaping ? TCompSushiAnimator::THROW_AIR : TCompSushiAnimator::THROW_LAND, 2.f);
-
+            if (!hasPlayedTripleThrowAudio) {
+                AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_TripleThrow");
+                audio.set3DAttributes(*c_trans);
+                hasPlayedTripleThrowAudio = true;
+            }
 			singleShot();
 			_burstTimer = _burstDelay;
 			_shotsFired++;
@@ -453,6 +477,7 @@ int CBTRangedSushi::actionBurstShot() {
 	else {
 		_shootTimer = _shootDelay;
 		_shotsFired = 0;
+        hasPlayedTripleThrowAudio = false;
 		return LEAVE;
 	}
 }
@@ -462,7 +487,11 @@ int CBTRangedSushi::actionLeap() {
 	currentState = States::Leap;
 	VEC3 jumpForce = getLeapDirection();
 	TCompTransform* c_trans = get<TCompTransform>();
-	if (_hasBounced || conditionGravityReceived() || conditionImpactReceived() || conditionFear() || !isHole(jumpForce)) {
+    _footSteps.setPaused(true);
+
+	bool enemyInSide = isOtherEnemyInSide();
+
+	if (_hasBounced || conditionGravityReceived() || conditionImpactReceived() || conditionFear() || !isHole(jumpForce) || enemyInSide) {
 		_shootTimer = _shootDelay;
 		_isLeaping = false;
 		_hasFired = false;
@@ -472,7 +501,9 @@ int CBTRangedSushi::actionLeap() {
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
 
-		//Start leap
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump_NoVoice");
+        audio.set3DAttributes(*c_trans);
+        //Start leap
 		dbg("Ranged Sushi LEAPS\n");
 		_isLeaping = true;
 		//VEC3 jumpForce = getLeapDirection(); //VEC3(1.0, 0.0, 0.0);
@@ -578,14 +609,17 @@ int CBTRangedSushi::actionBounce() {
 		_hasBounced = false;
 		return LEAVE;
 	}
-	if (!_isLeaping) {
+    _footSteps.setPaused(true);
+    if (!_isLeaping) {
+		TCompTransform* c_trans = get<TCompTransform>();
 		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Sushi_Jump");
+        audio.set3DAttributes(*c_trans);
 
 		//Start leap
 		dbg("Ranged Sushi BOUNCES\n");
 		_isLeaping = true;
-		TCompTransform* c_trans = get<TCompTransform>();
 		VEC3 aux = c_trans->getPosition();
 		VEC3 jumpForce = _jumpSource - aux;
 		jumpForce.y = 1.f;
@@ -679,7 +713,8 @@ int CBTRangedSushi::actionChase() {
 
 	//------------------------------- end navmesh code
 	//End Rotation Control
-	return LEAVE;
+    _footSteps.setPaused(false);
+    return LEAVE;
 }
 
 int CBTRangedSushi::actionRetreat() {
@@ -705,7 +740,8 @@ int CBTRangedSushi::actionRetreat() {
 	//LookAt_Player(c_trans, player_position);
 	c_trans->rotateTowards(p_trans->getPosition(), rotationSpeed, dt);
 	//End Rotation Control
-	return LEAVE;
+    _footSteps.setPaused(false);
+    return LEAVE;
 }
 
 //int CBTRangedSushi::actionOrbitRight() {
@@ -825,7 +861,8 @@ int CBTRangedSushi::actionRetreat() {
 int CBTRangedSushi::actionOnAir() {
 	previousState = currentState;
 	currentState = States::OnAir;
-	if (isGrounded() && impulse.y <= 0.0f || isDeadForFallout) {
+    _footSteps.setPaused(true);
+    if (isGrounded() && impulse.y <= 0.0f || isDeadForFallout) {
 		impulse.y = 0.0f;
 		return LEAVE;
 	}
@@ -887,7 +924,8 @@ int CBTRangedSushi::actionImpactReceived() {
 int CBTRangedSushi::actionGravityReceived() {
 	previousState = currentState;
 	currentState = States::GravityReceived;
-	TCompTransform* c_trans = get<TCompTransform>();
+    _footSteps.setPaused(true);
+    TCompTransform* c_trans = get<TCompTransform>();
 	CEntity* e_player = (CEntity *)h_player;
 	TCompTransform* p_trans = e_player->get<TCompTransform>();
 	inCombat = true;
@@ -963,7 +1001,8 @@ int CBTRangedSushi::actionFear() {
 		_fearTimer = _fearDuration;
 	}
 	if (_fearTimer > 0.f) {
-		TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
+        _footSteps.setPaused(false);
+        TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
 		sushiAnimator->playAnimation(TCompSushiAnimator::WALK_LOOP, 2.0f);
 
 		TCompTransform* c_trans = get<TCompTransform>();
@@ -1009,9 +1048,20 @@ int CBTRangedSushi::actionDeath() {
 	if (!isDeadForFallout) {
 		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
 	}
-	CHandle(this).getOwner().destroy();
-	CHandle(this).destroy();
-	return LEAVE;
+
+  TEntityParseContext ctx;
+  ctx.root_transform = *c_trans;
+  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
+
+  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+  c_sd->setDelay(0.25f);
+  c_sd->enable();
+
+  death_animation_started = true;
+  /*CHandle(this).getOwner().destroy();
+  CHandle(this).destroy();*/
+  _footSteps.setPaused(true);
+  return LEAVE;
 }
 
 int CBTRangedSushi::actionDecoy() {
@@ -1030,7 +1080,13 @@ int CBTRangedSushi::actionDecoy() {
 	VEC3 ori = c_trans->getPosition();
 	VEC3 posibleDestination = c_trans->getTranslatePositionForAngle(ori, _decoyTeleportDistance, 180);//si me voi hacia atras y hay vacio o pared no sigo retrocediendo
 	VEC3 hit_navmesh = VEC3();
-	bool r = EngineNavmesh.raycast(ori, posibleDestination, hit_navmesh);//true: hay interseccion limite navmesh
+    bool r;
+    if (use_navmesh) {
+        r = EngineNavmesh.raycast(ori, posibleDestination, hit_navmesh);//true: hay interseccion limite navmesh
+    }
+    else {
+        r = false;
+    }
 	if (hit.position != physx::PxVec3(0) || r) {
 		//There is something behind me, can't teleport
 		dbg("DECOY failed, obstacle behind.\n");
@@ -1171,7 +1227,7 @@ bool CBTRangedSushi::conditionGravityReceived() {
 }
 
 bool CBTRangedSushi::conditionDeath() {
-	return life <= 0.f;
+	return life <= 0.f && !death_animation_started;
 }
 
 bool CBTRangedSushi::conditionDecoy() {
@@ -1393,6 +1449,61 @@ void CBTRangedSushi::renderDebug() {
 		drawLine(pos + half_cone_1 * combatViewDistance, pos + half_cone_2 * combatViewDistance, VEC4(1, 0, 0, 1));
 
 	}
+
+
+	CHandle player = GameController.getPlayerHandle();
+	CEntity* e_player = (CEntity *)h_player;
+	TCompTransform* trans_p = e_player->get<TCompTransform>();
+
+	/*VEC3 directionToPlayer = c_trans->getPosition() - trans_p->getPosition();
+	if (directionToPlayer.z < 0) {
+		VEC3 char_pos_right = c_trans->getPosition();
+		char_pos_right.y = 0.5f;
+		char_pos_right.x = c_trans->getPosition().x - 0.5f;
+		PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+
+		VEC3 char_pos_left = c_trans->getPosition();
+		char_pos_left.y = 0.5f;
+		char_pos_left.x = c_trans->getPosition().x + 0.5f;
+		PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+		drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
+		drawLine(PXVEC3_TO_VEC3(origin_left), (PXVEC3_TO_VEC3(origin_left) + PXVEC3_TO_VEC3(c_trans->getLeft()) * 10), VEC4(1, 1, 0, 1));
+
+	}
+	else {
+		VEC3 char_pos_right = c_trans->getPosition();
+		char_pos_right.y = 0.5f;
+		char_pos_right.x = c_trans->getPosition().x + 0.5f;
+		PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+
+		VEC3 char_pos_left = c_trans->getPosition();
+		char_pos_left.y = 0.5f;
+		char_pos_left.x = c_trans->getPosition().x - 0.5f;
+		PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+		drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
+		drawLine(PXVEC3_TO_VEC3(origin_left), (PXVEC3_TO_VEC3(origin_left) + PXVEC3_TO_VEC3(c_trans->getLeft()) * 10), VEC4(1, 1, 0, 1));
+	}*/
+
+	TCompCollider* coll_p = e_player->get<TCompCollider>();
+	
+	
+	
+
+	VEC3 char_pos_right = c_trans->getPosition();
+	char_pos_right.y = 0.f;
+	char_pos_right.x = c_trans->getPosition().x + coll_p->controller->getRadius();
+
+	VEC3 char_pos_left = c_trans->getPosition();
+	char_pos_left.y = 0.f;
+	char_pos_left.x = c_trans->getPosition().x - coll_p->controller->getRadius();
+	PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+	PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+	drawLine(PXVEC3_TO_VEC3(origin_right), (PXVEC3_TO_VEC3(origin_right) + PXVEC3_TO_VEC3(c_trans->getRight()) * 10), VEC4(0, 1, 1, 1));
+	drawLine(PXVEC3_TO_VEC3(origin_left), (PXVEC3_TO_VEC3(origin_left) + PXVEC3_TO_VEC3(c_trans->getLeft()) * 10), VEC4(1, 1, 0, 1));
+	
+	
+	
+
 }
 
 void CBTRangedSushi::onBlackboardMsg(const TMsgBlackboard& msg) {
@@ -1580,7 +1691,9 @@ void CBTRangedSushi::debugInMenu() {
 }
 
 bool CBTRangedSushi::isHole(VEC3 direction) {
-
+    if (!use_navmesh) {
+        return true;
+    }
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 char_pos = c_trans->getPosition();
@@ -1857,4 +1970,130 @@ bool CBTRangedSushi::checkHeight() {
 
 std::string CBTRangedSushi::getNameCurve() {
 	return pathCurve;
+}
+
+void CBTRangedSushi::setViewDistance(float value) {
+	this->viewDistance = value;
+}
+
+void CBTRangedSushi::setHalfCone(float halfCone) {
+	this->half_cone = halfCone;
+}
+
+
+bool CBTRangedSushi::isOtherEnemyInSide() {
+	bool hayEnemy = false;
+	PxReal maxDistance = 10.f;
+	PxRaycastBuffer hit;
+	PxRaycastHit hitBuffer[10];
+	hit = PxRaycastBuffer(hitBuffer, 10);
+	// [in] Define what parts of PxRaycastHit we're interested in
+	const PxHitFlags outputFlags =
+		PxHitFlag::eDISTANCE
+		| PxHitFlag::ePOSITION
+		| PxHitFlag::eNORMAL
+		;
+
+	TCompTransform* c_trans = get<TCompTransform>();
+	VEC3 char_pos_right = c_trans->getPosition();
+	char_pos_right.y = 0.5f;
+	PxVec3 origin_right = VEC3_TO_PXVEC3(char_pos_right);
+	PxVec3 unitDirRight = VEC3_TO_PXVEC3(c_trans->getRight());
+	PxVec3 unitDirLeft = VEC3_TO_PXVEC3(c_trans->getLeft());
+	PxQueryFilterData filter_data = PxQueryFilterData();
+	filter_data.data.word0 = EnginePhysics.Enemy;
+
+	//se mira a la izquierda si hay un enemigo 
+	
+	bool res = EnginePhysics.gScene->raycast(origin_right, unitDirRight, maxDistance, hit, outputFlags, filter_data);
+	if (res) {//colisiona con algo
+		int closestIdx = -1;
+		float closestDist = 1000.0f;
+		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+			
+
+			if (hit.getAnyHit(i).distance <= closestDist) {
+				closestDist = hit.getAnyHit(i).distance;
+				closestIdx = i;
+			}
+		}
+		if (closestIdx != -1) {
+			
+			PxShape* colShape;
+			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
+				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				CHandle h_comp_physics;
+				h_comp_physics.fromVoidPtr(hit.getAnyHit(i).actor->userData);
+				CEntity* entityContact = h_comp_physics.getOwner();
+				dbg("Entidad con quien choco--->%s\n", entityContact->getName());
+				
+
+				PxFilterData col_filter_data = colShape->getSimulationFilterData();
+				CEntity* mine = CHandle(this).getOwner();
+				dbg("YO--->%s\n", mine->getName());
+				
+				if (col_filter_data.word0 & EnginePhysics.Enemy && entityContact != (mine)) {
+					CHandle hitCollider;
+					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
+					if (hitCollider.isValid()) {
+						CEntity* candidate = hitCollider.getOwner();
+						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						hayEnemy = true;
+					}
+				}
+			}
+		}
+	}
+
+
+	//se mira a la izquierda si hay un enemigo 
+	VEC3 char_pos_left = c_trans->getPosition();
+	char_pos_left.y = 0.5f;
+	
+	PxVec3 origin_left = VEC3_TO_PXVEC3(char_pos_left);
+	res = EnginePhysics.gScene->raycast(origin_left, unitDirLeft, maxDistance, hit, outputFlags, filter_data);
+	if (res) {//colisiona con algo
+		int closestIdx = -1;
+		float closestDist = 1000.0f;
+		//dbg("Number of hits: %i \n", hit.getNbAnyHits());
+		for (int i = 0; i < hit.getNbAnyHits(); i++) {
+
+
+			if (hit.getAnyHit(i).distance <= closestDist) {
+				closestDist = hit.getAnyHit(i).distance;
+				closestIdx = i;
+			}
+		}
+		if (closestIdx != -1) {
+
+			PxShape* colShape;
+			for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
+				hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
+				CHandle h_comp_physics;
+				h_comp_physics.fromVoidPtr(hit.getAnyHit(i).actor->userData);
+				CEntity* entityContact = h_comp_physics.getOwner();
+				dbg("Entidad con quien choco--->%s\n", entityContact->getName());
+
+
+				PxFilterData col_filter_data = colShape->getSimulationFilterData();
+				CEntity* mine = CHandle(this).getOwner();
+				dbg("YO--->%s\n", mine->getName());
+
+				if (col_filter_data.word0 & EnginePhysics.Enemy && entityContact != (mine)) {
+					CHandle hitCollider;
+					hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
+					if (hitCollider.isValid()) {
+						CEntity* candidate = hitCollider.getOwner();
+						dbg("el candidato obj es valido nombre = %s  \n", candidate->getName());
+						hayEnemy = true;
+					}
+				}
+			}
+		}
+	}
+	
+
+	return hayEnemy;
+
 }
