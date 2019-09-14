@@ -160,6 +160,7 @@ private:
 	CHandle h_sender;
 	CHandle h_bullet;
     AudioEvent _painAudio;
+    bool throwAudio = false;
 };
 
 

@@ -302,6 +302,8 @@ int CBTGolem::actionThrowCupcake()
 	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
 	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
 	//END ANIMATION------------------------
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Attack");
+    audio.set3DAttributes(*c_trans);
 
 	delay = delayCupcake;
 	timerGrenade = throwFrequecy;
@@ -316,7 +318,12 @@ int CBTGolem::actionThrowCupcake()
 
 int CBTGolem::actionThrowCookieSpread() {
 	_burstTimer -= dt;
-
+    if (!throwAudio) {
+        TCompTransform* c_trans = get<TCompTransform>();
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Attack");
+        audio.set3DAttributes(*c_trans);
+        throwAudio = true;
+    }
 	if (_shotsFired < numberOfCookiesTriple) {
 		TCompTransform* c_trans = get<TCompTransform>();
 		CEntity* e_player = (CEntity *)h_player;
@@ -339,8 +346,9 @@ int CBTGolem::actionThrowCookieSpread() {
 			return STAY;
 		}
 	}
-	else {
-		_shotsFired = 0;
+	else {        
+        throwAudio = false;
+        _shotsFired = 0;
 		timerGrenade = throwFrequecy;
 		return LEAVE;
 	}
