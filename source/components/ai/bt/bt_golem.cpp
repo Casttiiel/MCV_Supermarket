@@ -60,6 +60,8 @@ void CBTGolem::create(string s)//crear el arbol
 		h_player = getEntityByName("Player");
 	}
 
+    _painAudio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Pain");
+    _painAudio.stop();
 }
 
 
@@ -233,7 +235,9 @@ int CBTGolem::actionMeleeCinematic()
 	//END ANIMATION------------------------
 	timerMelee = meleeFrequency;
 	*/
-	return LEAVE;
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Appear");
+    audio.set3DAttributes(*c_trans);
+    return LEAVE;
 
 }
 
@@ -278,6 +282,8 @@ int CBTGolem::actionMelee()
 	golemAnimator->playAnimation(TCompGolemAnimator::POUND_ATTACK, 1.0f);
 	//END ANIMATION------------------------
 	timerMelee = meleeFrequency;
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Pound");
+    audio.set3DAttributes(*c_trans);
 
 	return LEAVE;
 	
@@ -296,6 +302,8 @@ int CBTGolem::actionThrowCupcake()
 	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
 	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
 	//END ANIMATION------------------------
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Attack");
+    audio.set3DAttributes(*c_trans);
 
 	delay = delayCupcake;
 	timerGrenade = throwFrequecy;
@@ -303,14 +311,19 @@ int CBTGolem::actionThrowCupcake()
 	throwActive = true;
 	throwType = 1;
 	
-	return LEAVE;
+    return LEAVE;
 
 }
 
 
 int CBTGolem::actionThrowCookieSpread() {
 	_burstTimer -= dt;
-
+    if (!throwAudio) {
+        TCompTransform* c_trans = get<TCompTransform>();
+        AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Attack");
+        audio.set3DAttributes(*c_trans);
+        throwAudio = true;
+    }
 	if (_shotsFired < numberOfCookiesTriple) {
 		TCompTransform* c_trans = get<TCompTransform>();
 		CEntity* e_player = (CEntity *)h_player;
@@ -333,8 +346,9 @@ int CBTGolem::actionThrowCookieSpread() {
 			return STAY;
 		}
 	}
-	else {
-		_shotsFired = 0;
+	else {        
+        throwAudio = false;
+        _shotsFired = 0;
 		timerGrenade = throwFrequecy;
 		return LEAVE;
 	}
@@ -389,7 +403,9 @@ int CBTGolem::actionThrow()
 	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
 	//END ANIMATION------------------------
 
-	delay = projectileDelay;
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Attack");
+    audio.set3DAttributes(*c_trans);
+    delay = projectileDelay;
 	throwActive = true;
 	throwType = 2;
 
@@ -407,7 +423,10 @@ int CBTGolem::actionDeath() {
 	GameController.addEnemiesKilled(EntityType::GOLEM);
 	CHandle(this).getOwner().destroy();
 	CHandle(this).destroy();
-	return LEAVE;
+    TCompTransform* c_trans = get<TCompTransform>();
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Death");
+    audio.set3DAttributes(*c_trans);
+    return LEAVE;
 }
 
 int CBTGolem::actionImpactReceived() {
@@ -727,6 +746,9 @@ void CBTGolem::onDamageInfoMsg(const TMsgDamage& msg) {
 	CEntity* e_source = (CEntity *)msg.h_bullet;
 	TCompTransform* trans_source = e_source->get<TCompTransform>();
 	intensityDamage = msg.intensityDamage;
+    if (!_painAudio.isPlaying()) {
+        _painAudio.restart();
+    }
 	damageaded = true;
 }
 
