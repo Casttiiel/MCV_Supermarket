@@ -13,6 +13,11 @@
 #include "components/common/comp_dynamic_instance.h"
 #include "components/common/comp_group.h"
 #include "components/common/comp_name.h"
+#include "components/objects/triggers/comp_trigger.h"
+#include "components/objects/comp_increase_power.h"
+#include "components/objects/comp_wind_trap.h"
+#include "components/objects/comp_destroyable_wall.h"
+#include "components/ai/bt/bt_golem.h"
 #include "render/textures/material.h"
 #include "utils/utils.h"
 #include "entity/entity.h"
@@ -43,10 +48,10 @@ struct TSampleDataGenerator {
     pmin = VEC3(-radius, 0.f, -radius);
     pmax = VEC3(radius, 1.0f, radius);
     num_instances = j.value("num_instances", num_instances);
-    /*
+    
     #ifndef NDEBUG
         return;
-    #endif*/
+    #endif
 
     std::vector< std::string > prefab_names = j["prefabs"].get< std::vector< std::string > >();
     for (auto& prefab_name : prefab_names) {
@@ -71,6 +76,18 @@ struct TSampleDataGenerator {
       && j_entity.count("morph_animation") == 0 && j_entity.count("comp_destroyable_wall") == 0 && j_entity.count("comp_interruptor") == 0   //is not a morph and not a destroyable wall
       && j_entity.count("bt_sushi") == 0 && j_entity.count("bt_cupcake") == 0 && j_entity.count("bt_golem") == 0 && j_entity.count("bt_ranged_sushi") == 0 //is not an enemy
       && j_entity.count("comp_madness_puddle") == 0 && j_entity.count("comp_wind_trap") == 0; //is not a madness puddle or a wind trap
+  }
+
+  bool isInstantiable(CHandle ch) {
+    //is instantiable if
+    CEntity* entity = ch;
+    TCompTrigger* c_tr = entity->get<TCompTrigger>();
+    TCompIncreasePower* c_ip = entity->get<TCompIncreasePower>();
+    TCompWindTrap* c_wt = entity->get<TCompWindTrap>();
+    CBTGolem* c_g = entity->get<CBTGolem>();
+    TCompDestroyableWall* c_dw = entity->get<TCompDestroyableWall>();
+
+    return !c_tr && !c_ip && !c_wt && !c_g && !c_dw;
   }
 
   void createProducts(const std::string& filename, TEntityParseContext& ctx) {
@@ -100,9 +117,9 @@ struct TSampleDataGenerator {
           //this prefab is a product on a shelve, so we will load it only on RELEASE because performance issues
           std::size_t found = prefab_src.find("/products/");
           if (found != std::string::npos) {
-            /*#ifndef NDEBUG
+            #ifndef NDEBUG
               continue;
-            #endif*/
+            #endif
             // Get delta transform where we should instantiate this transform
             CTransform delta_transform;
             if (j_entity.count("transform"))
@@ -358,8 +375,13 @@ struct TSampleDataGenerator {
     // Create a comp_group automatically if there is more than one entity
     if (ctx.entities_loaded.size() > 1) {
       // The first entity becomes the head of the group. He is NOT in the group
-      CHandle h_root_of_group = ctx.entities_loaded[0];
-      CEntity* e_root_of_group = h_root_of_group;
+      CEntity* e_root_of_group;
+      int idx_father = -1;
+      do {
+        idx_father++;
+        CHandle h_root_of_group = ctx.entities_loaded[idx_father];
+        e_root_of_group = h_root_of_group;
+      } while (!isInstantiable(e_root_of_group));
       assert(e_root_of_group);
       // Create a new instance of the TCompGroup
       CHandle h_group = getObjectManager<TCompGroup>()->createHandle();
@@ -382,7 +404,9 @@ struct TSampleDataGenerator {
         e_tag->addTag(tag_id);
       }
 
-      for (size_t i = 1; i < ctx.entities_loaded.size(); ++i) {
+      for (size_t i = 0; i < ctx.entities_loaded.size(); ++i) {
+        if (i == idx_father)
+          continue;
         CEntity* e = ctx.entities_loaded[i];
         TCompName* c_name = e->get<TCompName>();
         if (strcmp(c_name->getName(), "Player") == 0)
@@ -475,24 +499,24 @@ void CModuleGPUCulling::parseEntities(const std::string& filename, TEntityParseC
 }
 
 void CModuleGPUCulling::parseProducts(const std::string& filename, TEntityParseContext& ctx) {
-  /*#ifndef NDEBUG
+  #ifndef NDEBUG
     return;
-  #endif*/
+  #endif
   sample_data.createProducts(filename, ctx);
 }
 
 void CModuleGPUCulling::createPrefabProducts() {
-  /*#ifndef NDEBUG
+  #ifndef NDEBUG
     return;
-  #endif*/
+  #endif
   json j = loadJson("data/gpu_culling.json");
   sample_data.createProductPrefabs(j["sample_data"]);
 }
 
 void CModuleGPUCulling::clear() {
-  /*#ifndef NDEBUG
+  #ifndef NDEBUG
     return;
-  #endif*/
+  #endif
   sample_data.deleteProductPrefabs();
 }
 
