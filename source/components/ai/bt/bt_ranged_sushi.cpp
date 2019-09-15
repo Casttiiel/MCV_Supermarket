@@ -13,6 +13,7 @@
 #include "bt_ranged_sushi.h"
 #include "components/controllers/character/comp_character_controller.h"
 #include "components/ai/others/self_destroy.h"
+#include "components/vfx/comp_death_billboard.h"
 
 #include "random"
 
@@ -1037,6 +1038,11 @@ int CBTRangedSushi::actionDeath() {
 		TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
 		c_sd->setDelay(0.25f);
 		c_sd->enable();
+
+    CEntity* portal = ctx.entities_loaded[0];
+    CEntity* part_portal = ctx.entities_loaded[1];
+    TCompDeathBillboard* c_db = portal->get<TCompDeathBillboard>();
+    c_db->setParticles(part_portal);
 
 		death_animation_started = true;
 	}

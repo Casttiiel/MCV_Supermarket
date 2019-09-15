@@ -134,7 +134,7 @@ struct TSampleDataGenerator {
               prefab_name.replace(prefab_name.end() - 5, prefab_name.end(), "");
               int idx = std::stoi(prefab_name);
               //int idx = rand() % prefabs.size();//change this
-              CHandle prefab = prefabs[idx];
+              CHandle prefab = prefabs[idx - 1];
               CEntity* ep = prefab;
               assert(ep);
               mod->getObjSize(); // so we increase the variables that hold the limits containing the number of products
@@ -167,8 +167,12 @@ struct TSampleDataGenerator {
               prefab_ctx.parsing_prefab = false;
               e->load(j_entity_without_transform, prefab_ctx);
 
-              int idx = rand() % prefabs.size();
-              CHandle prefab = prefabs[idx];
+              std::string prefab_name = j_entity["prefab"].get<std::string>();
+              prefab_name.erase(0, 29);
+              prefab_name.replace(prefab_name.end() - 5, prefab_name.end(), "");
+              int idx = std::stoi(prefab_name);
+              //int idx = rand() % prefabs.size();
+              CHandle prefab = prefabs[idx - 1];
               CEntity* ep = prefab;
               assert(e);
 
