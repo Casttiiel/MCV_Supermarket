@@ -126,7 +126,7 @@ struct TSampleDataGenerator {
               delta_transform.load(j_entity["transform"]);
 
             int rand_idx = rand();
-            if (rand_idx % 3 == 0 || mod->last_prod_index - mod->first_prod_index > 3000) { //instantiate without being an entity
+            if (rand_idx % 3 == 0 || (mod->last_prod_index - mod->first_prod_index) + 1 > 3000) { //instantiate without being an entity
 
               //ADD DATA TO MODULE GPU CULLING
               std::string prefab_name = j_entity["prefab"].get<std::string>();
@@ -706,7 +706,7 @@ void CModuleGPUCulling::stop() {
 }
 
 void CModuleGPUCulling::updateObjData(int idx, CHandle entity) {
-  if (objs.size() < idx) {
+  if (objs.size() <= idx) {
     return;
   }
 
@@ -907,6 +907,9 @@ void CModuleGPUCulling::updateCullingPlanes(const CCamera& camera) {
 // ---------------------------------------------------------------
 void CModuleGPUCulling::renderInMenu() {
   if (ImGui::TreeNode("GPU Culling")) {
+    if (ImGui::SmallButton("Delete actual Products")) {
+      deleteActualProducts();
+    }
     ImGui::Text("%ld objects", (uint32_t)objs.size());
     ImGui::Text("from %ld to %ld products: %ld", first_prod_index, last_prod_index, last_prod_index - first_prod_index + 1);
     ImGui::Text("from %ld to %ld panaderia objects: %ld", first_panaderia_index, last_panaderia_index, last_panaderia_index - first_panaderia_index + 1);
