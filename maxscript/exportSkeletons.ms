@@ -1,8 +1,9 @@
 clearListener()
 
 struct  TSkeletonsExporter (
-	project_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/skeletons/",
+	--project_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_43/mcv_sm/bin/data/skeletons/",
 	--project_path = "C:/Users/Daniel/Desktop/mcv_sm/bin/data/",
+	project_path = "D:/Javier/Documentos/UPF/mcv_sm/MCV_Supermarket/bin/data/skeletons/ourPlayer2/",
 	skel_name = "unknown",			-- smurf
 	skel_root_path,					-- "C:/../bin/data/skeletons/smurf/,
 	skel_file, 						-- "C:/../bin/data/skeletons/smurf/smurf.csf"

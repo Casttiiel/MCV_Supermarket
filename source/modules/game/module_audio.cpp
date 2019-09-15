@@ -91,7 +91,7 @@ void CModuleAudio::update(float delta) {
     }
 
     /* Set listener according to active camera */
-    CHandle candidate_h_listener = getEntityByName("MainCamera");;
+    CHandle candidate_h_listener = getEntityByName("PlayerCamera");
     if (candidate_h_listener.isValid()) {
         setListener(candidate_h_listener);
     }
@@ -395,6 +395,8 @@ void CModuleAudio::setListener(CHandle h_listener /*const CTransform & transform
     this->h_listener = h_listener;
     CEntity* e_listener = h_listener;
     TCompTransform* listener_pos = e_listener->get<TCompTransform>();
+    VEC3 pos = listener_pos->getPosition();
+    VEC3 fwd = listener_pos->getFront();
     attr.position = VEC3_TO_FMOD(listener_pos->getPosition());
     attr.forward = VEC3_TO_FMOD(listener_pos->getFront());
     attr.up = VEC3_TO_FMOD(listener_pos->getUp());
