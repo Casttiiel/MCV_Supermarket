@@ -683,8 +683,8 @@ function activarSalidaPanaderia()
 	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles5.json\")",8.5);
 	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles6.json\")",9.5);
 	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",13.5);
-	execDelayedAction("on_lock_camera3(true)",15.5);
-	execDelayedAction("on_cinematic(false)",15.5);
+	execDelayedAction("on_lock_camera3(true)",18);
+	execDelayedAction("on_cinematic(false)",18);
 	
 
 
