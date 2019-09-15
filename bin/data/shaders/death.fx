@@ -24,7 +24,7 @@ VS_OUTPUT VS(
 )
 {
   VS_OUTPUT output = (VS_OUTPUT)0;
-  float3 displa = ((txNormal.SampleLevel(samLinear,Uv + GlobalWorldTime * 0.5f,0).xyz * 2.0f) - 1.0f) * 0.05f;
+  float3 displa = ((txNormal.SampleLevel(samLinear,Uv*0.25f + GlobalWorldTime * 0.5f,0).xyz * 2.0f) - 1.0f) * 0.07f;
   float4 auxPos = Pos;
   auxPos.xyz += displa * N;
   output.WorldPos = mul(auxPos, World);
@@ -48,18 +48,18 @@ void PS(VS_OUTPUT input
 
   float3 view_dir = normalize(input.WorldPos - CameraPosition);
   float  NdV = (1 - saturate(dot(input.N, -view_dir)));
-  NdV = pow(NdV,2.0f);
+  NdV = pow(NdV,2.5f);
 
   NdV = NdV > 0.2f + displ - displ2 ? 1.0f : 0.0f;
 
-  float2 uv = input.Uv - float2(0.5f,0.5f);
+  float2 uv = input.Uv - float2(0.745f,0.5f);
   float a = atan2(uv.y, uv.x) / (2.0f * PI);
   float b = length(uv);
-  float2 polar = float2(a,b);
+  float2 polar = float2(a,b * 0.25f)*1.5f;
+  float2 polar2 = float2(a,b*1.25f)*1.5f;
 
-  float4 center_color = txAlbedo.Sample(samLinear,polar + GlobalWorldTime * 0.25f);
-  float4 color_aux = txRoughness.Sample(samLinear,polar - GlobalWorldTime * 0.25f);
-  center_color = pow((1- pow(center_color,4)) * color_aux,8);
+  float panning = (sin(GlobalWorldTime)*0.5f + 2.5f);
+  float4 center_color = txAlbedo.Sample(samLinear,(polar2) + float2(GlobalWorldTime * 0.5,GlobalWorldTime * 0.85));
 
 
   float3 final_color = border_color * ObjColor.xyz * NdV + center_color * (1 - NdV);

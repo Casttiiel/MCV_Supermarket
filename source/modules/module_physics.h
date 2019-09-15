@@ -50,7 +50,7 @@ public:
     ExplosiveObj = 1 << 15,
     Platform = 1 << 16,
     Column = 1 << 17,
-	Panel = 1 << 18,
+	  Panel = 1 << 18,
 
     CCD_FLAG = 1 << 29,
     Obstacle = Wall | Column | Spawner | TeleportableObj | ExplosiveObj | DestroyableWall,

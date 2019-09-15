@@ -17,21 +17,19 @@ void TCompDynamicInstance::renderDebug() {
 }
 
 void TCompDynamicInstance::onPlayerAttack(const TMsgDamage& msg) {
-  if (msg.damageType == MELEE) {
 
     TCompTransform* c_trans = get<TCompTransform>();
 
     VEC3 hit_pos = msg.position;
     VEC3 dir = c_trans->getPosition() - hit_pos;
     dir.Normalize();
-    dir *= msg.impactForce;
+    dir *= msg.impactForce * 0.5f;
     physx::PxVec3 impulse = VEC3_TO_PXVEC3(dir);
     
     TCompCollider* c_coll = get<TCompCollider>();
     physx::PxRigidDynamic* rigid_dynamica = static_cast<physx::PxRigidDynamic*>(c_coll->actor);
     rigid_dynamica->addForce(impulse, PxForceMode::eIMPULSE, false);
 
-  }
 }
 
 void TCompDynamicInstance::registerMsgs() {
