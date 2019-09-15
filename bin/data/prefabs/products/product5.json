@@ -8,8 +8,7 @@
       {
         "pos": "0 0 0"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0",
-        "scale" : 1.5
+        "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "collider":
@@ -17,11 +16,9 @@
         "shapes":
         [
           {
-            "shape": "box",
-            "half_size": "0.0865 0.213 0.0865",
-            "offset": {
-              "pos": "0.0 0.213 0.0"
-            },
+            "shape": "convex"
+            ,
+            "collision_mesh": "data/meshes/scene_products_waterBottle01.col_mesh",
             "group": "enemy",
             "mask": "all"
           }
