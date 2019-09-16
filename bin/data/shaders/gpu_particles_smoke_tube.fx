@@ -48,6 +48,7 @@ TInstance spawnParticle( uint unique_id ) {
   TInstance p;
   p.pos = emitter_center;
   p.prev_pos = p.pos;
+  p.pos.y += 0.5;  
   p.acc = float3(0,0,0);
   p.dir = emitter_dir;
   p.unique_id = unique_id;
