@@ -104,6 +104,16 @@
       "instances": 0
     }
   },
+  "particles_smoke_tube_instances": {
+    "vs_fx": "data/shaders/gpu_particles_smoke_tube.fx",
+    "vdecl": "PosUvColor",
+    "blend": "combinative",
+    "rs": "cull_none",
+    "z": "test_but_no_write",
+    "gpu_buffers": {
+      "instances": 0
+    }
+  },
   "particles_hot_num_instances": {
     "vs_fx": "data/shaders/gpu_particles_hot.fx",
     "vdecl": "PosUvColor",
@@ -326,9 +336,13 @@
     "cs": "cs_particles_death_spawn",
     "cs_fx": "data/shaders/gpu_particles_death.fx"
   },
-  "cs_particles_death_update": {
-    "cs": "cs_particles_death_update",
-    "cs_fx": "data/shaders/gpu_particles_death.fx"
+  "cs_particles_smoke_tube_spawn": {
+    "cs": "cs_particles_smoke_tube_spawn",
+    "cs_fx": "data/shaders/gpu_particles_smoke_tube.fx"
+  },
+  "cs_particles_smoke_tube_update": {
+    "cs": "cs_particles_smoke_tube_update",
+    "cs_fx": "data/shaders/gpu_particles_smoke_tube.fx"
   },
   "cs_particles_shine_spawn": {
     "cs": "cs_particles_shine_spawn",
