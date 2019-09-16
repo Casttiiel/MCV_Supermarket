@@ -48,7 +48,7 @@ TInstance spawnParticle( uint unique_id ) {
   TInstance p;
   p.pos = emitter_center;
   p.prev_pos = p.pos;
-  p.pos.y += 0.5;  
+  p.pos.y += 0.8;  
   p.acc = float3(0,0,0);
   p.dir = emitter_dir;
   p.unique_id = unique_id;
@@ -215,5 +215,5 @@ float4 PS(v2p input) : SV_Target {
   float alpha_erosion_exit = saturate(input.time - 0.3f) / 0.5f;
   float alpha = (noise1 < alpha_erosion_entrance) * (noise2 > alpha_erosion_exit);
 
-  return float4(ObjColor.xyz,alpha * 0.05f);
+  return float4(ObjColor.xyz,alpha * 0.2f);
 }
