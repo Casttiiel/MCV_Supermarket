@@ -1,0 +1,24 @@
+{
+	"name" : "black_screen",
+	"alias" :"black_screen_root",
+	"children" : 
+	[
+		{
+			"name" : "screen_black",
+			"type" : "widget",
+			
+			"size" : "1280 640",
+			"children" :
+			[
+				{
+					"name" : "background_oscuro",
+					"type" : "image",
+					"size" : "1280 640",
+					"texture" : "data/ui/textures/market/screen_black.dds"
+				}
+				
+				
+			]
+		}
+	]
+}

@@ -13,10 +13,11 @@ CModuleMainMenu::CModuleMainMenu(const std::string& name)
 
 bool CModuleMainMenu::start()
 {
+	
   UI::CModuleUI& ui = Engine.getUI();
 
-  ui.activateWidget("main_menu");
-
+  //ui.activateWidget("main_menu_background");
+  /*
   UI::CMenuController* menu = new UI::CMenuController;
 
   menu->registerOption(dynamic_cast<UI::CButton*>(ui.getWidgetByAlias("bt_start")), std::bind(&CModuleMainMenu::onOptionStart, this));
@@ -26,37 +27,50 @@ bool CModuleMainMenu::start()
   menu->setCurrentOption(0);
 
   ui.registerController(menu);
-
+  */
+  
+	CEngine::get().getUI().activateWidgetClass("MAIN_MENU_BACKGROUND");
+	CEngine::get().getUI().activateWidgetClass("MAIN_MENU_BUTTONS");
+	
   return true;
 }
 
 void CModuleMainMenu::onOptionStart()
 {
   //Engine.getModules().changeToGamestate("gameplay");
+	/*
   printf("START");
   CEngine::get().getModules().changeToGamestate("gs_gameplay");
   Engine.getSceneManager().loadScene("tutorial_scene"); //carga de la primera escena
   UI::CModuleUI& ui = Engine.getUI();
   ui.unregisterController();
+  */
 }
 
 void CModuleMainMenu::onOptionContinue()
 {
+	/*
   //Engine.getModules().changeToGamestate("gameplay");
   printf("CONTINUE");
+  */
 }
 
 void CModuleMainMenu::onOptionExit()
 {
+	/*
   printf("EXIT");
   auto& app = CApplication::get();
   DestroyWindow(app.getHandle());
-  
+  */
 }
 
 void CModuleMainMenu::stop()
 {
+	/*
   Engine.getUI().deactivateWidget("main_menu");
+  */
+	CEngine::get().getUI().deactivateWidgetClass("MAIN_MENU_BACKGROUND");
+	CEngine::get().getUI().deactivateWidgetClass("MAIN_MENU_BUTTONS");
 }
 
 void CModuleMainMenu::update(float dt)

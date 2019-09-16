@@ -23,7 +23,7 @@ public:
 	void setHalfCone(float half_cone);
 
 	void setLife(float life_);
-
+	float getLife();
 	int actionChangeWpt();
 	int actionSeekWpt();
 	int actionAttack();

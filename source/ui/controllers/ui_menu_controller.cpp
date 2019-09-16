@@ -1,6 +1,8 @@
 #pragma once
 
 #include "mcv_platform.h"
+#include "engine.h"
+#include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
 #include "ui/controllers/ui_menu_controller.h"
 #include "engine.h"
@@ -48,6 +50,17 @@ namespace UI
   {
     _options.emplace_back(TOption{button, callback});
   }
+  void CMenuController::registerOption(std::string name, Callback callback)
+  {
+
+	  CWidget* wdgt = Engine.getUI().getWidgetByAlias(name);
+	  CButton* bt = dynamic_cast<CButton*>(wdgt);
+	  if (bt)
+	  {
+		  _options.emplace_back(TOption({ bt, callback }));
+	  }
+  }
+
 
   void CMenuController::setCurrentOption(int idx)
   {

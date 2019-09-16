@@ -19,6 +19,7 @@ public:
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
   void setLifeSpawner(float new_life);
+  float getLifeSpawner();
   static void registerMsgs();
 
 private:

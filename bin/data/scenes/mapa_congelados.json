@@ -257,7 +257,24 @@
       ,
       "prefab": "data/prefabs/powers/powerUp_madness.json"
     }
-  },
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "175.544 -1.37954 -17.3293"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  }
+  ,
   {
     "entity":
     {
@@ -667,7 +684,7 @@
       ,
       "transform":
       {
-        "pos": "176.636 -3.89349 -17.4797"
+        "pos": "170.026 -3.89349 -17.4797"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2992,7 +3009,7 @@
       ,
       "transform":
       {
-        "pos": "170.026 -3.89349 -17.4797"
+        "pos": "176.636 -3.89349 -17.4797"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -3566,6 +3583,454 @@
         "materials":
         [
           "data/materials/mapa_congelados/letrerocarnes2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "1"
+      ,
+      "transform":
+      {
+        "pos": "27.7369 10.006 -9.5502"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_1.mesh"
+        ,
+        "color": "0.105882 0.694118 0.580392 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "2"
+      ,
+      "transform":
+      {
+        "pos": "27.7369 10.006 -9.5502"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_2.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "3"
+      ,
+      "transform":
+      {
+        "pos": "27.7369 10.006 -9.5502"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_3.mesh"
+        ,
+        "color": "0.345098 0.345098 0.882353 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora3.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "4"
+      ,
+      "transform":
+      {
+        "pos": "27.7369 10.006 -9.5502"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_4.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora4.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "005"
+      ,
+      "transform":
+      {
+        "pos": "18.1292 10.006 -9.5502"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_005.mesh"
+        ,
+        "color": "0.105882 0.694118 0.580392 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "006"
+      ,
+      "transform":
+      {
+        "pos": "18.1292 10.006 -9.5502"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_006.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "007"
+      ,
+      "transform":
+      {
+        "pos": "18.1292 10.006 -9.5502"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_007.mesh"
+        ,
+        "color": "0.345098 0.345098 0.882353 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora3.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "008"
+      ,
+      "transform":
+      {
+        "pos": "18.1292 10.006 -9.5502"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_008.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora4.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "009"
+      ,
+      "transform":
+      {
+        "pos": "27.7177 10.006 7.94736"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_009.mesh"
+        ,
+        "color": "0.105882 0.694118 0.580392 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "010"
+      ,
+      "transform":
+      {
+        "pos": "27.7177 10.006 7.94736"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_010.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "011"
+      ,
+      "transform":
+      {
+        "pos": "27.7177 10.006 7.94736"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_011.mesh"
+        ,
+        "color": "0.345098 0.345098 0.882353 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora3.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "012"
+      ,
+      "transform":
+      {
+        "pos": "27.7177 10.006 7.94736"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_012.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora4.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "013"
+      ,
+      "transform":
+      {
+        "pos": "18.11 10.006 7.94736"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_013.mesh"
+        ,
+        "color": "0.105882 0.694118 0.580392 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora1.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "014"
+      ,
+      "transform":
+      {
+        "pos": "18.11 10.006 7.94736"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_014.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora2.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "015"
+      ,
+      "transform":
+      {
+        "pos": "18.11 10.006 7.94736"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_015.mesh"
+        ,
+        "color": "0.345098 0.345098 0.882353 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora3.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "016"
+      ,
+      "transform":
+      {
+        "pos": "18.11 10.006 7.94736"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_016.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/mat_batidora4.material"
         ]
       }
     }

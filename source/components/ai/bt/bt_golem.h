@@ -5,6 +5,7 @@
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
 #include "bt_controller.h"
+#include "modules/game/audio/audioEvent.h"
 
 
 class CBTGolem : public BTController {
@@ -158,6 +159,8 @@ private:
 	bool checkHeight();
 	CHandle h_sender;
 	CHandle h_bullet;
+    AudioEvent _painAudio;
+    bool throwAudio = false;
 };
 
 

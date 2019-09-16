@@ -209,9 +209,12 @@ v2p VS(
 }
 
 //--------------------------------------------------------------------------------------
-float4 PS(v2p input) : SV_Target {
+void PS(v2p input, out float4 o_deferred : SV_Target0
+  , out float4 o_shine : SV_Target1) {
   float4 texture_color = txAlbedo.Sample(samLinear, input.Uv);
     texture_color.a = texture_color.a > 0.5f ? 1.0f : texture_color.a;
   //return input.Color * 4;
-  return texture_color * input.Color; // + float4( 1,1,1,0);
+  o_deferred =  texture_color * input.Color; // + float4( 1,1,1,0);
+  o_shine =  texture_color * input.Color; // + float4( 1,1,1,0);
 }
+

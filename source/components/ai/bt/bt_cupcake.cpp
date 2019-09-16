@@ -13,6 +13,7 @@
 #include "bt_cupcake.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "components/ai/others/self_destroy.h"
+#include "components/vfx/comp_death_billboard.h"
 #include "random"
 
 using namespace physx;
@@ -250,6 +251,12 @@ int CBTCupcake::actionDeath() {
 	  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
 	  c_sd->setDelay(0.25f);
 	  c_sd->enable();
+
+    CEntity* portal = ctx.entities_loaded[0];
+    CEntity* part_portal = ctx.entities_loaded[1];
+    TCompDeathBillboard* c_db = portal->get<TCompDeathBillboard>();
+    c_db->setParticles(part_portal);
+
 
 	  death_animation_started = true;
   }
@@ -1228,4 +1235,8 @@ void CBTCupcake::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
 	isDeadForTrigger = true;
 	life = 0;
 	num_of_divisions = 0;
+}
+
+float CBTCupcake::getLife() {
+	return life;
 }

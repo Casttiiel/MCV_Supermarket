@@ -70,6 +70,8 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
 		if (status.entityType == EntityType::CUPCAKE) {
 			CBTCupcake* comp_enemy = e_entity->get<CBTCupcake>();
 			status.curve = comp_enemy->getNameCurve();//nombre de la curva
+			status.lifeCupcake = comp_enemy->getLife();
+			
 		}
 		else if (status.entityType == EntityType::SUSHI) {
 			CBTSushi* comp_enemy = e_entity->get<CBTSushi>();
@@ -82,6 +84,15 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
 		else if (status.entityType == EntityType::EXPLOSIVE_CUPCAKE) {
 			CBTCupcake_explosive* comp_enemy = e_entity->get<CBTCupcake_explosive>();
 			status.curve = comp_enemy->getNameCurve();
+		}
+		else if (status.entityType == EntityType::CUPCAKE_SPAWNER) {
+			TCompEnemySpawner* comp_enemy = e_entity->get<TCompEnemySpawner>();
+			if(comp_enemy != nullptr) {
+ 				status.lifeCupcake = comp_enemy->getLifeSpawner();
+			}
+		}
+		else if (status.entityType == EntityType::GOLEM) {
+			
 		}
         entities.push_back(status);
     }
@@ -139,8 +150,10 @@ bool CCheckpoint::loadCheckPoint()
 
 			if (entity.entityType == EntityType::CUPCAKE) {
 				CBTCupcake* comp_enemy = spawnedEntity->get<CBTCupcake>();
-
-				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
+				comp_enemy->setLife(entity.lifeCupcake);
+				if (entity.curve != "") {
+					comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
+				}
 			}
 			else if (entity.entityType == EntityType::SUSHI) {
 				CBTSushi* comp_enemy = spawnedEntity->get<CBTSushi>();
@@ -157,9 +170,10 @@ bool CCheckpoint::loadCheckPoint()
 
 				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
 			}
-
-
-
+			else if (entity.entityType == EntityType::CUPCAKE_SPAWNER) {
+				TCompEnemySpawner* comp_enemy = spawnedEntity->get<TCompEnemySpawner>();
+				comp_enemy->setLifeSpawner(entity.lifeCupcake);
+			}
         }
         return true;
     }

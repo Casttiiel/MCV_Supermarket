@@ -103,7 +103,7 @@ PxRigidActor* CModulePhysics::createController(TCompCollider& comp_collider) {
   capsuleDesc.radius = jconfig.value("radius", 1.f);
   capsuleDesc.climbingMode = PxCapsuleClimbingMode::eEASY;
   capsuleDesc.material = gMaterial;
-  capsuleDesc.stepOffset = 0.1;
+  capsuleDesc.stepOffset = 0.05;
   capsuleDesc.reportCallback = &customUserControllerHitReport;
   capsuleDesc.behaviorCallback = &customControllerBehaviorCallback;
   PxCapsuleController* ctrl = static_cast<PxCapsuleController*>(gControllerManager->createController(capsuleDesc));
@@ -621,7 +621,6 @@ void CModulePhysics::update(float delta) {
   delta = Time.delta_unscaled;
 	if (delta >= 0.03333f) { //less than 30 frames per second it will be loading
     delta = 0.03333f; //update it as if it was moving normally
-    
 	}
 
 
@@ -750,7 +749,6 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
   }
   else if (strcmp("panel", name.c_str()) == 0) {
 	  return CModulePhysics::FilterGroup::Panel;
-		  
   }
   else if (strcmp("not_spawner_obj", name.c_str()) == 0) {
 	  return CModulePhysics::FilterGroup::NotSpawnerObjects;
@@ -784,6 +782,9 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
   }
   else if (strcmp("VulnerableToMelee", name.c_str()) == 0) {
       return CModulePhysics::FilterGroup::VulnerableToMelee;
+  }
+  else if (strcmp("notplayer", name.c_str()) == 0) {
+    return CModulePhysics::FilterGroup::NotPlayer;
   }
   
   

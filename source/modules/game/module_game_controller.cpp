@@ -309,6 +309,40 @@ void CModuleGameController::deleteGolem(std::string name)
 	
 }
 
+void CModuleGameController::setLifeEnemiesByTag(const char* tagName,float life) {
+	VHandles enemies = CTagsManager::get().getAllEntitiesByTag(getID(tagName));
+	for (auto h : enemies) {
+		CEntity* e_enemy = (CEntity*)h;
+
+		if (strcmp(tagName,"cupcake") == 0) {
+			CBTCupcake* cbt = e_enemy->get<CBTCupcake>();
+			cbt->setLife(life);
+		}
+		else if (strcmp(tagName, "golem") == 0) {
+
+
+		}
+		else if (strcmp(tagName, "sushi") == 0) {
+
+		}
+	}
+	/*
+	if (typeEnemy == TYPE_CUPCAKE) {
+		CBTCupcake* cupcake = e_enemy->get<CBTCupcake>();
+		cupcake->setLife(life);
+	}
+	if (typeEnemy == TYPE_SUSHI) {
+		CBTSushi* sushi_n = e_enemy->get<CBTSushi>();
+		//sushi_n->setLifesetLife no esta el set en la clase
+	}
+	if (typeEnemy == TYPE_RANGED_SUSHI) {
+		CBTRangedSushi* sushi_r = e_enemy->get<CBTRangedSushi>();
+		//sushi_n->setLifesetLife: no esta el set en la clase
+	}*/
+
+}
+
+
 
 void CModuleGameController::activatePlatformByName(std::string name) {
 	if (name != "") {
@@ -732,7 +766,6 @@ void CModuleGameController::setHalfConeEnemyByHandle(float half_cone, CHandle h_
 	}
 }
 
-
 void CModuleGameController::setPauseEnemyByName(std::string enemy, bool active) {
 	
 	CEntity* e_enemy = getEntityByName(enemy);
@@ -800,7 +833,6 @@ void CModuleGameController::inCinematicSpecial(bool active, int type) {
 
 
 
-
 void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 	CHandle e_golem = getEntityByName(name);
 	CHandle e_player = getEntityByName("Player");
@@ -815,6 +847,11 @@ void CModuleGameController::inCinematicGolem(std::string name, bool active) {
 		e_golem.sendMsg(msgOnCinematic);
 	}
 }
+
+void CModuleGameController::changeGameState(std::string name) {
+	CEngine::get().getModules().changeToGamestate(name);
+}
+
 
 void CModuleGameController::setLifeEnemy(CHandle h,int typeEnemy,float life) {
 	CEntity* e_enemy = (CEntity*)h;
@@ -838,6 +875,33 @@ void CModuleGameController::setLifeEnemy(CHandle h,int typeEnemy,float life) {
 
 void CModuleGameController::loadScene(const std::string name) {
 	SceneManager.getSceneManager()->loadScene(name);
+}
+
+void CModuleGameController::GPUloadScene(const std::string name) {
+  TFileContext fc(name);
+  TEntityParseContext ctx;
+  PROFILE_FUNCTION_COPY_TEXT(name.c_str());
+  dbg("Parsing boot prefab %s\n", name.c_str());
+  //Instead of parsing it with parseScene, lets parse it with the GPU Culling Module
+  //parseScene(p, ctx);
+  //This only parses the entities and prefabs, not products
+  CEngine::get().getGPUCulling().parseEntities(name, ctx);
+}
+
+void CModuleGameController::GPUdeleteScene(const std::string name) {
+  CEngine::get().getGPUCulling().deleteScene(name);
+}
+
+void CModuleGameController::deleteProducts() {
+  CEngine::get().getGPUCulling().deleteActualProducts();
+}
+
+void CModuleGameController::loadProducts(std::string zona) {
+  TFileContext fc(zona);
+  TEntityParseContext ctx;
+  CEngine::get().getGPUCulling().parseProducts(zona, ctx);
+
+  EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
 }
 
 CHandle CModuleGameController::entityByName(std::string name) {

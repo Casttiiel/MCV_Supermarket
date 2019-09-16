@@ -55,7 +55,7 @@ bool CModuleRender::start() {
 
   // Initial values
   ctes_shared.GlobalRenderOutput = RO_COMPLETE;
-  ctes_shared.GlobalAmbientBoost = 1.0f;
+  ctes_shared.GlobalAmbientBoost = 0.1f;
   ctes_shared.GlobalExposureAdjustment = 1.0f;
   ctes_shared.CoffeeRatio = 0.f;
   ctes_shared.Actual_dt = 0.f;

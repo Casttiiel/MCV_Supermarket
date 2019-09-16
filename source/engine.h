@@ -10,6 +10,7 @@
 #include "modules/game/module_audio.h"
 #include "modules/module_navmesh.h"
 #include "modules/module_scenes.h"
+#include "modules/module_boot.h"
 
 #define DECL_MODULE(__CLASS__, __MEMBER__, __GETTER__) \
   public: __CLASS__& __GETTER__() const { return *__MEMBER__; } \
@@ -27,6 +28,7 @@ class CModuleCameraShaker;
 class CModuleFluidDecalGenerator;
 class CModuleNavmesh;
 class CModuleSceneManager;
+class CModuleBoot;
 
 namespace UI
 {
@@ -72,6 +74,7 @@ public:
   DECL_MODULE(UI::CModuleUI, _ui, getUI);
   DECL_MODULE(particles::CModuleParticles, _particles, getParticles);
   DECL_MODULE(CModuleSceneManager, _sceneManager, getSceneManager);
+  DECL_MODULE(CModuleBoot, _boot, getBoot);
 
 
 
@@ -88,3 +91,4 @@ public:
 #define FluidDecalGenerator CEngine::get().getFluidDecalGenerator()
 #define EngineNavmesh CEngine::get().getNavmesh()
 #define SceneManager CEngine::get().getSceneManager()
+#define Boot CEngine::get().getBoot()

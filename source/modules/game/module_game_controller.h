@@ -206,6 +206,8 @@ public:
   void toNamePrefab(const std::string name, CHandle handle);
   //cargar escena
   void loadScene(const std::string name);
+  void GPUloadScene(const std::string name);
+  void GPUdeleteScene(const std::string name);
   template <typename T>
   void broadcastMessage(T message);
 
@@ -221,6 +223,9 @@ public:
 
 	//destruir un muro
 	void destroyWallByName(std::string name, std::string golemName, float intensity = 20);
+
+  void deleteProducts();
+  void loadProducts(std::string zona);
 
 	//despertar golem
 	void wakeUpGolem(std::string name);
@@ -250,6 +255,10 @@ public:
 	void deleteSushi();
 	void deleteGolem(std::string name);
 	void setLifeEnemy(CHandle h, int typeEnemy, float life);
+	void setLifeEnemiesByTag(const char* tagName, float life);
+
+	void changeGameState(std::string name);
+
 };
 
 
