@@ -86,8 +86,9 @@ struct TSampleDataGenerator {
     TCompWindTrap* c_wt = entity->get<TCompWindTrap>();
     CBTGolem* c_g = entity->get<CBTGolem>();
     TCompDestroyableWall* c_dw = entity->get<TCompDestroyableWall>();
+    TCompCharacterController* c_cc = entity->get<TCompCharacterController>();
 
-    return !c_tr && !c_ip && !c_wt && !c_g && !c_dw;
+    return !c_tr && !c_ip && !c_wt && !c_g && !c_dw && !c_cc;
   }
 
   void createProducts(const std::string& filename, TEntityParseContext& ctx) {
@@ -285,22 +286,26 @@ struct TSampleDataGenerator {
           assert(!prefab_ctx.entities_loaded.empty());
 
           // Create a new fresh entity
+          for (int ij = 0; ij < prefab_ctx.entities_loaded.size(); ij++)
+          {
+            h_e = prefab_ctx.entities_loaded[ij];
+
+            // Cast to entity object
+            CEntity* e = h_e;
+
+            // We give an option to 'reload' the prefab by modifying existing components, 
+            // like changing the name, add other components, etc, but we don't want to parse again 
+            // the comp_transform, because it was already parsed as part of the root
+            // As the json is const as it's a resouce, we make a copy of the prefab section and
+            // remove the transform
+            json j_entity_without_transform = j_entity;
+            j_entity_without_transform.erase("transform");
+
+            // Do the parse now outside the 'prefab' context
+            prefab_ctx.parsing_prefab = false;
+            e->load(j_entity_without_transform, prefab_ctx);
+          }
           h_e = prefab_ctx.entities_loaded[0];
-
-          // Cast to entity object
-          CEntity* e = h_e;
-
-          // We give an option to 'reload' the prefab by modifying existing components, 
-          // like changing the name, add other components, etc, but we don't want to parse again 
-          // the comp_transform, because it was already parsed as part of the root
-          // As the json is const as it's a resouce, we make a copy of the prefab section and
-          // remove the transform
-          json j_entity_without_transform = j_entity;
-          j_entity_without_transform.erase("transform");
-
-          // Do the parse now outside the 'prefab' context
-          prefab_ctx.parsing_prefab = false;
-          e->load(j_entity_without_transform, prefab_ctx);
         }
         else if(!isInstantiable(j_entity)){
 
