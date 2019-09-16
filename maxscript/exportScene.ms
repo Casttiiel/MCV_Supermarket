@@ -46,9 +46,9 @@ struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
 	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
+	--project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
-	--project_path = "C:/Users/mcv17_alumne/Desktop/mcv_sm/bin/",
+	project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
 	current_scene_name,
 	scenes_path = base_path + "scenes/",
@@ -56,6 +56,7 @@ struct TSceneExporter (
 	mats_path = base_path + "materials/",
 	curve_path = base_path + "curves/",
 	productsSize = 0.18,
+	numberOfProducts = 12,
 	
 	fn exportCompName obj = (
 		fs.writeKeyValue "name" obj.name
@@ -670,8 +671,8 @@ struct TSceneExporter (
 				fs.endObj()
 							
 				fs.writeComma()
-			
-				local product_str = "data/prefabs/products/product1.json"
+				local numb_indx = random 1 numberOfProducts
+				local product_str = "data/prefabs/products/product"+numb_indx as string+".json"
 				fs.writeKeyValue "prefab"  product_str
 				
 				fs.endObj()

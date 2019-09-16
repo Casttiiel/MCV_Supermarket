@@ -4,7 +4,7 @@
       "name": "Fireball",
       "transform": {
         "pos": "0 0 0",
-        "scale": 0.1
+        "scale": 0.9
       },
       "kinematic_bullet": {
         "_destroyOnCollission": true,
@@ -13,12 +13,7 @@
 			},
 			"comp_self_destroy" : {
 				"_isEnabled": true,
-				"_selfDestructDelay": 2.0
-      },
-      "comp_scale_gradually":{
-        "_finalScale": 10.0,
-        "_ratio": 0.1,
-        "_unscaledTime": true
+				"_selfDestructDelay": 1.2
       },
 			"collider":{
 				"shape" : "sphere",
@@ -29,6 +24,30 @@
 				"group":"enemy_projectile",
 			  "mask":"player"
 			}
+    }
+  },
+  {
+    "entity":
+    {
+      "name": "PointLight"
+      ,
+      "transform":
+      {
+        "pos": "0.0 8.0 0.0"
+      }
+      ,
+      "light_point": {
+        "color": "1.0 0.4 0.0",
+        "intensity" : 1,
+        "radius" :  10
+      },
+      "abs_aabb":{},
+      "hierarchy":
+      {
+        "pos": "0 0 0"
+        ,
+        "parent": "Fireball"
+      }
     }
   }
 ]

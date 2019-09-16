@@ -86,8 +86,9 @@ struct TSampleDataGenerator {
     TCompWindTrap* c_wt = entity->get<TCompWindTrap>();
     CBTGolem* c_g = entity->get<CBTGolem>();
     TCompDestroyableWall* c_dw = entity->get<TCompDestroyableWall>();
+    TCompCharacterController* c_cc = entity->get<TCompCharacterController>();
 
-    return !c_tr && !c_ip && !c_wt && !c_g && !c_dw;
+    return !c_tr && !c_ip && !c_wt && !c_g && !c_dw && !c_cc;
   }
 
   void createProducts(const std::string& filename, TEntityParseContext& ctx) {
@@ -126,11 +127,15 @@ struct TSampleDataGenerator {
               delta_transform.load(j_entity["transform"]);
 
             int rand_idx = rand();
-            if (rand_idx % 3 == 0 || mod->last_prod_index - mod->first_prod_index > 3000) { //instantiate without being an entity
+            if (rand_idx % 3 == 0 || (mod->last_prod_index - mod->first_prod_index) + 1 > 3000) { //instantiate without being an entity
 
               //ADD DATA TO MODULE GPU CULLING
-              int idx = rand() % prefabs.size();
-              CHandle prefab = prefabs[idx];
+              std::string prefab_name = j_entity["prefab"].get<std::string>();
+              prefab_name.erase(0, 29);
+              prefab_name.replace(prefab_name.end() - 5, prefab_name.end(), "");
+              int idx = std::stoi(prefab_name);
+              //int idx = rand() % prefabs.size();//change this
+              CHandle prefab = prefabs[idx - 1];
               CEntity* ep = prefab;
               assert(ep);
               mod->getObjSize(); // so we increase the variables that hold the limits containing the number of products
@@ -163,8 +168,12 @@ struct TSampleDataGenerator {
               prefab_ctx.parsing_prefab = false;
               e->load(j_entity_without_transform, prefab_ctx);
 
-              int idx = rand() % prefabs.size();
-              CHandle prefab = prefabs[idx];
+              std::string prefab_name = j_entity["prefab"].get<std::string>();
+              prefab_name.erase(0, 29);
+              prefab_name.replace(prefab_name.end() - 5, prefab_name.end(), "");
+              int idx = std::stoi(prefab_name);
+              //int idx = rand() % prefabs.size();
+              CHandle prefab = prefabs[idx - 1];
               CEntity* ep = prefab;
               assert(e);
 
@@ -277,22 +286,26 @@ struct TSampleDataGenerator {
           assert(!prefab_ctx.entities_loaded.empty());
 
           // Create a new fresh entity
+          for (int ij = 0; ij < prefab_ctx.entities_loaded.size(); ij++)
+          {
+            h_e = prefab_ctx.entities_loaded[ij];
+
+            // Cast to entity object
+            CEntity* e = h_e;
+
+            // We give an option to 'reload' the prefab by modifying existing components, 
+            // like changing the name, add other components, etc, but we don't want to parse again 
+            // the comp_transform, because it was already parsed as part of the root
+            // As the json is const as it's a resouce, we make a copy of the prefab section and
+            // remove the transform
+            json j_entity_without_transform = j_entity;
+            j_entity_without_transform.erase("transform");
+
+            // Do the parse now outside the 'prefab' context
+            prefab_ctx.parsing_prefab = false;
+            e->load(j_entity_without_transform, prefab_ctx);
+          }
           h_e = prefab_ctx.entities_loaded[0];
-
-          // Cast to entity object
-          CEntity* e = h_e;
-
-          // We give an option to 'reload' the prefab by modifying existing components, 
-          // like changing the name, add other components, etc, but we don't want to parse again 
-          // the comp_transform, because it was already parsed as part of the root
-          // As the json is const as it's a resouce, we make a copy of the prefab section and
-          // remove the transform
-          json j_entity_without_transform = j_entity;
-          j_entity_without_transform.erase("transform");
-
-          // Do the parse now outside the 'prefab' context
-          prefab_ctx.parsing_prefab = false;
-          e->load(j_entity_without_transform, prefab_ctx);
         }
         else if(!isInstantiable(j_entity)){
 
@@ -698,7 +711,7 @@ void CModuleGPUCulling::stop() {
 }
 
 void CModuleGPUCulling::updateObjData(int idx, CHandle entity) {
-  if (objs.size() < idx) {
+  if (objs.size() <= idx) {
     return;
   }
 
@@ -899,6 +912,9 @@ void CModuleGPUCulling::updateCullingPlanes(const CCamera& camera) {
 // ---------------------------------------------------------------
 void CModuleGPUCulling::renderInMenu() {
   if (ImGui::TreeNode("GPU Culling")) {
+    if (ImGui::SmallButton("Delete actual Products")) {
+      deleteActualProducts();
+    }
     ImGui::Text("%ld objects", (uint32_t)objs.size());
     ImGui::Text("from %ld to %ld products: %ld", first_prod_index, last_prod_index, last_prod_index - first_prod_index + 1);
     ImGui::Text("from %ld to %ld panaderia objects: %ld", first_panaderia_index, last_panaderia_index, last_panaderia_index - first_panaderia_index + 1);

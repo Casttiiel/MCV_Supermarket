@@ -145,6 +145,12 @@ void TCompCollider::renderDebugShape(physx::PxShape* shape, physx::PxGeometryTyp
       drawMesh(debug_mesh, world, color);
       break;
     }
+    case PxGeometryType::eCONVEXMESH: {
+      const CMesh* debug_mesh = (const CMesh*)shape->userData;
+      assert(debug_mesh);
+      drawMesh(debug_mesh, world, color);
+      break;
+    }
   }
 }
 
