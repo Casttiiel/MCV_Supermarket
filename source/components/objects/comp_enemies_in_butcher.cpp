@@ -22,7 +22,7 @@ void TCompEnemiesInButcher::load(const json& j, TEntityParseContext& ctx){
 
 
 void TCompEnemiesInButcher::update(float dt) {
-	if (count >= 5) {
+	if (count >= 4) {
 		Scripting.execActionDelayed("activeElevatorInitCarniceria_player()", 0.0);
 		//desactivar llamas de la plataforma cuando este listo
 		GameController.destroyCHandleByName("enemies_in_butcher");
@@ -35,7 +35,7 @@ void TCompEnemiesInButcher::onSushiTrap(const TMSgEnemyDead & msg) {
 	CEntity* entity = (CEntity*) handle;
 	TCompName* name = entity->get<TCompName>();
 	std::string nameEntity = name->getName();
-	if(nameEntity.compare("Sushi000") == 0) {//los de nombre diferente  son los suishi de las plantas de arriba
+	if(nameEntity.compare("Sushi000") == 0 || nameEntity.compare("Ranged_Sushi_0") == 0) {//los de nombre diferente  son los suishi de las plantas de arriba
 		count++;
 	}
 

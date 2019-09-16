@@ -565,22 +565,22 @@ function activePlataformCarniceria_player()
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn1",h_suishi1);
 	GameController:setPauseEnemyByHandle(h_suishi1,true);
 	
-	h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-121,0.316,-190), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn2",h_suishi2);
-	GameController:setPauseEnemyByHandle(h_suishi2,true);
+	--h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-121,0.316,-190), QUAT(0, 0, 0, 1),1);
+	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn2",h_suishi2);
+	--GameController:setPauseEnemyByHandle(h_suishi2,true);
 
-	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-141,0.316,-194), QUAT(0, 0, 0, 1),1);
+	h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-121,0.316,-190), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn3",h_suishi3);
 	GameController:setPauseEnemyByHandle(h_suishi3,true);
 	
-	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-154,0.316,-201), QUAT(0, 0, 0, 1),1);
+	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-121,0.316,-218), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn4",h_suishi4);
 	GameController:setPauseEnemyByHandle(h_suishi4,true);
 	
 	
-	h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-121,0.316,-218), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
-	GameController:setPauseEnemyByHandle(h_suishi5,true);
+	--h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-121,0.316,-218), QUAT(0, 0, 0, 1),1);
+	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
+	--GameController:setPauseEnemyByHandle(h_suishi5,true);
 	
 	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
 
@@ -589,20 +589,19 @@ function activePlataformCarniceria_player()
 	-- CAMERA LOCA
 	execDelayedAction("cinematica_tower()",0.0);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",12.5);
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi2,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",12.5);
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi5,false)",12.5);
+	--execDelayedAction("set_pause_enemy_by_handle(h_suishi5,false)",12.5);
 	execDelayedAction("setViewDistanceEnemy(1000,h_suishi1,1)",12.5);
 	execDelayedAction("sethalfConeEnemy(360,h_suishi1,1)",12.5);
-	execDelayedAction("setViewDistanceEnemy(1000,h_suishi2,1)",12.5);
-	execDelayedAction("sethalfConeEnemy(360,h_suishi2,1)",12.5);
-	execDelayedAction("setViewDistanceEnemy(40,h_suishi3,1)",12.5);
-	execDelayedAction("sethalfConeEnemy(360,h_suishi3,1)",12.5);
-	execDelayedAction("setViewDistanceEnemy(40,h_suishi4,1)",12.5);
-	execDelayedAction("sethalfConeEnemy(360,h_suishi4,1)",12.5);
-	execDelayedAction("setViewDistanceEnemy(1000,h_suishi5,1)",12.5);
-	execDelayedAction("sethalfConeEnemy(360,h_suishi5,1)",12.5);
+	--execDelayedAction("setViewDistanceEnemy(1000,h_suishi2,1)",12.5);
+	--execDelayedAction("sethalfConeEnemy(360,h_suishi2,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi3,2)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi3,2)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi4,2)",12.5);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi4,2)",12.5);
+	--execDelayedAction("setViewDistanceEnemy(1000,h_suishi5,1)",12.5);
+	--execDelayedAction("sethalfConeEnemy(360,h_suishi5,1)",12.5);
 
 
 	
@@ -674,14 +673,14 @@ function activarSalidaPanaderia()
 	execDelayedAction("on_cinematic(true)",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraPanaderiaPlat\", 5,\"linear\")",0.1);
-	execDelayedAction("on_load_gpu_scene(\"data/scenes/mapa_congelados.json\")",11.5);
-	execDelayedAction("on_load_gpu_scene(\"data/particles/cold_particles.json\")",11.5);
-	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles.json\")",5.5);
-	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles2.json\")",6.5);
-	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles3.json\")",6.5);
-	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles4.json\")",7.5);
-	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles5.json\")",8.5);
-	execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles6.json\")",9.5);
+	--execDelayedAction("on_load_gpu_scene(\"data/scenes/mapa_congelados.json\")",11.5);
+	--execDelayedAction("on_load_gpu_scene(\"data/particles/cold_particles.json\")",11.5);
+	--execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles.json\")",5.5);
+	--execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles2.json\")",6.5);
+	--execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles3.json\")",6.5);
+	--execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles4.json\")",7.5);
+	--execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles5.json\")",8.5);
+	--execDelayedAction("on_load_gpu_scene(\"data/particles/smoke_cold_particles6.json\")",9.5);
 	execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",13.5);
 	execDelayedAction("on_lock_camera3(true)",18);
 	execDelayedAction("on_cinematic(false)",18);
