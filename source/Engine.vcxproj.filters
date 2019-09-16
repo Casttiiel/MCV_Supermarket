@@ -774,6 +774,9 @@
     <ClCompile Include="components\actions\comp_audioPlayer.cpp">
       <Filter>components\actions</Filter>
     </ClCompile>
+    <ClCompile Include="components\vfx\comp_flickering.cpp">
+      <Filter>components\vfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mcv_platform.h" />
@@ -1638,6 +1641,9 @@
       <Filter>ui\widgets</Filter>
     </ClInclude>
     <ClInclude Include="components\vfx\comp_death_billboard.h">
+      <Filter>components\vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="components\vfx\comp_flickering.h">
       <Filter>components\vfx</Filter>
     </ClInclude>
   </ItemGroup>
