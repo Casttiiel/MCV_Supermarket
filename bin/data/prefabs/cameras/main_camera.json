@@ -11,7 +11,12 @@
 			},
 			"render_ao":{},
 		    "render_bloom": {
-		      "max_steps" : 4
+		      "max_steps" : 2,
+		      "w0": 70,
+		      "w1": 56,
+		      "w2": 28,
+		      "w3": 8,
+		      "global_distance":2
 		    },
 		    "color_grading": {
 		      "lut" : "data/textures/lut/lut1.dds",

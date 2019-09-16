@@ -17,6 +17,7 @@
         ]
       },
       "comp_fire_trap":{},
+
       "buffers" : {
         "instances" : {
           "desc" : "Array of active particles at the start of the frame",
@@ -82,6 +83,24 @@
         }
       ],
       "num_instances": "indirect_draw"
+    }
+  },
+  {
+    "entity":
+    {
+      "name": "PointLight"
+      ,
+      "transform":
+      {
+        "pos": "0.0 .0 1.0"
+      }
+      ,
+      "light_point": {
+        "color": "1.0 0.4 0.0",
+        "intensity" : 1,
+        "radius" :  6
+      },
+      "abs_aabb":{}
     }
   }
 ]

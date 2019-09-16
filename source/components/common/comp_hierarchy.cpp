@@ -63,11 +63,14 @@ void TCompHierarchy::update(float dt) {
   c_my_transform->set(c_parent_transform->combineWith(*this) );
   //Nuevo:Mover collider a donde esta la transform
   TCompCollider* col = get<TCompCollider>();
-  physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(col->actor);
-  VEC3 nextPos = c_my_transform->getPosition();
-  QUAT quat = c_my_transform->getRotation();
-  PxVec3 pos = VEC3_TO_PXVEC3(nextPos);
-  PxQuat qua = QUAT_TO_PXQUAT(quat);
-  const PxTransform tr(pos, qua);
-  rigid_dynamic->setGlobalPose(tr);
+  if (col) {
+    physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(col->actor);
+    VEC3 nextPos = c_my_transform->getPosition();
+    QUAT quat = c_my_transform->getRotation();
+    PxVec3 pos = VEC3_TO_PXVEC3(nextPos);
+    PxQuat qua = QUAT_TO_PXQUAT(quat);
+    const PxTransform tr(pos, qua);
+    rigid_dynamic->setGlobalPose(tr);
+  }
+
 }
