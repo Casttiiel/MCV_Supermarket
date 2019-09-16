@@ -25,10 +25,10 @@ void TCompEnemiesInTube::onFinishEnemiesInTube(const TMSgWallDestroyed & msg) {
 
 
 void TCompEnemiesInTube::load(const json& j, TEntityParseContext& ctx){
-	enemiesPosition.push_back(VEC3(24,10,-6));//Esto cambiarlo mas adelanta por los nombres de los tubos
-	enemiesPosition.push_back(VEC3(14,10,-6));
-	enemiesPosition.push_back(VEC3(13,10,3));
-	enemiesPosition.push_back(VEC3(24,10,2));
+	enemiesPosition.push_back(VEC3(18.214,9.143,-7.335));//Esto cambiarlo mas adelanta por los nombres de los tubos
+	enemiesPosition.push_back(VEC3(27.714, 9.143, -7.335));
+	enemiesPosition.push_back(VEC3(27.714, 9.143, 5.790));
+	enemiesPosition.push_back(VEC3(18.064, 9.143, 5.890));
 }
 
 
