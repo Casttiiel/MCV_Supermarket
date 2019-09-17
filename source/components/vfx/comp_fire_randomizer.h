@@ -4,7 +4,7 @@
 #include "entity/entity.h"
 #include "entity/common_msgs.h"
  
-class TCompFlickering :  public TCompBase {
+class TCompFireRandomizer :  public TCompBase {
   DECL_SIBLING_ACCESS();
 
   std::string target = "point";

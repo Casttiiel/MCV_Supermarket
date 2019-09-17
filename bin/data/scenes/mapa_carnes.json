@@ -6,7 +6,7 @@
       ,
       "transform":
       {
-        "pos": "-92.7228 -9.27574e-06 -212.204"
+        "pos": "-52.6303 -9.27574e-06 -212.204"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -18,11 +18,11 @@
           {
             "shape": "box"
             ,
-            "half_size": "6.28247 2.0645 4.53569"
+            "half_size": "5.8427 2.31224 11.4299"
             ,
             "offset":
             {
-              "pos": "0.0 2.0645 0.0"
+              "pos": "0.0 2.31224 0.0"
             }
             ,
             "group": "trigger"
@@ -402,22 +402,6 @@
           "data/materials/mapa_carnes/black.material"
         ]
       }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Player"
-      ,
-      "transform":
-      {
-        "pos": "-79.8308 -9.27242e-06 -212.128"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/character/player.json"
     }
   }
   ,
@@ -1213,33 +1197,6 @@
         "onEnter": "trampaSushisButcher"
         ,
         "delay": 0
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "CameraTower"
-      ,
-      "transform":
-      {
-        "pos": "-31.0735 83.2499 -303.569"
-        ,
-        "rotation": "-0.219711 -0.768859 0.493246 -0.342479"
-        ,
-        "lookat": "-129.684 22.4128 -214.842"
-      }
-      ,
-      "camera":
-      {
-        "near": 1.0
-        ,
-        "far": 1000.0
-        ,
-        "fov": 45.0
-        ,
-        "distanceTarget": 145.938
       }
     }
   }
@@ -2591,7 +2548,7 @@
       {
         "pos": "-99.5655 7.42711 -202.874"
         ,
-        "rotation": "0.0 0.0 0.662593 -0.748979"
+        "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "abs_aabb": {}
@@ -2619,7 +2576,7 @@
       {
         "pos": "-99.5655 7.42711 -220.959"
         ,
-        "rotation": "0.0 0.0 0.662593 -0.748979"
+        "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "abs_aabb": {}
@@ -3009,7 +2966,7 @@
       ,
       "transform":
       {
-        "pos": "-126.136 0.259577 -215.183"
+        "pos": "-136.976 0.259577 -216.612"
         ,
         "rotation": "0.0 0.21644 0.0 -0.976296"
       }
@@ -3303,6 +3260,22 @@
           "data/materials/mapa_carnes/mat_carne_plat.material"
         ]
       }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "-79.0716 -9.28857e-06 -212.498"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
     }
   }
   ,
@@ -3723,7 +3696,7 @@
       ,
       "transform":
       {
-        "pos": "-126.036 1.23491 -215.141"
+        "pos": "-136.876 1.23491 -216.57"
         ,
         "rotation": "0.153046 -0.690346 -0.690345 -0.153046"
       }
@@ -3739,7 +3712,7 @@
       ,
       "transform":
       {
-        "pos": "-120.897 0.259578 -196.441"
+        "pos": "-124.48 0.259577 -217.207"
         ,
         "rotation": "0.0 -0.21644 0.0 -0.976296"
       }
@@ -3784,7 +3757,7 @@
       ,
       "transform":
       {
-        "pos": "-120.8 1.23491 -196.491"
+        "pos": "-124.384 1.23491 -217.257"
         ,
         "rotation": "-0.153046 -0.690346 -0.690346 0.153046"
       }
@@ -3800,7 +3773,7 @@
       ,
       "transform":
       {
-        "pos": "-140.128 0.259577 -202.873"
+        "pos": "-135.726 0.259578 -196.249"
         ,
         "rotation": "0.0 0.5373 0.0 -0.843391"
       }
@@ -3845,7 +3818,7 @@
       ,
       "transform":
       {
-        "pos": "-140.079 1.23491 -202.777"
+        "pos": "-135.677 1.23491 -196.153"
         ,
         "rotation": "0.379928 -0.596368 -0.596368 -0.379928"
       }
@@ -4171,6 +4144,985 @@
           "data/materials/mapa_carnes/mat_knife.material"
         ]
       }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "porta_trampa"
+      ,
+      "transform":
+      {
+        "pos": "-160.375 9.39072 -215.657"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_porta_trampa.mesh"
+        ,
+        "color": "0.0313726 0.431373 0.529412 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_pollo.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "porta_trampa001"
+      ,
+      "transform":
+      {
+        "pos": "-160.113 10.7527 -209.359"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_porta_trampa001.mesh"
+        ,
+        "color": "0.0313726 0.431373 0.529412 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_pollo.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "porta_trampa002"
+      ,
+      "transform":
+      {
+        "pos": "-159.912 11.7975 -203.558"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_porta_trampa002.mesh"
+        ,
+        "color": "0.0313726 0.431373 0.529412 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_pollo.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "carbon_pared"
+      ,
+      "transform":
+      {
+        "pos": "-131.878 14.4533 -185.917"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_carbon_pared.mesh"
+        ,
+        "color": "0.337255 0.337255 0.337255 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_pollo.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Cylinder013"
+      ,
+      "transform":
+      {
+        "pos": "-146.385 12.0042 -186.101"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Cylinder013.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Cylinder014"
+      ,
+      "transform":
+      {
+        "pos": "-117.1 11.8398 -186.101"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Cylinder014.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Cylinder015"
+      ,
+      "transform":
+      {
+        "pos": "-123.798 11.8398 -186.101"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Cylinder015.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Cylinder016"
+      ,
+      "transform":
+      {
+        "pos": "-130.938 11.8398 -186.101"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Cylinder016.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Cylinder017"
+      ,
+      "transform":
+      {
+        "pos": "-138.453 11.8398 -186.101"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Cylinder017.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Cylinder018"
+      ,
+      "transform":
+      {
+        "pos": "-116.897 16.9761 -186.369"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Cylinder018.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Cylinder019"
+      ,
+      "transform":
+      {
+        "pos": "-116.897 12.094 -186.114"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_Cylinder019.mesh"
+        ,
+        "color": "0.694118 0.105882 0.345098 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/black.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "cuchillo016"
+      ,
+      "transform":
+      {
+        "pos": "-108.895 63.0723 -194.124"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_cuchillo016.mesh"
+        ,
+        "color": "0.898039 0.603922 0.843137 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/cuchillo.material"
+          ,
+          "data/materials/mapa_carnes/mango.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "asador_006"
+      ,
+      "transform":
+      {
+        "pos": "-144.814 0.259578 -201.268"
+        ,
+        "rotation": "0.0 0.5373 0.0 -0.843391"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.64304 0.610887 0.578743"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.610887 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_asador_006.mesh"
+        ,
+        "color": "0.529412 0.431373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_asador.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "fire010"
+      ,
+      "transform":
+      {
+        "pos": "-144.765 1.23491 -201.172"
+        ,
+        "rotation": "0.379928 -0.596368 -0.596368 -0.379928"
+      }
+      ,
+      "prefab": "data/prefabs/structures/fire_trap.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "asador_007"
+      ,
+      "transform":
+      {
+        "pos": "-120.961 0.259578 -199.03"
+        ,
+        "rotation": "0.0 -0.21644 0.0 -0.976296"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.64304 0.610887 0.578743"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.610887 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_asador_007.mesh"
+        ,
+        "color": "0.529412 0.431373 0.0313726 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_asador.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "fire011"
+      ,
+      "transform":
+      {
+        "pos": "-120.865 1.23491 -199.079"
+        ,
+        "rotation": "-0.153046 -0.690346 -0.690346 0.153046"
+      }
+      ,
+      "prefab": "data/prefabs/structures/fire_trap.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni002"
+      ,
+      "transform":
+      {
+        "pos": "-99.5981 13.585 -229.37"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni003"
+      ,
+      "transform":
+      {
+        "pos": "-99.5981 13.585 -223.772"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni004"
+      ,
+      "transform":
+      {
+        "pos": "-99.5981 13.585 -217.52"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni005"
+      ,
+      "transform":
+      {
+        "pos": "-102.411 30.8065 -212.126"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni006"
+      ,
+      "transform":
+      {
+        "pos": "-102.411 30.8065 -218.188"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni007"
+      ,
+      "transform":
+      {
+        "pos": "-102.411 30.8065 -223.704"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni008"
+      ,
+      "transform":
+      {
+        "pos": "-102.411 30.8065 -229.448"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni010"
+      ,
+      "transform":
+      {
+        "pos": "-102.411 30.8065 -206.002"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni011"
+      ,
+      "transform":
+      {
+        "pos": "-102.411 30.8065 -200.118"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni012"
+      ,
+      "transform":
+      {
+        "pos": "-102.411 30.8065 -194.004"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraTower"
+      ,
+      "transform":
+      {
+        "pos": "-63.2792 2.57946 -212.564"
+        ,
+        "rotation": "0.594528 0.380795 -0.598837 0.378055"
+        ,
+        "lookat": "-175.548 55.162 -211.753"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 123.975
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni014"
+      ,
+      "transform":
+      {
+        "pos": "-99.5981 13.585 -211.607"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni015"
+      ,
+      "transform":
+      {
+        "pos": "-102.411 30.8065 -233.959"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni016"
+      ,
+      "transform":
+      {
+        "pos": "-99.5981 13.585 -234.503"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "Omni017"
+      ,
+      "transform":
+      {
+        "pos": "-102.411 30.8065 -189.447"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "light_point":
+      {
+        "intensity": 10.0
+        ,
+        "color": "1.0 0.470588 0.0 1.0"
+        ,
+        "radius": 10.0
+      }
+      ,
+      "flickering":
+      {
+        "target": "point"
+        ,
+        "frequency": 2.5
+        ,
+        "amplitude": 1.5
+        ,
+        "base": 2
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "energizante"
+      ,
+      "transform":
+      {
+        "pos": "-150.892 5.88903 -226.495"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/powers/powerUp_cafe.json"
     }
   }
 ]
