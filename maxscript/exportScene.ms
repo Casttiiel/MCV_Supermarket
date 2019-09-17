@@ -46,9 +46,9 @@ struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
 	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	--project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
+	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
-	project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
+	--project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
 	current_scene_name,
 	scenes_path = base_path + "scenes/",
@@ -337,13 +337,37 @@ struct TSceneExporter (
 		fs.writeKey "light_point" 
 		fs.beginObj()
 
-		fs.writeKeyValue "intensity" (obj.multiplier * 5.0)
+		fs.writeKeyValue "intensity" (obj.multiplier)
 		fs.writeComma()
 		fs.writeKeyValue "color" obj.color
 		fs.writeComma()
-		fs.writeKeyValue "radius" (obj.DecayRadius * 5.0)
+		fs.writeKeyValue "radius" (obj.DecayRadius)
 			
 		fs.endObj()
+		
+		local flickers = getUserProp obj "flickers"
+		if flickers != undefined then (
+			local frequency = getUserProp obj "frequency"
+			local amplitude = getUserProp obj "amplitude"
+			local base = getUserProp obj "base"
+
+			fs.writeComma()
+			fs.writeKey "flickering" 
+			fs.beginObj()
+
+			fs.writeKeyValue "target" "point"
+			fs.writeComma()
+			fs.writeKeyValue "frequency" frequency
+			fs.writeComma()
+			fs.writeKeyValue "amplitude" amplitude
+			fs.writeComma()
+			fs.writeKeyValue "base" base
+				
+			fs.endObj()
+		)
+		
+		
+		
 	),
 	
 	----------------------------------------------------------
@@ -367,7 +391,7 @@ struct TSceneExporter (
 		fs.writeKeyValue "color" obj.color
 		fs.writeComma()
 		
-		fs.writeKeyValue "intensity" (obj.multiplier * 5.0)
+		fs.writeKeyValue "intensity" (obj.multiplier)
 		fs.writeComma()
 		
 		fs.writeKeyValue "casts_shadows" obj.castShadows
@@ -591,8 +615,35 @@ struct TSceneExporter (
 			
 		)
 	),
+	fn exportFireRandomizer obj = (
+		local isFireRandomizer = getUserProp obj "isFireRandomizer"
+		if isFireRandomizer != undefined then (
+			fs.writeComma()
+			fs.writeKey "fire_randomizer"
+			fs.beginObj()
+			fs.endObj()
+			fs.writeComma()
+			fs.writeKey "buffers"
+			fs.beginObj()
+				fs.writeKey "TCtesFire"
+				fs.beginObj()
+					fs.writeKeyValue "total_bytes" 16
+					fs.writeComma()
+					fs.writeKeyValue "slot" 13
+				fs.endObj()
+			fs.endObj()
+		)		
+	),
 	
-	
+	fn exportBillboardXZ obj = (
+		local isBillboard = getUserProp obj "isBillboardXZ"
+		if isBillboard != undefined then (
+			fs.writeComma()
+			fs.writeKey "billboard_xz"
+			fs.beginObj()
+			fs.endObj()
+		)		
+	),
 	fn exportEntity obj = (
 		fs.beginObj()
 		fs.writeKey "entity"
@@ -608,6 +659,8 @@ struct TSceneExporter (
 			exportWalls obj
 			exportMorph obj
 			exportHierarch obj
+			exportFireRandomizer obj
+			exportBillboardXZ obj
 			--exportCompCurveController obj
 			
 			local nCA = custAttributes.count obj

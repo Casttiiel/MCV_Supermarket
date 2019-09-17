@@ -21,13 +21,14 @@ public:
 private:
 	bool _isEnabled = false;
 
+  float _offset = 0.0f;
   float _fireTimer = 0.0f;
   float _fireDelay = 0.1f;
   float _enablerTimer = 0.0f;
   float _disablerTimer = 0.0f;
   float _enablerDelay = 1.0f;
   float _disablerDelay = 3.0f;
-  float _fireDamage = 500.0f;
+  float _fireDamage = 5.0f;
 
 	void enable();
 	void disable();

@@ -5,20 +5,19 @@
 #include "components/common/comp_render.h"
 #include "components/vfx/comp_air.h"
 #include "components/ai/others/self_destroy.h"
+#include "random"
+
+std::mt19937 bt_off(1993);
+std::uniform_int_distribution<int> bt_range4(0, 100);
 
 DECL_OBJ_MANAGER("comp_fire_trap", TCompFireTrap);
 
 void TCompFireTrap::debugInMenu() {
- /* ImGui::DragFloat("Wind Frequency: ", &_windDelay, 0.01f, 0.f, 1.f);
-  ImGui::DragFloat("Scale Variation: ", &_scaleVar, 0.1f, 0.1f, 2.f);
-  ImGui::DragFloat("Speed Variation: ", &_speedVar, 0.1f, 0.1f, 3.f);
-  ImGui::DragFloat("Min Destroy Time: ", &_startDestroy, 0.1f, 0.1f, 5.f);
-  ImGui::DragFloat("Destroy Variation: ", &_destroyVar, 0.1f, 0.1f, 2.f);
-  ImGui::DragFloat("Wind Visibility: ", &windLength, 0.1f, 0.1f, 3.f);
-  ImGui::DragFloat("Wind Decay: ", &windDist, 0.1f, 0.1f, 2.f);*/
+  ImGui::DragFloat("Offset", &_offset, 0.0f, 5.0f);
 }
 
 void TCompFireTrap::load(const json& j, TEntityParseContext& ctx) {
+  _offset = bt_range4(bt_off) / 10.0f;
 }
 
 void TCompFireTrap::registerMsgs() {
@@ -61,6 +60,11 @@ void TCompFireTrap::disable() {
 }
 
 void TCompFireTrap::update(float dt) {
+  if (_offset > 0.0f) {
+    _offset -= dt;
+    return;
+  }
+    
 
   if (_isEnabled) {
     if (_fireTimer <= 0.f) {
@@ -83,7 +87,7 @@ void TCompFireTrap::update(float dt) {
       msgDamage.damageType = PowerType::FIRE;
       msgDamage.senderType = EntityType::ENEMIES;
       msgDamage.targetType = EntityType::PLAYER;
-      msgDamage.intensityDamage = _fireDamage * Time.delta_unscaled;
+      msgDamage.intensityDamage = _fireDamage;
       msgDamage.impactForce = 0.f;
 
       //Message to the bullet
