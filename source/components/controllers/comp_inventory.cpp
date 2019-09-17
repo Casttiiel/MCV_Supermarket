@@ -18,7 +18,6 @@ void TCompInventory::load(const json& j, TEntityParseContext& ctx) {
 	battery = j.value("battery", battery);
 	chilli = j.value("chilli", chilli);
 	teleport = j.value("teleport", teleport);
-
 }
 
 void TCompInventory::update(float delta) {

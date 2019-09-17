@@ -40,7 +40,7 @@ public:
 	  return coffe;
   }
 
-
+  
   void update(float delta);
 
 private:

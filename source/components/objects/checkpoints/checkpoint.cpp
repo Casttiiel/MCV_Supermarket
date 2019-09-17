@@ -11,7 +11,7 @@
 #include "components/ai/bt/bt_cupcake_explosive.h"
 #include "components/ai/bt/bt_golem.h"
 #include "components/ai/others/comp_blackboard.h"
-#include "engine.h"
+#include "components/controllers/comp_inventory.h"
 #include "entity/common_msgs.h"
 
 CCheckpoint::CCheckpoint() {
@@ -37,6 +37,17 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
     playerStatus.playerPos = playerPos;
     playerStatus.playerRot = playerRotation;
     playerStatus.saved = true;
+
+	//Nuevo hay que testear
+	CEntity* e_player = EngineEntities.getPlayerHandle();
+	CEntity* e_inventory = getEntityByName("Inventory");
+	TCompInventory* inventory = e_inventory->get<TCompInventory>();
+	playerStatus.battery = inventory->getBattery();
+	playerStatus.chilli = inventory->getChilli();
+	playerStatus.coffe = inventory->getCoffe();
+	playerStatus.teleport = inventory->getTeleport();
+	
+
 
     /* Save Registered Entities' status */
     //VHandles allEntities = getAllEntities();
@@ -122,8 +133,15 @@ bool CCheckpoint::loadCheckPoint()
             TCompCollider * playerCollider = e_player->get<TCompCollider>();
             playerStatus.playerPos.y += 0.5f;
             playerCollider->controller->setPosition(VEC3_TO_PXEXVEC3(playerStatus.playerPos));
-						TCompBlackboard* c_b = e_player->get<TCompBlackboard>();
-						c_b->resetBlackBoard();
+			TCompBlackboard* c_b = e_player->get<TCompBlackboard>();
+			c_b->resetBlackBoard();
+			CEntity* e_inventory = getEntityByName("Inventory");
+			TCompInventory* inventory = e_inventory->get<TCompInventory>();
+			inventory->setBattery(playerStatus.battery);
+			inventory->setChilli(playerStatus.chilli);
+			inventory->setCoffe(playerStatus.coffe);
+			inventory->setTeleport(playerStatus.teleport);
+			
             GameController.healPlayer();
         }
 

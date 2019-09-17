@@ -50,10 +50,10 @@ public:
   float getMaxMadness();
   bool getIsMounted() { return isMounted; }
 
-  bool unLockableBattery = false;
+  /*bool unLockableBattery = false;
   bool unLockableTeleport = false;
   bool unLockableChilli = false;
-  bool unLockableCoffe = false;
+  bool unLockableCoffe = false;*/
   bool cinematic = false;
 private:
 

@@ -34,11 +34,8 @@
       },
       "character_controller": {
         "distance_to_aim": 40.0,
-        "life": 100.0,
-        "unLockableBattery": true,
-	      "unLockableTeleport": true,
-		    "unLockableChilli": true,
-		    "unLockableCoffe":true
+        "life": 100.0
+       
       },
       "tags": [
         "player"
@@ -54,13 +51,7 @@
 	    "skel_lookat": {
 		      "target": "0 0 5",
           "amount":0
-	    },
-	  "comp_inventory": {
-		"battery": false,
-		"teleport": true,
-		"chilli": false,
-		"coffe":false
-	  } 
+	    } 
     }
   }
 ]

@@ -11,9 +11,12 @@ class CModuleEntities : public IModule
   void loadListOfManagers(const json& j, std::vector< CHandleManager* > &managers);
   void renderDebugOfComponents();
   CHandle player_handle;
+  CHandle inventory_handle;
+
 
 public:
   CHandle getPlayerHandle();
+  CHandle getInventoryHandle();
   CModuleEntities(const std::string& aname) : IModule(aname) { }
   bool start() override;
   void stop() override;

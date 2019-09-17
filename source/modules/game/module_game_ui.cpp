@@ -42,6 +42,7 @@ void CModuleGameUI::update(float delta)
 {
 	PROFILE_FUNCTION("CModuleGameUI::update");
 	CEntity* e_player = getEntityByName("Player");
+	CEntity* e_inventory = getEntityByName("Inventory");
 	if (EngineInput["pause"].justPressed()) {
 		//CEngine::get().getModules().changeToGamestate("gs_paused");//change gamestate
 		//pause game
@@ -84,8 +85,9 @@ void CModuleGameUI::update(float delta)
 			UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_mop_"));
 			boton->setCurrentState("enabled");
 		}
-		TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
-		if (c_controller->unLockableBattery) {
+		//TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
+		TCompInventory* inventory = e_inventory->get<TCompInventory>();
+		if (inventory->getBattery()) {
 			if (EngineInput["select_battery_"].justPressed()) {
 				UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
 				b->setCurrentState("option_battery");
@@ -97,7 +99,7 @@ void CModuleGameUI::update(float delta)
 			}
 		}
 
-		if (c_controller->unLockableTeleport){
+		if (inventory->getTeleport()){
 			if (EngineInput["select_teleport_"].justPressed()) {
 				UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
 				b->setCurrentState("option_teleport");
@@ -112,7 +114,7 @@ void CModuleGameUI::update(float delta)
 			
 
 		}
-		if (c_controller->unLockableChilli) {
+		if (inventory->getChilli()) {
 			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_r1_"));
 			b->getParams()->visible = true;
 			TCompFireController* fire = e_player->get<TCompFireController>();
@@ -127,7 +129,7 @@ void CModuleGameUI::update(float delta)
 			b->getParams()->visible = false;
 		}
 
-		if (c_controller->unLockableCoffe) {
+		if (inventory->getCoffe()) {
 			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_l1_"));
 			b->getParams()->visible = true;
 			TCompCoffeeController* tc = e_player->get<TCompCoffeeController>();

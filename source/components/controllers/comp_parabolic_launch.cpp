@@ -98,7 +98,9 @@ void TCompParabolicLaunch::update(float dt) {
   c_trans->setAngles(p_yaw, pitch);
 
 	TCompCharacterController* c_player = ((CEntity*)h_player)->get<TCompCharacterController>();
-	if (c_player->aiming && c_player->power_selected == PowerType::BATTERY && c_player->unLockableBattery) {
+	CEntity* e_inventory = getEntityByName("Inventory");
+    TCompInventory* inventory = e_inventory->get<TCompInventory>();
+	if (c_player->aiming && c_player->power_selected == PowerType::BATTERY && inventory->getBattery()) {
 		CEntity* e_camera = getEntityByName("PlayerCamera");
 		TCompTransform* transformPlayer = ((CEntity*)e_player)->get<TCompTransform>();
 		TCompTransform* transformC_aim = e_camera->get<TCompTransform>();
