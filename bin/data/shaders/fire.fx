@@ -81,9 +81,51 @@ float4 PS(VS_OUTPUT input) : SV_Target
   float4 flamerim = (final_voronoi.x > _threshold - _rim) - flame;
   float4 flamecolored2 = flamerim * orange;
   float4 finalcolor = flamecolored + flamecolored2;
-  return finalcolor;//randomNumb
+  return finalcolor;
 }
 
+
+float4 PS_2(VS_OUTPUT input) : SV_Target
+{
+  float4 red = float4(1,0,0,1);
+  float4 yellow = float4(1,1,0,1);
+  float4 orange = float4(1,0.2f,0,1);
+  float4 blue = float4(0,0,1,1);
+  float4 green = float4(0,1,0,1);
+
+  //for color
+  const float _offset = 0.0f;
+  //for rim
+  const float _edge = 0.7f;
+  const float _hard = 5.0f;
+  //for shape
+  const float _height = 0.70f;
+  //for distortion
+  const float _scrollX = 0.0f;
+  const float _scrollY = 0.4f;
+  const float _distort = 0.25f;
+  //for visuals
+  const float _threshold = 0.3f;
+  const float _rim = 0.1f;
+  const float _scale = 1.3f;
+
+  float4 distortion = txRoughness.Sample(samLinear, input.Uv + randomNumb) * _distort;
+  float4 voronoi_noise = txNormal.Sample(samLinear, (float2((input.Uv.x - GlobalWorldTime * _scrollX) + distortion.g  ,(input.Uv.y + GlobalWorldTime * _scrollY) + distortion.r) * float2(_scale,_scale))+ randomNumb) ;
+  voronoi_noise.a = voronoi_noise.z;
+  float shapetex = txAlbedo.Sample(samLinear,input.Uv).x;
+  float shapetex2 = lerp(0.5,1.8, input.Uv.y);
+  
+  voronoi_noise *= shapetex * shapetex2;
+  float4 final_voronoi = voronoi_noise;
+
+  float flame = final_voronoi.x > _threshold;
+  float4 flamecolored = flame * yellow;
+
+  float4 flamerim = (final_voronoi.x > _threshold - _rim) - flame;
+  float4 flamecolored2 = flamerim * orange;
+  float4 finalcolor = flamecolored + flamecolored2;
+  return finalcolor;
+}
 
 float4 PS_aux(VS_OUTPUT input) : SV_Target
 {
