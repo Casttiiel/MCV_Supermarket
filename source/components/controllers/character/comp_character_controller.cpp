@@ -25,6 +25,7 @@
 #include "ui/module_ui.h"
 #include "ui/ui_widget.h"
 
+
 using namespace physx;
 
 DECL_OBJ_MANAGER("character_controller", TCompCharacterController);
@@ -125,10 +126,13 @@ void TCompCharacterController::load(const json& j, TEntityParseContext& ctx) {
     speed = j.value("speed", speed);
     rotation_speed = j.value("rotation_sensibility", rotation_speed);
     distance_to_aim = j.value("distance_to_aim", distance_to_aim);
+
+	
     unLockableBattery = j.value("unLockableBattery", unLockableBattery);
 	unLockableTeleport = j.value("unLockableTeleport", unLockableTeleport);
 	unLockableCoffe = j.value("unLockableCoffe", unLockableCoffe);
 	unLockableChilli = j.value("unLockableChilli", unLockableChilli);
+	
 }
 
 void TCompCharacterController::registerMsgs() {
@@ -1410,6 +1414,8 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::ACTIVATE_BATTERY:
       {
           //TODO
+		  CEntity* entity = EngineEntities.getPlayerHandle();
+		  TCompInventory* inventory = entity->get<TCompInventory>();
           unLockableBattery = true;
 		      //llamada funcion de scripting para poder escapar
 		      Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
