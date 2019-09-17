@@ -635,6 +635,15 @@ struct TSceneExporter (
 		)		
 	),
 	
+	fn exportBillboardXZ obj = (
+		local isBillboard = getUserProp obj "isBillboardXZ"
+		if isBillboard != undefined then (
+			fs.writeComma()
+			fs.writeKey "billboard_xz"
+			fs.beginObj()
+			fs.endObj()
+		)		
+	),
 	fn exportEntity obj = (
 		fs.beginObj()
 		fs.writeKey "entity"
@@ -651,6 +660,7 @@ struct TSceneExporter (
 			exportMorph obj
 			exportHierarch obj
 			exportFireRandomizer obj
+			exportBillboardXZ obj
 			--exportCompCurveController obj
 			
 			local nCA = custAttributes.count obj
