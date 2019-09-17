@@ -622,6 +622,16 @@ struct TSceneExporter (
 			fs.writeKey "fire_randomizer"
 			fs.beginObj()
 			fs.endObj()
+			fs.writeComma()
+			fs.writeKey "buffers"
+			fs.beginObj()
+				fs.writeKey "TCtesFire"
+				fs.beginObj()
+					fs.writeKeyValue "total_bytes" 16
+					fs.writeComma()
+					fs.writeKeyValue "slot" 13
+				fs.endObj()
+			fs.endObj()
 		)		
 	),
 	

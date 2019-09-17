@@ -3,6 +3,12 @@
 //--------------------------------------------------------------------------------------
 #include "common.fx"
 
+SHADER_CTE_BUFFER(TCtesFire, CTE_BUFFER_SLOT_COMP_BUFFERS)
+{
+  float  randomNumb;
+  float3 fire_dummy3;
+};
+
 //--------------------------------------------------------------------------------------
 struct VS_OUTPUT
 {
@@ -61,8 +67,8 @@ float4 PS(VS_OUTPUT input) : SV_Target
   const float _rim = 0.25f;
   const float _scale = 1.3f;
 
-  float4 distortion = txRoughness.Sample(samLinear, input.Uv) * _distort;
-  float4 voronoi_noise = txNormal.Sample(samLinear, float2((input.Uv.x - GlobalWorldTime * _scrollX) + distortion.g  ,(input.Uv.y + GlobalWorldTime * _scrollY) + distortion.r) * float2(_scale,_scale));
+  float4 distortion = txRoughness.Sample(samLinear, input.Uv + randomNumb) * _distort;
+  float4 voronoi_noise = txNormal.Sample(samLinear, (float2((input.Uv.x - GlobalWorldTime * _scrollX) + distortion.g  ,(input.Uv.y + GlobalWorldTime * _scrollY) + distortion.r) * float2(_scale,_scale))+ randomNumb) ;
   voronoi_noise.a = voronoi_noise.z;
   float shapetex = lerp(-0.5,1, input.Uv.y);
   
@@ -75,10 +81,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
   float4 flamerim = (final_voronoi.x > _threshold - _rim) - flame;
   float4 flamecolored2 = flamerim * orange;
   float4 finalcolor = flamecolored + flamecolored2;
-  //finalcolor *= length(input.Uv - float2(0.5f,0.5f)) < 0.4f;
-
-  //return input.Color * 4;
-  return finalcolor; // + float4( 1,1,1,0); finalcolor * input.Color
+  return finalcolor;//randomNumb
 }
 
 
