@@ -381,11 +381,11 @@ struct TSceneExporter (
 		fs.writeComma()
 		
 		local target = getnodebyname (obj.name + ".Target")
-
+		format "%\n\n\n\n\n\n\n\n\n\n" target
 		fs.writeKeyValue "far" (distance target.pos obj.pos)
 		fs.writeComma()
 		
-		fs.writeKeyValue "fov" 60
+		fs.writeKeyValue "fov" obj.hotspot
 		fs.writeComma()
 		
 		fs.writeKeyValue "color" obj.color
@@ -397,10 +397,14 @@ struct TSceneExporter (
 		fs.writeKeyValue "casts_shadows" obj.castShadows
 		fs.writeComma()
 		
-		fs.writeKeyValue "shadows_resolution" 512
+		fs.writeKeyValue "shadows_resolution" 1024
 		fs.writeComma()
 		
 		fs.writeKeyValue "shadows_fmt" "R32_TYPELESS"
+		fs.writeComma()
+		
+		fs.writeKeyValue "shadows_step" 2.0
+		fs.writeComma()
 			
 		fs.endObj()
 	),
@@ -681,7 +685,7 @@ struct TSceneExporter (
 				if canConvertTo obj Editable_mesh then exportEditableMesh obj
 				)
 				if isPointLight obj then exportPointLight obj
-				if isDirLight obj then exportDirLight obj
+				--if isDirLight obj then exportDirLight obj
 			--else (
 			--	format "Warning. Don't kwow how to export obj % of class %\n" obj.name ((classof obj) as string)
 			)
