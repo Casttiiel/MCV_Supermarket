@@ -741,6 +741,11 @@ void CBTCupcake::onGenericDamageInfoMsg(const TMsgDamage& msg) { //TODO: ARREGLA
 	}
 	if (jump) {
 		TCompTransform* my_trans = get<TCompTransform>();
+		life -= msg.intensityDamage;
+		FluidDecalGenerator.generateFluid(msg.impactForce, my_trans->getPosition());
+		if (life < 0) {
+			life = 0;
+		}
 		if (msg.senderType == ENVIRONMENT) {
 			h_sender = msg.h_sender;
 
@@ -749,9 +754,9 @@ void CBTCupcake::onGenericDamageInfoMsg(const TMsgDamage& msg) { //TODO: ARREGLA
 			direction_to_damage.y = 1.0f;
 			direction_to_damage.Normalize();
 			TCompRigidBody* c_rbody = get<TCompRigidBody>();
-			if (c_rbody)
+			if (c_rbody && life > 0) {
 				c_rbody->addForce(direction_to_damage * msg.impactForce);
-
+			}
 		}
 		else {
 			h_sender = msg.h_sender;
@@ -776,16 +781,11 @@ void CBTCupcake::onGenericDamageInfoMsg(const TMsgDamage& msg) { //TODO: ARREGLA
 			direction_to_damage.y = 1.0f;
 			direction_to_damage.Normalize();
 			TCompRigidBody* c_rbody = get<TCompRigidBody>();
-			if (c_rbody) {
+			if (c_rbody  && life > 0) {
 				c_rbody->addForce(direction_to_damage * msg.impactForce);
 			}
 
 		}
-		life -= msg.intensityDamage;
-    FluidDecalGenerator.generateFluid(msg.impactForce, my_trans->getPosition());
-		if (life < 0) {
-			life = 0;
-		}	
 	}
 }
 
