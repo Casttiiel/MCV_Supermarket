@@ -45,11 +45,10 @@ fn isMaxShit obj = (
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	project_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_47/MCV_Supermarket/bin/",
-	--project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
-	--project_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_47/MCV_Supermarket/bin/",
-	--project_path = "C:/Users/mcv17_alumne/Desktop/mcv_sm/bin/",
-	--"C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/"
+	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
+	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
+	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
+	--project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
 	current_scene_name,
 	scenes_path = base_path + "scenes/",
@@ -57,6 +56,7 @@ struct TSceneExporter (
 	mats_path = base_path + "materials/",
 	curve_path = base_path + "curves/",
 	productsSize = 0.18,
+	numberOfProducts = 12,
 	
 	fn exportCompName obj = (
 		fs.writeKeyValue "name" obj.name
@@ -337,13 +337,37 @@ struct TSceneExporter (
 		fs.writeKey "light_point" 
 		fs.beginObj()
 
-		fs.writeKeyValue "intensity" (obj.multiplier * 5.0)
+		fs.writeKeyValue "intensity" (obj.multiplier)
 		fs.writeComma()
 		fs.writeKeyValue "color" obj.color
 		fs.writeComma()
-		fs.writeKeyValue "radius" (obj.DecayRadius * 5.0)
+		fs.writeKeyValue "radius" (obj.DecayRadius)
 			
 		fs.endObj()
+		
+		local flickers = getUserProp obj "flickers"
+		if flickers != undefined then (
+			local frequency = getUserProp obj "frequency"
+			local amplitude = getUserProp obj "amplitude"
+			local base = getUserProp obj "base"
+
+			fs.writeComma()
+			fs.writeKey "flickering" 
+			fs.beginObj()
+
+			fs.writeKeyValue "target" "point"
+			fs.writeComma()
+			fs.writeKeyValue "frequency" frequency
+			fs.writeComma()
+			fs.writeKeyValue "amplitude" amplitude
+			fs.writeComma()
+			fs.writeKeyValue "base" base
+				
+			fs.endObj()
+		)
+		
+		
+		
 	),
 	
 	----------------------------------------------------------
@@ -357,26 +381,30 @@ struct TSceneExporter (
 		fs.writeComma()
 		
 		local target = getnodebyname (obj.name + ".Target")
-
+		format "%\n\n\n\n\n\n\n\n\n\n" target
 		fs.writeKeyValue "far" (distance target.pos obj.pos)
 		fs.writeComma()
 		
-		fs.writeKeyValue "fov" 60
+		fs.writeKeyValue "fov" obj.hotspot
 		fs.writeComma()
 		
 		fs.writeKeyValue "color" obj.color
 		fs.writeComma()
 		
-		fs.writeKeyValue "intensity" (obj.multiplier * 5.0)
+		fs.writeKeyValue "intensity" (obj.multiplier)
 		fs.writeComma()
 		
 		fs.writeKeyValue "casts_shadows" obj.castShadows
 		fs.writeComma()
 		
-		fs.writeKeyValue "shadows_resolution" 512
+		fs.writeKeyValue "shadows_resolution" 1024
 		fs.writeComma()
 		
 		fs.writeKeyValue "shadows_fmt" "R32_TYPELESS"
+		fs.writeComma()
+		
+		fs.writeKeyValue "shadows_step" 2.0
+		fs.writeComma()
 			
 		fs.endObj()
 	),
@@ -591,8 +619,35 @@ struct TSceneExporter (
 			
 		)
 	),
+	fn exportFireRandomizer obj = (
+		local isFireRandomizer = getUserProp obj "isFireRandomizer"
+		if isFireRandomizer != undefined then (
+			fs.writeComma()
+			fs.writeKey "fire_randomizer"
+			fs.beginObj()
+			fs.endObj()
+			fs.writeComma()
+			fs.writeKey "buffers"
+			fs.beginObj()
+				fs.writeKey "TCtesFire"
+				fs.beginObj()
+					fs.writeKeyValue "total_bytes" 16
+					fs.writeComma()
+					fs.writeKeyValue "slot" 13
+				fs.endObj()
+			fs.endObj()
+		)		
+	),
 	
-	
+	fn exportBillboardXZ obj = (
+		local isBillboard = getUserProp obj "isBillboardXZ"
+		if isBillboard != undefined then (
+			fs.writeComma()
+			fs.writeKey "billboard_xz"
+			fs.beginObj()
+			fs.endObj()
+		)		
+	),
 	fn exportEntity obj = (
 		fs.beginObj()
 		fs.writeKey "entity"
@@ -608,12 +663,16 @@ struct TSceneExporter (
 			exportWalls obj
 			exportMorph obj
 			exportHierarch obj
+			exportFireRandomizer obj
+			exportBillboardXZ obj
 			--exportCompCurveController obj
 			
 			local nCA = custAttributes.count obj
 			for idx = 1 to nCA do (
 				local ca_data = custAttributes.get obj idx
-				ca_data.exportAsComponent fs
+				if ca_data != undefined then(
+					ca_data.exportAsComponent fs
+				)
 			)
 			
 			exportChildrenColliders obj
@@ -626,7 +685,7 @@ struct TSceneExporter (
 				if canConvertTo obj Editable_mesh then exportEditableMesh obj
 				)
 				if isPointLight obj then exportPointLight obj
-				if isDirLight obj then exportDirLight obj
+				--if isDirLight obj then exportDirLight obj
 			--else (
 			--	format "Warning. Don't kwow how to export obj % of class %\n" obj.name ((classof obj) as string)
 			)
@@ -669,8 +728,8 @@ struct TSceneExporter (
 				fs.endObj()
 							
 				fs.writeComma()
-			
-				local product_str = "data/prefabs/products/product1.json"
+				local numb_indx = random 1 numberOfProducts
+				local product_str = "data/prefabs/products/product"+numb_indx as string+".json"
 				fs.writeKeyValue "prefab"  product_str
 				
 				fs.endObj()

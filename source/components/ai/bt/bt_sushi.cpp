@@ -1221,10 +1221,10 @@ int CBTSushi::actionDeath() {
 		c_sd->setDelay(0.25f);
 		c_sd->enable();
 
-    CEntity* portal = ctx.entities_loaded[0];
-    CEntity* part_portal = ctx.entities_loaded[1];
-    TCompDeathBillboard* c_db = portal->get<TCompDeathBillboard>();
-    c_db->setParticles(part_portal);
+		CEntity* portal = ctx.entities_loaded[0];
+		CEntity* part_portal = ctx.entities_loaded[1];
+		TCompDeathBillboard* c_db = portal->get<TCompDeathBillboard>();
+		c_db->setParticles(part_portal);
 
 		death_animation_started = true;
 		CHandle h = GameController.entityByName("enemies_in_butcher");

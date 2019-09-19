@@ -15,7 +15,7 @@
         "offset": "50 0 50",
         "projector": "data/textures/batman.dds",
         "casts_shadows": true,
-        "shadows_resolution": 512,
+        "shadows_resolution": 1024,
         "shadows_fmt": "R32_TYPELESS",
         "ortho" : false,
         "ortho_width" : 64,
@@ -32,7 +32,7 @@
         "yaw" : -23,
         "pitch" : -24
       },
-      "name": "DirLightShadow",
+      "name": "DirLight",
       "light_dir": {
         "near": 5,
         "far": 80,
@@ -48,24 +48,6 @@
         "ortho_width" : 64,
         "ortho_height" : 64,
         "ortho_centered" : true
-      },
-      "abs_aabb":{}
-    }
-  },
-  {
-    "entity":
-    {
-      "name": "PointLight"
-      ,
-      "transform":
-      {
-        "pos": "0.0 8.0 0.0"
-      }
-      ,
-      "light_point": {
-        "color": "1 1 1",
-        "intensity" : 10,
-        "radius" :  10
       },
       "abs_aabb":{}
     }

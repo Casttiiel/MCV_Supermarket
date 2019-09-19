@@ -129,9 +129,11 @@ struct TMaterialExporter (
 		)
 		
 		local is_fire = getUserProp obj "isFire"
-		
+		local is_fire_flame = getUserProp obj "isFireFlame"
 		if is_fire != undefined  then(
 			exported_materials = #("data/materials/vfx/fire.material")
+		)else if is_fire_flame != undefined then (
+			exported_materials = #("data/materials/vfx/fire_flame.material")
 		)
 		
 		return exported_materials

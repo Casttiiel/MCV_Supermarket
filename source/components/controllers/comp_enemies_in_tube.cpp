@@ -25,10 +25,13 @@ void TCompEnemiesInTube::onFinishEnemiesInTube(const TMSgWallDestroyed & msg) {
 
 
 void TCompEnemiesInTube::load(const json& j, TEntityParseContext& ctx){
-	enemiesPosition.push_back(VEC3(18.214,9.143,-7.335));//Esto cambiarlo mas adelanta por los nombres de los tubos
+	enemiesPosition.push_back(VEC3(18.214,9.143,-7.335));
 	enemiesPosition.push_back(VEC3(27.714, 9.143, -7.335));
 	enemiesPosition.push_back(VEC3(27.714, 9.143, 5.790));
 	enemiesPosition.push_back(VEC3(18.064, 9.143, 5.890));
+	
+
+
 }
 
 
@@ -39,6 +42,14 @@ void TCompEnemiesInTube::update(float dt) {
 		}
 		else {
 			CHandle handle = GameController.spawnPrefab("data/prefabs/enemies/bt_cupcake.json", enemiesPosition[positionBirth], QUAT(0, 0, 0, 1), 1);
+			if(!firstTime){
+				GameController.spawnPrefab("data/particles/smoke_tube1.json", VEC3(), QUAT(0, 0, 0, 1), 1);
+				GameController.spawnPrefab("data/particles/smoke_tube2.json", VEC3(), QUAT(0, 0, 0, 1), 1);
+				GameController.spawnPrefab("data/particles/smoke_tube3.json", VEC3(), QUAT(0, 0, 0, 1), 1);
+				GameController.spawnPrefab("data/particles/smoke_tube4.json", VEC3(), QUAT(0, 0, 0, 1), 1);
+				firstTime = true;
+			}
+
 			CEntity* entity = (CEntity *)handle;
 			CBTCupcake* cupcake = entity->get<CBTCupcake>();
 			cupcake->setHalfCone(360);

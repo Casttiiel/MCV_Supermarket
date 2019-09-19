@@ -8,6 +8,7 @@
 #include "components/controllers/comp_sCart_controller.h"
 #include "components/animation/comp_player_animation.h"
 #include "modules/game/audio/audioEvent.h"
+#include "components/controllers/comp_inventory.h"
 
 class TCompCharacterController : public IAIController
 {

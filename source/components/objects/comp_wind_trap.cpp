@@ -43,7 +43,7 @@ void TCompWindTrap::onCreate(const TMsgEntityCreated & msg) {
 }
 
 void TCompWindTrap::enable(const TMsgEntityTriggerEnter & msg) {
-	if (msg.h_entity == GameController.getPlayerHandle()) {
+	if (msg.h_entity == GameController.getPlayerHandle() && !is_destroyed) {
 		_isEnabled = true;
 		player = msg.h_entity;
 		CEntity* player_e = (CEntity*)player;
@@ -54,7 +54,7 @@ void TCompWindTrap::enable(const TMsgEntityTriggerEnter & msg) {
 }
 
 void TCompWindTrap::disable(const TMsgEntityTriggerExit & msg) {
-	if (msg.h_entity == GameController.getPlayerHandle()) {
+	if (msg.h_entity == GameController.getPlayerHandle() && !is_destroyed) {
 		_isEnabled = false;
 		player = msg.h_entity;
 		CEntity* player_e = (CEntity*)player;

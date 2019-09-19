@@ -24,6 +24,7 @@ private:
 	float birthTimeReset = 5.f;
 	float limitTime = 0.f;
 	int positionBirth = 0;
+	bool firstTime = false;
 
 	void onFinishEnemiesInTube(const TMSgWallDestroyed & msg);
 	

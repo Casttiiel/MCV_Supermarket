@@ -11,6 +11,7 @@
 #include "components/animation/comp_sushi_animation.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "bt_ranged_sushi.h"
+#include "components/objects/comp_enemies_in_butcher.h"
 #include "components/controllers/character/comp_character_controller.h"
 #include "components/ai/others/self_destroy.h"
 #include "components/vfx/comp_death_billboard.h"
@@ -1057,12 +1058,25 @@ int CBTRangedSushi::actionDeath() {
 		c_sd->setDelay(0.25f);
 		c_sd->enable();
 
-    CEntity* portal = ctx.entities_loaded[0];
-    CEntity* part_portal = ctx.entities_loaded[1];
-    TCompDeathBillboard* c_db = portal->get<TCompDeathBillboard>();
-    c_db->setParticles(part_portal);
+		CEntity* portal = ctx.entities_loaded[0];
+		CEntity* part_portal = ctx.entities_loaded[1];
+		TCompDeathBillboard* c_db = portal->get<TCompDeathBillboard>();
+		c_db->setParticles(part_portal);
 
 		death_animation_started = true;
+		CHandle h = GameController.entityByName("enemies_in_butcher");
+		if (h.isValid()) {
+			CEntity* enemies_in_butcher = ((CEntity*)h);
+			TCompEnemiesInButcher* comp = enemies_in_butcher->get<TCompEnemiesInButcher>();
+			if (comp != nullptr) {
+				TMSgEnemyDead msgSushiDead;
+				msgSushiDead.h_entity = CHandle(this).getOwner();
+				msgSushiDead.isDead = true;
+				enemies_in_butcher->sendMsg(msgSushiDead);
+			}
+		}
+
+
 	}
 	else {
 		CHandle(this).getOwner().destroy();

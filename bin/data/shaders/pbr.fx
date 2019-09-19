@@ -145,6 +145,7 @@ void PS_common(
   o_depth = linear_depth;
 
   o_self_illum = txEmissive.Sample(samLinear,input.Uv);
+  o_self_illum *= o_self_illum.a;
   //o_self_illum.xyz *= ObjColor * self_illum_intensity;
 }
 

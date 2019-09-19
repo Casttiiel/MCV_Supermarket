@@ -7,8 +7,12 @@
 class TCompFlickering :  public TCompBase {
   DECL_SIBLING_ACCESS();
 
-  std::string target = "light";
+  std::string target = "point";
   VEC4 constants = VEC4::Zero;
+  float frequency = 0.5; // cycle frequency per second
+  float phase = 0.0; // start point inside on wave cycle
+  float amplitude = 1.0; // amplitude of the wave
+  float base = 1.0; //start
 
   public:
     void load(const json& j, TEntityParseContext& ctx);
