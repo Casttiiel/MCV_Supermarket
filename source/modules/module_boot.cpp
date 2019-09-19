@@ -54,3 +54,9 @@ bool CModuleBoot::start()
   return true;
 }
 
+
+void CModuleBoot::stop()
+{
+	CEngine::get().getModules().changeToGamestate("gs_gameplay");
+}
+
