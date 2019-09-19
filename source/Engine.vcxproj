@@ -116,12 +116,14 @@
     <ClCompile Include="components\postfx\comp_render_blur.cpp" />
     <ClCompile Include="components\postfx\comp_render_focus.cpp" />
     <ClCompile Include="components\vfx\comp_air.cpp" />
+    <ClCompile Include="components\vfx\comp_billboard_xz.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_aura_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_sphere.cpp" />
     <ClCompile Include="components\vfx\comp_death_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_dust.cpp" />
     <ClCompile Include="components\vfx\comp_fire_follow.cpp" />
+    <ClCompile Include="components\vfx\comp_fire_randomizer.cpp" />
     <ClCompile Include="components\vfx\comp_flickering.cpp" />
     <ClCompile Include="components\vfx\comp_scalable.cpp" />
     <ClCompile Include="components\vfx\comp_slow_disappear.cpp" />
@@ -382,12 +384,14 @@
     <ClInclude Include="components\powers\comp_teleport.h" />
     <ClInclude Include="components\ui\comp_ui.h" />
     <ClInclude Include="components\vfx\comp_air.h" />
+    <ClInclude Include="components\vfx\comp_billboard_xz.h" />
     <ClInclude Include="components\vfx\comp_bolt_aura_billboard.h" />
     <ClInclude Include="components\vfx\comp_bolt_billboard.h" />
     <ClInclude Include="components\vfx\comp_bolt_sphere.h" />
     <ClInclude Include="components\vfx\comp_death_billboard.h" />
     <ClInclude Include="components\vfx\comp_dust.h" />
     <ClInclude Include="components\vfx\comp_fire_follow.h" />
+    <ClInclude Include="components\vfx\comp_fire_randomizer.h" />
     <ClInclude Include="components\vfx\comp_flickering.h" />
     <ClInclude Include="components\vfx\comp_scalable.h" />
     <ClInclude Include="components\vfx\comp_slow_disappear.h" />
@@ -613,7 +617,7 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
