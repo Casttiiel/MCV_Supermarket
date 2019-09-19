@@ -3,16 +3,32 @@
 	"alias" :"game_ui_root",
 	"children" : 
 	[
+	
+		{
+			"name" : "life_character_framework",
+			"position" : "5 5",
+			"children" : 
+			[
+				{
+					"name" : "life_character_framework_",
+					"type" : "image",
+					"texture" : "data/ui/textures/newtextures/UI_etiquetablanca.dds",
+					"size" : "639 285",
+					"maxUV" : "1.0 1.0"
+
+				}
+			]
+		},
 		{
 			"name" : "life_character",
-			"position" : "160 40",
+			"position" : "150 40",
 			"children" : 
 			[
 				{
 					"name" : "life_empty",
 					"type" : "image",
-					"texture" : "data/ui/textures/market/life_empty.dds",
-					"size" : "325 96",
+					"texture" : "data/ui/textures/newtextures/UI_barravida_contenedor.dds",
+					"size" : "484 95",
 					"maxUV" : "1.0 1.0"
 
 				},
@@ -20,8 +36,9 @@
 					"name" : "life_full",
 					"type" : "bar",
 					"alias" : "life_bar_r",
-					"texture" : "data/ui/textures/market/life_full.dds",
-					"size" : "325 96",
+					"texture" : "data/ui/textures/newtextures/UI_barravida_relleno.dds",
+					"size" : "390 39",
+					"position" : "80 35",
 					"maxUV" : "1.0 1.0",
 					"var" : "life_character"
 				}
@@ -29,14 +46,14 @@
 		},
 		{
 			"name" : "mana_character",
-			"position" : "160 120",
+			"position" : "150 120",
 			"children" : 
 			[
 				{
 					"name" : "mana_empty",
 					"type" : "bar",
-					"texture" : "data/ui/textures/market/mana_empty.dds",
-					"size" : "317 70",
+					"texture" : "data/ui/textures/newtextures/UI_barralejia_contenedor.dds",
+					"size" : "476 90",
 					"maxUV" : "1.0 1.0"
 
 				},
@@ -44,8 +61,9 @@
 					"name" : "mana_full",
 					"type" : "bar",
 					"alias" : "mana_bar_r",
-					"texture" : "data/ui/textures/market/mana_full.dds",
-					"size" : "317 70",
+					"texture" : "data/ui/textures/newtextures/UI_barralejia_relleno.dds",
+					"size" : "390 40",
+					"position" : "73 25",
 					"maxUV" : "1.0 1.0",
 					"var" : "mana_character"
 				}
@@ -259,10 +277,10 @@
 			"name" : "reticula",
 			"type" : "image",
 			"alias" : "reticula_",
-			"texture" : "data/ui/textures/market/mirilla.dds",
+			"texture" : "data/ui/textures/newtextures/UI_mirilla.dds",
 			"maxUV" : "1.0 1.0",
 			"position" : "840 540",
-			"size" : "29 25"
+			"size" : "56 31"
 
 		}
 		
