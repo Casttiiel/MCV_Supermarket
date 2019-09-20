@@ -176,7 +176,7 @@ void CModuleGameUI::update(float delta)
 			UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("mana_bar_r"));
       UI::CBar* bar2 = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
       //float realMadnessBar = (madness_controller->getRemainingMadness() + 20) / (c_controller->getMaxMadness() + 20);//ofset de las barras de vida
-	  float realMadnessBar = (madness_controller->getRemainingMadness()) / (c_controller->getMaxMadness());//ofset de las barras de vida
+	  float realMadnessBar = (madness_controller->getRemainingMadness()) / (c_controller->getMaxMadness() ) + 0.01;//ofset de las barras de locura
       //float realLifeBar = (c_controller->life + 20) / 120.f;
 	  float realLifeBar = (c_controller->life ) / 100.f;
 

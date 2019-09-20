@@ -21,7 +21,7 @@
 		},
 		{
 			"name" : "life_character",
-			"position" : "150 40",
+			"position" : "140 60",
 			"children" : 
 			[
 				{
@@ -46,7 +46,7 @@
 		},
 		{
 			"name" : "mana_character",
-			"position" : "150 120",
+			"position" : "150 150",
 			"children" : 
 			[
 				{
@@ -72,16 +72,16 @@
 		,
 		{
 			"name" : "botonera_acciones_simples",
-			"position" : "1350 800",
+			"position" : "1230 740",
 			"children" :
 			[
 				{
 					"name" : "bt_carro",
 					"alias" : "bt_carro_",
-					"position" : "50 0",
+					"position" : "55 0",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/carro.dds",
-					"size" : "105 112",
+					"texture" : "data/ui/textures/newtextures/y_boton.dds",
+					"size" : "149 131",
 					
 					"states" : [
 						{
@@ -97,10 +97,10 @@
 				{
 					"name" : "bt_dash",
 					"alias" : "bt_dash_",
-					"position" : "140 90",
+					"position" : "180 105",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/dash.dds",
-					"size" : "116 68",
+					"texture" : "data/ui/textures/newtextures/b_botondash.dds",
+					"size" : "246 87",
 					
 					"states" : [
 						{
@@ -116,11 +116,11 @@
 				{
 					"name" : "bt_jump",
 					"alias" : "bt_jump_",
-					"position" : "90 140",
+					"position" : "115 172",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/jump.dds",
+					"texture" : "data/ui/textures/newtextures/a_botonjump.dds",
 					
-					"size" : "121 73",
+					"size" : "230 107",
 					
 					"states" : [
 						{
@@ -136,11 +136,11 @@
 				{
 					"name" : "bt_mop",
 					"alias" : "bt_mop_",
-					"position" : "20 65",
+					"position" : "0 85",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/mop.dds",
+					"texture" : "data/ui/textures/newtextures/x_botonmopa.dds",
 					
-					"size" : "81 130",
+					"size" : "139 157",
 					
 					"states" : [
 						{
@@ -157,7 +157,7 @@
 		},
 		{
 			"name" : "botonera_acciones_disparos",
-			"position" : "1460 700",
+			"position" : "1560 500",
 			"children" :
 			[
 				{
@@ -165,8 +165,8 @@
 					"alias" : "bt_l1_",
 					"position" : "0 0",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/l1.dds",
-					"size" : "103 90",
+					"texture" : "data/ui/textures/newtextures/lb_boton.dds",
+					"size" : "148 165",
 					
 					"states" : [
 						{
@@ -182,11 +182,11 @@
 				{
 					"name" : "bt_r1",
 					"alias" : "bt_r1_",
-					"position" : "40 50",
+					"position" : "0 170",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/r1.dds",
+					"texture" : "data/ui/textures/newtextures/rb_boton.dds",
 					
-					"size" : "164 99",
+					"size" : "139 148",
 					
 					"states" : [
 						{
@@ -213,16 +213,16 @@
 					"alias" : "card_",
 					"position" : "0 0",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/teleport_card.dds",
-					"size" : "139 138",
+					"texture" : "data/ui/textures/newtextures/UI_scanner.dds",
+					"size" : "131 163",
 					"states" : [
 						{
 							"name" : "option_battery",
-							"texture" : "data/ui/textures/market/battery_card.dds"
+							"texture" : "data/ui/textures/newtextures/UI_pila.dds"
 						},
 						{
 							"name" : "option_teleport",
-							"texture" : "data/ui/textures/market/teleport_card.dds"
+							"texture" : "data/ui/textures/newtextures/UI_scanner.dds"
 						}
 						,
 						{
@@ -250,7 +250,7 @@
 				{
 					"name" : "cursor",
 					"alias" : "cursor_",
-					"position" : "40 140",
+					"position" : "30 160",
 					"type" : "button",
 					"texture" : "data/ui/textures/market/cursor_izq.dds",
 					"size" : "70 66",
