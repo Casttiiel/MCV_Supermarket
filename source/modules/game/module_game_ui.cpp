@@ -49,7 +49,7 @@ void CModuleGameUI::update(float delta)
 	CEntity* e_player = getEntityByName("Player");
 	CEntity* e_inventory = getEntityByName("Inventory");
 	if (EngineInput["pause"].justPressed()) {
-		//CEngine::get().getModules().changeToGamestate("gs_paused");//change gamestate
+		CEngine::get().getModules().changeToGamestate("gs_paused");//change gamestate
 		//pause game
         GameController.pauseGame();
 		//Time.real_scale_factor = 0.0f;

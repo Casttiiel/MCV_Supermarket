@@ -10,11 +10,18 @@
 
 bool CModuleGamePaused::start()
 {
+
+
+	UI::CModuleUI& ui = Engine.getUI();
+
+	CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BACKGROUND");
+	CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BUTTONS");
+	/*
 	UI::CModuleUI& ui = Engine.getUI();
 	ui.activateWidget("pausa_menu");
 
 	UI::CMenuController* menu = new UI::CMenuController;
-
+	
 	menu->registerOption(dynamic_cast<UI::CButton*>(ui.getWidgetByAlias("bt_continue_")), std::bind(&CModuleGamePaused::onOptionContinue, this));
 	menu->registerOption(dynamic_cast<UI::CButton*>(ui.getWidgetByAlias("bt_restart_")), std::bind(&CModuleGamePaused::onOptionRestart, this));
 	menu->registerOption(dynamic_cast<UI::CButton*>(ui.getWidgetByAlias("bt_exit_")), std::bind(&CModuleGamePaused::onOptionExit, this));
@@ -22,7 +29,7 @@ bool CModuleGamePaused::start()
 	menu->setCurrentOption(0);
 
 	ui.registerController(menu);
-
+	*/
 
 
   return true;
@@ -44,7 +51,8 @@ void CModuleGamePaused::update(float delta)
 
 void CModuleGamePaused::stop()
 {
-	Engine.getUI().deactivateWidget("pausa_menu");
+	/*
+	Engine.getUI().deactivateWidget("pausa_menu");*/
 }
 
 void CModuleGamePaused::renderInMenu()

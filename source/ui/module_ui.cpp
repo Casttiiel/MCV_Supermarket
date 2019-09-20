@@ -113,6 +113,47 @@ namespace UI
 	  mmb->registerOption("bt_exit", mpExitGame);
 	  mmb->setCurrentOption(0);
 
+
+	   /*MENU PAUSA*/
+	  auto mpauseContinue = []() {
+		  /*Time.real_scale_factor = 1.0f;
+		  CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
+		  UI::CModuleUI& ui = Engine.getUI();
+		  ui.unregisterController();
+		  GameController.resumeGame();*/
+	  };
+
+	  auto mpauseRestart = []() {
+		  /*CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
+		  Time.real_scale_factor = 1.0f;
+		  UI::CModuleUI& ui = Engine.getUI();
+		  ui.unregisterController();
+		  GameController.loadCheckpoint();*/
+	  };
+
+
+	  auto  mpauseExitGame = []() {
+		  /*auto& app = CApplication::get();
+		  DestroyWindow(app.getHandle());*/
+	  };
+
+
+	  registerWidgetClass("PAUSE_MENU_BACKGROUND", "data/ui/widgets/pausa_menu_background.json", nullptr);
+	  CMenuController* mpauseb = new CMenuController();
+	  registerWidgetClass("PAUSE_MENU_BUTTONS", "data/ui/widgets/pausa_menu_buttons.json", mpauseb);
+	  mpauseb = (CMenuController*)getWidgetController("PAUSE_MENU_BUTTONS");
+	  mpauseb->registerOption("bt_continue", mpauseContinue);
+	  mpauseb->registerOption("bt_restart", mpauseRestart);
+	  mpauseb->registerOption("bt_exit", mpauseExitGame);
+	  mpauseb->setCurrentOption(0);
+
+
+
+
+
+
+
+
 	  //GAMEPLAY SIN CARRITO TAMAÑO NORMAL
 	  json cfg = loadJson("data/config.json");
 	  const json& cfg_render = cfg["render"];
@@ -127,12 +168,15 @@ namespace UI
 		  ui.sizeUI = 0;
 		registerWidgetClass("HUD_NORMAL_PLAYER_MINI", "data/ui/widgets/game_ui_mini.json", nullptr);
 	  }
+	 
 	  //PANTALLA EN NEGRO
 	  registerWidgetClass("BLACK_SCREEN", "data/ui//widgets/black_background.json", nullptr);
 	  //PANTALLA DE CARGA
 	  registerWidgetClass("LOAD_SCREEN", "data/ui/widgets/load_background.json", nullptr);
 	  //SPRITE
 	  registerWidgetClass("LOAD_SPRITE", "data/ui/widgets/loading_sprite.json", nullptr);
+
+
   }
 
 
