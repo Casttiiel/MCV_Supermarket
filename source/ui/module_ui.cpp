@@ -103,7 +103,7 @@ namespace UI
 		  auto& app = CApplication::get();
 		  DestroyWindow(app.getHandle());
 	  };
-	  
+	  UI::CModuleUI& ui = Engine.getUI();
 	  registerWidgetClass("MAIN_MENU_BACKGROUND", "data/ui/widgets/main_menu_background.json", nullptr);
 	  CMenuController* mmb = new CMenuController();
 	  registerWidgetClass("MAIN_MENU_BUTTONS", "data/ui/widgets/main_menu_buttons.json", mmb);
@@ -113,8 +113,20 @@ namespace UI
 	  mmb->registerOption("bt_exit", mpExitGame);
 	  mmb->setCurrentOption(0);
 
-	  //GAMEPLAY SIN CARRITO
-	  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
+	  //GAMEPLAY SIN CARRITO TAMAÑO NORMAL
+	  json cfg = loadJson("data/config.json");
+	  const json& cfg_render = cfg["render"];
+	  int render_width = cfg_render.value("width", 1280);
+	 
+	  if(render_width >= 1920){
+		  
+		  ui.sizeUI = 1;
+		registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
+	  }
+	  else {
+		  ui.sizeUI = 0;
+		registerWidgetClass("HUD_NORMAL_PLAYER_MINI", "data/ui/widgets/game_ui_mini.json", nullptr);
+	  }
 	  //PANTALLA EN NEGRO
 	  registerWidgetClass("BLACK_SCREEN", "data/ui//widgets/black_background.json", nullptr);
 	  //PANTALLA DE CARGA

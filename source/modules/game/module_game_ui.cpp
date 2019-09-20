@@ -19,7 +19,12 @@ bool CModuleGameUI::start()
 {
 	UI::CModuleUI& ui = Engine.getUI();
 	//ui.activateWidget("game_ui");
-	CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+	if(ui.sizeUI == 1){
+		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+	}
+	else {
+		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER_MINI");
+	}
 	/*
 	NO CREAR UN CMENUCONTROLER EN EL MODULO GAMEPLAY--- SI SE NECESITA CREAR OTRO 
 	UI::CMenuController* menu = new UI::CMenuController; 
@@ -178,7 +183,7 @@ void CModuleGameUI::update(float delta)
       //float realMadnessBar = (madness_controller->getRemainingMadness() + 20) / (c_controller->getMaxMadness() + 20);//ofset de las barras de vida
 	  float realMadnessBar = (madness_controller->getRemainingMadness()) / (c_controller->getMaxMadness() ) + 0.01;//ofset de las barras de locura
       //float realLifeBar = (c_controller->life + 20) / 120.f;
-	  float realLifeBar = (c_controller->life ) / 100.f;
+	  float realLifeBar = (c_controller->life + 0.01) / 100.f;
 
       if (actualLifeRatioBar == -1.0f) {
         actualLifeRatioBar = realLifeBar;
