@@ -1,0 +1,55 @@
+{
+	"name" : "dead_menu_buttons",
+	"alias" :"dead_menu_buttons_root",
+	"children" : 
+	[
+		{
+			"name" : "dead_buttons",
+			"position" : "760 450",
+			"scale" : "0.8 0.8",
+			"children" :
+			[
+				{
+					"name" : "bt_restart_dead",
+					"alias" : "bt_restart_dead",
+					"position" : "0 300",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/restart.dds",
+					"font_texture" : "data/ui/textures/font.dds",
+					"size" : "260 44",
+					"font_size" : "20 230",
+					"states" : [
+						{
+							"name" : "enabled",
+							"texture" : "data/ui/textures/market/restart.dds"
+						},
+						{
+							"name" : "selected",
+							"texture" : "data/ui/textures/market/boton_restart.dds"
+						}
+					]
+				},
+				{
+					"name" : "bt_exit_dead",
+					"alias" : "bt_exit_dead",
+					"position" : "200 300",
+					"type" : "button",
+					"texture" : "data/ui/textures/market/quit.dds",
+					"font_texture" : "data/ui/textures/font.dds",
+					"size" : "260 44",
+					"font_size" : "20 20",
+					"states" : [
+						{
+							"name" : "enabled",
+							"texture" : "data/ui/textures/market/quit.dds"
+						},
+						{
+							"name" : "selected",
+							"texture" : "data/ui/textures/market/boton_quit.dds"
+						}
+					]
+				}
+			]
+		}
+	]
+}
