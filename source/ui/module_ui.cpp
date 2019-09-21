@@ -109,52 +109,67 @@ namespace UI
 	  registerWidgetClass("MAIN_MENU_BUTTONS", "data/ui/widgets/main_menu_buttons.json", mmb);
 	  mmb = (CMenuController*)getWidgetController("MAIN_MENU_BUTTONS");
 	  mmb->registerOption("bt_start", mpNewGame);
-	  mmb->registerOption("bt_continue", mpCredits);
-	  mmb->registerOption("bt_exit", mpExitGame);
+	  //mmb->registerOption("bt_continue", mpCredits);
+	  //mmb->registerOption("bt_exit", mpExitGame);
 	  mmb->setCurrentOption(0);
 
 
 	   /*MENU PAUSA*/
 	  auto mpauseContinue = []() {
-		  /*Time.real_scale_factor = 1.0f;
+		  Time.real_scale_factor = 1.0f;
 		  CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
+		  /*UI::CModuleUI& ui = Engine.getUI();
+		  ui.unregisterController();*/
 		  UI::CModuleUI& ui = Engine.getUI();
-		  ui.unregisterController();
-		  GameController.resumeGame();*/
+		  if (ui.sizeUI == 1) {
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
+		  }
+		  else {
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+		  }
+		  GameController.resumeGame();
 	  };
 
 	  auto mpauseRestart = []() {
-		  /*CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
+		  CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
 		  Time.real_scale_factor = 1.0f;
+		  /*UI::CModuleUI& ui = Engine.getUI();
+		  ui.unregisterController();*/
 		  UI::CModuleUI& ui = Engine.getUI();
-		  ui.unregisterController();
-		  GameController.loadCheckpoint();*/
+		  if (ui.sizeUI == 1) {
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
+		  }
+		  else {
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+		  }
+		  GameController.loadCheckpoint();
 	  };
 
 
 	  auto  mpauseExitGame = []() {
-		  /*auto& app = CApplication::get();
-		  DestroyWindow(app.getHandle());*/
+		  UI::CModuleUI& ui = Engine.getUI();
+		  if (ui.sizeUI == 1) {
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
+		  }
+		  else {
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
+			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+		  }
+		  auto& app = CApplication::get();
+		  DestroyWindow(app.getHandle());
 	  };
 
 
-	  registerWidgetClass("PAUSE_MENU_BACKGROUND", "data/ui/widgets/pausa_menu_background.json", nullptr);
-	  CMenuController* mpauseb = new CMenuController();
-	  registerWidgetClass("PAUSE_MENU_BUTTONS", "data/ui/widgets/pausa_menu_buttons.json", mpauseb);
-	  mpauseb = (CMenuController*)getWidgetController("PAUSE_MENU_BUTTONS");
-	  mpauseb->registerOption("bt_continue", mpauseContinue);
-	  mpauseb->registerOption("bt_restart", mpauseRestart);
-	  mpauseb->registerOption("bt_exit", mpauseExitGame);
-	  mpauseb->setCurrentOption(0);
+	 
+	  
 
 
-
-
-
-
-
-
-	  //GAMEPLAY SIN CARRITO TAMAÑO NORMAL
+	  //GAMEPLAY SIN CARRITO TAMAÑO NORMAL Y PAUSA
 	  json cfg = loadJson("data/config.json");
 	  const json& cfg_render = cfg["render"];
 	  int render_width = cfg_render.value("width", 1280);
@@ -162,11 +177,35 @@ namespace UI
 	  if(render_width >= 1920){
 		  
 		  ui.sizeUI = 1;
-		registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
+
+		  registerWidgetClass("PAUSE_MENU_BACKGROUND", "data/ui/widgets/pausa_menu_background.json", nullptr);
+		  CMenuController* mpauseb = new CMenuController();
+		  registerWidgetClass("PAUSE_MENU_BUTTONS", "data/ui/widgets/pausa_menu_buttons.json", mpauseb);
+		  mpauseb = (CMenuController*)getWidgetController("PAUSE_MENU_BUTTONS");
+		  mpauseb->registerOption("bt_continue_pause", mpauseContinue);
+		  mpauseb->registerOption("bt_restart_pause", mpauseRestart);
+		  mpauseb->registerOption("bt_exit_pause", mpauseExitGame);
+		  mpauseb->setCurrentOption(0);
+
+
+		  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
 	  }
 	  else {
 		  ui.sizeUI = 0;
-		registerWidgetClass("HUD_NORMAL_PLAYER_MINI", "data/ui/widgets/game_ui_mini.json", nullptr);
+
+		  registerWidgetClass("PAUSE_MENU_BACKGROUND_MINI", "data/ui/widgets/pausa_menu_background_mini.json", nullptr);
+		  CMenuController* mpauseb = new CMenuController();
+		  registerWidgetClass("PAUSE_MENU_BUTTONS_MINI", "data/ui/widgets/pausa_menu_buttons_mini.json", mpauseb);
+		  mpauseb = (CMenuController*)getWidgetController("PAUSE_MENU_BUTTONS_MINI");
+		  mpauseb->registerOption("bt_continue_pause", mpauseContinue);
+		  mpauseb->registerOption("bt_restart_pause", mpauseRestart);
+		  mpauseb->registerOption("bt_exit_pause", mpauseExitGame);
+		  mpauseb->setCurrentOption(0);
+		  
+		  registerWidgetClass("HUD_NORMAL_PLAYER_MINI", "data/ui/widgets/game_ui_mini.json", nullptr);
+
+
+
 	  }
 	 
 	  //PANTALLA EN NEGRO

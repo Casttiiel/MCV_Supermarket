@@ -18,8 +18,8 @@ public:
   void renderInMenu() override;
 
 private:
-	void onOptionContinue();
+	/*void onOptionContinue();
 	void onOptionRestart();
-	void onOptionExit();
+	void onOptionExit();*/
 };
 

@@ -14,8 +14,17 @@ bool CModuleGamePaused::start()
 
 	UI::CModuleUI& ui = Engine.getUI();
 
-	CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BACKGROUND");
-	CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BUTTONS");
+	if (ui.sizeUI == 1) {
+		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BACKGROUND");
+		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BUTTONS");
+	}
+	else {
+		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
+		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+	}
+
+
+	
 	/*
 	UI::CModuleUI& ui = Engine.getUI();
 	ui.activateWidget("pausa_menu");
@@ -51,8 +60,15 @@ void CModuleGamePaused::update(float delta)
 
 void CModuleGamePaused::stop()
 {
-	/*
-	Engine.getUI().deactivateWidget("pausa_menu");*/
+	UI::CModuleUI& ui = Engine.getUI();
+	if (ui.sizeUI == 1) {
+		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
+		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
+	}
+	else {
+		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
+		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+	}
 }
 
 void CModuleGamePaused::renderInMenu()
@@ -64,7 +80,7 @@ void CModuleGamePaused::renderDebug()
 {
 
 }
-
+/*
 void CModuleGamePaused::onOptionContinue() {
 	
 	Time.real_scale_factor = 1.0f;
@@ -88,4 +104,4 @@ void CModuleGamePaused::onOptionExit() {
 	auto& app = CApplication::get();
 	DestroyWindow(app.getHandle());
 	
-}
+}*/
