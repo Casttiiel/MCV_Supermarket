@@ -270,8 +270,6 @@ namespace UI
 		  mdeadb->setCurrentOption(0);
 
 
-
-		  
 		  registerWidgetClass("HUD_NORMAL_PLAYER_MINI", "data/ui/widgets/game_ui_mini.json", nullptr);
 
 
@@ -279,7 +277,7 @@ namespace UI
 	  }
 	 
 	  //PANTALLA EN NEGRO
-	  registerWidgetClass("BLACK_SCREEN", "data/ui//widgets/black_background.json", nullptr);
+	  registerWidgetClass("BLACK_SCREEN", "data/ui/widgets/black_background.json", nullptr);
 	  //PANTALLA DE CARGA
 	  registerWidgetClass("LOAD_SCREEN", "data/ui/widgets/load_background.json", nullptr);
 	  //SPRITE

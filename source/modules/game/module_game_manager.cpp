@@ -79,7 +79,7 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 	VEC2 menu_position = VEC2(float(CApplication::get().width_app) * .5f - (windowWidth * .5f), CApplication::get().height_app * .5f - (windowHeight * .5f));
 	switch (pauseState) {
 	case MenuState::menuNot: {
-
+		
 
 
 
@@ -153,6 +153,7 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 	case MenuState::menuPause: {
 		Time.real_scale_factor = 0.0f;
 		GameController.pauseGame();
+
 		CEngine::get().getModules().changeToGamestate("gs_paused");
 
 	}break;

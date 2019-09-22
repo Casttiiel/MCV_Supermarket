@@ -7,7 +7,8 @@
 #include "ui/controllers/ui_menu_controller.h"
 #include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
-
+#include "components/postfx/comp_render_radial_blur.h"
+#include "components/postfx/comp_chromatic_aberration.h"
 bool CModuleGamePaused::start()
 {
 
@@ -17,12 +18,22 @@ bool CModuleGamePaused::start()
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BACKGROUND");
 		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BUTTONS");
+		CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");
+		
 	}
 	else {
 		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
 		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+		CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER_MINI");
+		
 	}
-
+	CEntity* m_camera = getEntityByName("MainCamera");
+	TCompRenderRadialBlur* c_rrb = m_camera->get<TCompRenderRadialBlur>();
+	c_rrb->enable(0.3f);
+	
+	TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
+	render_chromatic->enabled = false;
+	
 
 	
 	/*
@@ -50,6 +61,7 @@ void CModuleGamePaused::update(float delta)
   if (EngineInput["pause"].justPressed()) {
     CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
     //unpause game
+
     GameController.resumeGame();
     Time.real_scale_factor = 1.0f;
 
@@ -64,11 +76,18 @@ void CModuleGamePaused::stop()
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
 		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
+		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
 	}
 	else {
 		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
 		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER_MINI");
 	}
+	CEntity* m_camera = getEntityByName("MainCamera");
+	TCompRenderRadialBlur* c_rrb = m_camera->get<TCompRenderRadialBlur>();
+	c_rrb->enable(0.0f);
+	TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
+	render_chromatic->enabled = true;
 }
 
 void CModuleGamePaused::renderInMenu()
