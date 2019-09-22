@@ -114,11 +114,11 @@ void TCompBatteryController::update(float delta) {
         float dist = Vector3::Distance(nextPoint, c_trans->getPosition());
         if (dist < 1.5f) {
             i++;
-
             if (i < _knots.size()) {
                 nextPoint = _knots[i];
             }
         }
+		
     }
     else { //LA PILA HA COLISIONADO
       TCompCollider* c_col = get<TCompCollider>();
@@ -291,6 +291,7 @@ void TCompBatteryController::update(float delta) {
         }
 
         //DESTROY WHEN IT HAS ENDED
+		
         if (limitTime > 0.f) {
           limitTime -= delta;
         }
@@ -302,6 +303,18 @@ void TCompBatteryController::update(float delta) {
           CHandle(this).destroy();
         }
       }
+	  /*
+	  if (limitTime > 0.f) {
+		  limitTime -= delta;
+	  }
+	  else {
+		  TMsgBatteryDeactivates msg;
+		  ((CEntity*)GameController.getPlayerHandle())->sendMsg(msg);
+		  audioEffect.stop();
+		  CHandle(this).getOwner().destroy();
+		  CHandle(this).destroy();
+	  }
+	  */
     }
 }
 
