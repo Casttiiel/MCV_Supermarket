@@ -11,20 +11,36 @@
 bool CModuleGameOver::start()
 {
 	UI::CModuleUI& ui = Engine.getUI();
-	ui.activateWidgetClass("DEAD_MENU_BACKGROUND");
-	ui.activateWidgetClass("DEAD_MENU_BUTTONS");
+	if (ui.sizeUI == 1) {
+		CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BACKGROUND");
+		CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BUTTONS");
+	}
+	else {
+		CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BACKGROUND_MINI");
+		CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BUTTONS_MINI");
+	}
+
+
     return true;
 }
 
 void CModuleGameOver::update(float delta)
 {
- 
+	
 }
 
 void CModuleGameOver::stop()
 {
+	
 	UI::CModuleUI& ui = Engine.getUI();
-	ui.deactivateWidgetClass("DEAD_MENU_BACKGROUND");
+	if (ui.sizeUI == 1) {
+		CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
+		CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
+	}
+	else {
+		CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND_MINI");
+		CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS_MINI");
+	}
 }
 
 void CModuleGameOver::renderInMenu()

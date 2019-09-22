@@ -21,6 +21,8 @@ bool CModuleGameUI::start()
 	//ui.activateWidget("game_ui");
 	if(ui.sizeUI == 1){
 		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+		//CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BACKGROUND");
+		//CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BUTTONS");
 	}
 	else {
 		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER_MINI");

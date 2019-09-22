@@ -101,7 +101,13 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 	}break;
 	case MenuState::menuDead_: {
 		CEngine::get().getModules().changeToGamestate("gs_gameover");
-		ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight));
+		setMenuState(MenuState::menuNot);
+		/*UI::CModuleUI& ui = Engine.getUI();
+		ui.activateWidgetClass("DEAD_MENU_BACKGROUND");
+		ui.activateWidgetClass("DEAD_MENU_BUTTONS");
+		*/
+
+		/*ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight));
 		ImGui::Begin("YOU DIED", false, window_flags);
 		ImGui::CaptureMouseFromApp(false);
 		ImGui::SetWindowPos("YOU DIED", ImVec2(menu_position.x, menu_position.y));
@@ -142,7 +148,7 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 		}
 
 		ImGui::End();
-		
+		*/
 	}break;
 	case MenuState::menuPause: {
 		Time.real_scale_factor = 0.0f;

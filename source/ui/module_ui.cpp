@@ -168,14 +168,39 @@ namespace UI
 	  auto mdeadRestart = []() {
 		  UI::CModuleUI& ui = Engine.getUI();
 		  if (ui.sizeUI == 1) {
-			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
-			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
+			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
+			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
 		  }
 		  else {
-			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
-			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND_MINI");
+			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS_MINI");
 		  }
-		  //GameController.loadCheckpoint();
+		  CEntity* e_player = getEntityByName("Player");
+		  if (!e_player) {
+			  return;
+		  }
+		  TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
+		  if ((c_controller->life <= 0)) {
+
+			  //quitar puntero de raton
+			  
+			  c_controller->ChangeState("GROUNDED");
+			  GameController.loadCheckpoint();
+
+			  TMsgGamePause msg;
+			  msg.isPause = false;
+			  msg.playerDead = false;
+			  CEntity* cam_player = getEntityByName("PlayerCamera");
+			  if (cam_player != nullptr) {
+				  cam_player->sendMsg(msg);
+			  }
+			  CEngine::get().getModules().changeToGamestate("gs_gameplay");
+
+		  }
+
+
+
+
 	  };
 	  auto mdeadExit = []() {
 		  UI::CModuleUI& ui = Engine.getUI();
@@ -214,15 +239,14 @@ namespace UI
 
 		  registerWidgetClass("DEAD_MENU_BACKGROUND", "data/ui/widgets/dead_menu_background.json", nullptr);
 		  CMenuController* mdeadb = new CMenuController();
-		  registerWidgetClass("DEAD_MENU_BUTTONS", "data/ui/widgets/dead_menu_buttons.json", mpauseb);
+		  registerWidgetClass("DEAD_MENU_BUTTONS", "data/ui/widgets/dead_menu_buttons.json", mdeadb);
 		  mdeadb = (CMenuController*)getWidgetController("DEAD_MENU_BUTTONS");
 		  mdeadb->registerOption("bt_restart_dead", mdeadRestart);
 		  mdeadb->registerOption("bt_exit_dead", mdeadExit);
 		  mdeadb->setCurrentOption(0);
 
 		 
-		  //ui.activateWidgetClass("DEAD_MENU_BACKGROUND");
-		  //ui.activateWidgetClass("DEAD_MENU_BUTTONS");
+		  
 		  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
 	  }
 	  else {
@@ -236,6 +260,17 @@ namespace UI
 		  mpauseb->registerOption("bt_restart_pause", mpauseRestart);
 		  mpauseb->registerOption("bt_exit_pause", mpauseExitGame);
 		  mpauseb->setCurrentOption(0);
+
+		  registerWidgetClass("DEAD_MENU_BACKGROUND_MINI", "data/ui/widgets/dead_menu_background_mini.json", nullptr);
+		  CMenuController* mdeadb = new CMenuController();
+		  registerWidgetClass("DEAD_MENU_BUTTONS_MINI", "data/ui/widgets/dead_menu_buttons_mini.json", mdeadb);
+		  mdeadb = (CMenuController*)getWidgetController("DEAD_MENU_BUTTONS_MINI");
+		  mdeadb->registerOption("bt_restart_dead", mdeadRestart);
+		  mdeadb->registerOption("bt_exit_dead", mdeadExit);
+		  mdeadb->setCurrentOption(0);
+
+
+
 		  
 		  registerWidgetClass("HUD_NORMAL_PLAYER_MINI", "data/ui/widgets/game_ui_mini.json", nullptr);
 
