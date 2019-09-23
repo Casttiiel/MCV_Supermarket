@@ -154,8 +154,8 @@ void CAITurret::ImpactState(float dt) { //recibir damage real y no el que he pue
 }
 
 void CAITurret::DeadState(float dt) {
-	CHandle(this).getOwner().destroy();
-	CHandle(this).destroy();
+	//CHandle(this).getOwner().destroy();
+	//CHandle(this).destroy();
 }
 
 bool CAITurret::isView(float distance) {
@@ -238,6 +238,6 @@ void CAITurret::onDamageInfoMsg(const TMsgDamage& msg) {
 
 void CAITurret::registerMsgs() {
 	//DECL_MSG(CAITurret, TMsgOnContact, onCollision);
-	DECL_MSG(CAITurret, TMsgDamage, onDamageInfoMsg);
+	//DECL_MSG(CAITurret, TMsgDamage, onDamageInfoMsg);
   DECL_MSG(CAITurret, TMsgAIPaused, onMsgAIPaused);
 }

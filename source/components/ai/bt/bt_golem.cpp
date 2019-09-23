@@ -279,7 +279,9 @@ int CBTGolem::actionMelee()
 
 	//ANIMATION-----------------------
 	TCompGolemAnimator* golemAnimator = get<TCompGolemAnimator>();
-	golemAnimator->playAnimation(TCompGolemAnimator::POUND_ATTACK, 1.0f);
+	//golemAnimator->playAnimation(TCompGolemAnimator::POUND_ATTACK, 1.0f);
+	golemAnimator->playAnimation(TCompGolemAnimator::POUND, 1.0f);
+	//TCompGolemAnimator::POUND
 	//END ANIMATION------------------------
 	timerMelee = meleeFrequency;
     AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Pound");

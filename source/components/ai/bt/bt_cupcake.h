@@ -227,7 +227,7 @@ private:
 	float stunSpeed = 1.5f; //1.5
 	float speed = 5.0f; //5
 	float hideSpeed = 10.f; //10
-	float twistSpeed = 340.f; //5 //radianes
+	float twistSpeed = 350.f; //5 //radianes
 	float batterySpeed = 20.f;
 
 	float impulseStrenghtSecondSon = 7.f;

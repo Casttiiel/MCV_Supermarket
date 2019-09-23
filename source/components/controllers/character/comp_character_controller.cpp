@@ -980,7 +980,7 @@ void TCompCharacterController::chargedAttack(float delta) {
             msg.damageType = PowerType::CHARGED_ATTACK;
             msg.position = c_trans->getPosition() + VEC3::Up;
             msg.intensityDamage = chargedAttack_damage;
-            msg.impactForce = 20.f;
+						msg.impactForce = chargedAttack_impactForce;
             GameController.generateDamageSphere(c_trans->getPosition(), chargedAttack_radius, msg, "enemy");
             GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
             //stop charging
