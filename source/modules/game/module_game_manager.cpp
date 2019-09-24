@@ -85,7 +85,16 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 
 	}break;
 	case MenuState::menuWin: {
-		ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight));
+		//1 - montamos que se active plataforma
+		//2 - cinematica de globito
+		//3 - entramos lerpeo a negro
+		//4 - pasan unos segundos y nos vamos a pantalla principal
+
+
+
+
+
+		/*ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight));
 		ImGui::Begin("VICTORY!", false, window_flags);
 		ImGui::CaptureMouseFromApp(false);
 		ImGui::SetWindowPos("VICTORY!", ImVec2(menu_position.x, menu_position.y));
@@ -96,7 +105,7 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 			auto& app = CApplication::get();
 			DestroyWindow(app.getHandle());
 		}
-		ImGui::End();
+		ImGui::End();*/
 
 	}break;
 	case MenuState::menuDead_: {

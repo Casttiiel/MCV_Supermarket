@@ -6,7 +6,7 @@
       ,
       "transform":
       {
-        "pos": "-92.7228 0 -212.204"
+        "pos": "-80.7208 -9.27574e-06 -212.204"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -18,11 +18,11 @@
           {
             "shape": "box"
             ,
-            "half_size": "6.28247 2.0645 4.53569"
+            "half_size": "5.8427 2.31224 11.4299"
             ,
             "offset":
             {
-              "pos": "0.0 2.0645 0.0"
+              "pos": "0.0 2.31224 0.0"
             }
             ,
             "group": "trigger"
@@ -3462,6 +3462,22 @@
   {
     "entity":
     {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "-79.0716 -9.28857e-06 -212.498"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "chicken_leg_002"
       ,
       "transform":
@@ -5134,11 +5150,11 @@
       ,
       "transform":
       {
-        "pos": "-31.0735 83.2499 -303.569"
+        "pos": "-31.0 83.0 -303.0"
         ,
-        "rotation": "-0.219711 -0.768859 0.493246 -0.342479"
+        "rotation": "-0.22486 -0.774592 0.490092 -0.330539"
         ,
-        "lookat": "-129.684 22.4128 -214.842"
+        "lookat": "-129.0 22.0 -214.0"
       }
       ,
       "camera":
@@ -5149,7 +5165,7 @@
         ,
         "fov": 45.0
         ,
-        "distanceTarget": 145.938
+        "distanceTarget": 145.76
       }
     }
   }
@@ -6201,6 +6217,107 @@
           "data/materials/mapa_carnes/carbon.material"
         ]
       }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "globo"
+      ,
+      "transform":
+      {
+        "pos": "-129.739 36.6777 -206.224"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "local_aabb": {}
+      ,
+      "ai_platform_mobile":
+      {
+        "mTravelTime_": 15
+        ,
+        "curve": "data/curves/curvaAscensor_v2.curve"
+        ,
+        "active": false
+        ,
+        "platformType_": 6
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "convex"
+            ,
+            "collision_mesh": "data/meshes/mapa_carnes_globo.col_mesh"
+          }
+        ]
+        ,
+        "dynamic": true
+        ,
+        "kinematic": true
+        ,
+        "platform": true
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_globo.mesh"
+        ,
+        "color": "0.52549 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_carne_plat.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "triggerEndGame"
+      ,
+      "transform":
+      {
+        "pos": "-129.831 36.6584 -207.176"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.09745 2.46149 4.17933"
+            ,
+            "offset":
+            {
+              "pos": "0.0 2.46149 0.0"
+            }
+            ,
+            "group": "trigger"
+            ,
+            "trigger": true
+          }
+        ]
+      }
+      ,
+      "trigger":
+      {
+      },
+	  "tags": [
+        "endgame"
+      ]
     }
   }
 ]
