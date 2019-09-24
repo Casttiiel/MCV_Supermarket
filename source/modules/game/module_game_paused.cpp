@@ -7,14 +7,41 @@
 #include "ui/controllers/ui_menu_controller.h"
 #include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
-
+#include "components/postfx/comp_render_blur.h"
+#include "components/postfx/comp_chromatic_aberration.h"
 bool CModuleGamePaused::start()
 {
+
+
+	UI::CModuleUI& ui = Engine.getUI();
+
+	if (ui.sizeUI == 1) {
+		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BACKGROUND");
+		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BUTTONS");
+		CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");
+		
+	}
+	else {
+		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
+		CEngine::get().getUI().activateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+		CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER_MINI");
+		
+	}
+	CEntity* m_camera = getEntityByName("MainCamera");
+	TCompRenderBlur* c_rrb = m_camera->get<TCompRenderBlur>();
+  c_rrb->enabled = true;
+	
+	TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
+	render_chromatic->enabled = false;
+	
+
+	
+	/*
 	UI::CModuleUI& ui = Engine.getUI();
 	ui.activateWidget("pausa_menu");
 
 	UI::CMenuController* menu = new UI::CMenuController;
-
+	
 	menu->registerOption(dynamic_cast<UI::CButton*>(ui.getWidgetByAlias("bt_continue_")), std::bind(&CModuleGamePaused::onOptionContinue, this));
 	menu->registerOption(dynamic_cast<UI::CButton*>(ui.getWidgetByAlias("bt_restart_")), std::bind(&CModuleGamePaused::onOptionRestart, this));
 	menu->registerOption(dynamic_cast<UI::CButton*>(ui.getWidgetByAlias("bt_exit_")), std::bind(&CModuleGamePaused::onOptionExit, this));
@@ -22,7 +49,7 @@ bool CModuleGamePaused::start()
 	menu->setCurrentOption(0);
 
 	ui.registerController(menu);
-
+	*/
 
 
   return true;
@@ -34,6 +61,7 @@ void CModuleGamePaused::update(float delta)
   if (EngineInput["pause"].justPressed()) {
     CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
     //unpause game
+
     GameController.resumeGame();
     Time.real_scale_factor = 1.0f;
 
@@ -44,7 +72,22 @@ void CModuleGamePaused::update(float delta)
 
 void CModuleGamePaused::stop()
 {
-	Engine.getUI().deactivateWidget("pausa_menu");
+	UI::CModuleUI& ui = Engine.getUI();
+	if (ui.sizeUI == 1) {
+		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
+		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
+		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+	}
+	else {
+		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
+		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
+		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER_MINI");
+	}
+	CEntity* m_camera = getEntityByName("MainCamera");
+  TCompRenderBlur* c_rrb = m_camera->get<TCompRenderBlur>();
+  c_rrb->enabled = false;
+	TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
+	render_chromatic->enabled = true;
 }
 
 void CModuleGamePaused::renderInMenu()
@@ -56,7 +99,7 @@ void CModuleGamePaused::renderDebug()
 {
 
 }
-
+/*
 void CModuleGamePaused::onOptionContinue() {
 	
 	Time.real_scale_factor = 1.0f;
@@ -80,4 +123,4 @@ void CModuleGamePaused::onOptionExit() {
 	auto& app = CApplication::get();
 	DestroyWindow(app.getHandle());
 	
-}
+}*/

@@ -85,10 +85,10 @@ void TCompCharacterController::debugInMenu() {
     ImGui::DragFloat("Rotation speed", &rotation_speed, 0.1f, 0.f, 10.f);
     ImGui::DragFloat("Life", &life, 0.10f, 0.f, maxLife);
     ImGui::DragFloat("Distance to aim", &distance_to_aim, 0.10f, 0.f, 100.f);
-    ImGui::Checkbox("UnLockable Battery", &unLockableBattery);
+   /* ImGui::Checkbox("UnLockable Battery", &unLockableBattery);
 	  ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
 	  ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
-	  ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);
+	  ImGui::Checkbox("UnLockable Coffe", &unLockableCoffe);*/
 }
 
 void TCompCharacterController::renderDebug() {
@@ -127,11 +127,12 @@ void TCompCharacterController::load(const json& j, TEntityParseContext& ctx) {
     rotation_speed = j.value("rotation_sensibility", rotation_speed);
     distance_to_aim = j.value("distance_to_aim", distance_to_aim);
 
-	
+	/*
     unLockableBattery = j.value("unLockableBattery", unLockableBattery);
 	unLockableTeleport = j.value("unLockableTeleport", unLockableTeleport);
 	unLockableCoffe = j.value("unLockableCoffe", unLockableCoffe);
 	unLockableChilli = j.value("unLockableChilli", unLockableChilli);
+	*/
 	
 }
 
@@ -218,6 +219,10 @@ void TCompCharacterController::specialCinematic(float delta) {
 }
 
 void TCompCharacterController::grounded(float delta) {
+
+	CEntity* entity = EngineEntities.getInventoryHandle();
+	TCompInventory* inventory = entity->get<TCompInventory>();
+
 
     if (!enabled)
         return;
@@ -313,14 +318,14 @@ void TCompCharacterController::grounded(float delta) {
     else if (EngineInput["interact_"].justPressed()) {//INTERACT
         interact();
     }
-    else if (EngineInput["coffee_time_"].justPressed() && unLockableCoffe) { //COFFEE
+    else if (EngineInput["coffee_time_"].justPressed() && inventory->getCoffe()) { //COFFEE
       //dbg("switch coffe ground\n");
         TCompCoffeeController* c_coffee = get<TCompCoffeeController>();
         c_coffee->switchState();
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f);
     }
-    else if (EngineInput["fire_attack_"].isPressed() && unLockableChilli) { //FIRE
+    else if (EngineInput["fire_attack_"].isPressed() && inventory->getChilli()) { //FIRE
         TCompTeleport* c_tp = get<TCompTeleport>();
         TCompTransform* c_trans = get<TCompTransform>();
         TCompMadnessController* m_c = get<TCompMadnessController>();
@@ -362,7 +367,7 @@ void TCompCharacterController::grounded(float delta) {
 		GameController.cheatPosition();
 	}
 
-    if (power_selected == PowerType::BATTERY && unLockableBattery && aiming) {
+    if (power_selected == PowerType::BATTERY && inventory->getBattery() && aiming) {
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
     }
@@ -761,7 +766,11 @@ void TCompCharacterController::shoot() {
     TCompTransform* c_trans = get<TCompTransform>();
     TCompMadnessController* m_c = get<TCompMadnessController>();
 
-    if (power_selected == PowerType::TELEPORT && unLockableTeleport) {
+	CEntity* entity = EngineEntities.getInventoryHandle();
+	TCompInventory* inventory = entity->get<TCompInventory>();
+
+
+    if (power_selected == PowerType::TELEPORT && (inventory->getTeleport())) {
         //If we have enough madness, we can use the power
         if (m_c->spendMadness(PowerType::TELEPORT) || GameController.getGodMode()) {
             TCompTeleport* c_tp = get<TCompTeleport>();
@@ -784,7 +793,7 @@ void TCompCharacterController::shoot() {
             playerAnima->playAnimation(TCompPlayerAnimator::SCAN, 1.f, true);
         }
     }
-    else if (power_selected == PowerType::BATTERY && unLockableBattery) {
+    else if (power_selected == PowerType::BATTERY && (inventory->getBattery())) {
         if (isBatteryAlive)
             return;
         if (m_c->spendMadness(PowerType::BATTERY) || GameController.getGodMode()) {
@@ -971,7 +980,7 @@ void TCompCharacterController::chargedAttack(float delta) {
             msg.damageType = PowerType::CHARGED_ATTACK;
             msg.position = c_trans->getPosition() + VEC3::Up;
             msg.intensityDamage = chargedAttack_damage;
-            msg.impactForce = 20.f;
+						msg.impactForce = chargedAttack_impactForce;
             GameController.generateDamageSphere(c_trans->getPosition(), chargedAttack_radius, msg, "enemy");
             GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
             //stop charging
@@ -1414,19 +1423,23 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::ACTIVATE_BATTERY:
       {
           //TODO
-		  CEntity* entity = EngineEntities.getPlayerHandle();
+		  CEntity* entity = EngineEntities.getInventoryHandle();
 		  TCompInventory* inventory = entity->get<TCompInventory>();
-          unLockableBattery = true;
+		  inventory->setBattery(true);
+          //unLockableBattery = true;
 		      //llamada funcion de scripting para poder escapar
-		      Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
-			  Scripting.execActionDelayed("saveCheckpoint()", 20.0);
+			Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
+			Scripting.execActionDelayed("saveCheckpoint()", 20.0);
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }
       case PowerUpType::ACTIVATE_CHILLI:
       {
           //TODO
-		      unLockableChilli = true;
+		  CEntity* entity = EngineEntities.getInventoryHandle();
+		  TCompInventory* inventory = entity->get<TCompInventory>();
+		  inventory->setChilli(true);
+		  //unLockableChilli = true;
           GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           CEntity* e1 = getEntityByName("Hielo2_LP");
@@ -1449,13 +1462,20 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::ACTIVATE_COFFEE:
       {
           //TODO
-		      unLockableCoffe = true;
+		  CEntity* entity = EngineEntities.getInventoryHandle();
+		  TCompInventory* inventory = entity->get<TCompInventory>();
+		  inventory->setCoffe(true);
+		  //unLockableCoffe = true;
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }
       case PowerUpType::ACTIVATE_TELEPORT:
       {
-		      unLockableTeleport = true;
+
+		  //unLockableTeleport = true;
+		  CEntity* entity = EngineEntities.getInventoryHandle();
+		  TCompInventory* inventory = entity->get<TCompInventory>();
+		  inventory->setTeleport(true);
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }

@@ -19,7 +19,14 @@ bool CModuleGameUI::start()
 {
 	UI::CModuleUI& ui = Engine.getUI();
 	//ui.activateWidget("game_ui");
-	CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+	if(ui.sizeUI == 1){
+		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+		//CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BACKGROUND");
+		//CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BUTTONS");
+	}
+	else {
+		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER_MINI");
+	}
 	/*
 	NO CREAR UN CMENUCONTROLER EN EL MODULO GAMEPLAY--- SI SE NECESITA CREAR OTRO 
 	UI::CMenuController* menu = new UI::CMenuController; 
@@ -42,12 +49,13 @@ void CModuleGameUI::update(float delta)
 {
 	PROFILE_FUNCTION("CModuleGameUI::update");
 	CEntity* e_player = getEntityByName("Player");
-	if (EngineInput["pause"].justPressed()) {
-		//CEngine::get().getModules().changeToGamestate("gs_paused");//change gamestate
+	CEntity* e_inventory = getEntityByName("Inventory");
+	/*if (EngineInput["pause"].justPressed()) {
+		CEngine::get().getModules().changeToGamestate("gs_paused");//change gamestate
 		//pause game
         GameController.pauseGame();
 		//Time.real_scale_factor = 0.0f;
-	}
+	}*/
 
 	if(Time.real_scale_factor != 0.0f){
 		if (EngineInput["jump_"].isPressed() && EngineInput["jump_"].timePressed < 0.5f) {
@@ -84,8 +92,9 @@ void CModuleGameUI::update(float delta)
 			UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_mop_"));
 			boton->setCurrentState("enabled");
 		}
-		TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
-		if (c_controller->unLockableBattery) {
+		//TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
+		TCompInventory* inventory = e_inventory->get<TCompInventory>();
+		if (inventory->getBattery()) {
 			if (EngineInput["select_battery_"].justPressed()) {
 				UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
 				b->setCurrentState("option_battery");
@@ -97,7 +106,7 @@ void CModuleGameUI::update(float delta)
 			}
 		}
 
-		if (c_controller->unLockableTeleport){
+		if (inventory->getTeleport()){
 			if (EngineInput["select_teleport_"].justPressed()) {
 				UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
 				b->setCurrentState("option_teleport");
@@ -112,7 +121,7 @@ void CModuleGameUI::update(float delta)
 			
 
 		}
-		if (c_controller->unLockableChilli) {
+		if (inventory->getChilli()) {
 			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_r1_"));
 			b->getParams()->visible = true;
 			TCompFireController* fire = e_player->get<TCompFireController>();
@@ -127,7 +136,7 @@ void CModuleGameUI::update(float delta)
 			b->getParams()->visible = false;
 		}
 
-		if (c_controller->unLockableCoffe) {
+		if (inventory->getCoffe()) {
 			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_l1_"));
 			b->getParams()->visible = true;
 			TCompCoffeeController* tc = e_player->get<TCompCoffeeController>();
@@ -173,8 +182,10 @@ void CModuleGameUI::update(float delta)
 			TCompMadnessController* madness_controller = e_player->get<TCompMadnessController>();
 			UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("mana_bar_r"));
       UI::CBar* bar2 = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
-      float realMadnessBar = (madness_controller->getRemainingMadness() + 20) / (c_controller->getMaxMadness() + 20);//ofset de las barras de vida
-      float realLifeBar = (c_controller->life + 20) / 120.f;
+      //float realMadnessBar = (madness_controller->getRemainingMadness() + 20) / (c_controller->getMaxMadness() + 20);//ofset de las barras de vida
+	  float realMadnessBar = (madness_controller->getRemainingMadness()) / (c_controller->getMaxMadness() ) + 0.01;//ofset de las barras de locura
+      //float realLifeBar = (c_controller->life + 20) / 120.f;
+	  float realLifeBar = (c_controller->life + 0.01) / 100.f;
 
       if (actualLifeRatioBar == -1.0f) {
         actualLifeRatioBar = realLifeBar;

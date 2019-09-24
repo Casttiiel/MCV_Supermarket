@@ -50,10 +50,10 @@ public:
   float getMaxMadness();
   bool getIsMounted() { return isMounted; }
 
-  bool unLockableBattery = false;
+  /*bool unLockableBattery = false;
   bool unLockableTeleport = false;
   bool unLockableChilli = false;
-  bool unLockableCoffe = false;
+  bool unLockableCoffe = false;*/
   bool cinematic = false;
 private:
 
@@ -111,6 +111,7 @@ private:
   float chargedAttack_chargeDelay = 1.f;
   float chargedAttack_damage = 20.f;
   float chargedAttack_radius = 5.f;
+	float chargedAttack_impactForce = 20.0f;
   float chargedAttack_buttonPressThreshold = 0.2f;
   float chargedAttack_buttonPressTimer = 0.f;
   float chargedAttack_playerSpeed = base_speed * 0.5;

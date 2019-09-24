@@ -102,6 +102,9 @@ void CBTSushi::updateBT() {
     reevaluatePathTimer -= dt;
     meleeTimer -= dt;
     damageStunTimer -= dt;
+
+
+
     TCompTransform* c_trans = get<TCompTransform>();
     _footSteps.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
     if (nextNavMeshPoint != VEC3().Zero && use_navmesh) { //update path point
@@ -712,6 +715,7 @@ int CBTSushi::actionBlock() {
         TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
         sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_LOOP, 1.f);
         _footSteps.setPaused(true);
+
         return STAY;
     }
     else {
@@ -1814,6 +1818,10 @@ void CBTSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
             impactForce = msg.impactForce;
             //direction_to_damage.y = 1.0f;
             direction_to_damage.Normalize();
+						if (msg.damageType == PowerType::CHARGED_ATTACK) {
+							blockRemaining = 0;
+						}
+						
             TCompRigidBody* c_rbody = get<TCompRigidBody>();
             if (c_rbody) {
                 c_rbody->addForce(direction_to_damage * msg.impactForce);

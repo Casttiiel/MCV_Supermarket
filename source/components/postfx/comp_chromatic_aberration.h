@@ -11,6 +11,7 @@ class CRenderToTexture;
 // ------------------------------------
 struct TCompChromaticAberration : public TCompBase {
   bool enabled = true;
+  bool update_amount = true;
   float amount = 0.f;
   float water_effect_speed = 0.2f;
   float distortion_speed = 1.f;

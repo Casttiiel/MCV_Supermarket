@@ -18,7 +18,7 @@ void CModuleGameLoading::update(float delta)
 {
   PROFILE_FUNCTION("CModuleGameLoading::update");
   if (Engine.getBoot().isLoadAll ) {
-	  CEngine::get().getModules().changeToGamestate("gameplay");
+	  CEngine::get().getModules().changeToGamestate("gs_gameplay");
   }
   else {
 	  CEngine::get().getModules().changeToGamestate("gs_boot");
@@ -29,7 +29,6 @@ void CModuleGameLoading::update(float delta)
 void CModuleGameLoading::stop()
 {
 	CEngine::get().getUI().deactivateWidgetClass("LOAD_SCREEN");
-	
 }
 
 void CModuleGameLoading::renderInMenu()

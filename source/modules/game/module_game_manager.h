@@ -7,8 +7,8 @@
 
 class CModuleGameManager : public IModule
 {
-	enum PauseState;
-	PauseState currentPauseState;
+	enum MenuState;
+	MenuState currentMenuState;
 public:
 
 	CModuleGameManager(const std::string& aname) : IModule(aname) { }
@@ -19,14 +19,14 @@ public:
   void renderInMenu() override;
   bool menuVisible;
   bool victoryMenu;
-  enum PauseState { menuNot, menuWin, menuDead_, menuPause };
-  void setPauseState(PauseState pause);
+  enum MenuState { menuNot, menuWin, menuDead_, menuPause };
+  void setCurrentMenuState(MenuState pause);
 
 private:
 	void gameCondition();
 	
-
-	PauseState getCurrentPauseState();
+	void setMenuState(MenuState pause);
+	MenuState getCurrentMenuState();
 	void exitPauseGame();
 	bool menuDead;
 	bool isPaused;

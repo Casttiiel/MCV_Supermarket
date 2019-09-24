@@ -15,6 +15,10 @@ struct EnemyStatus {
 struct PlayerStatus {
     VEC3 playerPos;
     QUAT playerRot;
+	bool teleport = true;
+	bool battery = false;
+	bool chilli = false;
+	bool coffe = false;
     bool saved = false;
 };
 

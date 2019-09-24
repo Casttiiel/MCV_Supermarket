@@ -26,7 +26,7 @@ bool CModuleBoot::start()
 
   }
 
-  std::string p = "data/scenes/mapa_asiatica.json";
+  std::string p = "data/scenes/mapa_panaderia.json";
   TFileContext fc(p);
   TEntityParseContext ctx;
   CEngine::get().getGPUCulling().parseProducts(p, ctx);
@@ -50,6 +50,7 @@ bool CModuleBoot::start()
   Time.loadedFrame();
 
   isLoadAll = true;
+
 
   return true;
 }

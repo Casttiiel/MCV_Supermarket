@@ -16,7 +16,7 @@ public:
   void update(float dt);
   static void registerMsgs();
   bool activateTrap = false;
-  
+  CHandle h1;
   
 private:
 	std::vector<VEC3> enemiesPosition;

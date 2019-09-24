@@ -189,8 +189,10 @@ void CRenderManager::render(eRenderCategory category) {
 
     if (skin_active) {
       const CEntity* e = it->h_owner.getOwner();
-      TCompSkeleton* skel = e->get<TCompSkeleton>();
-      skel->cb_bones.activate();
+      if(e != nullptr) {//EVITAR PETE CUANDO SE REICICIA TRAS MORIR O QUERER IR AL ULTIMO CHECKPOINT
+		  TCompSkeleton* skel = e->get<TCompSkeleton>();
+		  skel->cb_bones.activate();
+	  }
     }
 
     if (it->uses_custom_buffers) {

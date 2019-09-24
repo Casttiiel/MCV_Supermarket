@@ -162,3 +162,14 @@ CHandle CModuleEntities::getPlayerHandle() {
     return player_handle;
   }
 }
+
+CHandle CModuleEntities::getInventoryHandle() {
+
+	if (inventory_handle.isValid()) {
+		return inventory_handle;
+	}
+	else {
+		inventory_handle = getEntityByName("Inventory");
+		return inventory_handle;
+	}
+}
