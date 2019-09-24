@@ -7,6 +7,7 @@
 #include "ui/controllers/ui_menu_controller.h"
 #include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
+#include "components/postfx/comp_chromatic_aberration.h"
 
 bool CModuleGameOver::start()
 {
@@ -24,7 +25,12 @@ bool CModuleGameOver::start()
 		CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER_MINI");
 	}
 
-    return true;
+  CEntity* m_camera = getEntityByName("MainCamera");
+  TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
+  render_chromatic->update_amount = false;
+  render_chromatic->amount = 0.2f;
+
+  return true;
 }
 
 void CModuleGameOver::update(float delta)
@@ -48,6 +54,10 @@ void CModuleGameOver::stop()
 		CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS_MINI");
 		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
 	}
+
+  CEntity* m_camera = getEntityByName("MainCamera");
+  TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
+  render_chromatic->update_amount = true;
 }
 
 void CModuleGameOver::renderInMenu()
