@@ -762,3 +762,13 @@ function saveCheckpoint()
 	rot = QUAT(t_compTranf:getRotation().x,t_compTranf:getRotation().y,t_compTranf:getRotation().z,t_compTranf:getRotation().w);
 	GameController:saveCheckpoint(pos, rot);
 end
+
+
+function endGame()
+	--GameController:resetCamera(); 
+	execDelayedAction("on_lock_camera3(false)",0.0);
+	execDelayedAction("on_cinematic(true",0.0);
+	execDelayedAction("on_blending_camera(\"CameraEndGame\", 100,\"Cubicinout\")",0.0);
+	execDelayedAction("activePlatformByName(\"globo\")",2);
+
+end

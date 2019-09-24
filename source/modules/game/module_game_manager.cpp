@@ -89,8 +89,8 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 		//2 - cinematica de globito
 		//3 - entramos lerpeo a negro
 		//4 - pasan unos segundos y nos vamos a pantalla principal
-
-
+		Scripting.execActionDelayed("endGame()", 0.0);
+		//Scripting.execActionDelayed("endGame()", 0.0);
 
 
 

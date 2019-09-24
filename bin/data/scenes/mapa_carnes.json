@@ -6227,7 +6227,7 @@
       ,
       "transform":
       {
-        "pos": "-129.739 36.6777 -206.224"
+        "pos": "-129.739 36.678 -206.224"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -6238,9 +6238,9 @@
       ,
       "ai_platform_mobile":
       {
-        "mTravelTime_": 15
+        "mTravelTime_": 1.5
         ,
-        "curve": "data/curves/curvaAscensor_v2.curve"
+        "curve": "data/curves/curva_globo.curve"
         ,
         "active": false
         ,
@@ -6286,7 +6286,7 @@
       ,
       "transform":
       {
-        "pos": "-129.831 36.6584 -207.176"
+        "pos": "-129.91 35.4571 -206.249"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -6298,11 +6298,11 @@
           {
             "shape": "box"
             ,
-            "half_size": "2.09745 2.46149 4.17933"
+            "half_size": "3.69005 2.89494 4.3886"
             ,
             "offset":
             {
-              "pos": "0.0 2.46149 0.0"
+              "pos": "0.0 2.89494 0.0"
             }
             ,
             "group": "trigger"
@@ -6316,8 +6316,35 @@
       {
       },
 	  "tags": [
-        "endgame"
-      ]
+				"endgame"
+			]
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraEndGame"
+      ,
+      "transform":
+      {
+        "pos": "-113.702 198.065 -358.404"
+        ,
+        "rotation": "-0.0246149 -0.923371 0.38154 -0.0347347"
+        ,
+        "lookat": "-129.0 47.6362 -208.983"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 212.578
+      }
     }
   }
 ]
