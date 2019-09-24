@@ -22,7 +22,7 @@ fn isLine obj = (
 )
 
 fn isDirLight obj = (
-	return obj != undefined and (classof obj == Directionallight or classof obj == freeSpot or classof obj == targetSpot) and obj.parent == null
+	return obj != undefined and (classof obj == targetSpot) and obj.parent == null
 )
 
 fn isTrigger obj = (
@@ -365,9 +365,7 @@ struct TSceneExporter (
 				
 			fs.endObj()
 		)
-		
-		
-		
+
 	),
 	
 	----------------------------------------------------------
@@ -380,9 +378,7 @@ struct TSceneExporter (
 		fs.writeKeyValue "near" 5
 		fs.writeComma()
 		
-		local target = getnodebyname (obj.name + ".Target")
-		format "%\n\n\n\n\n\n\n\n\n\n" target
-		fs.writeKeyValue "far" (distance target.pos obj.pos)
+		fs.writeKeyValue "far" (obj.targetDistance)
 		fs.writeComma()
 		
 		fs.writeKeyValue "fov" obj.hotspot
@@ -685,7 +681,7 @@ struct TSceneExporter (
 				if canConvertTo obj Editable_mesh then exportEditableMesh obj
 				)
 				if isPointLight obj then exportPointLight obj
-				--if isDirLight obj then exportDirLight obj
+				if isDirLight obj then exportDirLight obj
 			--else (
 			--	format "Warning. Don't kwow how to export obj % of class %\n" obj.name ((classof obj) as string)
 			)
