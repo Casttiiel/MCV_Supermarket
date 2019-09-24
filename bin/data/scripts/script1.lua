@@ -253,12 +253,19 @@ end
 
 function script_ice_3_player()
 
-	--GameController:destroyWallByName("Box016", "golem3", 20)
 	execDelayedAction("setPauseEnemyName(\"golem3\",true)", 0);
 	execDelayedAction("on_delete_handle(\"trigger003\")",0);
-	-- despierta al ultimo golem y rompe el ultimo muro
-	-- funcion para despertar al golem y que fije al player pah siempre
-	-- funcion que rompa el muro en varios trozos
+	--emboscada de dos hornos AQUI VICTOR
+	--handle1 = GameController:entityByName("horno008");
+	--t_compname1 = toCompEnemySpawnerSpecialTrap(toEntity(handle1):getCompByName("comp_enemy_spawner_special_trap"));
+	--handle2 = GameController:entityByName("horno009");
+	--t_compname2 = toCompEnemySpawnerSpecialTrap(toEntity(handle2):getCompByName("comp_enemy_spawner_special_trap"));
+	--t_compname1:setSpawnDelay(1.0)
+	--t_compname2:setSpawnDelay(2.0)
+	--execDelayedAction("changeTimeDelayInOvenTrap(t_compname1)",0);
+	--execDelayedAction("changeTimeDelayInOvenTrap(t_compname2)",1);
+	--execDelayedAction("on_delete_handle(\"triggerSpecialOven\")",0);
+	
 end
 
 function create_cupcakes_in_frost_player()

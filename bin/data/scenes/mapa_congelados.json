@@ -262,6 +262,22 @@
   {
     "entity":
     {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "178.416 -1.37954 -17.3293"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "Box040"
       ,
       "transform":
@@ -754,7 +770,7 @@
       ,
       "transform":
       {
-        "pos": "41.5567 -17.2221 -10.2659"
+        "pos": "95.503 -17.2221 -10.2659"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -1597,7 +1613,7 @@
       ,
       "transform":
       {
-        "pos": "47.2982 -3.61967 -52.6492"
+        "pos": "45.7513 -3.61967 -20.0444"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1897,51 +1913,6 @@
         "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo002.mesh"
         ,
         "color": "0.0313726 0.239216 0.541176 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346474"
-      ,
-      "transform":
-      {
-        "pos": "168.68 -14.181 -15.4305"
-        ,
-        "rotation": "0.0 0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "2.8028 0.19 2.86704"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346474.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
         ,
         "materials":
         [
@@ -4017,6 +3988,568 @@
           "data/materials/mapa_congelados/mat_batidora4.material"
         ]
       }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346456"
+      ,
+      "transform":
+      {
+        "pos": "154.057 4.42636 -48.9268"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "3.28043 0.37 2.88"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.37 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346456.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346457"
+      ,
+      "transform":
+      {
+        "pos": "148.279 5.70126 -46.7752"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.787304 0.19 2.88"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346457.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346458"
+      ,
+      "transform":
+      {
+        "pos": "140.087 5.70126 -52.0127"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.787304 0.19 1.584"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346458.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346459"
+      ,
+      "transform":
+      {
+        "pos": "134.685 5.70126 -58.3212"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.787304 0.19 1.584"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346459.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "tpobj1"
+      ,
+      "transform":
+      {
+        "pos": "153.669 5.23795 -48.9904"
+        ,
+        "rotation": "0.0 -0.94963 0.0 -0.313375"
+      }
+      ,
+      "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346460"
+      ,
+      "transform":
+      {
+        "pos": "123.643 5.70126 -58.3212"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346460.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346461"
+      ,
+      "transform":
+      {
+        "pos": "99.4473 5.70126 -65.9223"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346461.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346462"
+      ,
+      "transform":
+      {
+        "pos": "92.0661 5.70126 -62.1569"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.787304 0.19 1.584"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346462.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346463"
+      ,
+      "transform":
+      {
+        "pos": "84.9975 5.70126 -53.4279"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.787304 0.19 1.584"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346463.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "tpobj2"
+      ,
+      "transform":
+      {
+        "pos": "99.7407 6.27748 -65.9794"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346465"
+      ,
+      "transform":
+      {
+        "pos": "62.413 5.70126 -60.6972"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "0.787304 0.19 1.584"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346465.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346466"
+      ,
+      "transform":
+      {
+        "pos": "47.9831 5.70126 -51.8739"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "5.32532 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346466.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "pila"
+      ,
+      "transform":
+      {
+        "pos": "80.7306 -3.11537 -58.8916"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "prefab": "data/prefabs/powers/powerUp_pila.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "tpobj2"
+      ,
+      "transform":
+      {
+        "pos": "48.1008 6.38875 -54.9224"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "PowerUp de Vida"
+      ,
+      "transform":
+      {
+        "pos": "146.479 6.29785 -14.5305"
+        ,
+        "rotation": "0.0 -0.00720241 0.0 -0.999974"
+      }
+      ,
+      "prefab": "data/prefabs/powers/powerUp_health.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "horno008"
+      ,
+      "transform":
+      {
+        "pos": "116.047 -0.474214 -42.6063"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "prefab": "data/prefabs/structures/enemy_spawner_special.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "horno009"
+      ,
+      "transform":
+      {
+        "pos": "105.521 -0.474214 -42.6063"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "prefab": "data/prefabs/structures/enemy_spawner_special.json"
     }
   }
 ]
