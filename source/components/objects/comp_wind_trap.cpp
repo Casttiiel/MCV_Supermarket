@@ -49,7 +49,6 @@ void TCompWindTrap::enable(const TMsgEntityTriggerEnter & msg) {
 		CEntity* player_e = (CEntity*)player;
 		TCompCharacterController* comp_ch= player_e->get<TCompCharacterController>();
 		comp_ch->setDashSpeed(5.f);
-		dbg("Enemy spawner enabled.\n");
 	}
 }
 
@@ -60,7 +59,6 @@ void TCompWindTrap::disable(const TMsgEntityTriggerExit & msg) {
 		CEntity* player_e = (CEntity*)player;
 		TCompCharacterController* comp_ch = player_e->get<TCompCharacterController>();
 		comp_ch->setDashSpeed(35.f);
-		dbg("Enemy spawner disabled.\n");
 	}
 }
 
@@ -98,6 +96,9 @@ void TCompWindTrap::update(float dt) {
 }
 
 void TCompWindTrap::generateWind(float dt) {
+  if (!activateWind)
+    return;
+
   _windCooldownTimer += dt;
   if (_windCooldownTimer >= _windDelay) {
     _windCooldownTimer = 0.0f;
