@@ -97,6 +97,12 @@ void TCompEnemySpawner::update(float dt) {
 			}
 		}
 	}
+	else if (is_destroyed) {
+
+		CHandle(this).getOwner().destroy();
+		CHandle(this).destroy();
+
+	}
 }
 
 void TCompEnemySpawner::setLifeSpawner(float new_value) {
