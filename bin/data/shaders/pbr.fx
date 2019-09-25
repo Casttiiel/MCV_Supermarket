@@ -406,6 +406,14 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
     if(screenPos.x < -1 || screenPos.x > 1 || screenPos.y < -1 || screenPos.y > 1)
       shadow_factor = 0;
   }
+  if(fix_shadows || use_shadows){
+    float4 worldPos = float4(g.wPos,1);
+    float4 PosLightProjection = mul(worldPos, LightViewProjOffset);
+    float3 PosLightHomoSpace = PosLightProjection.xyz / PosLightProjection.w;
+
+    float4 texture_color = txProjector.Sample(samBorderColor, PosLightHomoSpace.xy);
+    shadow_factor *= texture_color.x;
+  }
 
   // From wPos to Light
   float3 light_dir_full = LightPosition.xyz - g.wPos;
