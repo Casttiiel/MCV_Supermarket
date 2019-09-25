@@ -30,25 +30,21 @@ void TCompEnemySpawnerSpecialTrap::registerMsgs() {
 
 
 void TCompEnemySpawnerSpecialTrap::onBattery(const TMsgGravity & msg) {
-	_isEnabled = false;
-  EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
-  is_destroyed = true;
-  //Animate or start particle system, do something
-    /*
-	if (!working) { //cambiar esto a u posible nuevo componenete termometro
-		
-		CHandle h_player = GameController.getPlayerHandle();
-		CEntity* e_player = (CEntity *)h_player;
-		TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
-		c_bb->incrementTermostateBroken();
-		
+	if (!is_destroyed) {
+		_isEnabled = false;
+		EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
+		is_destroyed = true;
+		// ----- soltar chispas: 
 
+		TCompTransform* c_trans = get<TCompTransform>();
+		TEntityParseContext ctx;
+		ctx.root_transform = *c_trans;
+		ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 3, 0));
+
+		parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
+
+		parseScene("data/particles/spark_particles_oven.json", ctx);
 	}
-	*/
-  
-
-	//CHandle(this).getOwner().destroy();
-	//CHandle(this).destroy();
 }
 
 void TCompEnemySpawnerSpecialTrap::onCheckout(const TMsgSpawnerCheckout & msg) {
@@ -90,6 +86,13 @@ void TCompEnemySpawnerSpecialTrap::update(float dt) {
 			_spawnTimer -= dt;
 		}
 		
+	}
+	else if (is_destroyed) {
+
+		// abrir puerta del horno 
+		TCompPropAnimator* animator = get<TCompPropAnimator>();
+		animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 4.f); //de momento esto queda gracioso
+
 	}
 }
 
