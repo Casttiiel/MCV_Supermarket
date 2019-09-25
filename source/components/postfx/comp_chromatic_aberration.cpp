@@ -50,6 +50,9 @@ CTexture* TCompChromaticAberration::apply( CTexture* texture) {
 }
 
 void TCompChromaticAberration::update(float delta) {
+  if (!update_amount)
+    return;
+
   if (!h_player.isValid()) {
     h_player = getEntityByName("Player");
   }

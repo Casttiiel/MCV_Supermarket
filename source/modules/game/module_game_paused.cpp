@@ -7,7 +7,7 @@
 #include "ui/controllers/ui_menu_controller.h"
 #include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
-#include "components/postfx/comp_render_radial_blur.h"
+#include "components/postfx/comp_render_blur.h"
 #include "components/postfx/comp_chromatic_aberration.h"
 bool CModuleGamePaused::start()
 {
@@ -28,8 +28,8 @@ bool CModuleGamePaused::start()
 		
 	}
 	CEntity* m_camera = getEntityByName("MainCamera");
-	TCompRenderRadialBlur* c_rrb = m_camera->get<TCompRenderRadialBlur>();
-	c_rrb->enable(0.3f);
+	TCompRenderBlur* c_rrb = m_camera->get<TCompRenderBlur>();
+  c_rrb->enabled = true;
 	
 	TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
 	render_chromatic->enabled = false;
@@ -84,8 +84,8 @@ void CModuleGamePaused::stop()
 		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER_MINI");
 	}
 	CEntity* m_camera = getEntityByName("MainCamera");
-	TCompRenderRadialBlur* c_rrb = m_camera->get<TCompRenderRadialBlur>();
-	c_rrb->enable(0.0f);
+  TCompRenderBlur* c_rrb = m_camera->get<TCompRenderBlur>();
+  c_rrb->enabled = false;
 	TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
 	render_chromatic->enabled = true;
 }

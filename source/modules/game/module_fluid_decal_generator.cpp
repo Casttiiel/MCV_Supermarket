@@ -1,6 +1,11 @@
 #include "mcv_platform.h"
 #include "module_fluid_decal_generator.h"
+
 #include "render/meshes/mesh_instanced.h"
+#include "engine.h"
+#include "modules/module_physics.h"
+
+using namespace physx;
 
 float CModuleFluidDecalGenerator::unitRandom() {
     return (float)rand() / (float)RAND_MAX;
@@ -99,17 +104,28 @@ void CModuleFluidDecalGenerator::renderInMenu() {
 void CModuleFluidDecalGenerator::generateFluid(int impactForce, VEC3 position, VEC3 normal) {//EXTEND THE GENERATION TO MORE THAN PLANES USING NORMAL
     int num = impactForce / 2;
     int radius = impactForce / 8;
-    if (position == VEC3::Zero) {
-
-    }
     for (int i = 0; i < num; ++i) {
         TInstanceBlood new_instance;
+
+        VEC3 desiredPosition = position;
+        desiredPosition.y += 0.001f; //So we can detect collision with planes
+        physx::PxRaycastHit hit;
+        physx::PxFilterData pxFilterData;
+        pxFilterData.word0 = EnginePhysics.Scenario;
+        physx::PxQueryFilterData PxScenarioFilterData;
+        PxScenarioFilterData.data = pxFilterData;
+        PxScenarioFilterData.flags = physx::PxQueryFlag::eSTATIC;
+        EnginePhysics.Raycast(desiredPosition, VEC3(0, -1, 0), 30.f, hit, physx::PxQueryFlag::eSTATIC, PxScenarioFilterData);
+        if (hit.position != physx::PxVec3(0)) {
+          desiredPosition = PXVEC3_TO_VEC3(hit.position);
+        }
+
         new_instance.world =
             MAT44::CreateRotationY(randomFloat((float)-M_PI, (float)M_PI))
             *
             MAT44::CreateScale(randomFloat(0.1f, 0.75f))
             *
-            MAT44::CreateTranslation(position + VEC3(randomFloat(-radius, radius), 0, randomFloat(-radius, radius)));
+            MAT44::CreateTranslation(desiredPosition + VEC3(randomFloat(-radius, radius), 0, randomFloat(-radius, radius)));
         new_instance.color.x = unitRandom();
         new_instance.color.y = unitRandom();
         new_instance.color.z = 1 - new_instance.color.x - new_instance.color.y;
@@ -122,12 +138,26 @@ void CModuleFluidDecalGenerator::generateFluid(int impactForce, VEC3 position, V
 
 void CModuleFluidDecalGenerator::generateSingleFluidUncapped(float scale, VEC3 exactPosition, VEC3 normal) {//EXTEND THE GENERATION TO MORE THAN PLANES USING NORMAL
     TInstanceBlood new_instance;
+
+    VEC3 desiredPosition = exactPosition;
+    desiredPosition.y += 0.001f; //So we can detect collision with planes
+    physx::PxRaycastHit hit;
+    physx::PxFilterData pxFilterData;
+    pxFilterData.word0 = EnginePhysics.Scenario;
+    physx::PxQueryFilterData PxScenarioFilterData;
+    PxScenarioFilterData.data = pxFilterData;
+    PxScenarioFilterData.flags = physx::PxQueryFlag::eSTATIC;
+    EnginePhysics.Raycast(desiredPosition, VEC3(0, -1, 0), 30.f, hit, physx::PxQueryFlag::eSTATIC, PxScenarioFilterData);
+    if (hit.position != physx::PxVec3(0)) {
+      desiredPosition = PXVEC3_TO_VEC3(hit.position);
+    }
+
     new_instance.world =
         MAT44::CreateRotationY(randomFloat((float)-M_PI, (float)M_PI))
         *
         MAT44::CreateScale(scale)
         *
-        MAT44::CreateTranslation(exactPosition);
+        MAT44::CreateTranslation(desiredPosition);
     new_instance.color.x = unitRandom();
     new_instance.color.y = unitRandom();
     new_instance.color.z = 1 - new_instance.color.x - new_instance.color.y;
