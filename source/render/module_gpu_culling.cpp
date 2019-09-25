@@ -139,6 +139,8 @@ struct TSampleDataGenerator {
               CEntity* ep = prefab;
               assert(ep);
               mod->getObjSize(); // so we increase the variables that hold the limits containing the number of products
+              //json toSend = j_entity["transform"];
+              //toSend["scale"] = 1.5;
               addPrefabToModule(ep, j_entity["transform"]);
             }
             else { //create it as an entity so we can hit it
