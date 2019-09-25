@@ -116,6 +116,7 @@ public:
     bool loadCheckpoint();
     bool deleteCheckpoint();
     bool isCheckpointSaved();
+    void wakeUpWinds();
 	//End Checkpoints
 
 	//Entity handling

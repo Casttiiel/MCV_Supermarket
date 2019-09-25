@@ -1423,13 +1423,13 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::ACTIVATE_BATTERY:
       {
           //TODO
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setBattery(true);
+		      CEntity* entity = EngineEntities.getInventoryHandle();
+		      TCompInventory* inventory = entity->get<TCompInventory>();
+		      inventory->setBattery(true);
           //unLockableBattery = true;
 		      //llamada funcion de scripting para poder escapar
-			Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
-			Scripting.execActionDelayed("saveCheckpoint()", 20.0);
+			    //Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
+			    //Scripting.execActionDelayed("saveCheckpoint()", 20.0);
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }
@@ -1440,7 +1440,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  TCompInventory* inventory = entity->get<TCompInventory>();
 		  inventory->setChilli(true);
 		  //unLockableChilli = true;
-          GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
+          //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           CEntity* e1 = getEntityByName("Hielo2_LP");
           TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
@@ -1462,20 +1462,20 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::ACTIVATE_COFFEE:
       {
           //TODO
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setCoffe(true);
-		  //unLockableCoffe = true;
+		      CEntity* entity = EngineEntities.getInventoryHandle();
+		      TCompInventory* inventory = entity->get<TCompInventory>();
+		      inventory->setCoffe(true);
+		      //unLockableCoffe = true;
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }
       case PowerUpType::ACTIVATE_TELEPORT:
       {
 
-		  //unLockableTeleport = true;
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setTeleport(true);
+		      //unLockableTeleport = true;
+		      CEntity* entity = EngineEntities.getInventoryHandle();
+		      TCompInventory* inventory = entity->get<TCompInventory>();
+		      inventory->setTeleport(true);
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }

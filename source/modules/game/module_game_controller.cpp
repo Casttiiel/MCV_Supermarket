@@ -21,6 +21,7 @@
 #include "components/ai/bt/bt_cupcake.h"
 #include "components/ai/bt/bt_cupcake_explosive.h"
 #include "components/ai/others/comp_blackboard.h"
+#include "components/objects/comp_wind_trap.h"
 
 
 
@@ -252,6 +253,15 @@ void CModuleGameController::resetCamera() {
 		t_comp3->resetCamera();
 	}
 
+}
+
+void CModuleGameController::wakeUpWinds() {
+  CEntity* e1 = getEntityByName("Trap_air_001");
+  TCompWindTrap* cw_1 = e1->get<TCompWindTrap>();
+  cw_1->enableWind();
+  CEntity* e2 = getEntityByName("Trap_air_002");
+  TCompWindTrap* cw_2 = e2->get<TCompWindTrap>();
+  cw_2->enableWind();
 }
 
 void CModuleGameController::dbgInLua(std::string text) {
