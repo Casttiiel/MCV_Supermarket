@@ -11,59 +11,60 @@
 				{
 					"name" : "bt_continue_pause",
 					"alias" : "bt_continue_pause",
-					"position" : "0 70",
+					"position" : "0 60",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/continue.dds",
-					"size" : "260 44",
+					"texture" : "data/ui/textures/newtextures/menu_pausa_continueseleccion.dds",
+					"size" : "256 59",
 					"font_size" : "20 20",
 					"states" : [
 						{
 							"name" : "enabled",
-							"texture" : "data/ui/textures/market/continue.dds"
+							"texture" : "data/ui/textures/newtextures/menu_pausa_continueempty.dds"
 						},
 						{
 							"name" : "selected",
-							"texture" : "data/ui/textures/market/boton_continue.dds"
+							"texture" : "data/ui/textures/newtextures/menu_pausa_continueseleccion.dds"
 						}
 					]
 				},
 				{
 					"name" : "bt_restart_pause",
 					"alias" : "bt_restart_pause",
-					"position" : "0 120",
+					"position" : "0 110",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/restart.dds",
+					"texture" : "data/ui/textures/newtextures/menu_pausa_restartseleccion.dds",
 					"font_texture" : "data/ui/textures/font.dds",
-					"size" : "260 44",
+					"size" : "256 59",
 					"font_size" : "20 20",
 					"states" : [
 						{
 							"name" : "enabled",
-							"texture" : "data/ui/textures/market/restart.dds"
+							"texture" : "data/ui/textures/newtextures/menu_pausa_restartempty.dds"
 						},
 						{
 							"name" : "selected",
-							"texture" : "data/ui/textures/market/boton_restart.dds"
+							"texture" : "data/ui/textures/newtextures/menu_pausa_restartseleccion.dds"
 						}
 					]
 				},
 				{
 					"name" : "bt_exit_pause",
 					"alias" : "bt_exit_pause",
-					"position" : "0 220",
+					"position" : "40 230",
 					"type" : "button",
-					"texture" : "data/ui/textures/market/quit.dds",
+					"scale" : "0.7 0.7",
+					"texture" : "data/ui/textures/newtextures/menu_pausa_quitseleccion.dds",
 					"font_texture" : "data/ui/textures/font.dds",
-					"size" : "260 44",
+					"size" : "246 49",
 					"font_size" : "20 20",
 					"states" : [
 						{
 							"name" : "enabled",
-							"texture" : "data/ui/textures/market/quit.dds"
+							"texture" : "data/ui/textures/newtextures/menu_pausa_quitempty.dds"
 						},
 						{
 							"name" : "selected",
-							"texture" : "data/ui/textures/market/boton_quit.dds"
+							"texture" : "data/ui/textures/newtextures/menu_pausa_quitseleccion.dds"
 						}
 					]
 				}
