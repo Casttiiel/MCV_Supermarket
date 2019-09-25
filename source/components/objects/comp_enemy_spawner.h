@@ -41,7 +41,7 @@ private:
 	void enable(const TMsgEntityTriggerEnter & msg);
 	void disable(const TMsgEntityTriggerExit & msg);
 	void onBattery(const TMsgGravity & msg);
-	//void onDamage(const TMsgDamage & msg); //TODO ELIMINAR
+	void onDamage(const TMsgDamage & msg); //TODO ELIMINAR
 	void onCheckout(const TMsgSpawnerCheckout & msg);
 };
 

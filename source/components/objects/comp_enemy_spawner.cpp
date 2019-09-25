@@ -26,7 +26,7 @@ void TCompEnemySpawner::registerMsgs() {
 	DECL_MSG(TCompEnemySpawner, TMsgEntityTriggerExit, disable);
 	DECL_MSG(TCompEnemySpawner, TMsgGravity, onBattery);
 	DECL_MSG(TCompEnemySpawner, TMsgSpawnerCheckout, onCheckout);
-	//DECL_MSG(TCompEnemySpawner, TMsgDamage, onDamage); //TODO: solo para test
+	DECL_MSG(TCompEnemySpawner, TMsgDamage, onDamage); //TODO: solo para test
 }
 
 void TCompEnemySpawner::enable(const TMsgEntityTriggerEnter & msg) {
@@ -43,23 +43,24 @@ void TCompEnemySpawner::disable(const TMsgEntityTriggerExit & msg) {
 	}
 }
 
-/* TEST
+
 void TCompEnemySpawner::onDamage(const TMsgDamage & msg) {//TODO ELIMINAR
 	_isEnabled = false;
-	EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
-	is_destroyed = true;
-
+  EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
+  is_destroyed = true;
 	// ----- soltar chispas: 
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	TEntityParseContext ctx;
 	ctx.root_transform = *c_trans;
-	ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 1, 0));
+	ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 3, 0));
 
 	parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
 
+	parseScene("data/particles/spark_particles_oven.json", ctx);
+
 }
-*/
+
 void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 	_isEnabled = false;
   EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
@@ -69,9 +70,11 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 	TCompTransform* c_trans = get<TCompTransform>();
 	TEntityParseContext ctx;
 	ctx.root_transform = *c_trans;
-	ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 1, 0));
+	ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 3, 0));
 
 	parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
+
+	parseScene("data/particles/spark_particles_oven.json", ctx);
 }
 
 void TCompEnemySpawner::onCheckout(const TMsgSpawnerCheckout & msg) {
@@ -128,17 +131,21 @@ void TCompEnemySpawner::update(float dt) {
 
 		// chispas
 
-		TCompTransform* c_trans = get<TCompTransform>();
-		TEntityParseContext ctx;
-		ctx.root_transform = *c_trans;
-		ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 1, 0));
 
 		if (destroyEffectTimer >= 0) {
 			destroyEffectTimer -= dt;
 		}
 		else if (firstTime) {
+			/*TCompTransform* c_trans = get<TCompTransform>();
+			TEntityParseContext ctx;
+			ctx.root_transform = *c_trans;
+			//ctx.root_transform.setPosition(c_trans->getPosition() + VEC3(0, 1, 0));
+
+
+			//ctx.root_transform.setPosition(*c_trans.getPosition() + VEC3(0, 1, 0));
+
 			parseScene("data/particles/spark_particles_oven.json", ctx);
-			firstTime = false;
+			firstTime = false;*/
 		}
 
 	}
