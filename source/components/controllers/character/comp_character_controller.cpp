@@ -24,6 +24,7 @@
 #include "ui/widgets/ui_image.h"
 #include "ui/module_ui.h"
 #include "ui/ui_widget.h"
+#include "skeleton/comp_skel_lookat_direction.h"
 
 
 using namespace physx;
@@ -372,7 +373,17 @@ void TCompCharacterController::grounded(float delta) {
         playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
     }
 
+
     dir *= Time.delta_unscaled;
+    if (aiming) {
+        //Leg lookat
+        //If EngineInput["front_"].value >= 0.f
+        //lookat dir
+        if (EngineInput["front_"].value >= 0.f) {
+            TCompSkelLookAtDirection* lookat = get< TCompSkelLookAtDirection>();
+            lookat->setDirection(dir);
+        }
+    }
 
     //MOVE PLAYER
     TCompCollider* comp_collider = get<TCompCollider>();
@@ -670,6 +681,7 @@ void TCompCharacterController::getInputForce(VEC3 &dir) {
 			}
 		}
     }
+
 
     dir *= speed * length;
 }
