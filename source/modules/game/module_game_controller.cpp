@@ -233,6 +233,7 @@ void CModuleGameController::lockCamera3Person(bool activate) {
 		t_comp3->_enabled = activate;
 	
 	}
+	
 }
 
 void CModuleGameController::blendPlayerCamera() {

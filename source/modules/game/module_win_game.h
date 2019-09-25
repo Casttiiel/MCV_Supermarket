@@ -18,6 +18,6 @@ public:
 	void renderInMenu() override;
 
 private:
-	
+	float timeOffModuleGameWin = 1000.0f;
 };
 

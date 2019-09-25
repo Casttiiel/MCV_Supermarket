@@ -7,15 +7,16 @@
 #include "ui/controllers/ui_menu_controller.h"
 #include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
+#include "module_game_controller.h"
 
 bool CModuleWinGame::start()
 {
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
-		
+		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.0);
 	}
 	else {
-		
+		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.0);
 	}
 
     return true;
@@ -23,6 +24,13 @@ bool CModuleWinGame::start()
 
 void CModuleWinGame::update(float delta)
 {
+	timeOffModuleGameWin--;
+	if (timeOffModuleGameWin <= 0.f) {
+		//GameController.changeGameState("gs_main_menu");
+		auto& app = CApplication::get();
+		DestroyWindow(app.getHandle());
+	}
+
 	
 }
 
@@ -31,10 +39,10 @@ void CModuleWinGame::stop()
 	
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
-		
+		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 	}
 	else {
-		
+		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 	}
 }
 

@@ -582,7 +582,7 @@ void TCompCharacterController::win(float delta) {
 	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.f, true);
     if (EngineInput["checkpoint_"].justPressed()) {
         endGame = false;
-        ChangeState("GROUNDED");
+       // ChangeState("GROUNDED");
 
     }
 
@@ -1080,7 +1080,7 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
                 //..en el futuro GameState GameOver
                 endGame = true;
                 //dismount();
-                //ChangeState("WIN");
+                ChangeState("WIN");
 
             }
             //else if(){} demas trigers...

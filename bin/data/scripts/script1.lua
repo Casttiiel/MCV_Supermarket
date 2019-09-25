@@ -770,5 +770,5 @@ function endGame()
 	execDelayedAction("on_cinematic(true",0.0);
 	execDelayedAction("on_blending_camera(\"CameraEndGame\", 100,\"Cubicinout\")",0.0);
 	execDelayedAction("activePlatformByName(\"globo\")",2);
-
+	execDelayedAction("changeGameState(\"gs_wingame\")",8);
 end
