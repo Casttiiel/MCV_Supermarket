@@ -1,6 +1,7 @@
 #include "mcv_platform.h"
 #include "comp_bolt_sphere_oven.h"
 #include "components/common/comp_buffers.h"
+#include "components/ai/others/self_destroy.h"
 #include "components/common/comp_transform.h"
 
 DECL_OBJ_MANAGER("bolt_sphere_oven", TCompBoltSphereOven);
@@ -29,6 +30,7 @@ void TCompBoltSphereOven::onCreation(const TMsgEntityCreated& msgC) {
 		VEC3 pos = c_trans->getPosition();
 		target_position = pos + VEC3(0, 2, 0);
 	}
+
 }
 
 void TCompBoltSphereOven::update(float delta) {
@@ -41,9 +43,11 @@ void TCompBoltSphereOven::update(float delta) {
 		TCompBuffers* c_buff = e->get<TCompBuffers>();
 		if (c_buff) {
 			auto buf = c_buff->getCteByName("TCtesParticles");
-			CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-			data->emitter_center = cTransform->getPosition();
-			data->updateGPU();
+			if (c_buff) {
+				CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
+				data->emitter_center = cTransform->getPosition();
+				data->updateGPU();
+			}
 		}
 	}
 }

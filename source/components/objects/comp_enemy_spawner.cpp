@@ -44,7 +44,7 @@ void TCompEnemySpawner::disable(const TMsgEntityTriggerExit & msg) {
 }
 
 
-void TCompEnemySpawner::onDamage(const TMsgDamage & msg) {//TODO ELIMINAR
+void TCompEnemySpawner::onDamage(const TMsgDamage & msg) {//TODO: solo para test
 	_isEnabled = false;
   EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
   is_destroyed = true;

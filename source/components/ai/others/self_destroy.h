@@ -14,6 +14,7 @@ public:
   void setDelay(float delay) { _selfDestructDelay = delay; _selfDestructTimer = delay; }
   void setEnabled(bool value) { _isEnabled = value; }
 	void enable();
+	void enableWithDelay(float delay);
 
 private:
 	bool _isEnabled = false;
