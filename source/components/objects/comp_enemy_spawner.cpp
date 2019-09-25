@@ -98,9 +98,20 @@ void TCompEnemySpawner::update(float dt) {
 		}
 	}
 	else if (is_destroyed) {
+	
+		// abrir puerta del horno 
+		TCompPropAnimator* animator = get<TCompPropAnimator>();
+		animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 2.f); //de momento esto queda gracioso
 
-		CHandle(this).getOwner().destroy();
-		CHandle(this).destroy();
+		// soltar chispas
+		TCompTransform* c_trans = get<TCompTransform>();
+		TEntityParseContext ctx;
+		ctx.root_transform = *c_trans;
+		ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 5, 0));
+
+		//parseScene("data/prefabs/vfx/electric_aura.json", ctx);
+
+		//parseScene("data/particles/spark_particles.json", ctx);
 
 	}
 }
