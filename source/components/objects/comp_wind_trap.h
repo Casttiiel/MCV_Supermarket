@@ -20,7 +20,7 @@ public:
   static void registerMsgs();
 
 private:
-  bool activateWind = true;
+  bool activateWind = false;
 	bool _isEnabled = false;
   bool is_destroyed = false;
 	float windForce = 50.f;

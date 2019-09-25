@@ -71,6 +71,7 @@ void updateParticle( inout TInstance p ) {
   p.color = sampleColor( p.time_normalized );
   //p.dir += p.acc * GlobalDeltaTime;
   //p.pos += p.dir * GlobalDeltaTime;
+  p.pos.y = -2.5 + 0.5 * sin(p.time_normalized + p.dummy2 * 8 * PI ); 
   p.scale = sin(p.time_normalized * PI) * p.dummy1;
   /*if( p.pos.y < 0 ) {
     p.pos.y = -p.pos.y;
@@ -182,9 +183,8 @@ v2p VS(
   TInstance instance = instances_active[ InstanceID ];
 
   // orient billboard to camera
-  float3 localPos = input.Pos.x * CameraLeft * 5
-                  + input.Pos.y * CameraUp;
-  float3 p = instance.pos + localPos *2; //multiply localPos to scale the billboard
+  float3 p = instance.pos + float3(input.Pos.x,0, input.Pos.y) * 8; //multiply localPos to scale the billboard
+  p.y +=0.3 * sin( (instance.time_normalized + instance.dummy1 ) * 2.0 );
   /* 
 
   // Strech based on direction
@@ -208,6 +208,9 @@ v2p VS(
 
 //--------------------------------------------------------------------------------------
 float4 PS(v2p input) : SV_Target {
+
+//return float4(input.Uv,0,1);
+
   float4 texture_color = txAlbedo.Sample(samLinear, input.Uv);
   float4 distort = txMetallic.Sample(samLinear, input.Uv);
   float4 air = txNormal.Sample(samLinear, input.Uv + (float2(GlobalWorldTime * input.dir, 0) * 0.1f));// + (float2(GlobalWorldTime * input.dir, 0) * 0.1f) + distort.xy * 0.1f
@@ -218,6 +221,6 @@ float4 PS(v2p input) : SV_Target {
   }else if(input.time > 1.0f - 0.3f){
     color.a *= (1.0f - input.time) / 0.3f;
   }
-  color.a *= 0.01f;
+  //color.a *= 0.01f;
   return color; // + float4( 1,1,1,0);
 }
