@@ -88,8 +88,6 @@
     "vs_fx": "data/shaders/gpu_particles_fire.fx",
     "vdecl": "PosUvColor",
     "blend": "combinative",
-    "z": "test_but_no_write",
-    "rs": "cull_none",
     "gpu_buffers": {
       "instances": 0
     }
@@ -251,7 +249,8 @@
     "vdecl": "Pos",
     "z": "inverse_test_no_write",
     "rs": "reverse_culling",
-    "blend": "additive"
+    "blend": "additive",
+    "noise": "data/textures/vfx/LUT1.1.dds"
   },
   "pbr_dir_lights": {
     "vs_fx": "data/shaders/pbr.fx",
@@ -260,7 +259,8 @@
     "vdecl": "Pos",
     "z": "inverse_test_no_write",
     "rs": "reverse_culling",
-    "blend": "additive"
+    "blend": "additive",
+    "noise": "data/textures/vfx/LUT1.1.dds"
   },
   "pbr_dir_lights_no_shadows": {
     "vs_fx": "data/shaders/pbr.fx",
@@ -269,7 +269,8 @@
     "vdecl": "Pos",
     "z": "inverse_test_no_write",
     "rs": "reverse_culling",
-    "blend": "additive"
+    "blend": "additive",
+    "noise": "data/textures/vfx/LUT1.1.dds"
   },
   "fake_volumetric_lights": {
     "vs_fx": "data/shaders/pbr.fx",

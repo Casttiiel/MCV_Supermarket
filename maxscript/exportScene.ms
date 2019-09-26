@@ -400,6 +400,9 @@ struct TSceneExporter (
 		fs.writeComma()
 		
 		fs.writeKeyValue "shadows_step" 2.0
+		fs.writeComma()
+		
+		fs.writeKeyValue "projector" "data/textures/punto_de_luz.dds"
 			
 		fs.endObj()
 	),

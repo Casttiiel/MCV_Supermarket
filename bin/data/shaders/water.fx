@@ -88,7 +88,8 @@ float4 PS_ice(VS_OUTPUT input) : SV_Target
   float4 back_color = txMetallic.Sample(samClampLinear, uv);
   float4 albedo_color = txAlbedo.Sample(samLinear, input.Uv);
 
-  float4 base_color = (albedo_color * back_color) + albedo_color * 0.2f;
+  const float illum = 0.4;
+  float4 base_color = (back_color + albedo_color) * illum;
 
   float3 incident_dir = normalize(input.WorldPos - CameraPosition.xyz);
   float3 reflected_dir = normalize(reflect(incident_dir, input.N));
@@ -96,6 +97,7 @@ float4 PS_ice(VS_OUTPUT input) : SV_Target
 
   float fresnel_term = 1 - saturate( dot( input.N, -incident_dir) );
   fresnel_term = pow( fresnel_term, 5 );
-  return fresnel_term * env_color + ( 1 - fresnel_term ) * base_color;
+  //return fresnel_term * env_color + ( 1 - fresnel_term ) * base_color;
+  return base_color;
 }
 
