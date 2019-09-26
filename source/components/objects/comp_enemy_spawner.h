@@ -22,6 +22,12 @@ public:
   float getLifeSpawner();
   static void registerMsgs();
 
+  void setScriptTriggerActivate(bool activate);
+  void setCurveForSpawner(std::string curveForCupcake);
+
+
+ 
+
 private:
 
 	#define PREFAB_CUPCAKE_ "data/prefabs/enemies/bt_cupcake.json"
@@ -40,5 +46,11 @@ private:
 	void disable(const TMsgEntityTriggerExit & msg);
 	void onBattery(const TMsgGravity & msg);
 	void onCheckout(const TMsgSpawnerCheckout & msg);
+	
+
+	bool scriptTriggerActivate = false;
+	std::string curveForCupcake = "";
+	
+
 };
 

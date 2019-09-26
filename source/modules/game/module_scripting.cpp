@@ -249,6 +249,8 @@ void CModuleScripting::BindEnemySpawner() {
 		.comment("This is ouTCompEnemySpawnerSpecialTrapr wrapper of TCompEnemySpawnerSpecialTrap class")
 		.constructor()
 		.set("setLifeSpawner", &TCompEnemySpawner::setLifeSpawner)
+		.set("setScriptTriggerActivate", &TCompEnemySpawner::setScriptTriggerActivate)
+		.set("setCurveForSpawner", &TCompEnemySpawner::setCurveForSpawner)
 		;
 }
 

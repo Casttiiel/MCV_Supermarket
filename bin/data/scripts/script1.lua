@@ -120,10 +120,10 @@ function on_create_enemies_zone_cupcake_player()
 	
 	execDelayedAction("changeScene(\"tutorial_scene\")",0)	
 
-	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(183, -48.460, -66), QUAT(0, 0, 0, 1),1);
-	GameController:updateCupcakeCurveByHandle("curvaCupcakePanaderia1",h_cupcake1);
-	GameController:setPauseEnemyByHandle(h_cupcake1,false);
-	GameController:setLifeEnemy(h_cupcake1,3,350.0);
+	--h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(183, -48.460, -66), QUAT(0, 0, 0, 1),1);
+	--GameController:updateCupcakeCurveByHandle("curvaCupcakePanaderia1",h_cupcake1);
+	--GameController:setPauseEnemyByHandle(h_cupcake1,false);
+	--GameController:setLifeEnemy(h_cupcake1,3,350.0);
 	
 	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(175, -48.460, -72), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakePanaderia2",h_cupcake2);
@@ -151,6 +151,11 @@ function on_create_enemies_zone_cupcake_player()
 	t_compSpawnOven2:setLifeSpawner(350.0);
 	t_compSpawnOven3:setLifeSpawner(350.0);
 	t_compSpawnOven4:setLifeSpawner(350.0);
+
+
+	t_compSpawnOven1:setScriptTriggerActivate(true);
+	t_compSpawnOven1:setCurveForSpawner("curvaCupcakePanaderia1");
+
 
 
 	execDelayedAction("on_delete_handle(\"triggerCreacionCupcackes\")",0);
