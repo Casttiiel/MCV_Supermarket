@@ -12,9 +12,9 @@ struct TCompAntialiasing : public TCompBase {
   bool enabled;
   float screenWidth;
   float screenHeight;
-  float sub_pix = 1.0f;
-  float edge_threshold = 0.063f;
-  float edge_threshold_min = 0.0625f;
+  float sub_pix = 0.4f;
+  float edge_threshold = 0.0f;
+  float edge_threshold_min = 0.0f;
   CRenderToTexture*        rt = nullptr;
   const CTechnique*        tech = nullptr;
   const CMesh*             mesh = nullptr;

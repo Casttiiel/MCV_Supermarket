@@ -71,7 +71,7 @@ private:
   float base_speed = speed;
   float rotation_speed = 4.0f;
   float dash_speed = 35.0f;
-  float dash_limit = 0.15f;
+  float dash_limit = 0.1f;
   float dash = dash_limit;
   float time_between_dashes = 1.5f;
   float time_to_next_dash = 0.0f;
