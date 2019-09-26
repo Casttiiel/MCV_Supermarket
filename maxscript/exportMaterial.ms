@@ -70,6 +70,10 @@ struct TMaterialExporter (
 			if is_morphed != undefined then(
 				fs.writeKeyValue "technique" "objs_morph.tech"
 				fs.writeComma()
+				fs.writeKeyValue "category" "distorsions"
+				fs.writeComma()
+				fs.writeKeyValue "casts_shadows" false
+				fs.writeComma()
 			)
 			fs.writeKey "textures" 
 			fs.beginObj()
@@ -86,8 +90,13 @@ struct TMaterialExporter (
 			    fs.writeComma()
 				exportMap mat.bumpMap "normal" "null_normal"
 				fs.writeComma()
-				exportMap mat.metalnessMap "metallic" "black"
-				fs.writeComma()
+				if is_morphed != undefined then(
+					fs.writeKeyValue "metallic" "acc_light.dds"
+					fs.writeComma()
+				) else (
+					exportMap mat.metalnessMap "metallic" "black"
+					fs.writeComma()
+				)
 				exportMap mat.roughnessMap "roughness" "white"
 				fs.writeComma() 
 				exportMap mat.emissionColorMap "emissive" "black"

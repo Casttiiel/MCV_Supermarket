@@ -36,7 +36,8 @@ classPrefabData = attributes prefabData
 			"Trap_tube_enemies",
 			"Trap_butcher_enemies",
 			"Trap_special_oven",
-			"Fire trap"
+			"Fire trap",
+			"Player Camera"
 			) align:#left
 	)
 	fn exportAsComponent fs = (
@@ -69,6 +70,7 @@ classPrefabData = attributes prefabData
 		else if prefab == 26 then src = "data/prefabs/traps/enemies_in_butcher.json"		
 		else if prefab == 27 then src = "data/prefabs/structures/enemy_spawner_special.json"
 		else if prefab == 28 then src = "data/prefabs/structures/fire_trap.json"
+		else if prefab == 29 then src = "data/prefabs/cameras/player_camera.json"
 		else return undefined
 		fs.writeComma()
 		fs.writeKeyValue "prefab"  src

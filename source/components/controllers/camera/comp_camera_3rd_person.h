@@ -36,6 +36,7 @@ private:
   VEC3 lastPos = VEC3();
   bool lastPosWasCollision = false;
   float actualCameraHeight = false;
+  bool first_reset = false;
 
   float distance = 10.f;
   float _ratio = 0.f;
