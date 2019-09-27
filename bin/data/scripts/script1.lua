@@ -339,6 +339,13 @@ function crearTrampaHornos()
 	
 
 	GameController:setLifeEnemiesByTag("cupcake",50.0);
+
+
+	t_compSpawnOven1:setComportamentNormal(1);
+	t_compSpawnOven2:setComportamentNormal(1);
+	t_compSpawnOven3:setComportamentNormal(1);
+
+
 	GameController:spawnPrefab("data/prefabs/structures/trigger_special_oven.json", VEC3(96,-3.653, -59), QUAT(0, 0, 0, 1),1);
 
 
@@ -716,22 +723,50 @@ function trampaSushisButcher_player()
 end
 
 
-function changeTimeDelayInOvenTrap(t_compname)
-	t_compname.working = true
+function changeTimeDelayInOvenTrap(t_compname,value)
+	t_compname.working = value
 end
 
 function  on_init_trap_oven_player()
-	handle1 = GameController:entityByName("horno008");
-	t_compname1 = toCompEnemySpawnerSpecialTrap(toEntity(handle1):getCompByName("comp_enemy_spawner_special_trap"));
-	handle2 = GameController:entityByName("horno009");
-	t_compname2 = toCompEnemySpawnerSpecialTrap(toEntity(handle2):getCompByName("comp_enemy_spawner_special_trap"));
-	t_compname1:setSpawnDelay(1.0)
-	t_compname2:setSpawnDelay(2.0)
-	execDelayedAction("changeTimeDelayInOvenTrap(t_compname1)",0);
-	execDelayedAction("changeTimeDelayInOvenTrap(t_compname2)",1);
-	--t_compname1.working = true
-	--t_compname2.working = true
+
+
+	  
+	
+
+	h_oven1 =  GameController:entityByName("horno008");
+	h_oven2 =  GameController:entityByName("horno009");
+	h_oven3 =  GameController:entityByName("horno010");
+	
+	t_compSpawnOven1 = toCompEnemySpawner(toEntity(h_oven1):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven2 = toCompEnemySpawner(toEntity(h_oven2):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven3 = toCompEnemySpawner(toEntity(h_oven3):getCompByName("comp_enemy_spawner"));
+
+	t_compSpawnOven1:setSpawnDelay(1.0);
+	t_compSpawnOven2:setSpawnDelay(2.0);
+	t_compSpawnOven3:setSpawnDelay(3.0);
+	changeTimeDelayInOvenTrap(t_compSpawnOven1,false)
+	changeTimeDelayInOvenTrap(t_compSpawnOven2,false)
+	changeTimeDelayInOvenTrap(t_compSpawnOven3,false)
+
+
+
+	execDelayedAction("changeTimeDelayInOvenTrap(t_compSpawnOven1,true)",0.1);
+	execDelayedAction("changeTimeDelayInOvenTrap(t_compSpawnOven2,true)",1.1);
+	execDelayedAction("changeTimeDelayInOvenTrap(t_compSpawnOven3,true)",2.1);
+
+
+
 	execDelayedAction("on_delete_handle(\"triggerSpecialOven\")",0);
+
+	--handle1 = GameController:entityByName("horno008");
+	--t_compname1 = toCompEnemySpawnerSpecialTrap(toEntity(handle1):getCompByName("comp_enemy_spawner_special_trap"));
+	--handle2 = GameController:entityByName("horno009");
+	--t_compname2 = toCompEnemySpawnerSpecialTrap(toEntity(handle2):getCompByName("comp_enemy_spawner_special_trap"));
+	--t_compname1:setSpawnDelay(1.0)
+	--t_compname2:setSpawnDelay(2.0)
+	--execDelayedAction("changeTimeDelayInOvenTrap(t_compname1)",0);
+	--execDelayedAction("changeTimeDelayInOvenTrap(t_compname2)",1);
+	--execDelayedAction("on_delete_handle(\"triggerSpecialOven\")",0);
 	
 end
 

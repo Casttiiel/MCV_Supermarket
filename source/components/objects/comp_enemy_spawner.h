@@ -24,7 +24,9 @@ public:
 
   void setScriptTriggerActivate(bool activate);
   void setCurveForSpawner(std::string curveForCupcake);
-
+  void setComportamentNormal(int value);
+  void setSpawnDelay(float newtime);
+  bool working = true;
 
  
 
@@ -32,7 +34,7 @@ private:
 
 	#define PREFAB_CUPCAKE_ "data/prefabs/enemies/bt_cupcake.json"
 
-	bool working = true; //temporal :)
+	
 	bool _isEnabled = false;
   bool is_destroyed = false;
 	int _spawnMaxNumber = 2;
@@ -47,6 +49,8 @@ private:
 	void onBattery(const TMsgGravity & msg);
 	void onCheckout(const TMsgSpawnerCheckout & msg);
 	
+
+	int comportamentNormal = 0;
 
 	bool scriptTriggerActivate = false;
 	std::string curveForCupcake = "";

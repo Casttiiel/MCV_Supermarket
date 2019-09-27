@@ -251,6 +251,9 @@ void CModuleScripting::BindEnemySpawner() {
 		.set("setLifeSpawner", &TCompEnemySpawner::setLifeSpawner)
 		.set("setScriptTriggerActivate", &TCompEnemySpawner::setScriptTriggerActivate)
 		.set("setCurveForSpawner", &TCompEnemySpawner::setCurveForSpawner)
+		.set("setComportamentNormal", &TCompEnemySpawner::setComportamentNormal)
+		.set("setSpawnDelay", &TCompEnemySpawner::setSpawnDelay)
+		.property("working", &TCompEnemySpawner::working)
 		;
 }
 

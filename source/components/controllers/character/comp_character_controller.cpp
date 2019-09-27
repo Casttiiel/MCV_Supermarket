@@ -24,6 +24,8 @@
 #include "ui/widgets/ui_image.h"
 #include "ui/module_ui.h"
 #include "ui/ui_widget.h"
+#include "components/objects/comp_enemy_spawner.h"
+#include "components/objects/comp_enemy_spawner_special_trap.h"
 
 
 using namespace physx;
@@ -1427,13 +1429,26 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 			TCompInventory* inventory = entity->get<TCompInventory>();
 			inventory->setBattery(true);
          
+			
+
+
 			//llamada funcion de scripting para poder escapar
 			//Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
 			  
 			//Scripting.execActionDelayed("saveCheckpoint()", 20.0);
 
+			
+
+
 			Scripting.execActionDelayed("crearTrampaHornos()", 0.0);
 			Scripting.execActionDelayed("saveCheckpoint()", 0.5);
+
+			/*
+			CEntity* e = GameController.entityByName("horno008");
+			TCompEnemySpawner* tComp = e->get<TCompEnemySpawner>();
+			CHandle h(tComp);
+			h.destroy();
+			*/
 
 
 			EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
