@@ -1404,9 +1404,10 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::HEALTH_UP:
       {
           //dbg("aplica el power up de life \n");
-          maxLife = maxLife + quantity;
-          heal();
-          GameController.increaseHpBarSize(extraBarSize);
+          //maxLife = maxLife + quantity;
+          //heal();
+          //GameController.increaseHpBarSize(extraBarSize);
+					GameController.healPlayerPartially(15.f);
           EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
           break;
       }
