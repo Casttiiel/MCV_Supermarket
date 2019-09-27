@@ -60,6 +60,16 @@ bool CModuleRender::start() {
   ctes_shared.CoffeeRatio = 0.f;
   ctes_shared.Actual_dt = 0.f;
 
+  ctes_shared.ao_power = 2.0f;
+  ctes_shared.shadow_ramp = 0.3f;
+  ctes_shared.color_intensity = 1.0f;
+  ctes_shared.brush_size = 1.0f;
+
+  ctes_shared.brush_rotation = 0.0f;
+  ctes_shared.specular_ramp = 0.3f;
+  ctes_shared.specular_brush_ramp = 0.3f;
+  ctes_shared.specular_strength = 1.0f;
+
   return true;
 }
 
@@ -167,6 +177,19 @@ void CModuleRender::renderInMenu() {
   if (ImGui::TreeNode("Render Control")) {
     ImGui::DragFloat("Exposure Adjustment", &ctes_shared.GlobalExposureAdjustment, 0.01f, 0.1f, 32.f);
     ImGui::DragFloat("Ambient Boost", &ctes_shared.GlobalAmbientBoost, 0.01f, 0.0f, 2.f);
+
+
+    ImGui::Text("Toon Shading");
+    ImGui::DragFloat("AO Power", &ctes_shared.ao_power, 0.1f, 0.0f, 10.f);
+    ImGui::DragFloat("Shadow Ramp", &ctes_shared.shadow_ramp, 0.01f, 0.01f, 1.f);
+    ImGui::DragFloat("Color Intensity", &ctes_shared.color_intensity, 0.1f, 1.0f, 4.f);
+    ImGui::DragFloat("Brush Size", &ctes_shared.brush_size, 0.1f, 0.1f, 10.f);
+
+    ImGui::DragFloat("Brush Rotation", &ctes_shared.brush_rotation, 0.01f, 0.0f, 3.14f);
+    ImGui::DragFloat("Specular Ramp", &ctes_shared.specular_ramp, 0.05f, 0.0f, 0.95f);
+    ImGui::DragFloat("Brush Ramp", &ctes_shared.specular_brush_ramp, 0.01f, 0.1f, 1.f);
+    ImGui::DragFloat("Specular Strength", &ctes_shared.specular_strength, 0.1f, 0.0f, 4.f);
+
     //ImGui::DragFloat("HDR", &ctes_shared.global_hdr_enabled, 0.01f, 0.0f, 1.f);
     //ImGui::DragFloat("Gamma Correction", &ctes_shared.global_gamma_correction_enabled, 0.01f, 0.0f, 1.f);
     //ImGui::DragFloat("Reinhard vs Uncharted2", &ctes_shared.global_tone_mapping_mode, 0.01f, 0.0f, 1.f);

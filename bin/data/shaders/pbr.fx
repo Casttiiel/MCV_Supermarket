@@ -221,6 +221,7 @@ void PS_common(
 
   o_self_illum = txEmissive.Sample(samLinear,input.Uv);
   o_self_illum *= o_self_illum.a;
+
   //o_self_illum.xyz *= ObjColor * self_illum_intensity;
 }
 
@@ -429,7 +430,20 @@ float4 PS_Ambient(
       , 1.0f) * GlobalAmbientBoost);
   final_color.xyz += g.self_illum;
 
-  return final_color * ao;
+  ao = pow(ao,ao_power);
+
+  float2 uv =  1.0f / 0.2f;
+  uv *= iPosition.xy * CameraInvResolution.y;
+  const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
+    sin(brush_rotation), cos(brush_rotation)
+  };
+  float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
+  float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
+
+  final_color -= (brush * ao) * final_color * 0.3f;
+  final_color -= (brush * 1-ao) * final_color * 0.3f;
+
+  return final_color;
 }
 
 // ----------------------------------------
@@ -475,8 +489,8 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   // Shadow factor entre 0 (totalmente en sombra) y 1 (no ocluido)
   float shadow_factor = use_shadows ? getShadowFactor( g.wPos ) : 1.;
 
+  float4 worldPos = float4(g.wPos,1);
   if(fix_shadows){
-    float4 worldPos = float4(g.wPos,1);
     float4 almostScreenPos = mul(worldPos, LightViewProjOffset);
     float3 screenPos = almostScreenPos.xyz / almostScreenPos.w;
     //if out of range, shadow_factor = 0;
@@ -484,7 +498,6 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
       shadow_factor = 0;
   }
   if(fix_shadows || use_shadows){
-    float4 worldPos = float4(g.wPos,1);
     float4 PosLightProjection = mul(worldPos, LightViewProjOffset);
     float3 PosLightHomoSpace = PosLightProjection.xyz / PosLightProjection.w;
 
@@ -508,14 +521,50 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   float3 cDiff = Diffuse(g.albedo);
   float3 cSpec = Specular(g.specular_color, h, g.view_dir, light_dir, a, NdL, NdV, NdH, VdH, LdV);
 
-  float3 lut = txNoise.Sample(samClampLinear, float2(NdL, 0)).xyz;
-
   float att = saturate( distance_to_light / LightRadius );
   att = 1. - att;
-  //att = txNoise.Sample(samClampLinear, float2(att, 0)).x;
-  float3 final_color = LightColor.xyz * NdL * lut * cDiff * att * LightIntensity * shadow_factor;
-  //float3 final_color = LightColor.xyz * NdL * lut * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
-  return float4( final_color, 1);
+
+  //------------------
+  //zelda botw shading
+  float ao = txAO.Sample( samLinear, iPosition.xy * CameraInvResolution).x;
+  float lut = NdL;
+  ao = pow(ao,ao_power);
+  lut = smoothstep(shadow_ramp-0.01f,shadow_ramp,lut);
+
+  /*float rim = (1 - saturate(dot(-g.view_dir,light_dir) + 0.0f)) + 0.1f;
+  float3 incident_dir = normalize(worldPos - CameraPosition.xyz);
+  float fresnel_term = 1 - saturate( dot( g.N, -incident_dir) );
+  fresnel_term = pow( fresnel_term, 10 );
+  float rimColor = step(rim,fresnel_term);
+  float rimShine = step(rim + 0.1f,fresnel_term);
+  rimShine = saturate(rimShine * lut);*/
+
+  float3 color = LightColor.xyz * (cDiff) * LightIntensity * color_intensity * att;
+
+  /*float2 uv =  g.zlinear * (5.0 / brush_size);
+  uv *= float2(iPosition.xy * CameraInvResolution);
+  const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
+    sin(brush_rotation), cos(brush_rotation)
+  };
+  float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
+  float brush = txNoise.Sample(samLinear,rot_uv).x;
+  float3 env_fresnel = Specular_F_Roughness(g.specular_color, 1. - g.roughness * g.roughness, g.N, g.view_dir);
+  float customSpecular = step(1 - specular_ramp, g.metallic + cSpec );//length(cSpec) + env_fresnel
+  customSpecular *= brush * lut;
+  customSpecular = smoothstep(specular_brush_ramp - 0.1, specular_brush_ramp, customSpecular) * specular_strength;*/
+
+  float2 uv = 1.0 / 0.2;
+  uv *= iPosition.xy * CameraInvResolution.y;
+  const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
+    sin(brush_rotation), cos(brush_rotation)
+  };
+  float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
+  float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
+  //-------------------
+  float3 final_color = lut * color * shadow_factor;
+  //float3 final_color = LightColor.xyz * NdL * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
+  final_color += (brush * color * shadow_factor * lut) * 2;
+  return float4(final_color, 1);
 }
 
 // -------------------------------------------------

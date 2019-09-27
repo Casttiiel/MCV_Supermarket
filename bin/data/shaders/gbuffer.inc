@@ -11,6 +11,8 @@ struct GBuffer
   float  emissive;
   float3 reflected_dir;
   float3 view_dir;
+  float metallic;
+  float zlinear;
 };
 
 //--------------------------------------------------------------------------------------
@@ -24,6 +26,7 @@ void decodeGBuffer(
 
   // Recover world position coords
   float  zlinear = txGLinearDepth.Load(ss_load_coords).x;
+  g.zlinear = zlinear;
   g.wPos = getWorldCoords(iPosition.xy, zlinear);
 
   // Recuperar la normal en ese pixel. Sabiendo que se
@@ -38,7 +41,8 @@ void decodeGBuffer(
   // In the alpha of the albedo, we stored the metallic value
   // and in the alpha of the normal, we stored the roughness
   float  metallic = albedo.a;
-         g.roughness = N_rt.a;
+  g.roughness = N_rt.a;
+  g.metallic = max(saturate(1-(N_rt.a)),albedo.a);
  
   // Apply gamma correction to albedo to bring it back to linear.
   albedo.rgb = pow(abs(albedo.rgb), 2.2f);

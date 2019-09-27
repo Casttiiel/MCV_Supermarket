@@ -125,6 +125,16 @@ SHADER_CTE_BUFFER(TCtesShared, CTE_BUFFER_SLOT_SHARED)
   float  Actual_dt;
   float  Globaldumm3;
 
+  float ao_power;
+  float shadow_ramp;
+  float color_intensity;
+  float brush_size;
+
+  float brush_rotation;
+  float specular_ramp;
+  float specular_brush_ramp;
+  float specular_strength;
+
 };
 
 SHADER_CTE_BUFFER(TCtesDebugLine, CTE_BUFFER_SLOT_DEBUG_LINE)

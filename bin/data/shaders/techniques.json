@@ -231,7 +231,8 @@
     "ps": "PS_Ambient",
     "z": "disable_all",
     "envmap": "data/textures/cubemaps/env.dds",
-    "irradiance": "data/textures/cubemaps/irradiance.dds"
+    "irradiance": "data/textures/cubemaps/irradiance.dds",
+    "noise": "data/textures/vfx/shadowcomic.dds"
   },
   "pbr_skybox": {
     "vs_fx": "data/shaders/pbr.fx",
@@ -250,7 +251,7 @@
     "z": "inverse_test_no_write",
     "rs": "reverse_culling",
     "blend": "additive",
-    "noise": "data/textures/vfx/LUT1.1.dds"
+    "noise": "data/textures/vfx/shadowcomic.dds"
   },
   "pbr_dir_lights": {
     "vs_fx": "data/shaders/pbr.fx",
@@ -260,7 +261,7 @@
     "z": "inverse_test_no_write",
     "rs": "reverse_culling",
     "blend": "additive",
-    "noise": "data/textures/vfx/LUT1.1.dds"
+    "noise": "data/textures/vfx/shadowcomic.dds"
   },
   "pbr_dir_lights_no_shadows": {
     "vs_fx": "data/shaders/pbr.fx",
@@ -270,7 +271,7 @@
     "z": "inverse_test_no_write",
     "rs": "reverse_culling",
     "blend": "additive",
-    "noise": "data/textures/vfx/LUT1.1.dds"
+    "noise": "data/textures/vfx/shadowcomic.dds"
   },
   "fake_volumetric_lights": {
     "vs_fx": "data/shaders/pbr.fx",
