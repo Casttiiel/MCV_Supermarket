@@ -916,8 +916,8 @@ void TCompCharacterController::attack(float delta) {
                         entityContact->sendMsg(msg);
 
                         alreadyAttacked = true;
-                        TCompMadnessController* m_c = get<TCompMadnessController>();
-                        m_c->generateMadness(MELEE);
+                        //TCompMadnessController* m_c = get<TCompMadnessController>(); //madness in melee attack
+                        //m_c->generateMadness(MELEE);
                         EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
                     }
                 }
