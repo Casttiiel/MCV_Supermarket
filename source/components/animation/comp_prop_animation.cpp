@@ -43,6 +43,17 @@ void TCompPropAnimator::initializeAnimations() {
         1.0f,
         1.0f
     );
+
+		initializeAnimation(
+			(TCompAnimator::EAnimation)EAnimation::OVEN_BROKEN,
+			EAnimationType::ACTION,
+			EAnimationSize::SINGLE,
+			"OVEN_BROKEN",
+			"",
+			"",
+			1.0f,
+			1.0f
+		);
 }
 
 void TCompPropAnimator::registerMsgs() {

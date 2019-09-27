@@ -44,6 +44,10 @@ void TCompEnemySpawnerSpecialTrap::onBattery(const TMsgGravity & msg) {
 		parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
 
 		parseScene("data/particles/spark_particles_oven.json", ctx);
+
+		// abrir puerta 
+		TCompPropAnimator* animator = get<TCompPropAnimator>();
+		animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 1.f);
 	}
 }
 
@@ -90,8 +94,8 @@ void TCompEnemySpawnerSpecialTrap::update(float dt) {
 	else if (is_destroyed) {
 
 		// abrir puerta del horno 
-		TCompPropAnimator* animator = get<TCompPropAnimator>();
-		animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 4.f); //de momento esto queda gracioso
+	//	TCompPropAnimator* animator = get<TCompPropAnimator>();
+	//	animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 1.f); //de momento esto queda gracioso
 
 	}
 }

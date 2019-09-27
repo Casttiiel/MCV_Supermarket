@@ -76,6 +76,7 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 		parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
 
 		parseScene("data/particles/spark_particles_oven.json", ctx);
+
 	}
 
 }
@@ -127,10 +128,12 @@ void TCompEnemySpawner::update(float dt) {
 		}
 	}
 	else if (is_destroyed) {
-	
+
 		// abrir puerta del horno 
 		TCompPropAnimator* animator = get<TCompPropAnimator>();
-		animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 4.f); //de momento esto queda gracioso
+		animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt); 
+		//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
+	
 
 	}
 }
