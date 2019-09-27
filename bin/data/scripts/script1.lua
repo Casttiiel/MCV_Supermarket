@@ -274,22 +274,80 @@ function script_ice_3_player()
 end
 
 function create_cupcakes_in_frost_player()
-	GameController:deleteCupcake();
+	--GameController:deleteCupcake();
 
 	execDelayedAction("changeScene(\"congelados_scene\")",0)
-	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(150, -3.653, -2), QUAT(0, 0, 0, 1),1);
+	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(149, -3.653, -52), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados1",h_cupcake1);
 	GameController:setPauseEnemyByHandle(h_cupcake1,false);
+	GameController:setLifeEnemy(h_cupcake1,3,350.0);
+
+
 	
-	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(139, -3.653, 1), QUAT(0, 0, 0, 1),1);
+	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(156, -3.653, -59), QUAT(0, 0, 0, 1),1);
 	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados2",h_cupcake2);
 	GameController:setPauseEnemyByHandle(h_cupcake2,false);
+	GameController:setLifeEnemy(h_cupcake2,3,350.0);
+
+
+	h_oven1 =  GameController:entityByName("horno008");
+	h_oven2 =  GameController:entityByName("horno009");
+	h_oven3 =  GameController:entityByName("horno010");
+
+	
+	t_compSpawnOven1 = toCompEnemySpawner(toEntity(h_oven1):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven2 = toCompEnemySpawner(toEntity(h_oven2):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven3 = toCompEnemySpawner(toEntity(h_oven3):getCompByName("comp_enemy_spawner"));
+	
+
+	t_compSpawnOven1:setLifeSpawner(350.0);
+	t_compSpawnOven2:setLifeSpawner(350.0);
+	t_compSpawnOven3:setLifeSpawner(350.0);
+	
+
+
+
 	execDelayedAction("on_delete_handle(\"trigger010\")",0);
 
-	execDelayedAction("on_lock_camera3(false)",0);
+	--execDelayedAction("on_lock_camera3(false)",0);
 	--execDelayedAction("on_delete_gpu_products()",1);
-	execDelayedAction("on_lock_camera3(true)",2);
+	--execDelayedAction("on_lock_camera3(true)",2);
 end
+
+function crearTrampaHornos()
+
+	--GameController:resetCamera();
+	--execDelayedAction("on_cinematic(true)",0.0);
+	--execDelayedAction("on_lock_camera3(false)",0.0);
+	--execDelayedAction("on_blending_camera(\"CameraPanaderiaPlat\", 5,\"linear\")",0.1);
+	--execDelayedAction("on_blending_camera(\"PlayerCamera\",5,\"linear\")",13.5);
+	--execDelayedAction("on_lock_camera3(true)",18);
+	--execDelayedAction("on_cinematic(false)",18);
+	
+
+	h_oven1 =  GameController:entityByName("horno008");
+	h_oven2 =  GameController:entityByName("horno009");
+	h_oven3 =  GameController:entityByName("horno010");
+	
+	t_compSpawnOven1 = toCompEnemySpawner(toEntity(h_oven1):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven2 = toCompEnemySpawner(toEntity(h_oven2):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven3 = toCompEnemySpawner(toEntity(h_oven3):getCompByName("comp_enemy_spawner"));
+	
+	t_compSpawnOven1:setLifeSpawner(50.0);
+	t_compSpawnOven2:setLifeSpawner(50.0);
+	t_compSpawnOven3:setLifeSpawner(50.0);
+	
+
+	GameController:setLifeEnemiesByTag("cupcake",50.0);
+	GameController:spawnPrefab("data/prefabs/structures/trigger_special_oven.json", VEC3(96,-3.653, -59), QUAT(0, 0, 0, 1),1);
+
+
+end
+
+
+
+
+
 
 function wake_up_last_golem_player()
 	h_golem = GameController:entityByName("golem3"); 
@@ -680,6 +738,11 @@ end
 --Mapa Tutorial panaderia
 
 
+
+
+
+
+
 function activarSalidaPanaderia()
 
 	GameController:resetCamera();
@@ -723,7 +786,6 @@ function activarSalidaPanaderia()
 
 
 	GameController:setLifeEnemiesByTag("cupcake",50.0);
-	
 
 end
 
