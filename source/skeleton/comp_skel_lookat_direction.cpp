@@ -24,6 +24,7 @@ void TCompSkelLookAtDirection::setDefaultDirection(VEC3 defaultDirection) {
 }
 
 void TCompSkelLookAtDirection::update(float dt) {
+    return;
   TCompSkeleton* c_skel = h_skeleton;
   if (target == VEC3().Zero) {
       TCompTransform* c_trans = get<TCompTransform>();
