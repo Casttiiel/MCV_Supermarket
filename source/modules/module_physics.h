@@ -54,7 +54,7 @@ public:
     Product = 1 << 19,
 
     CCD_FLAG = 1 << 29,
-    Obstacle = Wall | Column | Spawner | TeleportableObj | ExplosiveObj | DestroyableWall,
+    Obstacle = Wall | Column /*| Spawner*/ | TeleportableObj | ExplosiveObj | DestroyableWall,
 	  Scenario = Wall | Floor,
     CameraJump = Floor | Platform, //discuss if you can jump onto more things like explosive things
 	  PlayerAndScenario = Player | Scenario,

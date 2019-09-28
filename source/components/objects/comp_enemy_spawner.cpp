@@ -8,6 +8,9 @@
 
 DECL_OBJ_MANAGER("comp_enemy_spawner", TCompEnemySpawner);
 
+
+using namespace physx;
+
 void TCompEnemySpawner::debugInMenu() {
 
 
@@ -129,6 +132,22 @@ void TCompEnemySpawner::update(float dt) {
 					_spawnTimer -= dt;
 				}
 			}
+		}
+		else {
+			/*TCompCollider* c_col = get<TCompCollider>();
+			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+			if (c_col) {
+				PxShape* colShape;
+				PxBoxGeometry box;
+				rigid_dynamic->getShapes(&colShape, 1, 1);
+				//colShape->getBoxGeometry(box);
+				box.halfExtents = PxVec3(0.1, 0.1, 0.1);
+				colShape->getBoxGeometry(box);
+
+				
+				
+			}*/
+
 		}
 	}
 	else {

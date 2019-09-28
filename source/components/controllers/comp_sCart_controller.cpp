@@ -177,7 +177,7 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 					| PxHitFlag::eNORMAL
 					;
 				TCompTransform* c_trans = get<TCompTransform>();
-				float offsetY = c_trans->getPosition().y + 4.0f;
+				float offsetY = c_trans->getPosition().y + 2.5f;//4.0
 				VEC3 pos = VEC3(c_trans->getPosition().x, offsetY, c_trans->getPosition().z);
 				VEC3 direction = c_trans->getFront();
 				auto scene = EnginePhysics.getScene();
@@ -207,6 +207,18 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 					if (closestIdx != -1) {
 						CHandle hitCollider;
 						PxShape* colShape;
+
+						/*if (hit.getAnyHit(closestIdx).actor->getNbShapes() > 1){
+							hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, 1);
+							PxFilterData col_filter_data = colShape->getSimulationFilterData();
+							if (!(col_filter_data.word0 & EnginePhysics.Trigger)) {
+								dbg("---\n");
+							}
+							else {
+								dbg("---\n");
+							}
+						}*/
+						
 						for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
 							hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
 							PxFilterData col_filter_data = colShape->getSimulationFilterData();
@@ -214,6 +226,8 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 								hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
 								if (hitCollider.isValid()) {
 									CEntity* candidate = hitCollider.getOwner();
+									//TCompName* name = candidate->get<TCompName>();
+									//dbg("name: %s\n",name->getName());
 									if (candidate != nullptr) {
 										rowImpulseLeft = 0.0f;
                                         if (!_crashAudio.isPlaying()) {
