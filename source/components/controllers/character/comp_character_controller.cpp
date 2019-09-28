@@ -484,6 +484,8 @@ void TCompCharacterController::onAir(float delta) {
         dash = dash_limit;
         startDash = true;
         EngineAudio.playEvent("event:/Character/Other/Dash");
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
     }
     else if (EngineInput["jump_"].justPressed() && can_double_jump) { //DOUBLE JUMP
         can_double_jump = false;
@@ -1213,6 +1215,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
                     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
                     //ChangeState("DAMAGED");
+                    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+                    playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, true);
                 }
             }
         }
