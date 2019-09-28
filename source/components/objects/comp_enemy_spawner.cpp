@@ -140,9 +140,7 @@ void TCompEnemySpawner::update(float dt) {
 				PxShape* colShape;
 				PxBoxGeometry box;
 				rigid_dynamic->getShapes(&colShape, 1, 1);
-				//colShape->getBoxGeometry(box);
-				box.halfExtents = PxVec3(0.1, 0.1, 0.1);
-				colShape->getBoxGeometry(box);
+				
 
 				
 				

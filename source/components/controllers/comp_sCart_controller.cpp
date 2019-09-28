@@ -208,16 +208,6 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 						CHandle hitCollider;
 						PxShape* colShape;
 
-						/*if (hit.getAnyHit(closestIdx).actor->getNbShapes() > 1){
-							hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, 1);
-							PxFilterData col_filter_data = colShape->getSimulationFilterData();
-							if (!(col_filter_data.word0 & EnginePhysics.Trigger)) {
-								dbg("---\n");
-							}
-							else {
-								dbg("---\n");
-							}
-						}*/
 						
 						for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
 							hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
