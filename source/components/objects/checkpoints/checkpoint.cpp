@@ -38,7 +38,7 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
     playerStatus.playerRot = playerRotation;
     playerStatus.saved = true;
 
-	//Nuevo hay que testear
+	
 	CEntity* e_player = EngineEntities.getPlayerHandle();
 	CEntity* e_inventory = getEntityByName("Inventory");
 	TCompInventory* inventory = e_inventory->get<TCompInventory>();
@@ -100,6 +100,7 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
 			TCompEnemySpawner* comp_enemy = e_entity->get<TCompEnemySpawner>();
 			if(comp_enemy != nullptr) {
  				status.lifeCupcake = comp_enemy->getLifeSpawner();
+				status.comportamentNormal = comp_enemy->getComportamentNormal();
 			}
 		}
 		else if (status.entityType == EntityType::GOLEM) {
@@ -191,6 +192,7 @@ bool CCheckpoint::loadCheckPoint()
 			else if (entity.entityType == EntityType::CUPCAKE_SPAWNER) {
 				TCompEnemySpawner* comp_enemy = spawnedEntity->get<TCompEnemySpawner>();
 				comp_enemy->setLifeSpawner(entity.lifeCupcake);
+				comp_enemy->setComportamentNormal(entity.comportamentNormal);
 			}
         }
         return true;

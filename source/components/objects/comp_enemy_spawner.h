@@ -25,6 +25,7 @@ public:
   void setScriptTriggerActivate(bool activate);
   void setCurveForSpawner(std::string curveForCupcake);
   void setComportamentNormal(int value);
+  int getComportamentNormal();
   void setSpawnDelay(float newtime);
   bool working = true;
 

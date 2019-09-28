@@ -193,6 +193,10 @@ void TCompEnemySpawner::setComportamentNormal(int value) {
 	comportamentNormal = value;
 }
 
+int TCompEnemySpawner::getComportamentNormal() {
+	return comportamentNormal;
+}
+
 void TCompEnemySpawner::setSpawnDelay(float newtime) {
 	_spawnDelay = newtime;
 }
