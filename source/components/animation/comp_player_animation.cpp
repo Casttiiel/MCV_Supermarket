@@ -355,7 +355,7 @@ void TCompPlayerAnimator::initializeAnimations() {
 
     initializeAnimation(
         (TCompAnimator::EAnimation)EAnimation::FIRE_LOOP,
-        EAnimationType::CYCLIC,
+        EAnimationType::ACTION,
         EAnimationSize::SINGLE,
         "FIRE_LOOP",
         "",
@@ -366,7 +366,7 @@ void TCompPlayerAnimator::initializeAnimations() {
 
     initializeAnimation(
         (TCompAnimator::EAnimation)EAnimation::FIRE_LOOP_PARTIAL,
-        EAnimationType::CYCLIC,
+        EAnimationType::ACTION,
         EAnimationSize::SINGLE,
         "FIRE_LOOP_PARTIAL",
         "",

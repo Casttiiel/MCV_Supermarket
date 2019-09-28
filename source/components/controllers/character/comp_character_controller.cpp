@@ -580,6 +580,9 @@ void TCompCharacterController::dead(float delta) {
     c_bb->playerIsDeath(true);
     //------------------
 
+    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+    playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.f, true);
+
 
     if (EngineInput["checkpoint_"].justPressed()) {
         GameController.loadCheckpoint();
@@ -684,6 +687,7 @@ void TCompCharacterController::getInputForce(VEC3 &dir) {
 
 
     dir *= speed * length;
+    movementDirection = dir;
 }
 
 void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool start_dash) {
@@ -1198,6 +1202,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 life = 0.0f;
                 EngineAudio.playEvent("event:/Character/Voice/Player_Death");
                 ChangeState("DEAD");
+                TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+                playerAnima->playAnimation(TCompPlayerAnimator::DIE, 1.f, true);
             }
             else {
 

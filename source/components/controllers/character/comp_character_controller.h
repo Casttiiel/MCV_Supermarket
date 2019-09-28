@@ -49,6 +49,7 @@ public:
   void restoreMadness();
   float getMaxMadness();
   bool getIsMounted() { return isMounted; }
+  VEC3 getMovementDirection() { return movementDirection; }
 
   /*bool unLockableBattery = false;
   bool unLockableTeleport = false;
@@ -56,7 +57,7 @@ public:
   bool unLockableCoffe = false;*/
   bool cinematic = false;
 private:
-
+    VEC3 movementDirection = VEC3().Zero;
 	int typeRender = 2;
   //Shopping Cart
   bool isMounted = false;
