@@ -425,13 +425,11 @@ float4 PS_Ambient(
 
   /*float4 final_color = (float4(env_fresnel * env * g_ReflectionIntensity + 
                               g.albedo.xyz * irradiance * g_AmbientLightIntensity
-                              , 1.0f) * GlobalAmbientBoost);*/
-  float4 final_color = (float4(g.albedo.xyz * g_AmbientLightIntensity
-      , 1.0f) * GlobalAmbientBoost);
-  final_color.xyz += g.self_illum;
+                              , 1.0f) * GlobalAmbientBoost) * ao;
+  final_color.xyz += g.self_illum;*/
 
-  ao = pow(ao,ao_power);
-
+  //-------------------
+  //comic shading
   float2 uv =  1.0f / 0.2f;
   uv *= iPosition.xy * CameraInvResolution.y;
   const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
@@ -440,10 +438,17 @@ float4 PS_Ambient(
   float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
   float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
 
-  final_color -= (brush * ao) * final_color * 0.3f;
-  final_color -= (brush * 1-ao) * final_color * 0.3f;
+  float4 final_color = float4(g.albedo.xyz * g_AmbientLightIntensity
+      , 1.0f) * GlobalAmbientBoost * ao;
+  final_color.xyz += g.self_illum;
 
-  return final_color;
+
+  float4 static_dots = brush * final_color * 0.3f;
+  float4 ao_dots = brush * final_color * (1-ao);
+  float4 dots = static_dots + ao_dots;
+  //end comic shading
+  //-------------------
+  return final_color - dots;
 }
 
 // ----------------------------------------
@@ -502,7 +507,7 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
     float3 PosLightHomoSpace = PosLightProjection.xyz / PosLightProjection.w;
 
     float4 texture_color = txProjector.Sample(samBorderColor, PosLightHomoSpace.xy);
-    shadow_factor *= texture_color.x;
+    //shadow_factor *= texture_color.x;
   }
 
   // From wPos to Light
@@ -525,7 +530,7 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   att = 1. - att;
 
   //------------------
-  //zelda botw shading
+  //comic shading
   float lut = NdL;
   lut = smoothstep(shadow_ramp-0.01f,shadow_ramp,lut);
 
@@ -538,15 +543,17 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   };
   float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
   float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
-  //-------------------
   float3 final_color = lut * color * shadow_factor;
-  //float3 final_color = LightColor.xyz * NdL * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
   /*if(shadow_factor < 0.0){
     final_color -= (brush * color * shadow_factor * lut) * 2;
   }else{
     
   }*/
-  final_color += (brush * color * shadow_factor * lut) * 2;
+  float signo = shadow_factor * lut >= 0.8 ? 1 : -0.3;
+  final_color += (brush * color * shadow_factor * lut) * 2 * signo;
+  //end comic shading
+  //-------------------
+  //float3 final_color = LightColor.xyz * NdL * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
   
   return float4(final_color, 1);
 }
