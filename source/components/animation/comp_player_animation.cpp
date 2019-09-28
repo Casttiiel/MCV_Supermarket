@@ -67,6 +67,30 @@ void TCompPlayerAnimator::debugInMenu() {
     if (ImGui::SmallButton("WALK")) {
         playAnimation(EAnimation::WALK, speed);
     }
+    if (ImGui::SmallButton("DEAD")) {
+        playAnimation(EAnimation::DEAD, speed);
+    }
+    if (ImGui::SmallButton("DIE")) {
+        playAnimation(EAnimation::DIE, speed);
+    }
+    if (ImGui::SmallButton("FIRE_END")) {
+        playAnimation(EAnimation::FIRE_END, speed);
+    }
+    if (ImGui::SmallButton("FIRE_END_PARTIAL")) {
+        playAnimation(EAnimation::FIRE_END_PARTIAL, speed);
+    }
+    if (ImGui::SmallButton("FIRE_LOOP")) {
+        playAnimation(EAnimation::FIRE_LOOP, speed);
+    }
+    if (ImGui::SmallButton("FIRE_LOOP_PARTIAL")) {
+        playAnimation(EAnimation::FIRE_LOOP_PARTIAL, speed);
+    }
+    if (ImGui::SmallButton("FIRE_START")) {
+        playAnimation(EAnimation::FIRE_START, speed);
+    }
+    if (ImGui::SmallButton("FIRE_START_PARTIAL")) {
+        playAnimation(EAnimation::FIRE_START_PARTIAL, speed);
+    }
 
 
     ImGui::DragFloat("Delta Movement", &delta_movement, 0.01f, 0, 1.f);
@@ -282,6 +306,94 @@ void TCompPlayerAnimator::initializeAnimations() {
         "",
         "",
         0.5f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::DEAD,
+        EAnimationType::CYCLIC,
+        EAnimationSize::SINGLE,
+        "DEAD",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::DIE,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "DIE",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::FIRE_END,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "FIRE_END",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::FIRE_END_PARTIAL,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "FIRE_END_PARTIAL",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::FIRE_LOOP,
+        EAnimationType::CYCLIC,
+        EAnimationSize::SINGLE,
+        "FIRE_LOOP",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::FIRE_LOOP_PARTIAL,
+        EAnimationType::CYCLIC,
+        EAnimationSize::SINGLE,
+        "FIRE_LOOP_PARTIAL",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::FIRE_START,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "FIRE_START",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::FIRE_START_PARTIAL,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "FIRE_START_PARTIAL",
+        "",
+        "",
+        1.0f,
         1.0f
     );
 
