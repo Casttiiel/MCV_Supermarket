@@ -15,10 +15,12 @@ public:
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
   bool canBeDestroyed(VEC3 battery_pos);
+  void enableWind() { activateWind = true; }
 
   static void registerMsgs();
 
 private:
+  bool activateWind = false;
 	bool _isEnabled = false;
   bool is_destroyed = false;
 	float windForce = 50.f;

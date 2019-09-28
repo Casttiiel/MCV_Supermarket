@@ -56,7 +56,7 @@ void TCompTeleport::rayCast() {
   PxRaycastBuffer hit;
   PxRaycastHit hitBuffer[10];
   hit = PxRaycastBuffer(hitBuffer, 10);
-  PxReal _maxDistance = 50.f;
+  PxReal _maxDistance = 40.f;
   bool colDetected = scene->raycast(
     VEC3_TO_PXVEC3(pos),
     VEC3_TO_PXVEC3(direction),

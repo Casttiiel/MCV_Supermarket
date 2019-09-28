@@ -598,7 +598,7 @@ void TCompCharacterController::win(float delta) {
 	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.f, true);
     if (EngineInput["checkpoint_"].justPressed()) {
         endGame = false;
-        ChangeState("GROUNDED");
+       // ChangeState("GROUNDED");
 
     }
 
@@ -913,7 +913,7 @@ void TCompCharacterController::attack(float delta) {
             PxOverlapBuffer buf(hitBuffer, bufferSize);
             PxTransform shapePose = PxTransform(pos, ori);
             PxQueryFilterData filter_data = PxQueryFilterData();
-            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall | EnginePhysics.Panel;
+            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall | EnginePhysics.Panel | EnginePhysics.Product;
             bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
             if (res) {
                 for (PxU32 i = 0; i < buf.nbTouches; i++) {
@@ -1097,7 +1097,7 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
             else if (strcmp("endgame", tag.c_str()) == 0) {
                 //..en el futuro GameState GameOver
                 endGame = true;
-                dismount();
+                //dismount();
                 ChangeState("WIN");
 
             }
@@ -1445,13 +1445,13 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::ACTIVATE_BATTERY:
       {
           //TODO
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setBattery(true);
+		      CEntity* entity = EngineEntities.getInventoryHandle();
+		      TCompInventory* inventory = entity->get<TCompInventory>();
+		      inventory->setBattery(true);
           //unLockableBattery = true;
 		      //llamada funcion de scripting para poder escapar
-			Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
-			Scripting.execActionDelayed("saveCheckpoint()", 20.0);
+			    //Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
+			    //Scripting.execActionDelayed("saveCheckpoint()", 20.0);
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }
@@ -1462,7 +1462,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  TCompInventory* inventory = entity->get<TCompInventory>();
 		  inventory->setChilli(true);
 		  //unLockableChilli = true;
-          GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
+          //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           CEntity* e1 = getEntityByName("Hielo2_LP");
           TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
@@ -1484,20 +1484,20 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::ACTIVATE_COFFEE:
       {
           //TODO
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setCoffe(true);
-		  //unLockableCoffe = true;
+		      CEntity* entity = EngineEntities.getInventoryHandle();
+		      TCompInventory* inventory = entity->get<TCompInventory>();
+		      inventory->setCoffe(true);
+		      //unLockableCoffe = true;
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }
       case PowerUpType::ACTIVATE_TELEPORT:
       {
 
-		  //unLockableTeleport = true;
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setTeleport(true);
+		      //unLockableTeleport = true;
+		      CEntity* entity = EngineEntities.getInventoryHandle();
+		      TCompInventory* inventory = entity->get<TCompInventory>();
+		      inventory->setTeleport(true);
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }

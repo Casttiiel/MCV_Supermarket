@@ -22,7 +22,7 @@ fn isLine obj = (
 )
 
 fn isDirLight obj = (
-	return obj != undefined and (classof obj == Directionallight or classof obj == freeSpot or classof obj == targetSpot) and obj.parent == null
+	return obj != undefined and (classof obj == targetSpot) and obj.parent == null
 )
 
 fn isTrigger obj = (
@@ -45,8 +45,8 @@ fn isMaxShit obj = (
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
+	project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
+	--project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
@@ -365,9 +365,7 @@ struct TSceneExporter (
 				
 			fs.endObj()
 		)
-		
-		
-		
+
 	),
 	
 	----------------------------------------------------------
@@ -380,9 +378,7 @@ struct TSceneExporter (
 		fs.writeKeyValue "near" 5
 		fs.writeComma()
 		
-		local target = getnodebyname (obj.name + ".Target")
-		format "%\n\n\n\n\n\n\n\n\n\n" target
-		fs.writeKeyValue "far" (distance target.pos obj.pos)
+		fs.writeKeyValue "far" (obj.targetDistance)
 		fs.writeComma()
 		
 		fs.writeKeyValue "fov" obj.hotspot
@@ -405,6 +401,8 @@ struct TSceneExporter (
 		
 		fs.writeKeyValue "shadows_step" 2.0
 		fs.writeComma()
+		
+		fs.writeKeyValue "projector" "data/textures/punto_de_luz.dds"
 			
 		fs.endObj()
 	),
@@ -685,7 +683,7 @@ struct TSceneExporter (
 				if canConvertTo obj Editable_mesh then exportEditableMesh obj
 				)
 				if isPointLight obj then exportPointLight obj
-				--if isDirLight obj then exportDirLight obj
+				if isDirLight obj then exportDirLight obj
 			--else (
 			--	format "Warning. Don't kwow how to export obj % of class %\n" obj.name ((classof obj) as string)
 			)
