@@ -526,32 +526,10 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
 
   //------------------
   //zelda botw shading
-  float ao = txAO.Sample( samLinear, iPosition.xy * CameraInvResolution).x;
   float lut = NdL;
-  ao = pow(ao,ao_power);
   lut = smoothstep(shadow_ramp-0.01f,shadow_ramp,lut);
 
-  /*float rim = (1 - saturate(dot(-g.view_dir,light_dir) + 0.0f)) + 0.1f;
-  float3 incident_dir = normalize(worldPos - CameraPosition.xyz);
-  float fresnel_term = 1 - saturate( dot( g.N, -incident_dir) );
-  fresnel_term = pow( fresnel_term, 10 );
-  float rimColor = step(rim,fresnel_term);
-  float rimShine = step(rim + 0.1f,fresnel_term);
-  rimShine = saturate(rimShine * lut);*/
-
   float3 color = LightColor.xyz * (cDiff) * LightIntensity * color_intensity * att;
-
-  /*float2 uv =  g.zlinear * (5.0 / brush_size);
-  uv *= float2(iPosition.xy * CameraInvResolution);
-  const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
-    sin(brush_rotation), cos(brush_rotation)
-  };
-  float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
-  float brush = txNoise.Sample(samLinear,rot_uv).x;
-  float3 env_fresnel = Specular_F_Roughness(g.specular_color, 1. - g.roughness * g.roughness, g.N, g.view_dir);
-  float customSpecular = step(1 - specular_ramp, g.metallic + cSpec );//length(cSpec) + env_fresnel
-  customSpecular *= brush * lut;
-  customSpecular = smoothstep(specular_brush_ramp - 0.1, specular_brush_ramp, customSpecular) * specular_strength;*/
 
   float2 uv = 1.0 / 0.2;
   uv *= iPosition.xy * CameraInvResolution.y;
@@ -563,7 +541,13 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   //-------------------
   float3 final_color = lut * color * shadow_factor;
   //float3 final_color = LightColor.xyz * NdL * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
+  /*if(shadow_factor < 0.0){
+    final_color -= (brush * color * shadow_factor * lut) * 2;
+  }else{
+    
+  }*/
   final_color += (brush * color * shadow_factor * lut) * 2;
+  
   return float4(final_color, 1);
 }
 
