@@ -878,7 +878,7 @@ int CBTSushi::actionMelee1() {
         damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
 
         physx::PxFilterData pxFilterData;
-        pxFilterData.word0 = EnginePhysics.Player | EnginePhysics.Product;
+        pxFilterData.word0 = EnginePhysics.Player;
         physx::PxQueryFilterData PxPlayerFilterData;
         PxPlayerFilterData.data = pxFilterData;
         PxPlayerFilterData.flags = physx::PxQueryFlag::eDYNAMIC;
@@ -941,7 +941,7 @@ int CBTSushi::actionMelee2() {
         damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
 
         physx::PxFilterData pxFilterData;
-        pxFilterData.word0 = EnginePhysics.Player | EnginePhysics.Product;
+        pxFilterData.word0 = EnginePhysics.Player;
         physx::PxQueryFilterData PxPlayerFilterData;
         PxPlayerFilterData.data = pxFilterData;
         PxPlayerFilterData.flags = physx::PxQueryFlag::eDYNAMIC;
@@ -1003,7 +1003,7 @@ int CBTSushi::actionMelee3() {
         damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
 
         physx::PxFilterData pxFilterData;
-        pxFilterData.word0 = EnginePhysics.Player | EnginePhysics.Product;
+        pxFilterData.word0 = EnginePhysics.Player;
         physx::PxQueryFilterData PxPlayerFilterData;
         PxPlayerFilterData.data = pxFilterData;
         PxPlayerFilterData.flags = physx::PxQueryFlag::eDYNAMIC;
@@ -1849,7 +1849,7 @@ void CBTSushi::onCollision(const TMsgOnContact& msg) {
             PxFilterData col_filter_data = colShape->getSimulationFilterData();
 
             //If I collide with the player while I'm charging, I send TMsgDamageToPlayer
-            if (col_filter_data.word0 & EnginePhysics.Player || col_filter_data.word0 & EnginePhysics.Product) {
+            if (col_filter_data.word0 & EnginePhysics.Player) {
                 if (currentState == States::Charge) {
                     meleeTimer = meleeDelay;
                     collided = true;

@@ -59,8 +59,6 @@ void TCompCamera3rdPerson::resetCamera() {
     return;
 
   CEntity* eTarget = _target;
-  if (!eTarget)
-    return;
   TCompTransform* cTargetTransform = eTarget->get<TCompTransform>();
   if (!cTargetTransform)
     return;
@@ -110,46 +108,45 @@ void TCompCamera3rdPerson::resetCamera() {
   VEC3 targetPos = finalPos + dir * distance;
 
   cTransform->lookAt(finalPos, targetPos);
-
-  first_reset = true;
 }
 
 void TCompCamera3rdPerson::update(float scaled_dt)
 {
-  if(!first_reset)// so the camera starts with the player
-    resetCamera();
   scaled_dt = Time.delta_unscaled;
   if (scaled_dt >= 0.03333f) { //less than 30 frames per second it will be loading
     scaled_dt = 0.03333f; //update it as if it was moving normally
   }
 
 	if(!isPause){
+	  scaled_dt = Time.delta_unscaled;
+	  if (scaled_dt > 1.0)
+		return;
 
 	  if (EngineInput[VK_F2].justPressed()) {
-		  mouse_active = !mouse_active;
+		mouse_active = !mouse_active;
 	  }
 
 	  if (!_target.isValid())
 	  {
-		  _target = getEntityByName(_targetName);
+		_target = getEntityByName(_targetName);
 
-		  if (!_target.isValid())
-		    return;
+		if (!_target.isValid())
+		  return;
 	  }
 
 	  if (EngineInput["reset_camera_"].justPressed()) {
-		  resetCamera();
-		  return;
+		resetCamera();
+		return;
 	  }
 
 	  TCompTransform* cTransform = get<TCompTransform>();
 	  if (!cTransform)
-		  return;
+		return;
 
 	  CEntity* eTarget = _target;
 	  TCompTransform* cTargetTransform = eTarget->get<TCompTransform>();
 	  if (!cTargetTransform)
-		  return;
+		return;
 
 	  // treat input
 	  float pitch_rotation = 0.0f;
@@ -168,9 +165,9 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 	  _ratio = clamp(_ratio + ratioOffset, 0.f, 0.99999f);
 
 	  // curve transform movement
+	  float cameraHeight = cameraMovementOnJump();
 	  const MAT44 mRotation = MAT44::CreateFromYawPitchRoll(_yaw, 0.f, 0.f);
 	  VEC3 playerPos = cTargetTransform->getPosition();
-    //float cameraHeight = cameraMovementOnJump();
 	  /*if (!actualCameraHeight) {//first time only
 		actualCameraHeight = cameraHeight;
 		playerPos.y = cameraHeight;
@@ -190,10 +187,10 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 
 	  //treat if is aiming or not
 	  if (aiming) {
-		  actualAimTransitionTime += scaled_dt;
+		actualAimTransitionTime += scaled_dt;
 	  }
 	  else {
-		  actualAimTransitionTime -= scaled_dt;
+		actualAimTransitionTime -= scaled_dt;
 	  }
 	  actualAimTransitionTime = clamp(actualAimTransitionTime, 0.f, aimTransitionTime);
 	  interpolation = Interpolator::quadInOut(0.f, 1.f, actualAimTransitionTime / aimTransitionTime);
@@ -214,7 +211,7 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 
 	  //if not moving, move camera around pulse curve
 	  if (!isPlayerMoving() && !isCameraRotating()) {
-		  pulseRatio = clamp(pulseRatio + scaled_dt * 0.05f, 0.f, 0.99999f);
+		pulseRatio = clamp(pulseRatio + scaled_dt * 0.05f, 0.f, 0.99999f);
 		if (pulseRatio == 0.99999f)
 		  pulseRatio = 0.f;
 	  }
@@ -242,10 +239,10 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 		 }
 	  }
 	  else { //COLLIDES, ASYMPTOTIC AVERAGE ON COLLISION MOVEMENT
-		  lastPosWasCollision = true;
-		  //finalPos = lastPos + (semiFinalPos - lastPos) * smoothSpeed * 4.0f * scaled_dt; //ASYMPTOTIC AVERAGE
-		  finalPos = Damp(lastPos, semiFinalPos, smoothSpeed * 4.0f, scaled_dt);
-		  //dbg("Collision at %f %f %f\n", finalPos.x, finalPos.y, finalPos.z);
+		lastPosWasCollision = true;
+		//finalPos = lastPos + (semiFinalPos - lastPos) * smoothSpeed * 4.0f * scaled_dt; //ASYMPTOTIC AVERAGE
+		finalPos = Damp(lastPos, semiFinalPos, smoothSpeed * 4.0f, scaled_dt);
+		//dbg("Collision at %f %f %f\n", finalPos.x, finalPos.y, finalPos.z);
 	  }
 	  lastPos = finalPos;
   

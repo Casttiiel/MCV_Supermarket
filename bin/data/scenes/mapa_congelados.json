@@ -6,7 +6,7 @@
       ,
       "transform":
       {
-        "pos": "155.012 -3.25313 55.7244"
+        "pos": "149.674 -3.25313 55.7244"
         ,
         "rotation": "0.0 -1.0 0.0 2.8213e-07"
       }
@@ -22,7 +22,7 @@
       ,
       "transform":
       {
-        "pos": "69.9825 -3.23547 -1.16917"
+        "pos": "72.0437 -3.23547 -1.16917"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -173,7 +173,7 @@
       ,
       "transform":
       {
-        "pos": "151.814 12.0707 12.5767"
+        "pos": "146.477 12.0707 12.5767"
         ,
         "rotation": "0.0 -1.0 0.0 2.8213e-07"
       }
@@ -262,27 +262,11 @@
   {
     "entity":
     {
-      "name": "Player"
-      ,
-      "transform":
-      {
-        "pos": "183.754 -3.63553 -16.3953"
-        ,
-        "rotation": "0.0 0.707107 0.0 -0.707107"
-      }
-      ,
-      "prefab": "data/prefabs/character/player.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "Box040"
       ,
       "transform":
       {
-        "pos": "152.501 10.781 13.2621"
+        "pos": "147.163 10.781 13.2621"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -568,7 +552,7 @@
       ,
       "transform":
       {
-        "pos": "148.66 -4.87357 1.01111"
+        "pos": "143.323 -4.87357 1.01111"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -684,7 +668,7 @@
       ,
       "transform":
       {
-        "pos": "175.364 -3.89349 -17.4797"
+        "pos": "170.026 -3.89349 -17.4797"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -770,7 +754,7 @@
       ,
       "transform":
       {
-        "pos": "95.503 -17.2221 -10.2659"
+        "pos": "41.5567 -17.2221 -10.2659"
         ,
         "rotation": "0.0 0.707107 0.0 -0.707107"
       }
@@ -809,11 +793,51 @@
   {
     "entity":
     {
+      "name": "estanteria_nevera_pasillo002"
+      ,
+      "transform":
+      {
+        "pos": "181.881 -3.66876 -7.8064"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo002.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo002.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "estanteria_nevera_pasillo003"
       ,
       "transform":
       {
-        "pos": "175.412 -3.66876 -7.3347"
+        "pos": "170.074 -3.66876 -7.8064"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -835,6 +859,406 @@
       "render":
       {
         "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo003.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo007"
+      ,
+      "transform":
+      {
+        "pos": "164.887 -3.66876 -23.974"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo007.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo007.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo008"
+      ,
+      "transform":
+      {
+        "pos": "177.371 -3.66876 -23.974"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo008.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo008.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo009"
+      ,
+      "transform":
+      {
+        "pos": "134.307 -3.66876 -69.6738"
+        ,
+        "rotation": "0.0 -0.996195 0.0 -0.0871559"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo009.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo009.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo010"
+      ,
+      "transform":
+      {
+        "pos": "121.185 -3.66876 -70.7364"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo010.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo010.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo012"
+      ,
+      "transform":
+      {
+        "pos": "95.8509 -3.66876 -68.7964"
+        ,
+        "rotation": "0.0 -0.999048 0.0 0.0436195"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo012.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo012.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo013"
+      ,
+      "transform":
+      {
+        "pos": "83.3214 -3.66876 -67.0998"
+        ,
+        "rotation": "0.0 -0.996195 0.0 0.0871558"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo013.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo013.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo014"
+      ,
+      "transform":
+      {
+        "pos": "111.224 -3.66876 -54.8556"
+        ,
+        "rotation": "0.0 -1.50996e-07 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo014.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo014.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo015"
+      ,
+      "transform":
+      {
+        "pos": "97.388 -3.66876 -53.401"
+        ,
+        "rotation": "0.0 -0.0436195 0.0 -0.999048"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo015.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo015.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo016"
+      ,
+      "transform":
+      {
+        "pos": "82.9814 -3.66876 -51.3928"
+        ,
+        "rotation": "0.0 -0.0871559 0.0 -0.996195"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo016.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo016.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "estanteria_nevera_pasillo018"
+      ,
+      "transform":
+      {
+        "pos": "154.664 -3.66876 -45.2644"
+        ,
+        "rotation": "0.0 -0.537299 0.0 -0.843392"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo018.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo018.mesh"
         ,
         "color": "0.0313726 0.239216 0.541176 1.0"
         ,
@@ -1173,7 +1597,7 @@
       ,
       "transform":
       {
-        "pos": "45.7513 -3.61967 -20.0444"
+        "pos": "47.2982 -3.61967 -52.6492"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1205,7 +1629,7 @@
       ,
       "transform":
       {
-        "pos": "143.283 -3.25313 49.5161"
+        "pos": "137.945 -3.25313 49.5161"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1377,11 +1801,51 @@
   {
     "entity":
     {
+      "name": "estanteria_nevera_pasillo030"
+      ,
+      "transform":
+      {
+        "pos": "146.457 -3.66876 -65.6965"
+        ,
+        "rotation": "0.0 -0.965926 0.0 -0.258819"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo030.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo030.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "techo_congelados"
       ,
       "transform":
       {
-        "pos": "52.0121 -6.32978 -24.6274"
+        "pos": "52.0909 -6.32978 -24.6274"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1405,15 +1869,132 @@
   {
     "entity":
     {
+      "name": "estanteria_nevera_pasillo002"
+      ,
+      "transform":
+      {
+        "pos": "155.062 -3.66876 -56.9143"
+        ,
+        "rotation": "0.0 -0.819152 0.0 -0.573576"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_estanteria_nevera_pasillo002.col_mesh"
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_estanteria_nevera_pasillo002.mesh"
+        ,
+        "color": "0.0313726 0.239216 0.541176 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "plat1346474"
+      ,
+      "transform":
+      {
+        "pos": "168.68 -14.181 -15.4305"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "2.8028 0.19 2.86704"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.19 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346474.mesh"
+        ,
+        "color": "0.541176 0.0313726 0.431373 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "tpobj004"
+      ,
+      "transform":
+      {
+        "pos": "168.718 -13.7424 -15.2477"
+        ,
+        "rotation": "0.0 -1.0 0.0 0.0"
+      }
+      ,
+      "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "tpobj006"
+      ,
+      "transform":
+      {
+        "pos": "184.2 -3.3601 -10.454"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/structures/teleport_box.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "CameraPanel001"
       ,
       "transform":
       {
-        "pos": "150.576 14.7625 6.01879"
+        "pos": "145.238 14.7625 6.01879"
         ,
         "rotation": "0.0225122 -0.793345 0.607645 0.0293921"
         ,
-        "lookat": "151.603 11.0142 19.8717"
+        "lookat": "146.266 11.0142 19.8717"
       }
       ,
       "camera":
@@ -1436,11 +2017,11 @@
       ,
       "transform":
       {
-        "pos": "149.101 8.1243 8.45897"
+        "pos": "143.763 8.1243 8.45897"
         ,
         "rotation": "0.0283003 -0.768442 0.638385 0.0340658"
         ,
-        "lookat": "152.629 0.688662 48.1744"
+        "lookat": "147.291 0.688662 48.1744"
       }
       ,
       "camera":
@@ -1463,11 +2044,11 @@
       ,
       "transform":
       {
-        "pos": "154.731 12.7269 -41.1805"
+        "pos": "149.394 12.7269 -41.1805"
         ,
         "rotation": "-0.00908486 -0.726473 0.687068 -0.0096059"
         ,
-        "lookat": "153.131 9.34868 19.3437"
+        "lookat": "147.793 9.34868 19.3437"
       }
       ,
       "camera":
@@ -1490,7 +2071,7 @@
       ,
       "transform":
       {
-        "pos": "130.345 -3.65263 -53.9255"
+        "pos": "125.007 -3.65263 -53.9255"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
@@ -1518,7 +2099,7 @@
       ,
       "transform":
       {
-        "pos": "160.683 -3.65261 -7.55091"
+        "pos": "155.346 -3.65261 -7.55091"
         ,
         "rotation": "0.0 -0.999456 0.0 -0.0329902"
       }
@@ -1546,7 +2127,7 @@
       ,
       "transform":
       {
-        "pos": "144.291 -3.65261 -16.0504"
+        "pos": "138.391 -3.65261 -13.7377"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1586,12 +2167,24 @@
       ,
       "transform":
       {
-        "pos": "120.743 5.29089 -59.7545"
+        "pos": "120.392 5.29089 -59.7545"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "abs_aabb": {}
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "trimesh"
+            ,
+            "collision_mesh": "data/meshes/mapa_congelados_acc_congelados.col_mesh"
+          }
+        ]
+      }
       ,
       "render":
       {
@@ -1614,7 +2207,7 @@
       ,
       "transform":
       {
-        "pos": "151.366 11.7521 39.5272"
+        "pos": "146.029 6.0783 39.5272"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1750,7 +2343,7 @@
       ,
       "transform":
       {
-        "pos": "140.426 -3.65262 -22.4806"
+        "pos": "135.088 -3.65262 -22.4806"
         ,
         "rotation": "0.0 -0.707107 0.0 -0.707107"
       }
@@ -1778,7 +2371,7 @@
       ,
       "transform":
       {
-        "pos": "142.477 -3.65261 -32.0522"
+        "pos": "137.14 -3.65261 -32.0522"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1818,7 +2411,7 @@
       ,
       "transform":
       {
-        "pos": "147.451 -3.65261 -47.6154"
+        "pos": "142.114 -3.65261 -47.6154"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1858,7 +2451,7 @@
       ,
       "transform":
       {
-        "pos": "133.237 -3.65261 -70.2488"
+        "pos": "127.9 -3.65261 -70.2488"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1898,7 +2491,7 @@
       ,
       "transform":
       {
-        "pos": "125.746 -3.65261 -55.4068"
+        "pos": "120.409 -3.65261 -55.4068"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -1978,7 +2571,7 @@
       ,
       "transform":
       {
-        "pos": "57.359 -6.32978 -24.6274"
+        "pos": "52.0213 -6.32978 -24.6274"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2018,7 +2611,7 @@
       ,
       "transform":
       {
-        "pos": "57.359 -6.32978 -24.6274"
+        "pos": "52.0213 -6.32978 -24.6274"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2058,9 +2651,9 @@
       ,
       "transform":
       {
-        "pos": "48.6184 -3.02683 -53.8381"
+        "pos": "48.6184 -3.43138 -53.8381"
         ,
-        "rotation": "0.0 -1.0 0.0 0.0"
+        "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "prefab": "data/prefabs/powers/powerUp_extintor.json"
@@ -2074,7 +2667,7 @@
       ,
       "transform":
       {
-        "pos": "152.917 -4.27469 41.7934"
+        "pos": "147.579 -4.27469 41.7934"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2339,7 +2932,7 @@
       ,
       "transform":
       {
-        "pos": "82.5974 -3.98659 -59.7548"
+        "pos": "76.4413 -3.98659 -58.0449"
         ,
         "rotation": "0.0 0.0 0.173648 -0.984808"
       }
@@ -2400,7 +2993,7 @@
       ,
       "transform":
       {
-        "pos": "181.974 -3.89349 -17.4797"
+        "pos": "176.636 -3.89349 -17.4797"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -2438,32 +3031,20 @@
   {
     "entity":
     {
-      "name": "neveramapeada"
+      "name": "nevera_mapeada"
       ,
       "transform":
       {
-        "pos": "174.679 -3.66876 -24.2182"
+        "pos": "108.522 -3.66876 -69.5732"
         ,
         "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
       "abs_aabb": {}
       ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_neveramapeada.col_mesh"
-          }
-        ]
-      }
-      ,
       "render":
       {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_neveramapeada.mesh"
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_nevera_mapeada.mesh"
         ,
         "color": "0.568627 0.109804 0.694118 1.0"
         ,
@@ -2478,2880 +3059,84 @@
   {
     "entity":
     {
-      "name": "lineproducts001"
+      "name": "puertas_neveras"
       ,
       "transform":
       {
-        "pos": "169.414 -0.649142 -24.1974"
+        "pos": "105.432 -1.14105 -69.0166"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "0.0 -0.952169 0.0 -0.305571"
       }
       ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "169.594 -0.649142 -24.1972"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "169.774 -0.649142 -24.1969"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "169.954 -0.649142 -24.1966"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "170.134 -0.649142 -24.1964"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "170.314 -0.649142 -24.1961"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "170.494 -0.649142 -24.1958"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "170.674 -0.649142 -24.1956"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "170.854 -0.649142 -24.1953"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "171.034 -0.649142 -24.1951"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "171.214 -0.649142 -24.1948"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "171.394 -0.649142 -24.1946"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "171.574 -0.649142 -24.1943"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "171.754 -0.649142 -24.1941"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "171.934 -0.649142 -24.1938"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "172.114 -0.649142 -24.1936"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "172.294 -0.649142 -24.1934"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "172.474 -0.649142 -24.1931"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "172.654 -0.649142 -24.1929"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "172.834 -0.649142 -24.1927"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product11.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "173.014 -0.649142 -24.1925"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "173.194 -0.649142 -24.1923"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product11.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "173.374 -0.649142 -24.1921"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "173.554 -0.649142 -24.1919"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "173.734 -0.649142 -24.1917"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "173.914 -0.649142 -24.1915"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "174.094 -0.649142 -24.1913"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "174.274 -0.649142 -24.1911"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "174.454 -0.649142 -24.191"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "174.634 -0.649142 -24.1908"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "174.814 -0.649142 -24.1907"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "174.994 -0.649142 -24.1905"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "175.174 -0.649142 -24.1904"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "175.354 -0.649142 -24.1903"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "175.534 -0.649142 -24.1901"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "175.714 -0.649142 -24.19"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "175.894 -0.649142 -24.1899"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "176.074 -0.649142 -24.1898"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "176.255 -0.649142 -24.1898"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "176.435 -0.649142 -24.1897"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "176.615 -0.649142 -24.1897"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "176.795 -0.649142 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "176.975 -0.649142 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "177.155 -0.649142 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "177.335 -0.649142 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "177.515 -0.649142 -24.1897"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product11.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "177.695 -0.649142 -24.1898"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "177.875 -0.649142 -24.1899"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "178.055 -0.649142 -24.19"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "178.235 -0.649142 -24.1902"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "178.415 -0.649142 -24.1904"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "178.595 -0.649142 -24.1907"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "178.775 -0.649142 -24.191"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "178.955 -0.649142 -24.1914"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "179.135 -0.649142 -24.1919"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "179.315 -0.649142 -24.1926"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "179.495 -0.649142 -24.1935"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "179.675 -0.649142 -24.1946"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "179.855 -0.649142 -24.1964"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts001"
-      ,
-      "transform":
-      {
-        "pos": "180.035 -0.649142 -24.2002"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "169.414 -1.42732 -24.1974"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "169.594 -1.42732 -24.1972"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "169.774 -1.42732 -24.1969"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "169.954 -1.42732 -24.1966"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "170.134 -1.42732 -24.1964"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "170.314 -1.42732 -24.1961"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product11.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "170.494 -1.42732 -24.1958"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "170.674 -1.42732 -24.1956"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "170.854 -1.42732 -24.1953"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "171.034 -1.42732 -24.1951"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "171.214 -1.42732 -24.1948"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product11.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "171.394 -1.42732 -24.1946"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "171.574 -1.42732 -24.1943"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "171.754 -1.42732 -24.1941"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "171.934 -1.42732 -24.1938"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "172.114 -1.42732 -24.1936"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "172.294 -1.42732 -24.1934"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "172.474 -1.42732 -24.1931"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "172.654 -1.42732 -24.1929"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "172.834 -1.42732 -24.1927"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "173.014 -1.42732 -24.1925"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "173.194 -1.42732 -24.1923"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "173.374 -1.42732 -24.1921"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "173.554 -1.42732 -24.1919"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "173.734 -1.42732 -24.1917"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "173.914 -1.42732 -24.1915"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "174.094 -1.42732 -24.1913"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "174.274 -1.42732 -24.1911"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "174.454 -1.42732 -24.191"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "174.634 -1.42732 -24.1908"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "174.814 -1.42732 -24.1907"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "174.994 -1.42732 -24.1905"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "175.174 -1.42732 -24.1904"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "175.354 -1.42732 -24.1903"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "175.534 -1.42732 -24.1901"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "175.714 -1.42732 -24.19"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "175.894 -1.42732 -24.1899"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "176.074 -1.42732 -24.1898"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "176.255 -1.42732 -24.1898"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "176.435 -1.42732 -24.1897"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "176.615 -1.42732 -24.1897"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "176.795 -1.42732 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "176.975 -1.42732 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "177.155 -1.42732 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "177.335 -1.42732 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "177.515 -1.42732 -24.1897"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "177.695 -1.42732 -24.1898"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "177.875 -1.42732 -24.1899"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "178.055 -1.42732 -24.19"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "178.235 -1.42732 -24.1902"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "178.415 -1.42732 -24.1904"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "178.595 -1.42732 -24.1907"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "178.775 -1.42732 -24.191"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product11.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "178.955 -1.42732 -24.1914"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "179.135 -1.42732 -24.1919"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "179.315 -1.42732 -24.1926"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "179.495 -1.42732 -24.1935"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product11.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "179.675 -1.42732 -24.1946"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "179.855 -1.42732 -24.1964"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts002"
-      ,
-      "transform":
-      {
-        "pos": "180.035 -1.42732 -24.2002"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "169.414 -2.12749 -24.1974"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "169.594 -2.12749 -24.1972"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "169.774 -2.12749 -24.1969"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "169.954 -2.12749 -24.1966"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "170.134 -2.12749 -24.1964"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "170.314 -2.12749 -24.1961"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "170.494 -2.12749 -24.1958"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "170.674 -2.12749 -24.1956"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "170.854 -2.12749 -24.1953"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "171.034 -2.12749 -24.1951"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "171.214 -2.12749 -24.1948"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "171.394 -2.12749 -24.1946"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "171.574 -2.12749 -24.1943"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product11.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "171.754 -2.12749 -24.1941"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "171.934 -2.12749 -24.1938"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "172.114 -2.12749 -24.1936"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product11.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "172.294 -2.12749 -24.1934"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "172.474 -2.12749 -24.1931"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "172.654 -2.12749 -24.1929"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "172.834 -2.12749 -24.1927"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "173.014 -2.12749 -24.1925"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "173.194 -2.12749 -24.1923"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "173.374 -2.12749 -24.1921"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "173.554 -2.12749 -24.1919"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "173.734 -2.12749 -24.1917"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "173.914 -2.12749 -24.1915"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "174.094 -2.12749 -24.1913"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "174.274 -2.12749 -24.1911"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "174.454 -2.12749 -24.191"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "174.634 -2.12749 -24.1908"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "174.814 -2.12749 -24.1907"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "174.994 -2.12749 -24.1905"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "175.174 -2.12749 -24.1904"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "175.354 -2.12749 -24.1903"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product6.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "175.534 -2.12749 -24.1901"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "175.714 -2.12749 -24.19"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "175.894 -2.12749 -24.1899"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "176.074 -2.12749 -24.1898"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "176.255 -2.12749 -24.1898"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "176.435 -2.12749 -24.1897"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "176.615 -2.12749 -24.1897"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "176.795 -2.12749 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "176.975 -2.12749 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "177.155 -2.12749 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "177.335 -2.12749 -24.1896"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product5.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "177.515 -2.12749 -24.1897"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "177.695 -2.12749 -24.1898"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "177.875 -2.12749 -24.1899"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "178.055 -2.12749 -24.19"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "178.235 -2.12749 -24.1902"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product2.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "178.415 -2.12749 -24.1904"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product8.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "178.595 -2.12749 -24.1907"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
+      "abs_aabb": {}
       ,
-      "transform":
+      "render":
       {
-        "pos": "178.775 -2.12749 -24.191"
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_puertas_neveras.mesh"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product3.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "178.955 -2.12749 -24.1914"
+        "color": "0.0313726 0.239216 0.541176 1.0"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
       }
-      ,
-      "prefab": "data/prefabs/products/product4.json"
     }
   }
   ,
   {
     "entity":
     {
-      "name": "lineproducts003"
+      "name": "marcos_neveras"
       ,
       "transform":
       {
-        "pos": "179.135 -2.12749 -24.1919"
+        "pos": "108.522 -3.66876 -69.5732"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "0.0 -1.0 0.0 0.0"
       }
       ,
-      "prefab": "data/prefabs/products/product10.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
+      "abs_aabb": {}
       ,
-      "transform":
+      "render":
       {
-        "pos": "179.315 -2.12749 -24.1926"
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_marcos_neveras.mesh"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product9.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "179.495 -2.12749 -24.1935"
+        "color": "0.0313726 0.239216 0.541176 1.0"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
       }
-      ,
-      "prefab": "data/prefabs/products/product10.json"
     }
   }
   ,
   {
     "entity":
     {
-      "name": "lineproducts003"
+      "name": "puertas_neveras005"
       ,
       "transform":
       {
-        "pos": "179.675 -2.12749 -24.1946"
+        "pos": "103.14 -1.05731 -69.129"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "rotation": "0.0 -0.832744 0.0 -0.553658"
       }
       ,
-      "prefab": "data/prefabs/products/product7.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
+      "abs_aabb": {}
       ,
-      "transform":
+      "render":
       {
-        "pos": "179.855 -2.12749 -24.1964"
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_puertas_neveras005.mesh"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/products/product1.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "lineproducts003"
-      ,
-      "transform":
-      {
-        "pos": "180.035 -2.12749 -24.2002"
+        "color": "0.0313726 0.239216 0.541176 1.0"
         ,
-        "rotation": "0.0 0.0 0.0 -1.0"
+        "materials":
+        [
+          "data/materials/mapa_congelados/blanco.material"
+        ]
       }
-      ,
-      "prefab": "data/prefabs/products/product12.json"
     }
   }
   ,
@@ -5362,24 +3147,12 @@
       ,
       "transform":
       {
-        "pos": "57.359 -6.32978 -24.6274"
+        "pos": "52.0213 -6.32978 -24.6274"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_curva_pared1.col_mesh"
-          }
-        ]
-      }
       ,
       "render":
       {
@@ -5402,24 +3175,12 @@
       ,
       "transform":
       {
-        "pos": "57.359 -6.32978 -24.6274"
+        "pos": "52.0213 -6.32978 -24.6274"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
       ,
       "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_pared_inicio.col_mesh"
-          }
-        ]
-      }
       ,
       "render":
       {
@@ -5449,18 +3210,6 @@
       ,
       "abs_aabb": {}
       ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_pared_pasillo.col_mesh"
-          }
-        ]
-      }
-      ,
       "render":
       {
         "mesh": "data/meshes/mapa_congelados/mapa_congelados_pared_pasillo.mesh"
@@ -5489,6 +3238,34 @@
       ,
       "abs_aabb": {}
       ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_grietas_congelados.mesh"
+        ,
+        "color": "0.0313726 0.0313726 0.533333 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_congelados/suelo_congelados.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "suelo_congelados"
+      ,
+      "transform":
+      {
+        "pos": "52.0909 -6.32978 -24.6274"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "abs_aabb": {}
+      ,
       "collider":
       {
         "shapes":
@@ -5496,14 +3273,14 @@
           {
             "shape": "trimesh"
             ,
-            "collision_mesh": "data/meshes/mapa_congelados_grietas_congelados.col_mesh"
+            "collision_mesh": "data/meshes/mapa_congelados_suelo_congelados.col_mesh"
           }
         ]
       }
       ,
       "render":
       {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_grietas_congelados.mesh"
+        "mesh": "data/meshes/mapa_congelados/mapa_congelados_suelo_congelados.mesh"
         ,
         "color": "0.0313726 0.0313726 0.533333 1.0"
         ,
@@ -5522,7 +3299,7 @@
       ,
       "transform":
       {
-        "pos": "141.306 -0.682252 -18.2351"
+        "pos": "135.969 -0.682252 -18.2351"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -5550,7 +3327,7 @@
       ,
       "transform":
       {
-        "pos": "159.746 0.460326 -27.3144"
+        "pos": "154.409 0.460326 -27.3144"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -5578,7 +3355,7 @@
       ,
       "transform":
       {
-        "pos": "142.958 -0.68225 30.7525"
+        "pos": "137.62 -0.68225 30.7525"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -5606,7 +3383,7 @@
       ,
       "transform":
       {
-        "pos": "133.203 -0.682253 -53.5925"
+        "pos": "127.866 -0.682253 -53.5925"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -5690,7 +3467,7 @@
       ,
       "transform":
       {
-        "pos": "140.239 1.34192 -23.9285"
+        "pos": "134.901 1.34192 -23.9285"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -5718,7 +3495,7 @@
       ,
       "transform":
       {
-        "pos": "64.4968 5.54346 -32.3229"
+        "pos": "64.4968 8.69214 -32.3229"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -5746,7 +3523,7 @@
       ,
       "transform":
       {
-        "pos": "142.875 1.34192 14.1306"
+        "pos": "137.537 1.34192 14.1306"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
       }
@@ -6238,989 +4015,6 @@
         "materials":
         [
           "data/materials/mapa_congelados/mat_batidora4.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346456"
-      ,
-      "transform":
-      {
-        "pos": "153.766 4.42636 -32.8341"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "3.28043 0.37 2.88"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.37 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346456.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346457"
-      ,
-      "transform":
-      {
-        "pos": "108.015 5.70126 -59.2548"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "0.787304 0.19 2.88"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346457.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346458"
-      ,
-      "transform":
-      {
-        "pos": "142.73 5.70126 -52.7168"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "0.787304 0.19 1.584"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346458.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346459"
-      ,
-      "transform":
-      {
-        "pos": "134.553 5.70126 -60.8932"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "0.787304 0.19 1.584"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346459.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "tpobj1"
-      ,
-      "transform":
-      {
-        "pos": "155.24 5.23795 -33.8503"
-        ,
-        "rotation": "0.0 -0.893079 0.0 0.4499"
-      }
-      ,
-      "prefab": "data/prefabs/structures/teleport_box.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346460"
-      ,
-      "transform":
-      {
-        "pos": "91.5462 5.70126 -59.0298"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "2.8028 0.19 2.86704"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346460.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346461"
-      ,
-      "transform":
-      {
-        "pos": "118.757 5.70126 -56.9583"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "2.8028 0.19 2.86704"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346461.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346462"
-      ,
-      "transform":
-      {
-        "pos": "97.4037 5.70126 -62.1569"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "0.787304 0.19 1.584"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346462.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "tpobj2"
-      ,
-      "transform":
-      {
-        "pos": "117.803 6.27748 -54.9786"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/teleport_box.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "pila"
-      ,
-      "transform":
-      {
-        "pos": "86.0682 -3.11537 -58.8916"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "prefab": "data/prefabs/powers/powerUp_pila.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "PowerUp de Vida"
-      ,
-      "transform":
-      {
-        "pos": "145.389 -3.24293 -9.86633"
-        ,
-        "rotation": "0.0 -0.00720241 0.0 -0.999974"
-      }
-      ,
-      "prefab": "data/prefabs/powers/powerUp_health.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "horno008"
-      ,
-      "transform":
-      {
-        "pos": "119.12 -3.65511 -54.6508"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/enemy_spawner_special.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "horno009"
-      ,
-      "transform":
-      {
-        "pos": "98.9727 -3.65511 -53.568"
-        ,
-        "rotation": "0.0 -1.0 0.0 0.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/enemy_spawner_special.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "grietas_cong"
-      ,
-      "transform":
-      {
-        "pos": "57.359 -6.32978 -24.6274"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_grietas_cong.mesh"
-        ,
-        "color": "0.0313726 0.0313726 0.533333 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/suelo_congelados.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "suelo1"
-      ,
-      "transform":
-      {
-        "pos": "57.3575 -6.32978 -24.6274"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_suelo1.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_suelo1.mesh"
-        ,
-        "color": "0.0313726 0.0313726 0.533333 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/suelo_congelados.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "suelo2"
-      ,
-      "transform":
-      {
-        "pos": "57.359 -6.32978 -24.6274"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_suelo2.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_suelo2.mesh"
-        ,
-        "color": "0.0313726 0.0313726 0.533333 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/suelo_congelados.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "playercamera"
-      ,
-      "transform":
-      {
-        "pos": "189.818 0.401941 -16.2219"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/cameras/player_camera.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346467"
-      ,
-      "transform":
-      {
-        "pos": "153.766 4.42635 -64.799"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "3.28043 0.37 2.88"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.37 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346467.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "tpobj003"
-      ,
-      "transform":
-      {
-        "pos": "154.144 5.23795 -65.3045"
-        ,
-        "rotation": "0.0 -0.94963 0.0 -0.313375"
-      }
-      ,
-      "prefab": "data/prefabs/structures/teleport_box.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346468"
-      ,
-      "transform":
-      {
-        "pos": "148.626 5.70126 -57.1845"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "0.787304 0.19 1.584"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346468.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346469"
-      ,
-      "transform":
-      {
-        "pos": "130.96 5.70126 -69.9896"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "0.787304 0.19 1.584"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346469.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "plat1346470"
-      ,
-      "transform":
-      {
-        "pos": "102.897 5.70126 -67.0421"
-        ,
-        "rotation": "0.0 -0.707107 0.0 -0.707107"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "0.787304 0.19 2.88"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.19 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_plat1346470.mesh"
-        ,
-        "color": "0.541176 0.0313726 0.431373 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/blanco.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "horno010"
-      ,
-      "transform":
-      {
-        "pos": "107.367 -3.65511 -70.4998"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/structures/enemy_spawner_special.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "pared_depuerta"
-      ,
-      "transform":
-      {
-        "pos": "151.164 -3.72262 -10.8027"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "trimesh"
-            ,
-            "collision_mesh": "data/meshes/mapa_congelados_pared_depuerta.col_mesh"
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_pared_depuerta.mesh"
-        ,
-        "color": "0.345098 0.564706 0.882353 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/pared_congelados.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Puerta_de_carga002"
-      ,
-      "transform":
-      {
-        "pos": "150.139 -3.63845 -11.4815"
-        ,
-        "rotation": "0.0 -0.972857 0.0 -0.231409"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Puerta_de_carga002.mesh"
-        ,
-        "color": "0.882353 0.341176 0.560784 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/puertaverde.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "enchufe004"
-      ,
-      "transform":
-      {
-        "pos": "146.865 -2.18592 -13.0929"
-        ,
-        "rotation": "0.0 -0.972856 0.0 -0.23141"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_enchufe004.mesh"
-        ,
-        "color": "0.109804 0.109804 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/enchufe.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "switch007"
-      ,
-      "transform":
-      {
-        "pos": "146.852 -1.77767 -13.0672"
-        ,
-        "rotation": "0.0 -0.972856 0.0 -0.23141"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_switch007.mesh"
-        ,
-        "color": "0.109804 0.109804 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/switch1.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "switch008"
-      ,
-      "transform":
-      {
-        "pos": "146.852 -1.77767 -13.0672"
-        ,
-        "rotation": "0.0 -0.972856 0.0 -0.23141"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_switch008.mesh"
-        ,
-        "color": "0.109804 0.109804 0.694118 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/switch2.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "puerta_suelta"
-      ,
-      "transform":
-      {
-        "pos": "150.13 -3.63845 -11.4788"
-        ,
-        "rotation": "0.0 -0.973648 0.0 -0.228057"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_puerta_suelta.mesh"
-        ,
-        "color": "0.882353 0.341176 0.560784 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/puertaverde.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "puerta_suelta001"
-      ,
-      "transform":
-      {
-        "pos": "151.162 -3.63845 -10.0749"
-        ,
-        "rotation": "0.0 0.228057 0.0 -0.973648"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_puerta_suelta001.mesh"
-        ,
-        "color": "0.882353 0.341176 0.560784 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/puertaverde.material"
-        ]
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
-      "name": "Puerta_de_carga003"
-      ,
-      "transform":
-      {
-        "pos": "151.155 -3.63845 -10.0752"
-        ,
-        "rotation": "0.0 0.231409 0.0 -0.972857"
-      }
-      ,
-      "abs_aabb": {}
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_congelados/mapa_congelados_Puerta_de_carga003.mesh"
-        ,
-        "color": "0.882353 0.341176 0.560784 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_congelados/puertaverde.material"
         ]
       }
     }

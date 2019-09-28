@@ -42,7 +42,7 @@ void TCompFireFollow::update(float delta) {
     TCompFireController* c_fire = en->get<TCompFireController>();
     TCompRender* c_render = get<TCompRender>();
     if (c_fire->isEnabled()) {
-      data->emitter_num_particles_per_spawn = 20;
+      data->emitter_num_particles_per_spawn = 10;
     }
     else {
       data->emitter_num_particles_per_spawn = 0;

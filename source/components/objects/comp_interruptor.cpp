@@ -31,7 +31,6 @@ void TCompInterruptor::onActivate(const TMsgDamage & msg) {
 				GameController.setPauseEnemyByHandle(entity,true);
 			 	Scripting.execActionDelayed("activePlatformByName(\"Box040\")", 0.0);
 			    GameController.resetCamera();
-          GameController.wakeUpWinds();
 				execDelayedAction("on_cinematic(true)", 0.0);
 				execDelayedAction("on_lock_camera3(false)", 0.0);
 				execDelayedAction("on_active_enemies(false)",0.0);
@@ -42,7 +41,6 @@ void TCompInterruptor::onActivate(const TMsgDamage & msg) {
 				execDelayedAction("on_active_enemies(true)", 13.0);
 				execDelayedAction("setPauseEnemyName(\"golem2\",false)", 13);
 				execDelayedAction("setNotThrowCupcake(\"golem2\",false)", 13);
-        Scripting.execAction("wakeUpWinds()");
 			}
 			/*else if (nombre.compare("panel_prueba2") == 0) {
 				//nombre de plataforma a mover

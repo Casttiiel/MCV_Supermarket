@@ -24,7 +24,6 @@
 #include "ui/widgets/ui_image.h"
 #include "ui/module_ui.h"
 #include "ui/ui_widget.h"
-#include "skeleton/comp_skel_lookat_direction.h"
 
 
 using namespace physx;
@@ -373,17 +372,7 @@ void TCompCharacterController::grounded(float delta) {
         playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
     }
 
-
     dir *= Time.delta_unscaled;
-    if (aiming) {
-        //Leg lookat
-        //If EngineInput["front_"].value >= 0.f
-        //lookat dir
-        if (EngineInput["front_"].value >= 0.f) {
-            TCompSkelLookAtDirection* lookat = get< TCompSkelLookAtDirection>();
-            lookat->setDirection(dir);
-        }
-    }
 
     //MOVE PLAYER
     TCompCollider* comp_collider = get<TCompCollider>();
@@ -484,8 +473,6 @@ void TCompCharacterController::onAir(float delta) {
         dash = dash_limit;
         startDash = true;
         EngineAudio.playEvent("event:/Character/Other/Dash");
-        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
     }
     else if (EngineInput["jump_"].justPressed() && can_double_jump) { //DOUBLE JUMP
         can_double_jump = false;
@@ -582,9 +569,6 @@ void TCompCharacterController::dead(float delta) {
     c_bb->playerIsDeath(true);
     //------------------
 
-    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-    playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.f, true);
-
 
     if (EngineInput["checkpoint_"].justPressed()) {
         GameController.loadCheckpoint();
@@ -598,7 +582,7 @@ void TCompCharacterController::win(float delta) {
 	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.f, true);
     if (EngineInput["checkpoint_"].justPressed()) {
         endGame = false;
-       // ChangeState("GROUNDED");
+        ChangeState("GROUNDED");
 
     }
 
@@ -687,9 +671,7 @@ void TCompCharacterController::getInputForce(VEC3 &dir) {
 		}
     }
 
-
     dir *= speed * length;
-    movementDirection = dir;
 }
 
 void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool start_dash) {
@@ -913,7 +895,7 @@ void TCompCharacterController::attack(float delta) {
             PxOverlapBuffer buf(hitBuffer, bufferSize);
             PxTransform shapePose = PxTransform(pos, ori);
             PxQueryFilterData filter_data = PxQueryFilterData();
-            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall | EnginePhysics.Panel | EnginePhysics.Product;
+            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall | EnginePhysics.Panel;
             bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
             if (res) {
                 for (PxU32 i = 0; i < buf.nbTouches; i++) {
@@ -1097,7 +1079,7 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
             else if (strcmp("endgame", tag.c_str()) == 0) {
                 //..en el futuro GameState GameOver
                 endGame = true;
-                //dismount();
+                dismount();
                 ChangeState("WIN");
 
             }
@@ -1204,8 +1186,6 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 life = 0.0f;
                 EngineAudio.playEvent("event:/Character/Voice/Player_Death");
                 ChangeState("DEAD");
-                TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-                playerAnima->playAnimation(TCompPlayerAnimator::DIE, 1.f, true);
             }
             else {
 
@@ -1215,8 +1195,6 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
                     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
                     //ChangeState("DAMAGED");
-                    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-                    playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, true);
                 }
             }
         }
@@ -1446,13 +1424,13 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::ACTIVATE_BATTERY:
       {
           //TODO
-		      CEntity* entity = EngineEntities.getInventoryHandle();
-		      TCompInventory* inventory = entity->get<TCompInventory>();
-		      inventory->setBattery(true);
+		  CEntity* entity = EngineEntities.getInventoryHandle();
+		  TCompInventory* inventory = entity->get<TCompInventory>();
+		  inventory->setBattery(true);
           //unLockableBattery = true;
 		      //llamada funcion de scripting para poder escapar
-			    //Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
-			    //Scripting.execActionDelayed("saveCheckpoint()", 20.0);
+			Scripting.execActionDelayed("activarSalidaPanaderia()", 0.0);
+			Scripting.execActionDelayed("saveCheckpoint()", 20.0);
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }
@@ -1463,7 +1441,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  TCompInventory* inventory = entity->get<TCompInventory>();
 		  inventory->setChilli(true);
 		  //unLockableChilli = true;
-          //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
+          GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           CEntity* e1 = getEntityByName("Hielo2_LP");
           TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
@@ -1485,20 +1463,20 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       case PowerUpType::ACTIVATE_COFFEE:
       {
           //TODO
-		      CEntity* entity = EngineEntities.getInventoryHandle();
-		      TCompInventory* inventory = entity->get<TCompInventory>();
-		      inventory->setCoffe(true);
-		      //unLockableCoffe = true;
+		  CEntity* entity = EngineEntities.getInventoryHandle();
+		  TCompInventory* inventory = entity->get<TCompInventory>();
+		  inventory->setCoffe(true);
+		  //unLockableCoffe = true;
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }
       case PowerUpType::ACTIVATE_TELEPORT:
       {
 
-		      //unLockableTeleport = true;
-		      CEntity* entity = EngineEntities.getInventoryHandle();
-		      TCompInventory* inventory = entity->get<TCompInventory>();
-		      inventory->setTeleport(true);
+		  //unLockableTeleport = true;
+		  CEntity* entity = EngineEntities.getInventoryHandle();
+		  TCompInventory* inventory = entity->get<TCompInventory>();
+		  inventory->setTeleport(true);
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
           break;
       }

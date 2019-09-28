@@ -72,32 +72,3 @@ float4 PS(VS_OUTPUT input) : SV_Target
   return fresnel_term * env_color + ( 1 - fresnel_term ) * base_color;
 }
 
-float4 PS_ice(VS_OUTPUT input) : SV_Target
-{
-  float4 noise0 = txNoise.Sample(samLinear,input.Uv ) * 2 - 1.;
-
-  // Compute coords in screen space to sample the color under me
-  float3 wPos = input.WorldPos.xyz + noise0.xyz;
-  float4 viewSpace = mul( float4(wPos,1.0), ViewProjection );
-  float3 homoSpace = viewSpace.xyz / viewSpace.w;
-  float2 uv = float2( ( homoSpace.x + 1.0 ) * 0.5, ( 1.0 - homoSpace.y ) * 0.5 );
-
-  float shadow_factor = getShadowFactor( input.WorldPos );
-  //shadow_factor = 0.5 + shadow_factor * 0.5;
-
-  float4 back_color = txMetallic.Sample(samClampLinear, uv);
-  float4 albedo_color = txAlbedo.Sample(samLinear, input.Uv);
-
-  const float illum = 0.4;
-  float4 base_color = (back_color + albedo_color) * illum;
-
-  float3 incident_dir = normalize(input.WorldPos - CameraPosition.xyz);
-  float3 reflected_dir = normalize(reflect(incident_dir, input.N));
-  float4 env_color = txEnvironmentMap.SampleLevel(samLinear, reflected_dir, 0);
-
-  float fresnel_term = 1 - saturate( dot( input.N, -incident_dir) );
-  fresnel_term = pow( fresnel_term, 5 );
-  //return fresnel_term * env_color + ( 1 - fresnel_term ) * base_color;
-  return base_color;
-}
-

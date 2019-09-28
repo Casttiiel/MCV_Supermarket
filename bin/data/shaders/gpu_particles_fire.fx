@@ -211,8 +211,8 @@ v2p VS(
 
 //--------------------------------------------------------------------------------------
 void PS(v2p input
-  , out float4 o_deferred : SV_Target0
-  , out float4 o_shine : SV_Target1){
+, out float4 o_deferred : SV_Target0
+, out float4 o_shine : SV_Target1   ){
   const float2x2 rot_matrix = { cos(input.aux.x), -sin(input.aux.x),
     sin(input.aux.x), cos(input.aux.x)
   };
@@ -251,15 +251,12 @@ void PS(v2p input
   float flame = final_voronoi.x > _threshold;
   float4 flamecolored = flame * yellow;
 
-  //float4 flamerim = (final_voronoi.x > _threshold - _rim) - flame;
-  //float4 flamecolored2 = flamerim * orange;
-  //float4 finalcolor = flamecolored + flamecolored2;
-  float4 finalcolor = flame;
+  float4 flamerim = (final_voronoi.x > _threshold - _rim) - flame;
+  float4 flamecolored2 = flamerim * orange;
+  float4 finalcolor = flamecolored + flamecolored2;
   finalcolor *= length(input.Uv - float2(0.5f,0.5f)) < 0.4f;
 
-  if(finalcolor.a <= _threshold){
-    clip(-1);
-  }
-  o_deferred = finalcolor * input.Color;
-  o_shine = finalcolor * input.Color;
+  //return input.Color * 4;
+  o_deferred = finalcolor * input.Color; // + float4( 1,1,1,0); finalcolor * input.Color
+  o_shine = finalcolor * input.Color; // + float4( 1,1,1,0); finalcolor * input.Color
 }

@@ -786,9 +786,6 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
   else if (strcmp("notplayer", name.c_str()) == 0) {
     return CModulePhysics::FilterGroup::NotPlayer;
   }
-  else if (strcmp("product", name.c_str()) == 0) {
-    return CModulePhysics::FilterGroup::Product;
-  }
   
   
   //good solution, if from max is not specified its group, it will be scenario
