@@ -21,7 +21,7 @@ public:
   void setLifeSpawner(float new_life);
   float getLifeSpawner();
   static void registerMsgs();
-
+  void setLengthCone(float length_cone);
   void setScriptTriggerActivate(bool activate);
   void setCurveForSpawner(std::string curveForCupcake);
   void setComportamentNormal(int value);
@@ -44,6 +44,8 @@ private:
 	std::string _prefab = PREFAB_CUPCAKE_;
     float _spawnOffset = 2.5f;
     float lifePrefabSpawner = 50.f;
+	float lengthConePrefabSpawner = 60.0f;
+
 	void enable(const TMsgEntityTriggerEnter & msg);
 	void disable(const TMsgEntityTriggerExit & msg);
 	void onBattery(const TMsgGravity & msg);

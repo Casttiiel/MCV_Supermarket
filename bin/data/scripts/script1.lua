@@ -881,3 +881,48 @@ function endGame()
 	execDelayedAction("activePlatformByName(\"globo\")",2);
 	execDelayedAction("changeGameState(\"gs_wingame\")",8);
 end
+
+
+function activateCurveForOven(nameOven,isScript,nameCurve)
+	h_oven1 =  GameController:entityByName(nameOven);
+	t_compSpawnOven1 = toCompEnemySpawner(toEntity(h_oven1):getCompByName("comp_enemy_spawner"));
+	t_compSpawnOven1:setScriptTriggerActivate(isScript);
+	t_compSpawnOven1:setCurveForSpawner(nameCurve);
+
+end
+
+function resetCamera()
+	GameController:resetCamera();
+end
+
+function salCupcakeHorno008_player()
+
+	
+
+	--execDelayedAction("resetCamera()",0.5);
+	execDelayedAction("on_lock_camera3(false)",0.2);
+	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.2);
+	execDelayedAction("on_cinematic(true)",0.2);
+
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
+	execDelayedAction("on_lock_camera3(true)",12);
+	execDelayedAction("on_cinematic(false)",12);
+
+
+
+
+	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaHorno008\")",4.0);
+	execDelayedAction("on_delete_handle(\"triggerSalCupcakeHorno008\")",0);
+end
+
+
+
+function salCupcakeHorno010_player()
+	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaHorno010\")",0.0);
+	execDelayedAction("on_delete_handle(\"triggerSalCupcakeHorno010\")",0);
+
+end
+
+function salCupcakeHorno009_player()
+	execDelayedAction("activateCurveForOven(\"horno009\",true,\"curvaHorno009\")",0.0);
+end

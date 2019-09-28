@@ -79,6 +79,11 @@ void TCompEnemySpawner::update(float dt) {
 					TCompTransform* c_trans_player = player->get<TCompTransform>();
 					c_trans_enemy->rotateTowards(c_trans_player->getPosition());
 				}
+				if (_prefab == PREFAB_CUPCAKE_) {
+					CBTCupcake* cbt = e_enemy->get<CBTCupcake>();
+					cbt->setLife(350.f);
+				}
+
 
 				GameController.updateCupcakeCurveByHandle(curveForCupcake, e_enemy);
 
@@ -144,6 +149,12 @@ void TCompEnemySpawner::update(float dt) {
 					TCompTransform* c_trans_player = player->get<TCompTransform>();
 					c_trans_enemy->rotateTowards(c_trans_player->getPosition());
 				}
+				if (_prefab == PREFAB_CUPCAKE_) {
+					CBTCupcake* cbt = e_enemy->get<CBTCupcake>();
+					cbt->setLengthCone(lengthConePrefabSpawner);
+				}
+
+
 
 				_currentEnemies.push_back(enemy);
 				TMsgSpawnerCheckin checkin;
@@ -184,4 +195,9 @@ void TCompEnemySpawner::setComportamentNormal(int value) {
 
 void TCompEnemySpawner::setSpawnDelay(float newtime) {
 	_spawnDelay = newtime;
+}
+
+
+void TCompEnemySpawner::setLengthCone(float newValue) {
+	lengthConePrefabSpawner = newValue;
 }
