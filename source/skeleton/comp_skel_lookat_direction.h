@@ -13,7 +13,7 @@ struct TCompSkelLookAtDirection : public TCompBase {
   CHandle     h_target_entity;
   std::string target_entity_name;
 
-  VEC3        target;
+  VEC3        target = VEC3().Zero;
   float       amount = 0.f;
   float       target_transition_factor = 0.95f;
   VEC3        dir;
