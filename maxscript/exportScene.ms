@@ -140,6 +140,32 @@ struct TSceneExporter (
 			fs.endObj()	
 		)
 	),
+	fn exportDoor obj =(
+		local isDoor =  getUserProp obj "isDoor"
+		if isDoor == true then (
+			local param1 = getUserProp obj "mTravelTime_"
+			local param2 = getUserProp obj "curve"
+			
+			if param1 == undefined  then (
+				throw "A una Door le faltan datos"
+			)
+			
+			fs.writeComma()
+			fs.writeKey "comp_door"
+			fs.beginObj()
+			if param1 != undefined  then (
+				fs.writeKeyValue "mTravelTime_" param1
+				fs.writeComma()
+			)
+			if param2 != undefined  then (
+				fs.writeKeyValue "curve" param2 
+			)
+			fs.endObj()	
+		)
+	),
+	
+	
+	
 	
 	fn exportPlatform obj = (
 		local isPlatform = getUserProp obj "isPlatform"
@@ -435,7 +461,8 @@ struct TSceneExporter (
 			
 			
 			local is_platform = getUserProp obj "platform"
-			if is_platform != undefined then (
+			local is_door = getUserProp obj "door"
+			if is_platform != undefined or is_door != undefined then (
 				fs.writeKeyValue "shape" "convex"
 				
 			)else (
@@ -657,6 +684,7 @@ struct TSceneExporter (
 			exportAABB obj
 			exportPlatform obj
 			exportPanel obj
+			exportDoor obj
 			exportCamera obj
 			exportWalls obj
 			exportMorph obj
