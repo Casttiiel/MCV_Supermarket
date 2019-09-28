@@ -24,6 +24,7 @@
 #include "ui/widgets/ui_image.h"
 #include "ui/module_ui.h"
 #include "ui/ui_widget.h"
+#include "skeleton/comp_skel_lookat_direction.h"
 
 
 using namespace physx;
@@ -372,7 +373,17 @@ void TCompCharacterController::grounded(float delta) {
         playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
     }
 
+
     dir *= Time.delta_unscaled;
+    if (aiming) {
+        //Leg lookat
+        //If EngineInput["front_"].value >= 0.f
+        //lookat dir
+        if (EngineInput["front_"].value >= 0.f) {
+            TCompSkelLookAtDirection* lookat = get< TCompSkelLookAtDirection>();
+            lookat->setDirection(dir);
+        }
+    }
 
     //MOVE PLAYER
     TCompCollider* comp_collider = get<TCompCollider>();
@@ -473,6 +484,8 @@ void TCompCharacterController::onAir(float delta) {
         dash = dash_limit;
         startDash = true;
         EngineAudio.playEvent("event:/Character/Other/Dash");
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
     }
     else if (EngineInput["jump_"].justPressed() && can_double_jump) { //DOUBLE JUMP
         can_double_jump = false;
@@ -568,6 +581,9 @@ void TCompCharacterController::dead(float delta) {
     TCompBlackboard* c_bb = get<TCompBlackboard>();
     c_bb->playerIsDeath(true);
     //------------------
+
+    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+    playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.f, true);
 
 
     if (EngineInput["checkpoint_"].justPressed()) {
@@ -671,7 +687,9 @@ void TCompCharacterController::getInputForce(VEC3 &dir) {
 		}
     }
 
+
     dir *= speed * length;
+    movementDirection = dir;
 }
 
 void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool start_dash) {
@@ -1186,6 +1204,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 life = 0.0f;
                 EngineAudio.playEvent("event:/Character/Voice/Player_Death");
                 ChangeState("DEAD");
+                TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+                playerAnima->playAnimation(TCompPlayerAnimator::DIE, 1.f, true);
             }
             else {
 
@@ -1195,6 +1215,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
                     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
                     //ChangeState("DAMAGED");
+                    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+                    playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, true);
                 }
             }
         }
