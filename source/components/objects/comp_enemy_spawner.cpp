@@ -163,18 +163,13 @@ void TCompEnemySpawner::update(float dt) {
 				}
 			}
 		}
-		else {
-			/*TCompCollider* c_col = get<TCompCollider>();
-			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-			if (c_col) {
-				PxShape* colShape;
-				PxBoxGeometry box;
-				rigid_dynamic->getShapes(&colShape, 1, 1);
-				
+		else if (is_destroyed) {
 
-				
-				
-			}*/
+			// abrir puerta del horno 
+			TCompPropAnimator* animator = get<TCompPropAnimator>();
+			animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt);
+			//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
+
 
 		}
 	}
@@ -214,15 +209,15 @@ void TCompEnemySpawner::update(float dt) {
 			}
 
 		}
-	}
-	else if (is_destroyed) {
+		else if (is_destroyed) {
 
-		// abrir puerta del horno 
-		TCompPropAnimator* animator = get<TCompPropAnimator>();
-		animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt); 
-		//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
-	
+			// abrir puerta del horno 
+			TCompPropAnimator* animator = get<TCompPropAnimator>();
+			animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt);
+			//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
 
+
+		}
 	}
 }
 
