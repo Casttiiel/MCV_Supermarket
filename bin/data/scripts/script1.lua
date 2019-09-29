@@ -415,11 +415,7 @@ function cinematic_scene_termoestatos_player()
 	execDelayedAction("sethalfConeEnemy(360,h_suishi11,1)",19);
 	execDelayedAction("setViewDistanceEnemy(70,h_suishi11,1)",19);
 
-	execDelayedAction("sethalfConeEnemy(360,h_suishi13,1)",19);
-	execDelayedAction("setViewDistanceEnemy(100,h_suishi13,1)",19);
-
-	execDelayedAction("sethalfConeEnemy(360,h_suishi14,1)",19);
-	execDelayedAction("setViewDistanceEnemy(100,h_suishi14,1)",19);
+	
 	
 
 	execDelayedAction("on_delete_handle(\"trigger3\")",0);
@@ -475,17 +471,17 @@ function createEnemies_player()
 	h_suishi9 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-47,7.632,-18), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica9",h_suishi9);
 	GameController:setHeightEnemyByHandle(1,h_suishi9,1);
-	GameController:setPauseEnemyByHandle(h_suishi9,true);
+	GameController:setPauseEnemyByHandle(h_suishi9,false);
 
 	h_suishi10 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-53,7.632,-17), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica10",h_suishi10);
 	GameController:setHeightEnemyByHandle(1,h_suishi10,1);
-	GameController:setPauseEnemyByHandle(h_suishi10,true);
+	GameController:setPauseEnemyByHandle(h_suishi10,false);
 
 	h_suishi11 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-60,7.632,-23), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica11",h_suishi11);
 	GameController:setHeightEnemyByHandle(1,h_suishi11,1);
-	GameController:setPauseEnemyByHandle(h_suishi11,true);
+	GameController:setPauseEnemyByHandle(h_suishi11,false);
 
 	--h_suishi12 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(80,7.632,137), QUAT(0, 0, 0, 1),1);--quitar este
 	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica12",h_suishi12);
@@ -493,10 +489,10 @@ function createEnemies_player()
 
 	--suishis que no te atacan hasta el derretir el 2do termoestato
 
-	h_suishi13 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-73,-0.193,-91), QUAT(0, 0, 0, 1),1);
-	GameController:setPauseEnemyByHandle(h_suishi13,true);
-	h_suishi14 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-58,-0.193,-98), QUAT(0, 0, 0, 1),1);
-	GameController:setPauseEnemyByHandle(h_suishi14,true);
+	--h_suishi13 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-73,-0.193,-91), QUAT(0, 0, 0, 1),1);
+	--GameController:setPauseEnemyByHandle(h_suishi13,true);
+	--h_suishi14 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-58,-0.193,-98), QUAT(0, 0, 0, 1),1);
+	--GameController:setPauseEnemyByHandle(h_suishi14,true);
 	--h_suishi15 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(71,-0.193,61), QUAT(0, 0, 0, 1),1);--quitar este
 	--GameController:setPauseEnemyByHandle(h_suishi15,true); --GameController:setPauseEnemyByHandle(h_suishi15,true);
 	
@@ -524,6 +520,9 @@ function wakeUpSuishisSecondFloor()
 	
 		GameController:setPauseEnemyByHandle(h_suishi11,false);
 		
+		--execDelayedAction("saveCheckpoint()",0.1);
+
+
 		--GameController:setPauseEnemyByHandle(h_suishi12,false);
 	end
 end
@@ -580,15 +579,27 @@ end
 
 function on_ambush()
 	--suishis que se despiertan al romper ultimo termoestato
-	if h_suishi13 ~= nil then
-		GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica13",h_suishi13);
-		GameController:setPauseEnemyByHandle(h_suishi13,false);
-		GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica14",h_suishi14);
-		GameController:setPauseEnemyByHandle(h_suishi14,false);
+	
+	h_suishi13 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-73,-0.193,-91), QUAT(0, 0, 0, 1),1);
+	GameController:setPauseEnemyByHandle(h_suishi13,false);
+	h_suishi14 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-58,-0.193,-98), QUAT(0, 0, 0, 1),1);
+	GameController:setPauseEnemyByHandle(h_suishi14,false);
+	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica13",h_suishi13);
+	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica14",h_suishi14);
+
+	execDelayedAction("sethalfConeEnemy(360,h_suishi13,1)",0);
+	execDelayedAction("setViewDistanceEnemy(100,h_suishi13,1)",0);
+
+	execDelayedAction("sethalfConeEnemy(360,h_suishi14,1)",0);
+	execDelayedAction("setViewDistanceEnemy(100,h_suishi14,1)",0);
+
+
+	execDelayedAction("saveCheckpoint()",0.1);
+		
+		--execDelayedAction("saveCheckpoint()",0.1);
 		--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica15",h_suishi15);
 		--GameController:setPauseEnemyByHandle(h_suishi15,false);
 	end
-end
 
 
 function activePlatformByName(name)
@@ -668,7 +679,7 @@ function activePlataformCarniceria_player()
 	execDelayedAction("sethalfConeEnemy(360,h_suishi4,2)",12.5);
 	--execDelayedAction("setViewDistanceEnemy(1000,h_suishi5,1)",12.5);
 	--execDelayedAction("sethalfConeEnemy(360,h_suishi5,1)",12.5);
-
+	execDelayedAction("saveCheckpoint()",12.6);
 
 	
 end
@@ -705,8 +716,10 @@ function caidaSuishisPisos_enemy(name)
 end
 
 function trampaSushisButcher_player()
-	execDelayedAction("saveCheckpoint()",0.0);
-	trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
+	
+	--trap_sushis = GameController:spawnPrefab("data/prefabs/traps/enemies_in_butcher.json", VEC3(33,100,-65), QUAT(0, 0, 0, 1),1);
+
+	--execDelayedAction("saveCheckpoint()",0.0);
 	--por si queremos poner cinematicas enfocando el fuego o hacer que empiece a llamear el ascensor
 end
 

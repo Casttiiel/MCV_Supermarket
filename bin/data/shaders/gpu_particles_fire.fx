@@ -257,7 +257,7 @@ void PS(v2p input
   float4 finalcolor = flame;
   finalcolor *= length(input.Uv - float2(0.5f,0.5f)) < 0.4f;
 
-  if(finalcolor.a = _threshold){
+  if(finalcolor.a <= _threshold){
     clip(-1);
   }
   o_deferred = finalcolor * input.Color;

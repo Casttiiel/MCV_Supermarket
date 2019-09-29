@@ -33,6 +33,7 @@ struct EntityStatus {
 	string curve = "";
 	float lifeCupcake = 50.f;
 	int comportamentNormal = 0;
+	float pauseBT;
 };
 
 class CCheckpoint {

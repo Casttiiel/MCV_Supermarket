@@ -133,7 +133,7 @@ void CEngine::start()
   _modules.registerGameModule(new CModuleGameUI("game_ui"));
   _modules.registerGameModule(new CModuleGameLoading("loading"));
   _modules.registerGameModule(new CModuleGameOver("gameover"));
-  _modules.registerGameModule(new CModuleGameOver("wingame"));
+  _modules.registerGameModule(new CModuleWinGame("wingame"));
   _modules.registerGameModule(_fluidDecals);
 
   _modules.start();

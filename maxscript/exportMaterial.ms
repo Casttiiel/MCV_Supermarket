@@ -56,12 +56,13 @@ struct TMaterialExporter (
 		fs.begin (project_path + mat_name )
 		fs.beginObj()
 		  --Will use the defaults set in the parser. Needs to be a full data/techniques/textured.tech"
+			local isDoor =  getUserProp obj "isDoor"
 			local isPlatform = getUserProp obj "isPlatform"
 			local aabb = getUserProp obj "AABB"
 			local walltype = getUserProp obj "typeWall"
 			local isPanel = getUserProp obj "isPanel"
 			local is_morphed = obj.modifiers[#Morpher]
-			if is_morphed == undefined and isPlatform == undefined and aabb == "static" and walltype == undefined and isPanel == undefined then (
+			if is_morphed == undefined and isPlatform == undefined and aabb == "static" and walltype == undefined and isPanel == undefined and isDoor == undefined then (
 				fs.writeKeyValue "technique" "objs_culled_by_gpu.tech"
 				fs.writeComma()
 			)else (

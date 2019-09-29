@@ -45,8 +45,8 @@ fn isMaxShit obj = (
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
+	project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
+	--project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
@@ -140,6 +140,32 @@ struct TSceneExporter (
 			fs.endObj()	
 		)
 	),
+	fn exportDoor obj =(
+		local isDoor =  getUserProp obj "isDoor"
+		if isDoor == true then (
+			local param1 = getUserProp obj "mTravelTime_"
+			local param2 = getUserProp obj "curve"
+			
+			if param1 == undefined  then (
+				throw "A una Door le faltan datos"
+			)
+			
+			fs.writeComma()
+			fs.writeKey "comp_door"
+			fs.beginObj()
+			if param1 != undefined  then (
+				fs.writeKeyValue "mTravelTime_" param1
+				fs.writeComma()
+			)
+			if param2 != undefined  then (
+				fs.writeKeyValue "curve" param2 
+			)
+			fs.endObj()	
+		)
+	),
+	
+	
+	
 	
 	fn exportPlatform obj = (
 		local isPlatform = getUserProp obj "isPlatform"
@@ -435,7 +461,8 @@ struct TSceneExporter (
 			
 			
 			local is_platform = getUserProp obj "platform"
-			if is_platform != undefined then (
+			local is_door = getUserProp obj "door"
+			if is_platform != undefined or is_door != undefined then (
 				fs.writeKeyValue "shape" "convex"
 				
 			)else (
@@ -657,6 +684,7 @@ struct TSceneExporter (
 			exportAABB obj
 			exportPlatform obj
 			exportPanel obj
+			exportDoor obj
 			exportCamera obj
 			exportWalls obj
 			exportMorph obj

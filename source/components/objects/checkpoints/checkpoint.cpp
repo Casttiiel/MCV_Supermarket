@@ -87,6 +87,7 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
 		else if (status.entityType == EntityType::SUSHI) {
 			CBTSushi* comp_enemy = e_entity->get<CBTSushi>();
 			status.curve = comp_enemy->getNameCurve();//nombre de la curva
+			status.pauseBT = comp_enemy->isPaused();
 		}
 		else if (status.entityType == EntityType::RANGED_SUSHI) {
 			CBTRangedSushi* comp_enemy = e_entity->get<CBTRangedSushi>();
@@ -178,6 +179,8 @@ bool CCheckpoint::loadCheckPoint()
 				CBTSushi* comp_enemy = spawnedEntity->get<CBTSushi>();
 				
 				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
+				
+				comp_enemy->setPaused(entity.pauseBT);
 			}
 			else if (entity.entityType == EntityType::RANGED_SUSHI) {
 				CBTRangedSushi* comp_enemy = spawnedEntity->get<CBTRangedSushi>();
