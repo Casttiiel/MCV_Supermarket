@@ -925,4 +925,5 @@ end
 
 function salCupcakeHorno009_player()
 	execDelayedAction("activateCurveForOven(\"horno009\",true,\"curvaHorno009\")",0.0);
+	execDelayedAction("on_delete_handle(\"triggerSalCupcakeHorno009\")",0);
 end
