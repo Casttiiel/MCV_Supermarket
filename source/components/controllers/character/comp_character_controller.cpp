@@ -66,6 +66,9 @@ void TCompCharacterController::update(float dt) {
 	if (invulnerabilityTimer > 0) {
 		invulnerabilityTimer -= dt;
 	}
+    if (inCombatTimer > 0) {
+        inCombatTimer -= dt;
+    }
 
 	if (!_pausedAI) {
 		PROFILE_FUNCTION("IAIController");
@@ -277,7 +280,13 @@ void TCompCharacterController::grounded(float delta) {
         //SwapMesh(0);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
 		if(playerAnima != nullptr){
-			playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.0f);
+            if (inCombatTimer > 0.f) {
+                playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f);
+            }
+            else {
+                playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.0f);
+            }
+			
 			//footSteps.stop();
 			if (!footSteps.getPaused()) {
 				footSteps.setPaused(true);
@@ -354,6 +363,7 @@ void TCompCharacterController::grounded(float delta) {
         if (c_tp->canCombo() && m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) {
             if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
                 dbg("Pj execute combo fire\n");
+                inCombatTimer = inCombatDuration;
                 c_tp->comboDone = true;
                 TCompFireController* c_fire = get<TCompFireController>();
                 c_fire->comboAttack(c_trans->getPosition());
@@ -362,6 +372,7 @@ void TCompCharacterController::grounded(float delta) {
         else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) {
             if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
         //Enable fire, keep it enabled while holding trigger, disable on release
+                inCombatTimer = inCombatDuration;
                 TCompFireController* c_fire = get<TCompFireController>();
                 c_fire->enable();
                 //Change weapon mesh
@@ -538,11 +549,13 @@ void TCompCharacterController::onAir(float delta) {
 
         if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
         //Enable fire, keep it enabled while holding trigger, disable on release
+            inCombatTimer = inCombatDuration;
             TCompFireController* c_fire = get<TCompFireController>();
             c_fire->enable();
         }
         else if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode()) && c_tp->canCombo()) { //SI PUEDES HACER COMBO, Y TIENES ENERGIA
             dbg("Pj execute combo fire\n");
+            inCombatTimer = inCombatDuration;
             c_tp->comboDone = true;
             TCompFireController* c_fire = get<TCompFireController>();
             c_fire->comboAttack(c_trans->getPosition());
@@ -803,6 +816,7 @@ void TCompCharacterController::shoot() {
         EngineInput.feedback(rumble);
         rumble_time = 0.3f;
     }
+    inCombatTimer = inCombatDuration;
 
     TCompTransform* c_trans = get<TCompTransform>();
     TCompMadnessController* m_c = get<TCompMadnessController>();
@@ -871,6 +885,7 @@ void TCompCharacterController::attack(float delta) {
     w_r3->updateRenderManager();
     //COJO EL COMPONENTE, SI PUEDO HACER COMBO, PUES OTRA ANIMACION Y LA FUERZA ES MAYOR
 
+    inCombatTimer = inCombatDuration;
     VEC3 dir = VEC3();
     getInputForce(dir);
     dir *= Time.delta_unscaled;
@@ -991,6 +1006,7 @@ void TCompCharacterController::chargedAttack(float delta) {
                 return;
             EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
             c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
+            inCombatTimer = inCombatDuration;
         }
 
         TCompTransform* c_trans = get<TCompTransform>();
@@ -1133,7 +1149,8 @@ void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
     if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
         life -= msg.intensityDamage;
 				invulnerabilityTimer = invulnerabilityTimeDuration;
-		//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+                inCombatTimer = inCombatDuration;
+                //UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
 		//bar->setRatio((life + 20) / 120.f);
     }
 
@@ -1205,7 +1222,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
         if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
             life -= msg.intensityDamage;
 						invulnerabilityTimer = invulnerabilityTimeDuration;
-			//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+                        inCombatTimer = inCombatDuration;
+                        //UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
 			//bar->setRatio((life + 20)/120.f); // 20 y 120 son offset de la barra de vida
             TCompTransform* my_trans = get<TCompTransform>();
             VEC3 direction_to_damage;
