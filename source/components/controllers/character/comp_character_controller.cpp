@@ -315,12 +315,21 @@ void TCompCharacterController::grounded(float delta) {
         //SwapMesh(0);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
 		if(playerAnima != nullptr){
-            if (inCombatTimer > 0.f) {
-                playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f);
+            CEntity* weapon2 = getEntityByName("Anti_extintor");
+            TCompRender* w_r2 = weapon2->get<TCompRender>();
+            w_r2->is_visible;
+            if (w_r2->is_visible) {
+                playerAnima->playAnimation(TCompPlayerAnimator::IDLE_FIRE, 1.0f);
             }
             else {
-                playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.0f);
+                if (inCombatTimer > 0.f) {
+                    playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f);
+                }
+                else {
+                    playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.0f);
+                }
             }
+            
 			
 			//footSteps.stop();
 			if (!footSteps.getPaused()) {
