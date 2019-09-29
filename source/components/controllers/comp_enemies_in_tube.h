@@ -16,16 +16,7 @@ public:
   void update(float dt);
   static void registerMsgs();
   bool activateTrap = false;
-
   CHandle h1;
-  CHandle h2;
-  CHandle h3;
-  CHandle h4;
-
-  bool activateTrap1 = false;
-  bool activateTrap2 = false;
-  bool activateTrap3 = false;
-  bool activateTrap4 = false;
   
 private:
 	std::vector<VEC3> enemiesPosition;

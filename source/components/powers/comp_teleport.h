@@ -21,7 +21,7 @@ public:
   bool comboDone = false;
 
   float timeAfterTeleport = 0.f;
-  float windowTimeCombo = 2.f;
+  float windowTimeCombo = 3.f;
   
   float timeAfterTeleportUI = 0.5f;
   CHandle h_camera;

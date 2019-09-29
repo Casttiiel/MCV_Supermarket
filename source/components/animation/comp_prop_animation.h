@@ -12,7 +12,8 @@ class TCompPropAnimator : public TCompAnimator
 public:
 	enum EAnimation { 
       OVEN_IDLE = 0,
-      OVEN_OPEN
+      OVEN_OPEN,
+			OVEN_BROKEN
 	};
 	struct TMsgExecuteAnimation {
 

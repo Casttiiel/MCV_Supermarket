@@ -6,13 +6,15 @@
 #include "cal3d2engine.h"
 #include "entity/entity_parser.h"
 #include "game_core_skeleton.h"
-#include "components/controllers/character/comp_character_controller.h"
 
 DECL_OBJ_MANAGER("skel_lookat_direction", TCompSkelLookAtDirection);
 
 void TCompSkelLookAtDirection::load(const json& j, TEntityParseContext& ctx) {
+  if( j.count("target"))
+    target = loadVEC3( j["target"] );
   amount = j.value("amount", amount);
   target_transition_factor = j.value("target_transition_factor", target_transition_factor);
+
 }
 
 void TCompSkelLookAtDirection::setDirection(VEC3 direction) {
@@ -24,16 +26,8 @@ void TCompSkelLookAtDirection::setDefaultDirection(VEC3 defaultDirection) {
 }
 
 void TCompSkelLookAtDirection::update(float dt) {
-    return;
   TCompSkeleton* c_skel = h_skeleton;
-  if (target == VEC3().Zero) {
-      TCompTransform* c_trans = get<TCompTransform>();
-      target = c_trans->getPosition() + (c_trans->getFront() * positionOffset);
-  }
-  TCompCharacterController* c_c = get<TCompCharacterController>();
-  if (!c_c->aiming) {
-      return;
-  }
+
   // If we have a target direction, use it to assign a target position
     // We should ensure the target position is not moving abruptly
     // to avoid large changes in the skeleton reorientation

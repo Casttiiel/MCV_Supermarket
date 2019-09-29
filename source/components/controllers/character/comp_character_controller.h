@@ -49,7 +49,6 @@ public:
   void restoreMadness();
   float getMaxMadness();
   bool getIsMounted() { return isMounted; }
-  VEC3 getMovementDirection() { return movementDirection; }
 
   /*bool unLockableBattery = false;
   bool unLockableTeleport = false;
@@ -57,7 +56,7 @@ public:
   bool unLockableCoffe = false;*/
   bool cinematic = false;
 private:
-    VEC3 movementDirection = VEC3().Zero;
+
 	int typeRender = 2;
   //Shopping Cart
   bool isMounted = false;
@@ -74,7 +73,7 @@ private:
   float base_speed = speed;
   float rotation_speed = 4.0f;
   float dash_speed = 35.0f;
-  float dash_limit = 0.1f;
+  float dash_limit = 0.15f;
   float dash = dash_limit;
   float time_between_dashes = 1.5f;
   float time_to_next_dash = 0.0f;

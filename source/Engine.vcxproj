@@ -120,6 +120,7 @@
     <ClCompile Include="components\vfx\comp_bolt_aura_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_sphere.cpp" />
+    <ClCompile Include="components\vfx\comp_bolt_sphere_oven.cpp" />
     <ClCompile Include="components\vfx\comp_death_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_dust.cpp" />
     <ClCompile Include="components\vfx\comp_fire_follow.cpp" />
@@ -166,7 +167,6 @@
     <ClCompile Include="modules\game\module_game_paused.cpp" />
     <ClCompile Include="modules\game\module_game_ui.cpp" />
     <ClCompile Include="modules\game\module_scripting.cpp" />
-    <ClCompile Include="modules\game\module_win_game.cpp" />
     <ClCompile Include="modules\module_boot.cpp" />
     <ClCompile Include="modules\module_camera_mixer.cpp" />
     <ClCompile Include="modules\module_entities.cpp" />
@@ -390,6 +390,7 @@
     <ClInclude Include="components\vfx\comp_bolt_aura_billboard.h" />
     <ClInclude Include="components\vfx\comp_bolt_billboard.h" />
     <ClInclude Include="components\vfx\comp_bolt_sphere.h" />
+    <ClInclude Include="components\vfx\comp_bolt_sphere_oven.h" />
     <ClInclude Include="components\vfx\comp_death_billboard.h" />
     <ClInclude Include="components\vfx\comp_dust.h" />
     <ClInclude Include="components\vfx\comp_fire_follow.h" />
@@ -456,7 +457,6 @@
     <ClInclude Include="modules\game\module_game_paused.h" />
     <ClInclude Include="modules\game\module_game_ui.h" />
     <ClInclude Include="modules\game\module_scripting.h" />
-    <ClInclude Include="modules\game\module_win_game.h" />
     <ClInclude Include="modules\module.h" />
     <ClInclude Include="modules\module_boot.h" />
     <ClInclude Include="modules\module_camera_mixer.h" />
@@ -621,7 +621,7 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -633,7 +633,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

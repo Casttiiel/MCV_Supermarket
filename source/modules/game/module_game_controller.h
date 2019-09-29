@@ -53,7 +53,7 @@ class CModuleGameController : public IModule
     void renderInMenu();
     void updateGameCondition();
 
-	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(176,4 ,-17),VEC3(2,7 ,-1),VEC3(14, 15,-6),VEC3(-69,2,-114),VEC3(-83,5,-212),VEC3(-122,46,-223) };
+	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(176,4 ,-17),VEC3(2,7 ,-1),VEC3(14, 15,-6),VEC3(-69,2,-114),VEC3(-83,5,-212) };
 	int positionCheat = 0;
     
     //void switchState(PauseState pause);
@@ -116,7 +116,6 @@ public:
     bool loadCheckpoint();
     bool deleteCheckpoint();
     bool isCheckpointSaved();
-    void wakeUpWinds();
 	//End Checkpoints
 
 	//Entity handling

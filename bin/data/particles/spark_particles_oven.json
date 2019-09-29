@@ -2,7 +2,7 @@
   {
     "entity":
     {
-      "name": "Smoke Cold Particles",
+      "name": "SparkParticles_oven",
       "transform": {
         "pos": "0 0 0",
         "rotation": "0.0 0.0 0.0 1.0"
@@ -10,22 +10,25 @@
       ,
       "render":
       {
-        "mesh": "unit_quad_xy_centered.mesh",
+        "mesh": "data/meshes/static_objects/UnitSphere.mesh",
         "materials":
         [
-          "data/materials/vfx/particles_smoke_cold.material"
+          "data/materials/vfx/particles_spark.material"
         ]
+      },
+      "comp_self_destroy" : {
+        "_isEnabled": false
       },
       "buffers" : {
         "instances" : {
           "desc" : "Array of active particles at the start of the frame",
           "bytes_per_elem" : 96,
-          "num_elems" : 8192
+          "num_elems" : 1024
         },
         "instances_active" : {
           "desc" : "Array of active particles after the update",
           "bytes_per_elem" : 96,
-          "num_elems" : 8192
+          "num_elems" : 1024
         },
         "system" : {
           "desc" : "Stores dynamic information of this system: num particles alive/dead/time to next spawn/...",
@@ -37,7 +40,7 @@
           "bytes_per_elem" : 20,
           "num_elems" : 1,
           "is_indirect" : true,
-          "init_indirect_from_mesh" : "unit_quad_xy_centered.mesh"
+          "init_indirect_from_mesh" : "data/meshes/static_objects/UnitSphere.mesh"
         },
         "indirect_update" : {
           "desc" : "Arguments of the dispachIndirect, so the CPU never knows how many particles are alive. 3 x uint",
@@ -47,29 +50,33 @@
         },
         "TCtesParticles" : {
           "desc" : "Cte buffer to control emission parameters and update parameters",
-          "time_between_spawns" : 0.01,
-          "num_particles_per_spawn" : 500,
-          "center_radius" : 75.0,
+          "time_between_spawns" : 0.2,
+          "num_particles_per_spawn" : 6,
+          "center_radius" : 0.1,
           "dir_aperture" : 2.0,
-          "emitter_dir" : "30 0 10",
-          "speed" : "0.1 0.2",
-          "duration" : "130.0 140.0",
-          "pos": "162.0 -3.5 -17.0",
+          "speed" : "1.5 3.3",
+          "pos" : "0 1 0",
+          "duration" : "0.28 0.73",
           "colors" : [
-            [0.0, "0.0 0.8 1.0 1.0"],
-            [1.0, "0.0 0.8 1.0 1.0"]
+            [0.0, "0.0 0.5 1.0 1.0"],
+            [1.0, "0.0 0.5 1.0 1.0"]
+          ],
+          "sizes" : [
+            [0.0, 0.03],
+            [0.5, 0.03],
+            [1.0, 0.01]
           ]
         }
       },
       "compute" : [
         {
           "desc" : "Spawning just 1 thread",
-          "cs" : "cs_particles_smoke_cold_spawn.compute",
+          "cs" : "cs_particles_spark_spawn.compute",
           "sizes" : [1, 1, 1]
         },
         {
           "desc" : "Updating as many thread groups as required & defined by the buffer indirect_update", 
-          "cs" : "cs_particles_smoke_cold_update.compute",
+          "cs" : "cs_particles_spark_update.compute",
           "sizes" : { 
             "buffer": "indirect_update", 
             "offset" : 0 

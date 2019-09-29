@@ -14,6 +14,13 @@ void TCompSelfDestroy::load(const json& j, TEntityParseContext& ctx) {
 	_selfDestructTimer = _selfDestructDelay;
 }
 
+void TCompSelfDestroy::enableWithDelay(float delay) {
+	if (delay >= 0) {
+		_selfDestructTimer = delay;
+	}
+	_isEnabled = true;
+}
+
 void TCompSelfDestroy::enable() {
 	_isEnabled = true;
 }

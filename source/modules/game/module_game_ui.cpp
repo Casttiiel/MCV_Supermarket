@@ -113,7 +113,12 @@ void CModuleGameUI::update(float delta)
 				//cambiar imagen de cursor un instante de timepo
 				UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
 				b_cursor->setCurrentState("option_teleport");
-			}			
+			}
+			
+			/*
+			
+			}*/
+			
 
 		}
 		if (inventory->getChilli()) {

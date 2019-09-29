@@ -29,15 +29,7 @@ public:
         RUN, 
         SCAN, 
         THROW, 
-        WALK,
-        DEAD,
-        DIE,
-        FIRE_END,
-        FIRE_END_PARTIAL,
-        FIRE_LOOP,
-        FIRE_LOOP_PARTIAL,
-        FIRE_START,
-        FIRE_START_PARTIAL
+        WALK
     };
 	struct TMsgExecuteAnimation {
 

@@ -61,15 +61,6 @@ void TCompFireController::enable() {
     if (!_enabled && m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE)) {
         _enabled = true;
         audioEffect = EngineAudio.playEvent("event:/Character/Powers/Fire/Fire");
-        TCompCharacterController* c_c = get<TCompCharacterController>();
-        if (c_c->getMovementDirection() != VEC3().Zero) {
-            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::FIRE_START_PARTIAL, 1.0f);
-        }
-        else {
-            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::FIRE_START, 1.0f);
-        }
     }
 }
 
@@ -77,15 +68,6 @@ void TCompFireController::disable() {
     if (_enabled) {
         _enabled = false;
         audioEffect.stop();
-        TCompCharacterController* c_c = get<TCompCharacterController>();
-        if (c_c->getMovementDirection() != VEC3().Zero) {
-            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::FIRE_END_PARTIAL, 1.0f);
-        }
-        else {
-            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::FIRE_END, 1.0f);
-        }
     }
 }
 
@@ -137,15 +119,6 @@ void TCompFireController::update(float dt) {
     if (_fireTimer <= 0.f) {
         attack(bonePosition);
         _fireTimer = _fireDelay;
-        TCompCharacterController* c_c = get<TCompCharacterController>();
-        if (c_c->getMovementDirection() != VEC3().Zero) {
-            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::FIRE_LOOP_PARTIAL, 1.0f);
-        }
-        else {
-            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::FIRE_LOOP, 1.0f);
-        }
     }
     else {
         _fireTimer -= Time.delta_unscaled;
