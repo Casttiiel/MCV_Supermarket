@@ -92,6 +92,7 @@ private:
   //Audio Values
     AudioEvent damagedAudio;
     AudioEvent footSteps;
+    AudioEvent footStepsSlow;
   //Audio Values
 
   //Melee Values

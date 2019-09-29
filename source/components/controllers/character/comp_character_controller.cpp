@@ -53,7 +53,9 @@ void TCompCharacterController::Init() {
     //ADD MORE STATES FOR BEING HIT, ETC, ETC
 
     footSteps = EngineAudio.playEvent("event:/Character/Footsteps/Footsteps");
+    footStepsSlow = EngineAudio.playEvent("event:/Character/Footsteps/Footsteps_Slow");
     footSteps.setPaused(true);
+    footStepsSlow.setPaused(true);
     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
     damagedAudio.stop();
     ChangeState("GROUNDED");
@@ -187,6 +189,7 @@ void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsg
 
 void TCompCharacterController::idleCinematic(float delta) {
     footSteps.setPaused(true);
+    footStepsSlow.setPaused(true);
   //DO NOTHING, ONLY LOOP IDLE
 	if (!cinematic) {
 		ChangeState("GROUNDED");
@@ -246,15 +249,29 @@ void TCompCharacterController::grounded(float delta) {
 
     //MOVEMENT
     getInputForce(dir);
+    float v = EngineInput["front_"].value;
     if (dir != VEC3().Zero) {
-        //SwapMesh(2);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
-        //Play sound
-        if(footSteps.getPaused()){
-            footSteps.setPaused(false);
-            footSteps.restart();
+        if (EngineInput["front_"].value <= 0.5f && EngineInput["left_"].value <= 0.5f) {
+            playerAnima->playAnimation(TCompPlayerAnimator::WALK, 1.0f);
+            //Play sound
+            if (footStepsSlow.getPaused()) {
+                footSteps.setPaused(true);
+                footStepsSlow.setPaused(false);
+                footStepsSlow.restart();
+            }
         }
+        else {
+            playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
+            //Play sound
+            if (footSteps.getPaused()) {
+                footStepsSlow.setPaused(true);
+                footSteps.setPaused(false);
+                footSteps.restart();
+            }
+        }
+        //SwapMesh(2);
+        
     }
     else {
         //SwapMesh(0);
@@ -265,6 +282,9 @@ void TCompCharacterController::grounded(float delta) {
 			if (!footSteps.getPaused()) {
 				footSteps.setPaused(true);
 			}
+            if (!footStepsSlow.getPaused()) {
+                footStepsSlow.setPaused(true);
+            }
 		}
     }
 
@@ -461,6 +481,9 @@ void TCompCharacterController::onAir(float delta) {
 
     if (!footSteps.getPaused()) {
         footSteps.setPaused(true);
+    }
+    if (!footStepsSlow.getPaused()) {
+        footStepsSlow.setPaused(true);
     }
 
     treatRumble(Time.delta_unscaled);
@@ -1332,6 +1355,7 @@ void TCompCharacterController::mount(CHandle vehicle) {
         ChangeState("MOUNTED");
         //SwapMesh(1);
         footSteps.setPaused(true);
+        footStepsSlow.setPaused(true);
     }
 }
 
@@ -1341,7 +1365,6 @@ void TCompCharacterController::dismount() {
     //While moving appear behind sCart
     //While stationary appear in front of sCart
     //SwapMesh(0);
-    footSteps.setPaused(false);
 }
 
 void TCompCharacterController::mounted(float delta) {
