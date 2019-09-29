@@ -88,8 +88,6 @@
     "vs_fx": "data/shaders/gpu_particles_fire.fx",
     "vdecl": "PosUvColor",
     "blend": "combinative",
-    "z": "test_but_no_write",
-    "rs": "cull_none",
     "gpu_buffers": {
       "instances": 0
     }
@@ -148,6 +146,8 @@
     "vs_fx": "data/shaders/pbr.fx",
     "vs": "VS_morph",
     "vdecl": "PosNUvPosNT",
+    "ps_fx": "data/shaders/water.fx",
+    "ps": "PS_ice",
     "ctes_buffers": {
       "TCtesMorph": 13
     }

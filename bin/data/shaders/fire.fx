@@ -31,6 +31,13 @@ VS_OUTPUT VS(
 {
   VS_OUTPUT output = (VS_OUTPUT)0;
   float4 auxPos = Pos;
+  if(Pos.y > -0.01){
+    float r = 0.3;
+    float off = randomNumb * 2.3;
+    auxPos.x += r * cos(GlobalWorldTime * 3 + off);
+    auxPos.z += r * sin(GlobalWorldTime * 2 + off);
+    auxPos.y += r * sin(GlobalWorldTime * 1 + off);
+  }
   output.Pos = mul(auxPos, World);
   output.WorldPos = output.Pos.xyz;
   output.Pos = mul(output.Pos, ViewProjection);
@@ -102,7 +109,7 @@ float4 PS_2(VS_OUTPUT input) : SV_Target
   const float _height = 0.70f;
   //for distortion
   const float _scrollX = 0.0f;
-  const float _scrollY = 0.4f;
+  const float _scrollY = 1.12f + randomNumb * 0.2;
   const float _distort = 0.25f;
   //for visuals
   const float _threshold = 0.3f;
