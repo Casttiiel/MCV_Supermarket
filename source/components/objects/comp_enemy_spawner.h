@@ -37,8 +37,10 @@ private:
 
 	
 	bool _isEnabled = false;
+	bool firstTime = true;
   bool is_destroyed = false;
 	int _spawnMaxNumber = 2;
+	float destroyEffectTimer = 1.3f;
 	std::vector<CHandle> _currentEnemies;
 	float _spawnDelay = 3.f;
 	float _spawnTimer = _spawnDelay;
@@ -50,6 +52,7 @@ private:
 	void enable(const TMsgEntityTriggerEnter & msg);
 	void disable(const TMsgEntityTriggerExit & msg);
 	void onBattery(const TMsgGravity & msg);
+	void onDamage(const TMsgDamage & msg); //TODO ELIMINAR
 	void onCheckout(const TMsgSpawnerCheckout & msg);
 	
 

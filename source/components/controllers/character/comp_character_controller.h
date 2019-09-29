@@ -67,11 +67,13 @@ private:
   std::string statePrevious = "";
   float distance_to_aim = 20.0f;
   float speed = 7.f;
+  float inCombatTimer = 0.f;
+  float inCombatDuration = 5.f;
   
   float base_speed = speed;
   float rotation_speed = 4.0f;
   float dash_speed = 35.0f;
-  float dash_limit = 0.1f;
+  float dash_limit = 0.15f;
   float dash = dash_limit;
   float time_between_dashes = 1.5f;
   float time_to_next_dash = 0.0f;
@@ -91,6 +93,7 @@ private:
   //Audio Values
     AudioEvent damagedAudio;
     AudioEvent footSteps;
+    AudioEvent footStepsSlow;
   //Audio Values
 
   //Melee Values

@@ -23,7 +23,7 @@ void TCompMadnessPuddle::onPlayerAttack(const TMsgDamage & msg) {
 	if(m_c != nullptr) {
 		m_c->generateMadness(PowerType::PUDDLE);
 		GameController.addMadnessPuddle();
-		GameController.healPlayerPartially(10.f);
+		//GameController.healPlayerPartially(10.f); //curar al player
 		EngineAudio.playEvent("event:/Character/Attacks/Clean_Puddle");
 		CHandle(this).getOwner().destroy();
 		CHandle(this).destroy();

@@ -4,29 +4,6 @@
 #include "render/primitives.h"
 #include "render/module_render.h"
 #include "engine.h"
-#include "utils/file_context.h"
-
-//std::set< void* > allocs;
-
-/*void * operator new(size_t size)
-{
-  void * p = malloc(size);
-  if (size > 1024 * 1024) {
-    if(TFileContext::files.empty())
-      dbg("Alloc of %ld bytes --\n", size);
-    else
-      dbg("Alloc of %ld bytes %s\n", size, TFileContext::files.back()->c_str());
-    //allocs.insert(p);
-  }
-
-  return p;
-}
-
-void operator delete(void * p)
-{
-
-  free(p);
-}*/
 
 void CApplication::generateFrame() {
   PROFILE_FRAME_BEGINS();

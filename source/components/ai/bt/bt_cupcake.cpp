@@ -695,7 +695,7 @@ void CBTCupcake::onCollision(const TMsgOnContact& msg) { //no se utiliza
 			c_tag->actor->getShapes(&colShape, 1, 0);
 			PxFilterData col_filter_data = colShape->getSimulationFilterData();
 
-			if (col_filter_data.word0 & EnginePhysics.Player || col_filter_data.word0 & EnginePhysics.Product) {
+			if (col_filter_data.word0 & EnginePhysics.Player) {
 				if (jump) { //IF YOU ARE HIDE YOU CANNOT SEND DAMAGE
 				 // dbg("cupcake collision with player \n");
 					recoiled = true;

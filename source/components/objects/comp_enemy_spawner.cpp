@@ -29,6 +29,7 @@ void TCompEnemySpawner::registerMsgs() {
 	DECL_MSG(TCompEnemySpawner, TMsgEntityTriggerExit, disable);
 	DECL_MSG(TCompEnemySpawner, TMsgGravity, onBattery);
 	DECL_MSG(TCompEnemySpawner, TMsgSpawnerCheckout, onCheckout);
+	//DECL_MSG(TCompEnemySpawner, TMsgDamage, onDamage); //TODO: solo para test
 }
 
 void TCompEnemySpawner::enable(const TMsgEntityTriggerEnter & msg) {
@@ -45,13 +46,42 @@ void TCompEnemySpawner::disable(const TMsgEntityTriggerExit & msg) {
 	}
 }
 
-void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
+
+void TCompEnemySpawner::onDamage(const TMsgDamage & msg) {//TODO: solo para test
 	_isEnabled = false;
   EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
   is_destroyed = true;
-  //Animate or start particle system, do something
-	/*CHandle(this).getOwner().destroy();
-	CHandle(this).destroy();*/
+	// ----- soltar chispas: 
+
+	TCompTransform* c_trans = get<TCompTransform>();
+	TEntityParseContext ctx;
+	ctx.root_transform = *c_trans;
+	ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 3, 0));
+
+	parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
+
+	parseScene("data/particles/spark_particles_oven.json", ctx);
+
+}
+
+void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
+	if (!is_destroyed) {
+		_isEnabled = false;
+		EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
+		is_destroyed = true;
+		// ----- soltar chispas: 
+
+		TCompTransform* c_trans = get<TCompTransform>();
+		TEntityParseContext ctx;
+		ctx.root_transform = *c_trans;
+		ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 3, 0));
+
+		parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
+
+		parseScene("data/particles/spark_particles_oven.json", ctx);
+
+	}
+
 }
 
 void TCompEnemySpawner::onCheckout(const TMsgSpawnerCheckout & msg) {
@@ -184,6 +214,15 @@ void TCompEnemySpawner::update(float dt) {
 			}
 
 		}
+	}
+	else if (is_destroyed) {
+
+		// abrir puerta del horno 
+		TCompPropAnimator* animator = get<TCompPropAnimator>();
+		animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt); 
+		//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
+	
+
 	}
 }
 
