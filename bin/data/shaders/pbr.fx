@@ -146,6 +146,7 @@ void PS_common(
 
   o_self_illum = txEmissive.Sample(samLinear,input.Uv);
   o_self_illum *= o_self_illum.a;
+
   //o_self_illum.xyz *= ObjColor * self_illum_intensity;
 }
 
@@ -349,10 +350,30 @@ float4 PS_Ambient(
 
   float4 final_color = (float4(env_fresnel * env * g_ReflectionIntensity + 
                               g.albedo.xyz * irradiance * g_AmbientLightIntensity
-                              , 1.0f) * GlobalAmbientBoost);
+                              , 1.0f) * GlobalAmbientBoost) * ao;
+  final_color.xyz += g.self_illum;*/
+
+  //-------------------
+  //comic shading
+  float2 uv =  1.0f / 0.2f;
+  uv *= iPosition.xy * CameraInvResolution.y;
+  const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
+    sin(brush_rotation), cos(brush_rotation)
+  };
+  float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
+  float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
+
+  float4 final_color = float4(g.albedo.xyz * g_AmbientLightIntensity
+      , 1.0f) * GlobalAmbientBoost * ao;
   final_color.xyz += g.self_illum;
 
-  return final_color * ao;
+
+  float4 static_dots = brush * final_color * 0.3f;
+  float4 ao_dots = brush * final_color * (1-ao);
+  float4 dots = static_dots + ao_dots;
+  //end comic shading
+  //-------------------
+  return final_color - dots;
 }
 
 // ----------------------------------------
@@ -398,13 +419,20 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   // Shadow factor entre 0 (totalmente en sombra) y 1 (no ocluido)
   float shadow_factor = use_shadows ? getShadowFactor( g.wPos ) : 1.;
 
+  float4 worldPos = float4(g.wPos,1);
   if(fix_shadows){
-    float4 worldPos = float4(g.wPos,1);
     float4 almostScreenPos = mul(worldPos, LightViewProjOffset);
     float3 screenPos = almostScreenPos.xyz / almostScreenPos.w;
     //if out of range, shadow_factor = 0;
     if(screenPos.x < -1 || screenPos.x > 1 || screenPos.y < -1 || screenPos.y > 1)
       shadow_factor = 0;
+  }
+  if(fix_shadows || use_shadows){
+    float4 PosLightProjection = mul(worldPos, LightViewProjOffset);
+    float3 PosLightHomoSpace = PosLightProjection.xyz / PosLightProjection.w;
+
+    float4 texture_color = txProjector.Sample(samBorderColor, PosLightHomoSpace.xy);
+    //shadow_factor *= texture_color.x;
   }
 
   // From wPos to Light
@@ -423,13 +451,36 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   float3 cDiff = Diffuse(g.albedo);
   float3 cSpec = Specular(g.specular_color, h, g.view_dir, light_dir, a, NdL, NdV, NdH, VdH, LdV);
 
-  //float3 lut = txLut.Sample(samLinear, float2(NdL, 0)).xyz;
-
   float att = saturate( distance_to_light / LightRadius );
   att = 1. - att;
-  float3 final_color = LightColor.xyz * NdL * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
-  //float3 final_color = LightColor.xyz * lut * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor * ObjColor;
-  return float4( final_color, 1);
+
+  //------------------
+  //comic shading
+  float lut = NdL;
+  lut = smoothstep(shadow_ramp-0.01f,shadow_ramp,lut);
+
+  float3 color = LightColor.xyz * (cDiff) * LightIntensity * color_intensity * att;
+
+  float2 uv = 1.0 / 0.2;
+  uv *= iPosition.xy * CameraInvResolution.y;
+  const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
+    sin(brush_rotation), cos(brush_rotation)
+  };
+  float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
+  float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
+  float3 final_color = lut * color * shadow_factor;
+  /*if(shadow_factor < 0.0){
+    final_color -= (brush * color * shadow_factor * lut) * 2;
+  }else{
+    
+  }*/
+  float signo = shadow_factor * lut >= 0.8 ? 1 : -0.3;
+  final_color += (brush * color * shadow_factor * lut) * 2 * signo;
+  //end comic shading
+  //-------------------
+  //float3 final_color = LightColor.xyz * NdL * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
+  
+  return float4(final_color, 1);
 }
 
 // -------------------------------------------------
