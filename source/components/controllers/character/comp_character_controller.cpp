@@ -254,27 +254,60 @@ void TCompCharacterController::grounded(float delta) {
 
     //MOVEMENT
     getInputForce(dir);
-    float v = EngineInput["front_"].value;
     if (dir != VEC3().Zero) {
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        if (EngineInput["front_"].value <= 0.5f && EngineInput["left_"].value <= 0.5f) {
-            playerAnima->playAnimation(TCompPlayerAnimator::WALK, 1.0f);
-            //Play sound
-            if (footStepsSlow.getPaused()) {
-                footSteps.setPaused(true);
-                footStepsSlow.setPaused(false);
-                footStepsSlow.restart();
+        float front_ = EngineInput["front_"].value;
+        //With keyboard "s" back_ == 1.0, with joystick back_ == -1.0
+        float back_ = EngineInput["back_"].value;
+        float left_ = EngineInput["left_"].value;
+        float right_ = EngineInput["right_"].value;
+        if (fabs(back_) > 0.f && aiming) {
+            //Backwards
+            if (fabs(back_) <= 0.5f && (fabs(left_) <= 0.5f || fabs(right_) <= 0.5f)) {
+                //Walk backwards
+                playerAnima->playAnimation(TCompPlayerAnimator::WALK, -1.0f);
+                //Play sound
+                if (footStepsSlow.getPaused()) {
+                    footSteps.setPaused(true);
+                    footStepsSlow.setPaused(false);
+                    footStepsSlow.restart();
+                }
+            }
+            else {
+                //Run backwards
+                playerAnima->playAnimation(TCompPlayerAnimator::RUN, -1.0f);
+                //Play sound
+                if (footSteps.getPaused()) {
+                    footStepsSlow.setPaused(true);
+                    footSteps.setPaused(false);
+                    footSteps.restart();
+                }
             }
         }
         else {
-            playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
-            //Play sound
-            if (footSteps.getPaused()) {
-                footStepsSlow.setPaused(true);
-                footSteps.setPaused(false);
-                footSteps.restart();
+            //Forwards
+            if (fabs(front_) <= 0.5f && (fabs(left_) <= 0.5f || fabs(right_) <= 0.5f)) {
+                //Walk Forwards
+                playerAnima->playAnimation(TCompPlayerAnimator::WALK, 1.0f);
+                //Play sound
+                if (footStepsSlow.getPaused()) {
+                    footSteps.setPaused(true);
+                    footStepsSlow.setPaused(false);
+                    footStepsSlow.restart();
+                }
+            }
+            else {
+                //Run Forwards
+                playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
+                //Play sound
+                if (footSteps.getPaused()) {
+                    footStepsSlow.setPaused(true);
+                    footSteps.setPaused(false);
+                    footSteps.restart();
+                }
             }
         }
+        
         //SwapMesh(2);
         
     }
