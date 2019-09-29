@@ -52,7 +52,9 @@ void TCompCharacterController::Init() {
     //ADD MORE STATES FOR BEING HIT, ETC, ETC
 
     footSteps = EngineAudio.playEvent("event:/Character/Footsteps/Footsteps");
+    footStepsSlow = EngineAudio.playEvent("event:/Character/Footsteps/Footsteps_Slow");
     footSteps.setPaused(true);
+    footStepsSlow.setPaused(true);
     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
     damagedAudio.stop();
     ChangeState("GROUNDED");
@@ -63,6 +65,9 @@ void TCompCharacterController::update(float dt) {
 	if (invulnerabilityTimer > 0) {
 		invulnerabilityTimer -= dt;
 	}
+    if (inCombatTimer > 0) {
+        inCombatTimer -= dt;
+    }
 
 	if (!_pausedAI) {
 		PROFILE_FUNCTION("IAIController");
@@ -186,6 +191,7 @@ void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsg
 
 void TCompCharacterController::idleCinematic(float delta) {
     footSteps.setPaused(true);
+    footStepsSlow.setPaused(true);
   //DO NOTHING, ONLY LOOP IDLE
 	if (!cinematic) {
 		ChangeState("GROUNDED");
@@ -245,25 +251,48 @@ void TCompCharacterController::grounded(float delta) {
 
     //MOVEMENT
     getInputForce(dir);
+    float v = EngineInput["front_"].value;
     if (dir != VEC3().Zero) {
-        //SwapMesh(2);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
-        //Play sound
-        if(footSteps.getPaused()){
-            footSteps.setPaused(false);
-            footSteps.restart();
+        if (EngineInput["front_"].value <= 0.5f && EngineInput["left_"].value <= 0.5f) {
+            playerAnima->playAnimation(TCompPlayerAnimator::WALK, 1.0f);
+            //Play sound
+            if (footStepsSlow.getPaused()) {
+                footSteps.setPaused(true);
+                footStepsSlow.setPaused(false);
+                footStepsSlow.restart();
+            }
         }
+        else {
+            playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
+            //Play sound
+            if (footSteps.getPaused()) {
+                footStepsSlow.setPaused(true);
+                footSteps.setPaused(false);
+                footSteps.restart();
+            }
+        }
+        //SwapMesh(2);
+        
     }
     else {
         //SwapMesh(0);
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
 		if(playerAnima != nullptr){
-			playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.0f);
+            if (inCombatTimer > 0.f) {
+                playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f);
+            }
+            else {
+                playerAnima->playAnimation(TCompPlayerAnimator::IDLE_MELEE, 1.0f);
+            }
+			
 			//footSteps.stop();
 			if (!footSteps.getPaused()) {
 				footSteps.setPaused(true);
 			}
+            if (!footStepsSlow.getPaused()) {
+                footStepsSlow.setPaused(true);
+            }
 		}
     }
 
@@ -333,6 +362,7 @@ void TCompCharacterController::grounded(float delta) {
         if (c_tp->canCombo() && m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) {
             if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
                 dbg("Pj execute combo fire\n");
+                inCombatTimer = inCombatDuration;
                 c_tp->comboDone = true;
                 TCompFireController* c_fire = get<TCompFireController>();
                 c_fire->comboAttack(c_trans->getPosition());
@@ -341,6 +371,7 @@ void TCompCharacterController::grounded(float delta) {
         else if (m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) {
             if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
         //Enable fire, keep it enabled while holding trigger, disable on release
+                inCombatTimer = inCombatDuration;
                 TCompFireController* c_fire = get<TCompFireController>();
                 c_fire->enable();
                 //Change weapon mesh
@@ -451,6 +482,9 @@ void TCompCharacterController::onAir(float delta) {
     if (!footSteps.getPaused()) {
         footSteps.setPaused(true);
     }
+    if (!footStepsSlow.getPaused()) {
+        footStepsSlow.setPaused(true);
+    }
 
     treatRumble(Time.delta_unscaled);
     bool startDash = false;
@@ -502,11 +536,13 @@ void TCompCharacterController::onAir(float delta) {
 
         if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRE) * Time.delta_unscaled) || GameController.getGodMode()) && !c_tp->canCombo()) { // y no puedes hacer combo
         //Enable fire, keep it enabled while holding trigger, disable on release
+            inCombatTimer = inCombatDuration;
             TCompFireController* c_fire = get<TCompFireController>();
             c_fire->enable();
         }
         else if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode()) && c_tp->canCombo()) { //SI PUEDES HACER COMBO, Y TIENES ENERGIA
             dbg("Pj execute combo fire\n");
+            inCombatTimer = inCombatDuration;
             c_tp->comboDone = true;
             TCompFireController* c_fire = get<TCompFireController>();
             c_fire->comboAttack(c_trans->getPosition());
@@ -762,6 +798,7 @@ void TCompCharacterController::shoot() {
         EngineInput.feedback(rumble);
         rumble_time = 0.3f;
     }
+    inCombatTimer = inCombatDuration;
 
     TCompTransform* c_trans = get<TCompTransform>();
     TCompMadnessController* m_c = get<TCompMadnessController>();
@@ -830,6 +867,7 @@ void TCompCharacterController::attack(float delta) {
     w_r3->updateRenderManager();
     //COJO EL COMPONENTE, SI PUEDO HACER COMBO, PUES OTRA ANIMACION Y LA FUERZA ES MAYOR
 
+    inCombatTimer = inCombatDuration;
     VEC3 dir = VEC3();
     getInputForce(dir);
     dir *= Time.delta_unscaled;
@@ -950,6 +988,7 @@ void TCompCharacterController::chargedAttack(float delta) {
                 return;
             EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
             c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
+            inCombatTimer = inCombatDuration;
         }
 
         TCompTransform* c_trans = get<TCompTransform>();
@@ -1092,7 +1131,8 @@ void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
     if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
         life -= msg.intensityDamage;
 				invulnerabilityTimer = invulnerabilityTimeDuration;
-		//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+                inCombatTimer = inCombatDuration;
+                //UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
 		//bar->setRatio((life + 20) / 120.f);
     }
 
@@ -1164,7 +1204,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
         if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
             life -= msg.intensityDamage;
 						invulnerabilityTimer = invulnerabilityTimeDuration;
-			//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
+                        inCombatTimer = inCombatDuration;
+                        //UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
 			//bar->setRatio((life + 20)/120.f); // 20 y 120 son offset de la barra de vida
             TCompTransform* my_trans = get<TCompTransform>();
             VEC3 direction_to_damage;
@@ -1310,6 +1351,7 @@ void TCompCharacterController::mount(CHandle vehicle) {
         ChangeState("MOUNTED");
         //SwapMesh(1);
         footSteps.setPaused(true);
+        footStepsSlow.setPaused(true);
     }
 }
 
@@ -1319,7 +1361,6 @@ void TCompCharacterController::dismount() {
     //While moving appear behind sCart
     //While stationary appear in front of sCart
     //SwapMesh(0);
-    footSteps.setPaused(false);
 }
 
 void TCompCharacterController::mounted(float delta) {
