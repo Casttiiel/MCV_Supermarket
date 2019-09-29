@@ -50,6 +50,81 @@ float calculateDistanceEdge(
   return abs(depth_center - depth_sampledValue);
 }
 
+float4 alphaBlend(float4 top, float4 bottom)
+{
+  float3 color = (top.rgb * top.a) + (bottom.rgb * (1 - top.a));
+  float alpha = top.a + bottom.a * (1 - top.a);
+
+  return float4(color, alpha);
+}
+
+float4 outlineColor( float2 uv, float4 color){
+  float _Scale = 1.0f;
+  float _NormalThreshold = 0.3f;
+  float4 _Color = float4(0,0,0,1.0);
+  float _DepthNormalThreshold = 10000.0f;
+  float _DepthNormalThresholdScale = 1.0f;
+  float _DepthThreshold = 4.0f;
+
+  float halfScaleFloor = floor(_Scale * 0.5) * 0.5;
+  float halfScaleCeil = ceil(_Scale * 0.5) * 0.5;
+  //halfScaleFloor = halfScaleCeil = _Scale;
+
+  float2 bottomLeftUV = uv - float2(CameraInvResolution.x, CameraInvResolution.y) * halfScaleFloor;
+  float2 topRightUV = uv + float2(CameraInvResolution.x, CameraInvResolution.y) * halfScaleCeil;  
+  float2 bottomRightUV = uv + float2(CameraInvResolution.x * halfScaleCeil, -CameraInvResolution.y * halfScaleFloor);
+  float2 topLeftUV = uv + float2(-CameraInvResolution.x * halfScaleFloor, CameraInvResolution.y * halfScaleCeil);
+
+  float3 normal0 = txGNormal.Sample(samClampBiLinear, bottomLeftUV).xyz;
+  float3 normal1 = txGNormal.Sample(samClampBiLinear, topRightUV).xyz;
+  float3 normal2 = txGNormal.Sample(samClampBiLinear, bottomRightUV).xyz;
+  float3 normal3 = txGNormal.Sample(samClampBiLinear, topLeftUV).xyz;
+
+  float depth0 = txGLinearDepth.Sample(samClampBiLinear, bottomLeftUV).x;
+  float depth1 = txGLinearDepth.Sample(samClampBiLinear, topRightUV).x;
+  float depth2 = txGLinearDepth.Sample(samClampBiLinear, bottomRightUV).x;
+  float depth3 = txGLinearDepth.Sample(samClampBiLinear, topLeftUV).x;
+
+  GBuffer g;
+  decodeGBuffer( uv, g );
+
+  // Transform the view normal from the 0...1 range to the -1...1 range.
+  float3 viewNormal = normal0 * 2 - 1;
+  float NdotV = 1 - dot(viewNormal, -g.view_dir);
+
+  // Return a value in the 0...1 range depending on where NdotV lies 
+  // between _DepthNormalThreshold and 1.
+  float normalThreshold01 = saturate((NdotV - _DepthNormalThreshold) / (1 - _DepthNormalThreshold));
+  // Scale the threshold, and add 1 so that it is in the range of 1..._NormalThresholdScale + 1.
+  float normalThreshold = normalThreshold01 * _DepthNormalThresholdScale + 1;
+
+  // Modulate the threshold by the existing depth value;
+  // pixels further from the screen will require smaller differences
+  // to draw an edge.
+  float depthThreshold = _DepthThreshold * depth0 * normalThreshold;
+
+  float depthFiniteDifference0 = depth1 - depth0;
+  float depthFiniteDifference1 = depth3 - depth2;
+  // edgeDepth is calculated using the Roberts cross operator.
+  // The same operation is applied to the normal below.
+  // https://en.wikipedia.org/wiki/Roberts_cross
+  float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 100;
+  edgeDepth = edgeDepth > depthThreshold ? 1 : 0;
+
+  float3 normalFiniteDifference0 = normal1 - normal0;
+  float3 normalFiniteDifference1 = normal3 - normal2;
+  // Dot the finite differences with themselves to transform the 
+  // three-dimensional values to scalars.
+  float edgeNormal = sqrt(dot(normalFiniteDifference0, normalFiniteDifference0) + dot(normalFiniteDifference1, normalFiniteDifference1));
+  edgeNormal = edgeNormal > _NormalThreshold ? 1 : 0;
+
+  float edge = max(edgeDepth, edgeNormal);
+
+  float4 edgeColor = float4(_Color.rgb, _Color.a * edge);
+
+  return alphaBlend(edgeColor, color);
+}
+
 //--------------------------------------------------------------------------------------
 // Vertex Shader
 //--------------------------------------------------------------------------------------
@@ -251,7 +326,7 @@ float4 PS_GBuffer_Resolve(
   float edgeD = calculateDistanceEdge(iUV);
 
   //return lerp(acc_light, float4(0,0,0,1), step(0.3, (edgeN + edgeD)));
-  return acc_light - (edgeD + edgeN) * acc_light;
+  return outlineColor(iUV,acc_light);
 }
 
 // -------------------------------------------------
@@ -348,7 +423,7 @@ float4 PS_Ambient(
   float g_ReflectionIntensity = 1.0;
   float g_AmbientLightIntensity = 1.0;
 
-  float4 final_color = (float4(env_fresnel * env * g_ReflectionIntensity + 
+  /*float4 final_color = (float4(env_fresnel * env * g_ReflectionIntensity + 
                               g.albedo.xyz * irradiance * g_AmbientLightIntensity
                               , 1.0f) * GlobalAmbientBoost) * ao;
   final_color.xyz += g.self_illum;*/

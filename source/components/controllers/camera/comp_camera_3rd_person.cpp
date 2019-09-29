@@ -59,6 +59,8 @@ void TCompCamera3rdPerson::resetCamera() {
     return;
 
   CEntity* eTarget = _target;
+  if (!eTarget)
+    return;
   TCompTransform* cTargetTransform = eTarget->get<TCompTransform>();
   if (!cTargetTransform)
     return;
@@ -108,19 +110,20 @@ void TCompCamera3rdPerson::resetCamera() {
   VEC3 targetPos = finalPos + dir * distance;
 
   cTransform->lookAt(finalPos, targetPos);
+
+  first_reset = true;
 }
 
 void TCompCamera3rdPerson::update(float scaled_dt)
 {
+  if (!first_reset) // so the camera starts with the player
+    resetCamera();
   scaled_dt = Time.delta_unscaled;
   if (scaled_dt >= 0.03333f) { //less than 30 frames per second it will be loading
     scaled_dt = 0.03333f; //update it as if it was moving normally
   }
 
 	if(!isPause){
-	  scaled_dt = Time.delta_unscaled;
-	  if (scaled_dt > 1.0)
-		return;
 
 	  if (EngineInput[VK_F2].justPressed()) {
 		mouse_active = !mouse_active;
@@ -165,7 +168,7 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 	  _ratio = clamp(_ratio + ratioOffset, 0.f, 0.99999f);
 
 	  // curve transform movement
-	  float cameraHeight = cameraMovementOnJump();
+	  //float cameraHeight = cameraMovementOnJump();
 	  const MAT44 mRotation = MAT44::CreateFromYawPitchRoll(_yaw, 0.f, 0.f);
 	  VEC3 playerPos = cTargetTransform->getPosition();
 	  /*if (!actualCameraHeight) {//first time only

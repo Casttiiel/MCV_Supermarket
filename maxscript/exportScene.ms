@@ -22,7 +22,7 @@ fn isLine obj = (
 )
 
 fn isDirLight obj = (
-	return obj != undefined and (classof obj == Directionallight or classof obj == freeSpot or classof obj == targetSpot) and obj.parent == null
+	return obj != undefined and (classof obj == targetSpot) and obj.parent == null
 )
 
 fn isTrigger obj = (
@@ -140,32 +140,6 @@ struct TSceneExporter (
 			fs.endObj()	
 		)
 	),
-	fn exportDoor obj =(
-		local isDoor =  getUserProp obj "isDoor"
-		if isDoor == true then (
-			local param1 = getUserProp obj "mTravelTime_"
-			local param2 = getUserProp obj "curve"
-			
-			if param1 == undefined  then (
-				throw "A una Door le faltan datos"
-			)
-			
-			fs.writeComma()
-			fs.writeKey "comp_door"
-			fs.beginObj()
-			if param1 != undefined  then (
-				fs.writeKeyValue "mTravelTime_" param1
-				fs.writeComma()
-			)
-			if param2 != undefined  then (
-				fs.writeKeyValue "curve" param2 
-			)
-			fs.endObj()	
-		)
-	),
-	
-	
-	
 	
 	fn exportPlatform obj = (
 		local isPlatform = getUserProp obj "isPlatform"
@@ -391,9 +365,7 @@ struct TSceneExporter (
 				
 			fs.endObj()
 		)
-		
-		
-		
+
 	),
 	
 	----------------------------------------------------------
@@ -406,9 +378,7 @@ struct TSceneExporter (
 		fs.writeKeyValue "near" 5
 		fs.writeComma()
 		
-		local target = getnodebyname (obj.name + ".Target")
-		format "%\n\n\n\n\n\n\n\n\n\n" target
-		fs.writeKeyValue "far" (distance target.pos obj.pos)
+		fs.writeKeyValue "far" (obj.targetDistance)
 		fs.writeComma()
 		
 		fs.writeKeyValue "fov" obj.hotspot
@@ -431,6 +401,8 @@ struct TSceneExporter (
 		
 		fs.writeKeyValue "shadows_step" 2.0
 		fs.writeComma()
+		
+		fs.writeKeyValue "projector" "data/textures/punto_de_luz.dds"
 			
 		fs.endObj()
 	),
@@ -463,8 +435,7 @@ struct TSceneExporter (
 			
 			
 			local is_platform = getUserProp obj "platform"
-			local is_door = getUserProp obj "door"
-			if is_platform != undefined or is_door != undefined then (
+			if is_platform != undefined then (
 				fs.writeKeyValue "shape" "convex"
 				
 			)else (
@@ -686,7 +657,6 @@ struct TSceneExporter (
 			exportAABB obj
 			exportPlatform obj
 			exportPanel obj
-			exportDoor obj
 			exportCamera obj
 			exportWalls obj
 			exportMorph obj
@@ -713,7 +683,7 @@ struct TSceneExporter (
 				if canConvertTo obj Editable_mesh then exportEditableMesh obj
 				)
 				if isPointLight obj then exportPointLight obj
-				--if isDirLight obj then exportDirLight obj
+				if isDirLight obj then exportDirLight obj
 			--else (
 			--	format "Warning. Don't kwow how to export obj % of class %\n" obj.name ((classof obj) as string)
 			)

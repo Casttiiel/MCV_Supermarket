@@ -56,13 +56,12 @@ struct TMaterialExporter (
 		fs.begin (project_path + mat_name )
 		fs.beginObj()
 		  --Will use the defaults set in the parser. Needs to be a full data/techniques/textured.tech"
-			local isDoor =  getUserProp obj "isDoor"
 			local isPlatform = getUserProp obj "isPlatform"
 			local aabb = getUserProp obj "AABB"
 			local walltype = getUserProp obj "typeWall"
 			local isPanel = getUserProp obj "isPanel"
 			local is_morphed = obj.modifiers[#Morpher]
-			if is_morphed == undefined and isPlatform == undefined and aabb == "static" and walltype == undefined and isPanel == undefined and isDoor == undefined then (
+			if is_morphed == undefined and isPlatform == undefined and aabb == "static" and walltype == undefined and isPanel == undefined then (
 				fs.writeKeyValue "technique" "objs_culled_by_gpu.tech"
 				fs.writeComma()
 			)else (
@@ -70,6 +69,10 @@ struct TMaterialExporter (
 			)
 			if is_morphed != undefined then(
 				fs.writeKeyValue "technique" "objs_morph.tech"
+				fs.writeComma()
+				fs.writeKeyValue "category" "distorsions"
+				fs.writeComma()
+				fs.writeKeyValue "casts_shadows" false
 				fs.writeComma()
 			)
 			fs.writeKey "textures" 
@@ -87,8 +90,13 @@ struct TMaterialExporter (
 			    fs.writeComma()
 				exportMap mat.bumpMap "normal" "null_normal"
 				fs.writeComma()
-				exportMap mat.metalnessMap "metallic" "black"
-				fs.writeComma()
+				if is_morphed != undefined then(
+					fs.writeKeyValue "metallic" "acc_light.dds"
+					fs.writeComma()
+				) else (
+					exportMap mat.metalnessMap "metallic" "black"
+					fs.writeComma()
+				)
 				exportMap mat.roughnessMap "roughness" "white"
 				fs.writeComma() 
 				exportMap mat.emissionColorMap "emissive" "black"
