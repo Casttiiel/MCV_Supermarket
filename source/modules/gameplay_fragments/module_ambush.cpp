@@ -43,7 +43,7 @@ void CModuleAmbush::firstEvent() {
 	//Scripting.execActionDelayed("activePlatformByName(\"Box009\")",0.1); Ya no se mueve la zanahoria
 
 
-	Scripting.execActionDelayed("wakeUpSuishisSecondFloor()", 0.0);
+	Scripting.execActionDelayed("wakeUpSuishisSecondFloor()", 0.1);
   //CONGELAR ENEMIGOS Y PLAYER
   //CINEMATICA
   //ACTIVAR PLATAFORMAS(SUELO)
@@ -55,9 +55,9 @@ void CModuleAmbush::firstEvent() {
 void CModuleAmbush::secondEvent() {
 	Scripting.execActionDelayed("defrost2()", 0.0); 
 	Scripting.execActionDelayed("on_ambush()", 0.0); 
-  Scripting.execActionDelayed("on_GPUdeleteScene(\"data/scenes/mapa_congelados.json\")", 0.0);
-  Scripting.execActionDelayed("on_load_gpu_scene(\"data/scenes/mapa_carnes.json\")", 8.0);
-  Scripting.execActionDelayed("on_load_gpu_scene(\"data/particles/hot_particles.json\")", 9.0);
+  //Scripting.execActionDelayed("on_GPUdeleteScene(\"data/scenes/mapa_congelados.json\")", 0.0);
+  //Scripting.execActionDelayed("on_load_gpu_scene(\"data/scenes/mapa_carnes.json\")", 8.0);
+  //Scripting.execActionDelayed("on_load_gpu_scene(\"data/particles/hot_particles.json\")", 9.0);
 	//descongelar suishis finales
   //CONGELAR ENEMIGOS Y PLAYER
   //CINEMATICA

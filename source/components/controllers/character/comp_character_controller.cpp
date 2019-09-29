@@ -1532,11 +1532,15 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
           TCompMorphAnimation* c_ma3 = e3->get<TCompMorphAnimation>();
           c_ma3->updateMorphData(0.0f);
           CEntity* e4 = getEntityByName("cubosHielo_033");
-          TCompMorphAnimation* c_ma4 = e4->get<TCompMorphAnimation>();
-          c_ma4->updateMorphData(0.0f);
-          CEntity* e5 = getEntityByName("cubosHielo_034");
-          TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
-          c_ma5->updateMorphData(0.0f);
+		 
+		  TCompMorphAnimation* c_ma4 = e4->get<TCompMorphAnimation>();
+		  c_ma4->updateMorphData(0.0f);
+		 
+		  CEntity* e5 = getEntityByName("cubosHielo_034");
+		  
+		  TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
+		  c_ma5->updateMorphData(0.0f);
+		  
           break;
       }
       case PowerUpType::ACTIVATE_COFFEE:
