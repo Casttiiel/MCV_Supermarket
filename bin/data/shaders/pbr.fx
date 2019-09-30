@@ -544,15 +544,11 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
   float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
   float3 final_color = lut * color * shadow_factor;
-  /*if(shadow_factor < 0.0){
-    final_color -= (brush * color * shadow_factor * lut) * 2;
-  }else{
-    
-  }*/
   float signo = shadow_factor * lut >= 0.8 ? 1 : -0.3;
   final_color += (brush * color * shadow_factor * lut) * 2 * signo;
   //end comic shading
   //-------------------
+  
   //float3 final_color = LightColor.xyz * NdL * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
   
   return float4(final_color, 1);

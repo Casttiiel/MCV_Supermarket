@@ -70,7 +70,7 @@ private:
   float distance_to_aim = 20.0f;
   float speed = 7.f;
   float inCombatTimer = 0.f;
-  float inCombatDuration = 5.f;
+  float inCombatDuration = 3.5f;
   
   float base_speed = speed;
   float rotation_speed = 4.0f;
