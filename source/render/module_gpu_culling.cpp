@@ -450,6 +450,9 @@ struct TSampleDataGenerator {
     }
     scene_prefabs.clear();
     
+    TFileContext fc(filename);
+    TEntityParseContext ctx2;
+    createProducts(filename, ctx2);
   }
   
   void addPrefabToModule(CHandle handl, json j) {

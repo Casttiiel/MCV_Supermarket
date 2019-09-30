@@ -25,11 +25,6 @@ bool CModuleBoot::start()
     CEngine::get().getGPUCulling().parseEntities(p, ctx);
 
   }
-
-  std::string p = "data/scenes/mapa_congelados.json";
-  TFileContext fc(p);
-  TEntityParseContext ctx;
-  CEngine::get().getGPUCulling().parseProducts(p, ctx);
   
   //this makes the fetchresults from physx to be faster, but.. doesnt looks like
   EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
