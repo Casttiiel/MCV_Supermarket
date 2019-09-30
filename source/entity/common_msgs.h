@@ -259,10 +259,15 @@ struct TMsgSoundRequest {
 };
 
 struct TMsgDeleteTrigger {
-	CHandle h_entity;
-	bool deleteForTrigger;
-	float damage;
-	DECL_MSG_ID();
+    CHandle h_entity;
+    bool deleteForTrigger;
+    float damage;
+    DECL_MSG_ID();
+};
+
+struct TMsgMeleeHit {
+    CHandle h_entity;
+    DECL_MSG_ID();
 };
 
 /*

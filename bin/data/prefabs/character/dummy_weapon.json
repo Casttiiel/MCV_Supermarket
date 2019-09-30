@@ -27,15 +27,16 @@
             {
               "shape": "box"
               ,
-              "half_size": "0.1 0.8 0.1"
+              "half_size": "0.8 0.1 0.1"
               ,
               "offset":
               {
-                "pos": "0.0 -0.2 0.0"
+                "pos": "0.5 0.0 0.0"
               }
               ,
               "trigger": true,
-              "group":"VulnerableToMelee"
+              "group":"player",
+              "mask":"VulnerableToMelee"
             }
           ]
         },

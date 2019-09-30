@@ -56,6 +56,7 @@ public:
   bool unLockableChilli = false;
   bool unLockableCoffe = false;*/
   bool cinematic = false;
+  bool getAttacking() { return attacking; }
 private:
 
   VEC3 movementDirection = VEC3().Zero;
@@ -101,8 +102,10 @@ private:
   //Melee Values
   bool alreadyAttacked = false;
   bool attackFirstExecution = true;
+  bool attacking = false;
+  float comboModifier = 1.f;
   float meleeTimer = 0.f;
-  float meleeDelay = 0.5f;
+  float meleeDelay = 0.3f;
   float meleeTotalDuration = 0.4f;
   float meleeCurrentDuration = 0.f;
   float meleeDistance = 1.5f;
@@ -117,7 +120,7 @@ private:
   float chargedAttack_damage = 20.f;
   float chargedAttack_radius = 5.f;
 	float chargedAttack_impactForce = 20.0f;
-  float chargedAttack_buttonPressThreshold = 0.2f;
+  float chargedAttack_buttonPressThreshold = 0.3f;
   float chargedAttack_buttonPressTimer = 0.f;
   float chargedAttack_playerSpeed = base_speed * 0.5;
   bool chargedAttack_releasing = false;
@@ -173,7 +176,7 @@ private:
   void onCinematicSpecial(const TMsgOnCinematicSpecial& msg);
   void onTrapWind(const TMsgTrapWind& msg);
   void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
-
+  void onMeleeHit(const TMsgMeleeHit& msg);
 
   //?????
   void mounted(float delta);

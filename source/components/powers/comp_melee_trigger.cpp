@@ -29,6 +29,16 @@ void TCompMeleeTrigger::registerMsgs() {
 void TCompMeleeTrigger::onCollision(const TMsgEntityTriggerEnter& msg) {
     if (!_isEnabled)
         return;
+    CEntity* player = getEntityByName("Player");
+    TCompCharacterController* c_c = player->get<TCompCharacterController>();
+    if (c_c == nullptr)
+        return;
+    bool b = c_c->getAttacking();
+    if (c_c->getAttacking()) {
+        TMsgMeleeHit meleeHit;
+        meleeHit.h_entity = msg.h_entity;
+        CHandle(this).getOwner().sendMsg(meleeHit);
+    }
 }
 
 
