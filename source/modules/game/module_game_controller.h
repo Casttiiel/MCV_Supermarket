@@ -17,7 +17,8 @@
 #include "components/objects/comp_enemy_spawner_special_trap.h"
 #include "components/ai/others/self_destroy.h"
 #include "components/controllers/character/comp_character_controller.h"
-
+#include "components/common/comp_light_point.h"
+#include "components/vfx/comp_flickering.h"
 
 
 class CBTCupcake;
@@ -278,4 +279,6 @@ TCompSelfDestroy* toCompSelfDestroy(CHandle h);
 CBTGolem* toCBTGolem(CHandle h);
 CBTCupcake* toCBTCupcake(CHandle h);
 TCompEnemySpawner* toCompEnemySpawner(CHandle h);
+TCompLightPoint* toCompLightPoint(CHandle h);
+TCompFlickering* toCompFlickering(CHandle h);
 //TCompCharacterController* toCompCharacterController_(CHandle h);

@@ -100,7 +100,8 @@ void CModuleScripting::doBingings() {
 	BindGolem();
 	BindEnemySpawnerSpecial();
 	BindEnemySpawner();
-	
+	BindPointLights();
+	BindFlickering();
 }
 
 
@@ -185,6 +186,8 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompSelfDestroy", SLB::FuncCall::create(&toCompSelfDestroy));
 	m->set("toCBTCupcake", SLB::FuncCall::create(&toCBTCupcake));
 	m->set("toCompEnemySpawner", SLB::FuncCall::create(&toCompEnemySpawner));
+	m->set("toCompLightPoint", SLB::FuncCall::create(&toCompLightPoint));
+	m->set("toCompFlickering", SLB::FuncCall::create(&toCompFlickering));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -211,6 +214,28 @@ void CModuleScripting::BindSkeleton() {
 		.property("flagFirst", &TCompSkelLookAt::flagFirst)
 		;
 }
+
+
+void CModuleScripting::BindPointLights() {
+	SLB::Class<TCompLightPoint>("TCompLightPoint", m)
+		.comment("This is our wrapper of lights class")
+		.set("setIntensity", &TCompLightPoint::setIntensity)
+		;
+}
+
+
+void CModuleScripting::BindFlickering() {
+	SLB::Class<TCompFlickering>("TCompFlickering", m)
+		.comment("This is our wrapper of flickering class")
+		.set("setFrequency", &TCompFlickering::setFrequency)
+		.set("setBase", &TCompFlickering::setBase)
+		.set("setAmplitud", &TCompFlickering::setAmplitud)
+		.set("setPhase", &TCompFlickering::setPhase)
+		;
+}
+
+
+
 
 
 void CModuleScripting::BindName() {

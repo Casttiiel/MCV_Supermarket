@@ -19,4 +19,9 @@ class TCompFlickering :  public TCompBase {
     void debugInMenu();
     void renderDebug();
     void update(float delta);
+
+	void setFrequency(float frequency);
+	void setBase(float base);
+	void setAmplitud(float amplitude_);
+	void setPhase(float phase_);
 };

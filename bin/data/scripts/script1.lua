@@ -618,6 +618,21 @@ function changeCurvePlatform(nameCurve,namePlatform)
 	GameController:updatePlatformCurveByName(nameCurve,namePlatform);
 end
 
+
+function changeIntensityLightPointWithFlickering(nameLight,intensity)
+	h_light =  GameController:entityByName(nameLight);
+	t_comp_flickering = toCompFlickering(toEntity(h_light):getCompByName("flickering"));
+	t_comp_flickering:setBase(intensity)--el base del flickering manda sobre el instensisy del componente pointLight
+	t_comp_flickering:setFrequency(0)
+	t_comp_flickering:setPhase(0)
+	
+	
+	
+
+end
+
+
+
 --activar plataformas en torre carniceria y creacion de suishis
 function activePlataformCarniceria_player()
 	
@@ -665,6 +680,18 @@ function activePlataformCarniceria_player()
 	GameController:updateSoundtrackID(5);
 	-- CAMERA LOCA
 	execDelayedAction("cinematica_tower()",0.0);
+
+	--omnis superior izquierda
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni008\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni015\",0.0)",12.5);
+	--omnis inferior izquierda
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni016\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni002\",0.0)",12.5);
+	--omnis inferior izquierda
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni012\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni017\",0.0)",12.5);
+
+
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",12.5);

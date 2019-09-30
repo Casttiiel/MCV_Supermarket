@@ -996,6 +996,17 @@ TCompEnemySpawner* toCompEnemySpawner(CHandle h) {
 	return c;
 }
 
+TCompLightPoint* toCompLightPoint(CHandle h) {
+	TCompLightPoint* l = h;
+	return l;
+}
+
+TCompFlickering* toCompFlickering(CHandle h) {
+	TCompFlickering* f = h;
+	return f;
+}
+
+
 
 /*
 TCompCharacterController* toCompCharacterController_(CHandle h) {
@@ -1065,4 +1076,7 @@ CCamera* CModuleGameController::getCameraFromHandle(CHandle hCamera)
 	}
 	return nullptr;
 }
+
+
+
 

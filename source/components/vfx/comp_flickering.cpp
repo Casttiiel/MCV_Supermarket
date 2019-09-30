@@ -50,3 +50,16 @@ void TCompFlickering::update(float delta) {
 }
 
 
+void TCompFlickering::setFrequency(float frequency_) {
+	frequency = frequency_;
+}
+void TCompFlickering::setBase(float base_) {
+	base = base_;
+}
+void TCompFlickering::setAmplitud(float amplitude_) {
+	amplitude = amplitude_;
+}
+void TCompFlickering::setPhase(float phase_) {
+	phase = phase_;
+}
+

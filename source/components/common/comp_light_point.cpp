@@ -68,3 +68,5 @@ void TCompLightPoint::onDefineLocalAABB(const TMsgDefineLocalAABB& msg) {
   AABB::CreateFromSphere(aabb, sphere);
   AABB::CreateMerged(*msg.aabb, *msg.aabb, aabb);
 }
+
+
