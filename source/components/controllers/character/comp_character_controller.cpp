@@ -1565,7 +1565,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  //unLockableChilli = true;
           //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-          CEntity* e1 = getEntityByName("Hielo2_LP");
+          /*CEntity* e1 = getEntityByName("Hielo2_LP");
           TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
           c_ma1->updateMorphData(0.0f);
           CEntity* e2 = getEntityByName("Hielo5_LP");
@@ -1583,7 +1583,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  
 		  TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
 		  c_ma5->updateMorphData(0.0f);
-		  
+		  */
           break;
       }
       case PowerUpType::ACTIVATE_COFFEE:
