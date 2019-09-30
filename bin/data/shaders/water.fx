@@ -89,7 +89,7 @@ float4 PS_ice(VS_OUTPUT input) : SV_Target
   float4 albedo_color = txAlbedo.Sample(samLinear, input.Uv);
 
   const float illum = 0.4;
-  float4 base_color = (back_color + albedo_color) * illum;
+  float4 base_color = (back_color + albedo_color*0.5) * illum;
 
   float3 incident_dir = normalize(input.WorldPos - CameraPosition.xyz);
   float3 reflected_dir = normalize(reflect(incident_dir, input.N));

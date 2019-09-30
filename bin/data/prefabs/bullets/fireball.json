@@ -31,5 +31,29 @@
 			  "mask":"VulnerableToFire"
 			}
     }
+  },
+  {
+    "entity":
+    {
+      "name": "PointLight"
+      ,
+      "transform":
+      {
+        "pos": "0.0 8.0 0.0"
+      }
+      ,
+      "light_point": {
+        "color": "1.0 0.4 0.0",
+        "intensity" : 1,
+        "radius" :  10
+      },
+      "abs_aabb":{},
+      "hierarchy":
+      {
+        "pos": "0 0 0"
+        ,
+        "parent": "Fireball"
+      }
+    }
   }
 ]
