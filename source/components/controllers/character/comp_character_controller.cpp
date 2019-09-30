@@ -263,17 +263,8 @@ void TCompCharacterController::grounded(float delta) {
         float right_ = EngineInput["right_"].value;
         if (fabs(back_) > 0.f && aiming) {
             //Backwards
-            if (fabs(back_) <= 0.5f && (fabs(left_) <= 0.5f || fabs(right_) <= 0.5f)) {
-                //Walk backwards
-                playerAnima->playAnimation(TCompPlayerAnimator::WALK, -1.0f);
-                //Play sound
-                if (footStepsSlow.getPaused()) {
-                    footSteps.setPaused(true);
-                    footStepsSlow.setPaused(false);
-                    footStepsSlow.restart();
-                }
-            }
-            else {
+            if (fabs(front_) > 0.5f || fabs(back_) > 0.5f || fabs(left_) > 0.5f || fabs(right_) > 0.5f) {
+            //if (fabs(back_) <= 0.5f && (fabs(left_) <= 0.5f || fabs(right_) <= 0.5f)) {
                 //Run backwards
                 playerAnima->playAnimation(TCompPlayerAnimator::RUN, -1.0f);
                 //Play sound
@@ -283,12 +274,9 @@ void TCompCharacterController::grounded(float delta) {
                     footSteps.restart();
                 }
             }
-        }
-        else {
-            //Forwards
-            if (fabs(front_) <= 0.5f && (fabs(left_) <= 0.5f || fabs(right_) <= 0.5f)) {
-                //Walk Forwards
-                playerAnima->playAnimation(TCompPlayerAnimator::WALK, 1.0f);
+            else {
+                //Walk backwards
+                playerAnima->playAnimation(TCompPlayerAnimator::WALK, -1.0f);
                 //Play sound
                 if (footStepsSlow.getPaused()) {
                     footSteps.setPaused(true);
@@ -296,7 +284,10 @@ void TCompCharacterController::grounded(float delta) {
                     footStepsSlow.restart();
                 }
             }
-            else {
+        }
+        else {
+            //Forwards
+            if (fabs(front_) > 0.5f || fabs(back_) > 0.5f || fabs(left_) > 0.5f || fabs(right_) > 0.5f) {
                 //Run Forwards
                 playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
                 //Play sound
@@ -304,6 +295,16 @@ void TCompCharacterController::grounded(float delta) {
                     footStepsSlow.setPaused(true);
                     footSteps.setPaused(false);
                     footSteps.restart();
+                }
+            }else{
+            //if (fabs(front_) <= 0.5f && (fabs(left_) <= 0.5f || fabs(right_) <= 0.5f)) {
+                //Walk Forwards
+                playerAnima->playAnimation(TCompPlayerAnimator::WALK, 1.0f);
+                //Play sound
+                if (footStepsSlow.getPaused()) {
+                    footSteps.setPaused(true);
+                    footStepsSlow.setPaused(false);
+                    footStepsSlow.restart();
                 }
             }
         }
@@ -1564,7 +1565,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  //unLockableChilli = true;
           //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-          CEntity* e1 = getEntityByName("Hielo2_LP");
+          /*CEntity* e1 = getEntityByName("Hielo2_LP");
           TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
           c_ma1->updateMorphData(0.0f);
           CEntity* e2 = getEntityByName("Hielo5_LP");
@@ -1582,7 +1583,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  
 		  TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
 		  c_ma5->updateMorphData(0.0f);
-		  
+		  */
           break;
       }
       case PowerUpType::ACTIVATE_COFFEE:

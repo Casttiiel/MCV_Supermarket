@@ -150,7 +150,8 @@
     "ps": "PS_ice",
     "ctes_buffers": {
       "TCtesMorph": 13
-    }
+    },
+    "noise":"data/textures/noise_cloud2.dds"
   },
   "debug_color": {
     "vs_fx": "data/shaders/basics.fx",
@@ -402,6 +403,10 @@
   },
   "cs_particles_fire_update": {
     "cs": "cs_particles_fire_update",
+    "cs_fx": "data/shaders/gpu_particles_fire.fx"
+  },
+  "cs_particles_fire_outside_spawn": {
+    "cs": "cs_particles_fire_outside_spawn",
     "cs_fx": "data/shaders/gpu_particles_fire.fx"
   },
   "cs_particles_fire_spawn": {

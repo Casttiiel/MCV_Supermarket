@@ -33,8 +33,8 @@ void TCompFireTrap::onCreate(const TMsgEntityCreated& msg) {
     auto buf = c_buff->getCteByName("TCtesParticles");
     CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
     data->emitter_center = c_trans->getPosition();
-    data->emitter_dir = c_trans->getFront();
-    data->emitter_num_particles_per_spawn = 16;
+    data->emitter_dir = c_trans->getFront();  
+    data->emitter_num_particles_per_spawn = 30;
     data->updateGPU();
   }
 }
@@ -44,7 +44,7 @@ void TCompFireTrap::enable() {
   if (c_buff) {
     auto buf = c_buff->getCteByName("TCtesParticles");
     CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-    data->emitter_num_particles_per_spawn = 16;
+    data->emitter_num_particles_per_spawn = 30;
     data->updateGPU();
   }
 }

@@ -49,17 +49,24 @@
         },
         "TCtesParticles" : {
           "desc" : "Cte buffer to control emission parameters and update parameters",
-          "time_between_spawns" : 0.06,
-          "num_particles_per_spawn" : 8,
+          "time_between_spawns" : 0.03,
+          "num_particles_per_spawn" : 10,
           "center_radius" : 0.0,
           "dir_aperture" : 0.12,
           "speed" : "10.0 11.0",
-          "duration" : "0.75 0.95",
+          "duration" : "0.95 1.15",
           "emitter_dir" : "0 0 1",
-          "colors" : [
-            [0.0, "1.0 0.0 0.0 1.0"],
-            [0.2, "1.0 0.4 0.0 1.0"],
-            [1.0, "1.0 1.0 0.0 1.0"]
+          "colors": [
+            [ 0.0, "1.0 0.0 0.0 1.0" ],
+            [ 0.2, "1.0 0.1 0.0 1.0" ],
+            [ 0.4, "1.0 0.4 0.0 1.0" ],
+            [ 0.6, "1.0 1.0 0.0 1.0" ],
+            [ 0.8, "0.0 0.0 0.0 0.8" ],
+            [ 1.0, "0.0 0.0 0.0 0.0" ]
+          ],
+          "sizes": [
+            [ 0.0, 0.5 ],
+            [ 1.0, 1.5 ]
           ]
         }
       },
@@ -97,15 +104,15 @@
       ,
       "light_point": {
         "color": "1.0 0.4 0.0",
-        "intensity" : 1,
+        "intensity" : 4,
         "radius" :  6
       },
       "abs_aabb":{},
       "flickering":{
         "target":"point",
         "frequency": 2.5,
-        "amplitude": 0.75,
-        "base": 2
+        "amplitude": 3.0,
+        "base": 8
       }
     }
   }
