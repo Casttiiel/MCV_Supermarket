@@ -127,7 +127,7 @@ struct TSampleDataGenerator {
               delta_transform.load(j_entity["transform"]);
 
             int rand_idx = rand();
-            if (rand_idx % 3 == 0 || (mod->last_prod_index - mod->first_prod_index) + 1 > 3000) { //instantiate without being an entity
+            if (rand_idx % 4 == 0 || (mod->last_prod_index - mod->first_prod_index) + 1 > 4000) { //instantiate without being an entity
 
               //ADD DATA TO MODULE GPU CULLING
               std::string prefab_name = j_entity["prefab"].get<std::string>();
