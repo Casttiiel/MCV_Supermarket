@@ -1,10 +1,10 @@
 [
-{
+  {
     "entity":
     {
-      "name": "Fire Particles",
+      "name": "Platform Fire Particles",
       "transform": {
-        "pos": "0 0 0",
+        "pos": "0 1 0",
         "rotation": "0.0 0.0 0.0 1.0"
       }
       ,
@@ -16,8 +16,6 @@
           "data/materials/vfx/particles_fire.material"
         ]
       },
-      "comp_fire_trap":{},
-
       "buffers" : {
         "instances" : {
           "desc" : "Array of active particles at the start of the frame",
@@ -49,24 +47,25 @@
         },
         "TCtesParticles" : {
           "desc" : "Cte buffer to control emission parameters and update parameters",
-          "time_between_spawns" : 0.03,
-          "num_particles_per_spawn" : 10,
-          "center_radius" : 0.0,
+          "time_between_spawns" : 0.06,
+          "num_particles_per_spawn" : 100,
+          "center_radius" : 4.5,
           "dir_aperture" : 0.12,
-          "speed" : "10.0 11.0",
-          "duration" : "0.95 1.15",
-          "emitter_dir" : "0 0 1",
+          "speed" : "5.0 6.0",
+          "duration" : "0.5 0.8",
+          "emitter_dir" : "0 1 0",
+          "pos": "-141.0 0.6 -227.0",
           "colors": [
             [ 0.0, "1.0 0.0 0.0 1.0" ],
             [ 0.2, "1.0 0.1 0.0 1.0" ],
             [ 0.4, "1.0 0.4 0.0 1.0" ],
             [ 0.6, "1.0 1.0 0.0 1.0" ],
-            [ 0.8, "0.0 0.0 0.0 0.8" ],
+            [ 0.7, "0.0 0.0 0.0 0.8" ],
             [ 1.0, "0.0 0.0 0.0 0.0" ]
           ],
           "sizes": [
-            [ 0.0, 0.5 ],
-            [ 1.0, 1.5 ]
+            [ 0.0, 1.0 ],
+            [ 1.0, 2.0 ]
           ]
         }
       },
@@ -90,30 +89,6 @@
         }
       ],
       "num_instances": "indirect_draw"
-    }
-  },
-  {
-    "entity":
-    {
-      "name": "PointLight"
-      ,
-      "transform":
-      {
-        "pos": "0.0 .0 1.0"
-      }
-      ,
-      "light_point": {
-        "color": "1.0 0.4 0.0",
-        "intensity" : 4,
-        "radius" :  6
-      },
-      "abs_aabb":{},
-      "flickering":{
-        "target":"point",
-        "frequency": 2.5,
-        "amplitude": 3.0,
-        "base": 8
-      }
     }
   }
 ]
