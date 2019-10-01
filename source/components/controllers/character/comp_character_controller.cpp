@@ -160,35 +160,15 @@ void TCompCharacterController::registerMsgs() {
 }
 
 void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg) {
-    /*switch (msg.animation)
+    switch (msg.animation)
     {
-    case TCompPlayerAnimator::IDLE:
-        dbg("Animation IDLE callback received.\n");
-        break;
-    case TCompPlayerAnimator::ATTACK:
-        dbg("Animation ATTACK callback received.\n");
-        break;
-    case TCompPlayerAnimator::RUN:
-        dbg("Animation RUN callback received.\n");
-        break;
-    case TCompPlayerAnimator::JUMP:
-        dbg("Animation JUMP callback received.\n");
-        break;
     case TCompPlayerAnimator::THROW:
         dbg("Animation THROW callback received.\n");
-        break;
-    case TCompPlayerAnimator::SCAN:
-        dbg("Animation SCAN callback received.\n");
-        break;
-    case TCompPlayerAnimator::DEAD:
-        dbg("Animation DEAD callback received.\n");
-        break;
-    case TCompPlayerAnimator::PRUEBA:
-        dbg("Animation PRUEBA callback received.\n");
+        isThrowingAnimationGoing = false;
         break;
     default:
         break;
-    }*/
+    }
 }
 //STATES
 
@@ -445,8 +425,10 @@ void TCompCharacterController::grounded(float delta) {
 	}
 
     if (power_selected == PowerType::BATTERY && inventory->getBattery() && aiming) {
-        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
+        if (!isThrowingAnimationGoing) {
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
+        }
     }
 
     dir *= Time.delta_unscaled;
@@ -904,7 +886,8 @@ void TCompCharacterController::shoot() {
             c_bat->shoot(front);
             aiming = false;
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::THROW, 1.f, true);
+            playerAnima->playAnimation(TCompPlayerAnimator::THROW, 0.5f, true);
+            isThrowingAnimationGoing = true;
             EngineAudio.playEvent("event:/Character/Powers/Battery/Throw");
             isBatteryAlive = true;
         }

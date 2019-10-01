@@ -184,7 +184,7 @@ void TCompPlayerAnimator::initializeAnimations() {
         "AIM_THROW",
         "",
         "",
-        1.5f,
+        1.0f,
         1.0f
     );
 
