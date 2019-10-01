@@ -333,7 +333,7 @@ void TCompCharacterController::grounded(float delta) {
     }
     if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
+        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
         ChangeState("DASHING");
         dash = dash_limit;
         startDash = true;
@@ -544,7 +544,7 @@ void TCompCharacterController::onAir(float delta) {
         dash = dash_limit;
         startDash = true;
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
+        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
         EngineAudio.playEvent("event:/Character/Other/Dash");
     }
     else if (EngineInput["jump_"].justPressed() && can_double_jump) { //DOUBLE JUMP
