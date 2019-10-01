@@ -405,9 +405,9 @@ int CBTGolem::actionThrow()
 	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
 	//END ANIMATION------------------------
 
-    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Attack");
-    audio.set3DAttributes(*c_trans);
-    delay = projectileDelay;
+  AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Attack");
+  audio.set3DAttributes(*c_trans);
+  delay = projectileDelay;
 	throwActive = true;
 	throwType = 2;
 
