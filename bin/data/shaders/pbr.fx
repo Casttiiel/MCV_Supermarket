@@ -423,14 +423,14 @@ float4 PS_Ambient(
   float g_ReflectionIntensity = 1.0;
   float g_AmbientLightIntensity = 1.0;
 
-  /*float4 final_color = (float4(env_fresnel * env * g_ReflectionIntensity + 
+  float4 final_color = (float4(env_fresnel * env * g_ReflectionIntensity + 
                               g.albedo.xyz * irradiance * g_AmbientLightIntensity
                               , 1.0f) * GlobalAmbientBoost) * ao;
-  final_color.xyz += g.self_illum;*/
-
+  final_color.xyz += g.self_illum;
+  
   //-------------------
   //comic shading
-  float2 uv =  1.0f / 0.2f;
+  float2 uv =  5.0f;
   uv *= iPosition.xy * CameraInvResolution.y;
   const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
     sin(brush_rotation), cos(brush_rotation)
@@ -438,10 +438,9 @@ float4 PS_Ambient(
   float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
   float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
 
-  float4 final_color = float4(g.albedo.xyz * g_AmbientLightIntensity
+  final_color = float4(g.albedo.xyz * g_AmbientLightIntensity
       , 1.0f) * GlobalAmbientBoost * ao;
   final_color.xyz += g.self_illum;
-
 
   float4 static_dots = brush * final_color * 0.3f;
   float4 ao_dots = brush * final_color * (1-ao);
@@ -533,23 +532,24 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   //comic shading
   float lut = NdL;
   lut = smoothstep(shadow_ramp-0.01f,shadow_ramp,lut);
+  cSpec = cSpec > 0.2f ? 10 : 0;
+  cSpec *= cDiff;
+  float3 color = LightColor.xyz * lut * (cDiff + cSpec) * att * LightIntensity * color_intensity * shadow_factor;
 
-  float3 color = LightColor.xyz * (cDiff) * LightIntensity * color_intensity * att;
-
-  float2 uv = 1.0 / 0.2;
+  float2 uv = 5.0f;
   uv *= iPosition.xy * CameraInvResolution.y;
   const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
     sin(brush_rotation), cos(brush_rotation)
   };
   float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
   float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
-  float3 final_color = lut * color * shadow_factor;
+  float3 final_color = color;
   float signo = shadow_factor * lut >= 0.8 ? 1 : -0.3;
-  final_color += (brush * color * shadow_factor * lut) * 2 * signo;
+  final_color += (brush * color) * 2 * signo;
   //end comic shading
   //-------------------
   
-  //float3 final_color = LightColor.xyz * NdL * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
+  //final_color = LightColor.xyz * NdL * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * shadow_factor;
   
   return float4(final_color, 1);
 }

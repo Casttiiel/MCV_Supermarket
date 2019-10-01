@@ -17,6 +17,10 @@ public:
   static void registerMsgs();
 
 private:
+  bool enabled = false;
+  float ratio = 1.0f;
+  VEC3 constants = VEC3::Zero;
   void onPlayerAttack(const TMsgDamage & msg);
+  void onCreation(const TMsgEntityCreated& msg);
 };
 

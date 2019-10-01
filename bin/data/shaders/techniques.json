@@ -306,6 +306,16 @@
     "vdecl": "PosColor",
     "z": "disable_all"
   },
+  "damaged_effect": {
+    "vs_fx": "data/shaders/screen_quad.fx",
+    "vdecl": "PosColor",
+    "ps_fx": "data/shaders/damaged_effect.fx",
+    "vdecl": "PosColor",
+    "z": "disable_all",
+    "ctes_buffers": {
+      "TCtesDamage": 13
+    }
+  },
   "focus": {
     "vs_fx": "data/shaders/focus.fx",
     "vdecl": "PosColor",
@@ -409,6 +419,10 @@
     "cs": "cs_particles_fire_outside_spawn",
     "cs_fx": "data/shaders/gpu_particles_fire.fx"
   },
+  "cs_particles_fire_explosion_spawn": {
+    "cs": "cs_particles_fire_explosion_spawn",
+    "cs_fx": "data/shaders/gpu_particles_fire.fx"
+  },
   "cs_particles_fire_spawn": {
     "cs": "cs_particles_fire_spawn",
     "cs_fx": "data/shaders/gpu_particles_fire.fx"
@@ -459,7 +473,11 @@
   "bleach": {
     "vs_fx": "data/shaders/bleach.fx",
     "vdecl": "PosNUvT",
-    "noise": "data/textures/noise_cloud2.dds"
+    "ps_fx": "data/shaders/pbr.fx",
+    "noise": "data/textures/noise_cloud2.dds",
+    "ctes_buffers":{
+      "TCtesBleach": 13
+    }
   },
   "fire": {
     "vs_fx": "data/shaders/fire.fx",
