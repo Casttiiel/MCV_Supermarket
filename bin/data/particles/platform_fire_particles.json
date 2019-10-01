@@ -7,6 +7,7 @@
         "pos": "0 1 0",
         "rotation": "0.0 0.0 0.0 1.0"
       }
+      
       ,
       "render":
       {
@@ -16,6 +17,7 @@
           "data/materials/vfx/particles_fire.material"
         ]
       },
+	  "comp_fire_platform_trap" : {},
       "buffers" : {
         "instances" : {
           "desc" : "Array of active particles at the start of the frame",
@@ -89,6 +91,22 @@
         }
       ],
       "num_instances": "indirect_draw"
+	  ,
+	  "collider":
+      {
+          "shapes":
+          [
+            {
+              "shape": "box",
+            "half_size": "5.0 1.5 5.0",
+            "offset": {
+              "pos": "-141.0 0.6 -227.0"
+            },
+            "trigger": true,
+            "group": "trigger"
+            }
+          ]
+      }
     }
   }
 ]
