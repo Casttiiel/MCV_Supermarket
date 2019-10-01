@@ -59,6 +59,6 @@ private:
   float pulseTimer = 0;
   float pulseDelay = 1.5f;
 
-  AudioEvent audioEffect = null;
+  AudioEvent audioEffect;
 };
 
