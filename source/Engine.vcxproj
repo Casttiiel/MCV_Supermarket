@@ -83,6 +83,7 @@
     <ClCompile Include="components\objects\comp_enemy_spawner_special_trap.cpp" />
     <ClCompile Include="components\objects\comp_fire_trap.cpp" />
     <ClCompile Include="components\objects\comp_interruptor.cpp" />
+    <ClCompile Include="components\objects\comp_restore_madness.cpp" />
     <ClCompile Include="components\objects\comp_termoestato.cpp" />
     <ClCompile Include="components\postfx\comp_antialiasing.cpp" />
     <ClCompile Include="components\postfx\comp_chromatic_aberration.cpp" />
@@ -359,6 +360,7 @@
     <ClInclude Include="components\objects\comp_enemy_spawner_special_trap.h" />
     <ClInclude Include="components\objects\comp_fire_trap.h" />
     <ClInclude Include="components\objects\comp_interruptor.h" />
+    <ClInclude Include="components\objects\comp_restore_madness.h" />
     <ClInclude Include="components\objects\comp_termoestato.h" />
     <ClInclude Include="components\postfx\comp_antialiasing.h" />
     <ClInclude Include="components\postfx\comp_chromatic_aberration.h" />
@@ -637,7 +639,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
