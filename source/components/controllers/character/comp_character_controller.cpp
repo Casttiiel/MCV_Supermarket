@@ -1224,7 +1224,7 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
         EngineAudio.playEvent("event:/Character/Voice/Player_Death");
         ChangeState("DEAD");
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DIE, 1.f, true);
+        playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
       }
       else {
 
@@ -1239,7 +1239,7 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
             damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
 
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, true);
+            playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, false);
         }
       }
     }
@@ -1247,6 +1247,9 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
 }
 
 void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
+    if (life <= 0.0f) {
+        return;
+    }
     //dbg("recibo damage \n");
     if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
         if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
@@ -1275,6 +1278,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 life = 0.0f;
                 EngineAudio.playEvent("event:/Character/Voice/Player_Death");
                 ChangeState("DEAD");
+                TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+                playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
             }
             else {
 
@@ -1283,6 +1288,9 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 }
                 if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
                     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+
+                    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+                    playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, false);
                     //ChangeState("DAMAGED");
                 }
             }
