@@ -100,7 +100,8 @@ private:
   //Audio Values
 
   //Melee Values
-  bool alreadyAttacked = false;
+    bool meleeHit = false;
+    bool alreadyAttacked = false;
   bool attackFirstExecution = true;
   float meleeTimer = 0.f;
   float meleeDelay = 0.3f;

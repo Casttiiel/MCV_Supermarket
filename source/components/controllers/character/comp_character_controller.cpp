@@ -997,10 +997,14 @@ void TCompCharacterController::attack(float delta) {
                         entityContact->sendMsg(msg);
 
                         alreadyAttacked = true;
+                        meleeHit = true;
                         //TCompMadnessController* m_c = get<TCompMadnessController>(); //madness in melee attack
                         //m_c->generateMadness(MELEE);
-                        EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
+                        
                     }
+                }
+                if (meleeHit) {
+                    EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
                 }
             }
         }
@@ -1011,6 +1015,7 @@ void TCompCharacterController::attack(float delta) {
         attackFirstExecution = true;
         meleeTimer = meleeDelay;
         alreadyAttacked = false;
+        meleeHit = false;
         ChangeState("GROUNDED");
     }
 
