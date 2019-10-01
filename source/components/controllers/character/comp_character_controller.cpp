@@ -254,7 +254,7 @@ void TCompCharacterController::grounded(float delta) {
 
     //MOVEMENT
     getInputForce(dir);
-    if (dir != VEC3().Zero) {
+    if (dir != VEC3().Zero && Time.real_scale_factor != 0.0f) {
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         float front_ = EngineInput["front_"].value;
         //With keyboard "s" back_ == 1.0, with joystick back_ == -1.0
