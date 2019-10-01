@@ -88,6 +88,7 @@ private:
   bool enemy_in_range = true;
   bool animation1Done = false;
   bool isBatteryAlive = false;
+  bool isThrowingAnimationGoing = false;
 
 	float invulnerabilityTimer = 0.f;
 	float invulnerabilityTimeDuration = 1.0;
@@ -99,7 +100,8 @@ private:
   //Audio Values
 
   //Melee Values
-  bool alreadyAttacked = false;
+    bool meleeHit = false;
+    bool alreadyAttacked = false;
   bool attackFirstExecution = true;
   float meleeTimer = 0.f;
   float meleeDelay = 0.3f;
