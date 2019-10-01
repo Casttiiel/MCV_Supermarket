@@ -1400,13 +1400,13 @@ bool CBTSushi::conditionMelee() {
 
 bool CBTSushi::conditionJumpCharge() {
     //VEC3 start, VEC3 end, VEC3 &m_hitPos
-    VEC3 m_hitPos = VEC3();
+    /*VEC3 m_hitPos = VEC3();
     TCompTransform* c_trans = get<TCompTransform>();
     VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
     VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 100);
-		if (use_navmesh) {
-			bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
-		}
+	if (use_navmesh) {
+		bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
+	}*/
     //if (!charge) {
     return rollDiceJumpCharge() && checkBlackboard();
     //}
@@ -1414,13 +1414,13 @@ bool CBTSushi::conditionJumpCharge() {
 }
 
 bool CBTSushi::conditionCharge() {
-    VEC3 m_hitPos = VEC3();
+    /*VEC3 m_hitPos = VEC3();
     TCompTransform* c_trans = get<TCompTransform>();
     VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
     VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 100);
-		if (use_navmesh) {
-			bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
-		}
+	if (use_navmesh) {
+		bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
+	}*/
     //if (!charge) {
     return rollDiceCharge() && checkBlackboard();
     //}
@@ -1909,7 +1909,7 @@ void CBTSushi::onCollision(const TMsgOnContact& msg) {
                 //If I collide with something other than the player, but I'm charging, I stop charging
             }
             else if (col_filter_data.word0 & EnginePhysics.Obstacle && (currentState == States::Charge || currentState == States::JumpCharge)) {
-                collided = true;
+                //collided = true;
             }
             else if (col_filter_data.word0 & EnginePhysics.Enemy && (currentState == States::Charge || currentState == States::JumpCharge)) {
                 TMsgDamage msg;
