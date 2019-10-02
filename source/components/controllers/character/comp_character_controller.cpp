@@ -440,7 +440,7 @@ void TCompCharacterController::grounded(float delta) {
         GameController.loadCheckpoint();
     }
 	//cheat(cambio de zona por posicion de mapa)
-	else if (EngineInput[VK_F3]) {
+	else if (EngineInput[VK_F3].justReleased()) {
 		GameController.cheatPosition();
 	}
 
