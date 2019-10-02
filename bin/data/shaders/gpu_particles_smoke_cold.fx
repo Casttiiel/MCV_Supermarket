@@ -47,19 +47,20 @@ TInstance spawnParticle( uint unique_id ) {
 
   TInstance p;
   p.pos = emitter_center + float3(rnd2.x,0,rnd2.y) * emitter_dir;
-  p.pos.y += 0.7f;
+  //p.pos.y += 0.7f;
   p.prev_pos = p.pos;
   p.acc = float3(0,0,0);
-  p.dir = emitter_dir;
+  p.dir = float3(rnd2.x,0,rnd2.y);
   p.unique_id = unique_id;
   p.time_normalized = 0.0;
   p.time_factor = 1.0 / duration;
   p.scale = 0.0;
-  p.color = float4(1,1,0,1);
+  p.color = float4(1,1,0,0);
   p.dummy1 = rnd4;
   p.dummy2 = rnd5;
   p.dummy3 = 0;
   p.dummy4 = 0;
+  p.dir *= speed;
 
   return p;
 }
@@ -69,10 +70,9 @@ TInstance spawnParticle( uint unique_id ) {
 void updateParticle( inout TInstance p ) {
   p.prev_pos = p.pos;
   p.color = sampleColor( p.time_normalized );
+  p.scale = sampleScale( p.time_normalized );
   //p.dir += p.acc * GlobalDeltaTime;
-  //p.pos += p.dir * GlobalDeltaTime;
-  p.pos.y = -2.5 + 0.5 * sin(p.time_normalized + p.dummy2 * 8 * PI );
-  p.scale = sin(p.time_normalized * PI) * p.dummy1;
+  p.pos.xz += p.dir.xz * GlobalDeltaTime;
   /*if( p.pos.y < 0 ) {
     p.pos.y = -p.pos.y;
     p.dir.y = -p.dir.y;
@@ -165,6 +165,7 @@ struct v2p {   // Vertex to pixel
   float4 Color : COLOR;
   float  dir   : TEXCOORD1;
   float  time   : TEXCOORD2;
+  float4 WorldPos : TEXCOORD3;
 };
 
 struct VS_INPUT {   // Input from billboard mesh
@@ -183,8 +184,10 @@ v2p VS(
   TInstance instance = instances_active[ InstanceID ];
 
   // orient billboard to camera
-  float3 p = instance.pos + float3(input.Pos.x,0,input.Pos.y) * 8; //multyply localPos to scale the billboard
-  p.y += 0.3 * sin(( instance.time_normalized + instance.dummy1 ) * 2.0);
+  float3 p = instance.pos + float3(input.Pos.x,0,input.Pos.y) * 8 * instance.scale; //multyply localPos to scale the billboard
+
+  //p.y += 0.15 * sin(instance.time_normalized + instance.dummy2 * 8 * PI );
+  //p.y += 0.3 * sin(( instance.time_normalized + instance.dummy1 ) * 2.0);
 
   /* 
 
@@ -202,8 +205,7 @@ v2p VS(
   output.Pos = mul( float4(p,1.0), ViewProjection );
   output.Uv = input.Uv;
   output.Color = instance.color;
-  output.dir = instance.dummy2 > 0.5f ? 1.0f : -1.0f;
-  output.time = instance.time_normalized;
+  output.WorldPos = float4(p,1.0);
   return output;
 }
 
@@ -214,11 +216,19 @@ float4 PS(v2p input) : SV_Target {
   float4 air = txNormal.Sample(samLinear, input.Uv + (float2(GlobalWorldTime * input.dir, 0) * 0.1f));// + (float2(GlobalWorldTime * input.dir, 0) * 0.1f) + distort.xy * 0.1f
   //return input.Color * 4;
   float4 color = texture_color * input.Color * air;
-  if(input.time < 0.3f){
-    color.a *= input.time / 0.3f;
-  }else if(input.time > 1.0f - 0.3f){
-    color.a *= (1.0f - input.time) / 0.3f;
+  color.a *= 0.1f;
+
+  float3 cam2obj = input.WorldPos.xyz - CameraPosition.xyz;
+  float  linear_depth = dot( cam2obj, CameraFront ) / CameraZFar;
+
+  float2 uv = input.Pos * CameraInvResolution;
+  float depth_center = txGLinearDepth.Sample(samLinear, uv).x;
+  
+  float dif = abs(linear_depth - depth_center);
+  if(dif <= 0.0004f){
+    dif /= 0.0004f;
+    color.a *= dif;
   }
-  //color.a *= 0.01f;
-  return color; // + float4( 1,1,1,0);
+
+  return color;
 }
