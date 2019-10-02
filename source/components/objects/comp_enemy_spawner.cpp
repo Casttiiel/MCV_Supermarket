@@ -256,3 +256,8 @@ void TCompEnemySpawner::setSpawnDelay(float newtime) {
 void TCompEnemySpawner::setLengthCone(float newValue) {
 	lengthConePrefabSpawner = newValue;
 }
+
+
+void TCompEnemySpawner::setSpawnMaxNumber(int value) {
+	_spawnMaxNumber = value;
+}

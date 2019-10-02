@@ -265,17 +265,17 @@ function create_cupcakes_in_frost_player()
 	--GameController:deleteCupcake();
 
 	execDelayedAction("changeScene(\"congelados_scene\")",0)
-	h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(149, -3.653, -52), QUAT(0, 0, 0, 1),1);
-	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados1",h_cupcake1);
-	GameController:setPauseEnemyByHandle(h_cupcake1,false);
-	GameController:setLifeEnemy(h_cupcake1,3,350.0);
+	--h_cupcake1 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(149, -3.653, -52), QUAT(0, 0, 0, 1),1);
+	--GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados1",h_cupcake1);
+	--GameController:setPauseEnemyByHandle(h_cupcake1,false);
+	--GameController:setLifeEnemy(h_cupcake1,3,350.0);
 
 
 	
-	h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(156, -3.653, -59), QUAT(0, 0, 0, 1),1);
-	GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados2",h_cupcake2);
-	GameController:setPauseEnemyByHandle(h_cupcake2,false);
-	GameController:setLifeEnemy(h_cupcake2,3,350.0);
+	--h_cupcake2 = GameController:spawnPrefab("data/prefabs/enemies/bt_cupcake.json", VEC3(156, -3.653, -59), QUAT(0, 0, 0, 1),1);
+	--GameController:updateCupcakeCurveByHandle("curvaCupcakeCongelados2",h_cupcake2);
+	--GameController:setPauseEnemyByHandle(h_cupcake2,false);
+	--GameController:setLifeEnemy(h_cupcake2,3,350.0);
 
 
 	h_oven1 =  GameController:entityByName("horno008");
@@ -941,6 +941,60 @@ function resetCamera()
 	GameController:resetCamera();
 end
 
+
+function salCupcakeHorno010_008_player()
+	
+	execDelayedAction("resetCamera()",0.0);
+	execDelayedAction("on_lock_camera3(false)",0.2);
+	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.2);
+	execDelayedAction("on_cinematic(true)",0.0);
+
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
+	execDelayedAction("on_lock_camera3(true)",11);
+	execDelayedAction("on_cinematic(false)",11);
+
+	
+
+
+	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",5);
+	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",5.5);
+
+
+	execDelayedAction("on_delete_handle(\"triggercinematicahornos\")",0.5);
+	execDelayedAction("on_delete_handle(\"triggercinematicahornos2\")",0.5);
+	execDelayedAction("saveCheckpoint()",5.6);
+
+
+end
+
+
+function salCupcakeHorno010_008_2_player()
+
+	execDelayedAction("resetCamera()",0.5);
+	execDelayedAction("on_lock_camera3(false)",0.5);
+	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.5);
+	execDelayedAction("on_cinematic(true)",0.5);
+
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
+	execDelayedAction("on_lock_camera3(true)",11);
+	execDelayedAction("on_cinematic(false)",11);
+
+	
+
+
+	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",5);
+	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",5.5);
+
+
+	execDelayedAction("on_delete_handle(\"triggercinematicahornos\")",0.5);
+	execDelayedAction("on_delete_handle(\"triggercinematicahornos2\")",0.5);
+	execDelayedAction("saveCheckpoint()",5.6);
+
+end
+
+
+
+
 function salCupcakeHorno008_player()
 
 	
@@ -949,14 +1003,9 @@ function salCupcakeHorno008_player()
 	--execDelayedAction("on_lock_camera3(false)",0.2);
 	--execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.2);
 	--execDelayedAction("on_cinematic(true)",0.2);
-
 	--execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
 	--execDelayedAction("on_lock_camera3(true)",12);
 	--execDelayedAction("on_cinematic(false)",12);
-
-
-
-
 	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaHorno008\")",0.0);
 	execDelayedAction("on_delete_handle(\"triggerSalCupcakeHorno008\")",0);
 end

@@ -27,6 +27,7 @@ public:
   void setComportamentNormal(int value);
   int getComportamentNormal();
   void setSpawnDelay(float newtime);
+  void setSpawnMaxNumber(int value);
   bool working = true;
 
  

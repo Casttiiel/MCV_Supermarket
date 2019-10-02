@@ -278,6 +278,7 @@ void CModuleScripting::BindEnemySpawner() {
 		.set("setCurveForSpawner", &TCompEnemySpawner::setCurveForSpawner)
 		.set("setComportamentNormal", &TCompEnemySpawner::setComportamentNormal)
 		.set("setSpawnDelay", &TCompEnemySpawner::setSpawnDelay)
+		.set("setSpawnMaxNumber", &TCompEnemySpawner::setSpawnMaxNumber)
 		.property("working", &TCompEnemySpawner::working)
 		;
 }
