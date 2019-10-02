@@ -18,6 +18,7 @@
 #include "components/postfx/comp_antialiasing.h"
 #include "components/postfx/comp_chromatic_aberration.h"
 #include "components/postfx/comp_tone_mapping.h"
+#include "components/postfx/comp_damaged_effect.h"
 #include "components/common/comp_culling.h"
 #include "components/common/comp_aabb.h"
 #include "skeleton/comp_skeleton.h"
@@ -343,6 +344,11 @@ void CModuleRender::generateFrame() {
       render_bloom->setShineTexture(shine_output);
       render_bloom->generateHighlights(deferred_output);
       render_bloom->addBloom();
+    }
+
+    TCompDamagedEffect* render_damaged_effect = e_camera->get<TCompDamagedEffect>();
+    if (render_damaged_effect) {
+      current_output = render_damaged_effect->apply(current_output);
     }
 
     //WE PASS TO LDR BECAUSE FXAA NEEDS IT

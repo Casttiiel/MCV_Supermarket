@@ -51,7 +51,7 @@ void TCompEnemiesInTube::update(float dt) {
           if (c_buff1) {
             auto buf1 = c_buff1->getCteByName("TCtesParticles");
             CCteBuffer<TCtesParticles>* data1 = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf1);
-            data1->emitter_num_particles_per_spawn = 5;
+            data1->emitter_num_particles_per_spawn = 25;
             data1->updateGPU();
 
           }
@@ -62,7 +62,7 @@ void TCompEnemiesInTube::update(float dt) {
           if (c_buff2) {
             auto buf2 = c_buff2->getCteByName("TCtesParticles");
             CCteBuffer<TCtesParticles>* data2 = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf2);
-            data2->emitter_num_particles_per_spawn = 5;
+            data2->emitter_num_particles_per_spawn = 25;
             data2->updateGPU();
           }
         }
@@ -72,7 +72,7 @@ void TCompEnemiesInTube::update(float dt) {
           if (c_buff3) {
             auto buf3 = c_buff3->getCteByName("TCtesParticles");
             CCteBuffer<TCtesParticles>* data3 = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf3);
-            data3->emitter_num_particles_per_spawn = 5;
+            data3->emitter_num_particles_per_spawn = 25;
             data3->updateGPU();
           }
         }
@@ -82,7 +82,7 @@ void TCompEnemiesInTube::update(float dt) {
           if (c_buff4) {
             auto buf4 = c_buff4->getCteByName("TCtesParticles");
             CCteBuffer<TCtesParticles>* data4 = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf4);
-            data4->emitter_num_particles_per_spawn = 5;
+            data4->emitter_num_particles_per_spawn = 25;
             data4->updateGPU();
           }
         }
@@ -101,7 +101,7 @@ void TCompEnemiesInTube::update(float dt) {
           if (c_buff) {
             auto buf = c_buff->getCteByName("TCtesParticles");
             CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-            data->emitter_num_particles_per_spawn = 50;
+            data->emitter_num_particles_per_spawn = 25;
             data->updateGPU();
           }
         }
@@ -117,7 +117,7 @@ void TCompEnemiesInTube::update(float dt) {
           if (c_buff) {
             auto buf = c_buff->getCteByName("TCtesParticles");
             CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-            data->emitter_num_particles_per_spawn = 50;
+            data->emitter_num_particles_per_spawn = 25;
             data->updateGPU();
           }
         }
@@ -133,7 +133,7 @@ void TCompEnemiesInTube::update(float dt) {
           if (c_buff) {
             auto buf = c_buff->getCteByName("TCtesParticles");
             CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-            data->emitter_num_particles_per_spawn = 50;
+            data->emitter_num_particles_per_spawn = 25;
             data->updateGPU();
           }
         }
@@ -149,7 +149,7 @@ void TCompEnemiesInTube::update(float dt) {
           if (c_buff) {
             auto buf = c_buff->getCteByName("TCtesParticles");
             CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-            data->emitter_num_particles_per_spawn = 50;
+            data->emitter_num_particles_per_spawn = 25;
             data->updateGPU();
           }
         }

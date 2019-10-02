@@ -16,6 +16,7 @@ extern CCteBuffer<TCtesBlur>   ctes_blur;
 extern CCteBuffer<TCtesUI>  ctes_ui;
 extern CCteBuffer<TCtesFXAA>   ctes_fxaa;
 extern CCteBuffer<TCtesChromaticAberration>   ctes_chr_abr;
+extern CCteBuffer<TCtesDamage>   ctes_dam;
 
 void activateObject(MAT44 world, VEC4 color = VEC4(1, 1, 1, 1));
 void activateCamera(const CCamera& camera, int width, int height);

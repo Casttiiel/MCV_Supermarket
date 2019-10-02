@@ -2,34 +2,32 @@
 // Constant Buffer Variables
 //--------------------------------------------------------------------------------------
 #include "common.fx"
+#include "pbr.inc"
 
-//--------------------------------------------------------------------------------------
-struct VS_OUTPUT
+SHADER_CTE_BUFFER(TCtesBleach, CTE_BUFFER_SLOT_COMP_BUFFERS)
 {
-  float4 Pos      : SV_POSITION;
-  float3 N        : NORMAL;
-  float2 Uv       : TEXCOORD0;
-  float3 WorldPos : TEXCOORD1;
-  float4 T        : NORMAL1;
+  float  size = 1.0f;
+  float3 dummy3;
 };
 
 //--------------------------------------------------------------------------------------
 // Vertex Shader
 //--------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
+// This is used by normal rendering, skin rendering and instancing rendering
 VS_OUTPUT VS(
-  float4 Pos : POSITION,
-  float3 N : NORMAL,
-  float2 Uv: TEXCOORD0,
-  float4 T : NORMAL1
+  VS_INPUT input
 )
 {
+  // Use world from the constants uniform
   VS_OUTPUT output = (VS_OUTPUT)0;
-  output.Pos = mul(Pos, World);
+  output.Pos = mul(input.Pos * float4(size,1,size,1), World);
   output.WorldPos = output.Pos.xyz;
   output.Pos = mul(output.Pos, ViewProjection);
-  output.N = mul(N, (float3x3)World);
-  output.T = float4( mul(T.xyz, (float3x3)World), T.w);
-  output.Uv = Uv;
+  output.N = mul(input.N, (float3x3)World);
+  output.T = float4( mul(input.T.xyz, (float3x3)World), input.T.w);
+  output.Uv = input.Uv;
   return output;
 }
 
