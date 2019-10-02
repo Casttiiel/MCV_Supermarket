@@ -45,7 +45,7 @@ void TCompMadnessPuddle::update(float dt) {
   constants.x = size;
   TCompBuffers* c_buff = get<TCompBuffers>();
   if (c_buff) {
-    auto buf = c_buff->getCteByName("TCtesBleach");
+    auto buf = c_buff->getCteByName("TCtesBleach"); 
     buf->updateGPU(&constants);
   }
 
