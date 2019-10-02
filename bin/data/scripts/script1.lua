@@ -946,18 +946,18 @@ function salCupcakeHorno008_player()
 	
 
 	--execDelayedAction("resetCamera()",0.5);
-	execDelayedAction("on_lock_camera3(false)",0.2);
-	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.2);
-	execDelayedAction("on_cinematic(true)",0.2);
+	--execDelayedAction("on_lock_camera3(false)",0.2);
+	--execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.2);
+	--execDelayedAction("on_cinematic(true)",0.2);
 
-	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
-	execDelayedAction("on_lock_camera3(true)",12);
-	execDelayedAction("on_cinematic(false)",12);
-
-
+	--execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
+	--execDelayedAction("on_lock_camera3(true)",12);
+	--execDelayedAction("on_cinematic(false)",12);
 
 
-	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaHorno008\")",4.0);
+
+
+	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaHorno008\")",0.0);
 	execDelayedAction("on_delete_handle(\"triggerSalCupcakeHorno008\")",0);
 end
 
