@@ -25,9 +25,9 @@ private:
   float _offset = 0.0f;
   float _fireTimer = 0.0f;
   float _fireDelay = 0.1f;
-  float _enablerTimer = 2.0f;
+  float _enablerTimer = 4.0f;
   float _disablerTimer = 0.0f;
-  float _enablerDelay = 2.0f;
+  float _enablerDelay = 4.0f;
   float _disablerDelay = 3.0f;
   float _fireDamage = 5.0f;
   void onCreate(const TMsgEntityCreated& msg);

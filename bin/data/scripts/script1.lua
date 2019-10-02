@@ -852,6 +852,24 @@ function activarSalidaPanaderia()
 
 end
 
+
+function cinematica_fire_off()
+	
+	handlePlayer = GameController:getPlayerHandle();
+	GameController:resetCamera();
+	execDelayedAction("on_lock_camera3(false)",0.0);
+	execDelayedAction("on_blending_camera(\"CameraAscensorOn\", 5,\"Cubicinout\")",0.0);
+	execDelayedAction("on_cinematic(true)",0.0);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"Cubicinout\")",7.0);
+	execDelayedAction("on_lock_camera3(true)",12.0);
+	execDelayedAction("on_cinematic_special(false,1)",12.0);
+
+end
+
+
+
+
+
 function cinematica_tower()
 	
 	handleCamera = GameController:entityByName("CameraTower");

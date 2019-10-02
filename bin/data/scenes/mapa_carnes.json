@@ -2902,6 +2902,22 @@
   {
     "entity":
     {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "-79.0716 -9.28857e-06 -212.498"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "chicken_leg_002"
       ,
       "transform":
@@ -5644,6 +5660,33 @@
         "amplitude": 20
         ,
         "base": 40
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraAscensorOn"
+      ,
+      "transform":
+      {
+        "pos": "-119.803 11.9631 -228.18"
+        ,
+        "rotation": "-0.361031 -0.623474 0.359854 -0.592825"
+        ,
+        "lookat": "-140.534 0.607229 -227.692"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 23.6422
       }
     }
   }
