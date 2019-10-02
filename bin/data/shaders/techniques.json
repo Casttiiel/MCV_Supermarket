@@ -55,6 +55,15 @@
       "instances": 0
     }
   },
+  "particles_cloud_num_instances": {
+    "vs_fx": "data/shaders/gpu_particles_cloud.fx",
+    "vdecl": "PosUvColor",
+    "blend": "additive_by_src_alpha",
+    "z": "test_but_no_write",
+    "gpu_buffers": {
+      "instances": 0
+    }
+  },
   "particles_death_num_instances": {
     "vs_fx": "data/shaders/gpu_particles_death.fx",
     "vdecl": "PosUvColor",
@@ -347,6 +356,14 @@
     "cs": "cs_particles_orbit",
     "cs_fx": "data/shaders/gpu_particles_orbit.fx"
   },
+  "cs_particles_cloud_update": {
+    "cs": "cs_particles_cloud_update",
+    "cs_fx": "data/shaders/gpu_particles_cloud.fx"
+  },
+  "cs_particles_cloud_spawn": {
+    "cs": "cs_particles_cloud_spawn",
+    "cs_fx": "data/shaders/gpu_particles_cloud.fx"
+  },
   "cs_particles_death_update": {
     "cs": "cs_particles_death_update",
     "cs_fx": "data/shaders/gpu_particles_death.fx"
@@ -596,9 +613,14 @@
     "vdecl": "PosNUvT",
     "blend": "combinative",
     "rs": "cull_none",
+    "z":"test_but_no_write",
     "ctes_buffers": {
       "TCtesSmokeDust": 13
     }
+  },
+  "cloud": {
+    "vs_fx": "data/shaders/cloud.fx",
+    "vdecl": "PosNUvT"
   },
   "death": {
     "vs_fx": "data/shaders/death.fx",
