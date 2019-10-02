@@ -114,7 +114,7 @@ void CEngine::start()
     _modules.registerSystemModule(_cameraMixer);
     _modules.registerSystemModule(_multithreading);
     _modules.registerSystemModule(_gameController);
-    //_modules.registerSystemModule(_audioManager);
+    _modules.registerSystemModule(_audioManager);
     _modules.registerSystemModule(_scripting);
     _modules.registerSystemModule(_ui);
     _modules.registerSystemModule(_particles);
