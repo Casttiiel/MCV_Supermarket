@@ -128,8 +128,6 @@ void TCompGolemAnimator::onCreated(const TMsgEntityCreated& msg) {
 		TCompSkeleton * compSkeleton = e->get<TCompSkeleton>();
 		assert(compSkeleton);
 		initializeAnimations();
-		setFeetNumAndCalculate(2);
-		
 }
 
 bool TCompGolemAnimator::playAnimation(TCompGolemAnimator::EAnimation animation, float speed) {

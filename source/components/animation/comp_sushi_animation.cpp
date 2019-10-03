@@ -186,6 +186,72 @@ void TCompSushiAnimator::initializeAnimations() {
         1.0f,
         1.0f
     );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::BLOCK_BREAK,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "BLOCK_BREAK",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::BLOCK_HIT,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "BLOCK_HIT",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::DAMAGED,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "DAMAGED",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::DEAD,
+        EAnimationType::CYCLIC,
+        EAnimationSize::SINGLE,
+        "DEAD",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::GET_UP,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "GET_UP",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::BLOCK_BREAK_GET_UP,
+        EAnimationType::ACTION,
+        EAnimationSize::DOUBLE,
+        "BLOCK_BREAK",
+        "GET_UP",
+        "",
+        1.0f,
+        1.0f
+    );
 }
 
 void TCompSushiAnimator::registerMsgs() {
@@ -204,8 +270,6 @@ void TCompSushiAnimator::onCreated(const TMsgEntityCreated& msg) {
     TCompSkeleton * compSkeleton = e->get<TCompSkeleton>();
     assert(compSkeleton);
     initializeAnimations();
-    setFeetNumAndCalculate(2);
-		
 }
 
 bool TCompSushiAnimator::playAnimation(TCompSushiAnimator::EAnimation animation, float speed) {

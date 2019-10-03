@@ -1236,6 +1236,9 @@ int CBTSushi::actionFear() {
 
 int CBTSushi::actionDeath() {
     GameController.addEnemiesKilled(EntityType::SUSHI);
+    TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
+    sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_BREAK, 1.f);
+    sushiAnimator->playAnimation(TCompSushiAnimator::DEAD, 1.f);
 
     //------------------------------------ Blackboard
 
@@ -1844,13 +1847,15 @@ void CBTSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
         return;
     }
     if (msg.targetType & EntityType::SUSHI) {
-            TCompTransform* c_trans = get<TCompTransform>();
+        TCompTransform* c_trans = get<TCompTransform>();
+        TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
         if (isBlocking && msg.senderType == EntityType::PLAYER && msg.damageType != PowerType::CHARGED_ATTACK) {
             dbg("Damage blocked\n");
             if (!_audioPlaying.isPlaying()) {
                 _audioPlaying = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Parry");
                 _audioPlaying.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
             }
+            sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_HIT, 1.f);
         }
         else {
             h_sender = msg.h_sender;
@@ -1860,9 +1865,10 @@ void CBTSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
             impactForce = msg.impactForce;
             //direction_to_damage.y = 1.0f;
             direction_to_damage.Normalize();
-						if (msg.damageType == PowerType::CHARGED_ATTACK) {
-							blockRemaining = 0;
-						}
+			if (msg.damageType == PowerType::CHARGED_ATTACK) {
+				blockRemaining = 0;
+                sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_BREAK_GET_UP, 1.f);
+            }
 						
             TCompRigidBody* c_rbody = get<TCompRigidBody>();
             if (c_rbody) {

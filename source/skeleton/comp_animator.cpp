@@ -110,31 +110,6 @@ TCompAnimator::EAnimation TCompAnimator::actualAnimation() {
 	return actualCyclicAnimation.animation;
 }
 
-void  TCompAnimator::setFeetIds(std::vector<int> feetBonesId) {
-
-	CEntity* e = ownHandle;
-	TCompSkeleton * compSkeleton = e->get<TCompSkeleton>();
-
-	compSkeleton->setFeetId(feetBonesId);
-}
-
-void TCompAnimator::setFeetNumAndCalculate(int numFeet) {
-
-	CEntity* e = ownHandle;
-	TCompSkeleton * compSkeleton = e->get<TCompSkeleton>();
-
-	compSkeleton->guessFeetBonesId(numFeet);
-}
-
-std::vector<VEC3> TCompAnimator::getFeetPositions() {
-
-	CEntity* e = ownHandle;
-	TCompSkeleton * compSkeleton = e->get<TCompSkeleton>();
-
-	return compSkeleton->getFeetPositions();
-}
-
-
 float  TCompAnimator::getAnimationDuration(EAnimation animation) {
 
 	CEntity* e = ownHandle;

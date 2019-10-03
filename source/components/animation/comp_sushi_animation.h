@@ -26,7 +26,12 @@ public:
 		JUMPCHARGE_END,
 		THROW_AIR,
 		THROW_LAND,
-		DEAD,
+        BLOCK_BREAK,
+        BLOCK_HIT,
+        DAMAGED,
+        DEAD,
+        GET_UP,
+        BLOCK_BREAK_GET_UP,
 		PRUEBA
 	};
 	struct TMsgExecuteAnimation {
@@ -42,7 +47,7 @@ public:
 	static void registerMsgs();
 	void onCreated(const TMsgEntityCreated& msg);
 	void playMsgAnimation(const TMsgExecuteAnimation& msg);
-  bool isPlaying(TCompSushiAnimator::EAnimation animation);
+    bool isPlaying(TCompSushiAnimator::EAnimation animation);
 	void initializeAnimations();
 	bool playAnimation(TCompSushiAnimator::EAnimation animation, float speed = 1.0f);
 };
