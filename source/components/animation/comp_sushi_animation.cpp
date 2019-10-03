@@ -205,7 +205,7 @@ void TCompSushiAnimator::initializeAnimations() {
         "BLOCK_HIT",
         "",
         "",
-        1.0f,
+        2.0f,
         1.0f
     );
 
@@ -216,7 +216,7 @@ void TCompSushiAnimator::initializeAnimations() {
         "DAMAGED",
         "",
         "",
-        1.0f,
+        2.0f,
         1.0f
     );
 
