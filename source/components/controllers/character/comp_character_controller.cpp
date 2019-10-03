@@ -93,6 +93,7 @@ void TCompCharacterController::debugInMenu() {
     ImGui::DragFloat("Rotation speed", &rotation_speed, 0.1f, 0.f, 10.f);
     ImGui::DragFloat("Life", &life, 0.10f, 0.f, maxLife);
     ImGui::DragFloat("Distance to aim", &distance_to_aim, 0.10f, 0.f, 100.f);
+    ImGui::Checkbox("Attacking", &attacking);
    /* ImGui::Checkbox("UnLockable Battery", &unLockableBattery);
 	  ImGui::Checkbox("UnLockable Teleport", &unLockableTeleport);
 	  ImGui::Checkbox("UnLockable Chilli", &unLockableChilli);
@@ -154,20 +155,44 @@ void TCompCharacterController::registerMsgs() {
     DECL_MSG(TCompCharacterController, TMsgDamageToAll, onDamageAll);
     DECL_MSG(TCompCharacterController, TMsgBatteryDeactivates, onBatteryDeactivation);
     DECL_MSG(TCompCharacterController, TCompPlayerAnimator::TMsgPlayerAnimationFinished, onAnimationFinish);
-	DECL_MSG(TCompCharacterController, TMsgOnCinematic, onCinematic);
-	DECL_MSG(TCompCharacterController, TMSgTriggerFalloutDead, onTriggerFalloutDead);
-	DECL_MSG(TCompCharacterController, TMsgOnCinematicSpecial, onCinematicSpecial);
+	  DECL_MSG(TCompCharacterController, TMsgOnCinematic, onCinematic);
+	  DECL_MSG(TCompCharacterController, TMSgTriggerFalloutDead, onTriggerFalloutDead);
+	  DECL_MSG(TCompCharacterController, TMsgOnCinematicSpecial, onCinematicSpecial);
+    DECL_MSG(TCompCharacterController, TMsgMeleeHit, onMeleeHit);
+}
+
+void TCompCharacterController::onMeleeHit(const TMsgMeleeHit& msg) {
+  if (attacking) {
+    TCompTransform* c_trans = get<TCompTransform>();
+    TMsgDamage dmgmsg;
+    // Who sent this bullet
+    dmgmsg.h_sender = CHandle(this).getOwner();
+    dmgmsg.h_bullet = CHandle(this).getOwner();
+    dmgmsg.position = c_trans->getPosition() + VEC3::Up;
+    dmgmsg.senderType = PLAYER;
+    dmgmsg.intensityDamage = meleeDamage;
+    dmgmsg.impactForce = impactForceAttack * comboModifier;
+    dmgmsg.damageType = MELEE;
+    dmgmsg.targetType = ENEMIES;
+    CHandle(msg.h_entity).sendMsg(dmgmsg);
+  }
 }
 
 void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg) {
     switch (msg.animation)
     {
-    case TCompPlayerAnimator::THROW:
-        dbg("Animation THROW callback received.\n");
-        isThrowingAnimationGoing = false;
+      case TCompPlayerAnimator::MELEE1_FULL:
+      case TCompPlayerAnimator::MELEE1_PARTIAL:
+      case TCompPlayerAnimator::MELEE2_FULL:
+      case TCompPlayerAnimator::MELEE2_PARTIAL:
+        attacking = false;
         break;
-    default:
-        break;
+      case TCompPlayerAnimator::THROW:
+          dbg("Animation THROW callback received.\n");
+          isThrowingAnimationGoing = false;
+          break;
+      default:
+          break;
     }
 }
 //STATES
@@ -918,7 +943,52 @@ void TCompCharacterController::attack(float delta) {
     if (!comp_collider || !comp_collider->controller)
         return;
 
-    if (attackFirstExecution) {
+    if (!attacking) {
+        attacking = true;
+
+        TCompTransform* c_trans = get<TCompTransform>();
+        //Create a collider sphere where we want to detect collision
+        PxSphereGeometry geometry(meleeRadius);
+        Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeDistance);
+        PxF32 attackHeight = comp_collider->controller->getHeight();
+        damageOrigin.y = c_trans->getPosition().y + (float)attackHeight + hyChilli / 2;
+        PxVec3 pos = VEC3_TO_PXVEC3(damageOrigin);
+        PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+
+        const PxU32 bufferSize = 256;
+        PxOverlapHit hitBuffer[bufferSize];
+        PxOverlapBuffer buf(hitBuffer, bufferSize);
+        PxTransform shapePose = PxTransform(pos, ori);
+        PxQueryFilterData filter_data = PxQueryFilterData();
+        filter_data.data.word0 = EnginePhysics.Puddle | EnginePhysics.Product;
+        bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
+        if (res) {
+          for (PxU32 i = 0; i < buf.nbTouches; i++) {
+            CHandle h_comp_physics;
+            h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
+            CEntity* entityContact = h_comp_physics.getOwner();
+            if (entityContact) {
+              TMsgDamage msg;
+              // Who sent this bullet
+              msg.h_sender = CHandle(this).getOwner();
+              msg.h_bullet = CHandle(this).getOwner();
+              msg.position = c_trans->getPosition() + VEC3::Up;
+              msg.senderType = PLAYER;
+              msg.intensityDamage = meleeDamage;
+              msg.impactForce = impactForceAttack * comboModifier;
+              msg.damageType = MELEE;
+              msg.targetType = ENEMIES;
+              entityContact->sendMsg(msg);
+
+              alreadyAttacked = true;
+              meleeHit = true;
+            }
+          }
+          if (meleeHit) {
+            EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
+          }
+        }
+
         //Execute animation
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         if (dir != VEC3().Zero) {
@@ -927,7 +997,7 @@ void TCompCharacterController::attack(float delta) {
                 animation1Done = false;
             }
             else {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_PARTIAL, 1.f, true);
+                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_PARTIAL, 0.6f, true);
                 animation1Done = true;
             }
         }
@@ -937,87 +1007,26 @@ void TCompCharacterController::attack(float delta) {
                 animation1Done = false;
             }
             else {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_FULL, 1.f, true);
+                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_FULL, 0.6f, true);
                 animation1Done = true;
             }
         }
         
         EngineAudio.playEvent("event:/Character/Attacks/Melee_Swing");
-        attackFirstExecution = false;
     }
 
     TCompTeleport* c_tp = get<TCompTeleport>();
     TCompTransform* c_trans = get<TCompTransform>();
     TCompMadnessController* m_c = get<TCompMadnessController>();
 
-    float comboModifier = 1.f;
     if (c_tp->canCombo()) { //puedes hacer combo
         comboModifier = 6.f;
         c_tp->comboDone = true;
     }
-
-    if (meleeCurrentDuration <= meleeTotalDuration) {
-        //Mesh Swap
-        //SwapMesh(4);
-        //End Mesh Swap
-        if (!alreadyAttacked) {
-
-            TCompTransform* c_trans = get<TCompTransform>();
-            //Create a collider sphere where we want to detect collision
-            PxSphereGeometry geometry(meleeRadius);
-            Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeDistance);
-            PxF32 attackHeight = comp_collider->controller->getHeight();
-            damageOrigin.y = c_trans->getPosition().y + (float)attackHeight + hyChilli / 2;
-            PxVec3 pos = VEC3_TO_PXVEC3(damageOrigin);
-            PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
-
-            const PxU32 bufferSize = 256;
-            PxOverlapHit hitBuffer[bufferSize];
-            PxOverlapBuffer buf(hitBuffer, bufferSize);
-            PxTransform shapePose = PxTransform(pos, ori);
-            PxQueryFilterData filter_data = PxQueryFilterData();
-            filter_data.data.word0 = EnginePhysics.Enemy | EnginePhysics.Puddle | EnginePhysics.DestroyableWall | EnginePhysics.Panel | EnginePhysics.Product;
-            bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
-            if (res) {
-                for (PxU32 i = 0; i < buf.nbTouches; i++) {
-                    CHandle h_comp_physics;
-                    h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
-                    CEntity* entityContact = h_comp_physics.getOwner();
-                    if (entityContact) {
-                        TMsgDamage msg;
-                        // Who sent this bullet
-                        msg.h_sender = CHandle(this).getOwner();
-                        msg.h_bullet = CHandle(this).getOwner();
-                        msg.position = c_trans->getPosition() + VEC3::Up;
-                        msg.senderType = PLAYER;
-                        msg.intensityDamage = meleeDamage;
-                        msg.impactForce = impactForceAttack * comboModifier;
-											  msg.damageType = MELEE;
-                        msg.targetType = ENEMIES;
-                        entityContact->sendMsg(msg);
-
-                        alreadyAttacked = true;
-                        meleeHit = true;
-                        //TCompMadnessController* m_c = get<TCompMadnessController>(); //madness in melee attack
-                        //m_c->generateMadness(MELEE);
-                        
-                    }
-                }
-                if (meleeHit) {
-                    EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
-                }
-            }
-        }
-        meleeCurrentDuration += Time.delta_unscaled;
-    }
     else {
-        meleeCurrentDuration = 0.f;
-        attackFirstExecution = true;
-        meleeTimer = meleeDelay;
-        alreadyAttacked = false;
-        meleeHit = false;
-        ChangeState("GROUNDED");
+      comboModifier = 1.0f;
     }
+    ChangeState("GROUNDED");
 
     comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
     rotatePlayer(dir, Time.delta_unscaled, false);

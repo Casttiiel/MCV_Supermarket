@@ -53,9 +53,9 @@ void TCompSkelLookAt::update(float dt) {
   // The set of bones to correct
   auto core = (CGameCoreSkeleton*)c_skel->model->getCoreModel();
   for (auto& it : core->lookat_corrections)
-	  //it.apply(skel, target, amount); antiguo
+	  it.apply(skel, target, amount);
 	  //----------NUEVO
-	  if (!flagFirst) {
+	  /*if (!flagFirst) {
 		  it.apply(skel, target, amount, angleMax);
 	  }
 	  else {
@@ -66,7 +66,7 @@ void TCompSkelLookAt::update(float dt) {
 			  flagFirst = false;
 			  timeTurn = 0.0;
 		  }
-	  }
+	  }*/
 	 //----------------
 
 }

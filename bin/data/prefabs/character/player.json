@@ -11,7 +11,7 @@
         "radius": 0.4,
         "height": 1.4,
         "group": "player",
-        "mask": "all"
+        "mask": "not_weapon"
       },
       "render": {
         "mesh": "data/skeletons/ourPlayer2/ourPlayer2.mesh",
@@ -35,12 +35,11 @@
       "character_controller": {
         "distance_to_aim": 40.0,
         "life": 100.0
-       
       },
       "tags": [
         "player"
       ],
-	  "ui_controller":{},
+	    "ui_controller":{},
       "comp_blackboard": {},
       "comp_madness": {},
       "comp_coffee": {},
