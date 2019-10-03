@@ -39,6 +39,7 @@ CCteBuffer<TCtesBlur>   ctes_blur(CTE_BUFFER_SLOT_BLUR);
 CCteBuffer<TCtesUI>  ctes_ui(CTE_BUFFER_SLOT_UI);
 CCteBuffer<TCtesFXAA>   ctes_fxaa(CTE_BUFFER_SLOT_FXAA);
 CCteBuffer<TCtesChromaticAberration>   ctes_chr_abr(CTE_BUFFER_SLOT_CHR_ABR);
+CCteBuffer<TCtesDamage>   ctes_dam(CTE_BUFFER_SLOT_CHR_ABR);
 
 
 // -----------------------------------------------------------
@@ -326,6 +327,7 @@ bool createRenderPrimitives() {
   is_ok &= ctes_fxaa.create("FXAA");
   is_ok &= ctes_chr_abr.create("ChromAbr");
   is_ok &= ctes_ui.create("UI");
+  is_ok &= ctes_dam.create("Damage");
   assert(is_ok);
 
   ctes_debug_line.activate();     // This could be done once per runtime
@@ -336,6 +338,7 @@ bool createRenderPrimitives() {
   ctes_blur.activate();
   ctes_ui.activate();
   ctes_fxaa.activate();
+  ctes_dam.activate();
 
   return is_ok;
 }
@@ -350,6 +353,7 @@ void destroyRenderPrimitives() {
   ctes_ui.destroy();
   ctes_fxaa.destroy();
   ctes_chr_abr.destroy();
+  ctes_dam.destroy();
 }
 
 void drawLine(VEC3 src, VEC3 dst, VEC4 color) {

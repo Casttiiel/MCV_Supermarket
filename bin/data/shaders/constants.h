@@ -184,6 +184,14 @@ SHADER_CTE_BUFFER(TCtesFXAA, CTE_BUFFER_SLOT_FXAA)
   float dumm3;
 };
 
+SHADER_CTE_BUFFER(TCtesDamage, CTE_BUFFER_SLOT_CHR_ABR)
+{
+  float grade;
+  float Dummy1;
+  float Dummy2;
+  float Dummy3;
+};
+
 SHADER_CTE_BUFFER(TCtesChromaticAberration, CTE_BUFFER_SLOT_CHR_ABR)
 {
   float WaterEffectSpeed;

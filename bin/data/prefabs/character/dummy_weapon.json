@@ -107,32 +107,6 @@
         "velocity": 20.0
       }
     }
-  },
-  {
-    "entity": {
-      "name": "AimLineScanner",
-      "transform": {
-        "pos": "0 0 0"
-      },
-      "render": {
-        "mesh": "data/meshes/static_objects/AimCylinder.mesh",
-        "color": "0.0 0.5 1.0 1.0",
-        "materials":
-        [
-          "data/materials/vfx/aim_line.material"
-        ]
-      },
-      "buffers" : {
-        "TCtesAimLineScanner" : {
-            "total_bytes" : 16,
-            "slot" : 13
-        }
-      },
-      "bone_tracker":{
-        "bone": "Bone_weapon",
-        "parent": "Player"
-      }
-    }
   }
   ,
   {

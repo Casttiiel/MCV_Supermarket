@@ -28,12 +28,12 @@
         "instances" : {
           "desc" : "Array of active particles at the start of the frame",
           "bytes_per_elem" : 96,
-          "num_elems" : 1024
+          "num_elems" : 2048
         },
         "instances_active" : {
           "desc" : "Array of active particles after the update",
           "bytes_per_elem" : 96,
-          "num_elems" : 1024
+          "num_elems" : 2048
         },
         "system" : {
           "desc" : "Stores dynamic information of this system: num particles alive/dead/time to next spawn/...",
@@ -56,7 +56,7 @@
         "TCtesParticles" : {
           "desc" : "Cte buffer to control emission parameters and update parameters",
           "time_between_spawns" : 0.06,
-          "num_particles_per_spawn" : 50,
+          "num_particles_per_spawn" : 100,
           "center_radius" : 0.0,
           "dir_aperture" : 2.0,
           "speed" : "7.0 8.0",
@@ -64,19 +64,22 @@
           "emitter_dir" : "0 0 1",
           "colors": [
             [ 0.0, "1.0 0.0 0.0 1.0" ],
+            [ 0.2, "1.0 0.1 0.0 1.0" ],
             [ 0.4, "1.0 0.4 0.0 1.0" ],
-            [ 1.0, "1.0 1.0 0.0 1.0" ]
+            [ 0.6, "1.0 1.0 0.0 1.0" ],
+            [ 0.8, "0.0 0.0 0.0 0.8" ],
+            [ 1.0, "0.0 0.0 0.0 0.0" ]
           ],
           "sizes": [
             [ 0.0, 0.5 ],
-            [ 1.0, 1.0 ]
+            [ 1.0, 1.5 ]
           ]
         }
       },
       "compute" : [
         {
           "desc" : "Spawning just 1 thread",
-          "cs" : "cs_particles_fire_spawn.compute",
+          "cs" : "cs_particles_fire_explosion_spawn.compute",
           "sizes" : [1, 1, 1]
         },
         {

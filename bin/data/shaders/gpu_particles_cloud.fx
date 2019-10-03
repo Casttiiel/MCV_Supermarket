@@ -38,28 +38,33 @@ struct TSystem {
 // The spawn fn to customize
 TInstance spawnParticle( uint unique_id ) {
   
+  float  rnd1 = rand(unique_id + 7654) * 2.0 - 1.0;
+  float  rndz = rand(unique_id + 86231) * 2.0 - 1.0;
   float2 rnd2 = hash2( unique_id ) * 2.0 - 1.0;
   float2 rnd3 = hash2( unique_id + 57 );
-  float  rnd4 = rand(unique_id + 75) * 2.0 - 1.0;
-  float  rnd5 = rand(unique_id + 7654) * 2.0 - 1.0;
+  float2 rnd4 = hash2( unique_id + 75 ) * 2.0 - 1.0;
+  float  rnd5 = rand(unique_id + 75) * 2.0 - 1.0;
+  float  rnd6 = rand(unique_id + 7654) * 0.75f;
   float  duration = emitter_duration.x + ( emitter_duration.y - emitter_duration.x ) * rnd3.x;
   float  speed  = emitter_speed.x + ( emitter_speed.y - emitter_speed.x ) * rnd3.y;
 
   TInstance p;
-  p.pos = emitter_center + float3(rnd2.x,0,rnd2.y) * emitter_dir;
-  //p.pos.y += 0.7f;
+  p.pos = emitter_center;
   p.prev_pos = p.pos;
   p.acc = float3(0,0,0);
-  p.dir = float3(rnd2.x,0,rnd2.y);
+  p.dir = emitter_dir;
   p.unique_id = unique_id;
   p.time_normalized = 0.0;
   p.time_factor = 1.0 / duration;
-  p.scale = 0.0;
-  p.color = float4(1,1,0,0);
-  p.dummy1 = rnd4;
-  p.dummy2 = rnd5;
-  p.dummy3 = 0;
+  p.scale = 0.1;
+  p.color = float4(1,1,0,1);
+  p.dummy1 = rnd5;
+  p.dummy2 = rnd6;
+  p.dummy3 = rnd1;
   p.dummy4 = 0;
+
+  p.pos += float3( rnd2.x, 0, rnd2.y) * emitter_center_radius;
+  p.dir += float3( rndz, rnd5, rnd1) * emitter_dir_aperture;
   p.dir *= speed;
 
   return p;
@@ -71,18 +76,16 @@ void updateParticle( inout TInstance p ) {
   p.prev_pos = p.pos;
   p.color = sampleColor( p.time_normalized );
   p.scale = sampleScale( p.time_normalized );
-  //p.dir += p.acc * GlobalDeltaTime;
-  p.pos.xz += p.dir.xz * GlobalDeltaTime;
+  p.dir += p.acc * GlobalDeltaTime;
+  p.pos += p.dir * GlobalDeltaTime;
   /*if( p.pos.y < 0 ) {
     p.pos.y = -p.pos.y;
     p.dir.y = -p.dir.y;
   }*/
 }
 
-// --------------------------------------------------------------
-// using a single thread to spawn new particles
 [numthreads(1, 1, 1)]
-void cs_particles_smoke_cold_spawn( 
+void cs_particles_cloud_spawn( 
   uint thread_id : SV_DispatchThreadID,
   RWStructuredBuffer<TInstance> instances : register(u0),
   RWStructuredBuffer<TSystem> system  : register(u1),
@@ -129,7 +132,7 @@ void cs_particles_smoke_cold_spawn(
 
 // --------------------------------------------------------------
 [numthreads(NUM_PARTICLES_PER_THREAD_GROUP, 1, 1)]
-void cs_particles_smoke_cold_update( 
+void cs_particles_cloud_update( 
   uint thread_id : SV_DispatchThreadID,
   StructuredBuffer<TInstance> instances : register(t0),
   StructuredBuffer<TSystem>   system    : register(t1),
@@ -183,11 +186,9 @@ v2p VS(
   TInstance instance = instances_active[ InstanceID ];
 
   // orient billboard to camera
-  float3 p = instance.pos + float3(input.Pos.x,0,input.Pos.y) * 8 * instance.scale; //multyply localPos to scale the billboard
-
-  //p.y += 0.15 * sin(instance.time_normalized + instance.dummy2 * 8 * PI );
-  //p.y += 0.3 * sin(( instance.time_normalized + instance.dummy1 ) * 2.0);
-
+  float3 localPos = input.Pos.x * CameraLeft
+                  + input.Pos.y * CameraUp;
+  float3 p = instance.pos + localPos * instance.scale;
   /* 
 
   // Strech based on direction
@@ -204,19 +205,18 @@ v2p VS(
   output.Pos = mul( float4(p,1.0), ViewProjection );
   output.Uv = input.Uv;
   output.Color = instance.color;
-  output.WorldPos = float4(p,1.0);
+  output.WorldPos = float4(p,1.0f);
   output.dir = float2(instance.dummy1, instance.dummy2);
   return output;
 }
 
 //--------------------------------------------------------------------------------------
-float4 PS(v2p input) : SV_Target {
+float4 PS(v2p input) : SV_Target{
   float4 texture_color = txAlbedo.Sample(samLinear, input.Uv);
-  float4 distort = txMetallic.Sample(samLinear, input.Uv + GlobalWorldTime *0.05f);
-  float4 air = txNormal.Sample(samLinear, input.Uv + (GlobalWorldTime * 0.01f * input.dir) + distort.xy * 0.1f);
+  float4 distort = txMetallic.Sample(samLinear, input.Uv + GlobalWorldTime * 0.5f);
+  float4 air = txNormal.Sample(samLinear, input.Uv + (GlobalWorldTime * input.dir)  + distort.xy * 0.1f);
   //return input.Color * 4;
-  float4 color = texture_color * input.Color * air;
-  color.a *= 0.1f;
+  float4 color = texture_color * air * input.Color;
 
   float3 cam2obj = input.WorldPos.xyz - CameraPosition.xyz;
   float  linear_depth = dot( cam2obj, CameraFront ) / CameraZFar;
@@ -225,8 +225,8 @@ float4 PS(v2p input) : SV_Target {
   float depth_center = txGLinearDepth.Sample(samLinear, uv).x;
   
   float dif = abs(linear_depth - depth_center);
-  if(dif <= 0.001f){
-    dif /= 0.001f;
+  if(dif <= 0.0004f){
+    dif /= 0.0004f;
     color.a *= dif;
   }
 
