@@ -101,16 +101,15 @@ void TCompCharacterController::debugInMenu() {
 }
 
 void TCompCharacterController::renderDebug() {
+  TCompTransform* c_trans = get<TCompTransform>();
+  TCompCollider* comp_collider = get<TCompCollider>();
+  if (!comp_collider || !comp_collider->controller)
+    return;
     if (state == "ATTACKING") {
-        TCompTransform* c_trans = get<TCompTransform>();
-        TCompCollider* comp_collider = get<TCompCollider>();
-        if (!comp_collider || !comp_collider->controller)
-            return;
-
-        Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeDistance);
-        PxF32 attackHeight = comp_collider->controller->getHeight() / 2;
-        damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
-        drawWiredSphere(damageOrigin, meleeRadius, VEC4(1, 0, 0, 1));
+      Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeDistance);
+      PxF32 attackHeight = comp_collider->controller->getHeight();
+      damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
+      drawWiredSphere(damageOrigin, meleeRadius, VEC4(1, 0, 0, 1));
     }
     else if (EngineInput["noclip_"].justPressed() && getState() == "NOCLIP") {
         speed /= 2;
@@ -951,7 +950,7 @@ void TCompCharacterController::attack(float delta) {
         PxSphereGeometry geometry(meleeRadius);
         Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeDistance);
         PxF32 attackHeight = comp_collider->controller->getHeight();
-        damageOrigin.y = c_trans->getPosition().y + (float)attackHeight + hyChilli / 2;
+        damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
         PxVec3 pos = VEC3_TO_PXVEC3(damageOrigin);
         PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
 

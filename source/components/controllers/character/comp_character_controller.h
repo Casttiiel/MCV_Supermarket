@@ -110,9 +110,9 @@ private:
   float meleeDelay = 0.3f;
   float meleeTotalDuration = 0.4f;
   float meleeCurrentDuration = 0.f;
-  float meleeDistance = 1.5f;
+  float meleeDistance = 0.75f;
   float meleeDamage = 30.f;
-  float meleeRadius = 1.5f;
+  float meleeRadius = 0.75f;
   std::vector<CHandle> entitiesHit;
   float impactForceAttack = 8.0f;
   //End Melee Values
