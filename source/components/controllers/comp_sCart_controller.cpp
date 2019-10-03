@@ -177,7 +177,9 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 					| PxHitFlag::eNORMAL
 					;
 				TCompTransform* c_trans = get<TCompTransform>();
-				float offsetY = c_trans->getPosition().y + 2.5f;//4.0
+				
+ 				float offsetY = c_trans->getPosition().y + 0.25;
+				dbg("offsetY:%f\n", offsetY);
 				VEC3 pos = VEC3(c_trans->getPosition().x, offsetY, c_trans->getPosition().z);
 				VEC3 direction = c_trans->getFront();
 				auto scene = EnginePhysics.getScene();
@@ -212,12 +214,13 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 						for (int i = 0; i < hit.getAnyHit(closestIdx).actor->getNbShapes(); i++) {
 							hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
 							PxFilterData col_filter_data = colShape->getSimulationFilterData();
+							
 							if (col_filter_data.word0 & EnginePhysics.Obstacle) {
 								hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
 								if (hitCollider.isValid()) {
 									CEntity* candidate = hitCollider.getOwner();
-									//TCompName* name = candidate->get<TCompName>();
-									//dbg("name: %s\n",name->getName());
+									TCompName* name = candidate->get<TCompName>();
+									dbg("name: %s\n",name->getName());
 									if (candidate != nullptr) {
 										rowImpulseLeft = 0.0f;
                                         if (!_crashAudio.isPlaying()) {
@@ -536,4 +539,13 @@ void TCompSCartController::treatRumble(float delta) {
 		EngineInput.feedback(rumble);
 		rumble_time = 0.0f;
 	}
+}
+
+
+void TCompSCartController::renderDebug() {
+	TCompTransform* c_trans = get<TCompTransform>();
+	TCompRender* c_render = get<TCompRender>();
+	Vector3 front = c_trans->getFront();
+	Vector3 pos = c_trans->getPosition();
+	drawLine(pos, pos + front * 1.f, VEC4(0,1,0,0));
 }

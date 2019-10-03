@@ -23,7 +23,7 @@ public:
 	void SwapMesh(int state);
 
 	static void registerMsgs();
-
+	void renderDebug();
 	//Shopping Cart Public Functions
 	void enable(CHandle vehicle);
 	void disable();
@@ -76,6 +76,9 @@ private:
 
 	void onCollision(const TMsgOnContact& msg);
     void onCinematicScart(const TMsgOnCinematic& msg);
+
+
+	
 
 	DECL_SIBLING_ACCESS();
 };
