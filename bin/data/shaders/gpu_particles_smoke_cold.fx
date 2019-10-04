@@ -216,7 +216,7 @@ float4 PS(v2p input) : SV_Target {
   float4 air = txNormal.Sample(samLinear, input.Uv + (GlobalWorldTime * 0.01f * input.dir) + distort.xy * 0.1f);
   //return input.Color * 4;
   float4 color = texture_color * input.Color * air;
-  color.a *= 0.1f;
+//  color.a *= 0.1f;
 
   float3 cam2obj = input.WorldPos.xyz - CameraPosition.xyz;
   float  linear_depth = dot( cam2obj, CameraFront ) / CameraZFar;
