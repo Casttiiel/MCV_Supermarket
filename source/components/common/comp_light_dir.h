@@ -32,6 +32,7 @@ public:
   void renderDebug();
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
+  void setIntensity(float i) { intensity = i; }
 
   static void registerMsgs();
   DECL_SIBLING_ACCESS();

@@ -41,16 +41,7 @@ VS_OUTPUT VS(
 {
   VS_OUTPUT output = (VS_OUTPUT)0;
 
-    //for distortion
-  const float _scrollX = 0.0f;
-  const float _scrollY = 0.05f;
-  //for visuals
-  const float _scale = 4.0f;
-
-  float4 newPos = getNewVertPosition(Pos, N);
-  float4 form = txRoughness.SampleLevel(samLinear,  float2((Uv.x + GlobalWorldTime * _scrollX)  ,(Uv.y - GlobalWorldTime * _scrollY)) * float2(_scale,_scale),0);
-  newPos.xyz += form.xyz * N * 0.15;
-  output.Pos = mul(newPos, World);
+  output.Pos = mul(Pos, World);
   output.WorldPos = output.Pos.xyz;
   output.Pos = mul(output.Pos, ViewProjection);
   output.N = mul(N, (float3x3)World);
@@ -88,6 +79,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
   float flame = final_voronoi.x > _threshold;
   float4 flamecolored = flame * ObjColor * form;
 
-  return flamecolored;
+  return flamecolored * 0.5f;
 }
 

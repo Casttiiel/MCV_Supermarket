@@ -5,6 +5,9 @@
 #include "cal3d/cal3d.h"
 #include "cal3d2engine.h"
 #include "entity/entity_parser.h"
+#include "modules/module_physics.h"
+
+using namespace physx;
 
 DECL_OBJ_MANAGER("bone_tracker", TCompBoneTracker);
 
@@ -48,4 +51,14 @@ void TCompBoneTracker::update(float dt) {
   TCompTransform* tmx = get<TCompTransform>();
   tmx->setPosition(pos);
   tmx->setRotation(rot);
+
+  //for kinematic colliders like the weapon
+  TCompCollider* c_col = get<TCompCollider>();
+  if (c_col) {
+    physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+    if (rigid_dynamic) {
+      const PxTransform tr(VEC3_TO_PXVEC3(pos), QUAT_TO_PXQUAT(rot));
+      rigid_dynamic->setKinematicTarget(tr);
+    }
+  }
 }

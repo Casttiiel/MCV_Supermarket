@@ -52,8 +52,10 @@ public:
     Column = 1 << 17,
 	  Panel = 1 << 18,
     Product = 1 << 19,
+    Weapon = 1 << 20,
 
     CCD_FLAG = 1 << 29,
+    NotWeapon = Wall | Floor | TeleportableObj | EnemyProjectile | Grenade | Cupcake | Sushi | Golem | Trigger | Spawner | Battery | Puddle | Carrito | DestroyableWall | ExplosiveObj | Platform | Column | Panel | Product,
     Obstacle = Wall | Column /*| Spawner*/ | TeleportableObj | ExplosiveObj | DestroyableWall,
 	  Scenario = Wall | Floor,
     CameraJump = Floor | Platform, //discuss if you can jump onto more things like explosive things
@@ -66,8 +68,8 @@ public:
     CameraCollision = Scenario | TeleportableObj | ExplosiveObj | DestroyableWall | Spawner,
     VulnerableToMelee = Enemy | Puddle | DestroyableWall | Panel,
 	  NotSpawnerObjects = TeleportableObj | Enemy | Player,
-      VulnerableToFire = ExplosiveObj | Enemy | DestroyableWall,
-      VulnerableToExplosions = ExplosiveObj | Characters,
+    VulnerableToFire = ExplosiveObj | Enemy | DestroyableWall,
+    VulnerableToExplosions = ExplosiveObj | Characters,
 	  ExplosiveAndTeleportable = ExplosiveObj | TeleportableObj,
 		All = -1
 	};
