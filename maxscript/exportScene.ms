@@ -431,6 +431,27 @@ struct TSceneExporter (
 		fs.writeKeyValue "projector" "data/textures/punto_de_luz.dds"
 			
 		fs.endObj()
+		
+		local flickers = getUserProp obj "flickers"
+		if flickers != undefined then (
+			local frequency = getUserProp obj "frequency"
+			local amplitude = getUserProp obj "amplitude"
+			local base = getUserProp obj "base"
+
+			fs.writeComma()
+			fs.writeKey "flickering" 
+			fs.beginObj()
+
+			fs.writeKeyValue "target" "dir"
+			fs.writeComma()
+			fs.writeKeyValue "frequency" frequency
+			fs.writeComma()
+			fs.writeKeyValue "amplitude" amplitude
+			fs.writeComma()
+			fs.writeKeyValue "base" base
+				
+			fs.endObj()
+		)
 	),
 	
 	-- ----------------------------------------------------------

@@ -13,6 +13,9 @@ class TCompFlickering :  public TCompBase {
   float phase = 0.0; // start point inside on wave cycle
   float amplitude = 1.0; // amplitude of the wave
   float base = 1.0; //start
+  float timer = 0.0f;
+  float phase2 = 0.0f;
+  float phase3 = 0.0f;
 
   public:
     void load(const json& j, TEntityParseContext& ctx);
