@@ -506,7 +506,7 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
     float3 PosLightHomoSpace = PosLightProjection.xyz / PosLightProjection.w;
 
     float4 texture_color = txProjector.Sample(samBorderColor, PosLightHomoSpace.xy);
-    //shadow_factor *= texture_color.x;
+    shadow_factor *= texture_color.x;
   }
 
   // From wPos to Light

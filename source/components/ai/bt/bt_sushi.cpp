@@ -236,7 +236,6 @@ int CBTSushi::actionSeekWaypoint() {
     }
     _jumpChargeAudio.stop();
     _chargeAudio.stop();
-    _audioPlaying.stop();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::WALK_LOOP, 1.f);
 
@@ -304,7 +303,6 @@ int CBTSushi::actionIdleCombat() {
     _footSteps.setPaused(true);
     _jumpChargeAudio.stop();
     _chargeAudio.stop();
-    _audioPlaying.stop();
     return LEAVE;
 }
 
@@ -344,7 +342,6 @@ int CBTSushi::actionPrepareJumpCharge() {
     }
     _jumpChargeAudio.stop();
     _chargeAudio.stop();
-    _audioPlaying.stop();
     _footSteps.setPaused(true);
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     TCompName* cname = get<TCompName>();
@@ -396,7 +393,6 @@ int CBTSushi::actionJumpCharge() {
         return LEAVE;
     }
     _chargeAudio.stop();
-    _audioPlaying.stop();
     TCompTransform* c_trans = get<TCompTransform>();
     if (!_jumpChargeAudioPlaying) {
         _jumpChargeAudio = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Charge");
@@ -465,7 +461,6 @@ int CBTSushi::actionPrepareCharge() {
     }
     _jumpChargeAudio.stop();
     _chargeAudio.stop();
-    _audioPlaying.stop();
     _footSteps.setPaused(true);
     TCompTransform* c_trans = get<TCompTransform>();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
@@ -518,7 +513,6 @@ int CBTSushi::actionCharge() {
         return LEAVE;
     }
     _jumpChargeAudio.stop();
-    _audioPlaying.stop();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::JUMPCHARGE_LOOP, 1.f);
     TCompTransform* c_trans = get<TCompTransform>();
@@ -642,7 +636,6 @@ int CBTSushi::actionChase() {
     TCompTransform* c_trans = get<TCompTransform>();
     _jumpChargeAudio.stop();
     _chargeAudio.stop();
-    _audioPlaying.stop();
 
 
     //Rotation Control
@@ -736,7 +729,6 @@ int CBTSushi::actionBlock() {
         _footSteps.setPaused(true);
         _jumpChargeAudio.stop();
         _chargeAudio.stop();
-        _audioPlaying.stop();
 
         return STAY;
     }
@@ -1236,6 +1228,9 @@ int CBTSushi::actionFear() {
 
 int CBTSushi::actionDeath() {
     GameController.addEnemiesKilled(EntityType::SUSHI);
+    TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
+    sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_BREAK, 1.f);
+    sushiAnimator->playAnimation(TCompSushiAnimator::DEAD, 1.f);
 
     //------------------------------------ Blackboard
 
@@ -1844,13 +1839,15 @@ void CBTSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
         return;
     }
     if (msg.targetType & EntityType::SUSHI) {
-            TCompTransform* c_trans = get<TCompTransform>();
+        TCompTransform* c_trans = get<TCompTransform>();
+        TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
         if (isBlocking && msg.senderType == EntityType::PLAYER && msg.damageType != PowerType::CHARGED_ATTACK) {
             dbg("Damage blocked\n");
             if (!_audioPlaying.isPlaying()) {
                 _audioPlaying = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Parry");
                 _audioPlaying.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
             }
+            sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_HIT, 0.7f);
         }
         else {
             h_sender = msg.h_sender;
@@ -1860,9 +1857,13 @@ void CBTSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
             impactForce = msg.impactForce;
             //direction_to_damage.y = 1.0f;
             direction_to_damage.Normalize();
-						if (msg.damageType == PowerType::CHARGED_ATTACK) {
-							blockRemaining = 0;
-						}
+			if (msg.damageType == PowerType::CHARGED_ATTACK) {
+				blockRemaining = 0;
+                sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_BREAK_GET_UP, 1.f);
+            }
+            else {
+                sushiAnimator->playAnimation(TCompSushiAnimator::DAMAGED, 1.f);
+            }
 						
             TCompRigidBody* c_rbody = get<TCompRigidBody>();
             if (c_rbody) {

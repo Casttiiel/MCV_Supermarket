@@ -104,6 +104,7 @@ PxRigidActor* CModulePhysics::createController(TCompCollider& comp_collider) {
   capsuleDesc.climbingMode = PxCapsuleClimbingMode::eEASY;
   capsuleDesc.material = gMaterial;
   capsuleDesc.stepOffset = 0.05;
+  capsuleDesc.contactOffset = 0.01f;
   capsuleDesc.reportCallback = &customUserControllerHitReport;
   capsuleDesc.behaviorCallback = &customControllerBehaviorCallback;
   PxCapsuleController* ctrl = static_cast<PxCapsuleController*>(gControllerManager->createController(capsuleDesc));
@@ -789,6 +790,12 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
   else if (strcmp("product", name.c_str()) == 0) {
     return CModulePhysics::FilterGroup::Product;
   }
+  else if (strcmp("weapon", name.c_str()) == 0) {
+    return CModulePhysics::FilterGroup::Weapon;
+  }
+  else if (strcmp("not_weapon", name.c_str()) == 0) {
+    return CModulePhysics::FilterGroup::NotWeapon;
+  }
   
   
   //good solution, if from max is not specified its group, it will be scenario
@@ -854,6 +861,17 @@ void CModulePhysics::CustomSimulationEventCallback::onTrigger(PxTriggerPair* pai
     else if (pairs[i].status == PxPairFlag::eNOTIFY_TOUCH_LOST)
     {
       TMsgEntityTriggerExit msg;
+
+      // Notify the trigger someone exit
+      msg.h_entity = h_comp_other.getOwner();
+      e_trigger->sendMsg(msg);
+
+      // Notify that someone he exit a trigger
+      msg.h_entity = h_comp_trigger.getOwner();
+      e_other->sendMsg(msg);
+    }
+    else if (pairs[i].status == PxPairFlag::eNOTIFY_TOUCH_PERSISTS) {
+      TMsgEntityTriggerStay msg;
 
       // Notify the trigger someone exit
       msg.h_entity = h_comp_other.getOwner();

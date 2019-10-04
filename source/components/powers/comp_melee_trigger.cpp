@@ -29,10 +29,32 @@ void TCompMeleeTrigger::registerMsgs() {
 void TCompMeleeTrigger::onCollision(const TMsgEntityTriggerEnter& msg) {
     if (!_isEnabled)
         return;
+    CEntity* player = getEntityByName("Player");
+    TMsgMeleeHit meleeHit;
+    meleeHit.h_entity = msg.h_entity;
+    player->sendMsg(meleeHit);
+
 }
 
 
 void TCompMeleeTrigger::update(float delta) {
+  CEntity* player = getEntityByName("Player");
+  TCompCharacterController* c_c = player->get<TCompCharacterController>();
+  if (c_c == nullptr)
+    return;
+  bool attacking = c_c->getAttacking();
+  if (attacking != before) {//cambio de estado
+    TCompCollider* c_col = get<TCompCollider>();
+    PxShape* colShape;
+    c_col->actor->getShapes(&colShape, 1, 0);
+    if (attacking) {
+      colShape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, true);
+    }
+    else {
+      colShape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+    }
+  }
+  before = attacking;
 }
 
 void TCompMeleeTrigger::renderDebug() {

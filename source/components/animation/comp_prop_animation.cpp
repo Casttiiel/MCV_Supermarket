@@ -70,7 +70,6 @@ void TCompPropAnimator::onCreated(const TMsgEntityCreated& msg) {
     TCompSkeleton * compSkeleton = e->get<TCompSkeleton>();
     assert(compSkeleton);
     initializeAnimations();
-    setFeetNumAndCalculate(2);
 }
 
 bool TCompPropAnimator::playAnimation(TCompPropAnimator::EAnimation animation, float speed) {

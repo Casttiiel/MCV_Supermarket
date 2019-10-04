@@ -20,6 +20,7 @@ public:
 	static void registerMsgs();
 
 private:
+    bool before = false;
     bool _isEnabled = true;
 	TMsgDamage _messageToTarget;
     EntityType targetType;

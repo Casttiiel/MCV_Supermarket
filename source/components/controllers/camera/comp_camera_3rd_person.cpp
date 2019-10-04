@@ -138,18 +138,18 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 	  }
 
 	  if (EngineInput["reset_camera_"].justPressed()) {
-		resetCamera();
-		return;
+		  resetCamera();
+		  return;
 	  }
 
 	  TCompTransform* cTransform = get<TCompTransform>();
 	  if (!cTransform)
-		return;
+		  return;
 
 	  CEntity* eTarget = _target;
 	  TCompTransform* cTargetTransform = eTarget->get<TCompTransform>();
 	  if (!cTargetTransform)
-		return;
+		  return;
 
 	  // treat input
 	  float pitch_rotation = 0.0f;

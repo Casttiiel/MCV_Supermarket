@@ -26,7 +26,6 @@ void TCompSkelLookAtDirection::setDefaultDirection(VEC3 defaultDirection) {
 }
 
 void TCompSkelLookAtDirection::update(float dt) {
-  return;
   TCompSkeleton* c_skel = h_skeleton;
   if (target == VEC3().Zero) {
     TCompTransform* c_trans = get<TCompTransform>();
@@ -34,7 +33,7 @@ void TCompSkelLookAtDirection::update(float dt) {
   }
   TCompCharacterController* c_c = get < TCompCharacterController>();
   if (!c_c->aiming) {
-    return;
+    //return;
   }
   // If we have a target direction, use it to assign a target position
     // We should ensure the target position is not moving abruptly

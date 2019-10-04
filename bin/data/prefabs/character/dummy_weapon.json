@@ -22,22 +22,20 @@
       "comp_melee_trigger":{},
       "collider":
         {
-          "shapes":
-          [
-            {
-              "shape": "box"
-              ,
-              "half_size": "0.1 0.8 0.1"
-              ,
-              "offset":
-              {
-                "pos": "0.0 -0.2 0.0"
-              }
-              ,
-              "trigger": true,
-              "group":"VulnerableToMelee"
-            }
-          ]
+          "shape": "box"
+          ,
+          "half_size": "1.2 0.2 0.2"
+          ,
+          "offset":
+          {
+            "pos": "0.5 0.0 0.0"
+          }
+          ,
+          "trigger": true,
+          "dynamic": true,
+          "kinematic": true,
+          "group":"weapon",
+          "mask": "VulnerableToMelee"
         },
 	   "tags" : ["weapon"]
     }

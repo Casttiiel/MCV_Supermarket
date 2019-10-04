@@ -46,7 +46,7 @@ void CBTGolem::create(string s)//crear el arbol
 
 	addChild("THROW", "CHARGINGTHROW", ACTION, (btcondition)&CBTGolem::conditionTimerThrow, (btaction)&CBTGolem::actionChargingThrow); //CARGANDO
 
-	addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
+	//addChild("THROW", "THROWINGCUPCAKE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowCupcake, (btaction)&CBTGolem::actionThrowCupcake);
 	addChild("THROW", "THROWINGPROYECTILE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowParabolic, (btaction)&CBTGolem::actionThrow);
 	addChild("THROW", "THROWINGNFORTUNECOOKIESIMPLE", ACTION, (btcondition)&CBTGolem::conditionRandomThrowSimpleCookie, (btaction)&CBTGolem::actionThrowCookieSimple);
 	addChild("THROW", "THROWINGNFORTUNECOOKIETRIPLE", ACTION, NULL, (btaction)&CBTGolem::actionThrowCookieSpread);
@@ -405,9 +405,9 @@ int CBTGolem::actionThrow()
 	golemAnimator->playAnimation(TCompGolemAnimator::THROW, 1.0f);
 	//END ANIMATION------------------------
 
-    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Attack");
-    audio.set3DAttributes(*c_trans);
-    delay = projectileDelay;
+  AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Golem/Golem_Attack");
+  audio.set3DAttributes(*c_trans);
+  delay = projectileDelay;
 	throwActive = true;
 	throwType = 2;
 
@@ -542,6 +542,7 @@ bool CBTGolem::conditionTimerThrow() {
 		timerGrenade -= dt;
 		return true;
 	}
+	randomNumber = bt_dist_gol(bt_gol);
 	return false;
 }
 

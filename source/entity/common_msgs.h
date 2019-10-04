@@ -176,7 +176,10 @@ struct TMsgEntityTriggerEnter {
 	DECL_MSG_ID();
 };
 
-
+struct TMsgEntityTriggerStay {
+  CHandle h_entity;
+  DECL_MSG_ID();
+};
 
 struct TMsgEntityTriggerExit {
 	CHandle h_entity;
@@ -263,6 +266,11 @@ struct TMsgDeleteTrigger {
 	bool deleteForTrigger;
 	float damage;
 	DECL_MSG_ID();
+};
+
+struct TMsgMeleeHit {
+  CHandle h_entity;
+  DECL_MSG_ID();
 };
 
 /*
