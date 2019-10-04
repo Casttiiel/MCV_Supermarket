@@ -23,7 +23,7 @@ void CModuleNavmesh::update(float dt)
 
 void CModuleNavmesh::renderDebug() {
   //AQUI LINEAS
-  navmesh.render();
+  //navmesh.render();
 }
 
 void CModuleNavmesh::createNavmesh(const std::string& path) {
