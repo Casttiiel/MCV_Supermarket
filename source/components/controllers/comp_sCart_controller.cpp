@@ -178,7 +178,7 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 					;
 				TCompTransform* c_trans = get<TCompTransform>();
 				
- 				float offsetY = c_trans->getPosition().y + 0.25;
+ 				float offsetY = c_trans->getPosition().y + 0.1;
 				dbg("offsetY:%f\n", offsetY);
 				VEC3 pos = VEC3(c_trans->getPosition().x, offsetY, c_trans->getPosition().z);
 				VEC3 direction = c_trans->getFront();
