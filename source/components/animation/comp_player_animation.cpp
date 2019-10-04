@@ -432,7 +432,6 @@ void TCompPlayerAnimator::onCreated(const TMsgEntityCreated& msg) {
     compSkeleton = e->get<TCompSkeleton>();
     assert(compSkeleton);
     initializeAnimations();
-    setFeetNumAndCalculate(2);
 }
 
 bool TCompPlayerAnimator::playAnimation(TCompPlayerAnimator::EAnimation animation, float speed, bool callbackWanted) {
