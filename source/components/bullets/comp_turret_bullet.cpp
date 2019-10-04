@@ -70,6 +70,8 @@ void TCompTurretBulletController::explode() {
 
 	//_hasExploded = true;
 	GameController.spawnPrefab("data/prefabs/vfx/explosion.json", c_trans->getPosition());
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Hazards/Explosion");
+    audio.set3DAttributes(*c_trans);
 	impact = true;
 }
 

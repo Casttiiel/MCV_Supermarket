@@ -261,12 +261,12 @@ int CBTCupcake::actionDeath() {
 	  death_animation_started = true;
   }
   else {
+      AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+      death.set3DAttributes(*c_trans);
+      voice.stop();
 	  CHandle(this).getOwner().destroy();
 	  CHandle(this).destroy();
   }
-  AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
-  death.set3DAttributes(*c_trans);
-  voice.stop();
 	return LEAVE;
 }
 
@@ -291,7 +291,9 @@ int CBTCupcake::actionDivide() {
 	//isSon = false;
 	float posY = 1.0f;
 	VEC3 impulse = c_trans->getFront()*impulseStrenghtSecondSon;
-
+    AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
+    death.set3DAttributes(*c_trans);
+    voice.stop();
 
 	while (i < num_of_sons) {
 		TEntityParseContext ctx;
@@ -997,7 +999,7 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 dir = VEC3();
-    if (!voice.isPlaying()) {
+    if (!voice.isPlaying() && !conditionDeath()) {
         voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
     }    
     voice.set3DAttributes(*c_trans);

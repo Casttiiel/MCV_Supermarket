@@ -160,35 +160,15 @@ void TCompCharacterController::registerMsgs() {
 }
 
 void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsgPlayerAnimationFinished& msg) {
-    /*switch (msg.animation)
+    switch (msg.animation)
     {
-    case TCompPlayerAnimator::IDLE:
-        dbg("Animation IDLE callback received.\n");
-        break;
-    case TCompPlayerAnimator::ATTACK:
-        dbg("Animation ATTACK callback received.\n");
-        break;
-    case TCompPlayerAnimator::RUN:
-        dbg("Animation RUN callback received.\n");
-        break;
-    case TCompPlayerAnimator::JUMP:
-        dbg("Animation JUMP callback received.\n");
-        break;
     case TCompPlayerAnimator::THROW:
         dbg("Animation THROW callback received.\n");
-        break;
-    case TCompPlayerAnimator::SCAN:
-        dbg("Animation SCAN callback received.\n");
-        break;
-    case TCompPlayerAnimator::DEAD:
-        dbg("Animation DEAD callback received.\n");
-        break;
-    case TCompPlayerAnimator::PRUEBA:
-        dbg("Animation PRUEBA callback received.\n");
+        isThrowingAnimationGoing = false;
         break;
     default:
         break;
-    }*/
+    }
 }
 //STATES
 
@@ -254,7 +234,7 @@ void TCompCharacterController::grounded(float delta) {
 
     //MOVEMENT
     getInputForce(dir);
-    if (dir != VEC3().Zero) {
+    if (dir != VEC3().Zero && Time.real_scale_factor != 0.0f) {
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         float front_ = EngineInput["front_"].value;
         //With keyboard "s" back_ == 1.0, with joystick back_ == -1.0
@@ -353,7 +333,7 @@ void TCompCharacterController::grounded(float delta) {
     }
     if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
+        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
         ChangeState("DASHING");
         dash = dash_limit;
         startDash = true;
@@ -445,8 +425,10 @@ void TCompCharacterController::grounded(float delta) {
 	}
 
     if (power_selected == PowerType::BATTERY && inventory->getBattery() && aiming) {
-        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
+        if (!isThrowingAnimationGoing) {
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
+        }
     }
 
     dir *= Time.delta_unscaled;
@@ -562,7 +544,7 @@ void TCompCharacterController::onAir(float delta) {
         dash = dash_limit;
         startDash = true;
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.0f);
+        playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
         EngineAudio.playEvent("event:/Character/Other/Dash");
     }
     else if (EngineInput["jump_"].justPressed() && can_double_jump) { //DOUBLE JUMP
@@ -904,7 +886,8 @@ void TCompCharacterController::shoot() {
             c_bat->shoot(front);
             aiming = false;
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::THROW, 1.f, true);
+            playerAnima->playAnimation(TCompPlayerAnimator::THROW, 0.5f, true);
+            isThrowingAnimationGoing = true;
             EngineAudio.playEvent("event:/Character/Powers/Battery/Throw");
             isBatteryAlive = true;
         }
@@ -1009,15 +992,19 @@ void TCompCharacterController::attack(float delta) {
                         msg.senderType = PLAYER;
                         msg.intensityDamage = meleeDamage;
                         msg.impactForce = impactForceAttack * comboModifier;
-											msg.damageType = MELEE;
+											  msg.damageType = MELEE;
                         msg.targetType = ENEMIES;
                         entityContact->sendMsg(msg);
 
                         alreadyAttacked = true;
+                        meleeHit = true;
                         //TCompMadnessController* m_c = get<TCompMadnessController>(); //madness in melee attack
                         //m_c->generateMadness(MELEE);
-                        EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
+                        
                     }
+                }
+                if (meleeHit) {
+                    EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
                 }
             }
         }
@@ -1028,6 +1015,7 @@ void TCompCharacterController::attack(float delta) {
         attackFirstExecution = true;
         meleeTimer = meleeDelay;
         alreadyAttacked = false;
+        meleeHit = false;
         ChangeState("GROUNDED");
     }
 
@@ -1191,9 +1179,7 @@ void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
     if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
         life -= msg.intensityDamage;
 				invulnerabilityTimer = invulnerabilityTimeDuration;
-                inCombatTimer = inCombatDuration;
-                //UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
-		//bar->setRatio((life + 20) / 120.f);
+        inCombatTimer = inCombatDuration;
     }
 
 
@@ -1218,8 +1204,6 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
   if (!GameController.getGodMode() && !cinematic) {
     if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
       life -= msg.intensityDamage;
-      //UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
-      //bar->setRatio((life + 20) / 120.f); // 20 y 120 son offset de la barra de vida
       TCompTransform* my_trans = get<TCompTransform>();
       VEC3 direction_to_damage;
       if (msg.senderType == ENEMIES) { //los enemigos envian el handle
@@ -1241,7 +1225,7 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
         EngineAudio.playEvent("event:/Character/Voice/Player_Death");
         ChangeState("DEAD");
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DIE, 1.f, true);
+        playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
       }
       else {
 
@@ -1256,7 +1240,7 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
             damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
 
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, true);
+            playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, false);
         }
       }
     }
@@ -1264,14 +1248,19 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
 }
 
 void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
+    if (life <= 0.0f) {
+        return;
+    }
     //dbg("recibo damage \n");
     if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
         if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
             life -= msg.intensityDamage;
 						invulnerabilityTimer = invulnerabilityTimeDuration;
-                        inCombatTimer = inCombatDuration;
-                        //UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
-			//bar->setRatio((life + 20)/120.f); // 20 y 120 son offset de la barra de vida
+            inCombatTimer = inCombatDuration;
+            CEntity* e_cam = getEntityByName("MainCamera");
+            TMsgOnContact msg_cam;
+            e_cam->sendMsg(msg_cam);
+                        
             TCompTransform* my_trans = get<TCompTransform>();
             VEC3 direction_to_damage;
             if (msg.senderType == ENEMIES) { //los enemigos envian el handle
@@ -1292,6 +1281,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 life = 0.0f;
                 EngineAudio.playEvent("event:/Character/Voice/Player_Death");
                 ChangeState("DEAD");
+                TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+                playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
             }
             else {
 
@@ -1300,6 +1291,9 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 }
                 if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
                     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+
+                    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+                    playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, false);
                     //ChangeState("DAMAGED");
                 }
             }
@@ -1312,8 +1306,6 @@ void TCompCharacterController::onTriggerFalloutDead(const TMSgTriggerFalloutDead
 	if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
 		life -= msg.damage;
 		invulnerabilityTimer = invulnerabilityTimeDuration;
-		//UI::CBar* bar = dynamic_cast<UI::CBar*>(Engine.getUI().getWidgetByAlias("life_bar_r"));
-		//bar->setRatio((life + 20) / 120.f);
 	}
 
 
@@ -1563,18 +1555,18 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  TCompInventory* inventory = entity->get<TCompInventory>();
 		  inventory->setChilli(true);
 		  //unLockableChilli = true;
-          //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
-          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-          /*CEntity* e1 = getEntityByName("Hielo2_LP");
-          TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
-          c_ma1->updateMorphData(0.0f);
-          CEntity* e2 = getEntityByName("Hielo5_LP");
-          TCompMorphAnimation* c_ma2 = e2->get<TCompMorphAnimation>();
-          c_ma2->updateMorphData(0.0f);
-          CEntity* e3 = getEntityByName("Hielo6_LP");
-          TCompMorphAnimation* c_ma3 = e3->get<TCompMorphAnimation>();
-          c_ma3->updateMorphData(0.0f);
-          CEntity* e4 = getEntityByName("cubosHielo_033");
+      //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
+      EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+      /*CEntity* e1 = getEntityByName("Hielo2_LP");
+      TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
+      c_ma1->updateMorphData(0.0f);
+      CEntity* e2 = getEntityByName("Hielo5_LP");
+      TCompMorphAnimation* c_ma2 = e2->get<TCompMorphAnimation>();
+      c_ma2->updateMorphData(0.0f);
+      CEntity* e3 = getEntityByName("Hielo6_LP");
+      TCompMorphAnimation* c_ma3 = e3->get<TCompMorphAnimation>();
+      c_ma3->updateMorphData(0.0f);
+      CEntity* e4 = getEntityByName("cubosHielo_033");
 		 
 		  TCompMorphAnimation* c_ma4 = e4->get<TCompMorphAnimation>();
 		  c_ma4->updateMorphData(0.0f);

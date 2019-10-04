@@ -88,7 +88,6 @@ void TCompBatteryController::onBatteryInfoMsg(const TMsgAssignBulletOwner& msg) 
     _knots = curve_dynamic->getKnots();
     nextPoint = _knots[i];
     c_trans->setPosition(nextPoint);
-    audioEffect = EngineAudio.playEvent("event:/Character/Powers/Battery/Battery");
 
 }
 
@@ -129,7 +128,8 @@ void TCompBatteryController::update(float delta) {
       
       if (angular_speed.Length() < 0.4f && linear_speed.Length() < 0.4f) {
         if (!startedEffect) {
-          //spawn here the bolt sphere
+        audioEffect = EngineAudio.playEvent("event:/Character/Powers/Battery/Battery");
+        //spawn here the bolt sphere
           TEntityParseContext ctx;
           TCompTransform* c_trans = get<TCompTransform>();
           ctx.root_transform = *c_trans;

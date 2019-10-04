@@ -234,6 +234,9 @@ int CBTSushi::actionSeekWaypoint() {
     if (conditionPlayerInView() || inCombat || conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _jumpChargeAudio.stop();
+    _chargeAudio.stop();
+    _audioPlaying.stop();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::WALK_LOOP, 1.f);
 
@@ -299,6 +302,9 @@ int CBTSushi::actionIdleCombat() {
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
     _footSteps.setPaused(true);
+    _jumpChargeAudio.stop();
+    _chargeAudio.stop();
+    _audioPlaying.stop();
     return LEAVE;
 }
 
@@ -336,6 +342,9 @@ int CBTSushi::actionPrepareJumpCharge() {
     if (conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _jumpChargeAudio.stop();
+    _chargeAudio.stop();
+    _audioPlaying.stop();
     _footSteps.setPaused(true);
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     TCompName* cname = get<TCompName>();
@@ -361,7 +370,7 @@ int CBTSushi::actionPrepareJumpCharge() {
         return STAY;
     }
 
-    if (c_trans->getPosition().y >= (jumpPosition.y + 2.5f)) {
+    if (c_trans->getPosition().y >= (jumpPosition.y + 2.0f)) {
         dbg("%s activated JUMPCHARGE from PREPAREJUMPCHARGE\n", cname->getName());
         VEC3 height = c_trans->getPosition();
         //ChangeState("JUMPCHARGE");
@@ -386,6 +395,8 @@ int CBTSushi::actionJumpCharge() {
         collided = false;
         return LEAVE;
     }
+    _chargeAudio.stop();
+    _audioPlaying.stop();
     TCompTransform* c_trans = get<TCompTransform>();
     if (!_jumpChargeAudioPlaying) {
         _jumpChargeAudio = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_Charge");
@@ -452,6 +463,9 @@ int CBTSushi::actionPrepareCharge() {
     if (conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _jumpChargeAudio.stop();
+    _chargeAudio.stop();
+    _audioPlaying.stop();
     _footSteps.setPaused(true);
     TCompTransform* c_trans = get<TCompTransform>();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
@@ -503,6 +517,8 @@ int CBTSushi::actionCharge() {
         c_rb->enableGravity(true);
         return LEAVE;
     }
+    _jumpChargeAudio.stop();
+    _audioPlaying.stop();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::JUMPCHARGE_LOOP, 1.f);
     TCompTransform* c_trans = get<TCompTransform>();
@@ -574,7 +590,7 @@ int CBTSushi::actionCharge() {
     ////end raycast
 
     chargeElapsed += dt;
-    if (chargeElapsed >= chargeDuration || collided || stopCharge) {//TODO: AQUI ADD UNA CONDICION QUE SEA QUE VA A CAER Y PARAR A TIEMPO
+    if (chargeElapsed >= chargeDuration || collided/* || stopCharge*/) {//TODO: AQUI ADD UNA CONDICION QUE SEA QUE VA A CAER Y PARAR A TIEMPO
         //ChangeState("CHASE");
         c_rb->enableGravity(true);
         sushiAnimator->playAnimation(TCompSushiAnimator::JUMPCHARGE_END, 1.f);
@@ -624,6 +640,9 @@ int CBTSushi::actionChase() {
     CEntity* e_player = (CEntity*)h_player;
     TCompTransform* p_trans = e_player->get<TCompTransform>();
     TCompTransform* c_trans = get<TCompTransform>();
+    _jumpChargeAudio.stop();
+    _chargeAudio.stop();
+    _audioPlaying.stop();
 
 
     //Rotation Control
@@ -715,6 +734,9 @@ int CBTSushi::actionBlock() {
         TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
         sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_LOOP, 1.f);
         _footSteps.setPaused(true);
+        _jumpChargeAudio.stop();
+        _chargeAudio.stop();
+        _audioPlaying.stop();
 
         return STAY;
     }
@@ -853,6 +875,9 @@ int CBTSushi::actionMelee1() {
     if (conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _jumpChargeAudio.stop();
+    _chargeAudio.stop();
+    _audioPlaying.stop();
     _footSteps.setPaused(true);
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
@@ -915,6 +940,9 @@ int CBTSushi::actionMelee2() {
     if (conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _jumpChargeAudio.stop();
+    _chargeAudio.stop();
+    _audioPlaying.stop();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
     _footSteps.setPaused(true);
@@ -977,6 +1005,9 @@ int CBTSushi::actionMelee3() {
     if (conditionOnAir() || conditionGravityReceived() || conditionImpactReceived() || conditionFear()) {
         return LEAVE;
     }
+    _jumpChargeAudio.stop();
+    _chargeAudio.stop();
+    _audioPlaying.stop();
     TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
     sushiAnimator->playAnimation(TCompSushiAnimator::IDLE_LOOP, 1.f);
     _footSteps.setPaused(true);
@@ -1096,6 +1127,9 @@ int CBTSushi::actionGravityReceived() {
     previousState = currentState;
     currentState = States::GravityReceived;
     _footSteps.setPaused(true);
+    _jumpChargeAudio.stop();
+    _chargeAudio.stop();
+    _audioPlaying.stop();
     TCompTransform* c_trans = get<TCompTransform>();
     CEntity* e_player = (CEntity*)h_player;
     TCompTransform* p_trans = e_player->get<TCompTransform>();
@@ -1172,6 +1206,9 @@ int CBTSushi::actionFear() {
         _fearTimer = _fearDuration;
     }
     if (_fearTimer > 0.f) {
+        _jumpChargeAudio.stop();
+        _chargeAudio.stop();
+        _audioPlaying.stop();
         TCompSushiAnimator* sushiAnimator = get<TCompSushiAnimator>();
         sushiAnimator->playAnimation(TCompSushiAnimator::WALK_LOOP, 2.f);
 
@@ -1246,9 +1283,14 @@ int CBTSushi::actionDeath() {
 
 	}
 	else {
-		
+        _jumpChargeAudio.stop();
+        _chargeAudio.stop();
+        _footSteps.stop();
+        _audioPlaying.stop();
 		CHandle(this).getOwner().destroy();
 		CHandle(this).destroy();
+        
+
 	}
 	//------ENVIO ME HE MUERTO A COMPONENTE DE TRAMPA DE SUISHIS-----
 	/*
@@ -1358,13 +1400,13 @@ bool CBTSushi::conditionMelee() {
 
 bool CBTSushi::conditionJumpCharge() {
     //VEC3 start, VEC3 end, VEC3 &m_hitPos
-    VEC3 m_hitPos = VEC3();
+    /*VEC3 m_hitPos = VEC3();
     TCompTransform* c_trans = get<TCompTransform>();
     VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
     VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 100);
-		if (use_navmesh) {
-			bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
-		}
+	if (use_navmesh) {
+		bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
+	}*/
     //if (!charge) {
     return rollDiceJumpCharge() && checkBlackboard();
     //}
@@ -1372,13 +1414,13 @@ bool CBTSushi::conditionJumpCharge() {
 }
 
 bool CBTSushi::conditionCharge() {
-    VEC3 m_hitPos = VEC3();
+    /*VEC3 m_hitPos = VEC3();
     TCompTransform* c_trans = get<TCompTransform>();
     VEC3 currentPosition = VEC3(c_trans->getPosition().x, c_trans->getPosition().y, c_trans->getPosition().z);
     VEC3 frontOffset = VEC3(currentPosition.x, currentPosition.y, currentPosition.z + 100);
-		if (use_navmesh) {
-			bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
-		}
+	if (use_navmesh) {
+		bool charge = EngineNavmesh.raycast(currentPosition, frontOffset, m_hitPos);
+	}*/
     //if (!charge) {
     return rollDiceCharge() && checkBlackboard();
     //}
@@ -1867,7 +1909,7 @@ void CBTSushi::onCollision(const TMsgOnContact& msg) {
                 //If I collide with something other than the player, but I'm charging, I stop charging
             }
             else if (col_filter_data.word0 & EnginePhysics.Obstacle && (currentState == States::Charge || currentState == States::JumpCharge)) {
-                collided = true;
+                //collided = true;
             }
             else if (col_filter_data.word0 & EnginePhysics.Enemy && (currentState == States::Charge || currentState == States::JumpCharge)) {
                 TMsgDamage msg;
