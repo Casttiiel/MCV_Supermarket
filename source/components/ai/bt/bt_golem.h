@@ -92,8 +92,8 @@ private:
 
 
 	//probability values
-	float throwCupcakeProbability = 10; //10%
-	float throwParabolicProjectileProb = 25; //en realidad es 25 - 10 que es 15%
+	float throwCupcakeProbability = 0; //10%
+	float throwParabolicProjectileProb = 25; //en realidad es 25%
 	float throwSimpleFortuneCookieProb = 75; // en realidad es 75 - 25 que es 50%
 	//el otro 25 es para el lanzamiento triple, que no necesita variable-- seria un 25%
 	//end probability values
@@ -103,7 +103,7 @@ private:
 	float meleeDamage = 10;
 	int damage = 10;
 	float _bulletDamage = 10.f;
-	float _bulletForce = 10.f;
+	float _bulletForce = 0.f;
 	float impactForceAttack = 100.0f;
 	//end damage values
 

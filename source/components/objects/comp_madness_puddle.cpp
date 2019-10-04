@@ -10,6 +10,7 @@ void TCompMadnessPuddle::debugInMenu() {
 }
 
 void TCompMadnessPuddle::load(const json& j, TEntityParseContext& ctx) {
+
 }
 
 void TCompMadnessPuddle::registerMsgs() {
