@@ -215,7 +215,7 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 							hit.getAnyHit(closestIdx).actor->getShapes(&colShape, 1, i);
 							PxFilterData col_filter_data = colShape->getSimulationFilterData();
 							
-							if (col_filter_data.word0 & EnginePhysics.Obstacle) {
+							if (col_filter_data.word0 & EnginePhysics.Obstacle ||  col_filter_data.word0 & EnginePhysics.Spawner) {
 								hitCollider.fromVoidPtr(hit.getAnyHit(closestIdx).actor->userData);
 								if (hitCollider.isValid()) {
 									CEntity* candidate = hitCollider.getOwner();
@@ -230,6 +230,7 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 									
 								}
 							}
+							
 						}
 					}
 
