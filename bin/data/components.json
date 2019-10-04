@@ -1,7 +1,7 @@
 {
   "sizes" : {
-    "default" : 4095,
-    "transform" : 4095
+    "default" : 6000,
+    "transform" : 6000
   },
   "init_order" : {
     "entity" : 100,
@@ -103,13 +103,11 @@
 	"enemies_in_butcher",
     "bolt_sphere_oven",
 	"comp_door",
-    "comp_restore_madness"
+    "comp_restore_madness",
 	"comp_fire_platform_trap"
   ],
   "render_debug": [
     "ui_controller",
-    "character_controller",
-    "collider",
-    "sCart_controller"
+    "character_controller"
   ]
 }

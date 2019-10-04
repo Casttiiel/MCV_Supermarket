@@ -23,7 +23,7 @@ private:
 
   float _offset = 0.0f;
   float _fireTimer = 0.0f;
-  float _fireDelay = 0.1f;
+  float _fireDelay = 0.25f;
   float _enablerTimer = 0.0f;
   float _disablerTimer = 0.0f;
   float _enablerDelay = 1.0f;

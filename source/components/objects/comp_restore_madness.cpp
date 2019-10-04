@@ -21,11 +21,13 @@ void TCompRestoreMadness::registerMsgs() {
 void TCompRestoreMadness::onPlayerAttack(const TMsgDamage & msg) {
 	
 	CEntity* p = msg.h_sender;
-	TCompMadnessController* m_c = p->get<TCompMadnessController>();
-	if(m_c != nullptr) {
-		madness = 0.1;
-		m_c->generateMadness(madness);
-	}
+  if (p) {
+    TCompMadnessController* m_c = p->get<TCompMadnessController>();
+    if (m_c != nullptr) {
+      madness = 0.1;
+      m_c->generateMadness(madness);
+    }
+  }
 }
 
 void TCompRestoreMadness::update(float dt) {
