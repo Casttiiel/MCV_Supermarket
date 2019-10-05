@@ -681,15 +681,29 @@ function activePlataformCarniceria_player()
 	-- CAMERA LOCA
 	execDelayedAction("cinematica_tower()",0.0);
 
-	--omnis superior izquierda
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni008\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni015\",0.0)",12.5);
-	--omnis inferior izquierda
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni016\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni002\",0.0)",12.5);
-	--omnis inferior izquierda
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni012\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni017\",0.0)",12.5);
+	
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni038\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni039\",0.0)",12.5);
+	
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni040\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni041\",0.0)",12.5);
+	
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni042\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni043\",0.0)",12.5);
+
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni044\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni035\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni034\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni033\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni032\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni031\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni030\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni029\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni028\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni027\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni026\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni025\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni024\",0.0)",12.5);
 
 
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",12.5);
