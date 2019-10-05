@@ -5,6 +5,7 @@
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
 #include "modules/game/module_game_manager.h"
+#include "modules/game/audio/audioEvent.h"
 
 
 class TCompEnemySpawner : public TCompBase
@@ -55,7 +56,7 @@ private:
 	void onBattery(const TMsgGravity & msg);
 	void onDamage(const TMsgDamage & msg); //TODO ELIMINAR
 	void onCheckout(const TMsgSpawnerCheckout & msg);
-	
+	AudioEvent audio;
 
 	int comportamentNormal = 0;
 
