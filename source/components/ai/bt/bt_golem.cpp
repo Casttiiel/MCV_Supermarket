@@ -808,7 +808,7 @@ void CBTGolem::singleShot() {
 	TEntityParseContext ctx;
 	ctx.root_transform.setPosition(firingPosition);
 	ctx.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
+	parseScene("data/prefabs/bullets/bullet_golem1.json", ctx);
 
 	//Bullet direction
 	VEC3 targetDir = p_trans->getPosition() - boneTracker->getPosition();
@@ -852,7 +852,9 @@ void CBTGolem::spreadShot() {
 	TEntityParseContext ctx;
 	ctx.root_transform.setPosition(firingPosition);
 	ctx.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
+	parseScene("data/prefabs/bullets/bullet_golem1.json", ctx);
+
+	//objectToThrow
 
 	//Bullet direction
 	VEC3 targetDir = p_trans->getPosition() - boneTracker->getPosition();
@@ -887,7 +889,7 @@ void CBTGolem::spreadShot() {
 	TEntityParseContext ctx2;
 	ctx2.root_transform.setPosition(firingPosition);
 	ctx2.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx2);
+	parseScene("data/prefabs/bullets/bullet_golem2.json", ctx2);
 	msgDamage.bullet_front = rotatedDirection;
 	msg.front = rotatedDirection;
 	ctx2.entities_loaded[0].sendMsg(msg);
@@ -901,7 +903,7 @@ void CBTGolem::spreadShot() {
 	TEntityParseContext ctx3;
 	ctx3.root_transform.setPosition(firingPosition);
 	ctx3.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx3);
+	parseScene("data/prefabs/bullets/bullet_golem3.json", ctx3);
 	msgDamage.bullet_front = rotatedDirection;
 	msg.front = rotatedDirection;
 	ctx3.entities_loaded[0].sendMsg(msg);

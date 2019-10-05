@@ -142,8 +142,11 @@ private:
 	int throwType = 1; //1 cupcake ; 2 parabolic
 	float height_range = 1.5f;
 
+	std::vector<string> objectToThrow;
+	//objectToThrow.pushBack("data/prefabs/bullets/bullet_golem1.json");
 
 	std::vector<CHandle> _currentEnemies;
+
 
 	void onCollision(const TMsgOnContact& msg);
 	void onDamageInfoMsg(const TMsgDamage& msg);
