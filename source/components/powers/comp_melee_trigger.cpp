@@ -23,17 +23,34 @@ void TCompMeleeTrigger::load(const json& j, TEntityParseContext& ctx) {
 
 void TCompMeleeTrigger::registerMsgs() {
     DECL_MSG(TCompMeleeTrigger, TMsgEntityTriggerEnter, onCollision);
+    DECL_MSG(TCompMeleeTrigger, TMsgEntityTriggerExit, onCollisionOut);
 }
 
 
 void TCompMeleeTrigger::onCollision(const TMsgEntityTriggerEnter& msg) {
-    if (!_isEnabled)
-        return;
-    CEntity* player = getEntityByName("Player");
+  CEntity* player = getEntityByName("Player");
+  TCompCharacterController* c_c = player->get<TCompCharacterController>();
+  if (c_c == nullptr)
+    return;
+  bool attacking = c_c->getAttacking();
+ 
+  if (attacking) {
     TMsgMeleeHit meleeHit;
     meleeHit.h_entity = msg.h_entity;
     player->sendMsg(meleeHit);
+  }
+  else {
+    _currentEnemies.push_back(msg.h_entity);
+  }
+}
 
+void TCompMeleeTrigger::onCollisionOut(const TMsgEntityTriggerExit& msg) {
+  for (int i = 0; i < _currentEnemies.size(); i++) {
+    if (msg.h_entity == _currentEnemies[i]) {
+      _currentEnemies.erase(_currentEnemies.begin() + i);
+      return;
+    }
+  }
 }
 
 
@@ -43,17 +60,16 @@ void TCompMeleeTrigger::update(float delta) {
   if (c_c == nullptr)
     return;
   bool attacking = c_c->getAttacking();
-  if (attacking != before) {//cambio de estado
-    TCompCollider* c_col = get<TCompCollider>();
-    PxShape* colShape;
-    c_col->actor->getShapes(&colShape, 1, 0);
-    if (attacking) {
-      colShape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, true);
-    }
-    else {
-      colShape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+  if (attacking != before && attacking) { // si empiezas a atacar
+    
+    for (int i = 0; i < _currentEnemies.size(); i++) {
+      TMsgMeleeHit meleeHit;
+      meleeHit.h_entity = _currentEnemies[i];
+      if(meleeHit.h_entity.isValid())
+        player->sendMsg(meleeHit);
     }
   }
+
   before = attacking;
 }
 
