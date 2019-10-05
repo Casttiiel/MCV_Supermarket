@@ -990,25 +990,13 @@ void TCompCharacterController::attack(float delta) {
 
         //Execute animation
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        if (dir != VEC3().Zero) {
-            if (animation1Done) {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_PARTIAL, 1.f, true);
-                animation1Done = false;
-            }
-            else {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_PARTIAL, 0.6f, true);
-                animation1Done = true;
-            }
+        if (animation1Done) {
+            playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_PARTIAL, 1.f, true);
+            animation1Done = false;
         }
         else {
-            if (animation1Done) {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_FULL, 1.f, true);
-                animation1Done = false;
-            }
-            else {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_FULL, 0.6f, true);
-                animation1Done = true;
-            }
+            playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_PARTIAL, 0.6f, true);
+            animation1Done = true;
         }
         
         EngineAudio.playEvent("event:/Character/Attacks/Melee_Swing");
