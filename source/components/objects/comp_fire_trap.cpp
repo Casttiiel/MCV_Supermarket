@@ -37,6 +37,12 @@ void TCompFireTrap::onCreate(const TMsgEntityCreated& msg) {
     data->emitter_num_particles_per_spawn = 30;
     data->updateGPU();
   }
+  audio = EngineAudio.playEvent("event:/Enemies/Hazards/Fire/Fire_Loop");
+  audioSlow = EngineAudio.playEvent("event:/Enemies/Hazards/Fire/Fire_Loop_Slow");
+  audio.setPaused(true);
+  audioSlow.setPaused(true);
+  audio.set3DAttributes(*c_trans);
+  audioSlow.set3DAttributes(*c_trans);
 }
 
 void TCompFireTrap::enable() {
@@ -46,6 +52,12 @@ void TCompFireTrap::enable() {
     CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
     data->emitter_num_particles_per_spawn = 30;
     data->updateGPU();
+    if (GameController.getTimeScale() < 1.0f) {
+        audioSlow.setPaused(false);
+    }
+    else {
+        audio.setPaused(false);
+    }
   }
 }
 
@@ -56,6 +68,8 @@ void TCompFireTrap::disable() {
     CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
     data->emitter_num_particles_per_spawn = 0;
     data->updateGPU();
+    audio.setPaused(true);
+    audioSlow.setPaused(true);
   }
 }
 
@@ -67,6 +81,14 @@ void TCompFireTrap::update(float dt) {
     
 
   if (_isEnabled) {
+      if (GameController.getTimeScale() < 1.0f && audioSlow.getPaused()) {
+          audioSlow.setPaused(false);
+          audio.setPaused(true);
+      }
+      else if(GameController.getTimeScale() == 1.0f && audio.getPaused()){
+          audio.setPaused(false);
+          audioSlow.setPaused(true);
+      }
     if (_fireTimer <= 0.f) {
       TCompTransform* c_trans = get<TCompTransform>();
       TEntityParseContext ctx;
