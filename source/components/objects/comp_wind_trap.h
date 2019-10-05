@@ -6,6 +6,7 @@
 #include "entity/common_msgs.h"
 #include "components/common/physics/comp_rigid_body.h"
 #include "components/common/comp_transform.h"
+#include "modules/game/audio/audioEvent.h"
 class TCompWindTrap : public TCompBase
 {
   DECL_SIBLING_ACCESS();
@@ -20,6 +21,7 @@ public:
   static void registerMsgs();
 
 private:
+    AudioEvent audio;
   bool activateWind = true;
 	bool _isEnabled = false;
   bool is_destroyed = false;

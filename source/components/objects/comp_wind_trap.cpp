@@ -39,7 +39,8 @@ void TCompWindTrap::onCreate(const TMsgEntityCreated & msg) {
 	colShape->getBoxGeometry(box);
 	VEC3 creationWindOffset = VEC3(c_trans->getPosition().x, (c_trans->getPosition().y - (box.halfExtents.y)), c_trans->getPosition().z - (box.halfExtents.z));
 	//c_col->setGlobalPose(creationWindOffset, QUAT());
-	
+	audio = EngineAudio.playEvent("event:/Enemies/Hazards/Wind_Turbine/Wind_Turbine_Loop");
+    audio.set3DAttributes(*c_trans);
 }
 
 void TCompWindTrap::enable(const TMsgEntityTriggerEnter & msg) {
@@ -65,6 +66,7 @@ void TCompWindTrap::disable(const TMsgEntityTriggerExit & msg) {
 void TCompWindTrap::onBattery(const TMsgGravity & msg) {
 	_isEnabled = false;
   is_destroyed = true;
+  audio.stop();
 	//Animate or start particle system, do something
 	/*CHandle(this).getOwner().destroy();
 	CHandle(this).destroy();*/
