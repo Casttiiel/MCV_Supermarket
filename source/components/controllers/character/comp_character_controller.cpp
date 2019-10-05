@@ -1219,6 +1219,8 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
       if (life <= 0.0f) {
         life = 0.0f;
         EngineAudio.playEvent("event:/Character/Voice/Player_Death");
+        footSteps.setPaused(true);
+        footStepsSlow.setPaused(true);
         ChangeState("DEAD");
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
@@ -1276,6 +1278,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
             if (life <= 0.0f) {
                 life = 0.0f;
                 EngineAudio.playEvent("event:/Character/Voice/Player_Death");
+                footSteps.setPaused(true);
+                footStepsSlow.setPaused(true);
                 ChangeState("DEAD");
                 TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
                 playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
