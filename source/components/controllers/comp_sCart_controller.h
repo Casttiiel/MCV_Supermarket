@@ -76,7 +76,7 @@ private:
 
 	void onCollision(const TMsgOnContact& msg);
     void onCinematicScart(const TMsgOnCinematic& msg);
-
+	void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
 
 	
 

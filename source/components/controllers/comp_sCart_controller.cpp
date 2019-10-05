@@ -137,7 +137,17 @@ void TCompSCartController::registerMsgs() {
 	DECL_MSG(TCompSCartController, TMsgOnContact, onCollision);
 	DECL_MSG(TCompSCartController, TMsgDamage, onDamage);
     DECL_MSG(TCompSCartController, TMsgOnCinematic, onCinematicScart);
+	DECL_MSG(TCompSCartController, TMSgTriggerFalloutDead, onTriggerFalloutDead);
 }
+
+
+void TCompSCartController::onTriggerFalloutDead(const TMSgTriggerFalloutDead & msg)
+{
+	if (life <= 0.0f) {
+		life = 0.0f;
+	}
+}
+
 
 void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
 {
