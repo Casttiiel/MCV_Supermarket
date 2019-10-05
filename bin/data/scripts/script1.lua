@@ -682,45 +682,45 @@ function activePlataformCarniceria_player()
 	execDelayedAction("cinematica_tower()",0.0);
 
 	
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni038\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni039\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni038\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni039\",0.0)",15.5);
 	
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni040\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni041\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni040\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni041\",0.0)",15.5);
 	
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni042\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni043\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni042\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni043\",0.0)",15.5);
 
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni044\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni035\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni034\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni033\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni032\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni031\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni030\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni029\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni028\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni027\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni026\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni025\",0.0)",12.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni024\",0.0)",12.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni044\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni035\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni034\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni033\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni032\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni031\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni030\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni029\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni028\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni027\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni026\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni025\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni024\",0.0)",15.5);
 
 
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",12.5);
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",12.5);
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",12.5);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.0);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",15.0);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",15.0);
 	--execDelayedAction("set_pause_enemy_by_handle(h_suishi5,false)",12.5);
-	execDelayedAction("setViewDistanceEnemy(1000,h_suishi1,1)",12.5);
-	execDelayedAction("sethalfConeEnemy(360,h_suishi1,1)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi1,1)",15.0);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi1,1)",15.0);
 	--execDelayedAction("setViewDistanceEnemy(1000,h_suishi2,1)",12.5);
 	--execDelayedAction("sethalfConeEnemy(360,h_suishi2,1)",12.5);
-	execDelayedAction("setViewDistanceEnemy(1000,h_suishi3,2)",12.5);
-	execDelayedAction("sethalfConeEnemy(360,h_suishi3,2)",12.5);
-	execDelayedAction("setViewDistanceEnemy(1000,h_suishi4,2)",12.5);
-	execDelayedAction("sethalfConeEnemy(360,h_suishi4,2)",12.5);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi3,2)",15.0);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi3,2)",15.0);
+	execDelayedAction("setViewDistanceEnemy(1000,h_suishi4,2)",15.0);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi4,2)",15.0);
 	--execDelayedAction("setViewDistanceEnemy(1000,h_suishi5,1)",12.5);
 	--execDelayedAction("sethalfConeEnemy(360,h_suishi5,1)",12.5);
-	execDelayedAction("saveCheckpoint()",12.6);
+	execDelayedAction("saveCheckpoint()",15.5);
 
 	
 end
@@ -893,12 +893,15 @@ function cinematica_tower()
 	
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	--execDelayedAction("on_delete_gpu_products()",7);
-	execDelayedAction("on_blending_camera(\"CameraTower\", 7,\"Cubicinout\")",0.0);
+
+	execDelayedAction("on_blending_camera(\"CameraTower002\", 7,\"Cubicinout\")",0.0);
+
+	execDelayedAction("on_blending_camera(\"CameraTower\", 7,\"Cubicinout\")",3.5);
 	execDelayedAction("on_cinematic_special(true,1)",0.0);
 
-	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",7.0);
-	execDelayedAction("on_lock_camera3(true)",13.0);
-	execDelayedAction("on_cinematic_special(false,1)",13.0);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",10.0);
+	execDelayedAction("on_lock_camera3(true)",15.0);
+	execDelayedAction("on_cinematic_special(false,1)",15.0);
 	--t_compCharacterController = toCompCharacterController(toEntity(handlePlayer):getCompByName("character_controller"));
 	--t_compCharacterController:ChangeState("ESPECIAL_CINEMATIC");
 

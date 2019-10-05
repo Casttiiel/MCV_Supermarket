@@ -2902,6 +2902,22 @@
   {
     "entity":
     {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "-79.0716 -9.28857e-06 -212.498"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
       "name": "chicken_leg_002"
       ,
       "transform":
@@ -4234,11 +4250,11 @@
       ,
       "transform":
       {
-        "pos": "-31.0 83.0 -303.0"
+        "pos": "-50.824 81.091 -214.675"
         ,
-        "rotation": "-0.22486 -0.774592 0.490092 -0.330539"
+        "rotation": "-0.315349 -0.634411 0.318504 -0.629787"
         ,
-        "lookat": "-129.0 22.0 -214.0"
+        "lookat": "-129.0 22.7279 -214.0"
       }
       ,
       "camera":
@@ -4249,7 +4265,7 @@
         ,
         "fov": 45.0
         ,
-        "distanceTarget": 145.76
+        "distanceTarget": 97.5612
       }
     }
   }
@@ -5671,6 +5687,33 @@
         "fov": 45.0
         ,
         "distanceTarget": 23.6422
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "CameraTower002"
+      ,
+      "transform":
+      {
+        "pos": "-73.5951 27.1816 -214.675"
+        ,
+        "rotation": "-0.314613 -0.640729 0.3261 -0.619793"
+        ,
+        "lookat": "-93.1329 12.92 -214.0"
+      }
+      ,
+      "camera":
+      {
+        "near": 1.0
+        ,
+        "far": 1000.0
+        ,
+        "fov": 45.0
+        ,
+        "distanceTarget": 24.1986
       }
     }
   }
