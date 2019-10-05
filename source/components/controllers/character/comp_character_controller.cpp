@@ -355,7 +355,7 @@ void TCompCharacterController::grounded(float delta) {
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
         shoot();
     }
-    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
+    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f && !aiming) {//DASH
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
         ChangeState("DASHING");
@@ -449,7 +449,7 @@ void TCompCharacterController::grounded(float delta) {
 	}
 
     if (power_selected == PowerType::BATTERY && inventory->getBattery() && aiming) {
-        if (!isThrowingAnimationGoing) {
+        if (!isThrowingAnimationGoing && !attacking) {
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
         }
@@ -563,7 +563,7 @@ void TCompCharacterController::onAir(float delta) {
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
         shoot();
     }
-    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
+    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f && !aiming) {//DASH
         ChangeState("DASHING");
         dash = dash_limit;
         startDash = true;
