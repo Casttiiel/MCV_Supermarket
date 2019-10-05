@@ -19,6 +19,7 @@
 #include "components/postfx/comp_chromatic_aberration.h"
 #include "components/postfx/comp_tone_mapping.h"
 #include "components/postfx/comp_damaged_effect.h"
+#include "components/postfx/comp_vignetting.h"
 #include "components/common/comp_culling.h"
 #include "components/common/comp_aabb.h"
 #include "skeleton/comp_skeleton.h"
@@ -349,6 +350,11 @@ void CModuleRender::generateFrame() {
     TCompDamagedEffect* render_damaged_effect = e_camera->get<TCompDamagedEffect>();
     if (render_damaged_effect) {
       current_output = render_damaged_effect->apply(current_output);
+    }
+
+    TCompVignetting* render_vignetting = e_camera->get<TCompVignetting>();
+    if (render_vignetting) {
+      current_output = render_vignetting->apply(current_output);
     }
 
     //WE PASS TO LDR BECAUSE FXAA NEEDS IT
