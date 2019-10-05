@@ -291,7 +291,7 @@ void TCompCharacterController::grounded(float delta) {
         }
         else {
             //Forwards
-            if (fabs(front_) > 0.5f || fabs(back_) > 0.5f || fabs(left_) > 0.5f || fabs(right_) > 0.5f) {
+            if (fabs(front_) > 0.4f || fabs(back_) > 0.4f || fabs(left_) > 0.4f || fabs(right_) > 0.4f) {
                 //Run Forwards
                 playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
                 //Play sound

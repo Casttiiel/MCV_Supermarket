@@ -61,7 +61,7 @@ public:
 	void update(float dt);
 	
 	void initializeAnimations();
-	bool playAnimation(TCompPlayerAnimator::EAnimation animation, float speed = 1.0f, bool callbackWanted = false);
+	bool playAnimation(TCompPlayerAnimator::EAnimation animation, float speed = 1.0f, bool callbackWanted = false, float weight = -1.0f);
 
 	TCompSkeleton * compSkeleton;
 	//A vector where we include those animations whose finish we want to be notified of 

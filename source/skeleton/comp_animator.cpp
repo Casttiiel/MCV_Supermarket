@@ -55,7 +55,7 @@ void TCompAnimator::update(float dt)
 }
 
 
-bool TCompAnimator::playAnimationConverted(EAnimation animation, float speed) {
+bool TCompAnimator::playAnimationConverted(EAnimation animation, float speed, float weight) {
 
 	if (animationsMap.find(animation) == animationsMap.end()) {
 		return false;
@@ -70,14 +70,15 @@ bool TCompAnimator::playAnimationConverted(EAnimation animation, float speed) {
 
 	int anim1id = animSet.animationId;
 	int anim2id = animSet.secondAnimationId;
-	float weight = animSet.weight;
-	float aux_speed = animSet.speed;
+    float aux_weight = animSet.weight;
+    if (weight != -1.0f) aux_weight = weight;
+    float aux_speed = animSet.speed;
 	if (speed != 1.0f) aux_speed = speed;
 
 	switch (animSet.animationType)
 	{
 	case EAnimationType::CYCLIC:
-		compSkeleton->changeCyclicAnimation(anim1id, aux_speed, anim2id, weight);
+		compSkeleton->changeCyclicAnimation(anim1id, aux_speed, anim2id, aux_weight);
 		break;
 
 	case EAnimationType::ACTION:
