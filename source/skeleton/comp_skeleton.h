@@ -47,6 +47,7 @@ struct TCompSkeleton : public TCompBase {
   VEC3 setBonePositionByName(const std::string & name);
   VEC3 getBonePositionById(int id);
   void setBonePositionById(int id, VEC3 position);
+	//void stopAnimation(int animaId, float speed, float in_delay, float out_delay);
   DECL_SIBLING_ACCESS();
 };
 

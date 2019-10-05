@@ -80,6 +80,9 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 
 		parseScene("data/particles/spark_particles_oven.json", ctx);
 
+		TCompPropAnimator* animator = get<TCompPropAnimator>();
+		animator->playAnimation(TCompPropAnimator::OVEN_BROKEN, 1.0f);
+		
 	}
 
 }
@@ -166,8 +169,7 @@ void TCompEnemySpawner::update(float dt) {
 		else if (is_destroyed) {
 
 			// abrir puerta del horno 
-			TCompPropAnimator* animator = get<TCompPropAnimator>();
-			animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt);
+
 			//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
 
 
@@ -212,8 +214,8 @@ void TCompEnemySpawner::update(float dt) {
 		else if (is_destroyed) {
 
 			// abrir puerta del horno 
-			TCompPropAnimator* animator = get<TCompPropAnimator>();
-			animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt);
+			//TCompPropAnimator* animator = get<TCompPropAnimator>();
+			//animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt);
 			//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
 
 

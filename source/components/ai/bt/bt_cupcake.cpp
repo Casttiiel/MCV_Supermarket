@@ -13,6 +13,7 @@
 #include "bt_cupcake.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "components/ai/others/self_destroy.h"
+#include "components/animation/comp_cupcake_animation.h"
 #include "components/vfx/comp_death_billboard.h"
 #include "random"
 
@@ -1054,6 +1055,8 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 	if (isGrounded() && view_point && (jump || seek)) {
 		TCompRigidBody* c_rb = get<TCompRigidBody>();
 		c_rb->jump(VEC3(0, jumpForce, 0));
+		//TCompCupcakeAnimator* cupcakeAnimator = get<TCompCupcakeAnimator>();
+		//cupcakeAnimator->playAnimation(TCompCupcakeAnimator::JUMP, 1.f);
 		view_point = false;
 	}
 

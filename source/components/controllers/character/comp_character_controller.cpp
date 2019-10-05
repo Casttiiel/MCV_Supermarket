@@ -890,8 +890,8 @@ void TCompCharacterController::shoot() {
         }
     }
     else if (power_selected == PowerType::BATTERY && (inventory->getBattery())) {
-        if (isBatteryAlive)
-            return;
+        //if (isBatteryAlive)
+          //  return;
         if (m_c->spendMadness(PowerType::BATTERY) || GameController.getGodMode()) {
             TCompTransform* c_trans = get<TCompTransform>();
             CEntity* e_camera = (CEntity *)h_camera;

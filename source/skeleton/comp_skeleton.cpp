@@ -277,6 +277,7 @@ void TCompSkeleton::executeActionAnimation(int animaId, float speed, float in_de
 		}
 	}
 }
+
 //cambio de peso en animacion
 void TCompSkeleton::setCyclicAnimationWeight(float new_value) {
 	cyclicAnimationWeight = new_value;
