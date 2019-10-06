@@ -3,7 +3,8 @@
 #include "components/common/comp_base.h"
 #include "entity/entity.h"
 #include "entity/common_msgs.h"
- 
+#include "modules/game/audio/audioEvent.h"
+
 class TCompFlickering :  public TCompBase {
   DECL_SIBLING_ACCESS();
 
@@ -16,6 +17,7 @@ class TCompFlickering :  public TCompBase {
   float timer = 0.0f;
   float phase2 = 0.0f;
   float phase3 = 0.0f;
+  AudioEvent audio;
 
   public:
     void load(const json& j, TEntityParseContext& ctx);
