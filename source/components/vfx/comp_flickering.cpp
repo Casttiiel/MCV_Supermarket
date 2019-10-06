@@ -1,4 +1,5 @@
 #include "mcv_platform.h"
+#include "engine.h"
 #include "comp_flickering.h"
 #include "components/common/comp_buffers.h"
 #include "components/common/comp_light_point.h"
@@ -28,6 +29,10 @@ void TCompFlickering::load(const json& j, TEntityParseContext& ctx) {
   phase = bt_range2(bt_flick); // start point inside on wave cycle
   phase2 = bt_range50(bt_flick); // start point inside on wave cycle
   phase3 = bt_range3(bt_flick); // start point inside on wave cycle
+
+  if (strcmp(target.c_str(), "dir") == 0) {
+      audio = EngineAudio.playEvent("event:/Music/Ambience_Props/Fluorescent_Loop");
+  }
 }
 
 void TCompFlickering::renderDebug() {
@@ -49,12 +54,17 @@ void TCompFlickering::update(float delta) {
     TCompLightPoint* c_lp = get<TCompLightPoint>();
     c_lp->setIntensity(res);
   } else if (strcmp(target.c_str(), "dir") == 0) {
+      TCompTransform* c_trans = get<TCompTransform>();
+      if (c_trans)
+        audio.set3DAttributes(*c_trans);
     float res;
     if (timer <= (frequency * phase2) + (base * phase3)) { // full light
       timer += delta;
       res = 1.0f * amplitude;
     }
     else if(timer <= (frequency * phase2) + (base * phase3) + 1.0f) { //the randomizer will make it flicker
+        AudioEvent flicker = EngineAudio.playEvent("event:/Music/Ambience_Props/Fluorescent_Flicker");
+        flicker.set3DAttributes(*c_trans);
       timer += delta;
       float x = ((float)Time.current) * frequency;
       x = sin(x) * sin(2 * x);

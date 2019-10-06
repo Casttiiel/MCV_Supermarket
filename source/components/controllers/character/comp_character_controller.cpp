@@ -291,7 +291,7 @@ void TCompCharacterController::grounded(float delta) {
         }
         else {
             //Forwards
-            if (fabs(front_) > 0.5f || fabs(back_) > 0.5f || fabs(left_) > 0.5f || fabs(right_) > 0.5f) {
+            if (fabs(front_) > 0.4f || fabs(back_) > 0.4f || fabs(left_) > 0.4f || fabs(right_) > 0.4f) {
                 //Run Forwards
                 playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.0f);
                 //Play sound
@@ -355,7 +355,7 @@ void TCompCharacterController::grounded(float delta) {
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
         shoot();
     }
-    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
+    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f && !aiming) {//DASH
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
         ChangeState("DASHING");
@@ -449,7 +449,7 @@ void TCompCharacterController::grounded(float delta) {
 	}
 
     if (power_selected == PowerType::BATTERY && inventory->getBattery() && aiming) {
-        if (!isThrowingAnimationGoing) {
+        if (!isThrowingAnimationGoing && !attacking) {
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
         }
@@ -563,7 +563,7 @@ void TCompCharacterController::onAir(float delta) {
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
         shoot();
     }
-    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
+    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f && !aiming) {//DASH
         ChangeState("DASHING");
         dash = dash_limit;
         startDash = true;
@@ -990,25 +990,13 @@ void TCompCharacterController::attack(float delta) {
 
         //Execute animation
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        if (dir != VEC3().Zero) {
-            if (animation1Done) {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_PARTIAL, 1.f, true);
-                animation1Done = false;
-            }
-            else {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_PARTIAL, 0.6f, true);
-                animation1Done = true;
-            }
+        if (animation1Done) {
+            playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_PARTIAL, 1.f, true);
+            animation1Done = false;
         }
         else {
-            if (animation1Done) {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE2_FULL, 1.f, true);
-                animation1Done = false;
-            }
-            else {
-                playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_FULL, 0.6f, true);
-                animation1Done = true;
-            }
+            playerAnima->playAnimation(TCompPlayerAnimator::MELEE1_PARTIAL, 0.6f, true);
+            animation1Done = true;
         }
         
         EngineAudio.playEvent("event:/Character/Attacks/Melee_Swing");
@@ -1231,6 +1219,8 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
       if (life <= 0.0f) {
         life = 0.0f;
         EngineAudio.playEvent("event:/Character/Voice/Player_Death");
+        footSteps.setPaused(true);
+        footStepsSlow.setPaused(true);
         ChangeState("DEAD");
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
@@ -1288,6 +1278,8 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
             if (life <= 0.0f) {
                 life = 0.0f;
                 EngineAudio.playEvent("event:/Character/Voice/Player_Death");
+                footSteps.setPaused(true);
+                footStepsSlow.setPaused(true);
                 ChangeState("DEAD");
                 TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
                 playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);

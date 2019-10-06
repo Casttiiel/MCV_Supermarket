@@ -434,11 +434,11 @@ void TCompPlayerAnimator::onCreated(const TMsgEntityCreated& msg) {
     initializeAnimations();
 }
 
-bool TCompPlayerAnimator::playAnimation(TCompPlayerAnimator::EAnimation animation, float speed, bool callbackWanted) {
+bool TCompPlayerAnimator::playAnimation(TCompPlayerAnimator::EAnimation animation, float speed, bool callbackWanted, float weight) {
     if (callbackWanted)
         animationCallbackRequests.push_back(animation);
 
-    return playAnimationConverted((TCompAnimator::EAnimation)animation, speed);
+    return playAnimationConverted((TCompAnimator::EAnimation)animation, speed, weight);
 }
 
 void TCompPlayerAnimator::playMsgAnimation(const TMsgExecuteAnimation& msg) {

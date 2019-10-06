@@ -27,7 +27,9 @@ public:
     AudioEvent getEvent();
 
 private:
-	std::string _audioEventString = "";
+    std::string _audioEventString = "";
+    std::string _audioEventStringSlowVersion = "";
 	bool _autoPlay = false;
     AudioEvent _audioEvent;
+    AudioEvent _audioEventSlow;
 };

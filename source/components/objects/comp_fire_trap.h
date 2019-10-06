@@ -6,6 +6,7 @@
 #include "entity/common_msgs.h"
 #include "components/common/physics/comp_rigid_body.h"
 #include "components/common/comp_transform.h"
+#include "modules/game/audio/audioEvent.h"
 
 class TCompFireTrap : public TCompBase
 {
@@ -29,6 +30,8 @@ private:
   float _enablerDelay = 1.0f;
   float _disablerDelay = 3.0f;
   float _fireDamage = 5.0f;
+  AudioEvent audio;
+  AudioEvent audioSlow;
 
 	void enable();
 	void disable();

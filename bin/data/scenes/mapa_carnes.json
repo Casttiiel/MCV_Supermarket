@@ -2,6 +2,21 @@
   {
     "entity":
     {
+      "name": "Player"
+      ,
+      "transform":
+      {
+        "pos": "-81.5649 -9.27574e-06 -212.204"
+        ,
+        "rotation": "0.0 0.707107 0.0 -0.707107"
+      }
+      ,
+      "prefab": "data/prefabs/character/player.json"
+    }
+  },
+  {
+    "entity":
+    {
       "name": "triggerActivarPlataformas"
       ,
       "transform":
@@ -2238,9 +2253,16 @@
       ,
       "transform":
       {
-        "pos": "-102.555 20.6736 -219.284"
+        "pos": "-102.555 0.316 -219.284"
         ,
         "rotation": "0.160097 -0.688744 0.160097 -0.688744"
+      }
+      ,
+      "comp_audioplayer":
+      {
+        "_audioEventString": "event:/Enemies/Hazards/Skewer/Skewer_Loop",
+        "_audioEventStringSlowVersion": "event:/Enemies/Hazards/Skewer/Skewer_Loop_Slow",
+        "_autoPlay": true
       }
       ,
       "abs_aabb": {}
@@ -3576,9 +3598,16 @@
       ,
       "transform":
       {
-        "pos": "-171.173 8.08507 -215.965"
+        "pos": "-171.173 0.316 -215.965"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "comp_audioplayer":
+      {
+        "_audioEventString": "event:/Enemies/Hazards/Wall_Knife/Wall_Knife_Loop",
+        "_audioEventStringSlowVersion": "event:/Enemies/Hazards/Wall_Knife/Wall_Knife_Loop_Slow",
+        "_autoPlay": true
       }
       ,
       "abs_aabb": {}
@@ -3642,9 +3671,16 @@
       ,
       "transform":
       {
-        "pos": "-171.377 9.43894 -209.75"
+        "pos": "-171.377 0.43894 -209.75"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "comp_audioplayer":
+      {
+        "_audioEventString": "event:/Enemies/Hazards/Wall_Knife/Wall_Knife_Loop",
+        "_audioEventStringSlowVersion": "event:/Enemies/Hazards/Wall_Knife/Wall_Knife_Loop_Slow",
+        "_autoPlay": true
       }
       ,
       "abs_aabb": {}
@@ -3708,9 +3744,16 @@
       ,
       "transform":
       {
-        "pos": "-171.199 10.5972 -203.828"
+        "pos": "-171.199 0.5972 -203.828"
         ,
         "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "comp_audioplayer":
+      {
+        "_audioEventString": "event:/Enemies/Hazards/Wall_Knife/Wall_Knife_Loop",
+        "_audioEventStringSlowVersion": "event:/Enemies/Hazards/Wall_Knife/Wall_Knife_Loop_Slow",
+        "_autoPlay": true
       }
       ,
       "abs_aabb": {}

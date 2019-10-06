@@ -4,6 +4,7 @@
 #include "entity/entity.h"
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
+#include "modules/game/audio/audioEvent.h"
 
 class TCompMadnessFountain : public TCompBase
 {
@@ -17,6 +18,8 @@ public:
   static void registerMsgs();
 
 private:
+    AudioEvent audio;
+    AudioEvent audioSlow;
 	bool _isEnabled = false;
 	void enable(const TMsgEntityTriggerEnter & msg);
 	void disable(const TMsgEntityTriggerExit & msg);
