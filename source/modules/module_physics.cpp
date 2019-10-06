@@ -588,7 +588,7 @@ bool CModulePhysics::start()
   sceneDesc.gravity = PxVec3(0.0f, -9.81f, 0.0f);
   gDispatcher = PxDefaultCpuDispatcherCreate(2);
   sceneDesc.cpuDispatcher = gDispatcher;
- 
+  //sceneDesc.flags |= PxSceneFlag::eENABLE_CCD;
   sceneDesc.filterShader = CustomFilterShader;  
 
   gScene = gPhysics->createScene(sceneDesc);

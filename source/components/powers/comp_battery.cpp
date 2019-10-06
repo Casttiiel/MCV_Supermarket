@@ -65,8 +65,7 @@ void TCompBatteryController::onCollision(const TMsgOnContact& msg) {
 
         if (col_filter_data.word0 & EnginePhysics.Scenario && isKinematic) {
             isKinematic = false;
-
-            physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
+            physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);	
         }
         //antes 
           //rigid_dynamic->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, true);
@@ -80,7 +79,16 @@ void TCompBatteryController::onBatteryInfoMsg(const TMsgAssignBulletOwner& msg) 
 
     TCompCollider* c_collider = get<TCompCollider>();
     physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);
-    rigid_dynamic->setMass(1000);
+	
+	rigid_dynamic->setRigidBodyFlag(PxRigidBodyFlag::eENABLE_CCD, true);
+
+	PxShape* colShape;
+	c_collider->actor->getShapes(&colShape, 1, 0);
+
+	PxMaterial* material;
+	colShape->getMaterials(&material, 1, 0);
+	material->setRestitution(0.2f);
+
     //VEC3 new_pos = c_trans->getFront();
     CEntity* e_camera = getEntityByName("AimCurve");
     TCompParabolicLaunch* parabolicLaunch = e_camera->get<TCompParabolicLaunch>();
@@ -123,9 +131,12 @@ void TCompBatteryController::update(float delta) {
       TCompCollider* c_col = get<TCompCollider>();
       physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
       
+	 
+
       VEC3 angular_speed = PXVEC3_TO_VEC3(rigid_dynamic->getAngularVelocity());
       VEC3 linear_speed = PXVEC3_TO_VEC3(rigid_dynamic->getLinearVelocity());
-      
+
+
       if (angular_speed.Length() < 0.4f && linear_speed.Length() < 0.4f) {
         if (!startedEffect) {
         audioEffect = EngineAudio.playEvent("event:/Character/Powers/Battery/Battery");
