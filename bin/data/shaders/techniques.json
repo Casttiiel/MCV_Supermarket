@@ -552,6 +552,14 @@
     "blend": "additive_by_src_alpha",
     "z": "test_but_no_write"
   },
+  "electric_panel": {
+    "vs_fx": "data/shaders/electric_panel.fx",
+    "vdecl": "PosNUvT",
+    "noise": "data/textures/noise_cloud2.dds",
+    "rs": "cull_none",
+    "blend": "additive_by_src_alpha",
+    "z": "test_but_no_write"
+  },
   "bolt_effect": {
     "vs_fx": "data/shaders/bolt.fx",
     "vdecl": "PosUvColor",

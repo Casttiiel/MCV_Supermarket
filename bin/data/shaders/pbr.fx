@@ -544,7 +544,7 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
   float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
   float3 final_color = color;
-  float signo = shadow_factor * lut >= 0.8 ? 1 : -0.3;
+  float signo = shadow_factor * lut >= 0.4 ? 1 : 0.4;
   final_color += (brush * color) * 2 * signo;
   //end comic shading
   //-------------------
