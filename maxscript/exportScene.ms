@@ -163,7 +163,39 @@ struct TSceneExporter (
 			fs.endObj()	
 		)
 	),
-	
+	fn exportAudio obj =(
+		local isAudio =  getUserProp obj "isAudio"
+		if isAudio == true then (
+			local param1 = getUserProp obj "_audioEventString"
+			local param2 = getUserProp obj "_audioEventStringSlowVersion"
+			local param3 = getUserProp obj "_autoPlay"
+			
+			
+			if param1 == undefined  then (
+				throw "A un component audio le faltan datos"
+			)
+			
+			fs.writeComma()
+			fs.writeKey "comp_audioplayer"
+			fs.beginObj()
+			if param1 != undefined  then (
+				fs.writeKeyValue "_audioEventString" param1
+				fs.writeComma()
+			)
+			if param2 != undefined  then (
+				fs.writeKeyValue "_audioEventStringSlowVersion" param2 
+				fs.writeComma()
+			)
+			if param3 != undefined  then (
+				fs.writeKeyValue "_autoPlay" true 
+			)
+			else (
+				fs.writeKeyValue "_autoPlay" false
+			)
+			
+			fs.endObj()	
+		)
+	),
 	
 	
 	
@@ -706,6 +738,7 @@ struct TSceneExporter (
 			exportPlatform obj
 			exportPanel obj
 			exportDoor obj
+			exportAudio obj
 			exportCamera obj
 			exportWalls obj
 			exportMorph obj
