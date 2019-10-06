@@ -19,7 +19,13 @@ void TCompCamera3rdPerson::debugInMenu()
 {
   ImGui::Text("Target: %.s", _target.isValid() ? ((CEntity*)_target)->getName() : "...");
   ImGui::Checkbox("Enabled", &_enabled);
+  ImGui::Checkbox("Aiming", &aiming);
   ImGui::SliderFloat("Camera Aim Transition", &interpolation, 0.0f, 1.0f);
+  ImGui::SliderFloat("Smooth Speed", &smoothSpeed, 10.0f, 20.0f);
+  ImGui::SliderFloat("Yaw Sensitivity", &GameController.yaw_sensivity, 10.0f, 20.0f);
+  ImGui::SliderFloat("Pitch Sensitivity", &GameController.pitch_sensivity, 10.0f, 20.0f);
+
+
   /*ImGui::SliderFloat3("Pos Offset", &_posOffset.x, -5.0f, 5.0f);
   ImGui::SliderFloat3("Target Offset", &_targetOffset.x, 0.0f, 15.0f);
   ImGui::SliderFloat("Distance to aim", &distance, 0.0f, 20.0f);
@@ -118,7 +124,7 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 {
   if (!first_reset) // so the camera starts with the player
     resetCamera();
-  scaled_dt = Time.delta_unscaled;
+    scaled_dt = Time.delta_unscaled;
   if (scaled_dt >= 0.03333f) { //less than 30 frames per second it will be loading
     scaled_dt = 0.03333f; //update it as if it was moving normally
   }
@@ -126,15 +132,15 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 	if(!isPause){
 
 	  if (EngineInput[VK_F2].justPressed()) {
-		mouse_active = !mouse_active;
+		  mouse_active = !mouse_active;
 	  }
 
 	  if (!_target.isValid())
 	  {
-		_target = getEntityByName(_targetName);
+		  _target = getEntityByName(_targetName);
 
-		if (!_target.isValid())
-		  return;
+		  if (!_target.isValid())
+		    return;
 	  }
 
 	  if (EngineInput["reset_camera_"].justPressed()) {
@@ -190,10 +196,10 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 
 	  //treat if is aiming or not
 	  if (aiming) {
-		actualAimTransitionTime += scaled_dt;
+		  actualAimTransitionTime += scaled_dt;
 	  }
 	  else {
-		actualAimTransitionTime -= scaled_dt;
+		  actualAimTransitionTime -= scaled_dt;
 	  }
 	  actualAimTransitionTime = clamp(actualAimTransitionTime, 0.f, aimTransitionTime);
 	  interpolation = Interpolator::quadInOut(0.f, 1.f, actualAimTransitionTime / aimTransitionTime);
@@ -214,9 +220,9 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 
 	  //if not moving, move camera around pulse curve
 	  if (!isPlayerMoving() && !isCameraRotating()) {
-		pulseRatio = clamp(pulseRatio + scaled_dt * 0.05f, 0.f, 0.99999f);
-		if (pulseRatio == 0.99999f)
-		  pulseRatio = 0.f;
+		  pulseRatio = clamp(pulseRatio + scaled_dt * 0.05f, 0.f, 0.99999f);
+		  if (pulseRatio == 0.99999f)
+  		  pulseRatio = 0.f;
 	  }
   
 	  VEC3 semiFinalPos = pulsePos;
@@ -256,8 +262,10 @@ void TCompCamera3rdPerson::update(float scaled_dt)
 
 	  cTransform->lookAt(finalPos, targetPos);
 
-	  shouldSwapCamera();
+    shouldSwapCamera();
 	 }
+
+
 }
 
 float TCompCamera3rdPerson::cameraMovementOnJump() {
@@ -387,8 +395,11 @@ void TCompCamera3rdPerson::treatInput(float &yaw_rotation, float &pitch_rotation
 
 void TCompCamera3rdPerson::shouldSwapCamera() {
 
+  if (!_enabled)
+    return;
+
   //SWAP BETWEEN AIM AND NORMAL CAMERA
-  if (EngineInput["aim_"].justPressed() && _enabled) {
+  if (EngineInput["aim_"].justPressed()) {
     aiming = true;
     smoothSpeed = 10.f;
     GameController.yaw_sensivity *= 0.4f;
@@ -396,7 +407,7 @@ void TCompCamera3rdPerson::shouldSwapCamera() {
   }
 
   //SWAP BETWEEN AIM AND NORMAL CAMERA
-  if (EngineInput["aim_"].justReleased() && _enabled) {
+  if (EngineInput["aim_"].justReleased()) {
     aiming = false;
     smoothSpeed = 6.f;
     GameController.yaw_sensivity /= 0.4f;

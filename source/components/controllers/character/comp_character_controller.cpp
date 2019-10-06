@@ -462,7 +462,7 @@ void TCompCharacterController::grounded(float delta) {
       //lookat dir
       if (EngineInput["front_"].value >= 0.f) {
         TCompSkelLookAtDirection* lookat = get<TCompSkelLookAtDirection>();
-        lookat->setDirection(dir);
+        //lookat->setDirection(dir);
       }
     }
 

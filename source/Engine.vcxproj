@@ -108,6 +108,7 @@
     <ClCompile Include="components\postfx\comp_damaged_effect.cpp" />
     <ClCompile Include="components\postfx\comp_render_radial_blur.cpp" />
     <ClCompile Include="components\postfx\comp_tone_mapping.cpp" />
+    <ClCompile Include="components\postfx\comp_vignetting.cpp" />
     <ClCompile Include="components\powers\comp_battery.cpp" />
     <ClCompile Include="components\powers\comp_fire.cpp" />
     <ClCompile Include="components\powers\comp_coffee.cpp" />
@@ -387,6 +388,7 @@
     <ClInclude Include="components\postfx\comp_damaged_effect.h" />
     <ClInclude Include="components\postfx\comp_render_radial_blur.h" />
     <ClInclude Include="components\postfx\comp_tone_mapping.h" />
+    <ClInclude Include="components\postfx\comp_vignetting.h" />
     <ClInclude Include="components\powers\comp_battery.h" />
     <ClInclude Include="components\powers\comp_fire.h" />
     <ClInclude Include="components\powers\comp_coffee.h" />
@@ -631,19 +633,19 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
