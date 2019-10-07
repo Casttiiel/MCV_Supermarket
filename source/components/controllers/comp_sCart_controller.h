@@ -45,12 +45,12 @@ private:
 	float speed = 6.0f;
 	float rowDelay = 1.0f;
 	float rowTimer = 0.f;
-	float rowImpulse = 12.f;
+	float rowImpulse = 15.f;
   float inclinationRow = 8.f;
 	float rowImpulseLeft = 0.f;
 	float rowImpulseLossRatio = 5.0f;
 	float rotation_speed = 1.3f;
-  float maxImpulse = 30.0f;
+  float maxImpulse = 40.0f;
 
 	float rumble_time = 0.0f;
 
