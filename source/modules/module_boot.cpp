@@ -28,6 +28,7 @@ bool CModuleBoot::start()
   
   //this makes the fetchresults from physx to be faster, but.. doesnt looks like
   EnginePhysics.gScene->forceDynamicTreeRebuild(true, true);
+  CEngine::get().getGPUCulling().clear();
 
    prefabs = json["prefabs_to_prefaload"].get< std::vector< std::string > >();
   for (auto& p : prefabs) {

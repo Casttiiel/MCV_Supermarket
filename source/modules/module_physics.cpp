@@ -103,7 +103,7 @@ PxRigidActor* CModulePhysics::createController(TCompCollider& comp_collider) {
   capsuleDesc.radius = jconfig.value("radius", 1.f);
   capsuleDesc.climbingMode = PxCapsuleClimbingMode::eEASY;
   capsuleDesc.material = gMaterial;
-  capsuleDesc.stepOffset = 0.05;
+  capsuleDesc.stepOffset = 0.01;
   capsuleDesc.contactOffset = 0.01f;
   capsuleDesc.reportCallback = &customUserControllerHitReport;
   capsuleDesc.behaviorCallback = &customControllerBehaviorCallback;
@@ -991,7 +991,7 @@ PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getB
 	bool isPlatform = jconfig.value("platform", false);
 	if (isPlatform) {
 		return PxControllerBehaviorFlag::eCCT_CAN_RIDE_ON_OBJECT;
-	}
+  }
 		
 	return PxControllerBehaviorFlags(0);
 }

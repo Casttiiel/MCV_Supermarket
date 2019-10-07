@@ -22,8 +22,9 @@ void TCompDynamicInstance::onPlayerAttack(const TMsgDamage& msg) {
 
     VEC3 hit_pos = msg.position;
     VEC3 dir = c_trans->getPosition() - hit_pos;
+    dir.y *= 0.1f;
     dir.Normalize();
-    dir *= msg.impactForce * 0.5f;
+    dir *= msg.impactForce * 2.0f;
     physx::PxVec3 impulse = VEC3_TO_PXVEC3(dir);
     
     TCompCollider* c_coll = get<TCompCollider>();

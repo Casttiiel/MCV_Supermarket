@@ -27,6 +27,7 @@
 #include "components/objects/comp_enemy_spawner.h"
 #include "components/objects/comp_enemy_spawner_special_trap.h"
 #include "skeleton/comp_skel_lookat_direction.h"
+#include "components/common/comp_dynamic_instance.h"
 
 
 using namespace physx;
@@ -950,7 +951,7 @@ void TCompCharacterController::attack(float delta) {
         PxSphereGeometry geometry(meleeRadius);
         Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeDistance);
         PxF32 attackHeight = comp_collider->controller->getHeight();
-        damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
+        damageOrigin.y = c_trans->getPosition().y + (float)attackHeight - 0.5f;
         PxVec3 pos = VEC3_TO_PXVEC3(damageOrigin);
         PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
 
@@ -1136,15 +1137,20 @@ void TCompCharacterController::chargedAttack(float delta) {
 
 void TCompCharacterController::onCollision(const TMsgOnContact& msg) {
     CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
-    if (source_of_impact) {
-        TCompTags* c_tag = source_of_impact->get<TCompTags>();
-        if (c_tag) {
-            std::string tag = CTagsManager::get().getTagName(c_tag->tags[0]);
-            std::string tag2 = CTagsManager::get().getTagName(c_tag->tags[1]);
-            if (strcmp("floor", tag.c_str()) == 0) {
-
-            }
-        }
+    TCompDynamicInstance* dyn_ = source_of_impact->get<TCompDynamicInstance>();
+    if (dyn_) {
+      TCompTransform* c_trans = get<TCompTransform>();
+      TMsgDamage msg;
+      // Who sent this bullet
+      msg.h_sender = CHandle(this).getOwner();
+      msg.h_bullet = CHandle(this).getOwner();
+      msg.position = c_trans->getPosition() + VEC3::Up;
+      msg.senderType = PLAYER;
+      msg.intensityDamage = movementDirection.Length();
+      msg.impactForce = movementDirection.Length();
+      msg.damageType = MELEE;
+      msg.targetType = ENEMIES;
+      source_of_impact->sendMsg(msg);
     }
 }
 
