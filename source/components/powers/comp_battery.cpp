@@ -125,6 +125,20 @@ void TCompBatteryController::update(float delta) {
                 nextPoint = _knots[i];
             }
         }
+
+		
+		if (limitTime > 0.f) {
+			limitTime -= delta;
+		}
+		else {
+			TMsgBatteryDeactivates msg;
+			((CEntity*)GameController.getPlayerHandle())->sendMsg(msg);
+			audioEffect.stop();
+			CHandle(this).getOwner().destroy();
+			CHandle(this).destroy();
+		}
+		
+
 		
     }
     else { //LA PILA HA COLISIONADO
@@ -314,18 +328,6 @@ void TCompBatteryController::update(float delta) {
           CHandle(this).destroy();
         }
       }
-	  /*
-	  if (limitTime > 0.f) {
-		  limitTime -= delta;
-	  }
-	  else {
-		  TMsgBatteryDeactivates msg;
-		  ((CEntity*)GameController.getPlayerHandle())->sendMsg(msg);
-		  audioEffect.stop();
-		  CHandle(this).getOwner().destroy();
-		  CHandle(this).destroy();
-	  }
-	  */
     }
 }
 
