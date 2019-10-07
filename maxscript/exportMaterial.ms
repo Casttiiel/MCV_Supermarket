@@ -61,8 +61,9 @@ struct TMaterialExporter (
 			local aabb = getUserProp obj "AABB"
 			local walltype = getUserProp obj "typeWall"
 			local isPanel = getUserProp obj "isPanel"
+			local isElectric = getUserProp obj "electric"
 			local is_morphed = obj.modifiers[#Morpher]
-			if is_morphed == undefined and isPlatform == undefined and aabb == "static" and walltype == undefined and isPanel == undefined and isDoor == undefined then (
+			if isElectric == undefined and is_morphed == undefined and isPlatform == undefined and aabb == "static" and walltype == undefined and isPanel == undefined and isDoor == undefined then (
 				fs.writeKeyValue "technique" "objs_culled_by_gpu.tech"
 				fs.writeComma()
 			)else (
@@ -76,6 +77,7 @@ struct TMaterialExporter (
 				fs.writeKeyValue "casts_shadows" false
 				fs.writeComma()
 			)
+
 			fs.writeKey "textures" 
 			fs.beginObj()
 				
@@ -140,10 +142,13 @@ struct TMaterialExporter (
 		
 		local is_fire = getUserProp obj "isFire"
 		local is_fire_flame = getUserProp obj "isFireFlame"
+		local isElectric = getUserProp obj "electric"
 		if is_fire != undefined  then(
 			exported_materials = #("data/materials/vfx/fire.material")
 		)else if is_fire_flame != undefined then (
 			exported_materials = #("data/materials/vfx/fire_flame.material")
+		)else if isElectric != undefined then (
+			exported_materials = #("data/materials/vfx/electric_panel.material")
 		)
 		
 		return exported_materials

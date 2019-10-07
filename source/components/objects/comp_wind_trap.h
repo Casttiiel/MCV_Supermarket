@@ -33,14 +33,14 @@ private:
 	float _windDuration = 3.f;
 	float _windCurrentTime = 0.f;
 
-	float _windDelay = 0.16f;
+	float _windDelay = 0.03f;
 	float _windCooldownTimer = 0.0f;
   float _scaleVar = 0.7f;
   float _rollVar = 1.57f;
   float _speedVar = 2.0f;
-  float _radius = 0.6f;
-  float _startDestroy = 3.0f;
-  float _destroyVar = 0.8f;
+  float _radius = 0.8f;
+  float _startDestroy = 1.1f;
+  float _destroyVar = 1.0f;
   float distanceThreshold = 8.f;
 
 	CHandle player;

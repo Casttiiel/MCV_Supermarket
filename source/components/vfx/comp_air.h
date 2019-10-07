@@ -12,7 +12,7 @@ class TCompAir :  public TCompBase {
   public:
     float d = 0.0f;
     float len = 0.0f;
-    float speed = 4.0f;
+    float speed = 9.0f;
     float destroy = 0.0f;
     float ratio = 0.0f;
 
