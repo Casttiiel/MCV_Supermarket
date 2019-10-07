@@ -239,6 +239,7 @@ public:
     void pauseSoundtrack();
     void resumeSoundtrack();
     void updateSoundtrackID(int new_track_id);
+    void updateAmbientLight(float amount);
     void setSoundtrackVolume(float volume);
     //End Soundtrack Functions
 	//dar handle a partir del nombre 

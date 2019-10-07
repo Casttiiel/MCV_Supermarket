@@ -23,6 +23,7 @@
 #include "components/ai/others/comp_blackboard.h"
 #include "components/objects/comp_wind_trap.h"
 #include "ui/module_ui.h"
+#include "render/module_render.h"
 
 
 bool CModuleGameController::start() {
@@ -1015,7 +1016,9 @@ TCompCharacterController* toCompCharacterController_(CHandle h) {
 }
 */
 
-
+void CModuleGameController::updateAmbientLight(float amount) {
+  CEngine::get().getRender().setNewAmbient(amount);
+}
 
 //Soundtrack Functions
 void CModuleGameController::startSoundtrack(int track_id = 0) {

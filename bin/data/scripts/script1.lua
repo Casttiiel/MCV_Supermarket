@@ -691,6 +691,8 @@ function activePlataformCarniceria_player()
 	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni012\",0.0)",12.5);
 	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni017\",0.0)",12.5);
 
+	GameController:setAmbient(0.05);
+
 
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",12.5);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",12.5);
