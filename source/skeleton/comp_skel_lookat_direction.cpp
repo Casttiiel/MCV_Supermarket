@@ -14,6 +14,7 @@ void TCompSkelLookAtDirection::load(const json& j, TEntityParseContext& ctx) {
   /*if( j.count("target"))
     target = loadVEC3( j["target"] );*/
   amount = j.value("amount", amount);
+  angle = j.value("angle", angle);
   target_transition_factor = j.value("target_transition_factor", target_transition_factor);
 }
 
@@ -27,6 +28,7 @@ void TCompSkelLookAtDirection::setDefaultDirection(VEC3 defaultDirection) {
 
 void TCompSkelLookAtDirection::update(float dt) {
   TCompSkeleton* c_skel = h_skeleton;
+  /*
   if (target == VEC3().Zero) {
     TCompTransform* c_trans = get<TCompTransform>();
     target = c_trans->getPosition() + (c_trans->getFront() * positionOffset);
@@ -46,7 +48,7 @@ void TCompSkelLookAtDirection::update(float dt) {
   }
     VEC3 new_target = c_trans->getPosition() + (dir * positionOffset);
     target = target * target_transition_factor + new_target * (1.0f - target_transition_factor);
-
+    */
   if (c_skel == nullptr) {
     // Search the parent entity by name
     CEntity* e_entity = CHandle(this).getOwner();
@@ -62,9 +64,11 @@ void TCompSkelLookAtDirection::update(float dt) {
   CalSkeleton* skel = c_skel->model->getSkeleton();
 
   // The set of bones to correct
+  VEC3 up(0, 1, 0);
   auto core = (CGameCoreSkeleton*)c_skel->model->getCoreModel();
+  float angle_rads = deg2rad(angle);
   for (auto& it : core->lookat_direction_corrections)
-    it.apply(skel, target, amount);
+    it.applyLocal(skel, up, angle_rads * amount) ;
 }
 
 void TCompSkelLookAtDirection::renderDebug() {
@@ -75,5 +79,6 @@ void TCompSkelLookAtDirection::debugInMenu() {
   ImGui::InputFloat3("Target", &target.x);
   ImGui::LabelText( "Target Name", "%s", target_entity_name.c_str() );
   ImGui::DragFloat("Amount", &amount, 0.01f, 0.f, 1.0f);
+  ImGui::DragFloat("Angle", &angle, 0.01f, -90.f, 90.f);
   ImGui::DragFloat("Transition Factor", &target_transition_factor, 0.01f, 0.f, 1.0f);
 }

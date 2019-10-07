@@ -58,9 +58,9 @@ void TCompEnemySpawner::onDamage(const TMsgDamage & msg) {//TODO: solo para test
 	ctx.root_transform = *c_trans;
 	ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 3, 0));
 
-	parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
+	//parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
 
-	parseScene("data/particles/spark_particles_oven.json", ctx);
+	//parseScene("data/particles/spark_particles_oven.json", ctx);
 
 }
 
@@ -74,12 +74,25 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 		TCompTransform* c_trans = get<TCompTransform>();
 		TEntityParseContext ctx;
 		ctx.root_transform = *c_trans;
-		ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 3, 0));
+		ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 1.8f, 0));
 
-		parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
+		//parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
 
 		parseScene("data/particles/spark_particles_oven.json", ctx);
-        audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
+    CEntity* e = ctx.entities_loaded[0];
+    TCompBuffers* c_b = e->get<TCompBuffers>();
+    if (c_b) {
+      auto buf = c_b->getCteByName("TCtesParticles");
+      CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
+      data->emitter_num_particles_per_spawn = 20;
+      data->emitter_center = ctx.root_transform.getPosition() + ctx.root_transform.getFront() + ctx.root_transform.getLeft() * 1.7f;
+      data->emitter_dir = ctx.root_transform.getFront();
+      data->updateGPU();
+    }
+
+
+
+    audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
 
 
 	}

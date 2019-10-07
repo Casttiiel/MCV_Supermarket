@@ -16,9 +16,6 @@
           "data/materials/vfx/particles_spark_oven.material"
         ]
       },
-      "comp_self_destroy" : {
-        "_isEnabled": false
-      },
       "buffers" : {
         "instances" : {
           "desc" : "Array of active particles at the start of the frame",
@@ -53,7 +50,7 @@
           "time_between_spawns" : 0.2,
           "num_particles_per_spawn" : 35,
           "center_radius" : 0.8,
-          "dir_aperture" : 6.0,
+          "dir_aperture" : 1.0,
           "speed" : "1.5 3.3",
           "pos" : "0 1 0",
           "duration" : "0.28 0.73",
@@ -71,7 +68,7 @@
       "compute" : [
         {
           "desc" : "Spawning just 1 thread",
-          "cs" : "cs_particles_spark_spawn.compute",
+          "cs" : "cs_particles_spark_oven_spawn.compute",
           "sizes" : [1, 1, 1]
         },
         {

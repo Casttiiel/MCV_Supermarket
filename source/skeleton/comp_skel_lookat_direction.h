@@ -15,6 +15,7 @@ struct TCompSkelLookAtDirection : public TCompBase {
 
   VEC3        target = VEC3().Zero;
   float       amount = 0.f;
+  float       angle = 0.f;
   float       target_transition_factor = 0.95f;
   VEC3        dir;
   VEC3        default_dir = VEC3().Zero;
