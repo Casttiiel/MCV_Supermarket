@@ -315,6 +315,13 @@
     "vdecl": "PosColor",
     "z": "disable_all"
   },
+  "vignetting": {
+    "vs_fx": "data/shaders/screen_quad.fx",
+    "vdecl": "PosColor",
+    "ps_fx": "data/shaders/vignetting.fx",
+    "vdecl": "PosColor",
+    "z": "disable_all"
+  },
   "damaged_effect": {
     "vs_fx": "data/shaders/screen_quad.fx",
     "vdecl": "PosColor",
@@ -540,6 +547,14 @@
   "electric": {
     "vs_fx": "data/shaders/electric.fx",
     "vdecl": "PosUvColor",
+    "noise": "data/textures/noise_cloud2.dds",
+    "rs": "cull_none",
+    "blend": "additive_by_src_alpha",
+    "z": "test_but_no_write"
+  },
+  "electric_panel": {
+    "vs_fx": "data/shaders/electric_panel.fx",
+    "vdecl": "PosNUvT",
     "noise": "data/textures/noise_cloud2.dds",
     "rs": "cull_none",
     "blend": "additive_by_src_alpha",

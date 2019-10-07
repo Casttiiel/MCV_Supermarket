@@ -13,7 +13,7 @@
         "mesh": "data/meshes/static_objects/UnitSphere.mesh",
         "materials":
         [
-          "data/materials/vfx/particles_spark.material"
+          "data/materials/vfx/particles_spark_oven.material"
         ]
       },
       "comp_self_destroy" : {
@@ -51,9 +51,9 @@
         "TCtesParticles" : {
           "desc" : "Cte buffer to control emission parameters and update parameters",
           "time_between_spawns" : 0.2,
-          "num_particles_per_spawn" : 6,
-          "center_radius" : 0.1,
-          "dir_aperture" : 2.0,
+          "num_particles_per_spawn" : 35,
+          "center_radius" : 0.8,
+          "dir_aperture" : 6.0,
           "speed" : "1.5 3.3",
           "pos" : "0 1 0",
           "duration" : "0.28 0.73",

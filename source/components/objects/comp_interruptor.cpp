@@ -1,6 +1,7 @@
 #include "mcv_platform.h"
 #include "engine.h"
 #include "components/common/comp_transform.h"
+#include "components/common/comp_render.h"
 #include "components/objects/comp_interruptor.h"
 
 
@@ -52,8 +53,13 @@ void TCompInterruptor::onActivate(const TMsgDamage & msg) {
 
 			isOn = true;
 		}
-		CHandle(this).getOwner().destroy();
-		CHandle(this).destroy();
+		
+    CEntity* e = getEntityByName("electric_panel");
+    if (e) {
+      TCompRender* c_r = e->get<TCompRender>();
+      c_r->is_visible = true;
+      c_r->updateRenderManager();
+    }
 	}
 }
 	

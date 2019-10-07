@@ -18,6 +18,9 @@ using namespace physx;
 std::mt19937 bt_gol(1129);
 std::uniform_int_distribution<int> bt_dist_gol(0, 100);
 
+std::mt19937 bt_gol_throw(1329);
+std::uniform_int_distribution<int> bt_range_products(0, 8);
+
 DECL_OBJ_MANAGER("bt_golem", CBTGolem);
 void CBTGolem::create(string s)//crear el arbol
 {
@@ -808,7 +811,10 @@ void CBTGolem::singleShot() {
 	TEntityParseContext ctx;
 	ctx.root_transform.setPosition(firingPosition);
 	ctx.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
+	
+
+	productToThrow = bt_range_products(bt_gol_throw);
+	parseScene(objectToThrow.at(productToThrow), ctx);
 
 	//Bullet direction
 	VEC3 targetDir = p_trans->getPosition() - boneTracker->getPosition();
@@ -852,7 +858,11 @@ void CBTGolem::spreadShot() {
 	TEntityParseContext ctx;
 	ctx.root_transform.setPosition(firingPosition);
 	ctx.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx);
+
+	productToThrow = bt_range_products(bt_gol_throw);
+	parseScene(objectToThrow.at(productToThrow), ctx); //1
+
+	//objectToThrow
 
 	//Bullet direction
 	VEC3 targetDir = p_trans->getPosition() - boneTracker->getPosition();
@@ -887,7 +897,10 @@ void CBTGolem::spreadShot() {
 	TEntityParseContext ctx2;
 	ctx2.root_transform.setPosition(firingPosition);
 	ctx2.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx2);
+
+	productToThrow = bt_range_products(bt_gol_throw);
+	parseScene(objectToThrow.at(productToThrow), ctx2); // 2
+
 	msgDamage.bullet_front = rotatedDirection;
 	msg.front = rotatedDirection;
 	ctx2.entities_loaded[0].sendMsg(msg);
@@ -900,8 +913,10 @@ void CBTGolem::spreadShot() {
 
 	TEntityParseContext ctx3;
 	ctx3.root_transform.setPosition(firingPosition);
-	ctx3.root_transform.setRotation(c_trans->getRotation());
-	parseScene("data/prefabs/bullets/bullet_sushi.json", ctx3);
+	ctx3.root_transform.setRotation(c_trans->getRotation()); 
+
+	productToThrow = bt_range_products(bt_gol_throw);
+	parseScene(objectToThrow.at(productToThrow), ctx3); // 3
 	msgDamage.bullet_front = rotatedDirection;
 	msg.front = rotatedDirection;
 	ctx3.entities_loaded[0].sendMsg(msg);

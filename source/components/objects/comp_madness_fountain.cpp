@@ -10,6 +10,9 @@ void TCompMadnessFountain::debugInMenu() {
 }
 
 void TCompMadnessFountain::load(const json& j, TEntityParseContext& ctx) {
+    audio = EngineAudio.playEvent("event:/Music/Ambience_Props/Madness_Fountain/Madness_Fountain_Loop");
+    audioSlow = EngineAudio.playEvent("event:/Music/Ambience_Props/Madness_Fountain/Madness_Fountain_Loop_Slow");
+    audioSlow.setPaused(true);
 }
 
 void TCompMadnessFountain::registerMsgs() {
@@ -33,8 +36,20 @@ void TCompMadnessFountain::update(float dt) {
 	if (_isEnabled) {
 		CEntity* p = GameController.getPlayerHandle();
 		TCompMadnessController* m_c = p->get<TCompMadnessController>();
-    float value = m_c->getPowerGeneration(PowerType::FOUNTAIN) * dt;
-		m_c->generateMadness(value);
-    GameController.healPlayerPartially(value);
+        float value = m_c->getPowerGeneration(PowerType::FOUNTAIN) * dt;
+		    m_c->generateMadness(value);
+        GameController.healPlayerPartially(value);
 	}
+    TCompTransform* c_trans = get<TCompTransform>();
+    audioSlow.set3DAttributes(*c_trans);
+    audio.set3DAttributes(*c_trans);
+
+    if (GameController.getTimeScale() < 1.0f && audioSlow.getPaused()) {
+        audioSlow.setPaused(false);
+        audio.setPaused(true);
+    }
+    else if (GameController.getTimeScale() == 1.0f && audio.getPaused()) {
+        audio.setPaused(false);
+        audioSlow.setPaused(true);
+    }
 }

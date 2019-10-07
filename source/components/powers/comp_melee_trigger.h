@@ -10,6 +10,7 @@ class TCompMeleeTrigger : public TCompBase {
 
 	DECL_SIBLING_ACCESS();
 	void onCollision(const TMsgEntityTriggerEnter& msg);
+  void onCollisionOut(const TMsgEntityTriggerExit& msg);
 
 
 public:
@@ -20,9 +21,10 @@ public:
 	static void registerMsgs();
 
 private:
+    std::vector<CHandle> _currentEnemies;
     bool before = false;
     bool _isEnabled = true;
-	TMsgDamage _messageToTarget;
+	  TMsgDamage _messageToTarget;
     EntityType targetType;
     std::string _audioOnHit = "event:/Character/Attacks/Melee_Hit";
 };

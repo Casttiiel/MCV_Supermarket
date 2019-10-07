@@ -9,9 +9,6 @@ float4 PS(
   const float3 red = float3(1,0,0);
   int3 ss_load_coords = uint3(iPosition.xy, 0);
 
-  if(iPosition.x == 0.0f){
-    return float4(0,1,0,1);
-  }
   float dist = distance(iUV.xy, float2(0.5f,0.5f));
   float dither = txNormal.Sample(samLinear,iUV * 5).xyz * dist;
   dither = pow(dither,2.5f) * 2.5f * grade;

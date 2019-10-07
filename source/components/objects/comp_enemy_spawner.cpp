@@ -21,7 +21,7 @@ void TCompEnemySpawner::load(const json& j, TEntityParseContext& ctx) {
 	_prefab = j.value("_prefab", _prefab);
 	_spawnMaxNumber = j.value("_spawnMaxNumber", _spawnMaxNumber);
 	working = j.value("working", working);
-
+    audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Loop");
 }
 
 void TCompEnemySpawner::registerMsgs() {
@@ -79,6 +79,8 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 		parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
 
 		parseScene("data/particles/spark_particles_oven.json", ctx);
+        audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
+
 
 	}
 
@@ -95,15 +97,18 @@ void TCompEnemySpawner::onCheckout(const TMsgSpawnerCheckout & msg) {
 }
 
 void TCompEnemySpawner::update(float dt) {
-	
+    TCompTransform* c_trans = get<TCompTransform>();
+    if(c_trans)
+        audio.set3DAttributes(*c_trans);
 	if (comportamentNormal == 0) {
 		if (working && !is_destroyed) {
 			if (scriptTriggerActivate) {//codigo de cupcake que sale del horno , poner a false cuando acabe script
 				TCompPropAnimator* animator = get<TCompPropAnimator>();
 				animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 1.f);
-				TCompTransform* c_trans = get<TCompTransform>();
 				VEC3 spawnPoint = c_trans->getPosition() + (c_trans->getFront() * _spawnOffset);
 				CHandle enemy = GameController.spawnPrefab(_prefab, spawnPoint);
+                AudioEvent aux_audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Spawn");
+                aux_audio.set3DAttributes(*c_trans);
 
 				CEntity* player = GameController.getPlayerHandle();
 				CEntity* e_enemy = (CEntity*)enemy;
@@ -134,9 +139,11 @@ void TCompEnemySpawner::update(float dt) {
 					dbg("Spawning %s\n", _prefab);
 					TCompPropAnimator* animator = get<TCompPropAnimator>();
 					animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 1.f);
-					TCompTransform* c_trans = get<TCompTransform>();
+                    TCompTransform* c_trans = get<TCompTransform>();
 					VEC3 spawnPoint = c_trans->getPosition() + VEC3(0, 1.5, 0) + (c_trans->getFront() * _spawnOffset);
 					CHandle enemy = GameController.spawnPrefab(_prefab, spawnPoint);
+                    AudioEvent aux_audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Spawn");
+                    aux_audio.set3DAttributes(*c_trans);
 
 					//rotamos el cupcake hacia la posicion del jugador al spawnear para que te vea siempre
 					CEntity* player = GameController.getPlayerHandle();
@@ -182,6 +189,8 @@ void TCompEnemySpawner::update(float dt) {
 				TCompTransform* c_trans = get<TCompTransform>();
 				VEC3 spawnPoint = c_trans->getPosition() + (c_trans->getFront() * _spawnOffset);
 				CHandle enemy = GameController.spawnPrefab(_prefab, spawnPoint);
+                AudioEvent aux_audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Spawn");
+                aux_audio.set3DAttributes(*c_trans);
 
 				//rotamos el cupcake hacia la posicion del jugador al spawnear para que te vea siempre
 				CEntity* player = GameController.getPlayerHandle();

@@ -45,8 +45,8 @@ fn isMaxShit obj = (
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	--project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
+	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
+	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
@@ -331,6 +331,11 @@ struct TSceneExporter (
 		fs.writeKeyValue "mesh" mesh_name
 		fs.writeComma()
 		fs.writeKeyValue "color" obj.wireColor
+		local notvisible = getUserProp obj "notvisible"
+		if notvisible != undefined then (
+			fs.writeComma()
+			fs.writeKeyValue "is_visible" false
+		)
 		
 		-- Export the real mesh
 		local full_mesh_filename = project_path + mesh_name
