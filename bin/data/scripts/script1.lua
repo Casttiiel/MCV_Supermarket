@@ -871,12 +871,13 @@ function cinematica_fire_off()
 	
 	handlePlayer = GameController:getPlayerHandle();
 	GameController:resetCamera();
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni018\",0.0)",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraAscensorOn\", 5,\"Cubicinout\")",0.0);
 	execDelayedAction("on_cinematic(true)",0.0);
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"Cubicinout\")",7.0);
 	execDelayedAction("on_lock_camera3(true)",12.0);
-	execDelayedAction("on_cinematic_special(false,1)",12.0);
+	execDelayedAction("on_cinematic(false)",12.0);
 
 end
 
