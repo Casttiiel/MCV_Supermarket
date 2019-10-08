@@ -10,6 +10,11 @@ DECL_OBJ_MANAGER("comp_enemy_spawner", TCompEnemySpawner);
 
 
 using namespace physx;
+std::mt19937 spawner_x(3942);
+std::uniform_int_distribution<int> spawner_x_range(-100, 100);
+
+std::mt19937 spawner_z(942);
+std::uniform_int_distribution<int> spawner_z_range(-100, 100);
 
 void TCompEnemySpawner::debugInMenu() {
 
@@ -79,7 +84,9 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 		parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
 
 		parseScene("data/particles/spark_particles_oven.json", ctx);
-        audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
+    audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
+
+
 
 
 	}
@@ -176,6 +183,29 @@ void TCompEnemySpawner::update(float dt) {
 			TCompPropAnimator* animator = get<TCompPropAnimator>();
 			animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt);
 			//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
+
+			// --- humo
+
+			if (smokeTimer<= 0) {
+				smokeOffsetX = spawner_x_range(spawner_x) * 0.01; //devuelve un numero entre 1 y 100 y lo multiplicamos por 0.01 para obtener un valor decimal
+				smokeOffsetZ = spawner_z_range(spawner_z) * 0.01;
+				
+				smoke_position = 3.7f;
+				smokeTimer = smokeTimerMax;
+
+				//----
+
+				TEntityParseContext ctx2;
+				ctx2.root_transform = *c_trans;
+				smoke_position += 0.1f;
+				ctx2.root_transform.setPosition(c_trans->getPosition() + VEC3(smokeOffsetX, smoke_position, smokeOffsetZ));
+				parseScene("data/prefabs/vfx/smoke.json", ctx2);
+			}
+			else {
+				smokeTimer -= dt;
+
+			}
+
 
 
 		}

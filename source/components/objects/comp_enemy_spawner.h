@@ -50,6 +50,12 @@ private:
     float _spawnOffset = 2.5f;
     float lifePrefabSpawner = 50.f;
 	float lengthConePrefabSpawner = 60.0f;
+	float smoke_position = 3.3f;
+
+	float smokeTimerMax = 0.5f;
+	float smokeTimer = 0.0f;
+	float smokeOffsetZ = 0.0;
+	float smokeOffsetX = 0.0f;
 
 	void enable(const TMsgEntityTriggerEnter & msg);
 	void disable(const TMsgEntityTriggerExit & msg);
