@@ -1137,6 +1137,8 @@ void TCompCharacterController::chargedAttack(float delta) {
 
 void TCompCharacterController::onCollision(const TMsgOnContact& msg) {
     CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
+    if (!source_of_impact)
+      return;
     TCompDynamicInstance* dyn_ = source_of_impact->get<TCompDynamicInstance>();
     if (dyn_) {
       TCompTransform* c_trans = get<TCompTransform>();

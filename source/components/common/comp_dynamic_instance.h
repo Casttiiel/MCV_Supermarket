@@ -14,6 +14,7 @@ class TCompDynamicInstance : public TCompBase {
 
   void onPlayerAttack(const TMsgDamage& msg);
   void onCreate(const TMsgEntityCreated&);
+  void onBattery(const TMsgGravity& msg);
 
 public:
   void load(const json& j, TEntityParseContext& ctx);
