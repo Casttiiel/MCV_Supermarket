@@ -45,8 +45,8 @@ fn isMaxShit obj = (
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
+	project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
+	--project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
@@ -688,6 +688,10 @@ struct TSceneExporter (
 			local pos = getUserProp obj "pos"
 			local rot = getUserProp obj "rotation"
 			local parent = getUserProp obj "parent"
+			local yaw = getUserProp obj "yaw"
+			local pitch = getUserProp obj "pitch"
+			local roll = getUserProp obj "roll"
+			
 			fs.writeComma()
 			fs.writeKey "hierarchy"
 			fs.beginObj()
@@ -695,6 +699,18 @@ struct TSceneExporter (
 			fs.writeComma()
 			if rot != undefined then (
 				fs.writeKeyValue "rotation" rot
+				fs.writeComma()
+			)
+			if yaw != undefined then (
+				fs.writeKeyValue "yaw" yaw
+				fs.writeComma()
+			)
+			if pitch != undefined then (
+				fs.writeKeyValue "pitch" pitch
+				fs.writeComma()
+			)
+			if roll != undefined then (
+				fs.writeKeyValue "roll" roll
 				fs.writeComma()
 			)
 			fs.writeKeyValue "parent" parent
