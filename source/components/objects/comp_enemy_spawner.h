@@ -52,7 +52,7 @@ private:
 	float lengthConePrefabSpawner = 60.0f;
 	float smoke_position = 3.3f;
 
-	float smokeTimerMax = 0.5f;
+	float smokeTimerMax = 0.3f;
 	float smokeTimer = 0.0f;
 	float smokeOffsetZ = 0.0;
 	float smokeOffsetX = 0.0f;

@@ -187,8 +187,7 @@ void TCompEnemySpawner::update(float dt) {
 			// --- humo
 
 			if (smokeTimer<= 0) {
-				smokeOffsetX = spawner_x_range(spawner_x) * 0.01; //devuelve un numero entre 1 y 100 y lo multiplicamos por 0.01 para obtener un valor decimal
-				smokeOffsetZ = spawner_z_range(spawner_z) * 0.01;
+
 				
 				smoke_position = 3.7f;
 				smokeTimer = smokeTimerMax;
@@ -197,12 +196,29 @@ void TCompEnemySpawner::update(float dt) {
 			}
 			else {
 				smokeTimer -= dt;
+				smokeOffsetX = spawner_x_range(spawner_x) * 0.01; //devuelve un numero entre 1 y 100 y lo multiplicamos por 0.01 para obtener un valor decimal
+				smokeOffsetZ = spawner_z_range(spawner_z) * 0.01;
+
 
 				TEntityParseContext ctx2;
 				ctx2.root_transform = *c_trans;
 				smoke_position += 0.1f;
 				ctx2.root_transform.setPosition(c_trans->getPosition() + VEC3(smokeOffsetX, smoke_position, smokeOffsetZ));
 				parseScene("data/prefabs/vfx/smoke.json", ctx2);
+
+				smokeOffsetX = spawner_x_range(spawner_x) * 0.01; //devuelve un numero entre 1 y 100 y lo multiplicamos por 0.01 para obtener un valor decimal
+				smokeOffsetZ = spawner_z_range(spawner_z) * 0.01;
+
+
+				TEntityParseContext ctx3;
+				ctx3.root_transform = *c_trans;
+				ctx3.root_transform.setPosition(c_trans->getPosition() + VEC3(smokeOffsetX + 0.4f, smoke_position, smokeOffsetZ +0.4f));
+				parseScene("data/prefabs/vfx/smoke.json", ctx3);
+
+				TEntityParseContext ctx4;
+				ctx4.root_transform = *c_trans;
+				ctx4.root_transform.setPosition(c_trans->getPosition() + VEC3(smokeOffsetX - 0.4f, smoke_position, smokeOffsetZ - 0.4f));
+				parseScene("data/prefabs/vfx/smoke.json", ctx4);
 
 			}
 
