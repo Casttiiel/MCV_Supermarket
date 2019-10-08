@@ -194,15 +194,15 @@ void TCompEnemySpawner::update(float dt) {
 				smokeTimer = smokeTimerMax;
 
 				//----
+			}
+			else {
+				smokeTimer -= dt;
 
 				TEntityParseContext ctx2;
 				ctx2.root_transform = *c_trans;
 				smoke_position += 0.1f;
 				ctx2.root_transform.setPosition(c_trans->getPosition() + VEC3(smokeOffsetX, smoke_position, smokeOffsetZ));
 				parseScene("data/prefabs/vfx/smoke.json", ctx2);
-			}
-			else {
-				smokeTimer -= dt;
 
 			}
 
