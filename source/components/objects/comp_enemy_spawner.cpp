@@ -29,7 +29,23 @@ void TCompEnemySpawner::registerMsgs() {
 	DECL_MSG(TCompEnemySpawner, TMsgEntityTriggerExit, disable);
 	DECL_MSG(TCompEnemySpawner, TMsgGravity, onBattery);
 	DECL_MSG(TCompEnemySpawner, TMsgSpawnerCheckout, onCheckout);
-	//DECL_MSG(TCompEnemySpawner, TMsgDamage, onDamage); //TODO: solo para test
+  DECL_MSG(TCompEnemySpawner, TMsgEntityCreated, onCreation);
+}
+
+void TCompEnemySpawner::onCreation(const TMsgEntityCreated& msgC) {
+  TCompTransform* c_trans = get<TCompTransform>();
+  TEntityParseContext ctx;
+  VEC3 pos = c_trans->getPosition() + VEC3(0, 1.8f, 0) - c_trans->getLeft() * 0.1f;
+
+  parseScene("data/particles/oven_particles.json", ctx);
+  CEntity* e = ctx.entities_loaded[0];
+  TCompBuffers* c_b = e->get<TCompBuffers>();
+  if (c_b) {
+    auto buf = c_b->getCteByName("TCtesParticles");
+    CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
+    data->emitter_center = pos;
+    data->updateGPU();
+  }
 }
 
 void TCompEnemySpawner::enable(const TMsgEntityTriggerEnter & msg) {
@@ -47,23 +63,6 @@ void TCompEnemySpawner::disable(const TMsgEntityTriggerExit & msg) {
 }
 
 
-void TCompEnemySpawner::onDamage(const TMsgDamage & msg) {//TODO: solo para test
-	_isEnabled = false;
-  EngineAudio.playEvent("event:/Character/Powers/Battery/Glitch");
-  is_destroyed = true;
-	// ----- soltar chispas: 
-
-	TCompTransform* c_trans = get<TCompTransform>();
-	TEntityParseContext ctx;
-	ctx.root_transform = *c_trans;
-	ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 3, 0));
-
-	//parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
-
-	//parseScene("data/particles/spark_particles_oven.json", ctx);
-
-}
-
 void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 	if (!is_destroyed) {
 		_isEnabled = false;
@@ -76,25 +75,17 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 		ctx.root_transform = *c_trans;
 		ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 1.8f, 0));
 
-		//parseScene("data/prefabs/vfx/bolt_sphere_oven.json", ctx);
-
 		parseScene("data/particles/spark_particles_oven.json", ctx);
     CEntity* e = ctx.entities_loaded[0];
     TCompBuffers* c_b = e->get<TCompBuffers>();
     if (c_b) {
       auto buf = c_b->getCteByName("TCtesParticles");
       CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-      data->emitter_num_particles_per_spawn = 20;
       data->emitter_center = ctx.root_transform.getPosition() + ctx.root_transform.getFront() + ctx.root_transform.getLeft() * 1.7f;
-      data->emitter_dir = ctx.root_transform.getFront();
       data->updateGPU();
     }
 
-
-
     audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
-
-
 	}
 
 }
@@ -109,10 +100,12 @@ void TCompEnemySpawner::onCheckout(const TMsgSpawnerCheckout & msg) {
 	}
 }
 
+
 void TCompEnemySpawner::update(float dt) {
-    TCompTransform* c_trans = get<TCompTransform>();
-    if(c_trans)
-        audio.set3DAttributes(*c_trans);
+  castParticles(dt);
+  TCompTransform* c_trans = get<TCompTransform>();
+  if(c_trans)
+      audio.set3DAttributes(*c_trans);
 	if (comportamentNormal == 0) {
 		if (working && !is_destroyed) {
 			if (scriptTriggerActivate) {//codigo de cupcake que sale del horno , poner a false cuando acabe script
@@ -183,15 +176,7 @@ void TCompEnemySpawner::update(float dt) {
 				}
 			}
 		}
-		else if (is_destroyed) {
-
-			// abrir puerta del horno 
-			TCompPropAnimator* animator = get<TCompPropAnimator>();
-			animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt);
-			//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
-
-
-		}
+		
 	}
 	else {
 		if (working && !is_destroyed) {
@@ -229,15 +214,6 @@ void TCompEnemySpawner::update(float dt) {
 			else {
 				_spawnTimer -= dt;
 			}
-
-		}
-		else if (is_destroyed) {
-
-			// abrir puerta del horno 
-			TCompPropAnimator* animator = get<TCompPropAnimator>();
-			animator->playAnimation(TCompPropAnimator::OVEN_OPEN, 25.0f*dt);
-			//TODO: en caso de encontrar la animacion del horno abierto cambiar por esta y cambiar este codigo al onBattery()
-
 
 		}
 	}
