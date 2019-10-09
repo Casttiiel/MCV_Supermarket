@@ -16,7 +16,7 @@ public:
 
   static void registerMsgs();
 
-	float madness = 0.5;
+	float madness = 0.5f;
 
 private:
   void onPlayerAttack(const TMsgDamage & msg);

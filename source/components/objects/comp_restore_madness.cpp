@@ -24,7 +24,6 @@ void TCompRestoreMadness::onPlayerAttack(const TMsgDamage & msg) {
   if (p) {
     TCompMadnessController* m_c = p->get<TCompMadnessController>();
     if (m_c != nullptr) {
-      madness = 0.3;
       m_c->generateMadness(madness);
     }
   }

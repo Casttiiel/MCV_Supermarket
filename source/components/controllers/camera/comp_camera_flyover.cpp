@@ -43,7 +43,7 @@ void TCompCameraFlyover::update(float scaled_dt)
   TCompTransform* c_transform = get<TCompTransform>();
   if (!c_transform)
     return;
-  
+
   // if the game is paused, we still want full camera speed 
   float dt = Time.delta_unscaled;
 
@@ -58,7 +58,7 @@ void TCompCameraFlyover::update(float scaled_dt)
   float deltaSpeed = _speed * dt;
   //if (EngineInput["turbo"])
   if (isPressed(VK_SHIFT))
-      deltaSpeed *= 4.f;
+    deltaSpeed *= 4.f;
 
   //if (EngineInput["front"].value)
   if (EngineInput["front_"].isPressed())
@@ -94,7 +94,7 @@ void TCompCameraFlyover::update(float scaled_dt)
   pitch += mOff.y * _sensitivity;
   if (pitch < -_maxPitch)
     pitch = -_maxPitch;
-  else if( pitch > _maxPitch)
+  else if (pitch > _maxPitch)
     pitch = _maxPitch;
 
   // final values

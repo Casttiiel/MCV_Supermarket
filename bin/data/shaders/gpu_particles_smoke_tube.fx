@@ -70,7 +70,7 @@ void updateParticle( inout TInstance p ) {
   p.prev_pos = p.pos;
   p.color = sampleColor( p.time_normalized );
   //p.dir += p.acc * GlobalDeltaTime;
-  //p.pos += p.dir * GlobalDeltaTime;
+  p.pos += p.dir * GlobalDeltaTime;
   p.scale = sampleScale( p.time_normalized );
   /*if( p.pos.y < 0 ) {
     p.pos.y = -p.pos.y;

@@ -26,13 +26,6 @@ void TCompCamera3rdPerson::debugInMenu()
   ImGui::SliderFloat("Pitch Sensitivity", &GameController.pitch_sensivity, 10.0f, 20.0f);
 
 
-  /*ImGui::SliderFloat3("Pos Offset", &_posOffset.x, -5.0f, 5.0f);
-  ImGui::SliderFloat3("Target Offset", &_targetOffset.x, 0.0f, 15.0f);
-  ImGui::SliderFloat("Distance to aim", &distance, 0.0f, 20.0f);
-  ImGui::SliderFloat("Transition time", &yawOffset, 1.0f, 20.0f);
-  ImGui::SliderFloat("interpolation", &interpolation, 0.0f, 1.0f);
-  ImGui::SliderFloat("Smooth Speed", &smoothSpeed, 10.0f, 20.0f);*/
-
 }
 
 void TCompCamera3rdPerson::load(const json& j, TEntityParseContext& ctx) {

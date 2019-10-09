@@ -17,13 +17,13 @@ void TCompDynamicInstance::renderDebug() {
 }
 
 void TCompDynamicInstance::onPlayerAttack(const TMsgDamage& msg) {
-
     TCompTransform* c_trans = get<TCompTransform>();
 
     VEC3 hit_pos = msg.position;
     VEC3 dir = c_trans->getPosition() - hit_pos;
+    dir.y *= 0.1f;
     dir.Normalize();
-    dir *= msg.impactForce * 0.5f;
+    dir *= msg.impactForce * 2.0f;
     physx::PxVec3 impulse = VEC3_TO_PXVEC3(dir);
     
     TCompCollider* c_coll = get<TCompCollider>();
@@ -35,6 +35,18 @@ void TCompDynamicInstance::onPlayerAttack(const TMsgDamage& msg) {
 void TCompDynamicInstance::registerMsgs() {
   DECL_MSG(TCompDynamicInstance, TMsgDamage, onPlayerAttack);
   DECL_MSG(TCompDynamicInstance, TMsgEntityCreated, onCreate);
+  DECL_MSG(TCompDynamicInstance, TMsgGravity, onBattery);
+}
+
+void TCompDynamicInstance::onBattery(const TMsgGravity& msg) {
+  TCompCollider* c_cc = get<TCompCollider>();
+  TCompTransform* c_trans = get<TCompTransform>();
+  physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_cc->actor);
+  VEC3 dir = c_trans->getPosition() - msg.position;
+  dir.Normalize();
+  dir *= 10.0f;
+  rigid_dynamic->addForce(VEC3_TO_PXVEC3(dir), PxForceMode::eIMPULSE);
+
 }
 
 void TCompDynamicInstance::onCreate(const TMsgEntityCreated&) {

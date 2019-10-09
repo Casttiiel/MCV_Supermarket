@@ -124,6 +124,7 @@ void CModuleRender::parsePipelines(const std::string& filename) {
 }
 
 void CModuleRender::update(float dt) {
+  
 }
 
 void CModuleRender::stop() {
@@ -262,6 +263,10 @@ void CModuleRender::generateFrame() {
   ctes_shared.Actual_dt = (float)Time.delta;
   ctes_shared.GlobalDeltaTime = Time.delta;
   ctes_shared.GlobalDeltaUnscaledTime = Time.delta_unscaled;
+  if (ctes_shared.GlobalAmbientBoost != new_ambient ) {
+    ctes_shared.GlobalAmbientBoost += sign(new_ambient - ctes_shared.GlobalAmbientBoost) * Time.delta;
+    ctes_shared.GlobalAmbientBoost = clamp(ctes_shared.GlobalAmbientBoost, new_ambient, 1.0f);
+  }
   ctes_shared.updateGPU();
 
   activateObject(MAT44::Identity, VEC4(1, 1, 1, 1));

@@ -14,7 +14,6 @@
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
 #include "components/objects/comp_enemy_spawner.h"
-#include "components/objects/comp_enemy_spawner_special_trap.h"
 #include "components/ai/others/self_destroy.h"
 #include "components/controllers/character/comp_character_controller.h"
 #include "components/common/comp_light_point.h"
@@ -239,6 +238,7 @@ public:
     void pauseSoundtrack();
     void resumeSoundtrack();
     void updateSoundtrackID(int new_track_id);
+    void updateAmbientLight(float amount);
     void setSoundtrackVolume(float volume);
     //End Soundtrack Functions
 	//dar handle a partir del nombre 
@@ -274,7 +274,7 @@ TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 TCompName* toCompName(CHandle h);
 TCompTransform* toCompTransform(CHandle h);
 TCompCamera* toCompCamera(CHandle h);
-TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
+//TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
 TCompSelfDestroy* toCompSelfDestroy(CHandle h);
 CBTGolem* toCBTGolem(CHandle h);
 CBTCupcake* toCBTCupcake(CHandle h);

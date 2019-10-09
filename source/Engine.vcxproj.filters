@@ -123,9 +123,6 @@
     <ClCompile Include="components\common\comp_transform.cpp">
       <Filter>components\common</Filter>
     </ClCompile>
-    <ClCompile Include="components\john\comp_circular_controller.cpp">
-      <Filter>components\john</Filter>
-    </ClCompile>
     <ClCompile Include="components\common\comp_render.cpp">
       <Filter>components\common</Filter>
     </ClCompile>
@@ -171,12 +168,6 @@
     <ClCompile Include="render\render_utils.cpp">
       <Filter>render</Filter>
     </ClCompile>
-    <ClCompile Include="components\john\comp_msg_logger.cpp">
-      <Filter>components\john</Filter>
-    </ClCompile>
-    <ClCompile Include="components\john\comp_sensor.cpp">
-      <Filter>components\john</Filter>
-    </ClCompile>
     <ClCompile Include="render\render_manager.cpp">
       <Filter>render</Filter>
     </ClCompile>
@@ -210,14 +201,8 @@
     <ClCompile Include="geometry\curve.cpp">
       <Filter>geometry</Filter>
     </ClCompile>
-    <ClCompile Include="components\controllers\comp_curve_controller.cpp">
-      <Filter>components\controllers</Filter>
-    </ClCompile>
     <ClCompile Include="components\common\physics\comp_rigid_body.cpp">
       <Filter>components\common\physics</Filter>
-    </ClCompile>
-    <ClCompile Include="components\ui\comp_ui.cpp">
-      <Filter>components\ui</Filter>
     </ClCompile>
     <ClCompile Include="components\controllers\comp_sCart_controller.cpp">
       <Filter>components\controllers</Filter>
@@ -243,26 +228,11 @@
     <ClCompile Include="components\ai\bt\bt_sushi.cpp">
       <Filter>components\ai\bt</Filter>
     </ClCompile>
-    <ClCompile Include="components\ai\others\comp_death_collider.cpp">
-      <Filter>components\ai\others</Filter>
-    </ClCompile>
     <ClCompile Include="components\bullets\comp_grenade_golem.cpp">
       <Filter>components\bullets</Filter>
     </ClCompile>
     <ClCompile Include="components\bullets\comp_turret_bullet.cpp">
       <Filter>components\bullets</Filter>
-    </ClCompile>
-    <ClCompile Include="components\controllers\camera\comp_camera_flyover.cpp">
-      <Filter>components\controllers\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="components\controllers\camera\comp_camera_lookat.cpp">
-      <Filter>components\controllers\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="components\controllers\camera\comp_camera_thirdperson.cpp">
-      <Filter>components\controllers\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="components\controllers\camera\comp_aim_controller.cpp">
-      <Filter>components\controllers\camera</Filter>
     </ClCompile>
     <ClCompile Include="components\controllers\camera\comp_camera_3rd_person.cpp">
       <Filter>components\controllers\camera</Filter>
@@ -281,9 +251,6 @@
     </ClCompile>
     <ClCompile Include="components\powers\comp_battery.cpp">
       <Filter>components\powers</Filter>
-    </ClCompile>
-    <ClCompile Include="components\ai\graph\ai_platform_fallen.cpp">
-      <Filter>components\ai\graph</Filter>
     </ClCompile>
     <ClCompile Include="components\ai\graph\ai_controller.cpp">
       <Filter>components\ai\graph</Filter>
@@ -304,9 +271,6 @@
       <Filter>skeleton</Filter>
     </ClCompile>
     <ClCompile Include="physics\ragdoll_core.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\comp_ragdoll.cpp">
       <Filter>physics</Filter>
     </ClCompile>
     <ClCompile Include="physics\ragdoll.cpp">
@@ -342,12 +306,6 @@
     <ClCompile Include="components\ai\others\self_destroy.cpp">
       <Filter>components\ai\others</Filter>
     </ClCompile>
-    <ClCompile Include="components\objects\comp_teleportable_object_spawner.cpp">
-      <Filter>components\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="components\objects\comp_explosive_object.cpp">
-      <Filter>components\objects</Filter>
-    </ClCompile>
     <ClCompile Include="components\objects\comp_increase_power.cpp">
       <Filter>components\objects</Filter>
     </ClCompile>
@@ -357,14 +315,8 @@
     <ClCompile Include="components\objects\comp_destroyable_wall.cpp">
       <Filter>components\objects</Filter>
     </ClCompile>
-    <ClCompile Include="components\controllers\comp_follow_light.cpp">
-      <Filter>components\controllers</Filter>
-    </ClCompile>
     <ClCompile Include="components\animation\comp_player_animation.cpp">
       <Filter>components\animation</Filter>
-    </ClCompile>
-    <ClCompile Include="components\controllers\comp_trans_curve_controller.cpp">
-      <Filter>components\controllers</Filter>
     </ClCompile>
     <ClCompile Include="render\deferred_renderer.cpp">
       <Filter>render</Filter>
@@ -420,18 +372,6 @@
     <ClCompile Include="components\bullets\comp_kinematic_bullet.cpp">
       <Filter>components\bullets</Filter>
     </ClCompile>
-    <ClCompile Include="components\objects\comp_remote_trigger.cpp">
-      <Filter>components\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="components\objects\comp_spawner.cpp">
-      <Filter>components\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="components\actions\comp_explode_oncontact.cpp">
-      <Filter>components\actions</Filter>
-    </ClCompile>
-    <ClCompile Include="components\objects\triggers\comp_trigger_move_wall.cpp">
-      <Filter>components\objects\triggers</Filter>
-    </ClCompile>
     <ClCompile Include="components\objects\triggers\comp_trigger_damage_zone.cpp">
       <Filter>components\objects\triggers</Filter>
     </ClCompile>
@@ -443,9 +383,6 @@
     </ClCompile>
     <ClCompile Include="modules\gameplay_fragments\module_ambush.cpp">
       <Filter>modules\gameplay_fragments</Filter>
-    </ClCompile>
-    <ClCompile Include="components\ai\others\comp_lookat_camera.cpp">
-      <Filter>components\ai\others</Filter>
     </ClCompile>
     <ClCompile Include="components\animation\comp_sushi_animation.cpp">
       <Filter>components\animation</Filter>
@@ -579,12 +516,6 @@
     <ClCompile Include="navmesh\recast\fastlz\fastlz.cpp">
       <Filter>navmesh\recast\fastlz</Filter>
     </ClCompile>
-    <ClCompile Include="components\obstacle\comp_obstacle.cpp">
-      <Filter>components\obstacle</Filter>
-    </ClCompile>
-    <ClCompile Include="components\ai\graph\ai_aNav.cpp">
-      <Filter>components\ai\graph</Filter>
-    </ClCompile>
     <ClCompile Include="modules\game\audio\audioEvent.cpp">
       <Filter>modules\game\audio</Filter>
     </ClCompile>
@@ -687,9 +618,6 @@
     <ClCompile Include="components\animation\comp_morph_animation.cpp">
       <Filter>components\animation</Filter>
     </ClCompile>
-    <ClCompile Include="components\ai\bt\bt_cupcake_explosive.cpp">
-      <Filter>components\ai\bt</Filter>
-    </ClCompile>
     <ClCompile Include="components\vfx\comp_trail.cpp">
       <Filter>components\vfx</Filter>
     </ClCompile>
@@ -726,9 +654,6 @@
     <ClCompile Include="skeleton\comp_bone_tracker_golem.cpp">
       <Filter>skeleton</Filter>
     </ClCompile>
-    <ClCompile Include="components\actions\comp_follow.cpp">
-      <Filter>components\actions</Filter>
-    </ClCompile>
     <ClCompile Include="components\objects\comp_enemies_in_butcher.cpp">
       <Filter>components\objects</Filter>
     </ClCompile>
@@ -758,9 +683,6 @@
     </ClCompile>
     <ClCompile Include="components\powers\comp_melee_trigger.cpp">
       <Filter>components\powers</Filter>
-    </ClCompile>
-    <ClCompile Include="components\objects\comp_enemy_spawner_special_trap.cpp">
-      <Filter>components\objects</Filter>
     </ClCompile>
     <ClCompile Include="modules\game\module_game_loading.cpp">
       <Filter>modules\game</Filter>
@@ -809,6 +731,15 @@
     </ClCompile>
     <ClCompile Include="components\postfx\comp_vignetting.cpp">
       <Filter>components\postfx</Filter>
+    </ClCompile>
+    <ClCompile Include="components\bullets\comp_turret_bullet_golem.cpp">
+      <Filter>components\bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="components\controllers\camera\comp_camera_flyover.cpp">
+      <Filter>components\controllers\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="components\controllers\comp_trans_curve_controller.cpp">
+      <Filter>components\controllers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -982,9 +913,6 @@
     <ClInclude Include="components\common\comp_transform.h">
       <Filter>components\common</Filter>
     </ClInclude>
-    <ClInclude Include="components\john\comp_circular_controller.h">
-      <Filter>components\john</Filter>
-    </ClInclude>
     <ClInclude Include="components\common\comp_render.h">
       <Filter>components\common</Filter>
     </ClInclude>
@@ -1096,14 +1024,8 @@
     <ClInclude Include="geometry\curve.h">
       <Filter>geometry</Filter>
     </ClInclude>
-    <ClInclude Include="components\controllers\comp_curve_controller.h">
-      <Filter>components\controllers</Filter>
-    </ClInclude>
     <ClInclude Include="components\common\physics\comp_rigid_body.h">
       <Filter>components\common\physics</Filter>
-    </ClInclude>
-    <ClInclude Include="components\ui\comp_ui.h">
-      <Filter>components\ui</Filter>
     </ClInclude>
     <ClInclude Include="components\controllers\comp_sCart_controller.h">
       <Filter>components\controllers</Filter>
@@ -1129,26 +1051,11 @@
     <ClInclude Include="components\ai\bt\bt_sushi.h">
       <Filter>components\ai\bt</Filter>
     </ClInclude>
-    <ClInclude Include="components\ai\others\comp_death_collider.h">
-      <Filter>components\ai\others</Filter>
-    </ClInclude>
     <ClInclude Include="components\bullets\comp_grenade_golem.h">
       <Filter>components\bullets</Filter>
     </ClInclude>
     <ClInclude Include="components\bullets\comp_turret_bullet.h">
       <Filter>components\bullets</Filter>
-    </ClInclude>
-    <ClInclude Include="components\controllers\camera\comp_camera_flyover.h">
-      <Filter>components\controllers\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="components\controllers\camera\comp_camera_lookat.h">
-      <Filter>components\controllers\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="components\controllers\camera\comp_camera_thirdperson.h">
-      <Filter>components\controllers\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="components\controllers\camera\comp_aim_controller.h">
-      <Filter>components\controllers\camera</Filter>
     </ClInclude>
     <ClInclude Include="components\controllers\camera\comp_camera_3rd_person.h">
       <Filter>components\controllers\camera</Filter>
@@ -1167,9 +1074,6 @@
     </ClInclude>
     <ClInclude Include="components\powers\comp_battery.h">
       <Filter>components\powers</Filter>
-    </ClInclude>
-    <ClInclude Include="components\ai\graph\ai_platform_fallen.h">
-      <Filter>components\ai\graph</Filter>
     </ClInclude>
     <ClInclude Include="components\ai\graph\ai_controller.h">
       <Filter>components\ai\graph</Filter>
@@ -1196,9 +1100,6 @@
       <Filter>components\ai\graph</Filter>
     </ClInclude>
     <ClInclude Include="physics\ragdoll_core.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\comp_ragdoll.h">
       <Filter>physics</Filter>
     </ClInclude>
     <ClInclude Include="physics\ragdoll.h">
@@ -1228,12 +1129,6 @@
     <ClInclude Include="components\ai\others\self_destroy.h">
       <Filter>components\ai\others</Filter>
     </ClInclude>
-    <ClInclude Include="components\objects\comp_teleportable_object_spawner.h">
-      <Filter>components\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="components\objects\comp_explosive_object.h">
-      <Filter>components\objects</Filter>
-    </ClInclude>
     <ClInclude Include="datatypes.h" />
     <ClInclude Include="components\objects\comp_increase_power.h">
       <Filter>components\objects</Filter>
@@ -1244,14 +1139,8 @@
     <ClInclude Include="components\objects\comp_destroyable_wall.h">
       <Filter>components\objects</Filter>
     </ClInclude>
-    <ClInclude Include="components\controllers\comp_follow_light.h">
-      <Filter>components\controllers</Filter>
-    </ClInclude>
     <ClInclude Include="components\animation\comp_player_animation.h">
       <Filter>components\animation</Filter>
-    </ClInclude>
-    <ClInclude Include="components\controllers\comp_trans_curve_controller.h">
-      <Filter>components\controllers</Filter>
     </ClInclude>
     <ClInclude Include="render\gpu_trace.h">
       <Filter>render</Filter>
@@ -1274,22 +1163,10 @@
     <ClInclude Include="components\bullets\comp_kinematic_bullet.h">
       <Filter>components\bullets</Filter>
     </ClInclude>
-    <ClInclude Include="components\objects\comp_remote_trigger.h">
-      <Filter>components\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="components\objects\comp_spawner.h">
-      <Filter>components\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="components\actions\comp_explode_oncontact.h">
-      <Filter>components\actions</Filter>
-    </ClInclude>
     <ClInclude Include="utils\PerlinNoise.hpp">
       <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="components\objects\triggers\comp_trigger_damage_zone.h">
-      <Filter>components\objects\triggers</Filter>
-    </ClInclude>
-    <ClInclude Include="components\objects\triggers\comp_trigger_move_wall.h">
       <Filter>components\objects\triggers</Filter>
     </ClInclude>
     <ClInclude Include="components\objects\triggers\comp_trigger.h">
@@ -1303,9 +1180,6 @@
     </ClInclude>
     <ClInclude Include="modules\gameplay_fragments\module_gameplay_fragment.h">
       <Filter>modules\gameplay_fragments</Filter>
-    </ClInclude>
-    <ClInclude Include="components\ai\others\comp_lookat_camera.h">
-      <Filter>components\ai\others</Filter>
     </ClInclude>
     <ClInclude Include="components\animation\comp_sushi_animation.h">
       <Filter>components\animation</Filter>
@@ -1463,12 +1337,6 @@
     <ClInclude Include="navmesh\recast\fastlz\fastlz.h">
       <Filter>navmesh\recast\fastlz</Filter>
     </ClInclude>
-    <ClInclude Include="components\obstacle\comp_obstacle.h">
-      <Filter>components\obstacle</Filter>
-    </ClInclude>
-    <ClInclude Include="components\ai\graph\ai_aNav.h">
-      <Filter>components\ai\graph</Filter>
-    </ClInclude>
     <ClInclude Include="modules\game\audio\audioEvent.h">
       <Filter>modules\game\audio</Filter>
     </ClInclude>
@@ -1577,9 +1445,6 @@
     <ClInclude Include="components\objects\comp_termoestato.h">
       <Filter>components\objects</Filter>
     </ClInclude>
-    <ClInclude Include="components\ai\bt\bt_cupcake_explosive.h">
-      <Filter>components\ai\bt</Filter>
-    </ClInclude>
     <ClInclude Include="components\vfx\comp_trail.h">
       <Filter>components\vfx</Filter>
     </ClInclude>
@@ -1625,9 +1490,6 @@
     <ClInclude Include="skeleton\comp_bone_tracker_golem.h">
       <Filter>skeleton</Filter>
     </ClInclude>
-    <ClInclude Include="components\actions\comp_follow.h">
-      <Filter>components\actions</Filter>
-    </ClInclude>
     <ClInclude Include="components\objects\comp_enemies_in_butcher.h">
       <Filter>components\objects</Filter>
     </ClInclude>
@@ -1660,9 +1522,6 @@
     </ClInclude>
     <ClInclude Include="components\powers\comp_melee_trigger.h">
       <Filter>components\powers</Filter>
-    </ClInclude>
-    <ClInclude Include="components\objects\comp_enemy_spawner_special_trap.h">
-      <Filter>components\objects</Filter>
     </ClInclude>
     <ClInclude Include="components\actions\comp_audioPlayer.h">
       <Filter>components\actions</Filter>
@@ -1711,6 +1570,15 @@
     </ClInclude>
     <ClInclude Include="components\postfx\comp_vignetting.h">
       <Filter>components\postfx</Filter>
+    </ClInclude>
+    <ClInclude Include="components\bullets\comp_turret_bullet_golem.h">
+      <Filter>components\bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="components\controllers\camera\comp_camera_flyover.h">
+      <Filter>components\controllers\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="components\controllers\comp_trans_curve_controller.h">
+      <Filter>components\controllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1765,9 +1633,6 @@
     <Filter Include="components\common">
       <UniqueIdentifier>{a8470fcf-d455-4637-acd0-63d4f5171ca7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="components\john">
-      <UniqueIdentifier>{f7e4f1b5-3295-4221-9987-8c38ba5d40db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="input">
       <UniqueIdentifier>{d2a84c24-5de2-416f-bdb2-78da414344e8}</UniqueIdentifier>
     </Filter>
@@ -1803,9 +1668,6 @@
     </Filter>
     <Filter Include="components\ai">
       <UniqueIdentifier>{89955f2f-31ef-4cd6-adcc-c121e9599b31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="components\ui">
-      <UniqueIdentifier>{6dcb707b-b405-43f9-b553-99c2b01ce7c0}</UniqueIdentifier>
     </Filter>
     <Filter Include="components\bullets">
       <UniqueIdentifier>{10d89ea7-583d-48b9-89f0-202abc1c0712}</UniqueIdentifier>
@@ -1863,9 +1725,6 @@
     </Filter>
     <Filter Include="navmesh\recast\fastlz">
       <UniqueIdentifier>{1ac0e769-8a85-4bf4-9cc9-4c883c33604f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="components\obstacle">
-      <UniqueIdentifier>{fcad1ce7-805c-412f-a77a-dd9bab132d75}</UniqueIdentifier>
     </Filter>
     <Filter Include="modules\game\audio">
       <UniqueIdentifier>{7b00615a-ba9c-4f9b-9233-697f2b3285af}</UniqueIdentifier>

@@ -65,6 +65,35 @@ TInstance spawnParticle( uint unique_id ) {
   return p;
 }
 
+TInstance spawnParticleOven( uint unique_id ) {
+  
+  float2 rnd2 = hash2( unique_id ) * 2.0 - 1.0;
+  float2 rnd3 = hash2( unique_id + 57 );
+  float2 rnd4 = hash2( unique_id + 58 );
+  float  duration = emitter_duration.x + ( emitter_duration.y - emitter_duration.x ) * rnd3.x;
+  float  speed  = emitter_speed.x + ( emitter_speed.y - emitter_speed.x ) * rnd3.y;
+
+  TInstance p;
+  p.pos = emitter_center;
+  p.prev_pos = p.pos;
+  p.acc = float3(0,-9.8,0);
+  p.dir = emitter_dir;
+  p.unique_id = unique_id;
+  p.time_normalized = 0.0;
+  p.time_factor = 1.0 / duration;
+  p.scale = 1.0;
+  p.color = float4(1,1,0,1);
+  p.dummy1 = 0;
+  p.dummy2 = 0;
+  p.dummy3 = 0;
+  p.dummy4 = 0;
+
+  p.dir += float3( rnd2.y, rnd4.x, rnd2.x) * emitter_dir_aperture;
+  p.dir *= speed;
+
+  return p;
+}
+
 // ----------------------------------------------------------
 // The update fn to customize
 void updateParticle( inout TInstance p ) {
@@ -73,6 +102,54 @@ void updateParticle( inout TInstance p ) {
   p.scale = sampleScale( p.time_normalized );
   p.dir += p.acc * GlobalDeltaTime;
   p.pos += p.dir * GlobalDeltaTime;
+}
+
+// --------------------------------------------------------------
+// using a single thread to spawn new particles
+[numthreads(1, 1, 1)]
+void cs_particles_spark_oven_spawn( 
+  uint thread_id : SV_DispatchThreadID,
+  RWStructuredBuffer<TInstance> instances : register(u0),
+  RWStructuredBuffer<TSystem> system  : register(u1),
+  RWByteAddressBuffer indirect_draw   : register(u2),
+  RWByteAddressBuffer indirect_update : register(u3)
+) {
+
+  // We start from the num particles left in the prev frame
+  uint   nparticles_active = indirect_draw.Load( OFFSET_NUM_PARTICLES_TO_DRAW );
+
+  // Clear num instances for indirect draw call. At offset 4, set zero
+  indirect_draw.Store( OFFSET_NUM_PARTICLES_TO_DRAW, 0 );
+
+  // Get access to the max capacity of the buffer
+  uint max_elements, bytes_per_instance;
+  instances.GetDimensions( max_elements, bytes_per_instance );
+
+  // Can we spawn particles?
+  if( nparticles_active + emitter_num_particles_per_spawn < max_elements ) {
+
+    system[0].time_to_next_spawn -= GlobalDeltaTime;
+    if( system[0].time_to_next_spawn < 0) {
+      system[0].time_to_next_spawn += emitter_time_between_spawns;
+
+      // Spawn N
+      uint unique_id = system[0].next_unique_id;
+      for( uint i=0; i<emitter_num_particles_per_spawn; ++i ) {
+        instances[nparticles_active] = spawnParticleOven(unique_id);
+        ++nparticles_active;
+        ++unique_id;
+      }
+
+      system[0].next_unique_id = unique_id;
+    }
+  }
+
+  // Update DispatchIndirect 1st argument.
+  uint nthread_groups = ( nparticles_active + NUM_PARTICLES_PER_THREAD_GROUP - 1 ) / NUM_PARTICLES_PER_THREAD_GROUP;
+  indirect_update.Store(0, nthread_groups);
+  indirect_update.Store(4, 1);
+  indirect_update.Store(8, 1);
+  system[0].num_particles_to_update = nparticles_active;
 }
 
 // --------------------------------------------------------------

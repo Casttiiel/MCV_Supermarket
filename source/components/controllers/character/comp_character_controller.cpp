@@ -27,6 +27,7 @@
 #include "components/objects/comp_enemy_spawner.h"
 #include "components/objects/comp_enemy_spawner_special_trap.h"
 #include "skeleton/comp_skel_lookat_direction.h"
+#include "components/common/comp_dynamic_instance.h"
 
 
 using namespace physx;
@@ -134,13 +135,6 @@ void TCompCharacterController::load(const json& j, TEntityParseContext& ctx) {
     speed = j.value("speed", speed);
     rotation_speed = j.value("rotation_sensibility", rotation_speed);
     distance_to_aim = j.value("distance_to_aim", distance_to_aim);
-
-	/*
-    unLockableBattery = j.value("unLockableBattery", unLockableBattery);
-	unLockableTeleport = j.value("unLockableTeleport", unLockableTeleport);
-	unLockableCoffe = j.value("unLockableCoffe", unLockableCoffe);
-	unLockableChilli = j.value("unLockableChilli", unLockableChilli);
-	*/
 	
 }
 
@@ -789,6 +783,10 @@ void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool s
     dir.Normalize(norm_dir);
 
     float elapsed = 1.0f;
+    if (last_frame_aiming && !aiming) {
+      rotation_from_aim = 0.25f;
+    }
+      
 
     if ((dir.x != 0.0f || dir.z != 0.0f) && (!aiming || start_dash)) { //ROTATE PLAYER WHERE HE WALKS
                                                                        //And also rotate the player on the direction its facing
@@ -797,11 +795,12 @@ void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool s
 
         float wanted_yaw = c_trans->getDeltaYawToAimTo(player_pos + dir);
 
-        if (!start_dash)
-            elapsed = Time.delta_unscaled * rotation_speed;
+        elapsed = Time.real_scale_factor;
+        if (rotation_from_aim > 0.f)
+            elapsed = Time.delta_unscaled * rotation_speed * 2.0f;
 
         if (abs(wanted_yaw) > 0.01)
-            c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + wanted_yaw * Time.real_scale_factor, pitch, 0.0f));
+            c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + wanted_yaw * elapsed, pitch, 0.0f));
     }
     else if (aiming && !start_dash) { //ROTATE PLAYER WHERE THE CAMERA LOOKS
         float yaw, pitch;
@@ -810,11 +809,14 @@ void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool s
         float wanted_yaw = c_trans->getDeltaYawToAimTo(player_pos + camera_front);
 
         if (!start_dash)
-            elapsed = Time.delta_unscaled * rotation_speed * 2.0f;
+            elapsed = Time.delta_unscaled * rotation_speed;
 
         if (abs(wanted_yaw) > 0.01)
             c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + wanted_yaw * elapsed, pitch, 0.0f));
     }
+
+    rotation_from_aim -= delta;
+    last_frame_aiming = aiming;
 }
 
 bool TCompCharacterController::isGrounded() {
@@ -950,7 +952,7 @@ void TCompCharacterController::attack(float delta) {
         PxSphereGeometry geometry(meleeRadius);
         Vector3 damageOrigin = c_trans->getPosition() + (c_trans->getFront() * meleeDistance);
         PxF32 attackHeight = comp_collider->controller->getHeight();
-        damageOrigin.y = c_trans->getPosition().y + (float)attackHeight;
+        damageOrigin.y = c_trans->getPosition().y + (float)attackHeight - 0.5f;
         PxVec3 pos = VEC3_TO_PXVEC3(damageOrigin);
         PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
 
@@ -1136,15 +1138,22 @@ void TCompCharacterController::chargedAttack(float delta) {
 
 void TCompCharacterController::onCollision(const TMsgOnContact& msg) {
     CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
-    if (source_of_impact) {
-        TCompTags* c_tag = source_of_impact->get<TCompTags>();
-        if (c_tag) {
-            std::string tag = CTagsManager::get().getTagName(c_tag->tags[0]);
-            std::string tag2 = CTagsManager::get().getTagName(c_tag->tags[1]);
-            if (strcmp("floor", tag.c_str()) == 0) {
-
-            }
-        }
+    if (!source_of_impact)
+      return;
+    TCompDynamicInstance* dyn_ = source_of_impact->get<TCompDynamicInstance>();
+    if (dyn_) {
+      TCompTransform* c_trans = get<TCompTransform>();
+      TMsgDamage msg;
+      // Who sent this bullet
+      msg.h_sender = CHandle(this).getOwner();
+      msg.h_bullet = CHandle(this).getOwner();
+      msg.position = c_trans->getPosition() + VEC3::Up;
+      msg.senderType = PLAYER;
+      msg.intensityDamage = movementDirection.Length();
+      msg.impactForce = movementDirection.Length();
+      msg.damageType = MELEE;
+      msg.targetType = ENEMIES;
+      source_of_impact->sendMsg(msg);
     }
 }
 

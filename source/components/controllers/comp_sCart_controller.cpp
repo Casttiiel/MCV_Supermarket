@@ -409,7 +409,7 @@ void TCompSCartController::grounded(float delta) {
 	else if (!isGrounded() && dir == VEC3()) { //FALLING
     //TRANSMITIR FUERZAS AL RIGID BODY
     air_dir.Normalize();
-    r_body->addForce(air_dir * rowImpulseLeft);
+    r_body->addForce(air_dir * rowImpulseLeft * 1.5f);
 		ChangeState("SCART_ON_AIR");
 	}
 

@@ -98,7 +98,6 @@ void CModuleScripting::doBingings() {
 	BindEnemiesInTube();
 	BindName();
 	BindGolem();
-	BindEnemySpawnerSpecial();
 	BindEnemySpawner();
 	BindPointLights();
 	BindFlickering();
@@ -150,6 +149,7 @@ void CModuleScripting::BindGameController() {
         .set("resumeSoundtrack", &CModuleGameController::resumeSoundtrack)
         .set("updateSoundtrackID", &CModuleGameController::updateSoundtrackID)
         .set("setSoundtrackVolume", &CModuleGameController::setSoundtrackVolume)
+    .set("setAmbient", &CModuleGameController::updateAmbientLight)
 		.set("entityByName", &CModuleGameController::entityByName)
 		.set("dbgInLua", &CModuleGameController::dbgInLua)
 		.set("setHeightEnemyByHandle", &CModuleGameController::setHeightEnemyByHandle)
@@ -182,7 +182,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompTransform", SLB::FuncCall::create(&toCompTransform));
 	m->set("toCompCamera", SLB::FuncCall::create(&toCompCamera));
 	m->set("toCBTGolem", SLB::FuncCall::create(&toCBTGolem));
-	m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
+	//m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
 	m->set("toCompSelfDestroy", SLB::FuncCall::create(&toCompSelfDestroy));
 	m->set("toCBTCupcake", SLB::FuncCall::create(&toCBTCupcake));
 	m->set("toCompEnemySpawner", SLB::FuncCall::create(&toCompEnemySpawner));
@@ -258,7 +258,7 @@ void CModuleScripting::BindGolem() {
 
 
 
-
+/*
 void CModuleScripting::BindEnemySpawnerSpecial() {
 	SLB::Class<TCompEnemySpawnerSpecialTrap>("TCompEnemySpawnerSpecialTrap", m)
 		.comment("This is ouTCompEnemySpawnerSpecialTrapr wrapper of TCompEnemySpawnerSpecialTrap class")
@@ -266,7 +266,7 @@ void CModuleScripting::BindEnemySpawnerSpecial() {
 		.property("working", &TCompEnemySpawnerSpecialTrap::working)
 		.set("setSpawnDelay", &TCompEnemySpawnerSpecialTrap::setSpawnDelay)
 		;
-}
+}*/
 
 
 void CModuleScripting::BindEnemySpawner() {
