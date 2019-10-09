@@ -228,7 +228,7 @@ struct TSampleDataGenerator {
       CEntity* e = h_prefab.second;
       TCompRender* c_render = e->get<TCompRender>();
       CHandle h(c_render);
-      h.destroy();
+      //h.destroy();
 
       TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
       CHandle h2(c_absaabb);
@@ -357,7 +357,6 @@ struct TSampleDataGenerator {
             scene_prefabs.insert(std::pair<const std::string, CHandle>(temp_prefab_name, h_e));
 
             //ADD DATA TO MODULE GPU CULLING
-            mod->setupMapIndexes(filename);
             addPrefabToModule(h_e, j_transform);
           }
           else { //ALREADY PARSED GPU PREFAB
@@ -376,7 +375,6 @@ struct TSampleDataGenerator {
             std::string a = n->getName();
 
             //ADD DATA TO MODULE GPU CULLING
-            mod->setupMapIndexes(filename);
             addPrefabToModule(scene_prefabs.at(temp_prefab_name), j_transform);
           }
         }
@@ -479,37 +477,6 @@ struct TSampleDataGenerator {
 
 TSampleDataGenerator sample_data;
 
-void CModuleGPUCulling::setupMapIndexes(const std::string& filename) {
-  if (strcmp(filename.c_str(),"data/scenes/mapa_panaderia.json") == 0) {
-    int val = objs.size();
-    if (first_panaderia_index > val)
-      first_panaderia_index = val;
-    if (last_panaderia_index < val)
-      last_panaderia_index = val;
-  }
-  else if (strcmp(filename .c_str(),"data/scenes/mapa_congelados.json") == 0) {
-    int val = objs.size();
-    if (first_congelados_index > val)
-      first_congelados_index = val;
-    if (last_congelados_index < val)
-      last_congelados_index = val;
-  }
-  else if (strcmp(filename.c_str(),"data/scenes/mapa_asiatica.json") == 0) {
-    int val = objs.size();
-    if (first_asiatica_index > val)
-      first_asiatica_index = val;
-    if (last_asiatica_index < val)
-      last_asiatica_index = val;
-  }
-  else if (strcmp(filename.c_str(), "data/scenes/mapa_carnes.json") == 0) {
-    int val = objs.size();
-    if (first_carnes_index > val)
-      first_carnes_index = val;
-    if (last_carnes_index < val)
-      last_carnes_index = val;
-  }
-}
-
 void CModuleGPUCulling::parseEntities(const std::string& filename, TEntityParseContext& ctx) {
   sample_data.create(filename, ctx);
 }
@@ -534,114 +501,6 @@ void CModuleGPUCulling::clear() {
     return;
   #endif
   sample_data.deleteProductPrefabs();
-}
-
-void CModuleGPUCulling::deleteScene(const std::string& filename) {
-  if (strcmp(filename.c_str(), "data/scenes/mapa_panaderia.json") == 0) {
-    uint32_t tag_id = getID("data/scenes/mapa_panaderia.json");
-
-    //for the GPU / render
-    objs.erase(objs.begin() + first_panaderia_index, objs.begin() + last_panaderia_index + 1);
-
-    //for the CPU / update / collision
-    //CTagsManager::get().registerTagName(tag_id, filename.c_str());
-    getObjectManager<TCompTags>()->forEach([tag_id](TCompTags* t) {
-      if (t->hasTag(tag_id)) {
-        //add a self_destroy component
-        CHandle h_del = getObjectManager<TCompSelfDestroy>()->createHandle();
-        CHandle h_t = t;
-        CEntity* e = h_t.getOwner();
-        e->set(h_del.getType(), h_del);
-        TCompSelfDestroy* c_self = h_del;
-        c_self->enable();
-      }
-    });
-
-    //correr los indices de la siguiente zona
-    int deletionLength = (last_panaderia_index - first_panaderia_index) + 1;
-
-    first_congelados_index -= deletionLength;
-    last_congelados_index -= deletionLength;
-
-    is_dirty = true;
-
-    first_panaderia_index = 5000;
-    last_panaderia_index = -1;
-
-    //this will make the game to not update
-    Time.actual_frame = 0;
-  }
-  else if (strcmp(filename.c_str(), "data/scenes/mapa_congelados.json") == 0) {
-    uint32_t tag_id = getID("data/scenes/mapa_congelados.json");
-
-    //for the GPU / render
-    objs.erase(objs.begin() + first_congelados_index, objs.begin() + last_congelados_index + 1);
-
-    //for the CPU / update / collision
-    getObjectManager<TCompTags>()->forEach([tag_id](TCompTags* t) {
-      if (t->hasTag(tag_id)) {
-        //add a self_destroy component
-        CHandle h_del = getObjectManager<TCompSelfDestroy>()->createHandle();
-        CHandle h_t = t;
-        CEntity* e = h_t.getOwner();
-        TCompSelfDestroy* e_sd = e->get<TCompSelfDestroy>();
-        if (e_sd) {
-          e_sd->enable();
-        }
-        else {
-          e->set(h_del.getType(), h_del);
-          TCompSelfDestroy* c_self = h_del;
-          c_self->enable();
-        }        
-      }
-     });
-
-    is_dirty = true;
-
-    int deletionLength = (last_congelados_index - first_congelados_index) + 1;
-    /*if (first_prod_index != 5000 && last_prod_index != -1)
-      deletionLength += last_prod_index - first_prod_index;*/
-    first_asiatica_index -= deletionLength;
-    last_asiatica_index -= deletionLength;
-    first_prod_index -= deletionLength;
-    last_prod_index -= deletionLength;
-
-    first_congelados_index = 5000;
-    last_congelados_index = -1;
-
-    //this will make the game to not update
-    Time.actual_frame = 0;
-  }
-}
-
-void CModuleGPUCulling::deleteActualProducts() {
-  if (first_prod_index == 5000 && last_prod_index == -1)
-    return;
-
-  //for the GPU / render
-  objs.erase(objs.begin() + first_prod_index, objs.begin() + last_prod_index + 1);
-
-  //for the CPU / update / collision
-  getObjectManager<TCompDynamicInstance>()->forEach([](TCompDynamicInstance* di) {
-    TCompName* c_name = di->get<TCompName>();
-    std::string str = c_name->getName();
-    if (str.find("line")!= std::string::npos) {
-      TCompSelfDestroy* c_sd = di->get<TCompSelfDestroy>();
-      c_sd->enable();
-    }
-  });
-
-  is_dirty = true;
-
-  int deletionLength = (last_prod_index - first_prod_index) + 1;
-  first_congelados_index -= deletionLength;
-  last_congelados_index -= deletionLength;
-
-  first_prod_index = 5000;
-  last_prod_index = -1;
-
-  //this will make the game to not update
-  Time.actual_frame = 0;
 }
 
 int CModuleGPUCulling::getObjSize() { 
@@ -915,15 +774,7 @@ void CModuleGPUCulling::updateCullingPlanes(const CCamera& camera) {
 // ---------------------------------------------------------------
 void CModuleGPUCulling::renderInMenu() {
   if (ImGui::TreeNode("GPU Culling")) {
-    if (ImGui::SmallButton("Delete actual Products")) {
-      deleteActualProducts();
-    }
     ImGui::Text("%ld objects", (uint32_t)objs.size());
-    ImGui::Text("from %ld to %ld products: %ld", first_prod_index, last_prod_index, last_prod_index - first_prod_index + 1);
-    ImGui::Text("from %ld to %ld panaderia objects: %ld", first_panaderia_index, last_panaderia_index, last_panaderia_index - first_panaderia_index + 1);
-    ImGui::Text("from %ld to %ld congelados objects: %ld", first_congelados_index, last_congelados_index, last_congelados_index - first_congelados_index + 1);
-    ImGui::Text("from %ld to %ld asiatica objects: %ld", first_asiatica_index, last_asiatica_index, last_asiatica_index - first_asiatica_index + 1);
-    ImGui::Text("from %ld to %ld carnes objects: %ld", first_carnes_index, last_carnes_index, last_carnes_index - first_carnes_index + 1);
     ImGui::Checkbox("Show Debug", &show_debug);
 
     if (ImGui::TreeNode("All objs...")) {
@@ -1065,14 +916,63 @@ void CModuleGPUCulling::run() {
   comp_compute.executions[0].run(&comp_buffers);
 }
 
+void CModuleGPUCulling::runWithCustomCamera(const CCamera& light_camera) {
+  CVertexShader::deactivateResources();
+  CGpuScope gpu_scope("GPU Culling Lights");
+
+  // Just before starting the cs tasks, get the current data of the camera
+  MAT44 m = light_camera.getViewProjection().Transpose();
+  VEC4 mx(m._11, m._12, m._13, m._14);
+  VEC4 my(m._21, m._22, m._23, m._24);
+  VEC4 mz(m._31, m._32, m._33, m._34);
+  VEC4 mw(m._41, m._42, m._43, m._44);
+  culling_planes.planes[0] = (mw + mx);
+  culling_planes.planes[1] = (mw - mx);
+  culling_planes.planes[2] = (mw + my);
+  culling_planes.planes[3] = (mw - my);
+  culling_planes.planes[4] = (mw + mz);      // + mz if frustum is 0..1
+  culling_planes.planes[5] = (mw - mz);
+  culling_planes.CullingCameraPos = light_camera.getPosition();
+
+  // Upload culling planes to GPU
+  comp_buffers.getCteByName("TCullingPlanes")->updateGPU(&culling_planes);
+
+  if (is_dirty) {
+    gpu_objs->copyCPUtoGPUFrom(objs.data());
+
+    preparePrefabs();
+
+    // Notify total number of objects we must try to cull
+    ctes_instancing.total_num_objs = (uint32_t)objs.size();
+    gpu_ctes_instancing->updateGPU(&ctes_instancing);
+
+    is_dirty = false;
+  }
+
+  clearRenderDataInGPU();
+
+  // Run the culling in the GPU
+  comp_compute.executions[0].sizes[0] = (uint32_t)objs.size();
+  comp_compute.executions[0].run(&comp_buffers);
+  CComputeShader::deactivate();
+}
+
 // ---------------------------------------------------------------
 // This is called when from the RenderManager
 void CModuleGPUCulling::renderCategory(eRenderCategory category) {
   CGpuScope gpu_scope("GPU Culling");
 
   // Right now only supporting solids
-  if (category != eRenderCategory::CATEGORY_SOLIDS)
+  if (category != eRenderCategory::CATEGORY_SOLIDS && category != eRenderCategory::CATEGORY_SHADOWS)
     return;
+
+  if (category == eRenderCategory::CATEGORY_SOLIDS) {
+    CGpuScope gpu_scope("Compute Shaders AGAIN");
+    // Can't update a buffer if it's still bound as vb. So unbound it.
+    CVertexShader::deactivateResources();
+    Engine.getGPUCulling().run();
+    CComputeShader::deactivate();
+  }
 
   // Activate in the vs
   assert(gpu_ctes_instancing->slotIndex() == 13);

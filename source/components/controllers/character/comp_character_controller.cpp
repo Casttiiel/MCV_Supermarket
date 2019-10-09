@@ -1563,8 +1563,6 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  CEntity* entity = EngineEntities.getInventoryHandle();
 		  TCompInventory* inventory = entity->get<TCompInventory>();
 		  inventory->setChilli(true);
-		  //unLockableChilli = true;
-      //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
       EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
       /*CEntity* e1 = getEntityByName("Hielo2_LP");
       TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();

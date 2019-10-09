@@ -73,7 +73,7 @@ void TCompSkelLookAtDirection::update(float dt) {
   else if (sign(targ_amount - amount) < 0.0f && amount < targ_amount) {
     amount = targ_amount;
   }
-  if (abs(amount) < 0.05) {
+  if (abs(amount) < 0.05 && targ_amount == 0.0f) {
     amount = 0.0f;
   }
 

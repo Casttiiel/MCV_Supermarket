@@ -21,7 +21,6 @@ namespace Input
   class CModuleInput;
 }
 class CModuleRender;
-class CModuleGPUCullingRender;
 class CModuleCameraMixer;
 class CModuleLogic;
 class CModuleCameraShaker;
