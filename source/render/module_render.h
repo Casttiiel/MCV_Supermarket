@@ -7,6 +7,7 @@ class CModuleRender : public IModule
 {
   VEC4 clear_color = VEC4(0.142f, 0.142f, 0.142f, 1);
   void renderEntities();
+  float new_ambient = 0.3f;
 
   CHandle h_camera;
   CCamera camera;
@@ -35,6 +36,7 @@ public:
   void endImgui();
   void generateFrame();
   void onResolutionUpdated();
+  void setNewAmbient(float a) { new_ambient = a; }
 
   CHandle getCamera() { return h_camera; }
 };

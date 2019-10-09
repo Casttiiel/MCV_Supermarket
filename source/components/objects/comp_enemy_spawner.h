@@ -54,15 +54,14 @@ private:
 	void enable(const TMsgEntityTriggerEnter & msg);
 	void disable(const TMsgEntityTriggerExit & msg);
 	void onBattery(const TMsgGravity & msg);
-	void onDamage(const TMsgDamage & msg); //TODO ELIMINAR
 	void onCheckout(const TMsgSpawnerCheckout & msg);
+  void onCreation(const TMsgEntityCreated& msgC);
 	AudioEvent audio;
 
 	int comportamentNormal = 0;
 
 	bool scriptTriggerActivate = false;
 	std::string curveForCupcake = "";
-	
 
 };
 

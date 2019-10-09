@@ -14,6 +14,7 @@
 #include "components/vfx/comp_bolt_sphere.h"
 #include "components/vfx/comp_bolt_billboard.h"
 #include "components/vfx/comp_bolt_aura_billboard.h"
+#include "components/common/comp_dynamic_instance.h"
 
 using namespace physx;
 
@@ -197,105 +198,113 @@ void TCompBatteryController::update(float delta) {
               ++i;
             }
           }
+          //RADIO DE GRAVEDAD
+          TCompTransform* c_trans = get<TCompTransform>();
+          PxSphereGeometry geometry(battery_radius_hit);
+          Vector3 pos = c_trans->getPosition() + (Vector3().Up * gravityOriginHeight);
+          PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+
+          const PxU32 bufferSize = 256;
+          PxOverlapHit hitBuffer[bufferSize];
+          PxOverlapBuffer buf(hitBuffer, bufferSize);
+          PxTransform shapePose = PxTransform(VEC3_TO_PXVEC3(pos), ori);
+
+          PxQueryFilterData filter_data = PxQueryFilterData();
           if (enemiesCatchBattery.size() < maxEnemiesAffected) {
-            //RADIO DE GRAVEDAD
-            TCompTransform* c_trans = get<TCompTransform>();
-            PxSphereGeometry geometry(battery_radius_hit);
-            Vector3 pos = c_trans->getPosition() + (Vector3().Up * gravityOriginHeight);
-            PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
-
-            const PxU32 bufferSize = 256;
-            PxOverlapHit hitBuffer[bufferSize];
-            PxOverlapBuffer buf(hitBuffer, bufferSize);
-            PxTransform shapePose = PxTransform(VEC3_TO_PXVEC3(pos), ori);
-
-            PxQueryFilterData filter_data = PxQueryFilterData();
             filter_data.data.word0 = EnginePhysics.Enemy;
+          }
+          filter_data.data.word0 = filter_data.data.word0 | EnginePhysics.Product;
 
-            bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
-            if (res) {
-              for (PxU32 i = 0; i < buf.nbTouches; i++) {
-                CHandle h_comp_physics;
-                h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
-                CEntity* entityContact = h_comp_physics.getOwner();
-                if (entityContact && enemiesCatchBattery.size() < maxEnemiesAffected) {
-                  TMsgGravity msg;
-                  msg.h_sender = h_sender;      // Who send this bullet
-                  msg.h_bullet = CHandle(this).getOwner(); // The bullet information
-                  msg.position = PXVEC3_TO_VEC3(pos);
-                  msg.time_effect = timeEffect;
-                  msg.distance = distance;
-                  msg.attractionForce = atractionForce;
-                  CEntity* entityEnemyDamage = entityContact;
-                  //dbg("Entity Enemy %s\n", entityEnemyDamage->getName());
+          bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
+          if (res) {
+            for (PxU32 i = 0; i < buf.nbTouches; i++) {
+              CHandle h_comp_physics;
+              h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
+              CEntity* entityContact = h_comp_physics.getOwner();
+              if (entityContact) {
+                TMsgGravity msg;
+                msg.h_sender = h_sender;      // Who send this bullet
+                msg.h_bullet = CHandle(this).getOwner(); // The bullet information
+                msg.position = PXVEC3_TO_VEC3(pos);
+                msg.time_effect = timeEffect;
+                msg.distance = distance;
+                msg.attractionForce = atractionForce;
+                CEntity* entityEnemyDamage = entityContact;
+                //dbg("Entity Enemy %s\n", entityEnemyDamage->getName());
+                TCompDynamicInstance* c_di = entityEnemyDamage->get<TCompDynamicInstance>();
+                if (!c_di && enemiesCatchBattery.size() < maxEnemiesAffected) {//si es un enemigo y puedo afectarle
                   enemiesCatchBattery.push_back(h_comp_physics);
-                  entityEnemyDamage->sendMsg(msg);
-
                   //spawn here a bolt from this to the enemy
                   //spawn a bolt from the sphere to this
-                  bool found = false;
-                  std::list<CHandle>::iterator it = enemiesBolt.begin();
-                  while (it != enemiesBolt.end())
-                  {
-                    if ((*it) == h_comp_physics) {
-                      found = true;
-                      break;
-                    }
-                    ++it;
-                  }
-                  PxShape* colShape;
-                  buf.getAnyHit(i).actor->getShapes(&colShape, 1, 0);
-                  PxFilterData col_filter_data = colShape->getSimulationFilterData();
-
-                  if (!found) {
-                    TEntityParseContext ctx;
-                    parseScene("data/prefabs/vfx/bolt.json", ctx);
-                    CEntity* curr_e2 = ctx.current_entity;
-                    if (entityContact) {
-                      TCompSelfDestroy* c_sdes2 = curr_e2->get<TCompSelfDestroy>();
-                      c_sdes2->setDelay(limitTime);
-                      TCompBoltBillboard* c_bbill = curr_e2->get<TCompBoltBillboard>();
-                      CEntity* e_bolt = getEntityByName("BoltSphere");
-                      c_bbill->setTargetPosition(e_bolt);
-                      c_bbill->setTargetAim(entityContact);
-                    }
-                    enemiesBolt.push_back(h_comp_physics);
-                  }
-
-                  //TODO: si fire esta activado enviar mensaje de damage cada x tiempo
-                  if (batteryFire) {
-                    if (fireTime <= 0) {
-                      fireTime = fireTimeMax;
-                      TMsgDamageToAll msgDamage;
-                      //msgDamage.intensityDamage = fireDamage;
-                      //entityEnemyDamage->sendMsg(msgDamage);
-                      for (auto&& enemy : enemiesCatchBattery) {
-                        msgDamage.intensityDamage = fireDamage;
-                        CEntity* enemyCaught = enemy;
-                        enemyCaught->sendMsg(msgDamage);
-                        //dbg("Entity Enemy %s\n", enemy->getName());
+                    bool found = false;
+                    std::list<CHandle>::iterator it = enemiesBolt.begin();
+                    while (it != enemiesBolt.end())
+                    {
+                      if ((*it) == h_comp_physics) {
+                        found = true;
+                        break;
                       }
-                      //dbg("Entity Enemy %s\n",entityEnemyDamage->getName());
-                      //dbg("damage de fuego desde la pila enviado al enemigo \n");
+                      ++it;
                     }
-                    else {
-                      fireTime -= delta;
-                    }
-                  }
+                    PxShape* colShape;
+                    buf.getAnyHit(i).actor->getShapes(&colShape, 1, 0);
+                    PxFilterData col_filter_data = colShape->getSimulationFilterData();
 
+                    if (!found) {
+                      TEntityParseContext ctx;
+                      parseScene("data/prefabs/vfx/bolt.json", ctx);
+                      CEntity* curr_e2 = ctx.current_entity;
+                      if (entityContact) {
+                        TCompSelfDestroy* c_sdes2 = curr_e2->get<TCompSelfDestroy>();
+                        c_sdes2->setDelay(limitTime);
+                        TCompBoltBillboard* c_bbill = curr_e2->get<TCompBoltBillboard>();
+                        CEntity* e_bolt = getEntityByName("BoltSphere");
+                        c_bbill->setTargetPosition(e_bolt);
+                        c_bbill->setTargetAim(entityContact);
+                      }
+                      enemiesBolt.push_back(h_comp_physics);
+                    }
+                    entityEnemyDamage->sendMsg(msg);
                 }
-              }
-              if (timeEffect > 0) {
-                timeEffect -= delta;
-              }
-              else {
-                timeEffect = 0;
-                batteryFire = false;
+                else if (c_di) {
+                  entityEnemyDamage->sendMsg(msg);
+                }
+
+                
+
+                //TODO: si fire esta activado enviar mensaje de damage cada x tiempo
+                if (batteryFire) {
+                  if (fireTime <= 0) {
+                    fireTime = fireTimeMax;
+                    TMsgDamageToAll msgDamage;
+                    //msgDamage.intensityDamage = fireDamage;
+                    //entityEnemyDamage->sendMsg(msgDamage);
+                    for (auto&& enemy : enemiesCatchBattery) {
+                      msgDamage.intensityDamage = fireDamage;
+                      CEntity* enemyCaught = enemy;
+                      enemyCaught->sendMsg(msgDamage);
+                      //dbg("Entity Enemy %s\n", enemy->getName());
+                    }
+                    //dbg("Entity Enemy %s\n",entityEnemyDamage->getName());
+                    //dbg("damage de fuego desde la pila enviado al enemigo \n");
+                  }
+                  else {
+                    fireTime -= delta;
+                  }
+                }
+
               }
             }
-            pulseTimer = pulseDelay;
-            dbg("Battery pulses\n");
+            if (timeEffect > 0) {
+              timeEffect -= delta;
+            }
+            else {
+              timeEffect = 0;
+              batteryFire = false;
+            }
           }
+          pulseTimer = pulseDelay;
+          dbg("Battery pulses\n");
         }
         else {
           pulseTimer -= delta;

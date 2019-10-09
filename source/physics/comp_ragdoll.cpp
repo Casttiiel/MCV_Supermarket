@@ -13,7 +13,7 @@
 #include "skeleton/cal3d2engine.h"
 #include "engine.h"
 
-DECL_OBJ_MANAGER("ragdoll", TCompRagdoll);
+//DECL_OBJ_MANAGER("ragdoll", TCompRagdoll);
 
 // Simplify this
 #include "resources/resource.h"
@@ -36,7 +36,7 @@ void TCompRagdoll::load(const json& j, TEntityParseContext& ctx) {
 }
 
 void TCompRagdoll::onCreated(const TMsgEntityCreated&) {
-	EnginePhysics.createRagdoll(*this);
+	//EnginePhysics.createRagdoll(*this);
 }
 
 void TCompRagdoll::updateRagdollFromSkeleton() {

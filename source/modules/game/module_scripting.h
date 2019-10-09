@@ -42,7 +42,6 @@ public:
 	void BindCamera();
 	void BindGolem();
 	void BindEnemySpawner();
-	void BindEnemySpawnerSpecial();
 	void BindSelfDestroy();
 	void BindPointLights();
 	void BindFlickering();

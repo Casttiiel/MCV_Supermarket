@@ -15,18 +15,16 @@ struct TCompSkelLookAtDirection : public TCompBase {
 
   VEC3        target = VEC3().Zero;
   float       amount = 0.f;
+  float       angle = 90.f;
   float       target_transition_factor = 0.95f;
   VEC3        dir;
-  VEC3        default_dir = VEC3().Zero;
-  float       positionOffset = 20.f;
 
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
   void debugInMenu();
   void renderDebug();
+  void getInputDir(VEC2& dir);
 
-  void setDirection(VEC3 direction);
-  void setDefaultDirection(VEC3 defaultDirection);
   DECL_SIBLING_ACCESS();
 };
 

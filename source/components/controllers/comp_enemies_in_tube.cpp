@@ -4,6 +4,7 @@
 #include "modules/game/module_game_controller.h"
 #include "engine.h"
 #include "components/ai/bt/bt_cupcake.h"
+
 DECL_OBJ_MANAGER("enemies_in_tube", TCompEnemiesInTube);
 
 void TCompEnemiesInTube::debugInMenu() {
@@ -29,13 +30,6 @@ void TCompEnemiesInTube::load(const json& j, TEntityParseContext& ctx) {
   enemiesPosition.push_back(VEC3(27.714, 9.143, -7.335));
   enemiesPosition.push_back(VEC3(27.714, 9.143, 5.790));
   enemiesPosition.push_back(VEC3(18.064, 9.143, 5.890));
-  /*
-  h1 = GameController.spawnPrefab("data/particles/smoke_tube1.json", VEC3(), QUAT(0, 0, 0, 1), 1);
-  h2 = GameController.spawnPrefab("data/particles/smoke_tube3.json", VEC3(), QUAT(0, 0, 0, 1), 1);
-  h3 = GameController.spawnPrefab("data/particles/smoke_tube2.json", VEC3(), QUAT(0, 0, 0, 1), 1);
-  h4 = GameController.spawnPrefab("data/particles/smoke_tube4.json", VEC3(), QUAT(0, 0, 0, 1), 1);
-  */
-
 }
 
 

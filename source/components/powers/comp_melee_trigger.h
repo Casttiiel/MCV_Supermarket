@@ -11,6 +11,7 @@ class TCompMeleeTrigger : public TCompBase {
 	DECL_SIBLING_ACCESS();
 	void onCollision(const TMsgEntityTriggerEnter& msg);
   void onCollisionOut(const TMsgEntityTriggerExit& msg);
+  void expansiveWave();
 
 
 public:

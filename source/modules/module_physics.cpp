@@ -103,7 +103,7 @@ PxRigidActor* CModulePhysics::createController(TCompCollider& comp_collider) {
   capsuleDesc.radius = jconfig.value("radius", 1.f);
   capsuleDesc.climbingMode = PxCapsuleClimbingMode::eEASY;
   capsuleDesc.material = gMaterial;
-  capsuleDesc.stepOffset = 0.05;
+  capsuleDesc.stepOffset = 0.01;
   capsuleDesc.contactOffset = 0.01f;
   capsuleDesc.reportCallback = &customUserControllerHitReport;
   capsuleDesc.behaviorCallback = &customControllerBehaviorCallback;
@@ -361,6 +361,7 @@ void CModulePhysics::createActor(TCompCollider& comp_collider)
     }
   }
 }
+/*
 void CModulePhysics::createRagdoll(TCompRagdoll& comp_ragdoll) {
   if (comp_ragdoll.ragdoll.created)
     return;
@@ -429,7 +430,8 @@ void CModulePhysics::createRagdoll(TCompRagdoll& comp_ragdoll) {
   comp_ragdoll.ragdoll.created = true;
 
 }
-
+*/
+/*
 void CModulePhysics::createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id) {
   TRagdoll::TRagdollBone& ragdoll_bone = comp_ragdoll.ragdoll.bones[bone_id];
 
@@ -504,9 +506,7 @@ void CModulePhysics::createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id
     hinge->setLimit(physx::PxJointAngularLimitPair(-PxPi / 4, PxPi / 4, 0.01f));
     hinge->setRevoluteJointFlag(PxRevoluteJointFlag::eLIMIT_ENABLED, true);
     }
-    */
 
-    /*
     //fixed joint
     joint = PxFixedJointCreate(mScene->getPhysics(), ragdoll_bone.actor, tr0, child_ragdoll_bone.actor, tr1);
     assert(joint);
@@ -516,7 +516,7 @@ void CModulePhysics::createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id
     fixed_joint->setProjectionLinearTolerance(0.1f);
     fixed_joint->setProjectionAngularTolerance(0.01f);
     }
-    */
+    
     if (joint)
     {
       joint->setConstraintFlag(PxConstraintFlag::eVISUALIZATION, true);
@@ -528,7 +528,7 @@ void CModulePhysics::createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id
     createRagdollJoints(comp_ragdoll, child_id);
   }
 
-}
+}*/
 //-------------------------------------------------------------------
 
 
@@ -991,7 +991,7 @@ PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getB
 	bool isPlatform = jconfig.value("platform", false);
 	if (isPlatform) {
 		return PxControllerBehaviorFlag::eCCT_CAN_RIDE_ON_OBJECT;
-	}
+  }
 		
 	return PxControllerBehaviorFlags(0);
 }
