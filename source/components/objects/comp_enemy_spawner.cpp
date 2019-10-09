@@ -102,7 +102,6 @@ void TCompEnemySpawner::onCheckout(const TMsgSpawnerCheckout & msg) {
 
 
 void TCompEnemySpawner::update(float dt) {
-  castParticles(dt);
   TCompTransform* c_trans = get<TCompTransform>();
   if(c_trans)
       audio.set3DAttributes(*c_trans);

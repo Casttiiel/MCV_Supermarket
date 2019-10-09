@@ -135,13 +135,6 @@ void TCompCharacterController::load(const json& j, TEntityParseContext& ctx) {
     speed = j.value("speed", speed);
     rotation_speed = j.value("rotation_sensibility", rotation_speed);
     distance_to_aim = j.value("distance_to_aim", distance_to_aim);
-
-	/*
-    unLockableBattery = j.value("unLockableBattery", unLockableBattery);
-	unLockableTeleport = j.value("unLockableTeleport", unLockableTeleport);
-	unLockableCoffe = j.value("unLockableCoffe", unLockableCoffe);
-	unLockableChilli = j.value("unLockableChilli", unLockableChilli);
-	*/
 	
 }
 
@@ -790,6 +783,10 @@ void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool s
     dir.Normalize(norm_dir);
 
     float elapsed = 1.0f;
+    if (last_frame_aiming && !aiming) {
+      rotation_from_aim = 0.25f;
+    }
+      
 
     if ((dir.x != 0.0f || dir.z != 0.0f) && (!aiming || start_dash)) { //ROTATE PLAYER WHERE HE WALKS
                                                                        //And also rotate the player on the direction its facing
@@ -798,11 +795,12 @@ void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool s
 
         float wanted_yaw = c_trans->getDeltaYawToAimTo(player_pos + dir);
 
-        if (!start_dash)
-            elapsed = Time.delta_unscaled * rotation_speed;
+        elapsed = Time.real_scale_factor;
+        if (rotation_from_aim > 0.f)
+            elapsed = Time.delta_unscaled * rotation_speed * 2.0f;
 
         if (abs(wanted_yaw) > 0.01)
-            c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + wanted_yaw * Time.real_scale_factor, pitch, 0.0f));
+            c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + wanted_yaw * elapsed, pitch, 0.0f));
     }
     else if (aiming && !start_dash) { //ROTATE PLAYER WHERE THE CAMERA LOOKS
         float yaw, pitch;
@@ -811,11 +809,14 @@ void TCompCharacterController::rotatePlayer(const VEC3 &dir, float delta, bool s
         float wanted_yaw = c_trans->getDeltaYawToAimTo(player_pos + camera_front);
 
         if (!start_dash)
-            elapsed = Time.delta_unscaled * rotation_speed * 2.0f;
+            elapsed = Time.delta_unscaled * rotation_speed;
 
         if (abs(wanted_yaw) > 0.01)
             c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + wanted_yaw * elapsed, pitch, 0.0f));
     }
+
+    rotation_from_aim -= delta;
+    last_frame_aiming = aiming;
 }
 
 bool TCompCharacterController::isGrounded() {

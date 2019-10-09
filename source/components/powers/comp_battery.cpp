@@ -253,6 +253,7 @@ void TCompBatteryController::update(float delta) {
                       }
                       enemiesBolt.push_back(h_comp_physics);
                     }
+                    entityEnemyDamage->sendMsg(msg);
                 }
                 else if (c_di) {
                   entityEnemyDamage->sendMsg(msg);

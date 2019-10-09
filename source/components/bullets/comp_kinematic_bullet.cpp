@@ -31,12 +31,48 @@ void TCompKinematicBullet::registerMsgs() {
 }
 
 
+void TCompKinematicBullet::expansiveWave() {
+  TCompTransform* c_trans = get<TCompTransform>();
+  PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+  PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+  PxSphereGeometry geometry(5.0f);
+  const PxU32 bufferSize = 256;
+  PxOverlapHit hitBuffer[bufferSize];
+  PxOverlapBuffer buf(hitBuffer, bufferSize);
+  PxTransform shapePose = PxTransform(pos, ori);
+  PxQueryFilterData filter_data = PxQueryFilterData();
+  filter_data.data.word0 = EnginePhysics.Product;
+  bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
+  if (res) {
+    for (PxU32 i = 0; i < buf.nbTouches; i++) {
+      CHandle h_comp_physics;
+      h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
+      CEntity* entityContact = h_comp_physics.getOwner();
+      if (entityContact) {
+        TMsgDamage msg;
+        // Who sent this bullet
+        msg.h_sender = CHandle(this).getOwner();
+        msg.h_bullet = CHandle(this).getOwner();
+        msg.position = c_trans->getPosition() + VEC3::Up;
+        msg.senderType = PLAYER;
+        msg.intensityDamage = 5.0f;
+        msg.impactForce = 5.0f;
+        msg.damageType = MELEE;
+        msg.targetType = ENEMIES;
+        entityContact->sendMsg(msg);
+      }
+    }
+  }
+}
+
+
 void TCompKinematicBullet::onCollision(const TMsgEntityTriggerEnter& msg) {
     if (!_isEnabled)
         return;
 
     CEntity* e_contact = (CEntity*)msg.h_entity;
     e_contact->sendMsg(_messageToTarget);
+    expansiveWave();
     if (_destroyOnCollission)
         _isEnabled = false;
     if (_audioOnHit != "") {

@@ -7,6 +7,7 @@
 #include "entity/entity_parser.h"
 #include "game_core_skeleton.h"
 #include "components/controllers/character/comp_character_controller.h"
+#include "input/module_input.h"
 
 DECL_OBJ_MANAGER("skel_lookat_direction", TCompSkelLookAtDirection);
 
@@ -18,37 +19,65 @@ void TCompSkelLookAtDirection::load(const json& j, TEntityParseContext& ctx) {
   target_transition_factor = j.value("target_transition_factor", target_transition_factor);
 }
 
-void TCompSkelLookAtDirection::setDirection(VEC3 direction) {
-    dir = direction;
-}
 
-void TCompSkelLookAtDirection::setDefaultDirection(VEC3 defaultDirection) {
-    default_dir = defaultDirection;
+void TCompSkelLookAtDirection::getInputDir(VEC2 & dir) {
+    if (EngineInput["front_"].isPressed()) {
+      dir += VEC2(0,1);
+    }
+    if (EngineInput["back_"].isPressed()) {
+      dir -= VEC2(0, 1);
+    }
+    if (EngineInput["left_"].isPressed()) {
+      dir -= VEC2(1, 0);
+    }
+    if (EngineInput["right_"].isPressed()) {
+      dir += VEC2(1, 0);
+    }
+
+    //GAMEPAD
+    if (EngineInput.gamepad()._connected) {
+      //TO CORRECT A BUG WITH GAMEPAD CONNECTED WITH KEYBOARD
+      if (!EngineInput["w"].isPressed())
+        dir += VEC2(0, 1) * EngineInput["front_"].value;
+
+      if (!EngineInput["a"].isPressed())
+        dir += VEC2(1, 0) * EngineInput["left_"].value;
+    }
+
+    dir.Normalize();
+  
+
 }
 
 void TCompSkelLookAtDirection::update(float dt) {
   TCompSkeleton* c_skel = h_skeleton;
-  /*
-  if (target == VEC3().Zero) {
-    TCompTransform* c_trans = get<TCompTransform>();
-    target = c_trans->getPosition() + (c_trans->getFront() * positionOffset);
-  }
+
+  VEC2 input_dir = VEC2::Zero;
+  getInputDir(input_dir);
+
   TCompCharacterController* c_c = get < TCompCharacterController>();
-  if (!c_c->aiming) {
-    //return;
+  float targ_amount = 0.0f;
+  if (input_dir != VEC2::Zero && c_c->aiming) {
+    float input_angle = atan2(input_dir.y, input_dir.x) - (M_PI / 2.0f);
+    targ_amount = input_angle / (-M_PI / 2.0f);
+
+    if (targ_amount > 1.0f) {//estamos caminando hacia atras
+      input_angle += M_PI;
+      targ_amount = input_angle / (-M_PI / 2.0f);
+    }
   }
-  // If we have a target direction, use it to assign a target position
-    // We should ensure the target position is not moving abruptly
-    // to avoid large changes in the skeleton reorientation
-    // make the target smoothly change between positions
-  //c_trans->getPosition() + (c_trans->getFront() * chargeSpeed * chargeDuration);
-  TCompTransform* c_trans = get<TCompTransform>();
-  if (c_trans == nullptr) {
-	  return;
+  amount = amount + sign(targ_amount - amount) * dt * 4.0f;
+  if (sign(targ_amount - amount) > 0.0f && amount > targ_amount) {
+    amount = targ_amount;
   }
-    VEC3 new_target = c_trans->getPosition() + (dir * positionOffset);
-    target = target * target_transition_factor + new_target * (1.0f - target_transition_factor);
-    */
+  else if (sign(targ_amount - amount) < 0.0f && amount < targ_amount) {
+    amount = targ_amount;
+  }
+  if (abs(amount) < 0.05) {
+    amount = 0.0f;
+  }
+
+
   if (c_skel == nullptr) {
     // Search the parent entity by name
     CEntity* e_entity = CHandle(this).getOwner();

@@ -68,7 +68,7 @@ public:
     CameraCollision = Scenario | TeleportableObj | ExplosiveObj | DestroyableWall | Spawner,
     VulnerableToMelee = Enemy | Puddle | DestroyableWall | Panel,
 	  NotSpawnerObjects = TeleportableObj | Enemy | Player,
-    VulnerableToFire = ExplosiveObj | Enemy | DestroyableWall,
+    VulnerableToFire = ExplosiveObj | Enemy | DestroyableWall | Scenario,
     VulnerableToExplosions = ExplosiveObj | Characters,
 	  ExplosiveAndTeleportable = ExplosiveObj | TeleportableObj,
 		All = -1
