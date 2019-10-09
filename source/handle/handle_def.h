@@ -21,8 +21,8 @@ class CHandle {
 
 public:
 
-  static const uint32_t num_bits_type = 8;      // 128 different component types 
-  static const uint32_t num_bits_index = 13;    // 16384 instances simultaneous
+  static const uint32_t num_bits_type = 7;      // 128 different component types 
+  static const uint32_t num_bits_index = 14;    // 16384 instances simultaneous
   static const uint32_t num_bits_age = 32 - num_bits_type - num_bits_index;
   static const uint32_t max_types = 1 << num_bits_type;   // 128
 

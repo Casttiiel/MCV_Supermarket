@@ -54,7 +54,6 @@ void TCompTrigger::onExit(const TMsgEntityTriggerExit & msg)
 		}
 	}
 
-  //Scripting.runScript(DEACTIVATE_GAMEPLAY_FRAGMENT,"ambush"); //pass a parameter here "\"ambush\""
 }
 
 
@@ -63,56 +62,25 @@ void TCompTrigger::onExit(const TMsgEntityTriggerExit & msg)
 void TCompTrigger::onEnter(const TMsgEntityTriggerEnter & msg)
 {
 
-	//PROFILE_SET_NFRAMES(3);
-	//PROFILE_FRAME_BEGINS();
-	//PROFILE_FUNCTION("onEnter");
-	//entras en trigger
+
 	if (onEnter_.length() > 0) {
 		CHandle entity = msg.h_entity;
 		if (entity == GameController.getPlayerHandle()) { //es el player
 			dbg("Player entra en trigger \n");
 			std::string params = onEnter_ + "_player()";
-			//de este palo ...Scripting.execEvent(GEvents::TRIGGER_ENTER, params);
 			Scripting.execEvent(Events::TRIGGER_ENTER, params, delay);
 		}
 		else {
 			CEntity * c_other = msg.h_entity;
 			std::string other_name = c_other->getName();
 			std::string params = onEnter_ + "_enemy";//por ejemplo
-			//dbg("------%s\n",params.c_str());
-			//dbg("------%s\n", other_name.c_str());//(" + other_name + ")"
+
 			Scripting.runScript(params, other_name , delay);
-			//Scripting.execEvent(Events::TRIGGER_ENTER, params, other_name, delay);
 		}
 	}
-	/*
-	CHandle h_player = GameController.getPlayerHandle();
-	if (msg.h_entity == h_player) {
-		dbg("Entra en el trigger \n");//temporal hasta que el exportador distinga entre triggerss
-		if (type==0) {
-			Scripting.runScript(ACTIVATE_SCENE, in_script); //pass a parameter here "\"ambush\""
-			
-			CEntity* e_player = (CEntity*)h_player;
-			TCompBlackboard* c_bb = e_player->get<TCompBlackboard>();
-			if (c_bb->getNumTermostatesBroken() == 1) { //un termostato esta destruido
-				Scripting.runScript(ACTIVE_SUSHIS, "true");
-			}
-
-
-		}
-		else if (type==1) {
-			Scripting.runScript(DELETE_GRIETAS, "grieta_001",10.f);
-			Scripting.runScript(DELETE_GRIETAS, "grieta_002", 25.f);
-			Scripting.runScript(DELETE_GRIETAS, "grieta_003", 40.f);
-
-		}
-		
-	}
-	*/
- 
+	
 }
 
 void TCompTrigger::update(float dt)
 {
-	//dbg("trigger update\n");
 }

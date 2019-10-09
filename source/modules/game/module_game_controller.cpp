@@ -19,7 +19,6 @@
 #include "entity/entity.h"
 #include "modules/module_scenes.h"
 #include "components/ai/bt/bt_cupcake.h"
-#include "components/ai/bt/bt_cupcake_explosive.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "components/objects/comp_wind_trap.h"
 #include "ui/module_ui.h"
@@ -716,10 +715,7 @@ void  CModuleGameController::updateCupcakeCurveByHandle(std::string _curve, CHan
 		if (cupcake != nullptr) {
 			cupcake->setCurve(Resources.get(path)->as<CCurve>());
 		}
-		else {
-			CBTCupcake_explosive* cupcake_explosive = e_enemy->get<CBTCupcake_explosive>();
-			cupcake_explosive->setCurve(Resources.get(path)->as<CCurve>());
-		}
+		
 	}
 }
 
@@ -929,11 +925,12 @@ void CModuleGameController::broadcastMessage(T message) {
 
 //function casts
 
+/*
 TCompCurveController* TCurveController(CHandle h)
 {
 	TCompCurveController* t = h;
 	return t;
-}
+}*/
 
 CEntity* toEntity(CHandle h)
 {
@@ -977,10 +974,10 @@ CBTGolem* toCBTGolem(CHandle h) {
 	return g;
 }
 
-TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
+/*TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
 	TCompEnemySpawnerSpecialTrap* t = h;
 	return t;
-}
+}*/
 
 TCompSelfDestroy* toCompSelfDestroy(CHandle h) {
 	TCompSelfDestroy* s = h;

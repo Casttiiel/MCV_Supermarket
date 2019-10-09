@@ -3,7 +3,7 @@
 #include "modules/module.h"
 #include "entity/entity.h"
 #include "components/common/physics/comp_collider.h"
-#include "physics/comp_ragdoll.h"
+//#include "physics/comp_ragdoll.h"
 #include "components/common/physics/comp_collider.h"
 #include "components/john/comp_character_collider.h"
 
@@ -78,8 +78,8 @@ public:
   void setupFiltering(physx::PxShape* shape, physx::PxU32 filterGroup, physx::PxU32 filterMask);
   void setupFilteringOnAllShapesOfActor(physx::PxRigidActor* actor, physx::PxU32 filterGroup, physx::PxU32 filterMask);
   void createActor(TCompCollider& compCollider);
-  void createRagdoll(TCompRagdoll& compRagdoll);
-  void createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id);
+  //void createRagdoll(TCompRagdoll& compRagdoll);
+  //void createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id);
 	static physx::PxQueryFilterData defaultFilter;
 
 	CModulePhysics(const std::string& aname) : IModule(aname) { }
