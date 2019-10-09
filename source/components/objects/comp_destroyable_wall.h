@@ -33,6 +33,6 @@ private:
   bool enemies_in_tube_deleted = false;
   AudioEvent iceAudio;
   float iceAudioTimer = 0.f;
-  float iceAudioDelay = 1.5f;
+  float iceAudioDelay = 4.5f;
 };
 

@@ -34,11 +34,11 @@ void TCompDestroyableWall::onPlayerAttack(const TMsgDamage & msg) {
       c_morph->setIncrement(0.5f);
       c_morph->playMorph();
       if (!iceAudio.isPlaying()) {
-          iceAudio = EngineAudio.playEvent("event:/Music/Ambience_Props/Ice/Ice_Melting");
+          iceAudio.restart();
           TCompTransform* c_trans = get<TCompTransform>();
           iceAudio.set3DAttributes(*c_trans);
-          iceAudioTimer = iceAudioDelay;
       }
+        iceAudioTimer = iceAudioDelay;
     }
 	}
 	else if (typeWall == 1) { //destroyable wall
@@ -171,11 +171,11 @@ void TCompDestroyableWall::onPlayerAttack(const TMsgDamage & msg) {
                 c_morph->playMorph();
             }
             if (!iceAudio.isPlaying()) {
-                iceAudio = EngineAudio.playEvent("event:/Music/Ambience_Props/Ice/Ice_Melting");
+                iceAudio.restart();
                 TCompTransform* c_trans = get<TCompTransform>();
                 iceAudio.set3DAttributes(*c_trans);
-                iceAudioTimer = iceAudioDelay;
             }
+            iceAudioTimer = iceAudioDelay;
 		}
 	}
 }
