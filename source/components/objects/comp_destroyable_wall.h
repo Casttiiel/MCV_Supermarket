@@ -4,6 +4,7 @@
 #include "entity/entity.h"
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
+#include "modules/game/audio/audioEvent.h"
 
 class TCompDestroyableWall : public TCompBase
 {
@@ -30,5 +31,8 @@ private:
   float last_fire_hit = 0.0f;
   float max_last_fire_hit = 0.25f;
   bool enemies_in_tube_deleted = false;
+  AudioEvent iceAudio;
+  float iceAudioTimer = 0.f;
+  float iceAudioDelay = 1.5f;
 };
 
