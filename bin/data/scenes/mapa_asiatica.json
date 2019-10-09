@@ -25019,13 +25019,13 @@
             "obj0" : {
               "name" : "malla_lampara001",
               "transform": {
-                "pos": "0.0 16.8725 0.0"
+                "pos": "0.0 17.772 0.0"
               }
             },
             "obj1" : {
               "name" : "malla_lampara001_rigidBlock",
               "transform": {
-                "pos": "-5 30 0"
+                "pos": "0 32.675 -24.425"
               }
             }
           }
@@ -25033,6 +25033,49 @@
       }
     }
 	
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "malla_lampara001_rigidBlock"
+      ,
+      "transform":
+      {
+        "pos": "-5 30 -10"
+        ,
+        "rotation": "0.0 0.0 0.0 -1.0"
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "box"
+            ,
+            "half_size": "1.5 0.5 1.0"
+            ,
+            "offset":
+            {
+              "pos": "0.0 0.5 0.0"
+            }
+          }
+        ]
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_malla_lampara011_rigidBlock.mesh"
+        ,
+        "color": "0.345098 0.780392 0.882353 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_asiatica/black.material"
+        ]
+      }
+    }
   }
   ,
   {
@@ -28410,49 +28453,6 @@
         "materials":
         [
           "data/materials/mapa_asiatica/negro.material"
-        ]
-      }
-    }
-  }
-  ,
-    {
-    "entity":
-    {
-      "name": "malla_lampara001_rigidBlock"
-      ,
-      "transform":
-      {
-        "pos": "-5 30 -10"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "1.5 0.5 1.0"
-            ,
-            "offset":
-            {
-              "pos": "0.0 0.5 0.0"
-            }
-          }
-        ]
-      }
-      ,
-      "render":
-      {
-        "mesh": "data/meshes/mapa_asiatica/mapa_asiatica_malla_lampara011_rigidBlock.mesh"
-        ,
-        "color": "0.345098 0.780392 0.882353 1.0"
-        ,
-        "materials":
-        [
-          "data/materials/mapa_asiatica/black.material"
         ]
       }
     }

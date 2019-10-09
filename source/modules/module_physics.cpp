@@ -610,6 +610,7 @@ bool CModulePhysics::start()
 
   gScene->setSimulationEventCallback(&customSimulationEventCallback);
 
+
   // Set a default filter to do query checks
   physx::PxFilterData pxFilterData;
   pxFilterData.word0 = FilterGroup::Scenario;
@@ -1077,6 +1078,8 @@ void CModulePhysics::TJoint::create() {
     px_joint = PxRevoluteJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
   else
     fatal("Invalid joint type %s\n", joint_type.c_str());
+
+
 }
 
 void CModulePhysics::debugInMenuJointObj(TJoint& j, physx::PxJointActorIndex::Enum idx) {
