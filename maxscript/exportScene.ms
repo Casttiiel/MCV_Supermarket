@@ -590,6 +590,44 @@ struct TSceneExporter (
 			fs.writeComma()
 			fs.writeKeyValue "dynamic" true
 		)
+		local is_joints = getUserProp obj "joints"  
+		if is_joints != undefined then (
+			local typeJoint = getUserProp obj "typeJoint"
+			local posObj0 = getUserProp obj "posObj0"
+			local posObj1 = getUserProp obj "posObj1"
+			local parentJoint = getUserProp obj "parentJoin"
+			fs.writeComma()
+			fs.writeKey "joints"
+			fs.beginArray()
+				fs.beginObj()
+					fs.writeKeyValue "type" typeJoint
+					fs.writeComma()
+					fs.writeKey "obj0"
+					fs.beginObj()
+						fs.writeKeyValue "name" obj.name
+						fs.writeComma()
+						fs.writeKey "transform"
+						fs.beginObj()
+							fs.writeKeyValue "pos" posObj0
+						fs.endObj()
+					fs.endObj()
+					fs.writeComma()
+					fs.writeKey "obj1"
+					fs.beginObj()
+						fs.writeKeyValue "name" parentJoint
+						fs.writeComma()
+						fs.writeKey "transform"
+						fs.beginObj()
+							fs.writeKeyValue "pos" posObj1
+						fs.endObj()
+					fs.endObj()
+				fs.endObj()
+			
+			fs.endArray()
+			
+			
+			
+		)
 		
 		local is_kinematic = getUserProp obj "kinematic"
 		--format "export kinematic %\n" is_kinematic
