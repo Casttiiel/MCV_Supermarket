@@ -4,6 +4,7 @@
 #include "entity/entity.h"
 #include "entity/common_msgs.h"
 #include "modules/module_physics.h"
+#include "modules/game/audio/audioEvent.h"
 
 using namespace physx;
 
@@ -15,6 +16,10 @@ class TCompDynamicInstance : public TCompBase {
   void onPlayerAttack(const TMsgDamage& msg);
   void onCreate(const TMsgEntityCreated&);
   void onBattery(const TMsgGravity& msg);
+  void onContact(const TMsgOnContact& msg);
+  float life = 0.f;
+  float lastSoundTimer = 0.f;
+  float lastSoundDelay = 3.f;
 
 public:
   void load(const json& j, TEntityParseContext& ctx);
