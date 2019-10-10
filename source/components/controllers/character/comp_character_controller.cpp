@@ -1183,7 +1183,11 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
 void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
     if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
         life -= msg.intensityDamage;
-				invulnerabilityTimer = invulnerabilityTimeDuration;
+        damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
+
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, false);
+		invulnerabilityTimer = invulnerabilityTimeDuration;
         inCombatTimer = inCombatDuration;
     }
 
@@ -1262,7 +1266,7 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
     if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
         if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
             life -= msg.intensityDamage;
-						invulnerabilityTimer = invulnerabilityTimeDuration;
+			invulnerabilityTimer = invulnerabilityTimeDuration;
             inCombatTimer = inCombatDuration;
             CEntity* e_cam = getEntityByName("MainCamera");
             TMsgOnContact msg_cam;
@@ -1298,7 +1302,7 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 if (msg.senderType == ENEMIES) {
                     //	c_rbody->addForce(direction_to_damage * 8.0f);
                 }
-                if (&(msg.impactForce) != nullptr && msg.impactForce > 0 && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
+                if (&(msg.impactForce) != nullptr && msg.intensityDamage > 0 && !damagedAudio.isPlaying()) {
                     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
 
                     TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
