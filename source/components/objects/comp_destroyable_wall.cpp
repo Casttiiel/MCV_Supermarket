@@ -18,6 +18,8 @@ void TCompDestroyableWall::debugInMenu() {
 void TCompDestroyableWall::load(const json& j, TEntityParseContext& ctx) {
 	typeWall = j.value("type_wall", typeWall);
 	factor = j.value("factor", factor);
+    iceAudio = EngineAudio.playEvent("event:/Music/Ambience_Props/Ice/Ice_Melting");
+    iceAudio.stop();
 }
 
 void TCompDestroyableWall::registerMsgs() {
@@ -31,6 +33,12 @@ void TCompDestroyableWall::onPlayerAttack(const TMsgDamage & msg) {
     if (c_morph) {
       c_morph->setIncrement(0.5f);
       c_morph->playMorph();
+      if (!iceAudio.isPlaying()) {
+          iceAudio.restart();
+          TCompTransform* c_trans = get<TCompTransform>();
+          iceAudio.set3DAttributes(*c_trans);
+      }
+        iceAudioTimer = iceAudioDelay;
     }
 	}
 	else if (typeWall == 1) { //destroyable wall
@@ -156,12 +164,18 @@ void TCompDestroyableWall::onPlayerAttack(const TMsgDamage & msg) {
 		if (msg.damageType == FIRE) {
 			//esto debe durar X segundos, o tener un limite de vida
 			timer_ice_wall -= msg.intensityDamage;
-      last_fire_hit = 0.0f;
-      TCompMorphAnimation* c_morph = get<TCompMorphAnimation>();
-      if (c_morph) {
-        c_morph->setIncrement(0.05f);
-        c_morph->playMorph();
-      }
+            last_fire_hit = 0.0f;
+            TCompMorphAnimation* c_morph = get<TCompMorphAnimation>();
+            if (c_morph) {
+                c_morph->setIncrement(0.05f);
+                c_morph->playMorph();
+            }
+            if (!iceAudio.isPlaying()) {
+                iceAudio.restart();
+                TCompTransform* c_trans = get<TCompTransform>();
+                iceAudio.set3DAttributes(*c_trans);
+            }
+            iceAudioTimer = iceAudioDelay;
 		}
 	}
 }
@@ -169,7 +183,10 @@ void TCompDestroyableWall::onPlayerAttack(const TMsgDamage & msg) {
 void TCompDestroyableWall::update(float dt) {
   if (typeWall != 3)
     return;
-
+  iceAudioTimer -= dt;
+  if (iceAudioTimer <= 0) {
+      iceAudio.stop();
+  }
   last_fire_hit += dt;
   if (last_fire_hit > max_last_fire_hit) {
     TCompMorphAnimation* c_morph = get<TCompMorphAnimation>();

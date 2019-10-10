@@ -4,6 +4,7 @@
 #include "entity/entity.h"
 #include "entity/entity_parser.h"
 #include "entity/common_msgs.h"
+#include "modules/game/audio/audioEvent.h"
 
 class TCompInterruptor : public TCompBase
 {

@@ -153,7 +153,8 @@ void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
 {
 
     cinematic = msg.cinematic;
-	UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+    _movementAudio.setPaused(true);
+    UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
 	mirilla->getParams()->visible = false;
     if (cinematic) {
         ChangeState("SCART_IDLE_CINEMATIC");
@@ -415,7 +416,7 @@ void TCompSCartController::grounded(float delta) {
 
 	dir *= delta * rowImpulseLeft;
 
-    if (rowImpulseLeft > 0.f) {
+    if (rowImpulseLeft > 0.f && dir != VEC3().Zero) {
         //SwapMesh(2);
         //TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         //playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f);
