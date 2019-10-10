@@ -98,7 +98,6 @@ void TCompWindTrap::update(float dt) {
 }
 
 void TCompWindTrap::generateWind(float dt) {
-  return;
   if (!activateWind)
     return;
   _windCooldownTimer += dt;

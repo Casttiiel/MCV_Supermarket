@@ -57,7 +57,7 @@ private:
   std::list<CHandle> enemiesBolt;
   int maxEnemiesAffected = 5;
   float pulseTimer = 0;
-  float pulseDelay = 1.5f;
+  float pulseDelay = 0.75f;
 
   AudioEvent audioEffect;
 };

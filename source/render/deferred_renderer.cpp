@@ -179,7 +179,7 @@ void CDeferredRenderer::renderAccLight() {
   rt_acc_light->clear(VEC4(0, 0, 0, 0));
   renderAmbientPass();
   renderPointLights();
-  renderDirectionalLightsWithoutShadows();
+  //renderDirectionalLightsWithoutShadows();
   renderDirectionalLightsWithShadows();
   //renderFakeVolumetricLights();
   renderSkyBox();
@@ -236,7 +236,7 @@ void CDeferredRenderer::renderPointLights() {
 
 // -------------------------------------------------------------------------
 void CDeferredRenderer::renderDirectionalLightsWithoutShadows() {
-  CGpuScope gpu_scope("renderDirectionalLights");
+  CGpuScope gpu_scope("renderDirectionalLightsWithoutShadows");
 
   // Activate tech for the light dir
   auto* tech = Resources.get("pbr_dir_lights_no_shadows.tech")->as<CTechnique>();
@@ -288,7 +288,7 @@ void CDeferredRenderer::renderDirectionalLightsWithoutShadows() {
 }
 
 void CDeferredRenderer::renderDirectionalLightsWithShadows() {
-  CGpuScope gpu_scope("renderDirectionalLightsWithoutShadows");
+  CGpuScope gpu_scope("renderDirectionalLightsWithShadows");
 
   // Activate tech for the light dir
   auto* tech = Resources.get("pbr_dir_lights.tech")->as<CTechnique>();

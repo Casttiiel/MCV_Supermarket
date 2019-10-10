@@ -228,7 +228,7 @@ struct TSampleDataGenerator {
       CEntity* e = h_prefab.second;
       TCompRender* c_render = e->get<TCompRender>();
       CHandle h(c_render);
-      //h.destroy();
+      h.destroy();
 
       TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
       CHandle h2(c_absaabb);
@@ -990,8 +990,15 @@ void CModuleGPUCulling::renderCategory(eRenderCategory category) {
     gpu_ctes_instancing->updateGPU(&ctes_instancing);
 
     // Setup material & meshes
-    render_type.material->activate();
-    render_type.material->activateCompBuffers(&comp_buffers);
+    if (category == eRenderCategory::CATEGORY_SHADOWS) {
+      render_type.material->getShadowsMaterial()->activate();
+      render_type.material->getShadowsMaterial()->activateCompBuffers(&comp_buffers);
+    }
+    else {
+      render_type.material->activate();
+      render_type.material->activateCompBuffers(&comp_buffers);
+    }
+    
     render_type.mesh->activate();
     Render.ctx->DrawIndexedInstancedIndirect(gpu_draw_datas->buffer, offset);
 
