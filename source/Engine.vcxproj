@@ -77,6 +77,7 @@
     <ClCompile Include="components\john\comp_circular_controller.cpp" />
     <ClCompile Include="components\john\comp_msg_logger.cpp" />
     <ClCompile Include="components\john\comp_sensor.cpp" />
+    <ClCompile Include="components\objects\comp_balance.cpp" />
     <ClCompile Include="components\objects\comp_blade_trap.cpp" />
     <ClCompile Include="components\objects\comp_door.cpp" />
     <ClCompile Include="components\objects\comp_enemies_in_butcher.cpp" />
@@ -357,6 +358,7 @@
     <ClInclude Include="components\controllers\comp_sCart_controller.h" />
     <ClInclude Include="components\controllers\comp_trans_curve_controller.h" />
     <ClInclude Include="components\john\comp_circular_controller.h" />
+    <ClInclude Include="components\objects\comp_balance.h" />
     <ClInclude Include="components\objects\comp_blade_trap.h" />
     <ClInclude Include="components\objects\comp_door.h" />
     <ClInclude Include="components\objects\comp_enemies_in_butcher.h" />
@@ -633,19 +635,19 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

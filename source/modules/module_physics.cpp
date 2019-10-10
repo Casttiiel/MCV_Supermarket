@@ -1068,16 +1068,38 @@ void CModulePhysics::TJoint::create() {
   
   PxTransform frame0 = toPxTransform(obj0.transform);
   PxTransform frame1 = toPxTransform(obj1.transform);
-  if(joint_type == "spherical")
+  if(joint_type == "spherical"){
     px_joint = PxSphericalJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
-  else if (joint_type == "fixed")
+  }
+  else if (joint_type == "fixed"){
     px_joint = PxFixedJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
-  else if (joint_type == "distance")
+  }
+  else if (joint_type == "distance"){
     px_joint = PxDistanceJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
-  else if (joint_type == "revolute")
+  }
+  else if (joint_type == "revolute"){
     px_joint = PxRevoluteJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
-  else
+	auto* revolute = static_cast<PxRevoluteJoint*>(px_joint);
+	
+	//PxJointAngularLimitPair limitPair(-PxPi /4, PxPi / 4, 100.f);
+	//limitPair.contactDistance = 20.0f;
+	//limitPair.damping = 20.0f;
+	
+	
+	//revolute->setProjectionLinearTolerance(0.1f);
+	//revolute->setProjectionAngularTolerance(0.01f);
+	
+	
+	//revolute->setRevoluteJointFlag(PxRevoluteJointFlag::eLIMIT_ENABLED, true);
+	
+	
+	
+		
+	
+  }
+  else{
     fatal("Invalid joint type %s\n", joint_type.c_str());
+  }
 
 
 }
@@ -1127,6 +1149,11 @@ void CModulePhysics::debugInMenuJoint(TJoint& j) {
     float distance = custom->getDistance();
     ImGui::LabelText("Distance", "%f", distance);
     // ..
+  }
+  else if (j.joint_type == "revolute"){
+	  PxRevoluteJoint* custom = (PxRevoluteJoint*)j.px_joint;
+	  float driveVelocity = custom->getDriveVelocity();
+	  ImGui::LabelText("driveVelocity", "%f", driveVelocity);
   }
   if( ImGui::SmallButton( "Break"))
     j.px_joint->setBreakForce(0.0f, 0.0f);
