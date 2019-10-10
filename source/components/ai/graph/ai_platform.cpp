@@ -617,6 +617,22 @@ void CAIMobilePlatform::InitToPositionWithCurveNotRotation() {
 	ChangeState("TOPOSITION");
 }
 
+void CAIMobilePlatform::ToSineMovement(float dt) {
+	TCompTransform* c_trans = get<TCompTransform>();
+	float x = c_trans->getPosition().x;
+	float y = sin(Time.delta) * 100;
+	float z = c_trans->getPosition().z;
+	dbg("PUEAS-->%f\n",y);
+	c_trans->setPosition(VEC3(x, y, z));
+
+}
+
+
+void CAIMobilePlatform::InitToSineMovement() {
+	AddState("TOSINEMOVEMENT", (statehandler)&CAIMobilePlatform::ToSineMovement);
+	ChangeState("TOSINEMOVEMENT");
+}
+
 
 
 void CAIMobilePlatform::load(const json& j, TEntityParseContext& ctx) {
@@ -683,6 +699,9 @@ void CAIMobilePlatform::load(const json& j, TEntityParseContext& ctx) {
 	}
 	else if (platformType == TO_POSITION_WITH_CURVE_NOT_ROTATION) { //8
 		this->InitToPositionWithCurveNotRotation();
+	}
+	else if (platformType == TO_MOVEMENT_SIN_MOVEMENT) {//9 
+		this->InitToSineMovement();
 	}
 
 
