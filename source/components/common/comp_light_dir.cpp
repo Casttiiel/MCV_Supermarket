@@ -52,7 +52,7 @@ void TCompLightDir::load(const json& j, TEntityParseContext& ctx) {
     char my_name[64];
     sprintf(my_name, "shadow_map_%08x", CHandle(this).asUnsigned());
     
-    // Added a placeholder Color Render Target to be able to do a alpha test when rendering
+    // Added a placeholder Color Render Target to be able to do a alpha test when rendering6
     // the grass
     bool is_ok = shadows_rt->createRT(my_name, shadows_resolution, shadows_resolution, DXGI_FORMAT_R8G8B8A8_UNORM, shadowmap_fmt);
     assert(is_ok);
