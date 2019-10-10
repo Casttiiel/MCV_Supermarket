@@ -44,6 +44,9 @@ void TCompInterruptor::onActivate(const TMsgDamage & msg) {
 				execDelayedAction("setPauseEnemyName(\"golem2\",false)", 13);
 				execDelayedAction("setNotThrowCupcake(\"golem2\",false)", 13);
         Scripting.execAction("wakeUpWinds()");
+                AudioEvent audio = EngineAudio.playEvent("event:/Music/Ambience_Props/Panel/Panel_Break");
+                TCompTransform* c_trans = get<TCompTransform>();
+                audio.set3DAttributes(*c_trans);
 			}
 			/*else if (nombre.compare("panel_prueba2") == 0) {
 				//nombre de plataforma a mover
