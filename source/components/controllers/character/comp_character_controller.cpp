@@ -1164,7 +1164,9 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
                 //endGame = true;
                 //dismount();
                 ChangeState("WIN");
+				CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");
 				Scripting.execActionDelayed("endGame()", 0.0);
+				
 
             }
             //else if(){} demas trigers...
