@@ -194,8 +194,9 @@ namespace UI
 			  if (cam_player != nullptr) {
 				  cam_player->sendMsg(msg);
 			  }
+			  
 			  CEngine::get().getModules().changeToGamestate("gs_gameplay");
-
+			  
 		  }
 
 

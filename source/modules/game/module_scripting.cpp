@@ -167,7 +167,8 @@ void CModuleScripting::BindGameController() {
 		.set("setLifeEnemy", &CModuleGameController::setLifeEnemy)
 		.set("setLifeEnemiesByTag", &CModuleGameController::setLifeEnemiesByTag)
 		.set("changeGameState", &CModuleGameController::changeGameState)
-		
+		.set("deactivateWidget", &CModuleGameController::deactivateWidget)
+		.set("activateWidget", &CModuleGameController::activateWidget)
     .set("deleteProducts",&CModuleGameController::deleteProducts)
     .set("loadProducts", &CModuleGameController::loadProducts)
 		;

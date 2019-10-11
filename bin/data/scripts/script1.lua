@@ -926,6 +926,14 @@ function changeGameState(name)
 	GameController:changeGameState(name)
 end
 
+function deactivateWidget(nameWidget)
+	GameController:deactivateWidget(nameWidget)
+end
+
+function activateWidget(nameWidget)
+	GameController:activateWidget(nameWidget)
+end
+
 
 
 function saveCheckpoint()

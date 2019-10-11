@@ -260,7 +260,8 @@ public:
 	void setLifeEnemiesByTag(const char* tagName, float life);
 
 	void changeGameState(std::string name);
-
+	void deactivateWidget(std::string name);
+	void activateWidget(std::string name);
 };
 
 

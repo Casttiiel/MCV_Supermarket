@@ -1060,6 +1060,18 @@ void CModuleGameController::cheatPosition() {
 	positionCheat++;
 }
 
+
+
+void CModuleGameController::deactivateWidget(std::string name) {
+	CEngine::get().getUI().deactivateWidgetClass(name);
+}
+
+void CModuleGameController::activateWidget(std::string name) {
+	CEngine::get().getUI().activateWidgetClass(name);
+}
+
+
+
 CCamera* CModuleGameController::getCameraFromHandle(CHandle hCamera)
 {
 	if (hCamera.isValid())
