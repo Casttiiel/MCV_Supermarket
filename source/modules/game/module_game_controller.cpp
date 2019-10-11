@@ -1007,13 +1007,10 @@ TCompFlickering* toCompFlickering(CHandle h) {
 }
 
 
-
-/*
 TCompCharacterController* toCompCharacterController_(CHandle h) {
 	TCompCharacterController* c = h;
 	return c;
 }
-*/
 
 
 

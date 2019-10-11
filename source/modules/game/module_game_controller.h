@@ -281,4 +281,4 @@ CBTCupcake* toCBTCupcake(CHandle h);
 TCompEnemySpawner* toCompEnemySpawner(CHandle h);
 TCompLightPoint* toCompLightPoint(CHandle h);
 TCompFlickering* toCompFlickering(CHandle h);
-//TCompCharacterController* toCompCharacterController_(CHandle h);
+TCompCharacterController* toCompCharacterController_(CHandle h);

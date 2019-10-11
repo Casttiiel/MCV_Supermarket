@@ -102,6 +102,7 @@ void CModuleScripting::doBingings() {
 	BindEnemySpawner();
 	BindPointLights();
 	BindFlickering();
+	BindCharacterController();
 }
 
 
@@ -188,6 +189,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompEnemySpawner", SLB::FuncCall::create(&toCompEnemySpawner));
 	m->set("toCompLightPoint", SLB::FuncCall::create(&toCompLightPoint));
 	m->set("toCompFlickering", SLB::FuncCall::create(&toCompFlickering));
+	m->set("toCompCharacterController_", SLB::FuncCall::create(&toCompCharacterController_));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -197,6 +199,7 @@ void CModuleScripting::BindCharacterController() {
 	SLB::Class<TCompCharacterController>("CharacterController", m)
 		.comment("This is our wrapper of the Player class")
 		.set("heal", &TCompCharacterController::heal)
+		.property("endgame", &TCompCharacterController::endGame)
 	    //.set("changeState",&TCompCharacterController::ChangeState);
 		;
 

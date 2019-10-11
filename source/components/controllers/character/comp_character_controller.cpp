@@ -1161,9 +1161,10 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
             }
             else if (strcmp("endgame", tag.c_str()) == 0) {
                 //..en el futuro GameState GameOver
-                endGame = true;
+                //endGame = true;
                 //dismount();
                 ChangeState("WIN");
+				Scripting.execActionDelayed("endGame()", 0.0);
 
             }
             //else if(){} demas trigers...
