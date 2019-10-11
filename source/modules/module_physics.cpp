@@ -1079,22 +1079,10 @@ void CModulePhysics::TJoint::create() {
   }
   else if (joint_type == "revolute"){
     px_joint = PxRevoluteJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
-	auto* revolute = static_cast<PxRevoluteJoint*>(px_joint);
+    PxRevoluteJoint* custom = (PxRevoluteJoint*)px_joint;
 	
-	//PxJointAngularLimitPair limitPair(-PxPi /4, PxPi / 4, 100.f);
-	//limitPair.contactDistance = 20.0f;
-	//limitPair.damping = 20.0f;
-	
-	
-	//revolute->setProjectionLinearTolerance(0.1f);
-	//revolute->setProjectionAngularTolerance(0.01f);
-	
-	
-	//revolute->setRevoluteJointFlag(PxRevoluteJointFlag::eLIMIT_ENABLED, true);
-	
-	
-	
-		
+    custom->setLimit(PxJointAngularLimitPair(-PxPi / 1.5f, PxPi / 1.5f, 0.1f));
+    custom->setRevoluteJointFlag(PxRevoluteJointFlag::eLIMIT_ENABLED, true);		
 	
   }
   else{
@@ -1153,7 +1141,13 @@ void CModulePhysics::debugInMenuJoint(TJoint& j) {
   else if (j.joint_type == "revolute"){
 	  PxRevoluteJoint* custom = (PxRevoluteJoint*)j.px_joint;
 	  float driveVelocity = custom->getDriveVelocity();
+    float driveGearRatio = custom->getDriveGearRatio();
+    VEC3 a = PXVEC3_TO_VEC3(custom->getRelativeAngularVelocity());
+    float velocity = custom->getVelocity();
 	  ImGui::LabelText("driveVelocity", "%f", driveVelocity);
+    ImGui::LabelText("driveGearRatio", "%f", driveGearRatio);
+    ImGui::LabelText("velocity", "%f", velocity);
+    ImGui::LabelText("Angular velocity", "%f &f %f", a.x, a.y, a.z);
   }
   if( ImGui::SmallButton( "Break"))
     j.px_joint->setBreakForce(0.0f, 0.0f);
