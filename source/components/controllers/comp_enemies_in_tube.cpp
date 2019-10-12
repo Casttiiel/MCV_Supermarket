@@ -155,6 +155,23 @@ void TCompEnemiesInTube::update(float dt) {
         GameController.spawnPrefab("data/particles/smoke_tube2.json", VEC3(), QUAT(0, 0, 0, 1), 1);
         GameController.spawnPrefab("data/particles/smoke_tube3.json", VEC3(), QUAT(0, 0, 0, 1), 1);
         GameController.spawnPrefab("data/particles/smoke_tube4.json", VEC3(), QUAT(0, 0, 0, 1), 1);*/
+
+		  GameController.startAudioPlayer("1");//batidora 1
+		  GameController.startAudioPlayer("2");//batidora 2
+		  GameController.startAudioPlayer("3");//batidora 3
+		  GameController.startAudioPlayer("4");// batidora 4
+		  GameController.startAudioPlayer("005");//batidora 1
+		  GameController.startAudioPlayer("006");//batidora 2
+		  GameController.startAudioPlayer("007");//batidora 3
+		  GameController.startAudioPlayer("008");// batidora 4
+		  GameController.startAudioPlayer("009");//batidora 1
+		  GameController.startAudioPlayer("010");//batidora 2
+		  GameController.startAudioPlayer("011");//batidora 3
+		  GameController.startAudioPlayer("012");// batidora 4
+		  GameController.startAudioPlayer("013");//batidora 1
+		  GameController.startAudioPlayer("014");//batidora 2
+		  GameController.startAudioPlayer("015");//batidora 3
+		  GameController.startAudioPlayer("016");// batidora 4
         firstTime = true;
       }
 

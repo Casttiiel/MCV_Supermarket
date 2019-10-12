@@ -257,12 +257,13 @@ void CModuleGameController::blendPlayerCamera() {
 //resetCamera
 void CModuleGameController::resetCamera() {
 	CEntity* e_cam3 = getEntityByName("PlayerCamera");
-	TCompCamera3rdPerson* t_comp3 = e_cam3->get<TCompCamera3rdPerson>();
-	if (t_comp3 != nullptr) {
-		//t_comp3->_enabled = activate;
-		t_comp3->resetCamera();
+	if(e_cam3 != nullptr){
+		TCompCamera3rdPerson* t_comp3 = e_cam3->get<TCompCamera3rdPerson>();
+		if (t_comp3 != nullptr) {
+			//t_comp3->_enabled = activate;
+			t_comp3->resetCamera();
+		}
 	}
-
 }
 
 void CModuleGameController::dbgInLua(std::string text) {

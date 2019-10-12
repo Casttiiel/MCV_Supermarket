@@ -1002,7 +1002,7 @@ function salCupcakeHorno010_008_player()
 
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos\")",0.5);
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos2\")",0.5);
-	execDelayedAction("saveCheckpoint()",5.6);
+	execDelayedAction("saveCheckpoint()",6.6);
 
 	playAnnouncement('event:/UI/Announcements/Announcement2')
 
@@ -1030,7 +1030,7 @@ function salCupcakeHorno010_008_2_player()
 
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos\")",0.5);
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos2\")",0.5);
-	execDelayedAction("saveCheckpoint()",5.6);
+	execDelayedAction("saveCheckpoint()",6.6);
 
 	playAnnouncement('event:/UI/Announcements/Announcement2')
 
