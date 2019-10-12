@@ -277,6 +277,7 @@ function create_cupcakes_in_frost_player()
 	--GameController:setPauseEnemyByHandle(h_cupcake2,false);
 	--GameController:setLifeEnemy(h_cupcake2,3,350.0);
 
+	
 
 	h_oven1 =  GameController:entityByName("horno008");
 	h_oven2 =  GameController:entityByName("horno009");
@@ -293,7 +294,7 @@ function create_cupcakes_in_frost_player()
 	t_compSpawnOven3:setLifeSpawner(350.0);
 	
 
-
+	playAnnouncement('event:/UI/Announcements/Announcement4')
 
 	execDelayedAction("on_delete_handle(\"trigger010\")",0);
 
@@ -353,6 +354,8 @@ end
 
 function in_trap_tube_enemies_player()
 	
+	execDelayedAction("playAnnouncement(\"event:/UI/Announcements/Announcement1\")",3.0);
+
 	--GameController:resetCamera();
 	h_golem = GameController:entityByName("golem3"); 
 	execDelayedAction("setPauseEnemyName(\"golem3\",true)", 0);	
@@ -363,6 +366,7 @@ function in_trap_tube_enemies_player()
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 2,\"linear\")",7);
 	execDelayedAction("on_lock_camera3(true)", 9);
 	execDelayedAction("on_cinematic(false)",9);
+	
 
 	handle = GameController:entityByName("enemies_in_tube");--prefab
 	t_compenemiestube = toCompEnemiesInTube(toEntity(handle):getCompByName("enemies_in_tube"));
@@ -381,6 +385,8 @@ end
 
 function cinematic_scene_termoestatos_player()
 	--evento cinematica
+	playAnnouncement('event:/UI/Announcements/Announcement9')
+
 	GameController:resetCamera();
 	execDelayedAction("on_cinematic(true)",0.1);
 	execDelayedAction("on_lock_camera3(false)",0);
@@ -434,6 +440,7 @@ function createEnemies_player()
 	GameController:deleteGolem("golem3");
 	GameController:deleteCupcake();
 	execDelayedAction("changeScene(\"asiatic_scene\")",0);
+
 	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-33,-0.193,-52), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica1",h_suishi1);
 	GameController:setPauseEnemyByHandle(h_suishi1,false);
@@ -485,7 +492,7 @@ function createEnemies_player()
 	--GameController:setPauseEnemyByHandle(h_suishi14,true);
 	--h_suishi15 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(71,-0.193,61), QUAT(0, 0, 0, 1),1);--quitar este
 	--GameController:setPauseEnemyByHandle(h_suishi15,true); --GameController:setPauseEnemyByHandle(h_suishi15,true);
-	
+	playAnnouncement('event:/UI/Announcements/Announcement6')
 	
 	execDelayedAction("on_delete_handle(\"trigger2\")",0);
 
@@ -694,6 +701,10 @@ function activePlataformCarniceria_player()
 	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni026\",0.0)",15.5);
 	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni025\",0.0)",15.5);
 	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni024\",0.0)",15.5);
+
+	execDelayedAction("playAnnouncement(\"event:/UI/Announcements/Announcement11\")",15.0);
+	
+	GameController:setAmbient(0.05);
 
 
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.0);
@@ -978,20 +989,22 @@ function salCupcakeHorno010_008_player()
 	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.2);
 	execDelayedAction("on_cinematic(true)",0.0);
 
-	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
-	execDelayedAction("on_lock_camera3(true)",11);
-	execDelayedAction("on_cinematic(false)",11);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",6.5);
+	execDelayedAction("on_lock_camera3(true)",12);
+	execDelayedAction("on_cinematic(false)",12);
 
 	
 
 
-	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",5);
-	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",5.5);
+	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",6);
+	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",6.5);
 
 
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos\")",0.5);
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos2\")",0.5);
 	execDelayedAction("saveCheckpoint()",5.6);
+
+	playAnnouncement('event:/UI/Announcements/Announcement2')
 
 
 end
@@ -1004,20 +1017,22 @@ function salCupcakeHorno010_008_2_player()
 	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.5);
 	execDelayedAction("on_cinematic(true)",0.5);
 
-	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",6.5);
 	execDelayedAction("on_lock_camera3(true)",11);
 	execDelayedAction("on_cinematic(false)",11);
 
 	
 
 
-	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",5);
-	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",5.5);
+	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",6);
+	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",6.5);
 
 
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos\")",0.5);
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos2\")",0.5);
 	execDelayedAction("saveCheckpoint()",5.6);
+
+	playAnnouncement('event:/UI/Announcements/Announcement2')
 
 end
 
@@ -1035,6 +1050,7 @@ function salCupcakeHorno008_player()
 	--execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
 	--execDelayedAction("on_lock_camera3(true)",12);
 	--execDelayedAction("on_cinematic(false)",12);
+	playAnnouncement('event:/UI/Announcements/Announcement8')
 	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaHorno008\")",0.0);
 	execDelayedAction("on_delete_handle(\"triggerSalCupcakeHorno008\")",0);
 end
@@ -1050,4 +1066,16 @@ end
 function salCupcakeHorno009_player()
 	execDelayedAction("activateCurveForOven(\"horno009\",true,\"curvaHorno009\")",0.0);
 	execDelayedAction("on_delete_handle(\"triggerSalCupcakeHorno009\")",0);
+end
+
+function playAnnouncement(announcement)
+	GameController:playAnnouncement(announcement)
+end
+
+function setSoundtrackVolume(volume)
+	GameController:setSoundtrackVolume(volume)
+end
+
+function startAudioPlayer(entityName)
+	GameController:startAudioPlayer(entityName)
 end

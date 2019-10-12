@@ -84,12 +84,12 @@ namespace UI
 
 	  auto mpNewGame = []() {//nuevo juego
 		  //CEngine::get().getModules().changeToGamestate("gs_gameplay");
-		  
 		  UI::CModuleUI& ui = Engine.getUI();
 		  CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
 		  //CEngine::get().getUI().activateWidgetClass("LOAD_SPRITE")->childAppears(true, true, 0.0, 1);
 		  //ejecutar dede LUA el gs_loading
-		  Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);
+          EngineAudio.playEvent("event:/UI/Start_Button");
+          Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);
 		  //CEngine::get().getModules().changeToGamestate("gs_loading");
 	  };
 
@@ -101,7 +101,8 @@ namespace UI
 
 	  auto mpExitGame = []() {
 		  auto& app = CApplication::get();
-		  DestroyWindow(app.getHandle());
+          EngineAudio.playEvent("event:/UI/Quit_Button");
+          DestroyWindow(app.getHandle());
 	  };
 	  UI::CModuleUI& ui = Engine.getUI();
 	  registerWidgetClass("MAIN_MENU_BACKGROUND", "data/ui/widgets/main_menu_background.json", nullptr);
@@ -129,7 +130,8 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
 		  }
-		  GameController.resumeGame();
+          EngineAudio.playEvent("event:/UI/Start_Button");
+          GameController.resumeGame();
 	  };
 
 	  auto mpauseRestart = []() {
@@ -146,7 +148,8 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
 		  }
-		  GameController.loadCheckpoint();
+          EngineAudio.playEvent("event:/UI/Quit_Button");
+          GameController.loadCheckpoint();
 	  };
 
 
@@ -161,7 +164,8 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
 		  }
 		  auto& app = CApplication::get();
-		  DestroyWindow(app.getHandle());
+          EngineAudio.playEvent("event:/UI/Quit_Button");
+          DestroyWindow(app.getHandle());
 	  };
 
 	  /*BOTONES MENU GAME_OVER*/
@@ -198,6 +202,7 @@ namespace UI
 			  CEngine::get().getModules().changeToGamestate("gs_gameplay");
 			  
 		  }
+          EngineAudio.playEvent("event:/UI/Start_Button");
 
 
 
@@ -214,7 +219,8 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS_MINI");
 		  }
 		  auto& app = CApplication::get();
-		  DestroyWindow(app.getHandle());
+          EngineAudio.playEvent("event:/UI/Quit_Button");
+          DestroyWindow(app.getHandle());
 	  };
 
 

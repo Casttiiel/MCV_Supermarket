@@ -13,7 +13,8 @@ class TCompAudioPlayer : public TCompBase {
 
     void onSoundRequest(const TMsgSoundRequest& msg);
 public:
-	void update(float dt);
+    void play();
+    void update(float dt);
 	void load(const json& j, TEntityParseContext& ctx);
 	void debugInMenu();
 	static void registerMsgs();

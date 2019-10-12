@@ -36,7 +36,7 @@ void CModuleAmbush::renderInMenu()
 }
 
 void CModuleAmbush::firstEvent() {
-
+	GameController.playAnnouncement("event:/UI/Announcements/Announcement10");
 	termostatosActives++;
 	Scripting.execActionDelayed("defrost1()", 0.0);
 	//Scripting.execActionDelayed("setTransformObject_(\"Box009\",VEC3(71.813,2.501,93.810),-115,0,-49)",5.0);

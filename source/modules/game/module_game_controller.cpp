@@ -19,10 +19,11 @@
 #include "entity/entity.h"
 #include "modules/module_scenes.h"
 #include "components/ai/bt/bt_cupcake.h"
-#include "components/ai/bt/bt_cupcake_explosive.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "components/objects/comp_wind_trap.h"
+#include "components/actions/comp_audioPlayer.h"
 #include "ui/module_ui.h"
+#include "render/module_render.h"
 
 
 bool CModuleGameController::start() {
@@ -715,10 +716,7 @@ void  CModuleGameController::updateCupcakeCurveByHandle(std::string _curve, CHan
 		if (cupcake != nullptr) {
 			cupcake->setCurve(Resources.get(path)->as<CCurve>());
 		}
-		else {
-			CBTCupcake_explosive* cupcake_explosive = e_enemy->get<CBTCupcake_explosive>();
-			cupcake_explosive->setCurve(Resources.get(path)->as<CCurve>());
-		}
+		
 	}
 }
 
@@ -928,11 +926,12 @@ void CModuleGameController::broadcastMessage(T message) {
 
 //function casts
 
+/*
 TCompCurveController* TCurveController(CHandle h)
 {
 	TCompCurveController* t = h;
 	return t;
-}
+}*/
 
 CEntity* toEntity(CHandle h)
 {
@@ -976,10 +975,10 @@ CBTGolem* toCBTGolem(CHandle h) {
 	return g;
 }
 
-TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
+/*TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
 	TCompEnemySpawnerSpecialTrap* t = h;
 	return t;
-}
+}*/
 
 TCompSelfDestroy* toCompSelfDestroy(CHandle h) {
 	TCompSelfDestroy* s = h;
@@ -1012,7 +1011,9 @@ TCompCharacterController* toCompCharacterController_(CHandle h) {
 	return c;
 }
 
-
+void CModuleGameController::updateAmbientLight(float amount) {
+  CEngine::get().getRender().setNewAmbient(amount);
+}
 
 //Soundtrack Functions
 void CModuleGameController::startSoundtrack(int track_id = 0) {
@@ -1031,16 +1032,38 @@ void CModuleGameController::updateSoundtrackID(int new_track_id = 0) {
 void CModuleGameController::setSoundtrackVolume(float volume) {
     EngineAudio.soundtrack.setVolume(volume);
 }
+float CModuleGameController::getSoundtrackVolume() {
+    return EngineAudio.soundtrack.getVolume();
+}
+void CModuleGameController::playAnnouncement(std::string announcement = "") {
+    assert(announcement != "");
+    float volume = getSoundtrackVolume();
+    setSoundtrackVolume(0.1f);
+    EngineAudio.announcement = EngineAudio.playEvent(announcement);
+    float audioLength = EngineAudio.announcement.getLength() / 1000.f;
+    Scripting.execActionDelayed("setSoundtrackVolume(1.0)", audioLength);
+}
+void CModuleGameController::startAudioPlayer(std::string entity = "") {
+    assert(entity != "");
+    CEntity* holder = entityByName(entity);
+    if (holder) {
+        TCompAudioPlayer* player = holder->get< TCompAudioPlayer>();
+        if (player)
+            player->play();
+    }
+}
 //End Soundtrack Functions
 
 void CModuleGameController::pauseGame() {
     EngineAudio.soundtrack.setPaused(true);
     EngineAudio.secondarySoundtrack.setPaused(false);
+    EngineAudio.announcement.setPaused(true);
 }
 
 void CModuleGameController::resumeGame() {
     EngineAudio.soundtrack.setPaused(false);
     EngineAudio.secondarySoundtrack.setPaused(true);
+    EngineAudio.announcement.setPaused(false);
 }
 
 void CModuleGameController::cheatPosition() {

@@ -532,9 +532,9 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   //comic shading
   float lut = NdL;
   lut = smoothstep(shadow_ramp-0.01f,shadow_ramp,lut);
-  cSpec = cSpec > 0.2f ? 10 : 0;
-  cSpec *= cDiff;
-  float3 color = LightColor.xyz * lut * (cDiff + cSpec) * att * LightIntensity * color_intensity * shadow_factor;
+  float cSpec_factor = length(cSpec) > 0.5f ? 1 : 0;
+  cSpec *= cSpec_factor;
+  float3 color = LightColor.xyz * lut * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * color_intensity * shadow_factor;
 
   float2 uv = 5.0f;
   uv *= iPosition.xy * CameraInvResolution.y;

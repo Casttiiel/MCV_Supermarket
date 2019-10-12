@@ -27,6 +27,9 @@ void TBoneCorrection::load(const json& j) {
 }
 
 void TBoneCorrection::debugInMenu() {
+  int new_bone_id = bone_id;
+  if (ImGui::DragInt("Bone Id", &new_bone_id, 0, 80))
+    bone_id = new_bone_id;
   ImGui::LabelText("Bone", "%s (Id:%d)", bone_name.c_str(), bone_id);
   ImGui::DragFloat("Amount", &amount, 0.01f, 0.0f, 1.0f);
   ImGui::InputFloat3("Local Axis", &local_axis_to_correct.x);
@@ -75,6 +78,9 @@ void TBoneCorrection::apply(CalSkeleton* skel, VEC3 dx_world_target, float exter
   // We want to correct a bone by name, but we need a bone_id
   // to access that bone
   if (bone_id == -1)   // The bone_name does not exists in the skel...
+    return;
+
+  if (local_axis_to_correct.Length() < 1e-3f)
     return;
 
   CalBone* bone = skel->getBone(bone_id);
@@ -140,4 +146,35 @@ void TBoneCorrection::apply(CalSkeleton* skel, VEC3 dx_world_target, float exter
 
 	bone->setRotation(new_rot);
 	bone->calculateState();
+}
+
+void TBoneCorrection::applyLocal(CalSkeleton* skel, VEC3 abs_user_dir, float local_angle) const {
+
+  // We want to correct a bone by name, but we need a bone_id
+  // to access that bone
+  if (bone_id == -1)   // The bone_name does not exists in the skel...
+    return;
+
+  CalBone* bone = skel->getBone(bone_id);
+  assert(bone);
+
+  CalQuaternion rot_abs_to_local = bone->getRotationAbsolute();
+  rot_abs_to_local.invert();
+
+  CalVector local_user_dir = DX2Cal(abs_user_dir);
+  local_user_dir *= rot_abs_to_local;
+
+  // Find a quaternion to rotate 'local_axis_to_correct' to 'local_dir'
+  CalQuaternion q_rot;
+  float angle = local_angle;
+  q_rot.x = sinf(angle * 0.5f) * local_user_dir.x;
+  q_rot.y = sinf(angle * 0.5f) * local_user_dir.y;
+  q_rot.z = sinf(angle * 0.5f) * local_user_dir.z;
+  q_rot.w = cosf(angle * 0.5f);
+  
+  // Add the correction before the current bone
+  q_rot *= bone->getRotation();
+
+  bone->setRotation(q_rot);
+  bone->calculateState();
 }

@@ -8,7 +8,6 @@
 #include "components/ai/bt/bt_cupcake.h"
 #include "components/ai/bt/bt_sushi.h"
 #include "components/ai/bt/bt_ranged_sushi.h"
-#include "components/ai/bt/bt_cupcake_explosive.h"
 #include "components/ai/bt/bt_golem.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "components/controllers/comp_inventory.h"
@@ -91,10 +90,6 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
 		}
 		else if (status.entityType == EntityType::RANGED_SUSHI) {
 			CBTRangedSushi* comp_enemy = e_entity->get<CBTRangedSushi>();
-			status.curve = comp_enemy->getNameCurve();
-		}
-		else if (status.entityType == EntityType::EXPLOSIVE_CUPCAKE) {
-			CBTCupcake_explosive* comp_enemy = e_entity->get<CBTCupcake_explosive>();
 			status.curve = comp_enemy->getNameCurve();
 		}
 		else if (status.entityType == EntityType::CUPCAKE_SPAWNER) {
@@ -184,11 +179,6 @@ bool CCheckpoint::loadCheckPoint()
 			}
 			else if (entity.entityType == EntityType::RANGED_SUSHI) {
 				CBTRangedSushi* comp_enemy = spawnedEntity->get<CBTRangedSushi>();
-
-				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
-			}
-			else if (entity.entityType == EntityType::EXPLOSIVE_CUPCAKE) {
-				CBTCupcake_explosive* comp_enemy = spawnedEntity->get<CBTCupcake_explosive>();
 
 				comp_enemy->setCurve(Resources.get(entity.curve)->as<CCurve>());
 			}

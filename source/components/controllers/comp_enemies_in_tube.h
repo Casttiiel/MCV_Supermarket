@@ -16,6 +16,9 @@ public:
   void update(float dt);
   static void registerMsgs();
   bool activateTrap = false;
+
+  void setActivateTrap(bool value);
+
   CHandle h1;
   CHandle h2;
   CHandle h3;
