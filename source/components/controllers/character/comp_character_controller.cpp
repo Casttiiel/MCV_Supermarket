@@ -1441,6 +1441,7 @@ void TCompCharacterController::mounted(float delta) {
 }
 
 void TCompCharacterController::interact() {
+    //Scripting.execAction("playAnnouncement('event:/UI/Announcements/Announcement1')");
     TCompTransform* c_trans = get<TCompTransform>();
     //Analyze interactable objects
     //Create a collider sphere where we want to detect collision

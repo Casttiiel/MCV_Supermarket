@@ -1033,6 +1033,18 @@ void CModuleGameController::updateSoundtrackID(int new_track_id = 0) {
 }
 void CModuleGameController::setSoundtrackVolume(float volume) {
     EngineAudio.soundtrack.setVolume(volume);
+    dbg("volume set\n");
+}
+float CModuleGameController::getSoundtrackVolume() {
+    return EngineAudio.soundtrack.getVolume();
+}
+void CModuleGameController::playAnnouncement(std::string announcement = "") {
+    assert(announcement != "");
+    float volume = getSoundtrackVolume();
+    setSoundtrackVolume(0.1f);
+    AudioEvent audio = EngineAudio.playEvent(announcement);
+    float audioLength = audio.getLength() / 1000.f;
+    Scripting.execActionDelayed("setSoundtrackVolume(1.0)", audioLength);
 }
 //End Soundtrack Functions
 
