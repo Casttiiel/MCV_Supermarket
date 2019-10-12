@@ -1063,3 +1063,7 @@ end
 function setSoundtrackVolume(volume)
 	GameController:setSoundtrackVolume(volume)
 end
+
+function startAudioPlayer(entityName)
+	GameController:startAudioPlayer(entityName)
+end

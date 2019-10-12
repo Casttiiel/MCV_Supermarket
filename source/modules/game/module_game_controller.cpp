@@ -21,6 +21,7 @@
 #include "components/ai/bt/bt_cupcake.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "components/objects/comp_wind_trap.h"
+#include "components/actions/comp_audioPlayer.h"
 #include "ui/module_ui.h"
 #include "render/module_render.h"
 
@@ -1033,7 +1034,6 @@ void CModuleGameController::updateSoundtrackID(int new_track_id = 0) {
 }
 void CModuleGameController::setSoundtrackVolume(float volume) {
     EngineAudio.soundtrack.setVolume(volume);
-    dbg("volume set\n");
 }
 float CModuleGameController::getSoundtrackVolume() {
     return EngineAudio.soundtrack.getVolume();
@@ -1042,20 +1042,31 @@ void CModuleGameController::playAnnouncement(std::string announcement = "") {
     assert(announcement != "");
     float volume = getSoundtrackVolume();
     setSoundtrackVolume(0.1f);
-    AudioEvent audio = EngineAudio.playEvent(announcement);
-    float audioLength = audio.getLength() / 1000.f;
+    EngineAudio.announcement = EngineAudio.playEvent(announcement);
+    float audioLength = EngineAudio.announcement.getLength() / 1000.f;
     Scripting.execActionDelayed("setSoundtrackVolume(1.0)", audioLength);
+}
+void CModuleGameController::startAudioPlayer(std::string entity = "") {
+    assert(entity != "");
+    CEntity* holder = entityByName(entity);
+    if (holder) {
+        TCompAudioPlayer* player = holder->get< TCompAudioPlayer>();
+        if (player)
+            player->play();
+    }
 }
 //End Soundtrack Functions
 
 void CModuleGameController::pauseGame() {
     EngineAudio.soundtrack.setPaused(true);
     EngineAudio.secondarySoundtrack.setPaused(false);
+    EngineAudio.announcement.setPaused(true);
 }
 
 void CModuleGameController::resumeGame() {
     EngineAudio.soundtrack.setPaused(false);
     EngineAudio.secondarySoundtrack.setPaused(true);
+    EngineAudio.announcement.setPaused(false);
 }
 
 void CModuleGameController::cheatPosition() {

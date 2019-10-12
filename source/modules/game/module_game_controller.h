@@ -241,6 +241,7 @@ public:
     void setSoundtrackVolume(float volume);
     float getSoundtrackVolume();
     void playAnnouncement(std::string announcement);
+    void startAudioPlayer(std::string entity);
     //End Soundtrack Functions
 	//dar handle a partir del nombre 
 	CHandle entityByName(std::string name);
