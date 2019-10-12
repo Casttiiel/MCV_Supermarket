@@ -69,7 +69,7 @@ private:
   //End Shopping Cart
   std::string statePrevious = "";
   float distance_to_aim = 20.0f;
-  float speed = 5.f;
+  float speed = 4.5f;
   float inCombatTimer = 0.f;
   float inCombatDuration = 3.5f;
   
