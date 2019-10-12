@@ -1042,8 +1042,8 @@ void CModuleGameController::playAnnouncement(std::string announcement = "") {
     assert(announcement != "");
     float volume = getSoundtrackVolume();
     setSoundtrackVolume(0.1f);
-    AudioEvent audio = EngineAudio.playEvent(announcement);
-    float audioLength = audio.getLength() / 1000.f;
+    EngineAudio.announcement = EngineAudio.playEvent(announcement);
+    float audioLength = EngineAudio.announcement.getLength() / 1000.f;
     Scripting.execActionDelayed("setSoundtrackVolume(1.0)", audioLength);
 }
 //End Soundtrack Functions
@@ -1051,11 +1051,13 @@ void CModuleGameController::playAnnouncement(std::string announcement = "") {
 void CModuleGameController::pauseGame() {
     EngineAudio.soundtrack.setPaused(true);
     EngineAudio.secondarySoundtrack.setPaused(false);
+    EngineAudio.announcement.setPaused(true);
 }
 
 void CModuleGameController::resumeGame() {
     EngineAudio.soundtrack.setPaused(false);
     EngineAudio.secondarySoundtrack.setPaused(true);
+    EngineAudio.announcement.setPaused(false);
 }
 
 void CModuleGameController::cheatPosition() {

@@ -59,6 +59,7 @@ public:
     */
     AudioEvent soundtrack;
     AudioEvent secondarySoundtrack;
+    AudioEvent announcement;
     CModuleAudio(const std::string& name) : IModule(name) {}
     bool start() override;
     void update(float delta) override;
