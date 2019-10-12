@@ -149,6 +149,7 @@ void CModuleScripting::BindGameController() {
         .set("resumeSoundtrack", &CModuleGameController::resumeSoundtrack)
         .set("updateSoundtrackID", &CModuleGameController::updateSoundtrackID)
         .set("setSoundtrackVolume", &CModuleGameController::setSoundtrackVolume)
+        .set("playAnnouncement", &CModuleGameController::playAnnouncement)
     .set("setAmbient", &CModuleGameController::updateAmbientLight)
 		.set("entityByName", &CModuleGameController::entityByName)
 		.set("dbgInLua", &CModuleGameController::dbgInLua)

@@ -27,7 +27,6 @@ class CModuleGameplayFragment;
 
 class CModuleGameController : public IModule
 {
-    AudioEvent soundtrack;
     /* Mantain a handle of the player */
     CHandle _player;
     CHandle _fly_camera;
@@ -240,6 +239,8 @@ public:
     void updateSoundtrackID(int new_track_id);
     void updateAmbientLight(float amount);
     void setSoundtrackVolume(float volume);
+    float getSoundtrackVolume();
+    void playAnnouncement(std::string announcement);
     //End Soundtrack Functions
 	//dar handle a partir del nombre 
 	CHandle entityByName(std::string name);
