@@ -173,6 +173,11 @@ void TCompEnemiesInTube::update(float dt) {
 }
 
 
+void TCompEnemiesInTube::setActivateTrap(bool value) {
+	activateTrap = value;
+}
+
+
 
 //CODIGO ANTIGUO
 

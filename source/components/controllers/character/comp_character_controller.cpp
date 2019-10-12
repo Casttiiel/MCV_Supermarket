@@ -1170,6 +1170,7 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
             }
             else if (strcmp("endgame", tag.c_str()) == 0) {
                 //..en el futuro GameState GameOver
+				GameController.playAnnouncement("event:/UI/Announcements/Announcement12");
                 endGame = true;
                 //dismount();
                 ChangeState("WIN");
@@ -1571,6 +1572,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  //unLockableChilli = true;
       //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
       EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+	  Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
       /*CEntity* e1 = getEntityByName("Hielo2_LP");
       TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
       c_ma1->updateMorphData(0.0f);

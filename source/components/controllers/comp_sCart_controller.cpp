@@ -64,6 +64,12 @@ void TCompSCartController::enable(CHandle vehicle) {
 		//Generate fake player mounted
 		fakePlayerHandle = GameController.spawnPrefab("data/prefabs/props/fake_player_mounted.json", c_trans->getPosition());
         EngineAudio.playEvent("event:/Character/SCart/Mount");
+
+		if (!firstTimeEnabled) {
+			Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement3\")",1.1);
+			firstTimeEnabled = true;
+		}
+
 	}
 
 

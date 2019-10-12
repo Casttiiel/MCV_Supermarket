@@ -290,6 +290,7 @@ void CModuleScripting::BindEnemySpawner() {
 void CModuleScripting::BindEnemiesInTube() {
 	SLB::Class<TCompEnemiesInTube>("TCompEnemiesInTube", m)
 		.comment("This is our wrapper of comp_enemies_in_tube class")
+		.set("setActivateTrap", &TCompEnemiesInTube::setActivateTrap)
 		.property("activateTrap", &TCompEnemiesInTube::activateTrap)
 
 		/*
