@@ -115,8 +115,11 @@ private:
 	bool stop = false;
 	
 	bool firstTimeRotateDegree = true;
-
+	//--------PRUEBA SINUS
 	int amplitude = 10;
+	
+	
+	//-------------
 };
 
 #endif _AI_PLATFORM

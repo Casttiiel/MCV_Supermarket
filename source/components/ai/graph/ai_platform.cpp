@@ -620,10 +620,10 @@ void CAIMobilePlatform::InitToPositionWithCurveNotRotation() {
 void CAIMobilePlatform::ToSineMovement(float dt) {
 	TCompTransform* c_trans = get<TCompTransform>();
 	float x = c_trans->getPosition().x;
-	float y = sin(Time.delta) * 100;
+	float y =  sin(Time.delta) * 100;
 	float z = c_trans->getPosition().z;
-	dbg("PUEAS-->%f\n",y);
-	c_trans->setPosition(VEC3(x, y, z));
+	
+	//c_trans->setPosition(c_trans->getPosition() + VEC3(0, sin(Time.delta), 0));
 
 }
 
@@ -631,6 +631,8 @@ void CAIMobilePlatform::ToSineMovement(float dt) {
 void CAIMobilePlatform::InitToSineMovement() {
 	AddState("TOSINEMOVEMENT", (statehandler)&CAIMobilePlatform::ToSineMovement);
 	ChangeState("TOSINEMOVEMENT");
+	
+	
 }
 
 
