@@ -1012,6 +1012,13 @@ TCompCharacterController* toCompCharacterController_(CHandle h) {
 	return c;
 }
 
+
+TCompBalance* toCompBalance(CHandle h) {
+	TCompBalance* b = h;
+	return b;
+}
+
+
 void CModuleGameController::updateAmbientLight(float amount) {
   CEngine::get().getRender().setNewAmbient(amount);
 }
@@ -1109,6 +1116,8 @@ CCamera* CModuleGameController::getCameraFromHandle(CHandle hCamera)
 	}
 	return nullptr;
 }
+
+
 
 
 

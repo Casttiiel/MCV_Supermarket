@@ -371,8 +371,8 @@ function in_trap_tube_enemies_player()
 	handle = GameController:entityByName("enemies_in_tube");--prefab
 	t_compenemiestube = toCompEnemiesInTube(toEntity(handle):getCompByName("enemies_in_tube"));
 	t_compenemiestube.activateTrap = true
-
-
+	
+	--execDelayedAction("balanceoLampara(\"Joint001\")",0);
 	execDelayedAction("on_delete_handle(\"trigger008\")",0);
 
 
@@ -435,7 +435,7 @@ end
 
 
 function createEnemies_player()
-
+	execDelayedAction("balanceoLampara(\"Joint001\")",0);
 	GameController:deleteGolem("golem2");
 	GameController:deleteGolem("golem3");
 	GameController:deleteCupcake();
@@ -1078,4 +1078,12 @@ end
 
 function startAudioPlayer(entityName)
 	GameController:startAudioPlayer(entityName)
+end
+
+function balanceoLampara(entityName)
+	h_lampara =  GameController:entityByName(entityName);
+	t_lampara = toCompBalance(toEntity(h_lampara):getCompByName("comp_balance"));
+	t_lampara:balanceo();
+	
+
 end

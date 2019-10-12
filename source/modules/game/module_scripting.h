@@ -45,6 +45,7 @@ public:
 	void BindSelfDestroy();
 	void BindPointLights();
 	void BindFlickering();
+	void BindBalanceo();
 
 	void runScript(std::string nameScript, const std::string& params = "", float delay = 0.f);
 	bool execAction(const std::string& action);

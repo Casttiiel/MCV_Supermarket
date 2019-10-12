@@ -14,7 +14,7 @@ public:
   void debugInMenu();
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
-
+  void balanceo();
   static void registerMsgs();
 
 private:
@@ -26,6 +26,8 @@ private:
 	TCompTransform* c_trans;
 
 	void onCreate(const TMsgEntityCreated & msg);
+
+	
 	
 };
 

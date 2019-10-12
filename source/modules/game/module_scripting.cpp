@@ -102,6 +102,7 @@ void CModuleScripting::doBingings() {
 	BindPointLights();
 	BindFlickering();
 	BindCharacterController();
+	BindBalanceo();
 }
 
 
@@ -193,6 +194,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompLightPoint", SLB::FuncCall::create(&toCompLightPoint));
 	m->set("toCompFlickering", SLB::FuncCall::create(&toCompFlickering));
 	m->set("toCompCharacterController_", SLB::FuncCall::create(&toCompCharacterController_));
+	m->set("toCompBalance", SLB::FuncCall::create(&toCompBalance));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -373,6 +375,15 @@ void CModuleScripting::BindCamera() {
 		.comment("TCompCamera wrapper")
 		.constructor()
 		.set("lookAt", &TCompCamera::lookAt);
+}
+
+
+
+void CModuleScripting::BindBalanceo() {
+	SLB::Class <TCompBalance>("TCompBalance", m)
+		.comment("TCompCamera wrapper")
+		.constructor()
+		.set("balanceo", &TCompBalance::balanceo);
 }
 
 

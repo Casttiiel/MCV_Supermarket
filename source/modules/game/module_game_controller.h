@@ -18,6 +18,7 @@
 #include "components/controllers/character/comp_character_controller.h"
 #include "components/common/comp_light_point.h"
 #include "components/vfx/comp_flickering.h"
+#include "components/objects/comp_balance.h"
 
 
 class CBTCupcake;
@@ -285,3 +286,4 @@ TCompEnemySpawner* toCompEnemySpawner(CHandle h);
 TCompLightPoint* toCompLightPoint(CHandle h);
 TCompFlickering* toCompFlickering(CHandle h);
 TCompCharacterController* toCompCharacterController_(CHandle h);
+TCompBalance* toCompBalance(CHandle h);
