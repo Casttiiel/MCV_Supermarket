@@ -330,6 +330,9 @@ bool TCompCamera3rdPerson::putPlayerOnScreen(VEC3 &newPos) {
   filter_data.data.word0 = EnginePhysics.CameraCollision;
 
   //SCENE COLLISION NEEDS TO BE TESTED
+  /*if (EnginePhysics.gScene == nullptr) {
+	  return false;
+  }*/
   bool colDetected = EnginePhysics.gScene->raycast(VEC3_TO_PXVEC3(playerPos), VEC3_TO_PXVEC3(rayDir), dist, hit, outputFlags, filter_data);
   int closestIdx = -1;
   if (colDetected) {

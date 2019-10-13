@@ -44,7 +44,9 @@ void CModuleGameOver::stop()
 	
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
-		GameController.resetCamera();
+		if(ui.botonPulsadoGameOver == 0) {//hemos pulsado restart
+			GameController.resetCamera();
+		}
 		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1);
 		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BACKGROUND\")", 1);
 		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BUTTONS\")", 1);

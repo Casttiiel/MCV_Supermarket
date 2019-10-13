@@ -171,6 +171,7 @@ namespace UI
 	  /*BOTONES MENU GAME_OVER*/
 	  auto mdeadRestart = []() {
 		  UI::CModuleUI& ui = Engine.getUI();
+		  ui.botonPulsadoGameOver = 0;
 		  if (ui.sizeUI == 1) {
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
@@ -210,6 +211,7 @@ namespace UI
 	  };
 	  auto mdeadExit = []() {
 		  UI::CModuleUI& ui = Engine.getUI();
+		  ui.botonPulsadoGameOver = 1;
 		  if (ui.sizeUI == 1) {
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
