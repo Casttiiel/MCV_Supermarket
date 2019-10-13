@@ -74,9 +74,13 @@ void CModuleGamePaused::stop()
 {
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
-		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
-		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
-		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1.5);
+		Scripting.execActionDelayed("deactivateWidget(\"PAUSE_MENU_BACKGROUND\")", 1.5);
+		Scripting.execActionDelayed("deactivateWidget(\"PAUSE_MENU_BUTTONS\")", 1.5);
+		Scripting.execActionDelayed("deactivateWidget(\"HUD_NORMAL_PLAYER\")", 1.5);
+		//CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
+		//CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
+		//CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
 	}
 	else {
 		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");

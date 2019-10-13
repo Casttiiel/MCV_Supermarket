@@ -945,6 +945,12 @@ function saveCheckpoint()
 	GameController:saveCheckpoint(pos, rot);
 end
 
+
+function loadCheckpoint()
+	GameController:loadCheckpoint();
+
+end
+
 function setEndGame()
 	handlePlayer = GameController:getPlayerHandle();
 	t_compcharac = toCompCharacterController_(toEntity(handlePlayer):getCompByName("character_controller"));

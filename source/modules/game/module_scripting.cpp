@@ -174,6 +174,7 @@ void CModuleScripting::BindGameController() {
 		.set("activateWidget", &CModuleGameController::activateWidget)
     .set("deleteProducts",&CModuleGameController::deleteProducts)
     .set("loadProducts", &CModuleGameController::loadProducts)
+		.set("loadCheckpoint", &CModuleGameController::loadCheckpoint)
 		;
 }
 
