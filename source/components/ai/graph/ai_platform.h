@@ -119,8 +119,8 @@ private:
 	bool firstTimeRotateDegree = true;
 	//MOV PRUEBA SINUS
 	VEC3 pivot;
-	 float timePeriod = 10.f;
-	float height = 1.f;
+	float timePeriod = 10.f;
+	float height = 0.5f;
 	float timeSinceStart;
 	//-------------
 };

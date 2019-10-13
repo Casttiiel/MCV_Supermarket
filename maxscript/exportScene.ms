@@ -213,6 +213,8 @@ struct TSceneExporter (
 			local param8 = getUserProp obj "axis" 
 			local param9 = getUserProp obj "positions" --puntos
 			local param10 = getUserProp obj "active"
+			local param11 = getUserProp obj "heightSinus"
+			local param12 = getUserProp obj "period"
 			
 			if param2 == undefined  then (
 				throw "A una plataforma le faltan datos"
@@ -262,6 +264,14 @@ struct TSceneExporter (
 				fs.writeKeyValue "active" param10
 				
 				--fs.writeKeyValue "positions" param9
+				fs.writeComma()
+			)
+			if param11 != undefined  then (
+				fs.writeKeyValue "heightSinus" param11
+				fs.writeComma()
+			)
+			if param12 != undefined  then (
+				fs.writeKeyValue "period" param12
 				fs.writeComma()
 			)
 			fs.writeKeyValue "platformType_" param2	

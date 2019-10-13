@@ -688,8 +688,8 @@ void CAIMobilePlatform::load(const json& j, TEntityParseContext& ctx) {
 		axis = loadVEC3(j, "axis");
 	}
 	active = j.value("active", active);
-
-	
+	height = j.value("heightSinus", height);
+	timePeriod = j.value("period", timePeriod);
 
 	if (platformType == POINT_TO_POINT) {//0
 		this->InitPoinToPoint();
