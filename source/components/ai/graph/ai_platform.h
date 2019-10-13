@@ -54,6 +54,8 @@ class CAIMobilePlatform : public IAIController
 
 
 	void ToSineMovement(float dt);
+	void InitSinMov(float dt);
+
 
 	DECL_SIBLING_ACCESS();
 public:
@@ -115,10 +117,11 @@ private:
 	bool stop = false;
 	
 	bool firstTimeRotateDegree = true;
-	//--------PRUEBA SINUS
-	int amplitude = 10;
-	
-	
+	//MOV PRUEBA SINUS
+	VEC3 pivot;
+	 float timePeriod = 10.f;
+	float height = 1.f;
+	float timeSinceStart;
 	//-------------
 };
 

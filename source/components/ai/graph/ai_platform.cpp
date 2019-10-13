@@ -619,18 +619,35 @@ void CAIMobilePlatform::InitToPositionWithCurveNotRotation() {
 
 void CAIMobilePlatform::ToSineMovement(float dt) {
 	TCompTransform* c_trans = get<TCompTransform>();
-	float x = c_trans->getPosition().x;
-	float y =  sin(Time.delta) * 100;
-	float z = c_trans->getPosition().z;
-	
-	//c_trans->setPosition(c_trans->getPosition() + VEC3(0, sin(Time.delta), 0));
+	VEC3 nextPos = c_trans->getPosition();
+	nextPos.y = pivot.y + height + height * sin(((PI * 2) / timePeriod) * timeSinceStart);
+	timeSinceStart += dt;
+	c_trans->setPosition(nextPos);
 
+	TCompCollider* c_col = get<TCompCollider>();
+	physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+	PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+	PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+	const PxTransform tr(pos, ori);
+	rigid_dynamic->setKinematicTarget(tr);
+}
+
+void CAIMobilePlatform::InitSinMov(float dt) {
+	/*TCompTransform* c_trans = get<TCompTransform>();
+	posLocalYLimiteMax = c_trans->getPosition().y + 5;
+	posLocalYLimiteMin = c_trans->getPosition().y - 5;*/
+	TCompTransform* c_trans = get<TCompTransform>();
+	pivot = c_trans->getPosition();
+	height /=  2;
+	timeSinceStart = timeSinceStart = (3 * timePeriod) / 4;
+	ChangeState("TOSINEMOVEMENT");
 }
 
 
 void CAIMobilePlatform::InitToSineMovement() {
+	AddState("INITSINMOV", (statehandler)&CAIMobilePlatform::InitSinMov);
 	AddState("TOSINEMOVEMENT", (statehandler)&CAIMobilePlatform::ToSineMovement);
-	ChangeState("TOSINEMOVEMENT");
+	ChangeState("INITSINMOV");
 	
 	
 }
