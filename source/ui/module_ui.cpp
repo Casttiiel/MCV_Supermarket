@@ -135,11 +135,13 @@ namespace UI
 	  };
 
 	  auto mpauseRestart = []() {
+		  UI::CModuleUI& ui = Engine.getUI();
+		  ui.botonPulsadoPause = 0;
 		  CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
 		  Time.real_scale_factor = 1.0f;
 		  /*UI::CModuleUI& ui = Engine.getUI();
 		  ui.unregisterController();*/
-		  UI::CModuleUI& ui = Engine.getUI();
+		 
 		  if (ui.sizeUI == 1) {
 			  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")-> childAppears(true, true, 0.0, 1.0);;
 			  //CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");

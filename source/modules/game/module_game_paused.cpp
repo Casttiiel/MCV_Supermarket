@@ -64,7 +64,8 @@ void CModuleGamePaused::update(float delta)
 
     GameController.resumeGame();
     Time.real_scale_factor = 1.0f;
-
+	UI::CModuleUI& ui = Engine.getUI();
+	ui.botonPulsadoPause = 1;
 
   }
   
@@ -74,13 +75,17 @@ void CModuleGamePaused::stop()
 {
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
-		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1.5);
-		Scripting.execActionDelayed("deactivateWidget(\"PAUSE_MENU_BACKGROUND\")", 1.5);
-		Scripting.execActionDelayed("deactivateWidget(\"PAUSE_MENU_BUTTONS\")", 1.5);
-		Scripting.execActionDelayed("deactivateWidget(\"HUD_NORMAL_PLAYER\")", 1.5);
-		//CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
-		//CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
-		//CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+		if(ui.botonPulsadoPause == 0) {
+			Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1.5);
+			Scripting.execActionDelayed("deactivateWidget(\"PAUSE_MENU_BACKGROUND\")", 1.5);
+			Scripting.execActionDelayed("deactivateWidget(\"PAUSE_MENU_BUTTONS\")", 1.5);
+			Scripting.execActionDelayed("activateWidget(\"HUD_NORMAL_PLAYER\")", 1.5);
+		}
+		else {
+			CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
+			CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
+			CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+		}
 	}
 	else {
 		CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
