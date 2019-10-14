@@ -14,10 +14,14 @@ public:
   void debugInMenu();
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
+  void setActivateRotator(bool value) {
+	  activateRotator = value;
+  }
 
 private:
-	float rotationTime = 0.f;
+	float rotationTime = 10.f;
 	VEC3 axis = VEC3(0, 1, 0);
 	bool activateRotator = false;
+	
 };
 

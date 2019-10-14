@@ -4,6 +4,7 @@
 #include "modules/game/module_game_controller.h"
 #include "engine.h"
 #include "components/ai/bt/bt_cupcake.h"
+#include "components/objects/comp_rotator.h"
 
 DECL_OBJ_MANAGER("enemies_in_tube", TCompEnemiesInTube);
 
@@ -88,6 +89,12 @@ void TCompEnemiesInTube::update(float dt) {
         if (!activateTrap1) {
           h1 = GameController.spawnPrefab("data/particles/smoke_tube1.json", VEC3(), QUAT(0, 0, 0, 1), 1);
           activateTrap1 = true;
+		  CEntity* palaBatidora1 = GameController.entityByName("palaBatidora1");
+		  TCompRotator* rot1 = palaBatidora1->get<TCompRotator>();
+		  CEntity* palaBatidora2 = GameController.entityByName("palaBatidora2");
+		  TCompRotator* rot2 = palaBatidora2->get<TCompRotator>();
+		  rot1->setActivateRotator(true);
+		  rot2->setActivateRotator(true);
         }
         else {
           CEntity* entity_emis = (CEntity*)h1;
@@ -104,6 +111,12 @@ void TCompEnemiesInTube::update(float dt) {
         if (!activateTrap2) {
           h2 = GameController.spawnPrefab("data/particles/smoke_tube3.json", VEC3(), QUAT(0, 0, 0, 1), 1);
           activateTrap2 = true;
+		  CEntity* palaBatidora3 = GameController.entityByName("palaBatidora3");
+		  TCompRotator* rot3 = palaBatidora3->get<TCompRotator>();
+		  CEntity* palaBatidora4 = GameController.entityByName("palaBatidora4");
+		  TCompRotator* rot4 = palaBatidora4->get<TCompRotator>();
+		  rot3->setActivateRotator(true);
+		  rot4->setActivateRotator(true);
         }
         else {
           CEntity* entity_emis = (CEntity*)h2;
@@ -120,6 +133,12 @@ void TCompEnemiesInTube::update(float dt) {
         if (!activateTrap3) {
           h3 = GameController.spawnPrefab("data/particles/smoke_tube2.json", VEC3(), QUAT(0, 0, 0, 1), 1);
           activateTrap3 = true;
+		  CEntity* palaBatidora5 = GameController.entityByName("palaBatidara5");
+		  TCompRotator* rot5 = palaBatidora5->get<TCompRotator>();
+		  CEntity* palaBatidora6 = GameController.entityByName("palaBatidora6");
+		  TCompRotator* rot6 = palaBatidora6->get<TCompRotator>();
+		  rot5->setActivateRotator(true);
+		  rot6->setActivateRotator(true);
         }
         else {
           CEntity* entity_emis = (CEntity*)h3;
@@ -136,6 +155,12 @@ void TCompEnemiesInTube::update(float dt) {
         if (!activateTrap4) {
           h4 = GameController.spawnPrefab("data/particles/smoke_tube4.json", VEC3(), QUAT(0, 0, 0, 1), 1);
           activateTrap4 = true;
+		  CEntity* palaBatidora8 = GameController.entityByName("palaBatidora8");
+		  TCompRotator* rot8 = palaBatidora8->get<TCompRotator>();
+		  CEntity* palaBatidora7 = GameController.entityByName("palaBatidora7");
+		  TCompRotator* rot7 = palaBatidora7->get<TCompRotator>();
+		  rot7->setActivateRotator(true);
+		  rot8->setActivateRotator(true);
         }
         else {
           CEntity* entity_emis = (CEntity*)h4;
@@ -172,6 +197,9 @@ void TCompEnemiesInTube::update(float dt) {
 		  GameController.startAudioPlayer("014");//batidora 2
 		  GameController.startAudioPlayer("015");//batidora 3
 		  GameController.startAudioPlayer("016");// batidora 4
+
+		  
+
         firstTime = true;
       }
 

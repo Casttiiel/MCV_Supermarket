@@ -795,6 +795,17 @@ struct TSceneExporter (
 			fs.endObj()
 		)		
 	),
+	fn exportRotator obj = (
+		local isRotator = getUserProp obj "isRotator"
+		if isRotator != undefined then (
+			fs.writeComma()
+			fs.writeKey "comp_rotator"
+			fs.beginObj()
+			fs.endObj()
+		)		
+	),
+	
+	
 	fn exportEntity obj = (
 		fs.beginObj()
 		fs.writeKey "entity"
@@ -814,6 +825,7 @@ struct TSceneExporter (
 			exportHierarch obj
 			exportFireRandomizer obj
 			exportBillboardXZ obj
+			exportRotator obj
 			--exportCompCurveController obj
 			
 			local nCA = custAttributes.count obj
