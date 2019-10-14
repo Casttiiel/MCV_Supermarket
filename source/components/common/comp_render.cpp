@@ -62,7 +62,7 @@ void TCompRender::readMesh(const json& j) {
   std::string mesh_name = j.value("mesh", "data/meshes/Teapot001.mesh");
   mp.mesh = Resources.get(mesh_name)->as<CMesh>();
 
-  dbg("For mesh %s\n", mesh_name.c_str());
+  //dbg("For mesh %s\n", mesh_name.c_str());
   int mesh_instances_group = j.value("instances_group", 0);
 
   if (j.count("materials")) {

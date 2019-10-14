@@ -26,11 +26,11 @@ void TCompOnomManager::onPetition(const TMsgOnomPet& msg) {
   if (msg.type != 3) {
     TMsgOnomPet newmsg;
     if (msg.type == 2 && wham) {
-      newmsg.type = 4.0f;
+      newmsg.type = 2.0f;
       wham = false;
     }
     else if (msg.type == 2 && !wham) {
-      newmsg.type = 2.0f;
+      newmsg.type = 4.0f;
       wham = true;
     }
     else {
@@ -63,6 +63,9 @@ void TCompOnomManager::update(float delta) {
       data->emitter_num_particles_per_spawn = 1;
       data->emitter_center = petitions[0].pos;
       data->emitter_dir_aperture = petitions[0].type;
+      /*if (petitions[0].type == 1.0f) {
+        //dbg("zapit\n");
+      }*/
       //erase first element of petitions vector
       petitions.erase(petitions.begin());
     } else {

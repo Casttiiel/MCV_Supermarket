@@ -165,7 +165,7 @@ struct v2p {   // Vertex to pixel
   float4 Pos   : SV_POSITION;
   float2 Uv    : TEXCOORD0;
   float4 Color : COLOR;
-  float2  aux   : TEXCOORD1;
+  float  aux   : TEXCOORD1;
 };
 
 struct VS_INPUT {   // Input from billboard mesh
@@ -193,19 +193,32 @@ v2p VS(
   output.Pos = mul( float4(p,1.0), ViewProjection );
   output.Uv = input.Uv;
   output.Color = instance.color;
-  output.aux = float2(instance.dummy4 , instance.dummy2);
+  output.aux = instance.dummy4;
   return output;
 }
 
 //--------------------------------------------------------------------------------------
-float4 PS(v2p input) : SV_Target0 {
+float4 PS(v2p input
+, in uint InstanceID : SV_InstanceID
+, StructuredBuffer<TInstance> instances_active : register(t0)
+) : SV_Target0 {
   float2 uv = input.Uv;
   uv.x = -uv.x;
 
-  float4 tex = txAlbedo.Sample(samLinear,uv) * (input.aux.x == 1.0f);
-  tex += txNormal.Sample(samLinear,uv) * (input.aux.x == 2.0f);
-  tex += txMetallic.Sample(samLinear,uv) * (input.aux.x == 3.0f);
-  tex += txRoughness.Sample(samLinear,uv) * (input.aux.x == 4.0f);
+  float4 tex = float4(0,0,0,0);
+
+  tex += txAlbedo.Sample(samLinear,uv) * (input.aux >= 0.5f && input.aux < 1.5f);
+  tex += txNormal.Sample(samLinear,uv) * (input.aux >= 1.5f && input.aux < 2.5f);
+  tex += txMetallic.Sample(samLinear,uv) * (input.aux >= 2.5f && input.aux < 3.5f);
+  tex += txRoughness.Sample(samLinear,uv) * (input.aux >= 3.5f && input.aux< 4.5f);  
+
+  /*uv /= 2.0f;
+  uv.x += 0.5f * floor(input.aux.x  / 4.0f);
+
+  float4 tex = txAlbedo.Sample(samLinear,uv);*/
+
+
+
   //-------------------
   //comic shading
   const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),

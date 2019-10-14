@@ -70,8 +70,9 @@ void TCompBatteryController::onCollision(const TMsgOnContact& msg) {
 
             CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
             TMsgOnomPet msgonom;
-            msgonom.type = 1;
-            msgonom.pos = c_trans->getPosition();
+            msgonom.type = 1.0f;
+            TCompTransform* c_trans2 = get<TCompTransform>();
+            msgonom.pos = c_trans2->getPosition();
             onom_manager->sendMsg(msgonom);
         }
         //antes 
@@ -310,7 +311,6 @@ void TCompBatteryController::update(float delta) {
             }
           }
           pulseTimer = pulseDelay;
-          dbg("Battery pulses\n");
         }
         else {
           pulseTimer -= delta;

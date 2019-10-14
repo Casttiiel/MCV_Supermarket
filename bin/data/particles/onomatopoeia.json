@@ -21,12 +21,12 @@
         "instances" : {
           "desc" : "Array of active particles at the start of the frame",
           "bytes_per_elem" : 96,
-          "num_elems" : 16
+          "num_elems" : 64
         },
         "instances_active" : {
           "desc" : "Array of active particles after the update",
           "bytes_per_elem" : 96,
-          "num_elems" : 16
+          "num_elems" : 64
         },
         "system" : {
           "desc" : "Stores dynamic information of this system: num particles alive/dead/time to next spawn/...",

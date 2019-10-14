@@ -179,7 +179,7 @@ void CDeferredRenderer::renderAccLight() {
   rt_acc_light->clear(VEC4(0, 0, 0, 0));
   renderAmbientPass();
   renderPointLights();
-  //renderDirectionalLightsWithoutShadows();
+  renderDirectionalLightsWithoutShadows();
   renderDirectionalLightsWithShadows();
   //renderFakeVolumetricLights();
   renderSkyBox();

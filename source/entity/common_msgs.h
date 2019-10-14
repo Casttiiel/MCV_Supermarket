@@ -11,7 +11,7 @@ struct TMsgEntityCreated {
 
 struct TMsgOnomPet {
   VEC3 pos;
-  int type;
+  float type;
   DECL_MSG_ID();
 };
 
