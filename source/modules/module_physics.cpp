@@ -682,7 +682,7 @@ void CModulePhysics::renderInMenu()
 void CModulePhysics::renderDebug() {
 
   // Show all the joints
-  for (auto& c : joints) {
+  /*for (auto& c : joints) {
     PxRigidActor* actors[2];
     c.px_joint->getActors(actors[0], actors[1]);
     for (int i = 0; i < 2; ++i) {
@@ -693,7 +693,7 @@ void CModulePhysics::renderDebug() {
       MAT44 world = local_t.asMatrix() * actor_t.asMatrix();
       drawAxis(world);
     }
-  }
+  }*/
 }
 
 CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& name, bool isGroup)
