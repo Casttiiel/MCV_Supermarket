@@ -987,6 +987,12 @@ void TCompCharacterController::attack(float delta) {
           }
           if (meleeHit) {
             EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
+
+            CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+            TMsgOnomPet msgonom;
+            msgonom.type = 2;
+            msgonom.pos = c_trans->getPosition();
+            onom_manager->sendMsg(msgonom);
           }
         }
 

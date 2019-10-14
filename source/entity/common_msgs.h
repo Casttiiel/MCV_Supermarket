@@ -9,6 +9,12 @@ struct TMsgEntityCreated {
   DECL_MSG_ID();
 };
 
+struct TMsgOnomPet {
+  VEC3 pos;
+  int type;
+  DECL_MSG_ID();
+};
+
 struct TMsgDamage {
 	CHandle h_sender;
 	CHandle h_bullet;
