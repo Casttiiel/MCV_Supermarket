@@ -57,7 +57,8 @@ void TCompSkelLookAtDirection::update(float dt) {
 
   TCompCharacterController* c_c = get < TCompCharacterController>();
   float targ_amount = 0.0f;
-  if (input_dir != VEC2::Zero && c_c->aiming) {
+  std::string state = c_c->getState();
+  if (input_dir != VEC2::Zero && c_c->aiming && strcmp(state.c_str(),"ON_AIR") != 0) {
     float input_angle = atan2(input_dir.y, input_dir.x) - (M_PI / 2.0f);
     targ_amount = input_angle / (-M_PI / 2.0f);
 
@@ -73,7 +74,7 @@ void TCompSkelLookAtDirection::update(float dt) {
   else if (sign(targ_amount - amount) < 0.0f && amount < targ_amount) {
     amount = targ_amount;
   }
-  if (abs(amount) < 0.05) {
+  if (abs(amount) < 0.05 && targ_amount == 0.0f) {
     amount = 0.0f;
   }
 

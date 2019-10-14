@@ -67,7 +67,7 @@ void TCompDynamicInstance::onBattery(const TMsgGravity& msg) {
   physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_cc->actor);
   VEC3 dir = c_trans->getPosition() - msg.position;
   dir.Normalize();
-  dir *= 10.0f;
+  dir *= 20.0f;
   rigid_dynamic->addForce(VEC3_TO_PXVEC3(dir), PxForceMode::eIMPULSE);
 
 }

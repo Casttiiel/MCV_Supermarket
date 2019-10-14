@@ -140,10 +140,8 @@ void CModuleScripting::BindGameController() {
 		.set("inCinematic", &CModuleGameController::inCinematic)
 		.set("inCinematicGolem", &CModuleGameController::inCinematicGolem)
 		.set("getPlayerHandle", &CModuleGameController::getPlayerHandle)
-		.set("loadScene", &CModuleGameController::loadScene)
-    .set("GPUloadScene", &CModuleGameController::GPUloadScene)
-    .set("GPUdeleteScene", &CModuleGameController::GPUdeleteScene)
-		.set("updatePlatformCurveByName", &CModuleGameController::updatePlatformCurveByName)
+    .set("loadScene",&CModuleGameController::loadScene)
+    .set("updatePlatformCurveByName", &CModuleGameController::updatePlatformCurveByName)
 		.set("playAnimationMorph", &CModuleGameController::playAnimationMorph)
         .set("stopAnimationMorph", &CModuleGameController::stopAnimationMorph)
         .set("startSoundtrack", &CModuleGameController::startSoundtrack)
@@ -172,8 +170,6 @@ void CModuleScripting::BindGameController() {
 		.set("changeGameState", &CModuleGameController::changeGameState)
 		.set("deactivateWidget", &CModuleGameController::deactivateWidget)
 		.set("activateWidget", &CModuleGameController::activateWidget)
-    .set("deleteProducts",&CModuleGameController::deleteProducts)
-    .set("loadProducts", &CModuleGameController::loadProducts)
 		.set("loadCheckpoint", &CModuleGameController::loadCheckpoint)
 		;
 }
