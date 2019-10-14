@@ -67,6 +67,12 @@ void TCompBatteryController::onCollision(const TMsgOnContact& msg) {
         if (col_filter_data.word0 & EnginePhysics.Scenario && isKinematic) {
             isKinematic = false;
             physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);	
+
+            CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+            TMsgOnomPet msgonom;
+            msgonom.type = 1;
+            msgonom.pos = c_trans->getPosition();
+            onom_manager->sendMsg(msgonom);
         }
         //antes 
           //rigid_dynamic->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, true);

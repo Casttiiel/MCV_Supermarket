@@ -63,8 +63,6 @@ TInstance spawnParticle( uint unique_id ) {
   p.dummy3 = rnd1;
   p.dummy4 = emitter_dir_aperture;
 
-  p.pos += float3( rnd2.x, 0, rnd2.y) * emitter_center_radius;
-  p.dir += float3( rndz, rnd4.y, rndz) * emitter_dir_aperture;
   p.dir *= speed;
 
   return p;
@@ -203,7 +201,11 @@ v2p VS(
 float4 PS(v2p input) : SV_Target0 {
   float2 uv = input.Uv;
   uv.x = -uv.x;
-  float4 tex = txAlbedo.Sample(samLinear,uv);
+
+  float4 tex = txAlbedo.Sample(samLinear,uv) * (input.aux.x == 1.0f);
+  tex += txNormal.Sample(samLinear,uv) * (input.aux.x == 2.0f);
+  tex += txMetallic.Sample(samLinear,uv) * (input.aux.x == 3.0f);
+  tex += txRoughness.Sample(samLinear,uv) * (input.aux.x == 4.0f);
   //-------------------
   //comic shading
   const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),

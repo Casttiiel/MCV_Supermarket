@@ -85,6 +85,14 @@ void TCompMeleeTrigger::renderDebug() {
 void TCompMeleeTrigger::expansiveWave() {
   CEntity* player = getEntityByName("Player");
   TCompTransform* c_trans = player->get<TCompTransform>();
+
+  CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+  TMsgOnomPet msgonom;
+  msgonom.type = 2;
+  msgonom.pos = c_trans->getPosition();
+  onom_manager->sendMsg(msgonom);
+
+
   PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
   PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
   PxSphereGeometry geometry(5.0f);

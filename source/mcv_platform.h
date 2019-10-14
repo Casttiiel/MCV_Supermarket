@@ -5,6 +5,8 @@
 #define WIN32_LEAN_AND_MEAN         // Reduce the size of things included in windows.h
 #define _USE_MATH_DEFINES           // M_PI M_PI_2
 
+#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+
 // C/C++
 #include <cstdio>
 #include <cstdlib>
