@@ -103,7 +103,13 @@ void CBTSushi::updateBT() {
     meleeTimer -= dt;
     damageStunTimer -= dt;
 
-
+		if (resteBlockPorbabiliy <= 0) {
+			blockProbability = 40;
+			resteBlockPorbabiliy = resteBlockPorbabiliyTimer;
+		}else{
+			resteBlockPorbabiliy -= dt;
+		}
+		
 
     TCompTransform* c_trans = get<TCompTransform>();
     _footSteps.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
@@ -1850,6 +1856,9 @@ void CBTSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
             sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_HIT, 0.7f);
         }
         else {
+					if (msg.damageType == PowerType::FIRE) {
+						blockProbability = 100;
+					}
             h_sender = msg.h_sender;
             damageSource = msg.position;
             life -= msg.intensityDamage;

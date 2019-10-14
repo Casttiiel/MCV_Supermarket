@@ -531,6 +531,7 @@ void TCompCharacterController::onAir(float delta) {
         ChangeState("GROUNDED");
         EngineAudio.playEvent("event:/Character/Footsteps/Landing");
         playerAnima->playAnimation(TCompPlayerAnimator::JUMP_END, 1.0f);
+
         return;
     }
 

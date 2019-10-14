@@ -210,6 +210,9 @@ private:
   float blockRemaining = blockDuration;
   //End Blocking Values
 
+	float resteBlockPorbabiliy;
+	float resteBlockPorbabiliyTimer = 1.0;
+
   //Orbit Values
   int orbitProbability = 33;
   float orbitSpeed = 1.0f;
