@@ -47,6 +47,15 @@ void CModuleGameOver::stop()
 		if(ui.botonPulsadoGameOver == 0) {//hemos pulsado restart
 			GameController.resetCamera();
 		}
+
+		
+		UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
+		b->setCurrentState("option_teleport");
+		UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
+		b_cursor->setCurrentState("option_teleport");
+		
+		
+
 		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1);
 		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BACKGROUND\")", 1);
 		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BUTTONS\")", 1);

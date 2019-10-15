@@ -45,7 +45,9 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
 	playerStatus.chilli = inventory->getChilli();
 	playerStatus.coffe = inventory->getCoffe();
 	playerStatus.teleport = inventory->getTeleport();
-	
+
+	//TCompCharacterController* compCharacterController = e_player->get<TCompCharacterController>();
+	//playerStatus.power_selected = compCharacterController->power_selected;
 
 
     /* Save Registered Entities' status */
@@ -138,6 +140,9 @@ bool CCheckpoint::loadCheckPoint()
 			inventory->setChilli(playerStatus.chilli);
 			inventory->setCoffe(playerStatus.coffe);
 			inventory->setTeleport(playerStatus.teleport);
+
+			//TCompCharacterController* compCharacterController = e_player->get<TCompCharacterController>();
+			//compCharacterController->power_selected = playerStatus.power_selected;
 			
             GameController.healPlayer();
         }
@@ -203,6 +208,11 @@ bool CCheckpoint::deleteCheckPoint()
     saved = false;
 
     return true;
+}
+
+
+PlayerStatus CCheckpoint::getPlayerStatus(){
+	return playerStatus;
 }
 
 void CCheckpoint::debugInMenu()

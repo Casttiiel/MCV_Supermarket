@@ -20,6 +20,7 @@ struct PlayerStatus {
 	bool chilli = false;
 	bool coffe = false;
     bool saved = false;
+	PowerType power_selected;
 };
 
 struct EntityStatus {
@@ -48,6 +49,7 @@ public:
     bool deleteCheckPoint();
     const bool isSaved() { return saved; };
     void debugInMenu();
+	PlayerStatus getPlayerStatus();
 
 private:
 

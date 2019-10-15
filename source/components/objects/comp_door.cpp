@@ -30,7 +30,10 @@ void TCompDoor::onBattery(const TMsgGravity & msg) {
 	TCompName* name = get<TCompName>();
 	std::string nameEntity = name->getName();
 	if (nameEntity.compare("puerta_suelta") == 0) {
-		GameController.playAnnouncement("event:/UI/Announcements/Announcement7");
+		if(!announceFlag) {
+			GameController.playAnnouncement("event:/UI/Announcements/Announcement7");
+			announceFlag = true;
+		}
 	}
 }
 

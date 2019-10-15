@@ -28,7 +28,7 @@
 #include "components/objects/comp_enemy_spawner_special_trap.h"
 #include "skeleton/comp_skel_lookat_direction.h"
 #include "components/common/comp_dynamic_instance.h"
-
+#include "ui/widgets/ui_button.h"
 
 using namespace physx;
 
@@ -61,6 +61,10 @@ void TCompCharacterController::Init() {
     footStepsSlow.setPaused(true);
     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
     damagedAudio.stop();
+
+
+	//power_selected = GameController.getPowerSelected();
+
     ChangeState("GROUNDED");
 }
 
@@ -666,6 +670,11 @@ void TCompCharacterController::dead(float delta) {
     TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
     playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.0f);
 
+
+	
+
+
+
     if (EngineInput["checkpoint_"].justPressed()) {
         GameController.loadCheckpoint();
         //------------------
@@ -831,31 +840,11 @@ void TCompCharacterController::powerSelection() {
   if (EngineInput["select_teleport_"].justPressed()) { //teleport
     power_selected = PowerType::TELEPORT; 
 	
-	//GameController.bindInCurve("Line002","DebugCamera"); //prueba generacion de componente curva dinamico
 	
-	/*
-	//Prueba nueva funcion que esta en fichero
-	CHandle  h_entity = getEntityByName("PlayerCamera");
-	static Interpolator::TLinearInterpolator linear;
-	Engine.getCameraMixer().blendCameraToPosition(h_entity,VEC3(12,5,1),20.f, &linear);
-	*/
   }
   else if (EngineInput["select_battery_"].justPressed()) { //bateria
     power_selected = PowerType::BATTERY;
-	/*TCompTransform* c_trans = get<TCompTransform>();
 	
-	VEC3 posDestination = c_trans->getTranslatePositionForAngle(c_trans->getPosition(), 3, -90);
-	dbg("POS DESTINATION:X:%f,Y:%f,Z:%f\n", posDestination.x, posDestination.y, posDestination.z);
-	*/
-	//Scripting.execActionDelayed("playMorph(\"Morph\")", 0.0);
-	/*Prueba de concepto
-	CEntity* debug_camera = getEntityByName("DebugCamera");
-	TCompCurveController* t = debug_camera->get<TCompCurveController>();
-	const CCurve* curve = t->getCurve();
-	const std::vector<VEC3> lista = curve->_knots;
-	TCompTransform* transf = debug_camera->get<TCompTransform>();
-	transf->setPosition(lista[0]);
-	*/
   }
 }
 
@@ -1581,6 +1570,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  inventory->setChilli(true);
       EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
 	  Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
+	  //Scripting.execActionDelayed("balanceoLampara(\"Joint001\")", 0);
       /*CEntity* e1 = getEntityByName("Hielo2_LP");
       TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
       c_ma1->updateMorphData(0.0f);

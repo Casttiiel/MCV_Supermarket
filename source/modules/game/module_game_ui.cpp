@@ -114,11 +114,6 @@ void CModuleGameUI::update(float delta)
 				UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
 				b_cursor->setCurrentState("option_teleport");
 			}
-			
-			/*
-			
-			}*/
-			
 
 		}
 		if (inventory->getChilli()) {

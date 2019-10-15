@@ -349,6 +349,7 @@ function wake_up_last_golem_player()
 	h_golem = GameController:entityByName("golem3"); 
 	execDelayedAction("setPauseEnemyName(\"golem3\",false)", 0);
 	GameController:setHeightEnemyByHandle(10.0,h_golem,4);
+	execDelayedAction("balanceoLampara(\"Joint001\")",0);
 	--execDelayedAction("on_delete_handle(\"trigger007\")",0);
 end
 
@@ -372,7 +373,7 @@ function in_trap_tube_enemies_player()
 	t_compenemiestube = toCompEnemiesInTube(toEntity(handle):getCompByName("enemies_in_tube"));
 	t_compenemiestube.activateTrap = true
 	
-	--execDelayedAction("balanceoLampara(\"Joint001\")",0);
+	--execDelayedAction("balanceoLampara(\"Joint001\")",9);
 	execDelayedAction("on_delete_handle(\"trigger008\")",0);
 
 
@@ -435,7 +436,7 @@ end
 
 
 function createEnemies_player()
-	execDelayedAction("balanceoLampara(\"Joint001\")",0);
+	--execDelayedAction("balanceoLampara(\"Joint001\")",0);
 	GameController:deleteGolem("golem2");
 	GameController:deleteGolem("golem3");
 	GameController:deleteCupcake();
