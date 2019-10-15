@@ -64,6 +64,12 @@ void TCompSCartController::enable(CHandle vehicle) {
 		//Generate fake player mounted
 		fakePlayerHandle = GameController.spawnPrefab("data/prefabs/props/fake_player_mounted.json", c_trans->getPosition());
         EngineAudio.playEvent("event:/Character/SCart/Mount");
+
+		if (!firstTimeEnabled) {
+			Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement3\")",1.1);
+			firstTimeEnabled = true;
+		}
+
 	}
 
 
@@ -153,7 +159,8 @@ void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
 {
 
     cinematic = msg.cinematic;
-	UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+    _movementAudio.setPaused(true);
+    UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
 	mirilla->getParams()->visible = false;
     if (cinematic) {
         ChangeState("SCART_IDLE_CINEMATIC");
@@ -409,13 +416,13 @@ void TCompSCartController::grounded(float delta) {
 	else if (!isGrounded() && dir == VEC3()) { //FALLING
     //TRANSMITIR FUERZAS AL RIGID BODY
     air_dir.Normalize();
-    r_body->addForce(air_dir * rowImpulseLeft);
+    r_body->addForce(air_dir * rowImpulseLeft * 1.5f);
 		ChangeState("SCART_ON_AIR");
 	}
 
 	dir *= delta * rowImpulseLeft;
 
-    if (rowImpulseLeft > 0.f) {
+    if (rowImpulseLeft > 0.f && dir != VEC3().Zero) {
         //SwapMesh(2);
         //TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         //playerAnima->playAnimation(TCompPlayerAnimator::RUN, 1.f);

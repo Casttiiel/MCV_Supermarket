@@ -11,5 +11,6 @@ struct TBoneCorrection {
   void debugInMenu();
   void apply(CalSkeleton* skel, VEC3 world_target, float external_unit_amount,float maxAngle) const;
   void apply(CalSkeleton* skel, VEC3 world_target, float external_unit_amount) const;
+  void applyLocal(CalSkeleton* skel, VEC3 abs_user_dir, float external_unit_amount) const;
 };
 

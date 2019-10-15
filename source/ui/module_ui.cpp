@@ -84,12 +84,12 @@ namespace UI
 
 	  auto mpNewGame = []() {//nuevo juego
 		  //CEngine::get().getModules().changeToGamestate("gs_gameplay");
-		  
 		  UI::CModuleUI& ui = Engine.getUI();
 		  CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
 		  //CEngine::get().getUI().activateWidgetClass("LOAD_SPRITE")->childAppears(true, true, 0.0, 1);
 		  //ejecutar dede LUA el gs_loading
-		  Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);
+          EngineAudio.playEvent("event:/UI/Start_Button");
+          Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);
 		  //CEngine::get().getModules().changeToGamestate("gs_loading");
 	  };
 
@@ -101,7 +101,8 @@ namespace UI
 
 	  auto mpExitGame = []() {
 		  auto& app = CApplication::get();
-		  DestroyWindow(app.getHandle());
+          EngineAudio.playEvent("event:/UI/Quit_Button");
+          DestroyWindow(app.getHandle());
 	  };
 	  UI::CModuleUI& ui = Engine.getUI();
 	  registerWidgetClass("MAIN_MENU_BACKGROUND", "data/ui/widgets/main_menu_background.json", nullptr);
@@ -129,16 +130,21 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
 		  }
-		  GameController.resumeGame();
+          EngineAudio.playEvent("event:/UI/Start_Button");
+          GameController.resumeGame();
 	  };
 
 	  auto mpauseRestart = []() {
+		  UI::CModuleUI& ui = Engine.getUI();
+		  ui.botonPulsadoPause = 0;
 		  CEngine::get().getModules().changeToGamestate("gs_gameplay");//change gamestate
 		  Time.real_scale_factor = 1.0f;
 		  /*UI::CModuleUI& ui = Engine.getUI();
 		  ui.unregisterController();*/
-		  UI::CModuleUI& ui = Engine.getUI();
+		 
 		  if (ui.sizeUI == 1) {
+			  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")-> childAppears(true, true, 0.0, 1.0);;
+			  //CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
 		  }
@@ -146,7 +152,9 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND_MINI");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
 		  }
-		  GameController.loadCheckpoint();
+          EngineAudio.playEvent("event:/UI/Quit_Button");
+          //GameController.loadCheckpoint();
+		  Scripting.execActionDelayed("loadCheckpoint()", 1.0);
 	  };
 
 
@@ -161,12 +169,14 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
 		  }
 		  auto& app = CApplication::get();
-		  DestroyWindow(app.getHandle());
+          EngineAudio.playEvent("event:/UI/Quit_Button");
+          DestroyWindow(app.getHandle());
 	  };
 
 	  /*BOTONES MENU GAME_OVER*/
 	  auto mdeadRestart = []() {
 		  UI::CModuleUI& ui = Engine.getUI();
+		  ui.botonPulsadoGameOver = 0;
 		  if (ui.sizeUI == 1) {
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
@@ -194,9 +204,11 @@ namespace UI
 			  if (cam_player != nullptr) {
 				  cam_player->sendMsg(msg);
 			  }
+			  
 			  CEngine::get().getModules().changeToGamestate("gs_gameplay");
-
+			  
 		  }
+          EngineAudio.playEvent("event:/UI/Start_Button");
 
 
 
@@ -204,6 +216,7 @@ namespace UI
 	  };
 	  auto mdeadExit = []() {
 		  UI::CModuleUI& ui = Engine.getUI();
+		  ui.botonPulsadoGameOver = 1;
 		  if (ui.sizeUI == 1) {
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
@@ -213,7 +226,8 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS_MINI");
 		  }
 		  auto& app = CApplication::get();
-		  DestroyWindow(app.getHandle());
+          EngineAudio.playEvent("event:/UI/Quit_Button");
+          DestroyWindow(app.getHandle());
 	  };
 
 

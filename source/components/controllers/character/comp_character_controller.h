@@ -73,8 +73,10 @@ private:
   float inCombatTimer = 0.f;
   float inCombatDuration = 3.5f;
   
+  bool last_frame_aiming = false;
+  float rotation_from_aim = 0.0f;
   float base_speed = speed;
-  float rotation_speed = 4.0f;
+  float rotation_speed = 8.0f;
   float dash_speed = 35.0f;
   float dash_limit = 0.12f;
   float dash = dash_limit;
@@ -112,7 +114,7 @@ private:
   float meleeCurrentDuration = 0.f;
   float meleeDistance = 0.75f;
   float meleeDamage = 30.f;
-  float meleeRadius = 0.75f;
+  float meleeRadius = 1.25f;
   std::vector<CHandle> entitiesHit;
   float impactForceAttack = 8.0f;
   //End Melee Values

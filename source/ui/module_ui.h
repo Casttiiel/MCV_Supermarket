@@ -60,6 +60,8 @@ namespace UI
 
 	std::vector<WidgetToLerp>widgetsToLerp;
 	int sizeUI; //0 es UI JUEGO 1 es UI pequeña 
+	int botonPulsadoGameOver;//0 restart, 1 quit
+	int botonPulsadoPause;//0 restart, 1 quit
 
   private:
     std::map<std::string_view, CWidget*> _registeredWidgets;

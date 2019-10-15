@@ -142,7 +142,11 @@
 			<destination>{547ce0a0-e753-49be-8458-7cdbdc00d9d3}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{3f928434-e6f3-4cda-89f3-f651ab8f7a2a}" />
+	<object class="MixerBusPanner" id="{3f928434-e6f3-4cda-89f3-f651ab8f7a2a}">
+		<property name="surroundPanDirection">
+			<value>-90</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{5c170b82-dc98-4cd6-93e9-a5e46a37c9b5}" />
 	<object class="ADSRModulator" id="{c2285200-2f29-4b8e-94ff-33cf49b25189}">
 		<property name="nameOfPropertyBeingModulated">
@@ -162,6 +166,13 @@
 	</object>
 	<object class="MixerBusPanner" id="{7bf68536-26ad-4829-b688-080dae3c302e}" />
 	<object class="MixerBusFader" id="{41d2b9f3-ac45-40c7-b77b-2f781bbf6447}" />
-	<object class="SpatialiserEffect" id="{547ce0a0-e753-49be-8458-7cdbdc00d9d3}" />
+	<object class="SpatialiserEffect" id="{547ce0a0-e753-49be-8458-7cdbdc00d9d3}">
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+		<property name="minimumExtent">
+			<value>360</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{bfcb0539-e554-4c83-832c-cb38f107de60}" />
 </objects>

@@ -13,23 +13,16 @@
   <ItemGroup>
     <ClCompile Include="components\actions\comp_audioPlayer.cpp" />
     <ClCompile Include="components\actions\comp_checkpoint_register.cpp" />
-    <ClCompile Include="components\actions\comp_explode_oncontact.cpp" />
-    <ClCompile Include="components\actions\comp_follow.cpp" />
     <ClCompile Include="components\actions\comp_scale_gradually.cpp" />
     <ClCompile Include="components\ai\bt\bt_controller.cpp" />
     <ClCompile Include="components\ai\bt\bt_cupcake.cpp" />
-    <ClCompile Include="components\ai\bt\bt_cupcake_explosive.cpp" />
     <ClCompile Include="components\ai\bt\bt_golem.cpp" />
     <ClCompile Include="components\ai\bt\bt_node.cpp" />
     <ClCompile Include="components\ai\bt\bt_ranged_sushi.cpp" />
     <ClCompile Include="components\ai\bt\bt_sushi.cpp" />
-    <ClCompile Include="components\ai\graph\ai_aNav.cpp" />
     <ClCompile Include="components\ai\graph\ai_controller.cpp" />
     <ClCompile Include="components\ai\graph\ai_platform.cpp" />
-    <ClCompile Include="components\ai\graph\ai_platform_fallen.cpp" />
     <ClCompile Include="components\ai\others\comp_blackboard.cpp" />
-    <ClCompile Include="components\ai\others\comp_death_collider.cpp" />
-    <ClCompile Include="components\ai\others\comp_lookat_camera.cpp" />
     <ClCompile Include="components\ai\others\self_destroy.cpp" />
     <ClCompile Include="components\ai\traps\ai_turret.cpp" />
     <ClCompile Include="components\animation\comp_golem_animation.cpp" />
@@ -40,6 +33,7 @@
     <ClCompile Include="components\bullets\comp_grenade_golem.cpp" />
     <ClCompile Include="components\bullets\comp_kinematic_bullet.cpp" />
     <ClCompile Include="components\bullets\comp_turret_bullet.cpp" />
+    <ClCompile Include="components\bullets\comp_turret_bullet_golem.cpp" />
     <ClCompile Include="components\common\comp_aabb.cpp" />
     <ClCompile Include="components\common\comp_buffers.cpp" />
     <ClCompile Include="components\common\comp_camera.cpp" />
@@ -54,33 +48,26 @@
     <ClCompile Include="components\common\comp_lod.cpp" />
     <ClCompile Include="components\common\comp_name.cpp" />
     <ClCompile Include="components\common\comp_num_instances.cpp" />
+    <ClCompile Include="components\common\comp_onom_manager.cpp" />
     <ClCompile Include="components\common\comp_particles.cpp" />
     <ClCompile Include="components\common\comp_render.cpp" />
     <ClCompile Include="components\common\comp_tags.cpp" />
     <ClCompile Include="components\common\comp_transform.cpp" />
     <ClCompile Include="components\common\physics\comp_collider.cpp" />
     <ClCompile Include="components\common\physics\comp_rigid_body.cpp" />
-    <ClCompile Include="components\controllers\camera\comp_aim_controller.cpp" />
     <ClCompile Include="components\controllers\camera\comp_camera_3rd_person.cpp" />
     <ClCompile Include="components\controllers\camera\comp_camera_flyover.cpp" />
-    <ClCompile Include="components\controllers\camera\comp_camera_lookat.cpp" />
-    <ClCompile Include="components\controllers\camera\comp_camera_thirdperson.cpp" />
     <ClCompile Include="components\controllers\camera\comp_removable_camera.cpp" />
     <ClCompile Include="components\controllers\character\comp_character_controller.cpp" />
-    <ClCompile Include="components\controllers\comp_curve_controller.cpp" />
     <ClCompile Include="components\controllers\comp_enemies_in_tube.cpp" />
-    <ClCompile Include="components\controllers\comp_follow_light.cpp" />
     <ClCompile Include="components\controllers\comp_inventory.cpp" />
     <ClCompile Include="components\controllers\comp_parabolic_launch.cpp" />
     <ClCompile Include="components\controllers\comp_sCart_controller.cpp" />
     <ClCompile Include="components\controllers\comp_trans_curve_controller.cpp" />
-    <ClCompile Include="components\john\comp_circular_controller.cpp" />
-    <ClCompile Include="components\john\comp_msg_logger.cpp" />
-    <ClCompile Include="components\john\comp_sensor.cpp" />
+    <ClCompile Include="components\objects\comp_balance.cpp" />
     <ClCompile Include="components\objects\comp_blade_trap.cpp" />
     <ClCompile Include="components\objects\comp_door.cpp" />
     <ClCompile Include="components\objects\comp_enemies_in_butcher.cpp" />
-    <ClCompile Include="components\objects\comp_enemy_spawner_special_trap.cpp" />
     <ClCompile Include="components\objects\comp_fire_trap.cpp" />
     <ClCompile Include="components\objects\comp_interruptor.cpp" />
     <ClCompile Include="components\objects\comp_restore_madness.cpp" />
@@ -93,18 +80,12 @@
     <ClCompile Include="components\objects\checkpoints\comp_trigger_checkpoint.cpp" />
     <ClCompile Include="components\objects\comp_destroyable_wall.cpp" />
     <ClCompile Include="components\objects\comp_enemy_spawner.cpp" />
-    <ClCompile Include="components\objects\comp_explosive_object.cpp" />
     <ClCompile Include="components\objects\comp_increase_power.cpp" />
     <ClCompile Include="components\objects\comp_madness_fountain.cpp" />
     <ClCompile Include="components\objects\comp_madness_puddle.cpp" />
-    <ClCompile Include="components\objects\comp_remote_trigger.cpp" />
-    <ClCompile Include="components\objects\comp_spawner.cpp" />
-    <ClCompile Include="components\objects\comp_teleportable_object_spawner.cpp" />
     <ClCompile Include="components\objects\comp_wind_trap.cpp" />
     <ClCompile Include="components\objects\triggers\comp_trigger.cpp" />
     <ClCompile Include="components\objects\triggers\comp_trigger_damage_zone.cpp" />
-    <ClCompile Include="components\objects\triggers\comp_trigger_move_wall.cpp" />
-    <ClCompile Include="components\obstacle\comp_obstacle.cpp" />
     <ClCompile Include="components\postfx\comp_damaged_effect.cpp" />
     <ClCompile Include="components\postfx\comp_render_radial_blur.cpp" />
     <ClCompile Include="components\postfx\comp_tone_mapping.cpp" />
@@ -115,7 +96,6 @@
     <ClCompile Include="components\powers\comp_madness.cpp" />
     <ClCompile Include="components\powers\comp_melee_trigger.cpp" />
     <ClCompile Include="components\powers\comp_teleport.cpp" />
-    <ClCompile Include="components\ui\comp_ui.cpp" />
     <ClCompile Include="components\postfx\comp_render_ao.cpp" />
     <ClCompile Include="components\postfx\comp_render_bloom.cpp" />
     <ClCompile Include="components\postfx\comp_render_blur.cpp" />
@@ -224,7 +204,6 @@
     <ClCompile Include="particles\module_particles.cpp" />
     <ClCompile Include="particles\particle_parser.cpp" />
     <ClCompile Include="particles\particle_system.cpp" />
-    <ClCompile Include="physics\comp_ragdoll.cpp" />
     <ClCompile Include="physics\ragdoll.cpp" />
     <ClCompile Include="physics\ragdoll_core.cpp" />
     <ClCompile Include="modules\test\module_weapon_select.cpp" />
@@ -294,23 +273,16 @@
     <ClInclude Include="..\bin\data\shaders\platform.h" />
     <ClInclude Include="components\actions\comp_audioPlayer.h" />
     <ClInclude Include="components\actions\comp_checkpoint_register.h" />
-    <ClInclude Include="components\actions\comp_explode_oncontact.h" />
-    <ClInclude Include="components\actions\comp_follow.h" />
     <ClInclude Include="components\actions\comp_scale_gradually.h" />
     <ClInclude Include="components\ai\bt\bt_controller.h" />
     <ClInclude Include="components\ai\bt\bt_cupcake.h" />
-    <ClInclude Include="components\ai\bt\bt_cupcake_explosive.h" />
     <ClInclude Include="components\ai\bt\bt_golem.h" />
     <ClInclude Include="components\ai\bt\bt_node.h" />
     <ClInclude Include="components\ai\bt\bt_ranged_sushi.h" />
     <ClInclude Include="components\ai\bt\bt_sushi.h" />
-    <ClInclude Include="components\ai\graph\ai_aNav.h" />
     <ClInclude Include="components\ai\graph\ai_controller.h" />
     <ClInclude Include="components\ai\graph\ai_platform.h" />
-    <ClInclude Include="components\ai\graph\ai_platform_fallen.h" />
     <ClInclude Include="components\ai\others\comp_blackboard.h" />
-    <ClInclude Include="components\ai\others\comp_death_collider.h" />
-    <ClInclude Include="components\ai\others\comp_lookat_camera.h" />
     <ClInclude Include="components\ai\others\self_destroy.h" />
     <ClInclude Include="components\ai\traps\ai_turret.h" />
     <ClInclude Include="components\animation\comp_golem_animation.h" />
@@ -321,6 +293,7 @@
     <ClInclude Include="components\bullets\comp_grenade_golem.h" />
     <ClInclude Include="components\bullets\comp_kinematic_bullet.h" />
     <ClInclude Include="components\bullets\comp_turret_bullet.h" />
+    <ClInclude Include="components\bullets\comp_turret_bullet_golem.h" />
     <ClInclude Include="components\common\comp_aabb.h" />
     <ClInclude Include="components\common\comp_base.h" />
     <ClInclude Include="components\common\comp_buffers.h" />
@@ -336,31 +309,26 @@
     <ClInclude Include="components\common\comp_lod.h" />
     <ClInclude Include="components\common\comp_name.h" />
     <ClInclude Include="components\common\comp_num_instances.h" />
+    <ClInclude Include="components\common\comp_onom_manager.h" />
     <ClInclude Include="components\common\comp_particles.h" />
     <ClInclude Include="components\common\comp_render.h" />
     <ClInclude Include="components\common\comp_tags.h" />
     <ClInclude Include="components\common\comp_transform.h" />
     <ClInclude Include="components\common\physics\comp_collider.h" />
     <ClInclude Include="components\common\physics\comp_rigid_body.h" />
-    <ClInclude Include="components\controllers\camera\comp_aim_controller.h" />
     <ClInclude Include="components\controllers\camera\comp_camera_3rd_person.h" />
     <ClInclude Include="components\controllers\camera\comp_camera_flyover.h" />
-    <ClInclude Include="components\controllers\camera\comp_camera_lookat.h" />
-    <ClInclude Include="components\controllers\camera\comp_camera_thirdperson.h" />
     <ClInclude Include="components\controllers\camera\comp_removable_camera.h" />
     <ClInclude Include="components\controllers\character\comp_character_controller.h" />
-    <ClInclude Include="components\controllers\comp_curve_controller.h" />
     <ClInclude Include="components\controllers\comp_enemies_in_tube.h" />
-    <ClInclude Include="components\controllers\comp_follow_light.h" />
     <ClInclude Include="components\controllers\comp_inventory.h" />
     <ClInclude Include="components\controllers\comp_parabolic_launch.h" />
     <ClInclude Include="components\controllers\comp_sCart_controller.h" />
     <ClInclude Include="components\controllers\comp_trans_curve_controller.h" />
-    <ClInclude Include="components\john\comp_circular_controller.h" />
+    <ClInclude Include="components\objects\comp_balance.h" />
     <ClInclude Include="components\objects\comp_blade_trap.h" />
     <ClInclude Include="components\objects\comp_door.h" />
     <ClInclude Include="components\objects\comp_enemies_in_butcher.h" />
-    <ClInclude Include="components\objects\comp_enemy_spawner_special_trap.h" />
     <ClInclude Include="components\objects\comp_fire_trap.h" />
     <ClInclude Include="components\objects\comp_interruptor.h" />
     <ClInclude Include="components\objects\comp_restore_madness.h" />
@@ -373,18 +341,12 @@
     <ClInclude Include="components\objects\checkpoints\comp_trigger_checkpoint.h" />
     <ClInclude Include="components\objects\comp_destroyable_wall.h" />
     <ClInclude Include="components\objects\comp_enemy_spawner.h" />
-    <ClInclude Include="components\objects\comp_explosive_object.h" />
     <ClInclude Include="components\objects\comp_increase_power.h" />
     <ClInclude Include="components\objects\comp_madness_fountain.h" />
     <ClInclude Include="components\objects\comp_madness_puddle.h" />
-    <ClInclude Include="components\objects\comp_remote_trigger.h" />
-    <ClInclude Include="components\objects\comp_spawner.h" />
-    <ClInclude Include="components\objects\comp_teleportable_object_spawner.h" />
     <ClInclude Include="components\objects\comp_wind_trap.h" />
     <ClInclude Include="components\objects\triggers\comp_trigger.h" />
     <ClInclude Include="components\objects\triggers\comp_trigger_damage_zone.h" />
-    <ClInclude Include="components\objects\triggers\comp_trigger_move_wall.h" />
-    <ClInclude Include="components\obstacle\comp_obstacle.h" />
     <ClInclude Include="components\postfx\comp_damaged_effect.h" />
     <ClInclude Include="components\postfx\comp_render_radial_blur.h" />
     <ClInclude Include="components\postfx\comp_tone_mapping.h" />
@@ -395,7 +357,6 @@
     <ClInclude Include="components\powers\comp_madness.h" />
     <ClInclude Include="components\powers\comp_melee_trigger.h" />
     <ClInclude Include="components\powers\comp_teleport.h" />
-    <ClInclude Include="components\ui\comp_ui.h" />
     <ClInclude Include="components\vfx\comp_air.h" />
     <ClInclude Include="components\vfx\comp_billboard_xz.h" />
     <ClInclude Include="components\vfx\comp_bolt_aura_billboard.h" />
@@ -519,7 +480,6 @@
     <ClInclude Include="particles\particle_emitter.h" />
     <ClInclude Include="particles\particle_parser.h" />
     <ClInclude Include="particles\particle_system.h" />
-    <ClInclude Include="physics\comp_ragdoll.h" />
     <ClInclude Include="physics\ragdoll.h" />
     <ClInclude Include="physics\ragdoll_core.h" />
     <ClInclude Include="modules\test\module_weapon_select.h" />
@@ -633,19 +593,19 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

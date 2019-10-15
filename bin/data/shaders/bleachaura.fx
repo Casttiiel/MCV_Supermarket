@@ -41,6 +41,7 @@ VS_OUTPUT VS(
 {
   VS_OUTPUT output = (VS_OUTPUT)0;
 
+  Pos.y *= 0.75f;
   output.Pos = mul(Pos, World);
   output.WorldPos = output.Pos.xyz;
   output.Pos = mul(output.Pos, ViewProjection);

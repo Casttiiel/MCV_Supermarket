@@ -14,11 +14,11 @@
 #include "components/common/comp_transform.h"
 #include "components/common/comp_camera.h"
 #include "components/objects/comp_enemy_spawner.h"
-#include "components/objects/comp_enemy_spawner_special_trap.h"
 #include "components/ai/others/self_destroy.h"
 #include "components/controllers/character/comp_character_controller.h"
 #include "components/common/comp_light_point.h"
 #include "components/vfx/comp_flickering.h"
+#include "components/objects/comp_balance.h"
 
 
 class CBTCupcake;
@@ -28,7 +28,6 @@ class CModuleGameplayFragment;
 
 class CModuleGameController : public IModule
 {
-    AudioEvent soundtrack;
     /* Mantain a handle of the player */
     CHandle _player;
     CHandle _fly_camera;
@@ -239,7 +238,11 @@ public:
     void pauseSoundtrack();
     void resumeSoundtrack();
     void updateSoundtrackID(int new_track_id);
+    void updateAmbientLight(float amount);
     void setSoundtrackVolume(float volume);
+    float getSoundtrackVolume();
+    void playAnnouncement(std::string announcement);
+    void startAudioPlayer(std::string entity);
     //End Soundtrack Functions
 	//dar handle a partir del nombre 
 	CHandle entityByName(std::string name);
@@ -260,7 +263,8 @@ public:
 	void setLifeEnemiesByTag(const char* tagName, float life);
 
 	void changeGameState(std::string name);
-
+	void deactivateWidget(std::string name);
+	void activateWidget(std::string name);
 };
 
 
@@ -274,11 +278,12 @@ TCompEnemiesInTube* toCompEnemiesInTube(CHandle h);
 TCompName* toCompName(CHandle h);
 TCompTransform* toCompTransform(CHandle h);
 TCompCamera* toCompCamera(CHandle h);
-TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
+//TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h);
 TCompSelfDestroy* toCompSelfDestroy(CHandle h);
 CBTGolem* toCBTGolem(CHandle h);
 CBTCupcake* toCBTCupcake(CHandle h);
 TCompEnemySpawner* toCompEnemySpawner(CHandle h);
 TCompLightPoint* toCompLightPoint(CHandle h);
 TCompFlickering* toCompFlickering(CHandle h);
-//TCompCharacterController* toCompCharacterController_(CHandle h);
+TCompCharacterController* toCompCharacterController_(CHandle h);
+TCompBalance* toCompBalance(CHandle h);

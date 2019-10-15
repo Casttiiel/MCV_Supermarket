@@ -48,6 +48,9 @@ AudioEvent TCompAudioPlayer::getEvent() {
     return _audioEvent;
 }
 
+void TCompAudioPlayer::play() {
+    _audioEvent = EngineAudio.playEvent(_audioEventString);
+}
 
 void TCompAudioPlayer::update(float dt) {
     if (_audioEvent.is3D()) {

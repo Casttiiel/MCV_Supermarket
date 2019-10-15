@@ -26,6 +26,12 @@ void TCompDoor::registerMsgs() {
 
 void TCompDoor::onBattery(const TMsgGravity & msg) {
 	enabled = true;
+	//solo es una puerta que se abre con bateria
+	TCompName* name = get<TCompName>();
+	std::string nameEntity = name->getName();
+	if (nameEntity.compare("puerta_suelta") == 0) {
+		GameController.playAnnouncement("event:/UI/Announcements/Announcement7");
+	}
 }
 
 

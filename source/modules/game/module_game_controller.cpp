@@ -19,10 +19,11 @@
 #include "entity/entity.h"
 #include "modules/module_scenes.h"
 #include "components/ai/bt/bt_cupcake.h"
-#include "components/ai/bt/bt_cupcake_explosive.h"
 #include "components/ai/others/comp_blackboard.h"
 #include "components/objects/comp_wind_trap.h"
+#include "components/actions/comp_audioPlayer.h"
 #include "ui/module_ui.h"
+#include "render/module_render.h"
 
 
 bool CModuleGameController::start() {
@@ -256,12 +257,13 @@ void CModuleGameController::blendPlayerCamera() {
 //resetCamera
 void CModuleGameController::resetCamera() {
 	CEntity* e_cam3 = getEntityByName("PlayerCamera");
-	TCompCamera3rdPerson* t_comp3 = e_cam3->get<TCompCamera3rdPerson>();
-	if (t_comp3 != nullptr) {
-		//t_comp3->_enabled = activate;
-		t_comp3->resetCamera();
+	if(e_cam3 != nullptr){
+		TCompCamera3rdPerson* t_comp3 = e_cam3->get<TCompCamera3rdPerson>();
+		if (t_comp3 != nullptr) {
+			//t_comp3->_enabled = activate;
+			t_comp3->resetCamera();
+		}
 	}
-
 }
 
 void CModuleGameController::dbgInLua(std::string text) {
@@ -715,10 +717,7 @@ void  CModuleGameController::updateCupcakeCurveByHandle(std::string _curve, CHan
 		if (cupcake != nullptr) {
 			cupcake->setCurve(Resources.get(path)->as<CCurve>());
 		}
-		else {
-			CBTCupcake_explosive* cupcake_explosive = e_enemy->get<CBTCupcake_explosive>();
-			cupcake_explosive->setCurve(Resources.get(path)->as<CCurve>());
-		}
+		
 	}
 }
 
@@ -887,24 +886,6 @@ void CModuleGameController::loadScene(const std::string name) {
 	SceneManager.getSceneManager()->loadScene(name);
 }
 
-void CModuleGameController::GPUloadScene(const std::string name) {
-  TFileContext fc(name);
-  TEntityParseContext ctx;
-  PROFILE_FUNCTION_COPY_TEXT(name.c_str());
-  dbg("Parsing boot prefab %s\n", name.c_str());
-  //Instead of parsing it with parseScene, lets parse it with the GPU Culling Module
-  //parseScene(p, ctx);
-  //This only parses the entities and prefabs, not products
-  CEngine::get().getGPUCulling().parseEntities(name, ctx);
-}
-
-void CModuleGameController::GPUdeleteScene(const std::string name) {
-  CEngine::get().getGPUCulling().deleteScene(name);
-}
-
-void CModuleGameController::deleteProducts() {
-  CEngine::get().getGPUCulling().deleteActualProducts();
-}
 
 void CModuleGameController::loadProducts(std::string zona) {
   TFileContext fc(zona);
@@ -928,11 +909,12 @@ void CModuleGameController::broadcastMessage(T message) {
 
 //function casts
 
+/*
 TCompCurveController* TCurveController(CHandle h)
 {
 	TCompCurveController* t = h;
 	return t;
-}
+}*/
 
 CEntity* toEntity(CHandle h)
 {
@@ -976,10 +958,10 @@ CBTGolem* toCBTGolem(CHandle h) {
 	return g;
 }
 
-TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
+/*TCompEnemySpawnerSpecialTrap* toCompEnemySpawnerSpecialTrap(CHandle h) {
 	TCompEnemySpawnerSpecialTrap* t = h;
 	return t;
-}
+}*/
 
 TCompSelfDestroy* toCompSelfDestroy(CHandle h) {
 	TCompSelfDestroy* s = h;
@@ -1007,15 +989,21 @@ TCompFlickering* toCompFlickering(CHandle h) {
 }
 
 
-
-/*
 TCompCharacterController* toCompCharacterController_(CHandle h) {
 	TCompCharacterController* c = h;
 	return c;
 }
-*/
 
 
+TCompBalance* toCompBalance(CHandle h) {
+	TCompBalance* b = h;
+	return b;
+}
+
+
+void CModuleGameController::updateAmbientLight(float amount) {
+  CEngine::get().getRender().setNewAmbient(amount);
+}
 
 //Soundtrack Functions
 void CModuleGameController::startSoundtrack(int track_id = 0) {
@@ -1034,16 +1022,38 @@ void CModuleGameController::updateSoundtrackID(int new_track_id = 0) {
 void CModuleGameController::setSoundtrackVolume(float volume) {
     EngineAudio.soundtrack.setVolume(volume);
 }
+float CModuleGameController::getSoundtrackVolume() {
+    return EngineAudio.soundtrack.getVolume();
+}
+void CModuleGameController::playAnnouncement(std::string announcement = "") {
+    assert(announcement != "");
+    float volume = getSoundtrackVolume();
+    setSoundtrackVolume(0.1f);
+    EngineAudio.announcement = EngineAudio.playEvent(announcement);
+    float audioLength = EngineAudio.announcement.getLength() / 1000.f;
+    Scripting.execActionDelayed("setSoundtrackVolume(1.0)", audioLength);
+}
+void CModuleGameController::startAudioPlayer(std::string entity = "") {
+    assert(entity != "");
+    CEntity* holder = entityByName(entity);
+    if (holder) {
+        TCompAudioPlayer* player = holder->get< TCompAudioPlayer>();
+        if (player)
+            player->play();
+    }
+}
 //End Soundtrack Functions
 
 void CModuleGameController::pauseGame() {
     EngineAudio.soundtrack.setPaused(true);
     EngineAudio.secondarySoundtrack.setPaused(false);
+    EngineAudio.announcement.setPaused(true);
 }
 
 void CModuleGameController::resumeGame() {
     EngineAudio.soundtrack.setPaused(false);
     EngineAudio.secondarySoundtrack.setPaused(true);
+    EngineAudio.announcement.setPaused(false);
 }
 
 void CModuleGameController::cheatPosition() {
@@ -1063,6 +1073,18 @@ void CModuleGameController::cheatPosition() {
 	positionCheat++;
 }
 
+
+
+void CModuleGameController::deactivateWidget(std::string name) {
+	CEngine::get().getUI().deactivateWidgetClass(name);
+}
+
+void CModuleGameController::activateWidget(std::string name) {
+	CEngine::get().getUI().activateWidgetClass(name);
+}
+
+
+
 CCamera* CModuleGameController::getCameraFromHandle(CHandle hCamera)
 {
 	if (hCamera.isValid())
@@ -1076,6 +1098,8 @@ CCamera* CModuleGameController::getCameraFromHandle(CHandle hCamera)
 	}
 	return nullptr;
 }
+
+
 
 
 

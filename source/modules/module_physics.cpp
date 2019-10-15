@@ -103,7 +103,7 @@ PxRigidActor* CModulePhysics::createController(TCompCollider& comp_collider) {
   capsuleDesc.radius = jconfig.value("radius", 1.f);
   capsuleDesc.climbingMode = PxCapsuleClimbingMode::eEASY;
   capsuleDesc.material = gMaterial;
-  capsuleDesc.stepOffset = 0.05;
+  capsuleDesc.stepOffset = 0.01;
   capsuleDesc.contactOffset = 0.01f;
   capsuleDesc.reportCallback = &customUserControllerHitReport;
   capsuleDesc.behaviorCallback = &customControllerBehaviorCallback;
@@ -361,6 +361,7 @@ void CModulePhysics::createActor(TCompCollider& comp_collider)
     }
   }
 }
+/*
 void CModulePhysics::createRagdoll(TCompRagdoll& comp_ragdoll) {
   if (comp_ragdoll.ragdoll.created)
     return;
@@ -429,7 +430,8 @@ void CModulePhysics::createRagdoll(TCompRagdoll& comp_ragdoll) {
   comp_ragdoll.ragdoll.created = true;
 
 }
-
+*/
+/*
 void CModulePhysics::createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id) {
   TRagdoll::TRagdollBone& ragdoll_bone = comp_ragdoll.ragdoll.bones[bone_id];
 
@@ -504,9 +506,7 @@ void CModulePhysics::createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id
     hinge->setLimit(physx::PxJointAngularLimitPair(-PxPi / 4, PxPi / 4, 0.01f));
     hinge->setRevoluteJointFlag(PxRevoluteJointFlag::eLIMIT_ENABLED, true);
     }
-    */
 
-    /*
     //fixed joint
     joint = PxFixedJointCreate(mScene->getPhysics(), ragdoll_bone.actor, tr0, child_ragdoll_bone.actor, tr1);
     assert(joint);
@@ -516,7 +516,7 @@ void CModulePhysics::createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id
     fixed_joint->setProjectionLinearTolerance(0.1f);
     fixed_joint->setProjectionAngularTolerance(0.01f);
     }
-    */
+    
     if (joint)
     {
       joint->setConstraintFlag(PxConstraintFlag::eVISUALIZATION, true);
@@ -528,7 +528,7 @@ void CModulePhysics::createRagdollJoints(TCompRagdoll& comp_ragdoll, int bone_id
     createRagdollJoints(comp_ragdoll, child_id);
   }
 
-}
+}*/
 //-------------------------------------------------------------------
 
 
@@ -610,6 +610,7 @@ bool CModulePhysics::start()
 
   gScene->setSimulationEventCallback(&customSimulationEventCallback);
 
+
   // Set a default filter to do query checks
   physx::PxFilterData pxFilterData;
   pxFilterData.word0 = FilterGroup::Scenario;
@@ -681,7 +682,7 @@ void CModulePhysics::renderInMenu()
 void CModulePhysics::renderDebug() {
 
   // Show all the joints
-  for (auto& c : joints) {
+  /*for (auto& c : joints) {
     PxRigidActor* actors[2];
     c.px_joint->getActors(actors[0], actors[1]);
     for (int i = 0; i < 2; ++i) {
@@ -692,7 +693,7 @@ void CModulePhysics::renderDebug() {
       MAT44 world = local_t.asMatrix() * actor_t.asMatrix();
       drawAxis(world);
     }
-  }
+  }*/
 }
 
 CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& name, bool isGroup)
@@ -991,7 +992,7 @@ PxControllerBehaviorFlags CModulePhysics::CustomControllerBehaviorCallback::getB
 	bool isPlatform = jconfig.value("platform", false);
 	if (isPlatform) {
 		return PxControllerBehaviorFlag::eCCT_CAN_RIDE_ON_OBJECT;
-	}
+  }
 		
 	return PxControllerBehaviorFlags(0);
 }
@@ -1067,16 +1068,28 @@ void CModulePhysics::TJoint::create() {
   
   PxTransform frame0 = toPxTransform(obj0.transform);
   PxTransform frame1 = toPxTransform(obj1.transform);
-  if(joint_type == "spherical")
+  if(joint_type == "spherical"){
     px_joint = PxSphericalJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
-  else if (joint_type == "fixed")
+  }
+  else if (joint_type == "fixed"){
     px_joint = PxFixedJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
-  else if (joint_type == "distance")
+  }
+  else if (joint_type == "distance"){
     px_joint = PxDistanceJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
-  else if (joint_type == "revolute")
+  }
+  else if (joint_type == "revolute"){
     px_joint = PxRevoluteJointCreate(*gPhysics, actor0, frame0, actor1, frame1);
-  else
+    PxRevoluteJoint* custom = (PxRevoluteJoint*)px_joint;
+	
+    custom->setLimit(PxJointAngularLimitPair(-PxPi / 1.5f, PxPi / 1.5f, 0.1f));
+    custom->setRevoluteJointFlag(PxRevoluteJointFlag::eLIMIT_ENABLED, true);		
+	
+  }
+  else{
     fatal("Invalid joint type %s\n", joint_type.c_str());
+  }
+
+
 }
 
 void CModulePhysics::debugInMenuJointObj(TJoint& j, physx::PxJointActorIndex::Enum idx) {
@@ -1124,6 +1137,17 @@ void CModulePhysics::debugInMenuJoint(TJoint& j) {
     float distance = custom->getDistance();
     ImGui::LabelText("Distance", "%f", distance);
     // ..
+  }
+  else if (j.joint_type == "revolute"){
+	  PxRevoluteJoint* custom = (PxRevoluteJoint*)j.px_joint;
+	  float driveVelocity = custom->getDriveVelocity();
+    float driveGearRatio = custom->getDriveGearRatio();
+    VEC3 a = PXVEC3_TO_VEC3(custom->getRelativeAngularVelocity());
+    float velocity = custom->getVelocity();
+	  ImGui::LabelText("driveVelocity", "%f", driveVelocity);
+    ImGui::LabelText("driveGearRatio", "%f", driveGearRatio);
+    ImGui::LabelText("velocity", "%f", velocity);
+    ImGui::LabelText("Angular velocity", "%f &f %f", a.x, a.y, a.z);
   }
   if( ImGui::SmallButton( "Break"))
     j.px_joint->setBreakForce(0.0f, 0.0f);

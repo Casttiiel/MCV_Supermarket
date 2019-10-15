@@ -9,10 +9,10 @@ float4 PS(
   float2 direction = float2(sin(GlobalWorldTime), cos(GlobalWorldTime));
   float3 distortion = txNoise.Sample( samLinear, iTex0 + direction * WaterEffectSpeed);
   
-  float4 distorsion_r = txAlbedo.Sample(samClampLinear, iTex0 + DistortionAmount * 0.01 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed)); 
-  float4 distorsion_g = txAlbedo.Sample(samClampLinear, iTex0 - DistortionAmount * 0.01 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed));
-  float4 distorsion_b = txAlbedo.Sample(samClampLinear, iTex0 + DistortionAmount * 0.01 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed));
-  float4 distorsion_a = txAlbedo.Sample(samClampLinear, iTex0 - DistortionAmount * 0.01 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed));
+  float4 distorsion_r = txAlbedo.Sample(samClampLinear, iTex0 + DistortionAmount * 0.005 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed)); 
+  float4 distorsion_g = txAlbedo.Sample(samClampLinear, iTex0 - DistortionAmount * 0.005 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed));
+  float4 distorsion_b = txAlbedo.Sample(samClampLinear, iTex0 + DistortionAmount * 0.005 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed));
+  float4 distorsion_a = txAlbedo.Sample(samClampLinear, iTex0 - DistortionAmount * 0.005 * distortion.xy * sin(GlobalWorldTime * DistortionSpeed));
 
   float alpha = (distorsion_r.a+distorsion_g.a+distorsion_b.a) / 3;
   return float4(distorsion_r.r, distorsion_g.g, distorsion_b.b, alpha);

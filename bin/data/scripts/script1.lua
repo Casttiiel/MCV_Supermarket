@@ -277,6 +277,7 @@ function create_cupcakes_in_frost_player()
 	--GameController:setPauseEnemyByHandle(h_cupcake2,false);
 	--GameController:setLifeEnemy(h_cupcake2,3,350.0);
 
+	
 
 	h_oven1 =  GameController:entityByName("horno008");
 	h_oven2 =  GameController:entityByName("horno009");
@@ -293,7 +294,7 @@ function create_cupcakes_in_frost_player()
 	t_compSpawnOven3:setLifeSpawner(350.0);
 	
 
-
+	playAnnouncement('event:/UI/Announcements/Announcement4')
 
 	execDelayedAction("on_delete_handle(\"trigger010\")",0);
 
@@ -353,6 +354,8 @@ end
 
 function in_trap_tube_enemies_player()
 	
+	execDelayedAction("playAnnouncement(\"event:/UI/Announcements/Announcement1\")",3.0);
+
 	--GameController:resetCamera();
 	h_golem = GameController:entityByName("golem3"); 
 	execDelayedAction("setPauseEnemyName(\"golem3\",true)", 0);	
@@ -363,12 +366,13 @@ function in_trap_tube_enemies_player()
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 2,\"linear\")",7);
 	execDelayedAction("on_lock_camera3(true)", 9);
 	execDelayedAction("on_cinematic(false)",9);
+	
 
 	handle = GameController:entityByName("enemies_in_tube");--prefab
 	t_compenemiestube = toCompEnemiesInTube(toEntity(handle):getCompByName("enemies_in_tube"));
 	t_compenemiestube.activateTrap = true
-
-
+	
+	--execDelayedAction("balanceoLampara(\"Joint001\")",0);
 	execDelayedAction("on_delete_handle(\"trigger008\")",0);
 
 
@@ -381,6 +385,8 @@ end
 
 function cinematic_scene_termoestatos_player()
 	--evento cinematica
+	playAnnouncement('event:/UI/Announcements/Announcement9')
+
 	GameController:resetCamera();
 	execDelayedAction("on_cinematic(true)",0.1);
 	execDelayedAction("on_lock_camera3(false)",0);
@@ -429,43 +435,34 @@ end
 
 
 function createEnemies_player()
-
+	execDelayedAction("balanceoLampara(\"Joint001\")",0);
 	GameController:deleteGolem("golem2");
 	GameController:deleteGolem("golem3");
 	GameController:deleteCupcake();
 	execDelayedAction("changeScene(\"asiatic_scene\")",0);
+
 	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-33,-0.193,-52), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica1",h_suishi1);
 	GameController:setPauseEnemyByHandle(h_suishi1,false);
 	
-	h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-40,-0.193,-62), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica2",h_suishi2);
-	GameController:setPauseEnemyByHandle(h_suishi2,false);
-
-	--h_suishi3 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-65,-0.193,-69), QUAT(0, 0, 0, 1),1);
-	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica3",h_suishi3);
-	--GameController:setPauseEnemyByHandle(h_suishi3,false);
+	--h_suishi2 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-40,-0.193,-62), QUAT(0, 0, 0, 1),1);
+	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica2",h_suishi2);
+	--GameController:setPauseEnemyByHandle(h_suishi2,false);
 
 	
 	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-2,-0.193, -73), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica4",h_suishi4);
 	GameController:setPauseEnemyByHandle(h_suishi4,false);
 	
-	--h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-11,-0.193,-92), QUAT(0, 0, 0, 1),1);
-	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica5",h_suishi5);
-	--GameController:setPauseEnemyByHandle(h_suishi5,false);
 
 	h_suishi6 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-14,-0.193, -65), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica6",h_suishi6);
 	GameController:setPauseEnemyByHandle(h_suishi6,false);
 
-	h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-40,-0.193,-80), QUAT(0, 0, 0, 1),1);
-	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica7",h_suishi7);
-	GameController:setPauseEnemyByHandle(h_suishi7,false);
+	--h_suishi7 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-40,-0.193,-80), QUAT(0, 0, 0, 1),1);
+	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica7",h_suishi7);
+	--GameController:setPauseEnemyByHandle(h_suishi7,false);
 
-	--h_suishi8 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(104,-0.193,88), QUAT(0, 0, 0, 1),1);--quitar este
-	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica8",h_suishi8);
-	--GameController:setPauseEnemyByHandle(h_suishi8,false); --GameController:setPauseEnemyByHandle(h_suishi8,false);
 
 	--suishis piso superior (Quizas setear el height para que no te ataquen antes de tiempo)
 	h_suishi9 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-47,7.632,-18), QUAT(0, 0, 0, 1),1);
@@ -495,7 +492,7 @@ function createEnemies_player()
 	--GameController:setPauseEnemyByHandle(h_suishi14,true);
 	--h_suishi15 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(71,-0.193,61), QUAT(0, 0, 0, 1),1);--quitar este
 	--GameController:setPauseEnemyByHandle(h_suishi15,true); --GameController:setPauseEnemyByHandle(h_suishi15,true);
-	
+	playAnnouncement('event:/UI/Announcements/Announcement6')
 	
 	execDelayedAction("on_delete_handle(\"trigger2\")",0);
 
@@ -705,6 +702,10 @@ function activePlataformCarniceria_player()
 	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni025\",0.0)",15.5);
 	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni024\",0.0)",15.5);
 
+	execDelayedAction("playAnnouncement(\"event:/UI/Announcements/Announcement11\")",15.0);
+	
+	GameController:setAmbient(0.05);
+
 
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.0);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",15.0);
@@ -871,12 +872,13 @@ function cinematica_fire_off()
 	
 	handlePlayer = GameController:getPlayerHandle();
 	GameController:resetCamera();
+	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni018\",0.0)",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraAscensorOn\", 5,\"Cubicinout\")",0.0);
 	execDelayedAction("on_cinematic(true)",0.0);
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"Cubicinout\")",7.0);
 	execDelayedAction("on_lock_camera3(true)",12.0);
-	execDelayedAction("on_cinematic_special(false,1)",12.0);
+	execDelayedAction("on_cinematic(false)",12.0);
 
 end
 
@@ -925,6 +927,14 @@ function changeGameState(name)
 	GameController:changeGameState(name)
 end
 
+function deactivateWidget(nameWidget)
+	GameController:deactivateWidget(nameWidget)
+end
+
+function activateWidget(nameWidget)
+	GameController:activateWidget(nameWidget)
+end
+
 
 
 function saveCheckpoint()
@@ -936,13 +946,32 @@ function saveCheckpoint()
 end
 
 
+function loadCheckpoint()
+	GameController:loadCheckpoint();
+
+end
+
+function setEndGame()
+	handlePlayer = GameController:getPlayerHandle();
+	t_compcharac = toCompCharacterController_(toEntity(handlePlayer):getCompByName("character_controller"));
+	t_compcharac.endgame = true 
+end
+
+
 function endGame()
-	--GameController:resetCamera(); 
+	--GameController:resetCamera();
+	execDelayedAction("resetCamera()",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_cinematic(true",0.0);
-	execDelayedAction("on_blending_camera(\"CameraEndGame\", 100,\"Cubicinout\")",0.0);
-	execDelayedAction("activePlatformByName(\"globo\")",2);
-	execDelayedAction("changeGameState(\"gs_wingame\")",8);
+	execDelayedAction("on_blending_camera(\"CameraEndGame001\", 10,\"Cubicinout\")",0.0);
+	execDelayedAction("on_blending_camera(\"CameraEndGame\", 10,\"Cubicinout\")",5.0);
+	execDelayedAction("on_blending_camera(\"CameraEndGame002\", 10,\"Cubicinout\")",10.0);
+	execDelayedAction("setEndGame()",15.0);
+
+
+	--execDelayedAction("on_blending_camera(\"CameraEndGame\", 100,\"Cubicinout\")",0.0);
+	execDelayedAction("activePlatformByName(\"globo\")",1);
+	--execDelayedAction("changeGameState(\"gs_wingame\")",8);
 end
 
 
@@ -966,20 +995,22 @@ function salCupcakeHorno010_008_player()
 	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.2);
 	execDelayedAction("on_cinematic(true)",0.0);
 
-	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
-	execDelayedAction("on_lock_camera3(true)",11);
-	execDelayedAction("on_cinematic(false)",11);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",6.5);
+	execDelayedAction("on_lock_camera3(true)",12);
+	execDelayedAction("on_cinematic(false)",12);
 
 	
 
 
-	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",5);
-	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",5.5);
+	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",6);
+	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",6.5);
 
 
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos\")",0.5);
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos2\")",0.5);
-	execDelayedAction("saveCheckpoint()",5.6);
+	execDelayedAction("saveCheckpoint()",6.6);
+
+	playAnnouncement('event:/UI/Announcements/Announcement2')
 
 
 end
@@ -992,20 +1023,22 @@ function salCupcakeHorno010_008_2_player()
 	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.5);
 	execDelayedAction("on_cinematic(true)",0.5);
 
-	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
+	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",6.5);
 	execDelayedAction("on_lock_camera3(true)",11);
 	execDelayedAction("on_cinematic(false)",11);
 
 	
 
 
-	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",5);
-	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",5.5);
+	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",6);
+	execDelayedAction("activateCurveForOven(\"horno010\",true,\"curvaCupcakeCongelados2\")",6.5);
 
 
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos\")",0.5);
 	execDelayedAction("on_delete_handle(\"triggercinematicahornos2\")",0.5);
-	execDelayedAction("saveCheckpoint()",5.6);
+	execDelayedAction("saveCheckpoint()",6.6);
+
+	playAnnouncement('event:/UI/Announcements/Announcement2')
 
 end
 
@@ -1023,6 +1056,7 @@ function salCupcakeHorno008_player()
 	--execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",5.5);
 	--execDelayedAction("on_lock_camera3(true)",12);
 	--execDelayedAction("on_cinematic(false)",12);
+	playAnnouncement('event:/UI/Announcements/Announcement8')
 	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaHorno008\")",0.0);
 	execDelayedAction("on_delete_handle(\"triggerSalCupcakeHorno008\")",0);
 end
@@ -1038,4 +1072,24 @@ end
 function salCupcakeHorno009_player()
 	execDelayedAction("activateCurveForOven(\"horno009\",true,\"curvaHorno009\")",0.0);
 	execDelayedAction("on_delete_handle(\"triggerSalCupcakeHorno009\")",0);
+end
+
+function playAnnouncement(announcement)
+	GameController:playAnnouncement(announcement)
+end
+
+function setSoundtrackVolume(volume)
+	GameController:setSoundtrackVolume(volume)
+end
+
+function startAudioPlayer(entityName)
+	GameController:startAudioPlayer(entityName)
+end
+
+function balanceoLampara(entityName)
+	h_lampara =  GameController:entityByName(entityName);
+	t_lampara = toCompBalance(toEntity(h_lampara):getCompByName("comp_balance"));
+	t_lampara:balanceo();
+	
+
 end

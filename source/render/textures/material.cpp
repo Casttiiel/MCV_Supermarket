@@ -135,6 +135,9 @@ bool CMaterial::create(const json& j) {
     std::string shadows_mat_name = j.value("shadows_material", "data/materials/shadows.material");
     if( tech->usesSkin() ) 
       shadows_mat_name = j.value("shadows_material", "data/materials/shadows_skin.material");
+    if (strcmp(tech_name.c_str(), "objs_culled_by_gpu.tech") == 0) {
+      shadows_mat_name = j.value("shadows_material", "data/materials/shadows_culled_by_gpu.material");
+    }
     shadows_material = Resources.get(shadows_mat_name)->as<CMaterial>();
   }
 

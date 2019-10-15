@@ -98,10 +98,11 @@ void CModuleScripting::doBingings() {
 	BindEnemiesInTube();
 	BindName();
 	BindGolem();
-	BindEnemySpawnerSpecial();
 	BindEnemySpawner();
 	BindPointLights();
 	BindFlickering();
+	BindCharacterController();
+	BindBalanceo();
 }
 
 
@@ -139,10 +140,8 @@ void CModuleScripting::BindGameController() {
 		.set("inCinematic", &CModuleGameController::inCinematic)
 		.set("inCinematicGolem", &CModuleGameController::inCinematicGolem)
 		.set("getPlayerHandle", &CModuleGameController::getPlayerHandle)
-		.set("loadScene", &CModuleGameController::loadScene)
-    .set("GPUloadScene", &CModuleGameController::GPUloadScene)
-    .set("GPUdeleteScene", &CModuleGameController::GPUdeleteScene)
-		.set("updatePlatformCurveByName", &CModuleGameController::updatePlatformCurveByName)
+    .set("loadScene",&CModuleGameController::loadScene)
+    .set("updatePlatformCurveByName", &CModuleGameController::updatePlatformCurveByName)
 		.set("playAnimationMorph", &CModuleGameController::playAnimationMorph)
         .set("stopAnimationMorph", &CModuleGameController::stopAnimationMorph)
         .set("startSoundtrack", &CModuleGameController::startSoundtrack)
@@ -150,6 +149,9 @@ void CModuleScripting::BindGameController() {
         .set("resumeSoundtrack", &CModuleGameController::resumeSoundtrack)
         .set("updateSoundtrackID", &CModuleGameController::updateSoundtrackID)
         .set("setSoundtrackVolume", &CModuleGameController::setSoundtrackVolume)
+        .set("playAnnouncement", &CModuleGameController::playAnnouncement)
+        .set("startAudioPlayer", &CModuleGameController::startAudioPlayer)
+    .set("setAmbient", &CModuleGameController::updateAmbientLight)
 		.set("entityByName", &CModuleGameController::entityByName)
 		.set("dbgInLua", &CModuleGameController::dbgInLua)
 		.set("setHeightEnemyByHandle", &CModuleGameController::setHeightEnemyByHandle)
@@ -166,9 +168,9 @@ void CModuleScripting::BindGameController() {
 		.set("setLifeEnemy", &CModuleGameController::setLifeEnemy)
 		.set("setLifeEnemiesByTag", &CModuleGameController::setLifeEnemiesByTag)
 		.set("changeGameState", &CModuleGameController::changeGameState)
-		
-    .set("deleteProducts",&CModuleGameController::deleteProducts)
-    .set("loadProducts", &CModuleGameController::loadProducts)
+		.set("deactivateWidget", &CModuleGameController::deactivateWidget)
+		.set("activateWidget", &CModuleGameController::activateWidget)
+		.set("loadCheckpoint", &CModuleGameController::loadCheckpoint)
 		;
 }
 
@@ -182,12 +184,14 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompTransform", SLB::FuncCall::create(&toCompTransform));
 	m->set("toCompCamera", SLB::FuncCall::create(&toCompCamera));
 	m->set("toCBTGolem", SLB::FuncCall::create(&toCBTGolem));
-	m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
+	//m->set("toCompEnemySpawnerSpecialTrap", SLB::FuncCall::create(&toCompEnemySpawnerSpecialTrap));
 	m->set("toCompSelfDestroy", SLB::FuncCall::create(&toCompSelfDestroy));
 	m->set("toCBTCupcake", SLB::FuncCall::create(&toCBTCupcake));
 	m->set("toCompEnemySpawner", SLB::FuncCall::create(&toCompEnemySpawner));
 	m->set("toCompLightPoint", SLB::FuncCall::create(&toCompLightPoint));
 	m->set("toCompFlickering", SLB::FuncCall::create(&toCompFlickering));
+	m->set("toCompCharacterController_", SLB::FuncCall::create(&toCompCharacterController_));
+	m->set("toCompBalance", SLB::FuncCall::create(&toCompBalance));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -197,6 +201,7 @@ void CModuleScripting::BindCharacterController() {
 	SLB::Class<TCompCharacterController>("CharacterController", m)
 		.comment("This is our wrapper of the Player class")
 		.set("heal", &TCompCharacterController::heal)
+		.property("endgame", &TCompCharacterController::endGame)
 	    //.set("changeState",&TCompCharacterController::ChangeState);
 		;
 
@@ -258,7 +263,7 @@ void CModuleScripting::BindGolem() {
 
 
 
-
+/*
 void CModuleScripting::BindEnemySpawnerSpecial() {
 	SLB::Class<TCompEnemySpawnerSpecialTrap>("TCompEnemySpawnerSpecialTrap", m)
 		.comment("This is ouTCompEnemySpawnerSpecialTrapr wrapper of TCompEnemySpawnerSpecialTrap class")
@@ -266,7 +271,7 @@ void CModuleScripting::BindEnemySpawnerSpecial() {
 		.property("working", &TCompEnemySpawnerSpecialTrap::working)
 		.set("setSpawnDelay", &TCompEnemySpawnerSpecialTrap::setSpawnDelay)
 		;
-}
+}*/
 
 
 void CModuleScripting::BindEnemySpawner() {
@@ -289,6 +294,7 @@ void CModuleScripting::BindEnemySpawner() {
 void CModuleScripting::BindEnemiesInTube() {
 	SLB::Class<TCompEnemiesInTube>("TCompEnemiesInTube", m)
 		.comment("This is our wrapper of comp_enemies_in_tube class")
+		.set("setActivateTrap", &TCompEnemiesInTube::setActivateTrap)
 		.property("activateTrap", &TCompEnemiesInTube::activateTrap)
 
 		/*
@@ -366,6 +372,15 @@ void CModuleScripting::BindCamera() {
 		.comment("TCompCamera wrapper")
 		.constructor()
 		.set("lookAt", &TCompCamera::lookAt);
+}
+
+
+
+void CModuleScripting::BindBalanceo() {
+	SLB::Class <TCompBalance>("TCompBalance", m)
+		.comment("TCompCamera wrapper")
+		.constructor()
+		.set("balanceo", &TCompBalance::balanceo);
 }
 
 

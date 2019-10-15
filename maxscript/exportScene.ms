@@ -46,9 +46,7 @@ struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
 	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	project_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_47/MCV_Supermarket/bin/",
-	--"C:/Users/Daniel/Desktop/MCV_Supermarket/bin/"
-	--"C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_47/MCV_Supermarket/bin/"
+	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
@@ -215,6 +213,8 @@ struct TSceneExporter (
 			local param8 = getUserProp obj "axis" 
 			local param9 = getUserProp obj "positions" --puntos
 			local param10 = getUserProp obj "active"
+			local param11 = getUserProp obj "heightSinus"
+			local param12 = getUserProp obj "period"
 			
 			if param2 == undefined  then (
 				throw "A una plataforma le faltan datos"
@@ -264,6 +264,14 @@ struct TSceneExporter (
 				fs.writeKeyValue "active" param10
 				
 				--fs.writeKeyValue "positions" param9
+				fs.writeComma()
+			)
+			if param11 != undefined  then (
+				fs.writeKeyValue "heightSinus" param11
+				fs.writeComma()
+			)
+			if param12 != undefined  then (
+				fs.writeKeyValue "period" param12
 				fs.writeComma()
 			)
 			fs.writeKeyValue "platformType_" param2	
@@ -592,6 +600,44 @@ struct TSceneExporter (
 			fs.writeComma()
 			fs.writeKeyValue "dynamic" true
 		)
+		local is_joints = getUserProp obj "joints"  
+		if is_joints != undefined then (
+			local typeJoint = getUserProp obj "typeJoint"
+			local posObj0 = getUserProp obj "posObj0"
+			local posObj1 = getUserProp obj "posObj1"
+			local parentJoint = getUserProp obj "parentJoin"
+			fs.writeComma()
+			fs.writeKey "joints"
+			fs.beginArray()
+				fs.beginObj()
+					fs.writeKeyValue "type" typeJoint
+					fs.writeComma()
+					fs.writeKey "obj0"
+					fs.beginObj()
+						fs.writeKeyValue "name" obj.name
+						fs.writeComma()
+						fs.writeKey "transform"
+						fs.beginObj()
+							fs.writeKeyValue "pos" posObj0
+						fs.endObj()
+					fs.endObj()
+					fs.writeComma()
+					fs.writeKey "obj1"
+					fs.beginObj()
+						fs.writeKeyValue "name" parentJoint
+						fs.writeComma()
+						fs.writeKey "transform"
+						fs.beginObj()
+							fs.writeKeyValue "pos" posObj1
+						fs.endObj()
+					fs.endObj()
+				fs.endObj()
+			
+			fs.endArray()
+			
+			
+			
+		)
 		
 		local is_kinematic = getUserProp obj "kinematic"
 		--format "export kinematic %\n" is_kinematic
@@ -690,6 +736,10 @@ struct TSceneExporter (
 			local pos = getUserProp obj "pos"
 			local rot = getUserProp obj "rotation"
 			local parent = getUserProp obj "parent"
+			local yaw = getUserProp obj "yaw"
+			local pitch = getUserProp obj "pitch"
+			local roll = getUserProp obj "roll"
+			
 			fs.writeComma()
 			fs.writeKey "hierarchy"
 			fs.beginObj()
@@ -697,6 +747,18 @@ struct TSceneExporter (
 			fs.writeComma()
 			if rot != undefined then (
 				fs.writeKeyValue "rotation" rot
+				fs.writeComma()
+			)
+			if yaw != undefined then (
+				fs.writeKeyValue "yaw" yaw
+				fs.writeComma()
+			)
+			if pitch != undefined then (
+				fs.writeKeyValue "pitch" pitch
+				fs.writeComma()
+			)
+			if roll != undefined then (
+				fs.writeKeyValue "roll" roll
 				fs.writeComma()
 			)
 			fs.writeKeyValue "parent" parent

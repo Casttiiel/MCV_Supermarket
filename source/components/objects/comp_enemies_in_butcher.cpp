@@ -27,12 +27,13 @@ void TCompEnemiesInButcher::update(float dt) {
 	if (count >= 3) {
 		CHandle handle = GameController.entityByName("Platform Fire Particles");
 		CEntity* entity = (CEntity*)handle;
-		TCompFirePlatformTrap* firePlatformTrap = entity->get<TCompFirePlatformTrap>();
-		firePlatformTrap->flagActivate = false;
-		Scripting.execActionDelayed("cinematica_fire_off()", 0);
-		Scripting.execActionDelayed("activeElevatorInitCarniceria_player()", 4.0);
-		//desactivar llamas de la plataforma cuando este listo
-		GameController.destroyCHandleByName("enemies_in_butcher");
+		if (entity != nullptr) {
+			TCompFirePlatformTrap* firePlatformTrap = entity->get<TCompFirePlatformTrap>();
+			firePlatformTrap->flagActivate = false;
+			Scripting.execActionDelayed("cinematica_fire_off()", 0);
+			Scripting.execActionDelayed("activeElevatorInitCarniceria_player()", 4.0);
+			GameController.destroyCHandleByName("enemies_in_butcher");
+		}
 		
 	}
 }

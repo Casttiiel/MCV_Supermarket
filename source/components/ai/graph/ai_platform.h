@@ -17,6 +17,7 @@
 #define TRAVELLING_NOT_ROTATION 6 //platafarma sigue camino de vias sin rotar
 #define TRAVELLING_ALWAYS_WITHOUT_TIME 7
 #define TO_POSITION_WITH_CURVE_NOT_ROTATION 8//solo va hacia una posicion siguiendo una curva
+#define TO_MOVEMENT_SIN_MOVEMENT 9
 
 class CAIMobilePlatform : public IAIController
 {
@@ -51,6 +52,11 @@ class CAIMobilePlatform : public IAIController
 
 	void ToPosition(float dt);
 
+
+	void ToSineMovement(float dt);
+	void InitSinMov(float dt);
+
+
 	DECL_SIBLING_ACCESS();
 public:
 	void InitTravel();
@@ -62,6 +68,7 @@ public:
 	void InitialPositionTravelStateNotRotation();
 	void InitRotationInfinityNoDt();
 	void InitToPositionWithCurveNotRotation();
+	void InitToSineMovement();
 
 	void load(const json& j, TEntityParseContext& ctx);
 	void debugInMenu();
@@ -110,6 +117,12 @@ private:
 	bool stop = false;
 	
 	bool firstTimeRotateDegree = true;
+	//MOV PRUEBA SINUS
+	VEC3 pivot;
+	float timePeriod = 10.f;
+	float height = 0.5f;
+	float timeSinceStart;
+	//-------------
 };
 
 #endif _AI_PLATFORM

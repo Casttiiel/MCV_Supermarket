@@ -29,7 +29,8 @@ bool CModuleGameOver::start()
   TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
   render_chromatic->update_amount = false;
   render_chromatic->amount = 0.2f;
-
+  
+  
   return true;
 }
 
@@ -43,12 +44,21 @@ void CModuleGameOver::stop()
 	
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
-		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
-		CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
-		CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
-		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+		if(ui.botonPulsadoGameOver == 0) {//hemos pulsado restart
+			GameController.resetCamera();
+		}
+		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1);
+		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BACKGROUND\")", 1);
+		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BUTTONS\")", 1);
+		Scripting.execActionDelayed("activateWidget(\"HUD_NORMAL_PLAYER\")", 1);
+		//CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
+		//CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
+		//CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
+		//CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+		
 	}
 	else {
+		//GameController.resetCamera();
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 		CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND_MINI");
 		CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS_MINI");
