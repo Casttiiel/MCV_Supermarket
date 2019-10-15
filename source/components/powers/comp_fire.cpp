@@ -200,7 +200,7 @@ void TCompFireController::attack(VEC3 origin) {
     parseScene("data/prefabs/bullets/fireball.json", ctx);
 
     //Bullet direction
-    VEC3 _targetDirection = c_trans->getFront();
+    VEC3 _targetDirection = -c_trans->getFront();
     TCompCharacterController* c_controller = get< TCompCharacterController>();
     if (c_controller->aiming) {
         TCompTransform* camera_transform = ((CEntity*)getEntityByName("PlayerCamera"))->get<TCompTransform>();

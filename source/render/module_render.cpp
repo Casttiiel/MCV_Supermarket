@@ -293,7 +293,6 @@ void CModuleRender::generateFrame() {
         }
       }
     }
-
     cs->generateShadowMap();
   });
 

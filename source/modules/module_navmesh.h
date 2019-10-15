@@ -26,6 +26,4 @@ public:
 private:
 	CNavmesh navmesh;
 	CNavmeshQuery navmeshQuery = CNavmeshQuery(&navmesh);
-
-	
 };

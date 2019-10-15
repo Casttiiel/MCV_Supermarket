@@ -7,6 +7,7 @@
 //#include "ctes.h"                     // texture slots
 #include "render/textures/render_to_texture.h" 
 #include "render/render_manager.h" 
+#include "engine.h"
 
 DECL_OBJ_MANAGER("light_dir", TCompLightDir);
 
@@ -158,6 +159,8 @@ void TCompLightDir::generateShadowMap() {
     // We are going to render the scene from the light position & orientation
     activateCamera(*this, shadows_rt->getWidth(), shadows_rt->getHeight());
   }
+
+  Engine.getGPUCulling().runWithCustomCamera(*this);
 
   CHandle comp(this);
   CHandle entity = comp.getOwner();

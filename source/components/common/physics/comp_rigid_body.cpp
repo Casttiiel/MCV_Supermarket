@@ -64,12 +64,18 @@ void TCompRigidBody::update(float delta) {
 		bool new_is_grounded = col.isSet(physx::PxControllerCollisionFlag::eCOLLISION_DOWN);
 
     if (!is_grounded && new_is_grounded) {//just landed
-      TCompTransform* c_trans = get<TCompTransform>();
-      TEntityParseContext ctx;
-      ctx.root_transform.setPosition(c_trans->getPosition() - 0.2f* c_trans->getFront());
-      parseScene("data/prefabs/vfx/smoke.json", ctx);
+			if (smokeTimer <= 0) {
+				TCompTransform* c_trans = get<TCompTransform>();
+				TEntityParseContext ctx;
+				ctx.root_transform.setPosition(c_trans->getPosition() - 0.2f* c_trans->getFront());
+				parseScene("data/prefabs/vfx/smoke.json", ctx);
+				smokeTimer = smokeTimerMax;
+			}
     }
+		smokeTimer -= dt;
     is_grounded = new_is_grounded;
+
+
 	}
 }
 

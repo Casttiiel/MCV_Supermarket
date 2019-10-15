@@ -32,7 +32,7 @@ private:
     float _fireWidth = 0.5f;
     float _fireHeight = 0.5f;
     float _fireDistance = 5.0f;
-    float _fireDamage = 250.0f;
+    float _fireDamage = 130.0f;
     float _fireImpactForce = 5.f;
     float _fireDelay = 0.1f;
     float _fireTimer = 0.f;

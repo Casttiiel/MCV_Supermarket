@@ -531,6 +531,7 @@ void TCompCharacterController::onAir(float delta) {
         ChangeState("GROUNDED");
         EngineAudio.playEvent("event:/Character/Footsteps/Landing");
         playerAnima->playAnimation(TCompPlayerAnimator::JUMP_END, 1.0f);
+
         return;
     }
 
@@ -987,6 +988,12 @@ void TCompCharacterController::attack(float delta) {
           }
           if (meleeHit) {
             EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
+
+            CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+            TMsgOnomPet msgonom;
+            msgonom.type = 2;
+            msgonom.pos = c_trans->getPosition();
+            onom_manager->sendMsg(msgonom);
           }
         }
 
@@ -1572,8 +1579,6 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  CEntity* entity = EngineEntities.getInventoryHandle();
 		  TCompInventory* inventory = entity->get<TCompInventory>();
 		  inventory->setChilli(true);
-		  //unLockableChilli = true;
-      //GameController.GPUloadScene("data/scenes/mapa_asiatica.json");
       EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
 	  Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
       /*CEntity* e1 = getEntityByName("Hielo2_LP");

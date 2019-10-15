@@ -10,6 +10,11 @@ DECL_OBJ_MANAGER("comp_enemy_spawner", TCompEnemySpawner);
 
 
 using namespace physx;
+std::mt19937 spawner_x(3942);
+std::uniform_int_distribution<int> spawner_x_range(-100, 100);
+
+std::mt19937 spawner_z(942);
+std::uniform_int_distribution<int> spawner_z_range(-100, 100);
 
 void TCompEnemySpawner::debugInMenu() {
 

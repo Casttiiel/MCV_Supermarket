@@ -120,3 +120,16 @@ VS_OUTPUT VS(
 }
 
 
+VS_OUTPUT VS_shadow(
+  float4 iPos : POSITION
+  , in uint InstanceID : SV_InstanceID
+  , StructuredBuffer<TCulledInstance> culled_instances : register(t0)
+  )
+{
+  VS_OUTPUT output = (VS_OUTPUT)0;
+  TCulledInstance culled_instance = culled_instances[ instance_base + InstanceID ];
+  float4x4 newWorld = culled_instance.world;
+  float4 world_pos = mul( iPos, newWorld );
+  output.Pos = mul(world_pos, ViewProjection );
+  return output;
+}

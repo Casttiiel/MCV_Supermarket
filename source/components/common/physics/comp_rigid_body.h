@@ -18,6 +18,9 @@ class TCompRigidBody: public TCompBase {
   float mass = 1.f;
   float time_on_air = 0.f;
   float jump_time_offset = 0.1f;
+	float smokeTimer;
+	float smokeTimerMax = 0.5;
+	int smoke_counter = 0;
 
   float lossRatio = 4.5f;
   VEC3 impulse = VEC3();
