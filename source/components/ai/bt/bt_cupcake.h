@@ -142,7 +142,7 @@ private:
 	bool insightPlayer = false;
 	//gameplay parameters
 	int num_of_divisions = 1; //times will you divide your self
-	float life = 50.f;
+	float life = 30.f;
 	float sonLife = 10.0f;
 	int num_of_sons = 2; //number of sons
 	int spawnRange = 5; //spawn range of sons
@@ -217,7 +217,7 @@ private:
 
 	//jump
 	bool firstImpact = true;
-	float jumpForce = 5.0f; //5
+	float jumpForce = 4.0f; //5
 	float recoilJumpForce = 5.0f; //5
 
 	//movement
