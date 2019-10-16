@@ -56,6 +56,9 @@ void TCompSkelLookAtDirection::update(float dt) {
   getInputDir(input_dir);
 
   TCompCharacterController* c_c = get < TCompCharacterController>();
+  if (c_c == NULL) {
+	  return;
+  }
   float targ_amount = 0.0f;
   std::string state = c_c->getState();
   if (input_dir != VEC2::Zero && c_c->aiming && strcmp(state.c_str(),"ON_AIR") != 0) {

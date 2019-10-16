@@ -154,6 +154,10 @@ namespace UI
 		  }
           EngineAudio.playEvent("event:/UI/Quit_Button");
           //GameController.loadCheckpoint();
+		  CEntity* e_player = GameController.getPlayerHandle();
+		  TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
+		  PowerType power = characterController->power_selected;
+		  GameController.savePower(power);
 		  Scripting.execActionDelayed("loadCheckpoint()", 1.0);
 	  };
 
