@@ -141,8 +141,8 @@ bool CCheckpoint::loadCheckPoint()
 			inventory->setCoffe(playerStatus.coffe);
 			inventory->setTeleport(playerStatus.teleport);
 
-			//TCompCharacterController* compCharacterController = e_player->get<TCompCharacterController>();
-			//compCharacterController->power_selected = playerStatus.power_selected;
+			TCompCharacterController* compCharacterController = e_player->get<TCompCharacterController>();
+			compCharacterController->power_selected = playerStatus.power_selected;
 			
             GameController.healPlayer();
         }
@@ -214,6 +214,14 @@ bool CCheckpoint::deleteCheckPoint()
 PlayerStatus CCheckpoint::getPlayerStatus(){
 	return playerStatus;
 }
+
+bool CCheckpoint::savePower(PowerType power) {
+	CEntity* e_player = GameController.getPlayerHandle();
+	TCompCharacterController* compCharacterController = e_player->get<TCompCharacterController>();
+	playerStatus.power_selected = power;
+	return true;
+}
+
 
 void CCheckpoint::debugInMenu()
 {

@@ -24,7 +24,11 @@ bool CModuleGameOver::start()
 		CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BUTTONS_MINI");
 		CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER_MINI");
 	}
-
+	//guardar el poder del characterController
+	CEntity* e_player = GameController.getPlayerHandle();
+	TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
+	PowerType power = characterController->power_selected;
+	GameController.savePower(power);
   CEntity* m_camera = getEntityByName("MainCamera");
   TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
   render_chromatic->update_amount = false;
@@ -48,12 +52,12 @@ void CModuleGameOver::stop()
 			GameController.resetCamera();
 		}
 
-		
+		/*
 		UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
 		b->setCurrentState("option_teleport");
 		UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
 		b_cursor->setCurrentState("option_teleport");
-		
+		*/
 		
 
 		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1);

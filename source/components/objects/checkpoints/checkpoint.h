@@ -50,7 +50,7 @@ public:
     const bool isSaved() { return saved; };
     void debugInMenu();
 	PlayerStatus getPlayerStatus();
-
+	bool savePower(PowerType power);
 private:
 
     PlayerStatus playerStatus;

@@ -17,7 +17,7 @@ public:
   float maxLife = 100.f;
   float life = maxLife;
   bool endGame = false;
-  PowerType power_selected = PowerType::TELEPORT;
+  PowerType power_selected;
 
   bool aiming = false;
   bool is_grounded = false;

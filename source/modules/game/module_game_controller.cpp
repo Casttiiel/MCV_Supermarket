@@ -126,7 +126,7 @@ bool CModuleGameController::deleteCheckpoint() {
 
     return _currentstate;
 }*/
-/*
+
 PowerType CModuleGameController::getPowerSelected() {
 	if (_lastCheckpoint != nullptr) {
 		return _lastCheckpoint->getPlayerStatus().power_selected;
@@ -135,7 +135,12 @@ PowerType CModuleGameController::getPowerSelected() {
 		return PowerType::TELEPORT;
 	}
 }
-*/
+
+
+
+void CModuleGameController::savePower(PowerType power) {
+	_lastCheckpoint->savePower(power);
+}
 
 #pragma region Behavior Tree Control
 void CModuleGameController::stopStateMachines() {

@@ -63,7 +63,7 @@ void TCompCharacterController::Init() {
     damagedAudio.stop();
 
 
-	//power_selected = GameController.getPowerSelected();
+	power_selected = GameController.getPowerSelected();
 
     ChangeState("GROUNDED");
 }
@@ -669,10 +669,6 @@ void TCompCharacterController::dead(float delta) {
 
     TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
     playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.0f);
-
-
-	
-
 
 
     if (EngineInput["checkpoint_"].justPressed()) {

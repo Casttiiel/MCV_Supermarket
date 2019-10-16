@@ -116,7 +116,8 @@ public:
     bool loadCheckpoint();
     bool deleteCheckpoint();
     bool isCheckpointSaved();
-	//PowerType getPowerSelected();
+	PowerType getPowerSelected();
+	void savePower(PowerType power);
     void wakeUpWinds();
 	//End Checkpoints
 
