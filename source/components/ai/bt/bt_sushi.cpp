@@ -364,7 +364,7 @@ int CBTSushi::actionPrepareJumpCharge() {
     VEC3 impulse = c_rb->getImpulse();
     if (isGrounded()) {
         jumpPosition = c_trans->getPosition();
-        c_rb->jump(VEC3(0, 10.f, 0));
+        c_rb->jump(VEC3(0, 11.f, 0));
         //Start animation
         sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_START, 1.f);
         sushiAnimator->playAnimation(TCompSushiAnimator::JUMP_LOOP, 1.f);
@@ -373,7 +373,7 @@ int CBTSushi::actionPrepareJumpCharge() {
         return STAY;
     }
 
-    if (c_trans->getPosition().y >= (jumpPosition.y + 2.0f)) {
+    if (c_trans->getPosition().y >= (jumpPosition.y + 3.0f)) {
         dbg("%s activated JUMPCHARGE from PREPAREJUMPCHARGE\n", cname->getName());
         VEC3 height = c_trans->getPosition();
         //ChangeState("JUMPCHARGE");
