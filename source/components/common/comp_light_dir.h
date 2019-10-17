@@ -41,5 +41,6 @@ public:
   void generateShadowMap();
 
   bool isShadowEnabled() { return shadows_enabled; }
+  void enableShadows() { if (casts_shadows) shadows_enabled = true; }
 
 };

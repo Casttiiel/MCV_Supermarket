@@ -13,8 +13,6 @@
 #include "comp_turret_bullet_golem.h"
 
 using namespace physx;
-std::mt19937 bt_mt_bu2(std::random_device{}());
-std::uniform_int_distribution<int> bt_mt_bu_dist2(1, 10);
 
 DECL_OBJ_MANAGER("turret_bullet_golem_controller", TCompTurretBulletGolem);
 void TCompTurretBulletGolem::debugInMenu() {
@@ -66,10 +64,6 @@ void TCompTurretBulletGolem::onLaunch(const TMsgAssignBulletOwner& msg) {
   targetType = msg.messageToTarget.targetType;
 
   
-  //int dice = bt_mt_bu_dist(bt_mt_bu);
-  x_angular = bt_mt_bu_dist2(bt_mt_bu2);
-  y_angular = bt_mt_bu_dist2(bt_mt_bu2);
-  z_angular = bt_mt_bu_dist2(bt_mt_bu2);
 }
 
 
@@ -81,11 +75,11 @@ void TCompTurretBulletGolem::update(float delta) {
     VEC3 c_pos = c_trans->getPosition();
     
     float yaw, pitch, roll;
-    c_trans->getAngles(&yaw,&pitch,&roll);
-    yaw += x_angular * delta;
-    pitch += y_angular * delta;
-    roll += z_angular * delta;
-    c_trans->setAngles(yaw, pitch, roll);
+    c_trans->getAngles(&yaw,&pitch);
+    yaw += 6.0 * delta;
+    pitch += sin(Time.current * 3.0f) * delta;
+    pitch = clamp(pitch, -1.2f, 1.2f);
+    c_trans->setAngles(yaw, pitch);
 
     //Movement control
     c_pos += (_targetDirection * _speed * delta);
