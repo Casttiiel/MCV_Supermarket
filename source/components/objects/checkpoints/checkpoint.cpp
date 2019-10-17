@@ -204,12 +204,7 @@ bool CCheckpoint::loadCheckPoint()
 							destroy->setDelay(0);
 						}
 					}
-
-
 				}
-				
-
-
 			}
         }
         return true;
