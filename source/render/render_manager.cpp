@@ -105,7 +105,10 @@ void CRenderManager::render(eRenderCategory category) {
 
   CGpuScope gpu_trace(category_names.nameOf(category));
 
-  Engine.getGPUCulling().renderCategory(category);
+  {
+    PROFILE_FUNCTION("GPU Entities");
+    Engine.getGPUCulling().renderCategory(category);
+  }
 
   draw_calls_per_category[category] = 0;
 

@@ -59,7 +59,7 @@ void TCompLightDir::load(const json& j, TEntityParseContext& ctx) {
     assert(is_ok);
   }
 
-  shadows_enabled = casts_shadows;
+  shadows_enabled = j.value("shadows_enabled", casts_shadows);
 }
 
 void TCompLightDir::update(float dt) {
@@ -99,6 +99,12 @@ void TCompLightDir::update(float dt) {
   if (c_aabb) {
     c_aabb->Center = entityAbsAABB.Center;
     c_aabb->Extents = entityAbsAABB.Extents;
+  }
+
+  TCompLocalAABB* l_aabb = get< TCompLocalAABB>();
+  if (l_aabb) {
+    l_aabb->Center = entityAbsAABB.Center;
+    l_aabb->Extents = entityAbsAABB.Extents;
   }
 }
 
@@ -160,12 +166,19 @@ void TCompLightDir::generateShadowMap() {
     activateCamera(*this, shadows_rt->getWidth(), shadows_rt->getHeight());
   }
 
-  Engine.getGPUCulling().runWithCustomCamera(*this);
 
-  CHandle comp(this);
-  CHandle entity = comp.getOwner();
-  CRenderManager::get().setEntityCamera(entity);
-  CRenderManager::get().render(CATEGORY_SHADOWS);
+  {
+    PROFILE_FUNCTION("GPU Culling for light");
+    Engine.getGPUCulling().runWithCustomCamera(*this);
+  }
+
+  {
+    PROFILE_FUNCTION("CPU Entities");
+    CHandle comp(this);
+    CHandle entity = comp.getOwner();
+    CRenderManager::get().setEntityCamera(entity);
+    CRenderManager::get().render(CATEGORY_SHADOWS);
+  }
 }
 
 void TCompLightDir::registerMsgs() {

@@ -258,7 +258,7 @@ bool CModuleRender::setupDeferredOutput() {
 void CModuleRender::generateFrame() {
   CGpuScope gpu_trace("Module::Render");
   PROFILE_FUNCTION("CModuleRender::generateFrame");
-
+  
   ctes_shared.GlobalWorldTime = (float)Time.current;
   ctes_shared.Actual_dt = (float)Time.delta;
   ctes_shared.GlobalDeltaTime = Time.delta;

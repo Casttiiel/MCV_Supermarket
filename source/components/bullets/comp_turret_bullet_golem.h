@@ -31,6 +31,5 @@ private:
   TMsgDamage _messageToTarget;
   EntityType targetType;
   std::string _audioOnHit = "";
-  float x_angular, y_angular, z_angular;
 };
 
