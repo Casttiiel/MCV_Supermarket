@@ -1129,7 +1129,12 @@ int CBTRangedSushi::actionDecoy() {
 	c_cc->controller->setPosition(VEC3_TO_PXEXVEC3(teleportPosition));
 	//Smoke particles
 	//Spawn the decoy in my old position
-	GameController.spawnPrefab("data/prefabs/props/ranged_sushi_decoy.json", _decoyOrigin);
+    std::string randN = to_string(rand() % 12 + 1);     // v2 in the range 1 to 100
+    GameController.spawnPrefab("data/prefabs/products/product" + randN + ".json", _decoyOrigin);
+    GameController.spawnPrefab("data/prefabs/vfx/smoke.json", _decoyOrigin);
+
+    AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Sushi/Ranged_Decoy");
+    audio.set3DAttributes(*c_trans);
 	//Smoke particles
 	//Restore values
 	_decoyTriggered = false;
