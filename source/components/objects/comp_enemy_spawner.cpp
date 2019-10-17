@@ -89,7 +89,7 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
       data->emitter_center = ctx.root_transform.getPosition() + ctx.root_transform.getFront() + ctx.root_transform.getLeft() * 1.7f;
       data->updateGPU();
     }
-
+    audio.stop();
     audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
 	}
 

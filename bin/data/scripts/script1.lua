@@ -962,7 +962,7 @@ function endGame()
 	--GameController:resetCamera();
 	execDelayedAction("resetCamera()",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
-	execDelayedAction("on_cinematic(true",0.0);
+	execDelayedAction("on_cinematic(true)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraEndGame001\", 10,\"Cubicinout\")",0.0);
 	execDelayedAction("on_blending_camera(\"CameraEndGame\", 10,\"Cubicinout\")",5.0);
 	execDelayedAction("on_blending_camera(\"CameraEndGame002\", 10,\"Cubicinout\")",10.0);

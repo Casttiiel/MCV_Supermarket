@@ -19,7 +19,7 @@ void TCompDestroyableWall::load(const json& j, TEntityParseContext& ctx) {
 	typeWall = j.value("type_wall", typeWall);
 	factor = j.value("factor", factor);
     iceAudio = EngineAudio.playEvent("event:/Music/Ambience_Props/Ice/Ice_Melting");
-    iceAudio.stop();
+    iceAudio.setPaused(true);
 }
 
 void TCompDestroyableWall::registerMsgs() {
@@ -170,8 +170,8 @@ void TCompDestroyableWall::onPlayerAttack(const TMsgDamage & msg) {
                 c_morph->setIncrement(0.05f);
                 c_morph->playMorph();
             }
-            if (!iceAudio.isPlaying()) {
-                iceAudio.restart();
+            if (iceAudio.getPaused()) {
+                iceAudio.setPaused(false);
                 TCompTransform* c_trans = get<TCompTransform>();
                 iceAudio.set3DAttributes(*c_trans);
             }
@@ -185,7 +185,7 @@ void TCompDestroyableWall::update(float dt) {
     return;
   iceAudioTimer -= dt;
   if (iceAudioTimer <= 0) {
-      iceAudio.stop();
+      iceAudio.setPaused(true);
   }
   last_fire_hit += dt;
   if (last_fire_hit > max_last_fire_hit) {
