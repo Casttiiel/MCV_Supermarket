@@ -30,6 +30,7 @@ void TCompAir::update(float delta) {
   }
 
   TCompTransform* c_trans = get<TCompTransform>();
+  if (c_trans == nullptr) return;
   float factor = 1.0f - ratio/destroy;
   c_trans->setPosition(c_trans->getPosition() + (c_trans->getFront() * delta * ((speed * factor) + 0.2f)) );
 }

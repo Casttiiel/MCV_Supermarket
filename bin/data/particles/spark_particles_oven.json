@@ -6,8 +6,11 @@
       "transform": {
         "pos": "0 0 0",
         "rotation": "0.0 0.0 0.0 1.0"
-      }
-      ,
+      },
+      "comp_self_destroy" : {
+        "_isEnabled": false
+      },
+      
       "render":
       {
         "mesh": "data/meshes/static_objects/UnitSphere.mesh",
@@ -85,6 +88,10 @@
         }
       ],
       "num_instances": "indirect_draw"
+	  ,
+	  "tags": [
+				"spark_particle_oven"
+			]
     }
   }
 ]

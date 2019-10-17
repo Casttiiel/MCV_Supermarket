@@ -30,14 +30,19 @@ public:
   void setSpawnDelay(float newtime);
   void setSpawnMaxNumber(int value);
   bool working = true;
-
+  void setDestroyed(bool destroyed) {
+	  is_destroyed = destroyed;
+  }
+  bool getDestroyed() {
+	  return is_destroyed;
+  }
  
 
 private:
 
 	#define PREFAB_CUPCAKE_ "data/prefabs/enemies/bt_cupcake.json"
 
-	
+	CEntity* e_ = nullptr;
 	bool _isEnabled = false;
 	bool firstTime = true;
   bool is_destroyed = false;
