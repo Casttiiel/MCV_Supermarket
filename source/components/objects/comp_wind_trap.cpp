@@ -67,6 +67,8 @@ void TCompWindTrap::onBattery(const TMsgGravity & msg) {
 	_isEnabled = false;
   is_destroyed = true;
   audio.stop();
+  audio = EngineAudio.playEvent("event:/Enemies/Hazards/Wind_Turbine/Wind_Turbine_Shutdown");
+  audio.set3DAttributes(*c_trans);
 	//Animate or start particle system, do something
 	/*CHandle(this).getOwner().destroy();
 	CHandle(this).destroy();*/

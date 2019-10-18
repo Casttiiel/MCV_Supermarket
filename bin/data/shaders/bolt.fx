@@ -45,8 +45,8 @@ void PS(VS_OUTPUT input
 {
   float lineSize = 0.02f / lineBoltScale;
 
-  float noise1 = txNoise.Sample(samLinear,float2(input.Uv.x + GlobalWorldTime,0.5)).x;
-  float noise2 = txNoise.Sample(samLinear,float2(input.Uv.x,GlobalWorldTime)).y; //touch this value to change the frecuency
+  float noise1 = txNoise.Sample(samLinear,float2(input.Uv.x + GlobalWorldTime * 2,0.5)).x;
+  float noise2 = txNoise.Sample(samLinear,float2(input.Uv.x,GlobalWorldTime * 2)).y; //touch this value to change the frecuency
   noise1 = noise1 * 2.0f  - 1.0f;
   noise2 = noise2 * 2.0f  - 1.0f;
   noise1 *= 0.3f * noise2; //touch this value to make it wider
@@ -56,11 +56,7 @@ void PS(VS_OUTPUT input
  
   float uv = (input.Uv.y > minvalue) * (input.Uv.y < maxvalue);
 
-  float value = (input.Uv.y - minvalue) / (maxvalue - minvalue);
-
-  float4 white = float4(1,1,1,1);
-  float4 color = lerp(white, ObjColor, value);
-  float3 texture_color = color * uv;
+  float3 texture_color = float4(0.0, 0.5, 1.0,1.0) * uv;
 
   o_deferred = float4(texture_color, uv);
   o_shine = float4(texture_color, uv);
@@ -111,6 +107,6 @@ void PS_bolt_sphere(VS_OUTPUT2 input
   float variance = sin(GlobalWorldTime* 2) / 6.666f + 1.30f;
   float3 color = lerp(ObjColor.xyz, white, NdV) * variance;
 
-  o_deferred = float4(color, 1.0);
-  o_shine = float4(color, 1.0);
+  o_deferred = float4(0.0, 0.5, 1.0, 1.0);
+  o_shine = float4(1.0, 1.0, 1.0, 1.0);
 }

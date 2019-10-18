@@ -394,10 +394,13 @@ float4 PS_Ambient(
   GBuffer g;
   decodeGBuffer( iPosition.xy, g );
 
+  float2 screen_uv = iPosition.xy * CameraInvResolution;
+
   // if roughness = 0 -> I want to use the miplevel 0, the all-detailed image
   // if roughness = 1 -> I will use the most blurred image, the 8-th mipmap, If image was 256x256 => 1x1
   float mipIndex = g.roughness * g.roughness * 8.0f;
   float3 env = txEnvironmentMap.SampleLevel(samLinear, g.reflected_dir, mipIndex).xyz;
+  env = txGAlbedo.SampleLevel(samLinear,screen_uv, mipIndex).xyz;
   // Convert the color to linear also.
   env = pow(abs(env), 2.2f);
   //return float4( env, 1 );
@@ -420,7 +423,7 @@ float4 PS_Ambient(
 
   float ao = txAO.Sample( samLinear, iUV).x;
 
-  float g_ReflectionIntensity = 1.0;
+  float g_ReflectionIntensity = 2.0;
   float g_AmbientLightIntensity = 1.0;
 
   float4 final_color = (float4(env_fresnel * env * g_ReflectionIntensity + 
@@ -438,7 +441,7 @@ float4 PS_Ambient(
   float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
   float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
 
-  final_color = float4(g.albedo.xyz * g_AmbientLightIntensity
+  final_color = float4(env_fresnel * env * g_ReflectionIntensity + g.albedo.xyz * g_AmbientLightIntensity
       , 1.0f) * GlobalAmbientBoost * ao;
   final_color.xyz += g.self_illum;
 

@@ -153,6 +153,7 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
 		  }
           EngineAudio.playEvent("event:/UI/Quit_Button");
+          GameController.resumeGame();
           //GameController.loadCheckpoint();
 		  CEntity* e_player = GameController.getPlayerHandle();
 		  TCompCharacterController* characterController = e_player->get<TCompCharacterController>();

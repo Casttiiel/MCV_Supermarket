@@ -56,8 +56,8 @@ void TCompSkelLookAtDirection::update(float dt) {
   getInputDir(input_dir);
 
   TCompCharacterController* c_c = get < TCompCharacterController>();
-  if (c_c == NULL) {
-	  return;
+  if (!c_c) {
+    return;
   }
   float targ_amount = 0.0f;
   std::string state = c_c->getState();
@@ -70,11 +70,12 @@ void TCompSkelLookAtDirection::update(float dt) {
       targ_amount = input_angle / (-M_PI / 2.0f);
     }
   }
-  amount = amount + sign(targ_amount - amount) * dt * 4.0f;
-  if (sign(targ_amount - amount) > 0.0f && amount > targ_amount) {
+  float prev_amount = amount;
+  amount = prev_amount + sign(targ_amount - amount) * dt * 4.0f;
+  if (prev_amount > targ_amount && amount < targ_amount) {
     amount = targ_amount;
   }
-  else if (sign(targ_amount - amount) < 0.0f && amount < targ_amount) {
+  else if (prev_amount < targ_amount && amount > targ_amount) {
     amount = targ_amount;
   }
   if (abs(amount) < 0.05 && targ_amount == 0.0f) {

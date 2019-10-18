@@ -70,9 +70,11 @@ void TCompLocalAABB::update(float dt) {
   // AbsAABB = transform( LocalAABB )
   if (in_tmx && abs_aabb)
     *(AABB*)abs_aabb = getRotatedBy(*this, in_tmx->asMatrix());
+
+  int a = 0;
 }
 
-void TCompLocalAABB::onCreate(const TMsgEntityCreated&) { //CULPABLE
+void TCompLocalAABB::onCreate(const TMsgEntityCreated&) { 
   updateFromSiblingsLocalAABBs(CHandle(this).getOwner());
 }
 
@@ -81,7 +83,7 @@ void TCompLocalAABB::renderDebug() {
   drawWiredAABB(Center, Extents, in_tmx->asMatrix(), VEC4(1, 1, 0, 1));
 }
 
-void TCompLocalAABB::onGroupCreate(const TMsgEntitiesGroupCreated&) { //CULPABLE
+void TCompLocalAABB::onGroupCreate(const TMsgEntitiesGroupCreated&) { 
   updateFromSiblingsLocalAABBs(CHandle(this).getOwner());
 }
 
