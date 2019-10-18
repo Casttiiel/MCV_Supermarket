@@ -41,26 +41,31 @@ namespace UI
 		
 		std::vector<WidgetToLerp>::iterator it = widgetsToLerp.begin();
 		while (it != widgetsToLerp.end()) {
+			float percentage;
 			if ((*it).currentTime >= (*it).initialTime) {
 				if ((*it).isFirstFrame) {
 					(*it).maxElement = *(*it).element;
 					(*it).isFirstFrame = false;
 				}
 				float diff = (*it).value - (*it).maxElement;
-				float percentage = clamp(((((*it).currentTime - (*it).initialTime)) / (*it).lerpTime), 0.0f, 1.0f);
+				percentage = clamp(((((*it).currentTime - (*it).initialTime)) / (*it).lerpTime), 0.0f, 1.0f);
 				*(*it).element = (*it).maxElement + (diff * percentage);
+				dbg("-----------------Alfa %: %f\n----------------------", percentage);
 			}
 			(*it).currentTime += dt;
 
 			if (((*it).currentTime - (*it).initialTime) >= (*it).lerpTime) {
 				*(*it).element <= (*it).value;
+				if (percentage > 0.9) {
+					*(*it).element = 1.0;
+				}
 				it = widgetsToLerp.erase(it);
 			}
 			else {
 				it++;
 			}
+			
 		}
-		
 	}
 
 
@@ -143,7 +148,7 @@ namespace UI
 		  ui.unregisterController();*/
 		 
 		  if (ui.sizeUI == 1) {
-			  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")-> childAppears(true, true, 0.0, 1.0);;
+			  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")-> childAppears(true, true, 0.0, 1.0);
 			  //CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");

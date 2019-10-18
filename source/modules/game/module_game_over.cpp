@@ -13,8 +13,8 @@ bool CModuleGameOver::start()
 {
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
-		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.0);
-		CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BACKGROUND")->childAppears(true, true, 0.0, 1.0);
+		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
+		CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BACKGROUND")->childAppears(true, true, 0.0, 2.0);
 		CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BUTTONS");
 		CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");
 	}
@@ -60,10 +60,10 @@ void CModuleGameOver::stop()
 		*/
 		
 
-		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1);
-		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BACKGROUND\")", 1);
-		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BUTTONS\")", 1);
-		Scripting.execActionDelayed("activateWidget(\"HUD_NORMAL_PLAYER\")", 1);
+		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1.0);
+		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BACKGROUND\")", 1.0);
+		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BUTTONS\")", 1.0);
+		Scripting.execActionDelayed("activateWidget(\"HUD_NORMAL_PLAYER\")", 1.0);
 		//CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 		//CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
 		//CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
