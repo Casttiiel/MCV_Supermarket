@@ -19,6 +19,7 @@
 #include "components/common/comp_light_point.h"
 #include "components/vfx/comp_flickering.h"
 #include "components/objects/comp_balance.h"
+#include "components/common/comp_light_dir.h"
 
 
 class CBTCupcake;
@@ -289,3 +290,4 @@ TCompLightPoint* toCompLightPoint(CHandle h);
 TCompFlickering* toCompFlickering(CHandle h);
 TCompCharacterController* toCompCharacterController_(CHandle h);
 TCompBalance* toCompBalance(CHandle h);
+TCompLightDir* toCompLightDir(CHandle h);

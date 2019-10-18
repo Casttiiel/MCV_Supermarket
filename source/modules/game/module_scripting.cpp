@@ -103,6 +103,7 @@ void CModuleScripting::doBingings() {
 	BindFlickering();
 	BindCharacterController();
 	BindBalanceo();
+	BindDirectionalLights();
 }
 
 
@@ -192,6 +193,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompFlickering", SLB::FuncCall::create(&toCompFlickering));
 	m->set("toCompCharacterController_", SLB::FuncCall::create(&toCompCharacterController_));
 	m->set("toCompBalance", SLB::FuncCall::create(&toCompBalance));
+	m->set("toCompLightDir", SLB::FuncCall::create(&toCompLightDir));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -223,8 +225,17 @@ void CModuleScripting::BindSkeleton() {
 
 void CModuleScripting::BindPointLights() {
 	SLB::Class<TCompLightPoint>("TCompLightPoint", m)
-		.comment("This is our wrapper of lights class")
+		.comment("This is our wrapper of point lights class")
 		.set("setIntensity", &TCompLightPoint::setIntensity)
+		;
+}
+
+
+void CModuleScripting::BindDirectionalLights() {
+	SLB::Class<TCompLightDir>("TCompLightDir", m)
+		.comment("This is our wrapper of lights class")
+		.set("setIntensity", &TCompLightDir::setIntensity)
+		.set("setShadowEnabled", &TCompLightDir::setShadowEnabled)
 		;
 }
 

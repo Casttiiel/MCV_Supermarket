@@ -1002,6 +1002,11 @@ TCompFlickering* toCompFlickering(CHandle h) {
 	return f;
 }
 
+TCompLightDir* toCompLightDir(CHandle h) {
+	TCompLightDir* l = h;
+	return l;
+}
+
 
 TCompCharacterController* toCompCharacterController_(CHandle h) {
 	TCompCharacterController* c = h;

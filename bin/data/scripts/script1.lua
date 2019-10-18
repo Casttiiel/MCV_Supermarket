@@ -350,6 +350,12 @@ function wake_up_last_golem_player()
 	execDelayedAction("setPauseEnemyName(\"golem3\",false)", 0);
 	GameController:setHeightEnemyByHandle(10.0,h_golem,4);
 	execDelayedAction("balanceoLampara(\"Joint001\")",0);
+
+
+	
+	--execDelayedAction("changeIntensityLightSpot(\"Spot001\",0.0)",2.0);
+
+
 	--execDelayedAction("on_delete_handle(\"trigger007\")",0);
 end
 
