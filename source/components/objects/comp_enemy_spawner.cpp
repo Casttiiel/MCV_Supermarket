@@ -38,19 +38,7 @@ void TCompEnemySpawner::registerMsgs() {
 }
 
 void TCompEnemySpawner::onCreation(const TMsgEntityCreated& msgC) {
-  TCompTransform* c_trans = get<TCompTransform>();
-  TEntityParseContext ctx;
-  VEC3 pos = c_trans->getPosition() + VEC3(0, 1.8f, 0) - c_trans->getLeft() * 0.1f;
-
-  parseScene("data/particles/oven_particles.json", ctx);
-  CEntity* e = ctx.entities_loaded[0];
-  TCompBuffers* c_b = e->get<TCompBuffers>();
-  if (c_b) {
-    auto buf = c_b->getCteByName("TCtesParticles");
-    CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-    data->emitter_center = pos;
-    data->updateGPU();
-  }
+  
 }
 
 void TCompEnemySpawner::enable(const TMsgEntityTriggerEnter & msg) {
@@ -86,9 +74,23 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
     if (c_b) {
       auto buf = c_b->getCteByName("TCtesParticles");
       CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-      data->emitter_center = ctx.root_transform.getPosition() + ctx.root_transform.getFront() + ctx.root_transform.getLeft() * 1.7f;
+      data->emitter_center = ctx.root_transform.getPosition() + (ctx.root_transform.getFront() * 2.0f) + ctx.root_transform.getLeft() * 1.7f;
       data->updateGPU();
     }
+
+    TEntityParseContext ctx2;
+    VEC3 pos = c_trans->getPosition() + VEC3(0, 1.8f, 0) - c_trans->getLeft() * 0.1f;
+
+    parseScene("data/particles/oven_particles.json", ctx2);
+    CEntity* e2 = ctx2.entities_loaded[0];
+    TCompBuffers* c_b2 = e2->get<TCompBuffers>();
+    if (c_b2) {
+      auto buf2 = c_b2->getCteByName("TCtesParticles");
+      CCteBuffer<TCtesParticles>* data2 = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf2);
+      data2->emitter_center = pos;
+      data2->updateGPU();
+    }
+
     audio.stop();
     audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
 	}
