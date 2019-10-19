@@ -180,6 +180,7 @@ private:
   void onCinematicSpecial(const TMsgOnCinematicSpecial& msg);
   void onTrapWind(const TMsgTrapWind& msg);
   void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
+	void changeWeaponMesh(WeaponMesh weaponSelected);
 
   void onMeleeHit(const TMsgMeleeHit& msg);
 

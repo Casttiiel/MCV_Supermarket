@@ -70,6 +70,34 @@
   {
     "entity":
     {
+      "name": "Pila"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0",
+        "scale": 0.12
+      }
+      ,
+      "render":
+      {
+        "is_visible" : false,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh": "data/meshes/static_objects/Pila.mesh",
+        "materials":
+        [
+          "data/materials/pila_material.material"
+        ]
+      },
+      "bone_tracker":{
+        "bone": "Bone_weapon",
+        "parent": "Player"
+      },
+     "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity":
+    {
       "name": "Anti_extintor"
       ,
       "transform":
