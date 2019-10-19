@@ -142,7 +142,7 @@ private:
 	bool insightPlayer = false;
 	//gameplay parameters
 	int num_of_divisions = 1; //times will you divide your self
-	float life = 300.f;
+	float life = 30.f;
 	float sonLife = 10.0f;
 	int num_of_sons = 2; //number of sons
 	int spawnRange = 5; //spawn range of sons
