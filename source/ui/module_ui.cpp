@@ -188,14 +188,14 @@ namespace UI
 		  UI::CModuleUI& ui = Engine.getUI();
 		  ui.botonPulsadoGameOver = 0;
 		  if (ui.sizeUI == 1) {
-			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
-			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
+			  //CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
+			  //CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
 		  }
 		  else {
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND_MINI");
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS_MINI");
 		  }
-		  CEntity* e_player = getEntityByName("Player");
+		  /*CEntity* e_player = getEntityByName("Player");
 		  if (!e_player) {
 			  return;
 		  }
@@ -205,6 +205,7 @@ namespace UI
 			  //quitar puntero de raton
 			  
 			  c_controller->ChangeState("GROUNDED");
+			 
 			  GameController.loadCheckpoint();
 
 			  TMsgGamePause msg;
@@ -214,12 +215,15 @@ namespace UI
 			  if (cam_player != nullptr) {
 				  cam_player->sendMsg(msg);
 			  }
-			  
+			  //Scripting.execActionDelayed("loadCheckpoint()", 2.0);
+			  //Scripting.execActionDelayed("changeGameState(\"gs_gameplay\")", 2.0);
 			  CEngine::get().getModules().changeToGamestate("gs_gameplay");
 			  
 		  }
           EngineAudio.playEvent("event:/UI/Start_Button");
-
+		  */
+		  EngineAudio.playEvent("event:/UI/Start_Button");
+		  Scripting.execActionDelayed("resurrectionInGameOver()", 2.0);
 
 
 

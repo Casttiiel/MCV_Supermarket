@@ -277,7 +277,7 @@ function create_cupcakes_in_frost_player()
 	--GameController:setPauseEnemyByHandle(h_cupcake2,false);
 	--GameController:setLifeEnemy(h_cupcake2,3,350.0);
 
-	
+	--execDelayedAction("changeIntensityLightSpot(\"SpotJoint\",0.0)",0.0);--prueba 
 
 	h_oven1 =  GameController:entityByName("horno008");
 	h_oven2 =  GameController:entityByName("horno009");
@@ -347,6 +347,20 @@ function changeIntensityLightSpot(nameLight,intensity)
 	t_comp_light_dir:setIntensity(intensity)
 end
 
+function changeShadowsEnabled(nameLight,enabled)
+	h_light =  GameController:entityByName(nameLight);
+	t_comp_light_dir = toCompLightDir(toEntity(h_light):getCompByName("light_dir"));
+	t_comp_light_dir:setShadowEnabled(enabled)
+
+end
+
+function changeShadowsEnabledJoint(value)
+	GameController:changeShadowsEnabledJoint(value);
+end
+
+function changeLightsIntensityJoint(value)
+	GameController:changeLightsIntensityJoint(value);
+end
 
 
 function wake_up_last_golem_player()
@@ -369,6 +383,31 @@ function wake_up_last_golem_player()
 	execDelayedAction("changeIntensityLightSpot(\"Spot010\",0.0)",2.0);
 	execDelayedAction("changeIntensityLightSpot(\"Spot011\",0.0)",2.0);
 	execDelayedAction("changeIntensityLightSpot(\"Spot014\",0.0)",2.0);
+
+	execDelayedAction("changeShadowsEnabled(\"Spot001\",false)",1.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot002\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot003\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot004\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot005\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot006\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot007\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot008\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot009\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot010\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot011\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot014\",false)",2.1);
+
+	execDelayedAction("changeShadowsEnabled(\"Spot016\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot017\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot018\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot019\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot020\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot021\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot022\",true)",2.1);
+	
+
+	execDelayedAction("changeShadowsEnabledJoint(true)",2.2);
+	
 
 
 	--execDelayedAction("on_delete_handle(\"trigger007\")",0);
@@ -1108,6 +1147,11 @@ function balanceoLampara(entityName)
 	h_lampara =  GameController:entityByName(entityName);
 	t_lampara = toCompBalance(toEntity(h_lampara):getCompByName("comp_balance"));
 	t_lampara:balanceo();
-	
-
 end
+
+
+function resurrectionInGameOver()
+	GameController:resurrectionInGameOver()
+end
+
+

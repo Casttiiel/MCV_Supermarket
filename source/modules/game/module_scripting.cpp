@@ -172,6 +172,10 @@ void CModuleScripting::BindGameController() {
 		.set("deactivateWidget", &CModuleGameController::deactivateWidget)
 		.set("activateWidget", &CModuleGameController::activateWidget)
 		.set("loadCheckpoint", &CModuleGameController::loadCheckpoint)
+		.set("changeShadowsEnabledJoint", &CModuleGameController::changeShadowsEnabledJoint)
+		.set("changeLightsIntensityJoint", &CModuleGameController::changeLightsIntensityJoint)
+		.set("changeLightsIntensityJoint", &CModuleGameController::changeLightsIntensityJoint)
+		.set("resurrectionInGameOver", &CModuleGameController::resurrectionInGameOver)
 		;
 }
 

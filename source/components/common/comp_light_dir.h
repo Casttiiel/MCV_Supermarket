@@ -32,9 +32,7 @@ public:
   void renderDebug();
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
-  void setIntensity(float i) { 
-	  intensity = i; 
-  }
+  void setIntensity(float i) { intensity = i; }
 
   static void registerMsgs();
   DECL_SIBLING_ACCESS();
@@ -44,6 +42,10 @@ public:
 
   bool isShadowEnabled() { return shadows_enabled; }
   void enableShadows() { if (casts_shadows) shadows_enabled = true; }
-  void setShadowEnabled(bool value) { shadows_enabled = value; }
+  void setShadowEnabled(bool value) {
+	  if (casts_shadows) {
+		shadows_enabled = value;
+	  }
+  }
 
 };

@@ -894,6 +894,30 @@ void CModuleGameController::setLifeEnemy(CHandle h,int typeEnemy,float life) {
 
 }
 
+void CModuleGameController::changeShadowsEnabledJoint(bool value) {
+	VHandles v_lightJoints = CTagsManager::get().getAllEntitiesByTag(getID("jointsLight"));
+	for (const auto& entity : v_lightJoints) {
+		CEntity* e_entity = (CEntity*)entity;
+		if (e_entity != nullptr) {
+			TCompLightDir* lightsDirComp = e_entity->get<TCompLightDir>();
+ 			lightsDirComp->setShadowEnabled(value);
+		}
+	}
+	
+}
+
+void CModuleGameController::changeLightsIntensityJoint(float value) {
+	VHandles v_lightJoints = CTagsManager::get().getAllEntitiesByTag(getID("jointsLight"));
+	for (const auto& entity : v_lightJoints) {
+		CEntity* e_entity = (CEntity*)entity;
+		if (e_entity != nullptr) {
+			TCompLightDir* lightsDirComp = e_entity->get<TCompLightDir>();
+			lightsDirComp->setIntensity(value);
+		}
+	}
+
+}
+
 
 
 void CModuleGameController::loadScene(const std::string name) {
@@ -1100,6 +1124,36 @@ void CModuleGameController::deactivateWidget(std::string name) {
 
 void CModuleGameController::activateWidget(std::string name) {
 	CEngine::get().getUI().activateWidgetClass(name);
+}
+
+
+void CModuleGameController::resurrectionInGameOver() {
+	CEntity* e_player = getEntityByName("Player");
+	if (!e_player) {
+		return;
+	}
+	TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
+	if ((c_controller->life <= 0)) {
+
+		//quitar puntero de raton
+
+		c_controller->ChangeState("GROUNDED");
+
+		GameController.loadCheckpoint();
+
+		TMsgGamePause msg;
+		msg.isPause = false;
+		msg.playerDead = false;
+		CEntity* cam_player = getEntityByName("PlayerCamera");
+		if (cam_player != nullptr) {
+			cam_player->sendMsg(msg);
+		}
+		//Scripting.execActionDelayed("loadCheckpoint()", 2.0);
+		//Scripting.execActionDelayed("changeGameState(\"gs_gameplay\")", 2.0);
+		CEngine::get().getModules().changeToGamestate("gs_gameplay");
+
+	}
+	EngineAudio.playEvent("event:/UI/Start_Button");
 }
 
 

@@ -268,6 +268,12 @@ public:
 	void changeGameState(std::string name);
 	void deactivateWidget(std::string name);
 	void activateWidget(std::string name);
+
+	void changeShadowsEnabledJoint(bool value);
+	void changeLightsIntensityJoint(float value);
+
+
+	void resurrectionInGameOver();
 };
 
 
