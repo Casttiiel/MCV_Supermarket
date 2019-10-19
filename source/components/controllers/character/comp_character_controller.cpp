@@ -454,7 +454,7 @@ void TCompCharacterController::grounded(float delta) {
 		if (power_selected == PowerType::TELEPORT && inventory->getBattery() && aiming) {
 			if (!isThrowingAnimationGoing && !attacking) {
 				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-				playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f);
+			//	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f); //TODO: APUNTAR
 			}
 		}
 
@@ -948,8 +948,8 @@ void TCompCharacterController::shoot() {
         }
     }
     else if (power_selected == PowerType::BATTERY && (inventory->getBattery())) {
-        if (isBatteryAlive)
-            return;
+        //if (isBatteryAlive)
+         //   return;
         if (m_c->spendMadness(PowerType::BATTERY) || GameController.getGodMode()) {
             TCompTransform* c_trans = get<TCompTransform>();
             CEntity* e_camera = (CEntity *)h_camera;
