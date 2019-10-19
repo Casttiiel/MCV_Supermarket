@@ -341,7 +341,11 @@ function crearTrampaHornos()
 end
 
 
-
+function changeIntensityLightSpot(nameLight,intensity)
+	h_light =  GameController:entityByName(nameLight);
+	t_comp_light_dir = toCompLightDir(toEntity(h_light):getCompByName("light_dir"));
+	t_comp_light_dir:setIntensity(intensity)
+end
 
 
 
@@ -353,7 +357,18 @@ function wake_up_last_golem_player()
 
 
 	
-	--execDelayedAction("changeIntensityLightSpot(\"Spot001\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot001\",0.0)",1.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot002\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot003\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot004\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot005\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot006\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot007\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot008\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot009\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot010\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot011\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot014\",0.0)",2.0);
 
 
 	--execDelayedAction("on_delete_handle(\"trigger007\")",0);
@@ -629,10 +644,6 @@ function changeIntensityLightPointWithFlickering(nameLight,intensity)
 	t_comp_flickering:setBase(intensity)--el base del flickering manda sobre el instensisy del componente pointLight
 	t_comp_flickering:setFrequency(0)
 	t_comp_flickering:setPhase(0)
-	
-	
-	
-
 end
 
 
