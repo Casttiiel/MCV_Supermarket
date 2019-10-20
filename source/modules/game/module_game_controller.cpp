@@ -203,6 +203,7 @@ void CModuleGameController::playAnimationMorph(std::string name) {
 	CEntity* entity = (CEntity *)getEntityByName(name);
 	TCompMorphAnimation* morphAnimation = entity->get<TCompMorphAnimation>();
 	morphAnimation->play_ = true;
+	
 }
 //desactivar animacion de morph
 void CModuleGameController::stopAnimationMorph(std::string name) {

@@ -89,6 +89,11 @@ function blendPlayerCamera()
 	GameController:blendPlayerCamera()
 end
 
+
+function setAmbient(value)
+	GameController:setAmbient(value)
+end
+
 function on_ambush_event_1()
 	on_wake_sushi("002")
 	on_wake_sushi("003")
@@ -764,9 +769,9 @@ function activePlataformCarniceria_player()
 	GameController:setAmbient(0.05);
 
 
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.0);
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",15.0);
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",15.0);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.8);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",15.8);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",15.8);
 	--execDelayedAction("set_pause_enemy_by_handle(h_suishi5,false)",12.5);
 	execDelayedAction("setViewDistanceEnemy(1000,h_suishi1,1)",15.0);
 	execDelayedAction("sethalfConeEnemy(360,h_suishi1,1)",15.0);
@@ -959,8 +964,8 @@ function cinematica_tower()
 	execDelayedAction("on_cinematic_special(true,1)",0.0);
 
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",10.0);
-	execDelayedAction("on_lock_camera3(true)",15.0);
-	execDelayedAction("on_cinematic_special(false,1)",15.0);
+	execDelayedAction("on_lock_camera3(true)",15.7);
+	execDelayedAction("on_cinematic_special(false,1)",15.7);
 	--t_compCharacterController = toCompCharacterController(toEntity(handlePlayer):getCompByName("character_controller"));
 	--t_compCharacterController:ChangeState("ESPECIAL_CINEMATIC");
 

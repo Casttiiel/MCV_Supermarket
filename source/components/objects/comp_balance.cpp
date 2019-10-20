@@ -50,13 +50,16 @@ void TCompBalance::balanceo() {
 		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
 		rigid_dynamic->addForce(PxVec3(0, -900, 0), PxForceMode::eVELOCITY_CHANGE);
 	}*/
-	getObjectManager<TCompBalance>()->forEach([](TCompBalance* di) {
+	if (!balanceoDone) {
+		getObjectManager<TCompBalance>()->forEach([](TCompBalance* di) {
 		TCompCollider* c_col = di->get<TCompCollider>();
 		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
 		float velocitiRandom = ba_mt_ba_dist(ba_mt_ba);
 		rigid_dynamic->addForce(PxVec3(0, -900, 0), PxForceMode::eFORCE);
-		
-	});
+		//rigid_dynamic->addForce(PxVec3(0, velocitiRandom, 0), PxForceMode::eVELOCITY_CHANGE);
+		});
+		balanceoDone = true;
+	}
 	
 }
 
