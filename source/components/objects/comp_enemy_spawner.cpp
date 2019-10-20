@@ -90,6 +90,9 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
       data->updateGPU();
     }
 
+		TCompPropAnimator* animator = get<TCompPropAnimator>();
+		animator->playAnimation(TCompPropAnimator::OVEN_MEDIO_ABIERTO, 1.f);
+
     audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
 	}
 
