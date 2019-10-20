@@ -14,7 +14,9 @@ bool CModuleWinGame::start()
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
-		CEngine::get().getUI().activateWidgetClass("CREDITS");
+		//CEngine::get().getUI().activateWidgetClass("CREDITS");
+		//crear funcion LUA para creditos
+		
 
 	}
 	else {
