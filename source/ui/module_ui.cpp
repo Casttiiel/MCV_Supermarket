@@ -273,9 +273,9 @@ namespace UI
 		  mdeadb->registerOption("bt_exit_dead", mdeadExit);
 		  mdeadb->setCurrentOption(0);
 
-		 
-		  
 		  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
+		  registerWidgetClass("CREDITS","data/ui/widgets/credits.json",nullptr);
+		  registerWidgetClass("CREDITS_BACKGROUND", "data/ui/widgets/credits_background.json", nullptr);
 	  }
 	  else {
 		  ui.sizeUI = 0;
