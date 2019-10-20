@@ -72,6 +72,25 @@ void TCompCharacterController::update(float dt) {
     if (inCombatTimer > 0) {
         inCombatTimer -= dt;
     }
+		
+		if (extintorActive == true && extintorMeshTimer > 0) {
+			extintorMeshTimer -= dt;
+		}
+		else if (extintorActive == true) {
+		//TODO: PONER LA ULTIMA MESH QUE TUVIERA SELECCIONADA
+				power_selected = last_power_selected;
+				if (power_selected == PowerType::TELEPORT) {
+					changeWeaponMesh(WeaponMesh::SCANNER);
+				}
+				else if (power_selected == PowerType::BATTERY) {
+					changeWeaponMesh(WeaponMesh::BATTERTY);
+				}
+				else if (power_selected == PowerType::MELEE) {
+					changeWeaponMesh(WeaponMesh::MOP);
+				}
+				extintorActive = false;
+
+		}
 
 	if (!_pausedAI) {
 		PROFILE_FUNCTION("IAIController");
@@ -346,8 +365,6 @@ void TCompCharacterController::grounded(float delta) {
     if (EngineInput["aim_"].isPressed()) {//AIM
         aiming = true;
 
-				//TODO: AQUI CAMBIAR A LO QUE TENGA SELECCIONADO, PILA O SCANER
-
 				if (power_selected == PowerType::TELEPORT) {
 					changeWeaponMesh(WeaponMesh::SCANNER);
 				}
@@ -411,7 +428,12 @@ void TCompCharacterController::grounded(float delta) {
         playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f);
     }
     else if (EngineInput["fire_attack_"].isPressed() && inventory->getChilli()) { //FIRE
-				//power_selected = PowerType::FIRE; //TODO: LO LOGICO SERA ACTIVAR ESTO Y QUE PARA CAMBIAR DE ARMA HAYA QUE SELECCIONAR OTRA
+				if (power_selected != PowerType::FIRE) {
+					last_power_selected = power_selected; //lo guardamos para cuando el jugador se canse del extintor
+				}
+				power_selected = PowerType::FIRE; //TODO: LO LOGICO SERA ACTIVAR ESTO Y QUE PARA CAMBIAR DE ARMA HAYA QUE SELECCIONAR OTRA
+				extintorMeshTimer = extintorMeshTimerDuration; //tiempo que tendra el extintor en la mano cuando deje de usarlo
+				extintorActive = true;
         TCompTeleport* c_tp = get<TCompTeleport>();
         TCompTransform* c_trans = get<TCompTransform>();
         TCompMadnessController* m_c = get<TCompMadnessController>();
@@ -431,7 +453,7 @@ void TCompCharacterController::grounded(float delta) {
                 inCombatTimer = inCombatDuration;
                 TCompFireController* c_fire = get<TCompFireController>();
                 c_fire->enable();
-                //Change weapon mesh //TODO: CAMBIAR POR LLAMAR A LA FUNCION
+                //Change weapon mesh 
 								changeWeaponMesh(WeaponMesh::EXTINTOR);
             }
         }
@@ -454,7 +476,7 @@ void TCompCharacterController::grounded(float delta) {
 		if (power_selected == PowerType::TELEPORT && inventory->getBattery() && aiming) {
 			if (!isThrowingAnimationGoing && !attacking) {
 				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-			//	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f); //TODO: APUNTAR
+			//	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f); //TODO: Animacion de APUNTAR
 			}
 		}
 
