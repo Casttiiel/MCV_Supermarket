@@ -276,6 +276,8 @@ namespace UI
 		  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
 		  registerWidgetClass("CREDITS","data/ui/widgets/credits.json",nullptr);
 		  registerWidgetClass("CREDITS_BACKGROUND", "data/ui/widgets/credits_background.json", nullptr);
+		  //registerEffect("CREDITS_BACKGROUND",nombre);
+		  stopWidgetEffect("CREDITS", "effectAnimateCredit");
 	  }
 	  else {
 		  ui.sizeUI = 0;
@@ -352,6 +354,15 @@ namespace UI
 	  _widgetStructureMap[name] = wdgtClass;
 	  if (wdgtClass._controller != nullptr) {
 		  unregisterController(wdgtClass._controller);
+	  }
+  }
+
+
+  void CModuleUI::stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect) {
+	  CWidget* widget = _widgetStructureMap[nameWidgetStrMap].widget;
+	  CEffect* effect = widget->getEffect(nameEffect);
+	  if (effect != nullptr) {
+		  effect->stopUiFx();
 	  }
   }
 

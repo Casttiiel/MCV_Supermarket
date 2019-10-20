@@ -14,7 +14,8 @@ bool CModuleWinGame::start()
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
-		//CEngine::get().getUI().activateWidgetClass("CREDITS");
+		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",6);
+		Scripting.execActionDelayed("deactivateWidget(\"CREDITS\")", 60);
 		//crear funcion LUA para creditos
 		
 
@@ -28,12 +29,12 @@ bool CModuleWinGame::start()
 
 void CModuleWinGame::update(float delta)
 {
-	timeOffModuleGameWin--;
+	/*timeOffModuleGameWin--;
 	if (timeOffModuleGameWin <= 0.f) {
 		//GameController.changeGameState("gs_main_menu");
 		auto& app = CApplication::get();
 		DestroyWindow(app.getHandle());
-	}
+	}*/
 
 	
 }

@@ -19,4 +19,8 @@ namespace UI
     imageParams->minUV += _speed * dt;
     imageParams->maxUV += _speed * dt;
   }
+  void CFXAnimateUV::stopUiFx()
+  {
+	  _speed = VEC2(0, 0);
+  }
 }

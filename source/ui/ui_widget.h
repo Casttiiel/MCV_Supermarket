@@ -44,7 +44,15 @@ namespace UI
 	MAT44 getAbsolute() { return _absolute; };
 
 	void childAppears(bool getFromChildren, bool darkalfa, float initial_time, float lerp_time);
-	
+
+	CEffect* getEffect(std::string nameEffect) { 
+		for (auto& effect : _effects) {
+			if (effect->getName().compare(nameEffect) == 0) {
+				return effect;
+			}
+		}
+		return nullptr;
+	}
 
   protected:
     void computePivot();

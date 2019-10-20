@@ -36,6 +36,7 @@ namespace UI
 	void initWidgetClass();
 	CWidget* activateWidgetClass(const std::string& name);
 	void deactivateWidgetClass(const std::string& name);
+	void stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect);
 
 	CController* getWidgetController(std::string type);
     void registerAlias(CWidget* widget);
@@ -43,6 +44,8 @@ namespace UI
 
     CWidget* getWidgetByName(const std::string& name);
     CWidget* getWidgetByAlias(const std::string& alias);
+
+
 
 	void lerp(float *init_value, float value_to_lerp, float initial_time, float lerp_time);
 

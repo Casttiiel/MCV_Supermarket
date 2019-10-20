@@ -268,7 +268,7 @@ namespace UI
     CFXAnimateUV* fx = new CFXAnimateUV;
 
     fx->_speed = loadVEC2(jData, "speed", fx->_speed);
-
+	fx->name = jData.value<std::string>("name","");
     return fx;
   }
 
@@ -278,7 +278,8 @@ namespace UI
 
     fx->_scale = loadVEC2(jData, "scale", fx->_scale);
     fx->_duration = jData.value<float>("duration", fx->_duration);
-    
+	fx->name = jData.value<std::string>("name", "");
+
     const std::string mode = jData.value<std::string>("mode", "single");
     if (mode == "single")         fx->_mode = CFXScale::EMode::Single;
     else if (mode == "loop")      fx->_mode = CFXScale::EMode::Loop;
