@@ -1163,4 +1163,8 @@ function resurrectionInGameOver()
 	GameController:resurrectionInGameOver()
 end
 
+function exitGame()
+	GameController:exitGame()
+end
+
 

@@ -1162,6 +1162,11 @@ void CModuleGameController::resurrectionInGameOver() {
 	EngineAudio.playEvent("event:/UI/Start_Button");
 }
 
+void CModuleGameController::exitGame() {
+	auto& app = CApplication::get();
+	DestroyWindow(app.getHandle());
+}
+
 
 
 CCamera* CModuleGameController::getCameraFromHandle(CHandle hCamera)

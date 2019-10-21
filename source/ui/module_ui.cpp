@@ -310,10 +310,6 @@ namespace UI
 	  registerWidgetClass("BLACK_SCREEN", "data/ui/widgets/black_background.json", nullptr);
 	  //PANTALLA DE CARGA
 	  registerWidgetClass("LOAD_SCREEN", "data/ui/widgets/load_background.json", nullptr);
-	  //SPRITE
-	  registerWidgetClass("LOAD_SPRITE", "data/ui/widgets/loading_sprite.json", nullptr);
-
-
   }
 
 

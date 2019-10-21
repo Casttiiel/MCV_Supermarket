@@ -276,6 +276,7 @@ public:
 
 
 	void resurrectionInGameOver();
+	void exitGame();
 };
 
 
