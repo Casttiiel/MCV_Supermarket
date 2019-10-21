@@ -176,6 +176,7 @@ void CModuleScripting::BindGameController() {
 		.set("changeLightsIntensityJoint", &CModuleGameController::changeLightsIntensityJoint)
 		.set("changeLightsIntensityJoint", &CModuleGameController::changeLightsIntensityJoint)
 		.set("resurrectionInGameOver", &CModuleGameController::resurrectionInGameOver)
+		.set("stopWidgetEffect", &CModuleGameController::stopWidgetEffect)
 		;
 }
 

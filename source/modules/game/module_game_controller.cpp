@@ -1128,6 +1128,11 @@ void CModuleGameController::activateWidget(std::string name) {
 }
 
 
+void CModuleGameController::stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect) {
+	CEngine::get().getUI().stopWidgetEffect(nameWidgetStrMap, nameEffect);
+}
+
+
 void CModuleGameController::resurrectionInGameOver() {
 	CEntity* e_player = getEntityByName("Player");
 	if (!e_player) {

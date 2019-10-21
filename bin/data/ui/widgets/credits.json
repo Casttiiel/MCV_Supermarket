@@ -1,21 +1,15 @@
 {
 	"name" : "credits_screen",
-	"type" : "widget",
+	"type" : "image",
 	"alias" :"credits_screen_root",
-	"children" : 
-	[
-		{
-			"name" : "screen_credits",
-			"type" : "image",
-			"size" : "1080 3555",
-			"texture" : "data/ui/textures/credits.dds",
-			"effects" : [
+	"size" : "1480 3555",
+	"texture" : "data/ui/textures/credits.dds",
+	"effects" : [
 						{
-							"name" : "effectAnimateCredit",
+							
 							"type" : "animate_uv",
+							"name" : "effectAnimateCredit",
 							"speed" : "0.0 0.015"
 						}
 			]
-		}
-	]
 }

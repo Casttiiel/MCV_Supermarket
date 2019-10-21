@@ -997,6 +997,10 @@ function activateWidget(nameWidget)
 	GameController:activateWidget(nameWidget)
 end
 
+function stopWidgetEffect(nameWidget, effect)
+	GameController:stopWidgetEffect(nameWidget, effect)
+end
+
 
 
 function saveCheckpoint()

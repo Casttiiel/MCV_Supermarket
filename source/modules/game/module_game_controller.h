@@ -272,6 +272,8 @@ public:
 	void changeShadowsEnabledJoint(bool value);
 	void changeLightsIntensityJoint(float value);
 
+	void stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect);
+
 
 	void resurrectionInGameOver();
 };
