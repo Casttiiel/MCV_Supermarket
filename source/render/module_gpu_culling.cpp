@@ -978,26 +978,33 @@ void CModuleGPUCulling::renderCategory(eRenderCategory category) {
   assert(gpu_ctes_instancing->slotIndex() == 13);
   gpu_ctes_instancing->activate();
 
+  if (category == eRenderCategory::CATEGORY_SHADOWS) {
+    render_types[0].material->getShadowsMaterial()->activate();
+    render_types[0].material->getShadowsMaterial()->activateCompBuffers(&comp_buffers);
+  }
+
   // Offset to the args of the draw indexed instanced args in the draw_datas gpu buffer
   uint32_t offset = 0;
   uint32_t idx = 0;
   for( auto& render_type : render_types ) {
     CGpuScope gpu_render_type(render_type.title);
 
+    // Setup material & meshes
+    if (category != eRenderCategory::CATEGORY_SHADOWS) {
+      render_type.material->activate();
+      render_type.material->activateCompBuffers(&comp_buffers);
+    }
+    else if (!render_type.material->castsShadows()){
+      // The offset is in bytes
+      offset += sizeof(TDrawData);
+      ++idx;
+      continue;
+    }
+
     // Because SV_InstanceID always start at zero, but the matrices
     // of each group have different starting offset
     ctes_instancing.instance_base = draw_datas[idx].base;
     gpu_ctes_instancing->updateGPU(&ctes_instancing);
-
-    // Setup material & meshes
-    if (category == eRenderCategory::CATEGORY_SHADOWS) {
-      render_type.material->getShadowsMaterial()->activate();
-      render_type.material->getShadowsMaterial()->activateCompBuffers(&comp_buffers);
-    }
-    else {
-      render_type.material->activate();
-      render_type.material->activateCompBuffers(&comp_buffers);
-    }
     
     render_type.mesh->activate();
     Render.ctx->DrawIndexedInstancedIndirect(gpu_draw_datas->buffer, offset);
