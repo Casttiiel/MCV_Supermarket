@@ -85,7 +85,7 @@ void CModuleSceneManager::renderInMenu() {
 bool CModuleSceneManager::removeActiveScene() {//borramos cosas
 	if (sceneInUse != nullptr) {
 		
-		//mas adelante:eliminar prefabs de escenas y otros.
+		
 		EngineNavmesh.destroyNavmesh();
 		sceneInUse = nullptr;
 		return true;

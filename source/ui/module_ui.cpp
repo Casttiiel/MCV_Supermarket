@@ -91,7 +91,6 @@ namespace UI
 		  //CEngine::get().getModules().changeToGamestate("gs_gameplay");
 		  UI::CModuleUI& ui = Engine.getUI();
 		  CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
-		  //CEngine::get().getUI().activateWidgetClass("LOAD_SPRITE")->childAppears(true, true, 0.0, 1);
 		  //ejecutar dede LUA el gs_loading
           EngineAudio.playEvent("event:/UI/Start_Button");
           Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);
@@ -100,7 +99,7 @@ namespace UI
 
 	  auto mpCredits = []() {
 		  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true,true,0.0,1.0);
-		  CEngine::get().getUI().activateWidgetClass("LOAD_SPRITE")->childAppears(true, true, 0.0, 1.0);
+		 
 	  };
 
 

@@ -40,16 +40,4 @@ namespace UI
 	 float ratio = 1.f;
 	 //float value;
   };
-  struct TSpriteParams
-  {
-	  std::vector<VEC2> _frame_size;
-	  std::vector<VEC2> _original_image_size;
-	  std::vector<int> _frames_per_second;
-	  std::vector<int> numFrames;
-	  int _playing_sprite = 0;
-	  std::vector<const CTexture*> _textures;
-  };
-
-  
-
 }

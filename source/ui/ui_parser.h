@@ -9,7 +9,7 @@ namespace UI
   struct TTextParams;
   struct TProgressParams;
   struct TBarParams;
-  struct TSpriteParams;
+
 
   class CParser
   {
@@ -26,7 +26,6 @@ namespace UI
     CWidget* parseText(const json& jData);
     CWidget* parseButton(const json& jData);
     CWidget* parseProgress(const json& jData);
-	CWidget* parseSprite(const json& jData);
 	CWidget* parseBar(const json& jData);
 
     void parseParams(TParams& params, const json& jData);
@@ -34,7 +33,6 @@ namespace UI
     void parseParams(TTextParams& params, const json& jData);
     void parseParams(TProgressParams& params, const json& jData);
 	void parseParams(TBarParams& params, const json& jData);
-	void parseParams(TSpriteParams& params, const json& jData);
 
     CEffect* parseEffect(const json& jData);
     CEffect* parseFXAnimateUV(const json& jData);

@@ -14,9 +14,9 @@ bool CModuleWinGame::start()
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
-		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",6);
-		Scripting.execActionDelayed("stopWidgetEffect(\"CREDITS\",\"effectAnimateCredit\")", 50);
-		Scripting.execActionDelayed("exitGame()", 60);
+		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",5);
+		Scripting.execActionDelayed("stopWidgetEffect(\"CREDITS\",\"effectAnimateCredit\")", 72);
+		Scripting.execActionDelayed("exitGame()",100);
 
 	}
 	else {
