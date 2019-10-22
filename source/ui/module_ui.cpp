@@ -91,10 +91,12 @@ namespace UI
 		  //CEngine::get().getModules().changeToGamestate("gs_gameplay");
 		  UI::CModuleUI& ui = Engine.getUI();
 		  CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
-		  //ejecutar dede LUA el gs_loading
           EngineAudio.playEvent("event:/UI/Start_Button");
-          Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);
-		  //CEngine::get().getModules().changeToGamestate("gs_loading");
+          Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);//OJOOOOOO VOLVER A PONER ANTES DE SUBIR SI SUBES ANTES DE ACABAR LA TAREA
+		  //NUEVO PARA IR A LA INTRO
+		 // CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.25); 
+		 // Scripting.execActionDelayed("changeGameState(\"gs_intro_game\")", 1.5);
+		  
 	  };
 
 	  auto mpCredits = []() {
@@ -275,8 +277,7 @@ namespace UI
 		  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
 		  registerWidgetClass("CREDITS","data/ui/widgets/credits.json",nullptr);
 		  registerWidgetClass("CREDITS_BACKGROUND", "data/ui/widgets/credits_background.json", nullptr);
-		  //registerEffect("CREDITS_BACKGROUND",nombre);
-		  //stopWidgetEffect("CREDITS", "effectAnimateCredit");
+		 
 	  }
 	  else {
 		  ui.sizeUI = 0;
@@ -309,6 +310,9 @@ namespace UI
 	  registerWidgetClass("BLACK_SCREEN", "data/ui/widgets/black_background.json", nullptr);
 	  //PANTALLA DE CARGA
 	  registerWidgetClass("LOAD_SCREEN", "data/ui/widgets/load_background.json", nullptr);
+	  //INTRO
+	  registerWidgetClass("INTRO_SCREEN","data/ui/widgets/intro_background.json", nullptr);
+
   }
 
 

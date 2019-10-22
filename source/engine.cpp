@@ -33,6 +33,7 @@
 #include "modules/game/module_game_loading.h"
 #include "modules/game/module_game_over.h"
 #include "modules/game/module_win_game.h"
+#include "modules/game/module_game_intro.h"
 #include "modules/module_boot.h"
 
 #include "input/devices/device_keyboard.h"
@@ -134,6 +135,7 @@ void CEngine::start()
   _modules.registerGameModule(new CModuleGameLoading("loading"));
   _modules.registerGameModule(new CModuleGameOver("gameover"));
   _modules.registerGameModule(new CModuleWinGame("wingame"));
+  _modules.registerGameModule(new CModuleGameIntro("intro_game"));
   _modules.registerGameModule(_fluidDecals);
 
   _modules.start();

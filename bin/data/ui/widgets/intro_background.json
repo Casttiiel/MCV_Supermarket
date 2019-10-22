@@ -1,0 +1,41 @@
+{
+	"name" : "intro_screen",
+	"alias" :"intro_screen_root",
+	"children" : 
+	[
+		{
+			"name" : "screen_intro",
+			"type" : "widget",
+			"size" : "1920 1080",
+			"children" : 
+			[
+				{
+					"name" : "background_intro_screen",
+					"type" : "image",
+					"size" : "1920 1080",
+					"texture" : "data/ui/textures/comic.dds"
+					,
+					"effects" : [
+								{
+									
+									"type" : "animate_uv",
+									"name" : "effectAnimateComic",
+									"speed" : "0.0 0.015"
+								},
+								{
+									
+									"type" : "scale",
+									"name" : "effectScaleComic",
+									"scale" : "0.5 0.5", 
+									"duration" : 2,
+									"mode" : "single"
+								}
+					]
+				}
+			]
+			
+			 
+		}
+	]
+	
+}
