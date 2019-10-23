@@ -538,6 +538,11 @@ function defrost2()
 	execDelayedAction("changeLookAt(\"cubosHielo_033\",0)",4.9);
 	execDelayedAction("on_delete_handle(\"cubosHielo_033\")",5.1);
 
+	GameController:spawnPrefab("data/particles/hot_particles.json", VEC3(0,0,0), QUAT(0, 0, 0, 1),1);
+	GameController:spawnPrefab("data/particles/platform_fire_particles.json", VEC3(0,0,0), QUAT(0, 0, 0, 1),1);
+	GameController:spawnPrefab("data/particles/outside_fire1.json", VEC3(0,0,0), QUAT(0, 0, 0, 1),1);
+	GameController:spawnPrefab("data/particles/outside_fire2.json", VEC3(0,0,0), QUAT(0, 0, 0, 1),1);
+
 
 end
 
