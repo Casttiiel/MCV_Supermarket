@@ -93,7 +93,8 @@ namespace UI
 		  //CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
           //EngineAudio.playEvent("event:/UI/Start_Button");
           //Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);//OJOOOOOO VOLVER A PONER ANTES DE SUBIR SI SUBES ANTES DE ACABAR LA TAREA
-		  //NUEVO PARA IR A LA INTRO
+		  //NUEVO PARA IR A LA INTRO (PONER CUANDO ESTE BIEN)
+		  EngineAudio.playEvent("event:/UI/Start_Button");
 		  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.25); 
 		  Scripting.execActionDelayed("changeGameState(\"gs_intro_game\")", 1.5);
 		  

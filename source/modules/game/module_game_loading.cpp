@@ -29,6 +29,8 @@ void CModuleGameLoading::update(float delta)
 void CModuleGameLoading::stop()
 {
 	CEngine::get().getUI().deactivateWidgetClass("LOAD_SCREEN");
+	//deactivateWidget
+	//Scripting.execActionDelayed("deactivateWidget(\"LOAD_SCREEN\")", 3.0);
 }
 
 void CModuleGameLoading::renderInMenu()

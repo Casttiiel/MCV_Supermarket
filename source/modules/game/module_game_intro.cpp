@@ -23,11 +23,9 @@ bool CModuleGameIntro::start()
 	UI::CWidget* widget = ui.getWidget("INTRO_SCREEN");
 	
 	Scripting.execActionDelayed("stopWidgetEffectSpecial()", 2);
-	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(-0.5, 0.5)", 3);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(-0.85, 0.5)", 3);
 	Scripting.execActionDelayed("stopWidgetEffectSpecial()",5);
 
-	//CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
-	//Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);//OJOOOOOO VOLVER A PONER ANTES DE SUBIR SI SUBES ANTES DE ACABAR LA TAREA
 
 	Scripting.execActionDelayed("childAppears(\"LOAD_SCREEN\",true,true,0.0,1.0)", 6);
 	Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 8);
