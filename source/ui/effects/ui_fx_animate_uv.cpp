@@ -23,4 +23,9 @@ namespace UI
   {
 	  _speed = VEC2(0, 0);
   }
+
+  void CFXAnimateUV::changeSpeedUV(float x, float y) {
+	  _speed = VEC2(x, y);
+  }
+
 }

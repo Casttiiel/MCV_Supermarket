@@ -45,6 +45,10 @@ namespace UI
 
 	void childAppears(bool getFromChildren, bool darkalfa, float initial_time, float lerp_time);
 
+	CWidget* getChildren(int pos) {
+		return _children[pos];
+	}
+
 	CEffect* getEffect(std::string nameEffect) { 
 		for (auto& effect : _effects) {
 			if (effect->getName().compare(nameEffect) == 0) {

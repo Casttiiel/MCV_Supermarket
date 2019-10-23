@@ -37,6 +37,9 @@ namespace UI
 	CWidget* activateWidgetClass(const std::string& name);
 	void deactivateWidgetClass(const std::string& name);
 	void stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect);
+	void stopWidgetEffect(UI::CWidget& widget, const std::string& nameEffect);
+	CWidget* getWidget(const std::string& nameWidgetStrMap);
+
 
 	CController* getWidgetController(std::string type);
     void registerAlias(CWidget* widget);

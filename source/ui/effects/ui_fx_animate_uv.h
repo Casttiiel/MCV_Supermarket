@@ -10,6 +10,7 @@ namespace UI
   public:
     void update(float dt) override;
 	void stopUiFx();
+	void changeSpeedUV(float x, float y);
 
   private:
     VEC2 _speed = VEC2::Zero;

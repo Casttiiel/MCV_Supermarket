@@ -171,12 +171,15 @@ void CModuleScripting::BindGameController() {
 		.set("changeGameState", &CModuleGameController::changeGameState)
 		.set("deactivateWidget", &CModuleGameController::deactivateWidget)
 		.set("activateWidget", &CModuleGameController::activateWidget)
+		.set("childAppears", &CModuleGameController::childAppears)
 		.set("loadCheckpoint", &CModuleGameController::loadCheckpoint)
 		.set("changeShadowsEnabledJoint", &CModuleGameController::changeShadowsEnabledJoint)
 		.set("changeLightsIntensityJoint", &CModuleGameController::changeLightsIntensityJoint)
 		.set("changeLightsIntensityJoint", &CModuleGameController::changeLightsIntensityJoint)
 		.set("resurrectionInGameOver", &CModuleGameController::resurrectionInGameOver)
 		.set("stopWidgetEffect", &CModuleGameController::stopWidgetEffect)
+		.set("stopWidgetEffectSpecial", &CModuleGameController::stopWidgetEffectSpecial)
+		.set("changeSpeedWidgetEffectSpecial", &CModuleGameController::changeSpeedWidgetEffectSpecial)
 		.set("exitGame", &CModuleGameController::exitGame)
 		;
 }

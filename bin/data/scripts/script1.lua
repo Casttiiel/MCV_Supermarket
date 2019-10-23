@@ -997,8 +997,21 @@ function activateWidget(nameWidget)
 	GameController:activateWidget(nameWidget)
 end
 
+function childAppears(name,getFromChildren,alfaPos,valueIni,valueFin)
+	GameController:childAppears(name,getFromChildren,alfaPos,valueIni,valueFin)
+end
+
+
 function stopWidgetEffect(nameWidget, effect)
 	GameController:stopWidgetEffect(nameWidget, effect)
+end
+
+function stopWidgetEffectSpecial()
+	GameController:stopWidgetEffectSpecial()
+end
+
+function changeSpeedWidgetEffectSpecial(x,y)
+	GameController:changeSpeedWidgetEffectSpecial(x,y)
 end
 
 

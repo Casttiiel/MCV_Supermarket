@@ -50,7 +50,7 @@ namespace UI
 				float diff = (*it).value - (*it).maxElement;
 				percentage = clamp(((((*it).currentTime - (*it).initialTime)) / (*it).lerpTime), 0.0f, 1.0f);
 				*(*it).element = (*it).maxElement + (diff * percentage);
-				dbg("-----------------Alfa %: %f\n----------------------", percentage);
+				//dbg("-----------------Alfa %: %f\n----------------------", percentage);
 			}
 			(*it).currentTime += dt;
 
@@ -90,12 +90,12 @@ namespace UI
 	  auto mpNewGame = []() {//nuevo juego
 		  //CEngine::get().getModules().changeToGamestate("gs_gameplay");
 		  UI::CModuleUI& ui = Engine.getUI();
-		  CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
-          EngineAudio.playEvent("event:/UI/Start_Button");
-          Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);//OJOOOOOO VOLVER A PONER ANTES DE SUBIR SI SUBES ANTES DE ACABAR LA TAREA
+		  //CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
+          //EngineAudio.playEvent("event:/UI/Start_Button");
+          //Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);//OJOOOOOO VOLVER A PONER ANTES DE SUBIR SI SUBES ANTES DE ACABAR LA TAREA
 		  //NUEVO PARA IR A LA INTRO
-		 // CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.25); 
-		 // Scripting.execActionDelayed("changeGameState(\"gs_intro_game\")", 1.5);
+		  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.25); 
+		  Scripting.execActionDelayed("changeGameState(\"gs_intro_game\")", 1.5);
 		  
 	  };
 
@@ -363,6 +363,19 @@ namespace UI
 	  if (effect != nullptr) {
 		  effect->stopUiFx();
 	  }
+  }
+
+  void CModuleUI::stopWidgetEffect(UI::CWidget& widget, const std::string& nameEffect) {//metodo que para los efectos que hay
+	  CEffect* effect = widget.getEffect(nameEffect);
+	  if (effect != nullptr) {
+		  effect->stopUiFx();
+	  }
+  }
+
+
+
+  CWidget* CModuleUI::getWidget(const std::string& nameWidgetStrMap){
+	  return _widgetStructureMap[nameWidgetStrMap].widget;
   }
 
 

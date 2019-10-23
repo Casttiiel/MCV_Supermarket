@@ -1128,9 +1128,31 @@ void CModuleGameController::activateWidget(std::string name) {
 }
 
 
+void CModuleGameController::childAppears(std::string name, bool getFromChildren, bool alfaPos, float valueIni, float valueFin) {;
+CEngine::get().getUI().activateWidgetClass(name)->childAppears(getFromChildren, alfaPos, valueIni, valueFin);
+}
+
+
 void CModuleGameController::stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect) {
 	CEngine::get().getUI().stopWidgetEffect(nameWidgetStrMap, nameEffect);
 }
+
+void CModuleGameController::stopWidgetEffectSpecial() {
+	UI::CModuleUI& ui = Engine.getUI();
+	UI::CWidget* widgetPadre = ui.getWidget("INTRO_SCREEN");
+	UI::CWidget* widgetHijo = widgetPadre->getChildren(0)->getChildren(0);
+	UI::CEffect* effect = widgetHijo->getEffect("effectAnimateComic");
+	effect->stopUiFx();
+}
+
+void CModuleGameController::changeSpeedWidgetEffectSpecial(float x, float y) {
+	UI::CModuleUI& ui = Engine.getUI();
+	UI::CWidget* widgetPadre = ui.getWidget("INTRO_SCREEN");
+	UI::CWidget* widgetHijo = widgetPadre->getChildren(0)->getChildren(0);
+	UI::CEffect* effect = widgetHijo->getEffect("effectAnimateComic");
+	effect->changeSpeedUV(x, y);
+}
+
 
 
 void CModuleGameController::resurrectionInGameOver() {

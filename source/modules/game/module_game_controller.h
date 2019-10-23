@@ -20,7 +20,7 @@
 #include "components/vfx/comp_flickering.h"
 #include "components/objects/comp_balance.h"
 #include "components/common/comp_light_dir.h"
-
+#include "ui/ui_widget.h"
 
 class CBTCupcake;
 class CBTGolem;
@@ -268,12 +268,15 @@ public:
 	void changeGameState(std::string name);
 	void deactivateWidget(std::string name);
 	void activateWidget(std::string name);
+	void childAppears(std::string name, bool getFromChildren, bool alfaPos, float valueIni, float valueFin);
+
 
 	void changeShadowsEnabledJoint(bool value);
 	void changeLightsIntensityJoint(float value);
 
 	void stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect);
-
+	void stopWidgetEffectSpecial();
+	void changeSpeedWidgetEffectSpecial(float x, float y);
 
 	void resurrectionInGameOver();
 	void exitGame();

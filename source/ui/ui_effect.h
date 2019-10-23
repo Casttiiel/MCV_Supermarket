@@ -14,6 +14,7 @@ namespace UI
     virtual void update(float dt) {}
 	virtual void onDeactivate() {};
 	virtual void stopUiFx() {};
+	virtual void changeSpeedUV(float x, float y) {};
 
 	std::string getName() {
 		return name;
