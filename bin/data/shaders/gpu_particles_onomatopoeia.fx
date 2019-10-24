@@ -210,14 +210,11 @@ float4 PS(v2p input
   tex += txAlbedo.Sample(samLinear,uv) * (input.aux >= 0.5f && input.aux < 1.5f);
   tex += txNormal.Sample(samLinear,uv) * (input.aux >= 1.5f && input.aux < 2.5f);
   tex += txMetallic.Sample(samLinear,uv) * (input.aux >= 2.5f && input.aux < 3.5f);
-  tex += txRoughness.Sample(samLinear,uv) * (input.aux >= 3.5f && input.aux< 4.5f);  
-
-  /*uv /= 2.0f;
-  uv.x += 0.5f * floor(input.aux.x  / 4.0f);
-
-  float4 tex = txAlbedo.Sample(samLinear,uv);*/
+  tex += txRoughness.Sample(samLinear,uv) * (input.aux >= 3.5f && input.aux< 4.5f);
 
 
+  if(tex.a < 0.7f)
+    clip(-1);
 
   //-------------------
   //comic shading

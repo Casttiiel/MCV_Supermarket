@@ -76,6 +76,25 @@ void TCompCharacterController::update(float dt) {
     if (inCombatTimer > 0) {
         inCombatTimer -= dt;
     }
+		
+		if (extintorActive == true && extintorMeshTimer > 0) {
+			extintorMeshTimer -= dt;
+		}
+		else if (extintorActive == true) {
+		//TODO: PONER LA ULTIMA MESH QUE TUVIERA SELECCIONADA
+				power_selected = last_power_selected;
+				if (power_selected == PowerType::TELEPORT) {
+					changeWeaponMesh(WeaponMesh::SCANNER);
+				}
+				else if (power_selected == PowerType::BATTERY) {
+					changeWeaponMesh(WeaponMesh::BATTERTY);
+				}
+				else if (power_selected == PowerType::MELEE) {
+					changeWeaponMesh(WeaponMesh::MOP);
+				}
+				extintorActive = false;
+
+		}
 
 	if (!_pausedAI) {
 		PROFILE_FUNCTION("IAIController");
@@ -349,6 +368,16 @@ void TCompCharacterController::grounded(float delta) {
 
     if (EngineInput["aim_"].isPressed()) {//AIM
         aiming = true;
+
+				if (power_selected == PowerType::TELEPORT) {
+					changeWeaponMesh(WeaponMesh::SCANNER);
+				}
+				else if (power_selected == PowerType::BATTERY) {
+					changeWeaponMesh(WeaponMesh::BATTERTY);
+				} 
+				else if (power_selected == PowerType::FIRE) {
+					changeWeaponMesh(WeaponMesh::EXTINTOR);
+				}
     }
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
         shoot();
@@ -403,6 +432,12 @@ void TCompCharacterController::grounded(float delta) {
         playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f);
     }
     else if (EngineInput["fire_attack_"].isPressed() && inventory->getChilli()) { //FIRE
+				if (power_selected != PowerType::FIRE) {
+					last_power_selected = power_selected; //lo guardamos para cuando el jugador se canse del extintor
+				}
+				power_selected = PowerType::FIRE; //TODO: LO LOGICO SERA ACTIVAR ESTO Y QUE PARA CAMBIAR DE ARMA HAYA QUE SELECCIONAR OTRA
+				extintorMeshTimer = extintorMeshTimerDuration; //tiempo que tendra el extintor en la mano cuando deje de usarlo
+				extintorActive = true;
         TCompTeleport* c_tp = get<TCompTeleport>();
         TCompTransform* c_trans = get<TCompTransform>();
         TCompMadnessController* m_c = get<TCompMadnessController>();
@@ -422,19 +457,8 @@ void TCompCharacterController::grounded(float delta) {
                 inCombatTimer = inCombatDuration;
                 TCompFireController* c_fire = get<TCompFireController>();
                 c_fire->enable();
-                //Change weapon mesh
-                CEntity* weapon = getEntityByName("Mop");
-                TCompRender* w_r = weapon->get<TCompRender>();
-                w_r->is_visible = false;
-                CEntity* weapon2 = getEntityByName("Anti_extintor");
-                TCompRender* w_r2 = weapon2->get<TCompRender>();
-                w_r2->is_visible = true;
-                CEntity* weapon3 = getEntityByName("Scanner");
-                TCompRender* w_r3 = weapon3->get<TCompRender>();
-                w_r3->is_visible = false;
-                w_r->updateRenderManager();
-                w_r2->updateRenderManager();
-                w_r3->updateRenderManager();
+                //Change weapon mesh 
+								changeWeaponMesh(WeaponMesh::EXTINTOR);
             }
         }
     }
@@ -452,6 +476,14 @@ void TCompCharacterController::grounded(float delta) {
             playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
         }
     }
+		// pose apuntar player: 
+		if (power_selected == PowerType::TELEPORT && inventory->getBattery() && aiming) {
+			if (!isThrowingAnimationGoing && !attacking) {
+				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+			//	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f); //TODO: Animacion de APUNTAR
+			}
+		}
+
 
     dir *= Time.delta_unscaled;
     if (aiming) {
@@ -477,6 +509,51 @@ void TCompCharacterController::grounded(float delta) {
     meleeTimer -= Time.delta_unscaled;
 
 }
+
+void TCompCharacterController::changeWeaponMesh(WeaponMesh weaponSelected) {
+
+	CEntity* weapon = getEntityByName("Mop");
+	TCompRender* w_r_mop = weapon->get<TCompRender>();
+	CEntity* weapon2 = getEntityByName("Anti_extintor"); //CAMBIAR ANTIEXTINTOR POR PILA
+	TCompRender* w_r_extintor = weapon2->get<TCompRender>();
+	CEntity* weapon3 = getEntityByName("Scanner");
+	TCompRender* w_r_scanner = weapon3->get<TCompRender>();
+	CEntity* weapon4 = getEntityByName("Pila");
+	TCompRender* w_r_pila = weapon4->get<TCompRender>();
+
+
+	if (weaponSelected == WeaponMesh::MOP) {
+		w_r_mop->is_visible = true;
+		w_r_extintor->is_visible = false;
+		w_r_scanner->is_visible = false;
+		w_r_pila->is_visible = false;
+
+	}
+	else if (weaponSelected== WeaponMesh::SCANNER) {
+		w_r_mop->is_visible = false;
+		w_r_extintor->is_visible = false;
+		w_r_scanner->is_visible = true;
+		w_r_pila->is_visible = false;
+	}
+	else if (weaponSelected == WeaponMesh::BATTERTY) {
+		w_r_mop->is_visible = false;
+		w_r_extintor->is_visible = false;
+		w_r_scanner->is_visible = false;
+		w_r_pila->is_visible = true;
+	}
+	else if (weaponSelected == WeaponMesh::EXTINTOR) {
+		w_r_mop->is_visible = false;
+		w_r_extintor->is_visible = true;
+		w_r_scanner->is_visible = false;
+		w_r_pila->is_visible = false;
+	}
+
+	w_r_mop->updateRenderManager();
+	w_r_extintor->updateRenderManager();
+	w_r_scanner->updateRenderManager();
+	w_r_pila->updateRenderManager();
+}
+
 
 void TCompCharacterController::dashing(float delta) {
     //WE NEED THE CAMERA TO BE CREATED TO MOVE FROM ITS PERSPECTIVE
@@ -835,11 +912,14 @@ bool TCompCharacterController::isGrounded() {
 void TCompCharacterController::powerSelection() {
   if (EngineInput["select_teleport_"].justPressed()) { //teleport
     power_selected = PowerType::TELEPORT; 
+
+		changeWeaponMesh(WeaponMesh::SCANNER);
 	
 	
   }
   else if (EngineInput["select_battery_"].justPressed()) { //bateria
     power_selected = PowerType::BATTERY;
+		changeWeaponMesh(WeaponMesh::BATTERTY);
 	
   }
 }
@@ -867,18 +947,7 @@ void TCompCharacterController::shoot() {
             TCompTeleport* c_tp = get<TCompTeleport>();
             c_tp->rayCast();
             //Change weapon mesh
-            CEntity* weapon = getEntityByName("Mop");
-            TCompRender* w_r = weapon->get<TCompRender>();
-            w_r->is_visible = false;
-            CEntity* weapon2 = getEntityByName("Anti_extintor");
-            TCompRender* w_r2 = weapon2->get<TCompRender>();
-            w_r2->is_visible = false;
-            CEntity* weapon3 = getEntityByName("Scanner");
-            TCompRender* w_r3 = weapon3->get<TCompRender>();
-            w_r3->is_visible = true;
-            w_r->updateRenderManager();
-            w_r2->updateRenderManager();
-            w_r3->updateRenderManager();
+						changeWeaponMesh(WeaponMesh::SCANNER);
             //Execute animation
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::SCAN, 1.f, true);
@@ -908,18 +977,7 @@ void TCompCharacterController::shoot() {
 
 void TCompCharacterController::attack(float delta) {
     //Change weapon mesh
-    CEntity* weapon = getEntityByName("Mop");
-    TCompRender* w_r = weapon->get<TCompRender>();
-    w_r->is_visible = true;
-    CEntity* weapon2 = getEntityByName("Anti_extintor");
-    TCompRender* w_r2 = weapon2->get<TCompRender>();
-    w_r2->is_visible = false;
-    CEntity* weapon3 = getEntityByName("Scanner");
-    TCompRender* w_r3 = weapon3->get<TCompRender>();
-    w_r3->is_visible = false;
-    w_r->updateRenderManager();
-    w_r2->updateRenderManager();
-    w_r3->updateRenderManager();
+		changeWeaponMesh(WeaponMesh::MOP);
     //COJO EL COMPONENTE, SI PUEDO HACER COMBO, PUES OTRA ANIMACION Y LA FUERZA ES MAYOR
 
     inCombatTimer = inCombatDuration;

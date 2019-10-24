@@ -9,11 +9,13 @@
         "pos": "0 0 0"
       }
       ,
-      "render":
-      {
-        "is_visible" : true,
+      "render": {
+        "is_visible": true,
         "color": "1.0 0.0 0.0 1.0",
-        "mesh": "data/meshes/weapons/Mop.mesh"
+        "mesh": "data/meshes/weapons/Mop.mesh",
+        "materials": [
+          "data/materials/mop.material"
+        ]
       },
       "bone_tracker":{
         "bone": "Bone_mopa",
@@ -58,6 +60,34 @@
         "materials":
         [
           "data/materials/scanner.material"
+        ]
+      },
+      "bone_tracker":{
+        "bone": "Bone_weapon",
+        "parent": "Player"
+      },
+     "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity":
+    {
+      "name": "Pila"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0",
+        "scale": 0.12
+      }
+      ,
+      "render":
+      {
+        "is_visible" : false,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh": "data/meshes/static_objects/Pila.mesh",
+        "materials":
+        [
+          "data/materials/pila_material.material"
         ]
       },
       "bone_tracker":{

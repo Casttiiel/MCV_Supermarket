@@ -69,7 +69,7 @@ private:
   //End Shopping Cart
   std::string statePrevious = "";
   float distance_to_aim = 20.0f;
-  float speed = 4.5f;
+  float speed = 5.0f;
   float inCombatTimer = 0.f;
   float inCombatDuration = 3.5f;
   
@@ -95,6 +95,11 @@ private:
 
 	float invulnerabilityTimer = 0.f;
 	float invulnerabilityTimeDuration = 1.0;
+
+	float extintorMeshTimer = 0.f;
+	float extintorMeshTimerDuration = 1.0;
+	bool extintorActive = false;
+	PowerType last_power_selected = PowerType::TELEPORT;
 
   //Audio Values
     AudioEvent damagedAudio;
@@ -180,6 +185,7 @@ private:
   void onCinematicSpecial(const TMsgOnCinematicSpecial& msg);
   void onTrapWind(const TMsgTrapWind& msg);
   void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
+	void changeWeaponMesh(WeaponMesh weaponSelected);
 
   void onMeleeHit(const TMsgMeleeHit& msg);
 
