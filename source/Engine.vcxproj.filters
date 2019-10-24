@@ -1598,6 +1598,7 @@
     <ClInclude Include="modules\game\module_game_intro.h">
       <Filter>modules\game</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="windows">
@@ -1796,5 +1797,11 @@
     <FxCompile Include="..\bin\data\shaders\ui.fx">
       <Filter>data\shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\bin\data\textures\icono.ico" />
   </ItemGroup>
 </Project>

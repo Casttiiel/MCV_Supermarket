@@ -169,7 +169,7 @@ struct CRasterizers {
       D3D11_FILL_SOLID, // D3D11_FILL_MODE FillMode;
       D3D11_CULL_BACK,  // D3D11_CULL_MODE CullMode;
       FALSE,            // BOOL FrontCounterClockwise;
-      30,               // INT DepthBias;
+      50,               // INT DepthBias;
       0.0f,             // FLOAT DepthBiasClamp;
       4.0f,             // FLOAT SlopeScaledDepthBias;
       TRUE,             // BOOL DepthClipEnable;
