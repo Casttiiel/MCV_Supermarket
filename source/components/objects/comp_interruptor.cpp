@@ -38,7 +38,6 @@ void TCompInterruptor::onActivate(const TMsgDamage & msg) {
 				execDelayedAction("on_active_enemies(false)",0.0);
 				execDelayedAction("on_blending_camera(\"CameraPanel003\", 5,\"linear\")", 0.5);
 				execDelayedAction("on_blending_camera(\"PlayerCamera\", 6,\"linear\")", 8);
-				//Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement3\")",1.1);
 				execDelayedAction("playAnnouncement(\"event:/UI/Announcements/Announcement3\")", 0.0);
 				execDelayedAction("on_lock_camera3(true)", 14);
 				execDelayedAction("on_cinematic(false)", 14);
