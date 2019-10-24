@@ -1014,7 +1014,9 @@ function changeSpeedWidgetEffectSpecial(x,y)
 	GameController:changeSpeedWidgetEffectSpecial(x,y)
 end
 
-
+function changeDurationWidgetEffectSpecial(duration)
+	GameController:changeDurationWidgetEffectSpecial(duration)
+end
 
 function saveCheckpoint()
 	handlePlayer = GameController:getPlayerHandle();

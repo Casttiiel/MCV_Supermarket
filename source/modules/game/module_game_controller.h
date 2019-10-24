@@ -277,7 +277,7 @@ public:
 	void stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect);
 	void stopWidgetEffectSpecial();
 	void changeSpeedWidgetEffectSpecial(float x, float y);
-
+	void changeDurationWidgetEffectSpecial(float duration);
 	void resurrectionInGameOver();
 	void exitGame();
 };

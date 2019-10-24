@@ -15,13 +15,37 @@ bool CModuleGameIntro::start()
 {
 	UI::CModuleUI& ui = Engine.getUI();
 	CEngine::get().getUI().activateWidgetClass("INTRO_SCREEN")->childAppears(true, true, 0.0, 1.25);
-	//UI::CWidget* widgetPadre = ui.getWidget("INTRO_SCREEN");
-	//UI::CWidget* widgetHijo = widgetPadre->getChildren(0)->getChildren(0);
-	//UI::CEffect* effect = widget->getChildren(0)->getChildren(0)->getEffect("effectAnimateComic");
-	//effect->stopUiFx();
-
-	UI::CWidget* widget = ui.getWidget("INTRO_SCREEN");
 	
+
+	Scripting.execActionDelayed("stopWidgetEffectSpecial()", 0);
+	Scripting.execActionDelayed("changeDurationWidgetEffectSpecial(1)", 1);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 4);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 7);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 10);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 13);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(-0.5, 0.20)", 15);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 16.25);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 18);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 21.2);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 24.2);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 27.2);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(-0.5, 0.20)", 29.2);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 30.40);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 33.0);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 36.0);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 39.0);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 42.60);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(-0.5, 0.18)", 44.60);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 45.90);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 48.0);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 51.0);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 54.0);
+	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 57.5);
+	Scripting.execActionDelayed("childAppears(\"LOAD_SCREEN\",true,true,0.0,1.0)", 60);
+	Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 61.5);
+
+
+	/*
 	Scripting.execActionDelayed("stopWidgetEffectSpecial()", 2);
 	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(-0.85, 0.5)", 3);
 	Scripting.execActionDelayed("stopWidgetEffectSpecial()",5);
@@ -29,6 +53,7 @@ bool CModuleGameIntro::start()
 
 	Scripting.execActionDelayed("childAppears(\"LOAD_SCREEN\",true,true,0.0,1.0)", 6);
 	Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 8);
+	*/
 	return true;
 }
 

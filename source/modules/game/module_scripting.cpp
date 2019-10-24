@@ -180,6 +180,7 @@ void CModuleScripting::BindGameController() {
 		.set("stopWidgetEffect", &CModuleGameController::stopWidgetEffect)
 		.set("stopWidgetEffectSpecial", &CModuleGameController::stopWidgetEffectSpecial)
 		.set("changeSpeedWidgetEffectSpecial", &CModuleGameController::changeSpeedWidgetEffectSpecial)
+		.set("changeDurationWidgetEffectSpecial", &CModuleGameController::changeDurationWidgetEffectSpecial)
 		.set("exitGame", &CModuleGameController::exitGame)
 		;
 }

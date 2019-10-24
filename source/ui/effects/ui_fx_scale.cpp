@@ -84,4 +84,12 @@ namespace UI
   {
     return _interpolator->blend(0.f, 1.f, ratio);
   }
+
+  void CFXScale::changeDuration(float duration) {
+	  _duration = duration;
+
+  }
+
+
+
 }
