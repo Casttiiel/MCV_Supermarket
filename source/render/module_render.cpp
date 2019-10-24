@@ -179,7 +179,7 @@ void CModuleRender::renderInMenu() {
 
   if (ImGui::TreeNode("Render Control")) {
     ImGui::DragFloat("Exposure Adjustment", &ctes_shared.GlobalExposureAdjustment, 0.01f, 0.1f, 32.f);
-    ImGui::DragFloat("Ambient Boost", &ctes_shared.GlobalAmbientBoost, 0.01f, 0.0f, 2.f);
+    ImGui::DragFloat("Ambient Boost", &new_ambient, 0.01f, 0.0f, 2.f);
 
 
     ImGui::Text("Toon Shading");
