@@ -96,6 +96,11 @@ private:
 	float invulnerabilityTimer = 0.f;
 	float invulnerabilityTimeDuration = 1.0;
 
+	float extintorMeshTimer = 0.f;
+	float extintorMeshTimerDuration = 1.0;
+	bool extintorActive = false;
+	PowerType last_power_selected = PowerType::TELEPORT;
+
   //Audio Values
     AudioEvent damagedAudio;
     AudioEvent footSteps;
@@ -180,6 +185,7 @@ private:
   void onCinematicSpecial(const TMsgOnCinematicSpecial& msg);
   void onTrapWind(const TMsgTrapWind& msg);
   void onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg);
+	void changeWeaponMesh(WeaponMesh weaponSelected);
 
   void onMeleeHit(const TMsgMeleeHit& msg);
 

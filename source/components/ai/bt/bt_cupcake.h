@@ -142,7 +142,7 @@ private:
 	bool insightPlayer = false;
 	//gameplay parameters
 	int num_of_divisions = 1; //times will you divide your self
-	float life = 50.f;
+	float life = 30.f;
 	float sonLife = 10.0f;
 	int num_of_sons = 2; //number of sons
 	int spawnRange = 5; //spawn range of sons
@@ -167,8 +167,8 @@ private:
 	float evaluateAttackValue = evaluateAttack;
 
 	//son collider
-	float sonRadius = 0.3f;
-	float sonHeight = 0.3f;
+	float sonRadius = 0.22f;
+	float sonHeight = 0.25f;
 
 	int orbited_waypoints = 0;
 	int max_orbited_points = 3; //cada cuantos orbitpoints atacara si o si
@@ -217,7 +217,7 @@ private:
 
 	//jump
 	bool firstImpact = true;
-	float jumpForce = 5.0f; //5
+	float jumpForce = 4.0f; //5
 	float recoilJumpForce = 5.0f; //5
 
 	//movement

@@ -13,7 +13,8 @@ public:
 	enum EAnimation { 
       OVEN_IDLE = 0,
       OVEN_OPEN,
-			OVEN_BROKEN
+			OVEN_BROKEN,
+			OVEN_MEDIO_ABIERTO
 	};
 	struct TMsgExecuteAnimation {
 

@@ -14,6 +14,13 @@ enum PowerType {
     PUDDLE, 
     FOUNTAIN 
 };
+
+enum WeaponMesh {
+	MOP = 0,
+	SCANNER,
+	EXTINTOR,
+	BATTERTY
+};
 enum PowerUpType { 
     HEALTH_UP = 0, 
     MADNESS_UP, 

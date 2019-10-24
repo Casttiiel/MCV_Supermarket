@@ -786,11 +786,11 @@ void CBTCupcake::onGenericDamageInfoMsg(const TMsgDamage& msg) { //TODO: ARREGLA
 			else {
 				direction_to_damage = my_trans->getPosition() - msg.position;
 			}
-			direction_to_damage.y = 1.0f;
+			direction_to_damage.y = 0.0f;
 			direction_to_damage.Normalize();
 			TCompRigidBody* c_rbody = get<TCompRigidBody>();
 			if (c_rbody  && life > 0) {
-				c_rbody->addForce(direction_to_damage * msg.impactForce);
+				c_rbody->addForce(direction_to_damage * msg.impactForce * 0.5);
 			}
 
 		}
