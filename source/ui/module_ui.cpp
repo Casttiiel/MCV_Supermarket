@@ -225,7 +225,7 @@ namespace UI
           EngineAudio.playEvent("event:/UI/Start_Button");
 		  */
 		  EngineAudio.playEvent("event:/UI/Start_Button");
-		  Scripting.execActionDelayed("resurrectionInGameOver()", 2.0);
+		  Scripting.execActionDelayed("resurrectionInGameOver()", 1.6);
 
 
 

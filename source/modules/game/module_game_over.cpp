@@ -60,10 +60,10 @@ void CModuleGameOver::stop()
 		*/
 		
 
-		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 1.0);
-		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BACKGROUND\")", 1.0);
-		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BUTTONS\")", 1.0);
-		Scripting.execActionDelayed("activateWidget(\"HUD_NORMAL_PLAYER\")", 1.0);
+		Scripting.execActionDelayed("deactivateWidget(\"BLACK_SCREEN\")", 0.0);
+		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BACKGROUND\")", 0.0);
+		Scripting.execActionDelayed("deactivateWidget(\"DEAD_MENU_BUTTONS\")", 0.0);
+		Scripting.execActionDelayed("activateWidget(\"HUD_NORMAL_PLAYER\")", 0.0);
 		//CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 		//CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
 		//CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
