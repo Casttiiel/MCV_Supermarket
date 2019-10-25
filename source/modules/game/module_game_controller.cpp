@@ -1137,6 +1137,11 @@ void CModuleGameController::stopWidgetEffect(const std::string& nameWidgetStrMap
 	CEngine::get().getUI().stopWidgetEffect(nameWidgetStrMap, nameEffect);
 }
 
+void CModuleGameController::changeSpeedWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect,float x, float y) {
+	CEngine::get().getUI().changeSpeedWidgetEffect(nameWidgetStrMap, nameEffect,  x,  y);
+}
+
+
 void CModuleGameController::stopWidgetEffectSpecial() {
 	UI::CModuleUI& ui = Engine.getUI();
 	UI::CWidget* widgetPadre = ui.getWidget("INTRO_SCREEN");

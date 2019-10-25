@@ -275,6 +275,7 @@ public:
 	void changeLightsIntensityJoint(float value);
 
 	void stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect);
+	void changeSpeedWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect, float x, float y);
 	void stopWidgetEffectSpecial();
 	void changeSpeedWidgetEffectSpecial(float x, float y);
 	void changeDurationWidgetEffectSpecial(float duration);

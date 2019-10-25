@@ -1042,6 +1042,12 @@ function stopWidgetEffect(nameWidget, effect)
 	GameController:stopWidgetEffect(nameWidget, effect)
 end
 
+function changeSpeedWidgetEffect(nameWidget, effect, x , y)
+	GameController:changeSpeedWidgetEffect(nameWidget, effect,x ,y )
+end
+
+
+
 function stopWidgetEffectSpecial()
 	GameController:stopWidgetEffectSpecial()
 end

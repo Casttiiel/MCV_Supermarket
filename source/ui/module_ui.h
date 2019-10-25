@@ -38,6 +38,7 @@ namespace UI
 	void deactivateWidgetClass(const std::string& name);
 	void stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect);
 	void stopWidgetEffect(UI::CWidget& widget, const std::string& nameEffect);
+	void changeSpeedWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect, float x, float y);
 	CWidget* getWidget(const std::string& nameWidgetStrMap);
 
 

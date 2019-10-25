@@ -373,6 +373,14 @@ namespace UI
 	  }
   }
 
+  void CModuleUI::changeSpeedWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect,float x, float y) {//metodo que para los efectos que hay
+	  CWidget* widget = _widgetStructureMap[nameWidgetStrMap].widget;
+	  CEffect* effect = widget->getEffect(nameEffect);
+	  if (effect != nullptr) {
+		  effect->changeSpeedUV(x,y);
+	  }
+  }
+
 
 
   CWidget* CModuleUI::getWidget(const std::string& nameWidgetStrMap){
