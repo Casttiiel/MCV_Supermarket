@@ -158,11 +158,13 @@ void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
     cinematic = msg.cinematic;
     _movementAudio.setPaused(true);
     UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-	mirilla->getParams()->visible = false;
+	//mirilla->getParams()->visible = false;
     if (cinematic) {
         ChangeState("SCART_IDLE_CINEMATIC");
+		mirilla->getParams()->visible = false;
     }
     else {
+		mirilla->getParams()->visible = true;
         if (isEnabled) {
 			rowImpulseLeft = 0;//al salir de la cinematica para que no se vaya a cuenca el carrito
             ChangeState("SCART_GROUNDED");
