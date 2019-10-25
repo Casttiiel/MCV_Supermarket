@@ -345,6 +345,12 @@ function crearTrampaHornos()
 
 end
 
+function changeIntensityLightOmni(nameLight,intensity)
+	h_light =  GameController:entityByName(nameLight);
+	t_comp_light_point = toCompLightPoint(toEntity(h_light):getCompByName("light_point"));
+	t_comp_light_point:setIntensity(intensity)
+end
+
 
 function changeIntensityLightSpot(nameLight,intensity)
 	h_light =  GameController:entityByName(nameLight);
@@ -746,28 +752,53 @@ function activePlataformCarniceria_player()
 	execDelayedAction("cinematica_tower()",0.0);
 
 	
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni038\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni039\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni038\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni039\",0.0)",15.5);
 	
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni040\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni041\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni040\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni041\",0.0)",15.5);
 	
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni042\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni043\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni042\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni043\",0.0)",15.5);
 
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni044\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni035\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni034\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni033\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni032\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni031\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni030\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni029\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni028\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni027\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni026\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni025\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni024\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni044\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni035\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni034\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni033\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni032\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni031\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni030\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni029\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni028\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni027\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni026\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni025\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni024\",0.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni038\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni039\",0.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni040\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni041\",0.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni042\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni043\",0.0)",15.5);
+
+	execDelayedAction("changeIntensityLightOmni(\"Omni044\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni035\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni034\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni033\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni032\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni031\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni030\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni029\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni028\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni027\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni026\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni025\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni024\",0.0)",15.5);
+
+
 
 	execDelayedAction("playAnnouncement(\"event:/UI/Announcements/Announcement11\")",15.0);
 	
@@ -1049,6 +1080,31 @@ function endGame()
 	execDelayedAction("resetCamera()",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_cinematic(true)",0.0);
+	execDelayedAction("changeIntensityLightOmni(\"Omni038\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni039\",40.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni040\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni041\",40.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni042\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni043\",40.0)",15.5);
+
+	execDelayedAction("changeIntensityLightOmni(\"Omni044\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni035\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni034\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni033\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni032\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni031\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni030\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni029\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni028\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni027\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni026\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni025\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni024\",40.0)",15.5);
+
+
+
 	execDelayedAction("on_blending_camera(\"CameraEndGame001\", 10,\"Cubicinout\")",0.0);
 	execDelayedAction("on_blending_camera(\"CameraEndGame\", 10,\"Cubicinout\")",5.0);
 	execDelayedAction("on_blending_camera(\"CameraEndGame002\", 10,\"Cubicinout\")",10.0);
