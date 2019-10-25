@@ -243,6 +243,12 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
                     if (!_crashAudio.isPlaying()) {
                         _crashAudio = EngineAudio.playEvent("event:/Character/SCart/Crash");
                         expansiveWave();
+                        CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+                        TMsgOnomPet msgonom;
+                        msgonom.type = 4.0f;
+                        TCompTransform* c_trans2 = get<TCompTransform>();
+                        msgonom.pos = c_trans2->getPosition();
+                        onom_manager->sendMsg(msgonom);
                     }
 									}
 									

@@ -88,7 +88,7 @@ void TCompMeleeTrigger::expansiveWave() {
 
   CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
   TMsgOnomPet msgonom;
-  msgonom.type = 2;
+  msgonom.type = 1.0f;
   msgonom.pos = c_trans->getPosition();
   onom_manager->sendMsg(msgonom);
 

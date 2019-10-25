@@ -395,19 +395,19 @@ void TCompCamera3rdPerson::shouldSwapCamera() {
     return;
 
   //SWAP BETWEEN AIM AND NORMAL CAMERA
-  if (EngineInput["aim_"].justPressed()) {
+  if (EngineInput["aim_"].isPressed()) {
     aiming = true;
     smoothSpeed = 10.f;
-    GameController.yaw_sensivity *= 0.4f;
-    GameController.pitch_sensivity *= 0.4f;
+    GameController.yaw_sensivity = 2.0f;
+    GameController.pitch_sensivity = 0.8f;
   }
 
   //SWAP BETWEEN AIM AND NORMAL CAMERA
-  if (EngineInput["aim_"].justReleased()) {
+  if (!EngineInput["aim_"].isPressed()) {
     aiming = false;
     smoothSpeed = 6.f;
-    GameController.yaw_sensivity /= 0.4f;
-    GameController.pitch_sensivity /= 0.4f;
+    GameController.yaw_sensivity = 5.0f;
+    GameController.pitch_sensivity = 2.0f;
   }
 }
 
