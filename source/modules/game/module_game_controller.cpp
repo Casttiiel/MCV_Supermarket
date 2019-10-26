@@ -1154,6 +1154,13 @@ void CModuleGameController::changeSpeedWidgetEffectSpecial(float x, float y) {
 	effect->changeSpeedUV(x, y);
 }
 
+void CModuleGameController::changeDurationWidgetEffectSpecial(float duration) {
+	UI::CModuleUI& ui = Engine.getUI();
+	UI::CWidget* widgetPadre = ui.getWidget("INTRO_SCREEN");
+	UI::CWidget* widgetHijo = widgetPadre->getChildren(0)->getChildren(0);
+	UI::CEffect* effect = widgetHijo->getEffect("effectScaleComic");
+	effect->changeDuration(duration);
+}
 
 
 void CModuleGameController::resurrectionInGameOver() {
