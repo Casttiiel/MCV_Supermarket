@@ -9,6 +9,7 @@
 using namespace physx;
 std::mt19937 ba_mt_ba(std::random_device{}());
 std::uniform_int_distribution<int> ba_mt_ba_dist(-4, 4);
+std::uniform_int_distribution<int> ba_mt_ba_dist2(-2, 2);
 
 
 DECL_OBJ_MANAGER("comp_balance", TCompBalance);
@@ -36,7 +37,7 @@ void TCompBalance::onCreate(const TMsgEntityCreated & msg) {
 }
 
 void TCompBalance::balanceo() {
-	/*TCompCollider* c_col = get<TCompCollider>();
+	/* TCompCollider* c_col = get<TCompCollider>();
 	physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
 	float velocitiRandom = ba_mt_ba_dist(ba_mt_ba);
 	rigid_dynamic->addForce(PxVec3(0, -900, 0), PxForceMode::eFORCE);
@@ -55,7 +56,12 @@ void TCompBalance::balanceo() {
 		TCompCollider* c_col = di->get<TCompCollider>();
 		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
 		float velocitiRandom = ba_mt_ba_dist(ba_mt_ba);
-		rigid_dynamic->addForce(PxVec3(0, -900, 0), PxForceMode::eFORCE);
+		VEC3 linear_speed = PXVEC3_TO_VEC3(rigid_dynamic->getLinearVelocity());
+		float velLineal = linear_speed.Length();
+		//dbg("VEL_LINEAL:%f\n",velLineal);
+		if (velLineal <= 0.00) {
+			rigid_dynamic->addForce(PxVec3(0, -900, 0), PxForceMode::eFORCE);
+		}
 		//rigid_dynamic->addForce(PxVec3(0, velocitiRandom, 0), PxForceMode::eVELOCITY_CHANGE);
 		});
 		balanceoDone = true;
@@ -65,7 +71,19 @@ void TCompBalance::balanceo() {
 
 
 void TCompBalance::update(float dt) {
-
+	getObjectManager<TCompBalance>()->forEach([](TCompBalance* di) {
+		TCompCollider* c_col = di->get<TCompCollider>();
+		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+	
+		VEC3 linear_speed = PXVEC3_TO_VEC3(rigid_dynamic->getLinearVelocity());
+		float velLineal = linear_speed.Length();
+		
+		if(velLineal <= 0.00) {
+			float velocitiRandom = ba_mt_ba_dist2(ba_mt_ba);
+			rigid_dynamic->addForce(PxVec3(0, velocitiRandom, 0), PxForceMode::eVELOCITY_CHANGE);
+			//rigid_dynamic->addForce(PxVec3(0, -1, 0), PxForceMode::eFORCE);
+		}
+	});
 }
 
 

@@ -1253,3 +1253,7 @@ function setResurrect(value)
 	GameController:setResurrect(value)
 end
 
+function setBloomInCam(value)
+	GameController:setBloomInCam(value);
+end
+

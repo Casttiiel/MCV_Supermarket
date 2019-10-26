@@ -184,6 +184,7 @@ void CModuleScripting::BindGameController() {
 		.set("changeSpeedWidgetEffect", &CModuleGameController::changeSpeedWidgetEffect)
 		.set("exitGame", &CModuleGameController::exitGame)
 		.set("setResurrect", &CModuleGameController::setResurrect)
+		.set("setBloomInCam", &CModuleGameController::setBloomInCam)
 		;
 }
 

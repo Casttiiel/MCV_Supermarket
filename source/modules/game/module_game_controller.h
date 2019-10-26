@@ -22,6 +22,7 @@
 #include "components/common/comp_light_dir.h"
 #include "ui/ui_widget.h"
 
+
 class CBTCupcake;
 class CBTGolem;
 class CCheckpoint;
@@ -284,6 +285,7 @@ public:
 	void changeDurationWidgetEffectSpecial(float duration);
 	void resurrectionInGameOver();
 	void exitGame();
+	void setBloomInCam(bool value);
 };
 
 

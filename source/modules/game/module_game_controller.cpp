@@ -24,6 +24,8 @@
 #include "components/actions/comp_audioPlayer.h"
 #include "ui/module_ui.h"
 #include "render/module_render.h"
+#include "components/postfx/comp_render_bloom.h"
+
 
 
 bool CModuleGameController::start() {
@@ -1202,6 +1204,13 @@ void CModuleGameController::resurrectionInGameOver() {
 void CModuleGameController::exitGame() {
 	auto& app = CApplication::get();
 	DestroyWindow(app.getHandle());
+}
+
+
+void CModuleGameController::setBloomInCam(bool value) {
+	CEntity* cam_player = getEntityByName("MainCamera");
+	TCompRenderBloom* renderBloom = cam_player->get<TCompRenderBloom>();
+	renderBloom->enabled = value;
 }
 
 
