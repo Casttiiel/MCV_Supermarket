@@ -713,18 +713,18 @@ void CBTCupcake::onCollision(const TMsgOnContact& msg) { //no se utiliza
 					}
 				}
 				return;
-      }
-      else if (col_filter_data.word0 & EnginePhysics.Enemy && battery_time > 0) {
-          TMsgDamage msg;
-          // Who sent this bullet
-          msg.h_sender = CHandle(this).getOwner();
-          msg.h_bullet = CHandle(this).getOwner();
-          msg.intensityDamage = 0.f;
-          msg.senderType = PLAYER;
-          msg.targetType = ENEMIES;
-          msg.impactForce = 2.f;
-          source_of_impact->sendMsg(msg);
-      }
+			}
+			else if (col_filter_data.word0 & EnginePhysics.Enemy && battery_time > 0) {
+				TMsgDamage msg;
+				// Who sent this bullet
+				msg.h_sender = CHandle(this).getOwner();
+				msg.h_bullet = CHandle(this).getOwner();
+				msg.intensityDamage = 0.f;
+				msg.senderType = PLAYER;
+				msg.targetType = ENEMIES;
+				msg.impactForce = 2.f;
+				source_of_impact->sendMsg(msg);
+			}
 		}
 	}
 }

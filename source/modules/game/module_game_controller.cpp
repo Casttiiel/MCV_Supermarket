@@ -59,6 +59,12 @@ void CModuleGameController::setGodMode(bool _god_mode) {
 	god_mode = _god_mode; 
 }
 
+
+void CModuleGameController::setResurrect(bool _resurrect) {
+	resurrect = _resurrect;
+}
+
+
 void CModuleGameController::update(float delta) {
 
     //updateGameCondition();
@@ -1176,11 +1182,6 @@ void CModuleGameController::resurrectionInGameOver() {
 	if ((c_controller->life <= 0)) {
 
 		//quitar puntero de raton
-
-		c_controller->ChangeState("GROUNDED");
-
-		GameController.loadCheckpoint();
-
 		TMsgGamePause msg;
 		msg.isPause = false;
 		msg.playerDead = false;
@@ -1190,10 +1191,12 @@ void CModuleGameController::resurrectionInGameOver() {
 		}
 		//Scripting.execActionDelayed("loadCheckpoint()", 2.0);
 		//Scripting.execActionDelayed("changeGameState(\"gs_gameplay\")", 2.0);
+		GameController.loadCheckpoint();
 		CEngine::get().getModules().changeToGamestate("gs_gameplay");
-
+		
+		c_controller->ChangeState("GROUNDED");
 	}
-	EngineAudio.playEvent("event:/UI/Start_Button");
+	
 }
 
 void CModuleGameController::exitGame() {

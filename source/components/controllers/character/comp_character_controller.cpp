@@ -1235,7 +1235,7 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
 }
 
 void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
-    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0 && !GameController.getResurrect()) {
         life -= msg.intensityDamage;
         damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
 
@@ -1313,11 +1313,15 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
 }
 
 void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
+
+	
+
+
     if (life <= 0.0f) {
         return;
     }
     //dbg("recibo damage \n");
-    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0 && !GameController.getResurrect()) {
         if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
             life -= msg.intensityDamage;
 			invulnerabilityTimer = invulnerabilityTimeDuration;

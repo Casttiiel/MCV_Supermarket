@@ -35,7 +35,8 @@ class CModuleGameController : public IModule
     //Storage of entity status
     CCheckpoint* _lastCheckpoint;
     bool god_mode = false;
-	  bool invisible_block_cursor = false;
+	bool invisible_block_cursor = false;
+	bool resurrect = false;
 
     CModuleGameplayFragment* gf;
 
@@ -109,7 +110,9 @@ public:
     //PauseState getCurrentState();
 	  CHandle getPlayerHandle();
     bool getGodMode() { return god_mode; }
+	bool getResurrect() { return resurrect; }
 	void setGodMode(bool _god_mode);
+	void setResurrect(bool _resurrect);
 	bool getInvisibleBlock() { return invisible_block_cursor; }
 
 	//Checkpoints

@@ -183,6 +183,7 @@ void CModuleScripting::BindGameController() {
 		.set("changeDurationWidgetEffectSpecial", &CModuleGameController::changeDurationWidgetEffectSpecial)
 		.set("changeSpeedWidgetEffect", &CModuleGameController::changeSpeedWidgetEffect)
 		.set("exitGame", &CModuleGameController::exitGame)
+		.set("setResurrect", &CModuleGameController::setResurrect)
 		;
 }
 

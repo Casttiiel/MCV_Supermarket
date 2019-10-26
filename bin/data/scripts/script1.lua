@@ -1249,4 +1249,7 @@ function exitGame()
 	GameController:exitGame()
 end
 
+function setResurrect(value)
+	GameController:setResurrect(value)
+end
 

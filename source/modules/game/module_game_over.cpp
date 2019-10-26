@@ -29,13 +29,13 @@ bool CModuleGameOver::start()
 	TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
 	PowerType power = characterController->power_selected;
 	GameController.savePower(power);
-  CEntity* m_camera = getEntityByName("MainCamera");
-  TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
-  render_chromatic->update_amount = false;
-  render_chromatic->amount = 0.2f;
+	CEntity* m_camera = getEntityByName("MainCamera");
+	TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
+	render_chromatic->update_amount = false;
+	render_chromatic->amount = 0.2f;
+	GameController.setResurrect(true);
   
-  
-  return true;
+	return true;
 }
 
 void CModuleGameOver::update(float delta)
@@ -81,6 +81,10 @@ void CModuleGameOver::stop()
   CEntity* m_camera = getEntityByName("MainCamera");
   TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
   render_chromatic->update_amount = true;
+  //
+  Scripting.execActionDelayed("setResurrect(false)", 1.0);
+  
+  
 }
 
 void CModuleGameOver::renderInMenu()
