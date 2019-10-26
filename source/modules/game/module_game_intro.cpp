@@ -42,9 +42,10 @@ bool CModuleGameIntro::start()
 	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 54.0);
 	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 57.5);
 	Scripting.execActionDelayed("childAppears(\"LOAD_SCREEN\",true,true,0.0,1.0)", 60);
-	Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 61.5);
+    Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 61.5);
+    Scripting.execActionDelayed("GameController:updateSoundtrackID(2)", 62);
 
-
+    GameController.updateSoundtrackID(7);
 	/*
 	Scripting.execActionDelayed("stopWidgetEffectSpecial()", 2);
 	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(-0.85, 0.5)", 3);

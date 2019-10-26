@@ -299,7 +299,7 @@ function create_cupcakes_in_frost_player()
 	t_compSpawnOven3:setLifeSpawner(350.0);
 	
 
-	playAnnouncement('event:/UI/Announcements/Announcement4')
+	playAnnouncement('event:/UI/Announcements/Announcement4');
 
 	execDelayedAction("on_delete_handle(\"trigger010\")",0);
 
