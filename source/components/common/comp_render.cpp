@@ -162,3 +162,26 @@ void TCompRender::renderDebug() {
 
 }
 
+void TCompRender::setMaterial(const std::string &name, bool unMaterial) {
+	CMaterial * material = (CMaterial*)Resources.get(name)->as<CMaterial>();
+	if(unMaterial) {
+		for (auto& p : parts) {
+			if (!p.is_visible || !is_visible){
+				continue;
+			}
+			p.material = material;
+		}
+	}
+	else {
+		for (int i = 0; i < parts.size(); i++) {
+			if (i == 0) {
+				if (!parts[i].is_visible || !parts[i].is_visible) {
+					continue;
+				}
+				parts[i].material = material;
+			}
+		}
+	}
+	updateRenderManager();
+}
+

@@ -33,7 +33,7 @@ public:
   void load(const json& j, TEntityParseContext& ctx);
   void debugInMenu();
   void showMeshesWithState(int new_state);
-
+  void setMaterial(const std::string &name, bool unMaterial);
   void updateRenderManager();
 
   static void registerMsgs();

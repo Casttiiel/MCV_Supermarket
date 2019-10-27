@@ -6,6 +6,7 @@
 #include "components/common/comp_render.h"
 #include "modules/module_physics.h"
 #include "components/common/comp_name.h"
+#include "render/textures/material.h"
 using namespace physx;
 std::mt19937 ba_mt_ba(std::random_device{}());
 std::uniform_int_distribution<int> ba_mt_ba_dist(-4, 4);
@@ -51,6 +52,18 @@ void TCompBalance::balanceo() {
 		physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
 		rigid_dynamic->addForce(PxVec3(0, -900, 0), PxForceMode::eVELOCITY_CHANGE);
 	}*/
+	/*VHandles v_tp_joints = CTagsManager::get().getAllEntitiesByTag(getID("joints"));
+	for (const auto& entity : v_tp_joints) {
+		CEntity* e_entity = (CEntity*)entity;
+
+		TCompRender* comp_render = e_entity->get<TCompRender>();
+		for (auto& p : comp_render->parts) {
+			comp_render->setMaterial("data/materials/LAMPARA_PALITOS/mat_lampara_med_apagado.material",false);
+		}//negro.material
+
+	}
+	*/
+
 	if (!balanceoDone) {
 		getObjectManager<TCompBalance>()->forEach([](TCompBalance* di) {
 		TCompCollider* c_col = di->get<TCompCollider>();
@@ -64,11 +77,11 @@ void TCompBalance::balanceo() {
 		}
 		//rigid_dynamic->addForce(PxVec3(0, velocitiRandom, 0), PxForceMode::eVELOCITY_CHANGE);
 		});
+
 		balanceoDone = true;
 	}
 	
 }
-
 
 void TCompBalance::update(float dt) {
 	getObjectManager<TCompBalance>()->forEach([](TCompBalance* di) {
@@ -84,6 +97,25 @@ void TCompBalance::update(float dt) {
 			//rigid_dynamic->addForce(PxVec3(0, -1, 0), PxForceMode::eFORCE);
 		}
 	});
+}
+
+
+void TCompBalance::cambioTexturaJoint(bool apagado) {
+	VHandles v_tp_joints = CTagsManager::get().getAllEntitiesByTag(getID("joints"));
+	for (const auto& entity : v_tp_joints) {
+		CEntity* e_entity = (CEntity*)entity;
+
+		TCompRender* comp_render = e_entity->get<TCompRender>();
+		for (auto& p : comp_render->parts) {
+			if(apagado) {
+				comp_render->setMaterial("data/materials/LAMPARA_PALITOS/mat_lampara_med_apagado.material", false);
+			}
+			else {
+				comp_render->setMaterial("data/materials/LAMPARA_PALITOS/mat_lampara_med.material", false);
+			}
+		}
+
+	}
 }
 
 

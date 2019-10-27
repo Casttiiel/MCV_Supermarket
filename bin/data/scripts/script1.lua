@@ -1240,6 +1240,12 @@ function balanceoLampara(entityName)
 	t_lampara:balanceo();
 end
 
+function apagarEncenderLuz(value)
+	h_lampara =  GameController:entityByName("Joint001");
+	t_lampara = toCompBalance(toEntity(h_lampara):getCompByName("comp_balance"));
+	t_lampara:cambioTexturaJoint(value);
+end
+
 
 function resurrectionInGameOver()
 	GameController:resurrectionInGameOver()

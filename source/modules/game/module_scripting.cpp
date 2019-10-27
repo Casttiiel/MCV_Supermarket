@@ -404,7 +404,8 @@ void CModuleScripting::BindBalanceo() {
 	SLB::Class <TCompBalance>("TCompBalance", m)
 		.comment("TCompCamera wrapper")
 		.constructor()
-		.set("balanceo", &TCompBalance::balanceo);
+		.set("balanceo", &TCompBalance::balanceo)
+		.set("cambioTexturaJoint", &TCompBalance::cambioTexturaJoint);
 }
 
 

@@ -15,6 +15,7 @@ public:
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
   void balanceo();
+  void cambioTexturaJoint(bool apagado);
   static void registerMsgs();
 
 private:

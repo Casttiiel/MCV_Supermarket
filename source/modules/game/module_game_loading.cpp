@@ -30,7 +30,7 @@ void CModuleGameLoading::stop()
 {
 	//CEngine::get().getUI().deactivateWidgetClass("LOAD_SCREEN");
 	//deactivateWidget
-	Scripting.execActionDelayed("deactivateWidget(\"LOAD_SCREEN\")",2.20);
+	Scripting.execActionDelayed("deactivateWidget(\"LOAD_SCREEN\")",2.31);
 	
 }
 
