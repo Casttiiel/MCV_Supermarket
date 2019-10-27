@@ -120,6 +120,11 @@ private:
 	float damageTimer = 0;
 	float damageDelay = 1.0;
 
+
+	//testing
+	float timerMax = 2.0f;
+	float timer = timerMax;
+
 	//navmesh values
 	bool use_navmesh = true;
 	float reevaluatePathTimer= 0;

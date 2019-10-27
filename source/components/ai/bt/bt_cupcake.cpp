@@ -15,6 +15,7 @@
 #include "components/ai/others/self_destroy.h"
 #include "components/vfx/comp_death_billboard.h"
 #include "random"
+#include "components/animation/comp_cupcake.h"
 
 using namespace physx;
 std::mt19937 bt_cup(1942);
@@ -60,6 +61,8 @@ void CBTCupcake::create(string s)//crear el arbol
 	if (!h_player.isValid()) {
 		h_player = GameController.getPlayerHandle();
 	}
+
+
 
 }
 
@@ -1057,6 +1060,8 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 		TCompRigidBody* c_rb = get<TCompRigidBody>();
 		c_rb->jump(VEC3(0, jumpForce, 0));
 		view_point = false;
+
+
 	}
 
 	//UPDATE DIR
@@ -1139,6 +1144,18 @@ void CBTCupcake::generateNavmesh(VEC3 initPos, VEC3 destPos, bool recalc)
 
 
 void CBTCupcake::updateBT() {
+	/* //TODO: descomentar si en algun momento la animacion funciona
+	if (timer <= 0) {
+		
+		TCompCupcakeAnimator* cupcakeAnimator = get<TCompCupcakeAnimator>();
+		cupcakeAnimator->playAnimation(TCompCupcakeAnimator::CUPCAKE_JUMP, 1.f);
+		timer = timerMax;
+	}
+	else {
+		timer -= dt;
+	}
+	*/
+
 
 	//--------------------------navmesh
 	TCompTransform* c_trans = get<TCompTransform>();
