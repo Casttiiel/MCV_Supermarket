@@ -373,9 +373,14 @@ void TCompCharacterController::grounded(float delta) {
 				} 
 				else if (power_selected == PowerType::FIRE) {
 					changeWeaponMesh(WeaponMesh::EXTINTOR);
+				} 
+				else if (power_selected == PowerType::MELEE) {
+					changeWeaponMesh(WeaponMesh::MOP);
 				}
     }
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
+			 power_selected = last_power_selected; //esto sera o la pila o el scanner
+			 last_power_selected = power_selected; //actualizamos por si cambiamos de arma mientras disparamos
         shoot();
     }
     if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f && !aiming) {//DASH
@@ -402,15 +407,26 @@ void TCompCharacterController::grounded(float delta) {
     }
     else if (EngineInput["attack_"].isPressed() && meleeTimer <= 0) {//CHARGED ATTACK
         //If the button is pressed for chargedAttack_buttonPressThreshold or more, player is holding the button
+			if (power_selected != PowerType::FIRE && power_selected != PowerType::MELEE) {
+				last_power_selected = power_selected; //lo guardamos para cuando el jugador se canse del extintor
+			}
+			power_selected = PowerType::MELEE;
         if (chargedAttack_buttonPressTimer >= chargedAttack_buttonPressThreshold) {
             //Player is holding the button
             ChangeState("CHARGED_ATTACK");
         }
         else {
             chargedAttack_buttonPressTimer += Time.delta_unscaled;
+						
         }
     }
     else if (EngineInput["attack_"].justReleased() && meleeTimer <= 0) {//ATTACK
+
+			if (power_selected != PowerType::FIRE && power_selected != PowerType::MELEE) {
+				last_power_selected = power_selected; 
+			}
+			power_selected = PowerType::MELEE;
+
         if (chargedAttack_buttonPressTimer <= chargedAttack_buttonPressThreshold) {
             chargedAttack_buttonPressTimer = 0.f;
             //Player didn't hold the button
@@ -428,7 +444,7 @@ void TCompCharacterController::grounded(float delta) {
         playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f);
     }
     else if (EngineInput["fire_attack_"].isPressed() && inventory->getChilli()) { //FIRE
-				if (power_selected != PowerType::FIRE) {
+				if (power_selected != PowerType::FIRE && power_selected != PowerType::MELEE) {
 					last_power_selected = power_selected; //lo guardamos para cuando el jugador se canse del extintor
 				}
 				power_selected = PowerType::FIRE; //TODO: LO LOGICO SERA ACTIVAR ESTO Y QUE PARA CAMBIAR DE ARMA HAYA QUE SELECCIONAR OTRA
@@ -907,7 +923,7 @@ bool TCompCharacterController::isGrounded() {
 void TCompCharacterController::powerSelection() {
   if (EngineInput["select_teleport_"].justPressed()) { //teleport
     power_selected = PowerType::TELEPORT; 
-
+		last_power_selected = power_selected;
 		changeWeaponMesh(WeaponMesh::SCANNER);
 	
 	//GameController.bindInCurve("Line002","DebugCamera"); //prueba generacion de componente curva dinamico
@@ -921,6 +937,7 @@ void TCompCharacterController::powerSelection() {
   }
   else if (EngineInput["select_battery_"].justPressed()) { //bateria
     power_selected = PowerType::BATTERY;
+		last_power_selected = power_selected;
 
 		changeWeaponMesh(WeaponMesh::BATTERTY);
 	/*TCompTransform* c_trans = get<TCompTransform>();
