@@ -107,6 +107,7 @@
     <ClCompile Include="components\vfx\comp_bolt_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_sphere.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_sphere_oven.cpp" />
+    <ClCompile Include="components\vfx\comp_boom_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_death_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_dust.cpp" />
     <ClCompile Include="components\vfx\comp_fire_follow.cpp" />
@@ -365,6 +366,7 @@
     <ClInclude Include="components\vfx\comp_bolt_billboard.h" />
     <ClInclude Include="components\vfx\comp_bolt_sphere.h" />
     <ClInclude Include="components\vfx\comp_bolt_sphere_oven.h" />
+    <ClInclude Include="components\vfx\comp_boom_billboard.h" />
     <ClInclude Include="components\vfx\comp_death_billboard.h" />
     <ClInclude Include="components\vfx\comp_dust.h" />
     <ClInclude Include="components\vfx\comp_fire_follow.h" />
@@ -517,6 +519,7 @@
     <ClInclude Include="render\textures\material_mixing.h" />
     <ClInclude Include="render\textures\render_to_texture.h" />
     <ClInclude Include="render\textures\texture.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="resources\resource.h" />
     <ClInclude Include="skeleton\bone_correction.h" />
     <ClInclude Include="skeleton\cal3d2engine.h" />
@@ -588,6 +591,12 @@
       <Project>{f13518a5-98d4-48a8-98ed-81b5e9d70bce}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\bin\data\textures\icono.ico" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{BFB70905-C73E-4364-832D-3143B8CE1528}</ProjectGuid>
@@ -626,10 +635,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(SolutionDir)..\Build\$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
+    <TargetName>MadnessInStock</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)..\Build\$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
+    <TargetName>MadnessInStock</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

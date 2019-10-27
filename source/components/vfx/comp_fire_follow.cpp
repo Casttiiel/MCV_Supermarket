@@ -20,14 +20,15 @@ void TCompFireFollow::update(float delta) {
   CEntity* ex = getEntityByName("Anti_extintor");
   if (!en && !ex)
       return;
-  TCompTransform* c_trans_pl = ex->get<TCompTransform>();
+  TCompTransform* c_trans_ex = ex->get<TCompTransform>();
+  TCompTransform* c_trans_pl = en->get<TCompTransform>();
   //emision position
 
   TCompBuffers* c_buff = get<TCompBuffers>();
   if (c_buff) {
     auto buf = c_buff->getCteByName("TCtesParticles");
     CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-    data->emitter_center = c_trans_pl->getPosition();
+    data->emitter_center = c_trans_ex->getPosition();
 
     TCompCharacterController* p_contr = en->get<TCompCharacterController>();
     if (p_contr->aiming) { //emision direction

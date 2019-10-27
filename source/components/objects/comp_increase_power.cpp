@@ -89,6 +89,13 @@ void TCompIncreasePower::enable(const TMsgEntityTriggerEnter & msg) {
 			b_cursor->setCurrentState("option_teleport");
 		}
 
+
+    CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+    TMsgOnomPet msgonom;
+    msgonom.type = 3.0f;
+    TCompTransform* c_trans2 = get<TCompTransform>();
+    msgonom.pos = c_trans2->getPosition();
+    onom_manager->sendMsg(msgonom);
 		
 	}
 }

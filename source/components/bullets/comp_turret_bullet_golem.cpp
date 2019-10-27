@@ -100,6 +100,13 @@ void TCompTurretBulletGolem::renderDebug() {
 }
 
 void TCompTurretBulletGolem::destroy() {
+  CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+  TMsgOnomPet msgonom;
+  msgonom.type = 5.0f;
+  TCompTransform* c_trans2 = get<TCompTransform>();
+  msgonom.pos = c_trans2->getPosition();
+  onom_manager->sendMsg(msgonom);
+
   CHandle(this).getOwner().destroy();
   CHandle(this).destroy();
 }
