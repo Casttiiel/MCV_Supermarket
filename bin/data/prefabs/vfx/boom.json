@@ -16,9 +16,19 @@
       },
       "comp_self_destroy" : {
         "_isEnabled": true,
-        "_selfDestructDelay": 2.0
+        "_selfDestructDelay": 1.0
       },
-      "boom_billboard":{}
+      "boom_billboard":{},
+      "scalable":{
+        "final_scale": 5.0,
+        "time_to_scale": 0.2
+      },
+      "buffers" : {
+        "TCtesBoom" : {
+          "total_bytes" : 16,
+          "slot" : 13
+        }
+      }
     }
   }
 ]

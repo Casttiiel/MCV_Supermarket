@@ -16,6 +16,7 @@ using namespace physx;
 
 DECL_OBJ_MANAGER("comp_melee_trigger", TCompMeleeTrigger);
 void TCompMeleeTrigger::debugInMenu() {
+  ImGui::LabelText("Enemies: ", "%d", _currentEnemies.size());
 }
 
 void TCompMeleeTrigger::load(const json& j, TEntityParseContext& ctx) {
@@ -33,15 +34,15 @@ void TCompMeleeTrigger::onCollision(const TMsgEntityTriggerEnter& msg) {
   if (c_c == nullptr)
     return;
   bool attacking = c_c->getAttacking();
- 
-  if (attacking) {
+  if (attacking && std::find(_enemiesHit.begin(), _enemiesHit.end(), msg.h_entity) == _enemiesHit.end()) { //si atacas y no le has golpeado aun...
     TMsgMeleeHit meleeHit;
     meleeHit.h_entity = msg.h_entity;
     player->sendMsg(meleeHit);
     EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
     expansiveWave();
+    _enemiesHit.push_back(msg.h_entity);
   }
-  else {
+  else if(!attacking && std::find(_currentEnemies.begin(), _currentEnemies.end(), msg.h_entity) == _currentEnemies.end()) { // si no estas atacando y no "estaba" ya dentro, lo metes en los candidatos
     _currentEnemies.push_back(msg.h_entity);
   }
 }
@@ -62,18 +63,39 @@ void TCompMeleeTrigger::update(float delta) {
   if (c_c == nullptr)
     return;
   bool attacking = c_c->getAttacking();
-  if (attacking != before && attacking) { // si empiezas a atacar
-    
-    for (int i = 0; i < _currentEnemies.size(); i++) {
-      TMsgMeleeHit meleeHit;
-      meleeHit.h_entity = _currentEnemies[i];
-      if(meleeHit.h_entity.isValid())
-        player->sendMsg(meleeHit);
-    }
+  if (attacking && !before) {
     if (_currentEnemies.size() > 0) {
       EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
       expansiveWave();
+      expansiveWaveJoints();
+      hitDisplay = true;
     }
+  }
+
+  if (attacking) { // si estas atacando
+    
+    if (_currentEnemies.size() > 0 && !hitDisplay) {
+      EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
+      expansiveWave();
+      expansiveWaveJoints();
+      hitDisplay = true;
+    }
+
+    for (int i = 0; i < _currentEnemies.size(); i++) {
+      TMsgMeleeHit meleeHit;
+      meleeHit.h_entity = _currentEnemies[i];
+      if (meleeHit.h_entity.isValid()) {
+        player->sendMsg(meleeHit);
+      }
+      _currentEnemies.erase(_currentEnemies.begin() + i);
+      i--;
+      _enemiesHit.push_back(meleeHit.h_entity);
+    }
+  }
+  else if (!attacking && before) {
+    _enemiesHit.clear();
+    _currentEnemies.clear();
+    hitDisplay = false;
   }
 
   before = attacking;
@@ -97,6 +119,45 @@ void TCompMeleeTrigger::expansiveWave() {
   PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
   PxSphereGeometry geometry(5.0f);
   const PxU32 bufferSize = 256;
+  PxOverlapHit hitBuffer[bufferSize];
+  PxOverlapBuffer buf(hitBuffer, bufferSize);
+  PxTransform shapePose = PxTransform(pos, ori);
+  PxQueryFilterData filter_data = PxQueryFilterData();
+  filter_data.data.word0 = EnginePhysics.Product;
+  bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
+  if (res) {
+    for (PxU32 i = 0; i < buf.nbTouches; i++) {
+      CHandle h_comp_physics;
+      h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
+      CEntity* entityContact = h_comp_physics.getOwner();
+      if (entityContact) {
+        TMsgDamage msg;
+        // Who sent this bullet
+        msg.h_sender = CHandle(this).getOwner();
+        msg.h_bullet = CHandle(this).getOwner();
+        msg.position = c_trans->getPosition() + VEC3::Up;
+        msg.senderType = PLAYER;
+        msg.intensityDamage = 5.0f;
+        msg.impactForce = 5.0f;
+        msg.damageType = MELEE;
+        msg.targetType = ENEMIES;
+        entityContact->sendMsg(msg);
+      }
+    }
+  }
+}
+
+
+void TCompMeleeTrigger::expansiveWaveJoints() {
+  CEntity* player = getEntityByName("Player");
+  TCompTransform* c_trans = player->get<TCompTransform>();
+
+  VEC3 pos3 = c_trans->getPosition() + VEC3(0, 10, 0);
+
+  PxVec3 pos = VEC3_TO_PXVEC3(pos3);
+  PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+  PxSphereGeometry geometry(25.0f);
+  const PxU32 bufferSize = 16;
   PxOverlapHit hitBuffer[bufferSize];
   PxOverlapBuffer buf(hitBuffer, bufferSize);
   PxTransform shapePose = PxTransform(pos, ori);

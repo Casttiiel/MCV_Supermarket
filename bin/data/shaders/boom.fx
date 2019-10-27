@@ -3,6 +3,12 @@
 //--------------------------------------------------------------------------------------
 #include "common.fx"
 
+SHADER_CTE_BUFFER(TCtesBoom, CTE_BUFFER_SLOT_COMP_BUFFERS)
+{
+  float  alpha;
+  float3 dummy;
+};
+
 //--------------------------------------------------------------------------------------
 struct VS_OUTPUT
 {
@@ -57,6 +63,7 @@ void PS(VS_OUTPUT input
   //end comic shading
   //-------------------
   tex.xyz -= dots.xyz;
+  tex.a = alpha;
 
   o_deferred = tex;
 }

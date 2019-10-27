@@ -293,8 +293,8 @@ void TCompSCartController::expansiveWave() {
         msg.h_bullet = CHandle(this).getOwner();
         msg.position = c_trans->getPosition() + VEC3::Up;
         msg.senderType = PLAYER;
-        msg.intensityDamage = 5.0f;
-        msg.impactForce = 5.0f;
+        msg.intensityDamage = 10.0f;
+        msg.impactForce = 10.0f;
         msg.damageType = MELEE;
         msg.targetType = ENEMIES;
         entityContact->sendMsg(msg);
