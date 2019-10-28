@@ -443,7 +443,7 @@ void TCompPlayerAnimator::initializeAnimations() {
 
     initializeAnimation(
         (TCompAnimator::EAnimation)EAnimation::CHARGED_MELEE_LOOP,
-        EAnimationType::ACTION,
+        EAnimationType::CYCLIC,
         EAnimationSize::SINGLE,
         "CHARGED_MELEE_LOOP",
         "",
@@ -465,7 +465,7 @@ void TCompPlayerAnimator::initializeAnimations() {
 
     initializeAnimation(
         (TCompAnimator::EAnimation)EAnimation::SCART_IDLE,
-        EAnimationType::ACTION,
+        EAnimationType::CYCLIC,
         EAnimationSize::SINGLE,
         "SCART_IDLE",
         "",
@@ -487,7 +487,7 @@ void TCompPlayerAnimator::initializeAnimations() {
 
     initializeAnimation(
         (TCompAnimator::EAnimation)EAnimation::SCART_LEFT_LOOP,
-        EAnimationType::ACTION,
+        EAnimationType::CYCLIC,
         EAnimationSize::SINGLE,
         "SCART_LEFT_LOOP",
         "",
@@ -520,7 +520,7 @@ void TCompPlayerAnimator::initializeAnimations() {
 
     initializeAnimation(
         (TCompAnimator::EAnimation)EAnimation::SCART_RIGHT_LOOP,
-        EAnimationType::ACTION,
+        EAnimationType::CYCLIC,
         EAnimationSize::SINGLE,
         "SCART_RIGHT_LOOP",
         "",
