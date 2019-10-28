@@ -410,9 +410,15 @@ void TCompCharacterController::grounded(float delta) {
             //Player is holding the button
             ChangeState("CHARGED_ATTACK");
             TCompSkeleton* c_skel = get<TCompSkeleton>();
-            c_skel->clearAnimations();
+            //c_skel->clearAnimations();
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_POSE, 1.0f);
+            if (!footSteps.getPaused()) {
+                footSteps.setPaused(true);
+            }
+            if (!footStepsSlow.getPaused()) {
+                footStepsSlow.setPaused(true);
+            }
         }
         else {
             chargedAttack_buttonPressTimer += Time.delta_unscaled;
@@ -1082,12 +1088,12 @@ void TCompCharacterController::chargedAttack(float delta) {
         if (chargedAttack_buttonPressTimer >= chargedAttack_chargeDelay) {
             dbg("Player executes CHARGED_ATTACK\n");
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.7f);
+            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.8f);
             //Execute animation, should have root motion and deal the damage the moment it connects with the ground
             TCompRigidBody* c_rbody = get<TCompRigidBody>();
             if (!c_rbody)
                 return;
-            EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
+            EngineAudio.playEvent("event:/Character/Attacks/ChargedAttack");
             //c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
             inCombatTimer = inCombatDuration;
             TCompTransform* c_trans = get<TCompTransform>();
@@ -1100,6 +1106,7 @@ void TCompCharacterController::chargedAttack(float delta) {
             msg.intensityDamage = chargedAttack_damage;
 			msg.impactForce = chargedAttack_impactForce;
             GameController.generateDamageSphere(c_trans->getPosition(), chargedAttack_radius, msg, "enemy");
+            GameController.generateDamageSphere(c_trans->getPosition() + 1.5f * c_trans->getFront(), chargedAttack_radius, msg, "enemy");
             GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
             //stop charging
             chargedAttack_buttonPressTimer = 0.f;
@@ -1114,8 +1121,6 @@ void TCompCharacterController::chargedAttack(float delta) {
         if (EngineInput["attack_"].justReleased() && chargedAttack_buttonPressTimer < chargedAttack_chargeDelay) {
             //stop charging
             chargedAttack_buttonPressTimer = 0.f;
-            //reset speed
-            speed = base_speed;
             dbg("Player stops charging CHARGED_ATTACK.\n");
             ChangeState("GROUNDED");
         }
