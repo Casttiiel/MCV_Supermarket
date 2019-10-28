@@ -69,29 +69,29 @@ void TCompEnemySpawner::onBattery(const TMsgGravity & msg) {
 		ctx.root_transform.setPosition(ctx.root_transform.getPosition() + VEC3(0, 1.8f, 0));
 
 		parseScene("data/particles/spark_particles_oven.json", ctx);
-    CEntity* e = ctx.entities_loaded[0];
-    TCompBuffers* c_b = e->get<TCompBuffers>();
-    if (c_b) {
-      auto buf = c_b->getCteByName("TCtesParticles");
-      CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
-      data->emitter_center = ctx.root_transform.getPosition() + (ctx.root_transform.getFront() * 2.0f) + ctx.root_transform.getLeft() * 1.7f;
-      data->updateGPU();
-    }
+		CEntity* e = ctx.entities_loaded[0];
+		TCompBuffers* c_b = e->get<TCompBuffers>();
+		if (c_b) {
+			auto buf = c_b->getCteByName("TCtesParticles");
+			CCteBuffer<TCtesParticles>* data = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf);
+			data->emitter_center = ctx.root_transform.getPosition() + (ctx.root_transform.getFront() * 2.0f) + ctx.root_transform.getLeft() * 1.7f;
+			data->updateGPU();
+		}
 
-    TEntityParseContext ctx2;
-    VEC3 pos = c_trans->getPosition() + VEC3(0, 1.8f, 0) - c_trans->getLeft() * 0.1f;
+		TEntityParseContext ctx2;
+		VEC3 pos = c_trans->getPosition() + VEC3(0, 1.8f, 0) - c_trans->getLeft() * 0.1f;
+		
+		parseScene("data/particles/oven_particles.json", ctx2);
+		CEntity* e2 = ctx2.entities_loaded[0];
+		TCompBuffers* c_b2 = e2->get<TCompBuffers>();
+		if (c_b2) {
+		  auto buf2 = c_b2->getCteByName("TCtesParticles");
+		  CCteBuffer<TCtesParticles>* data2 = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf2);
+		  data2->emitter_center = pos;
+		  data2->updateGPU();
+		}
 
-    parseScene("data/particles/oven_particles.json", ctx2);
-    CEntity* e2 = ctx2.entities_loaded[0];
-    TCompBuffers* c_b2 = e2->get<TCompBuffers>();
-    if (c_b2) {
-      auto buf2 = c_b2->getCteByName("TCtesParticles");
-      CCteBuffer<TCtesParticles>* data2 = dynamic_cast<CCteBuffer<TCtesParticles>*>(buf2);
-      data2->emitter_center = pos;
-      data2->updateGPU();
-    }
-
-    audio.stop();
+		audio.stop();
 		audio = EngineAudio.playEvent("event:/Enemies/Hazards/Oven/Oven_Broken_Loop");
 		TCompPropAnimator* animator = get<TCompPropAnimator>();
 		animator->playAnimation(TCompPropAnimator::OVEN_MEDIO_ABIERTO, 1.f);
