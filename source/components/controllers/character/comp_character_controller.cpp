@@ -1100,6 +1100,9 @@ void TCompCharacterController::attack(float delta) {
 }
 
 void TCompCharacterController::chargedAttack(float delta) {
+
+	changeWeaponMesh(WeaponMesh::MOP);
+
     //If the button is released
     if (EngineInput["attack_"].justReleased()) {
         //If the chargedAttack_buttonPressTimer is greater than chargedAttack_chargeDelay, launch the attack
@@ -1122,7 +1125,7 @@ void TCompCharacterController::chargedAttack(float delta) {
             msg.damageType = PowerType::CHARGED_ATTACK;
             msg.position = c_trans->getPosition() + VEC3::Up;
             msg.intensityDamage = chargedAttack_damage;
-			msg.impactForce = chargedAttack_impactForce;
+						msg.impactForce = chargedAttack_impactForce;
             GameController.generateDamageSphere(c_trans->getPosition(), chargedAttack_radius, msg, "enemy");
             GameController.generateDamageSphere(c_trans->getPosition() + 1.5f * c_trans->getFront(), chargedAttack_radius, msg, "enemy");
             GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
