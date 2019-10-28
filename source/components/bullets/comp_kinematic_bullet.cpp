@@ -23,6 +23,7 @@ void TCompKinematicBullet::load(const json& j, TEntityParseContext& ctx) {
     _destroyOnCollission = j.value("_destroyOnCollission", _destroyOnCollission);
     _requestAudioPermission = j.value("_requestAudioPermission", _requestAudioPermission);
     _audioOnHit = j.value("_audioOnHit", _audioOnHit);
+    comicfeed = j.value("comicFeed", comicfeed);
 }
 
 void TCompKinematicBullet::registerMsgs() {
@@ -127,6 +128,15 @@ void TCompKinematicBullet::renderDebug() {
 }
 
 void TCompKinematicBullet::destroy() {
-    CHandle(this).getOwner().destroy();
-    CHandle(this).destroy();
+  if (comicfeed) {
+    CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+    TMsgOnomPet msgonom;
+    msgonom.type = 5.0f;
+    TCompTransform* c_trans2 = get<TCompTransform>();
+    msgonom.pos = c_trans2->getPosition();
+    onom_manager->sendMsg(msgonom);
+  }
+
+  CHandle(this).getOwner().destroy();
+  CHandle(this).destroy();
 }

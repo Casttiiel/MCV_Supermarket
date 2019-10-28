@@ -60,7 +60,9 @@ void TCompHierarchy::update(float dt) {
   TCompTransform* c_my_transform = h_my_transform;
   assert(c_my_transform);
   // Combine the current world transform with my 
+  float currentScale = c_my_transform->getScale();
   c_my_transform->set(c_parent_transform->combineWith(*this) );
+  c_my_transform->setScale(currentScale);
   //Nuevo:Mover collider a donde esta la transform
   TCompCollider* col = get<TCompCollider>();
   if (col) {

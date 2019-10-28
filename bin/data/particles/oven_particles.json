@@ -6,8 +6,10 @@
       "transform": {
         "pos": "0 0 0",
         "rotation": "0.0 0.0 0.0 1.0"
-      }
-      ,
+      },
+	  "comp_self_destroy" : {
+        "_isEnabled": false
+      },
       "render":
       {
         "mesh": "unit_quad_xy_centered.mesh",
@@ -47,18 +49,18 @@
         },
         "TCtesParticles" : {
           "desc" : "Cte buffer to control emission parameters and update parameters",
-          "time_between_spawns" : 0.16,
-          "num_particles_per_spawn" : 100,
-          "center_radius" : 1.0,
-          "dir_aperture" : 2.0,
-          "emitter_dir" : "0 0 0",
+          "time_between_spawns" : 0.1,
+          "num_particles_per_spawn" : 50,
+          "center_radius" : 2.0,
+          "dir_aperture" : 0.5,
+          "emitter_dir" : "0 1 0",
           "speed" : "0.8 0.9",
-          "duration" : "0.68 0.74",
+          "duration" : "3.0 6.0",
           "pos" : "0 0 0",
           "colors" : [
             [0.0, "0.1 0.1 0.1 0.0"],
             [0.5, "0.1 0.1 0.1 1.0"],
-            [0.8, "0.1 0.1 0.1 1.0"],
+            [0.9, "0.1 0.1 0.1 1.0"],
             [1.0, "0.1 0.1 0.1 0.0"]
           ],
           "sizes": [
@@ -86,7 +88,10 @@
           "swap_b" : "instances_active"
         }
       ],
-      "num_instances": "indirect_draw"
+      "num_instances": "indirect_draw",
+	  "tags": [
+				"spark_particle_oven"
+			]
     }
   }
 ]

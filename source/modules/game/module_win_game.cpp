@@ -13,10 +13,15 @@ bool CModuleWinGame::start()
 {
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
-		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.0);
+		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
+		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",0);
+		Scripting.execActionDelayed("changeSpeedWidgetEffect(\"CREDITS\",\"effectAnimateCredit\",0,0.012)", 1);
+		Scripting.execActionDelayed("stopWidgetEffect(\"CREDITS\",\"effectAnimateCredit\")", 72);
+		Scripting.execActionDelayed("exitGame()",100);
+
 	}
 	else {
-		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.0);
+		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 	}
 
     return true;
@@ -24,12 +29,12 @@ bool CModuleWinGame::start()
 
 void CModuleWinGame::update(float delta)
 {
-	timeOffModuleGameWin--;
+	/*timeOffModuleGameWin--;
 	if (timeOffModuleGameWin <= 0.f) {
 		//GameController.changeGameState("gs_main_menu");
 		auto& app = CApplication::get();
 		DestroyWindow(app.getHandle());
-	}
+	}*/
 
 	
 }

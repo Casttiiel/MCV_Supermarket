@@ -103,6 +103,7 @@ void CModuleScripting::doBingings() {
 	BindFlickering();
 	BindCharacterController();
 	BindBalanceo();
+	BindDirectionalLights();
 }
 
 
@@ -170,7 +171,20 @@ void CModuleScripting::BindGameController() {
 		.set("changeGameState", &CModuleGameController::changeGameState)
 		.set("deactivateWidget", &CModuleGameController::deactivateWidget)
 		.set("activateWidget", &CModuleGameController::activateWidget)
+		.set("childAppears", &CModuleGameController::childAppears)
 		.set("loadCheckpoint", &CModuleGameController::loadCheckpoint)
+		.set("changeShadowsEnabledJoint", &CModuleGameController::changeShadowsEnabledJoint)
+		.set("changeLightsIntensityJoint", &CModuleGameController::changeLightsIntensityJoint)
+		.set("changeLightsIntensityJoint", &CModuleGameController::changeLightsIntensityJoint)
+		.set("resurrectionInGameOver", &CModuleGameController::resurrectionInGameOver)
+		.set("stopWidgetEffect", &CModuleGameController::stopWidgetEffect)
+		.set("stopWidgetEffectSpecial", &CModuleGameController::stopWidgetEffectSpecial)
+		.set("changeSpeedWidgetEffectSpecial", &CModuleGameController::changeSpeedWidgetEffectSpecial)
+		.set("changeDurationWidgetEffectSpecial", &CModuleGameController::changeDurationWidgetEffectSpecial)
+		.set("changeSpeedWidgetEffect", &CModuleGameController::changeSpeedWidgetEffect)
+		.set("exitGame", &CModuleGameController::exitGame)
+		.set("setResurrect", &CModuleGameController::setResurrect)
+		.set("setBloomInCam", &CModuleGameController::setBloomInCam)
 		;
 }
 
@@ -192,6 +206,7 @@ void CModuleScripting::BindConverters() {
 	m->set("toCompFlickering", SLB::FuncCall::create(&toCompFlickering));
 	m->set("toCompCharacterController_", SLB::FuncCall::create(&toCompCharacterController_));
 	m->set("toCompBalance", SLB::FuncCall::create(&toCompBalance));
+	m->set("toCompLightDir", SLB::FuncCall::create(&toCompLightDir));
 	//toCBTGolem
 	//m->set("toCompCharacterController", SLB::FuncCall::create(&toCompCharacterController));
 }
@@ -223,8 +238,17 @@ void CModuleScripting::BindSkeleton() {
 
 void CModuleScripting::BindPointLights() {
 	SLB::Class<TCompLightPoint>("TCompLightPoint", m)
-		.comment("This is our wrapper of lights class")
+		.comment("This is our wrapper of point lights class")
 		.set("setIntensity", &TCompLightPoint::setIntensity)
+		;
+}
+
+
+void CModuleScripting::BindDirectionalLights() {
+	SLB::Class<TCompLightDir>("TCompLightDir", m)
+		.comment("This is our wrapper of lights class")
+		.set("setIntensity", &TCompLightDir::setIntensity)
+		.set("setShadowEnabled", &TCompLightDir::setShadowEnabled)
 		;
 }
 
@@ -380,7 +404,8 @@ void CModuleScripting::BindBalanceo() {
 	SLB::Class <TCompBalance>("TCompBalance", m)
 		.comment("TCompCamera wrapper")
 		.constructor()
-		.set("balanceo", &TCompBalance::balanceo);
+		.set("balanceo", &TCompBalance::balanceo)
+		.set("cambioTexturaJoint", &TCompBalance::cambioTexturaJoint);
 }
 
 

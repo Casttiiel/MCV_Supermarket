@@ -29,6 +29,7 @@
   "objs_skin": {
     "vs_fx": "data/shaders/pbr.fx",
     "vs": "VS_skin",
+    "ps": "PS_alpha",
     "vdecl": "PosNUvTanSkin"
   },
   "objs_mix": {
@@ -68,6 +69,15 @@
     "vs_fx": "data/shaders/gpu_particles_death.fx",
     "vdecl": "PosUvColor",
     "blend": "additive_by_src_alpha",
+    "z": "test_but_no_write",
+    "gpu_buffers": {
+      "instances": 0
+    }
+  },
+  "particles_soja_num_instances": {
+    "vs_fx": "data/shaders/gpu_particles_soja.fx",
+    "vdecl": "PosUvColor",
+    "blend": "combinative",
     "z": "test_but_no_write",
     "gpu_buffers": {
       "instances": 0
@@ -463,6 +473,10 @@
     "cs": "cs_particles_onom_update",
     "cs_fx": "data/shaders/gpu_particles_onomatopoeia.fx"
   },
+  "cs_particles_soja_update": {
+    "cs": "cs_particles_soja_update",
+    "cs_fx": "data/shaders/gpu_particles_soja.fx"
+  },
   "cs_particles_fire_update": {
     "cs": "cs_particles_fire_update",
     "cs_fx": "data/shaders/gpu_particles_fire.fx"
@@ -470,6 +484,10 @@
   "cs_particles_fire_outside_spawn": {
     "cs": "cs_particles_fire_outside_spawn",
     "cs_fx": "data/shaders/gpu_particles_fire.fx"
+  },
+  "cs_particles_soja_explosion_spawn": {
+    "cs": "cs_particles_soja_explosion_spawn",
+    "cs_fx": "data/shaders/gpu_particles_soja.fx"
   },
   "cs_particles_fire_explosion_spawn": {
     "cs": "cs_particles_fire_explosion_spawn",
@@ -529,7 +547,6 @@
   "bleach": {
     "vs_fx": "data/shaders/bleach.fx",
     "vdecl": "PosNUvT",
-    "ps_fx": "data/shaders/pbr.fx",
     "noise": "data/textures/noise_cloud2.dds",
     "ctes_buffers":{
       "TCtesBleach": 13
@@ -575,6 +592,15 @@
     "rs": "cull_none",
     "blend": "additive",
     "z": "test_but_no_write"
+  },
+  "boom": {
+    "vs_fx": "data/shaders/boom.fx",
+    "vdecl": "PosUvColor",
+    "blend": "combinative",
+    "noise": "data/textures/vfx/shadowcomic.dds",
+    "ctes_buffers": {
+      "TCtesBoom": 13
+    }
   },
   "electric": {
     "vs_fx": "data/shaders/electric.fx",

@@ -19,6 +19,8 @@
 #include "components/common/comp_light_point.h"
 #include "components/vfx/comp_flickering.h"
 #include "components/objects/comp_balance.h"
+#include "components/common/comp_light_dir.h"
+#include "ui/ui_widget.h"
 
 
 class CBTCupcake;
@@ -34,7 +36,8 @@ class CModuleGameController : public IModule
     //Storage of entity status
     CCheckpoint* _lastCheckpoint;
     bool god_mode = false;
-	  bool invisible_block_cursor = false;
+	bool invisible_block_cursor = false;
+	bool resurrect = false;
 
     CModuleGameplayFragment* gf;
 
@@ -53,7 +56,7 @@ class CModuleGameController : public IModule
     void renderInMenu();
     void updateGameCondition();
 
-	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(176,4 ,-17),VEC3(2,7 ,-1),VEC3(14, 15,-6),VEC3(-69,2,-114),VEC3(-83,5,-212), VEC3(-122,46,-223) };
+	std::vector<VEC3> positionAreas{VEC3(414.479,-26.2468,-49.352),VEC3(54,2,-55),VEC3(176,4 ,-17),VEC3(2,7 ,-1),VEC3(14, 15,-6),VEC3(-69,2,-114),VEC3(-83,5,-212), VEC3(-122,46,-223) };
 	int positionCheat = 0;
     
     //void switchState(PauseState pause);
@@ -108,7 +111,9 @@ public:
     //PauseState getCurrentState();
 	  CHandle getPlayerHandle();
     bool getGodMode() { return god_mode; }
+	bool getResurrect() { return resurrect; }
 	void setGodMode(bool _god_mode);
+	void setResurrect(bool _resurrect);
 	bool getInvisibleBlock() { return invisible_block_cursor; }
 
 	//Checkpoints
@@ -116,6 +121,8 @@ public:
     bool loadCheckpoint();
     bool deleteCheckpoint();
     bool isCheckpointSaved();
+	PowerType getPowerSelected();
+	void savePower(PowerType power);
     void wakeUpWinds();
 	//End Checkpoints
 
@@ -265,6 +272,20 @@ public:
 	void changeGameState(std::string name);
 	void deactivateWidget(std::string name);
 	void activateWidget(std::string name);
+	void childAppears(std::string name, bool getFromChildren, bool alfaPos, float valueIni, float valueFin);
+
+
+	void changeShadowsEnabledJoint(bool value);
+	void changeLightsIntensityJoint(float value);
+
+	void stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect);
+	void changeSpeedWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect, float x, float y);
+	void stopWidgetEffectSpecial();
+	void changeSpeedWidgetEffectSpecial(float x, float y);
+	void changeDurationWidgetEffectSpecial(float duration);
+	void resurrectionInGameOver();
+	void exitGame();
+	void setBloomInCam(bool value);
 };
 
 
@@ -287,3 +308,4 @@ TCompLightPoint* toCompLightPoint(CHandle h);
 TCompFlickering* toCompFlickering(CHandle h);
 TCompCharacterController* toCompCharacterController_(CHandle h);
 TCompBalance* toCompBalance(CHandle h);
+TCompLightDir* toCompLightDir(CHandle h);

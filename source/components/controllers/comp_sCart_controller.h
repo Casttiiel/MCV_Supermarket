@@ -11,7 +11,7 @@ class TCompSCartController : public IAIController
 {
 public:
 
-	bool firstTimeEnabled = false;
+	
 
 	float life = 100.0f;
 	std::string weapon_selected = "data/prefabs/bullets/bullet_bounce.json";
@@ -75,6 +75,7 @@ private:
 	void treatRumble(float delta);
 	void rotatePlayer(float delta);
 	bool isGrounded();
+  void expansiveWave();
 
 	void onCollision(const TMsgOnContact& msg);
     void onCinematicScart(const TMsgOnCinematic& msg);

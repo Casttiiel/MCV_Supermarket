@@ -10,7 +10,6 @@
 #include "ui/widgets/ui_button.h"
 #include "ui/widgets/ui_progress.h"
 #include "ui/widgets/ui_bar.h"
-#include "ui/widgets/ui_sprite.h"
 #include "render/textures/texture.h"
 #include "ui/effects/ui_fx_animate_uv.h"
 #include "ui/effects/ui_fx_scale.h"
@@ -64,7 +63,6 @@ namespace UI
     else if (type == "button")    widget = parseButton(jData);
     else if (type == "progress")  widget = parseProgress(jData);
 	else if (type == "bar")		  widget = parseBar(jData);
-	else if (type == "sprite")	  widget = parseSprite(jData);
     else                          widget = parseWidget(jData);
 
     widget->_name = name;
@@ -184,16 +182,6 @@ namespace UI
 	  return bar;
   }
 
-  CWidget*  CParser::parseSprite(const json& jData) {
-	  CSprite* sprite = new CSprite;
-	  parseParams(sprite->_params, jData);
-	  parseParams(sprite->_imageParams, jData);
-	  parseParams(sprite->_spriteParams, jData);
-	  return sprite;
-  }
-
-
-
   void CParser::parseParams(TParams& params, const json& jData)
   {
     params.pivot = loadVEC2(jData, "pivot", params.pivot);
@@ -211,23 +199,6 @@ namespace UI
     params.color = loadColor(jData, "color", params.color * 255) / 255;
     params.minUV = loadVEC2(jData, "minUV", params.minUV);
     params.maxUV = loadVEC2(jData, "maxUV", params.maxUV);
-  }
-
-
-  void CParser::parseParams(TSpriteParams & params, const json& jData) {
-	  if (jData.count("sprite_textures")) {
-		  auto& j_references = jData["sprite_textures"];
-		  for (auto it = j_references.begin(); it != j_references.end(); ++it) {
-			  std::string textureFile = it.value().value("texture_name", "");
-			  params._textures.push_back(Resources.get(textureFile)->as<CTexture>());
-			  params._frames_per_second.push_back(it.value().value("fps", 12));
-			  params.numFrames.push_back(it.value().value("num_frames", 99));
-			  params._frame_size.push_back(loadVEC2(jData, "frame_size", VEC2(64,64)));
-			  params._original_image_size.push_back(loadVEC2(jData, "original_size", VEC2(256,256)));
-			 
-		  }
-
-	  }
   }
 
   void CParser::parseParams(TTextParams& params, const json& jData)
@@ -268,7 +239,7 @@ namespace UI
     CFXAnimateUV* fx = new CFXAnimateUV;
 
     fx->_speed = loadVEC2(jData, "speed", fx->_speed);
-
+	fx->name = jData.value<std::string>("name","");
     return fx;
   }
 
@@ -278,7 +249,8 @@ namespace UI
 
     fx->_scale = loadVEC2(jData, "scale", fx->_scale);
     fx->_duration = jData.value<float>("duration", fx->_duration);
-    
+	fx->name = jData.value<std::string>("name", "");
+
     const std::string mode = jData.value<std::string>("mode", "single");
     if (mode == "single")         fx->_mode = CFXScale::EMode::Single;
     else if (mode == "loop")      fx->_mode = CFXScale::EMode::Loop;

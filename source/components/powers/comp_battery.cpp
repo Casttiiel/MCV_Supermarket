@@ -67,16 +67,8 @@ void TCompBatteryController::onCollision(const TMsgOnContact& msg) {
         if (col_filter_data.word0 & EnginePhysics.Scenario && isKinematic) {
             isKinematic = false;
             physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_collider->actor);	
-
-            CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
-            TMsgOnomPet msgonom;
-            msgonom.type = 1.0f;
-            TCompTransform* c_trans2 = get<TCompTransform>();
-            msgonom.pos = c_trans2->getPosition();
-            onom_manager->sendMsg(msgonom);
         }
-        //antes 
-          //rigid_dynamic->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, true);
+      
     }
 }
 
@@ -161,8 +153,8 @@ void TCompBatteryController::update(float delta) {
 
       if (angular_speed.Length() < 0.4f && linear_speed.Length() < 0.4f) {
         if (!startedEffect) {
-        audioEffect = EngineAudio.playEvent("event:/Character/Powers/Battery/Battery");
-        //spawn here the bolt sphere
+          audioEffect = EngineAudio.playEvent("event:/Character/Powers/Battery/Battery");
+          //spawn here the bolt sphere
           TEntityParseContext ctx;
           TCompTransform* c_trans = get<TCompTransform>();
           ctx.root_transform = *c_trans;
@@ -183,6 +175,14 @@ void TCompBatteryController::update(float delta) {
             CHandle h(this);
             c_bbill->setTargetAim(h.getOwner());
           }
+
+          CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+          TMsgOnomPet msgonom;
+          msgonom.type = 0.0f;
+          TCompTransform* c_trans2 = get<TCompTransform>();
+          msgonom.pos = c_trans2->getPosition();
+          onom_manager->sendMsg(msgonom);
+
 
           TEntityParseContext ctx2;
           ctx2.root_transform = *c_trans;
@@ -247,7 +247,7 @@ void TCompBatteryController::update(float delta) {
                 msg.h_sender = h_sender;      // Who send this bullet
                 msg.h_bullet = CHandle(this).getOwner(); // The bullet information
                 msg.position = PXVEC3_TO_VEC3(pos);
-                msg.time_effect = timeEffect;
+                msg.time_effect = limitTime;
                 msg.distance = distance;
                 msg.attractionForce = atractionForce;
                 CEntity* entityEnemyDamage = entityContact;

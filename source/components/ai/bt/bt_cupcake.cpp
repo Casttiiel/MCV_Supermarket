@@ -325,7 +325,8 @@ int CBTCupcake::actionDivide() {
 int CBTCupcake::actionGravityReceived() { //TODO : COMPROBAR QUE ESTO FUNCIONE CUANDO LA BATERIA ESTE ARREGLADA :D
 	if (life <= 0) {
     state = "OTHER";
-		return LEAVE;
+    voice.stop();
+    return LEAVE;
 	}
   state = "ON_GRAVITY";
 
@@ -382,7 +383,8 @@ int CBTCupcake::actionGravityReceived() { //TODO : COMPROBAR QUE ESTO FUNCIONE C
 			c_cc->controller->move(VEC3_TO_PXVEC3(resultingForce), 0.0f, dt, PxControllerFilters());
 		}
 		if (life <= 0) {
-			return LEAVE;
+            voice.stop();
+            return LEAVE;
 		}
 		return STAY;
 	}
@@ -419,7 +421,8 @@ int CBTCupcake::actionRecoilReceived() {
 	}
 
 	if (life <= 0) {
-		return LEAVE;
+        voice.stop();
+        return LEAVE;
 	}
 
 	return STAY;
@@ -470,7 +473,8 @@ int CBTCupcake::actionImpactReceived() {
 	}
 
 	if (life <= 0) {
-		return LEAVE;
+        voice.stop();
+        return LEAVE;
 	}
 
 	return STAY;
@@ -712,18 +716,18 @@ void CBTCupcake::onCollision(const TMsgOnContact& msg) { //no se utiliza
 					}
 				}
 				return;
-      }
-      else if (col_filter_data.word0 & EnginePhysics.Enemy && battery_time > 0) {
-          TMsgDamage msg;
-          // Who sent this bullet
-          msg.h_sender = CHandle(this).getOwner();
-          msg.h_bullet = CHandle(this).getOwner();
-          msg.intensityDamage = 0.f;
-          msg.senderType = PLAYER;
-          msg.targetType = ENEMIES;
-          msg.impactForce = 2.f;
-          source_of_impact->sendMsg(msg);
-      }
+			}
+			else if (col_filter_data.word0 & EnginePhysics.Enemy && battery_time > 0) {
+				TMsgDamage msg;
+				// Who sent this bullet
+				msg.h_sender = CHandle(this).getOwner();
+				msg.h_bullet = CHandle(this).getOwner();
+				msg.intensityDamage = 0.f;
+				msg.senderType = PLAYER;
+				msg.targetType = ENEMIES;
+				msg.impactForce = 2.f;
+				source_of_impact->sendMsg(msg);
+			}
 		}
 	}
 }
@@ -737,6 +741,7 @@ void CBTCupcake::onDamageToAll(const TMsgDamageToAll& msg) {
 	//dbg("se recibe el fuego de la pila life = %f\n", life);
 	if (life < 0) {
 		life = 0;
+        voice.stop();
 	}
 }
 
@@ -750,7 +755,8 @@ void CBTCupcake::onGenericDamageInfoMsg(const TMsgDamage& msg) { //TODO: ARREGLA
 		FluidDecalGenerator.generateFluid(msg.impactForce, my_trans->getPosition());
 		if (life < 0) {
 			life = 0;
-		}
+            voice.stop();
+        }
 		if (msg.senderType == ENVIRONMENT) {
 			h_sender = msg.h_sender;
 
@@ -929,9 +935,10 @@ currentDamage = damage;
 void CBTCupcake::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
 	life -= msg.damage;
 	isDeadForFallout = msg.falloutDead;
-	if (life < 0) {
+	if (life < 0.f) {
 		life = 0;
-	}
+        voice.stop();
+    }
 }
 
 
@@ -1190,6 +1197,9 @@ void CBTCupcake::updateBT() {
 	reevaluatePathTimer -= dt;
 
   voice.set3DAttributes(*c_trans);
+  if (life <= 0) {
+      voice.stop();
+  }
 }
 
 
@@ -1253,7 +1263,8 @@ void CBTCupcake::renderDebug() {
 void CBTCupcake::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
 	isDeadForTrigger = true;
 	life = 0;
-	num_of_divisions = 0;
+    voice.stop();
+    num_of_divisions = 0;
 }
 
 float CBTCupcake::getLife() {

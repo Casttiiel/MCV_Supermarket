@@ -41,26 +41,31 @@ namespace UI
 		
 		std::vector<WidgetToLerp>::iterator it = widgetsToLerp.begin();
 		while (it != widgetsToLerp.end()) {
+			float percentage;
 			if ((*it).currentTime >= (*it).initialTime) {
 				if ((*it).isFirstFrame) {
 					(*it).maxElement = *(*it).element;
 					(*it).isFirstFrame = false;
 				}
 				float diff = (*it).value - (*it).maxElement;
-				float percentage = clamp(((((*it).currentTime - (*it).initialTime)) / (*it).lerpTime), 0.0f, 1.0f);
+				percentage = clamp(((((*it).currentTime - (*it).initialTime)) / (*it).lerpTime), 0.0f, 1.0f);
 				*(*it).element = (*it).maxElement + (diff * percentage);
+				//dbg("-----------------Alfa %: %f\n----------------------", percentage);
 			}
 			(*it).currentTime += dt;
 
 			if (((*it).currentTime - (*it).initialTime) >= (*it).lerpTime) {
 				*(*it).element <= (*it).value;
+				if (percentage > 0.9) {
+					*(*it).element = 1.0;
+				}
 				it = widgetsToLerp.erase(it);
 			}
 			else {
 				it++;
 			}
+			
 		}
-		
 	}
 
 
@@ -85,17 +90,19 @@ namespace UI
 	  auto mpNewGame = []() {//nuevo juego
 		  //CEngine::get().getModules().changeToGamestate("gs_gameplay");
 		  UI::CModuleUI& ui = Engine.getUI();
-		  CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
-		  //CEngine::get().getUI().activateWidgetClass("LOAD_SPRITE")->childAppears(true, true, 0.0, 1);
-		  //ejecutar dede LUA el gs_loading
-          EngineAudio.playEvent("event:/UI/Start_Button");
-          Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);
-		  //CEngine::get().getModules().changeToGamestate("gs_loading");
+		  //CEngine::get().getUI().activateWidgetClass("LOAD_SCREEN")->childAppears(true, true, 0.0, 1);
+          //EngineAudio.playEvent("event:/UI/Start_Button");
+          //Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 1.5);//OJOOOOOO VOLVER A PONER ANTES DE SUBIR SI SUBES ANTES DE ACABAR LA TAREA
+		  //NUEVO PARA IR A LA INTRO (PONER CUANDO ESTE BIEN)
+		  EngineAudio.playEvent("event:/UI/Start_Button");
+		  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 1.25); 
+		  Scripting.execActionDelayed("changeGameState(\"gs_intro_game\")", 1.5);
+		  
 	  };
 
 	  auto mpCredits = []() {
 		  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true,true,0.0,1.0);
-		  CEngine::get().getUI().activateWidgetClass("LOAD_SPRITE")->childAppears(true, true, 0.0, 1.0);
+		 
 	  };
 
 
@@ -143,7 +150,7 @@ namespace UI
 		  ui.unregisterController();*/
 		 
 		  if (ui.sizeUI == 1) {
-			  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")-> childAppears(true, true, 0.0, 1.0);;
+			  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")-> childAppears(true, true, 0.0, 1.0);
 			  //CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
@@ -153,7 +160,12 @@ namespace UI
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS_MINI");
 		  }
           EngineAudio.playEvent("event:/UI/Quit_Button");
+          GameController.resumeGame();
           //GameController.loadCheckpoint();
+		  CEntity* e_player = GameController.getPlayerHandle();
+		  TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
+		  PowerType power = characterController->power_selected;
+		  GameController.savePower(power);
 		  Scripting.execActionDelayed("loadCheckpoint()", 1.0);
 	  };
 
@@ -178,14 +190,14 @@ namespace UI
 		  UI::CModuleUI& ui = Engine.getUI();
 		  ui.botonPulsadoGameOver = 0;
 		  if (ui.sizeUI == 1) {
-			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
-			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
+			  //CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND");
+			  //CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS");
 		  }
 		  else {
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BACKGROUND_MINI");
 			  CEngine::get().getUI().deactivateWidgetClass("DEAD_MENU_BUTTONS_MINI");
 		  }
-		  CEntity* e_player = getEntityByName("Player");
+		  /*CEntity* e_player = getEntityByName("Player");
 		  if (!e_player) {
 			  return;
 		  }
@@ -195,6 +207,7 @@ namespace UI
 			  //quitar puntero de raton
 			  
 			  c_controller->ChangeState("GROUNDED");
+			 
 			  GameController.loadCheckpoint();
 
 			  TMsgGamePause msg;
@@ -204,12 +217,15 @@ namespace UI
 			  if (cam_player != nullptr) {
 				  cam_player->sendMsg(msg);
 			  }
-			  
+			  //Scripting.execActionDelayed("loadCheckpoint()", 2.0);
+			  //Scripting.execActionDelayed("changeGameState(\"gs_gameplay\")", 2.0);
 			  CEngine::get().getModules().changeToGamestate("gs_gameplay");
 			  
 		  }
           EngineAudio.playEvent("event:/UI/Start_Button");
-
+		  */
+		  EngineAudio.playEvent("event:/UI/Start_Button");
+		  Scripting.execActionDelayed("resurrectionInGameOver()", 1.6);
 
 
 
@@ -259,9 +275,10 @@ namespace UI
 		  mdeadb->registerOption("bt_exit_dead", mdeadExit);
 		  mdeadb->setCurrentOption(0);
 
-		 
-		  
 		  registerWidgetClass("HUD_NORMAL_PLAYER", "data/ui/widgets/game_ui.json", nullptr);
+		  registerWidgetClass("CREDITS","data/ui/widgets/credits.json",nullptr);
+		  registerWidgetClass("CREDITS_BACKGROUND", "data/ui/widgets/credits_background.json", nullptr);
+		 
 	  }
 	  else {
 		  ui.sizeUI = 0;
@@ -294,9 +311,8 @@ namespace UI
 	  registerWidgetClass("BLACK_SCREEN", "data/ui/widgets/black_background.json", nullptr);
 	  //PANTALLA DE CARGA
 	  registerWidgetClass("LOAD_SCREEN", "data/ui/widgets/load_background.json", nullptr);
-	  //SPRITE
-	  registerWidgetClass("LOAD_SPRITE", "data/ui/widgets/loading_sprite.json", nullptr);
-
+	  //INTRO
+	  registerWidgetClass("INTRO_SCREEN","data/ui/widgets/intro_background.json", nullptr);
 
   }
 
@@ -339,6 +355,36 @@ namespace UI
 	  if (wdgtClass._controller != nullptr) {
 		  unregisterController(wdgtClass._controller);
 	  }
+  }
+
+
+  void CModuleUI::stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect) {//metodo que para los efectos que hay
+	  CWidget* widget = _widgetStructureMap[nameWidgetStrMap].widget;
+	  CEffect* effect = widget->getEffect(nameEffect);
+	  if (effect != nullptr) {
+		  effect->stopUiFx();
+	  }
+  }
+
+  void CModuleUI::stopWidgetEffect(UI::CWidget& widget, const std::string& nameEffect) {//metodo que para los efectos que hay
+	  CEffect* effect = widget.getEffect(nameEffect);
+	  if (effect != nullptr) {
+		  effect->stopUiFx();
+	  }
+  }
+
+  void CModuleUI::changeSpeedWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect,float x, float y) {//metodo que para los efectos que hay
+	  CWidget* widget = _widgetStructureMap[nameWidgetStrMap].widget;
+	  CEffect* effect = widget->getEffect(nameEffect);
+	  if (effect != nullptr) {
+		  effect->changeSpeedUV(x,y);
+	  }
+  }
+
+
+
+  CWidget* CModuleUI::getWidget(const std::string& nameWidgetStrMap){
+	  return _widgetStructureMap[nameWidgetStrMap].widget;
   }
 
 

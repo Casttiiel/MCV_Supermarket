@@ -23,6 +23,7 @@ private:
 	void onBattery(const TMsgGravity & msg);
 	const CCurve* _curve = nullptr;
 	VEC3 nextPoint;
+	bool announceFlag = false;
 	
 };
 

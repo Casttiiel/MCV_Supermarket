@@ -45,9 +45,9 @@ fn isMaxShit obj = (
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
+	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	project_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_47/MCV_Supermarket/bin/",
-	--C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_47/MCV_Supermarket/bin/
+	--project_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_47/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
@@ -796,6 +796,17 @@ struct TSceneExporter (
 			fs.endObj()
 		)		
 	),
+	fn exportRotator obj = (
+		local isRotator = getUserProp obj "isRotator"
+		if isRotator != undefined then (
+			fs.writeComma()
+			fs.writeKey "comp_rotator"
+			fs.beginObj()
+			fs.endObj()
+		)		
+	),
+	
+	
 	fn exportEntity obj = (
 		fs.beginObj()
 		fs.writeKey "entity"
@@ -815,6 +826,7 @@ struct TSceneExporter (
 			exportHierarch obj
 			exportFireRandomizer obj
 			exportBillboardXZ obj
+			exportRotator obj
 			--exportCompCurveController obj
 			
 			local nCA = custAttributes.count obj

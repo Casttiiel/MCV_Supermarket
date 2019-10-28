@@ -20,6 +20,7 @@ struct PlayerStatus {
 	bool chilli = false;
 	bool coffe = false;
     bool saved = false;
+	PowerType power_selected;
 };
 
 struct EntityStatus {
@@ -33,7 +34,9 @@ struct EntityStatus {
 	string curve = "";
 	float lifeCupcake = 50.f;
 	int comportamentNormal = 0;
+	bool ovenDestroyed = false;
 	float pauseBT;
+	
 };
 
 class CCheckpoint {
@@ -48,7 +51,8 @@ public:
     bool deleteCheckPoint();
     const bool isSaved() { return saved; };
     void debugInMenu();
-
+	PlayerStatus getPlayerStatus();
+	bool savePower(PowerType power);
 private:
 
     PlayerStatus playerStatus;

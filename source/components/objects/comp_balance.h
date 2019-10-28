@@ -15,19 +15,13 @@ public:
   void load(const json& j, TEntityParseContext& ctx);
   void update(float dt);
   void balanceo();
+  void cambioTexturaJoint(bool apagado);
   static void registerMsgs();
 
 private:
-	
-
-	
-	
-
+	bool balanceoDone = false;
 	TCompTransform* c_trans;
-
 	void onCreate(const TMsgEntityCreated & msg);
-
-	
-	
+  void onDamage(const TMsgDamage& msg);
 };
 

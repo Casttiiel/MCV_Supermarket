@@ -9,11 +9,13 @@
         "pos": "0 0 0"
       }
       ,
-      "render":
-      {
-        "is_visible" : true,
+      "render": {
+        "is_visible": true,
         "color": "1.0 0.0 0.0 1.0",
-        "mesh": "data/meshes/weapons/Mop.mesh"
+        "mesh": "data/meshes/weapons/Mop.mesh",
+        "materials": [
+          "data/materials/mop.material"
+        ]
       },
       "bone_tracker":{
         "bone": "Bone_mopa",

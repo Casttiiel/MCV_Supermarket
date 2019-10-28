@@ -24,6 +24,8 @@
 #include "components/actions/comp_audioPlayer.h"
 #include "ui/module_ui.h"
 #include "render/module_render.h"
+#include "components/postfx/comp_render_bloom.h"
+
 
 
 bool CModuleGameController::start() {
@@ -58,6 +60,12 @@ void CModuleGameController::wakeUpWinds() {
 void CModuleGameController::setGodMode(bool _god_mode) {
 	god_mode = _god_mode; 
 }
+
+
+void CModuleGameController::setResurrect(bool _resurrect) {
+	resurrect = _resurrect;
+}
+
 
 void CModuleGameController::update(float delta) {
 
@@ -127,6 +135,20 @@ bool CModuleGameController::deleteCheckpoint() {
     return _currentstate;
 }*/
 
+PowerType CModuleGameController::getPowerSelected() {
+	if (_lastCheckpoint != nullptr) {
+		return _lastCheckpoint->getPlayerStatus().power_selected;
+	}
+	else {
+		return PowerType::TELEPORT;
+	}
+}
+
+
+
+void CModuleGameController::savePower(PowerType power) {
+	_lastCheckpoint->savePower(power);
+}
 
 #pragma region Behavior Tree Control
 void CModuleGameController::stopStateMachines() {
@@ -189,6 +211,7 @@ void CModuleGameController::playAnimationMorph(std::string name) {
 	CEntity* entity = (CEntity *)getEntityByName(name);
 	TCompMorphAnimation* morphAnimation = entity->get<TCompMorphAnimation>();
 	morphAnimation->play_ = true;
+	
 }
 //desactivar animacion de morph
 void CModuleGameController::stopAnimationMorph(std::string name) {
@@ -880,6 +903,30 @@ void CModuleGameController::setLifeEnemy(CHandle h,int typeEnemy,float life) {
 
 }
 
+void CModuleGameController::changeShadowsEnabledJoint(bool value) {
+	VHandles v_lightJoints = CTagsManager::get().getAllEntitiesByTag(getID("jointsLight"));
+	for (const auto& entity : v_lightJoints) {
+		CEntity* e_entity = (CEntity*)entity;
+		if (e_entity != nullptr) {
+			TCompLightDir* lightsDirComp = e_entity->get<TCompLightDir>();
+ 			lightsDirComp->setShadowEnabled(value);
+		}
+	}
+	
+}
+
+void CModuleGameController::changeLightsIntensityJoint(float value) {
+	VHandles v_lightJoints = CTagsManager::get().getAllEntitiesByTag(getID("jointsLight"));
+	for (const auto& entity : v_lightJoints) {
+		CEntity* e_entity = (CEntity*)entity;
+		if (e_entity != nullptr) {
+			TCompLightDir* lightsDirComp = e_entity->get<TCompLightDir>();
+			lightsDirComp->setIntensity(value);
+		}
+	}
+
+}
+
 
 
 void CModuleGameController::loadScene(const std::string name) {
@@ -988,6 +1035,11 @@ TCompFlickering* toCompFlickering(CHandle h) {
 	return f;
 }
 
+TCompLightDir* toCompLightDir(CHandle h) {
+	TCompLightDir* l = h;
+	return l;
+}
+
 
 TCompCharacterController* toCompCharacterController_(CHandle h) {
 	TCompCharacterController* c = h;
@@ -1020,18 +1072,19 @@ void CModuleGameController::updateSoundtrackID(int new_track_id = 0) {
     EngineAudio.soundtrack.setParameter("soundtrack_id", new_track_id);
 }
 void CModuleGameController::setSoundtrackVolume(float volume) {
-    EngineAudio.soundtrack.setVolume(volume);
+    if(!EngineAudio.announcement.isPlaying()){
+        EngineAudio.soundtrack.setVolume(volume);
+    }
 }
 float CModuleGameController::getSoundtrackVolume() {
     return EngineAudio.soundtrack.getVolume();
 }
 void CModuleGameController::playAnnouncement(std::string announcement = "") {
     assert(announcement != "");
-    float volume = getSoundtrackVolume();
     setSoundtrackVolume(0.1f);
     EngineAudio.announcement = EngineAudio.playEvent(announcement);
     float audioLength = EngineAudio.announcement.getLength() / 1000.f;
-    Scripting.execActionDelayed("setSoundtrackVolume(1.0)", audioLength);
+    Scripting.execActionDelayed("setSoundtrackVolume(1.0)", audioLength + 1.f);
 }
 void CModuleGameController::startAudioPlayer(std::string entity = "") {
     assert(entity != "");
@@ -1081,6 +1134,84 @@ void CModuleGameController::deactivateWidget(std::string name) {
 
 void CModuleGameController::activateWidget(std::string name) {
 	CEngine::get().getUI().activateWidgetClass(name);
+}
+
+
+void CModuleGameController::childAppears(std::string name, bool getFromChildren, bool alfaPos, float valueIni, float valueFin) {;
+CEngine::get().getUI().activateWidgetClass(name)->childAppears(getFromChildren, alfaPos, valueIni, valueFin);
+}
+
+
+void CModuleGameController::stopWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect) {
+	CEngine::get().getUI().stopWidgetEffect(nameWidgetStrMap, nameEffect);
+}
+
+void CModuleGameController::changeSpeedWidgetEffect(const std::string& nameWidgetStrMap, const std::string& nameEffect,float x, float y) {
+	CEngine::get().getUI().changeSpeedWidgetEffect(nameWidgetStrMap, nameEffect,  x,  y);
+}
+
+
+void CModuleGameController::stopWidgetEffectSpecial() {
+	UI::CModuleUI& ui = Engine.getUI();
+	UI::CWidget* widgetPadre = ui.getWidget("INTRO_SCREEN");
+	UI::CWidget* widgetHijo = widgetPadre->getChildren(0)->getChildren(0);
+	UI::CEffect* effect = widgetHijo->getEffect("effectAnimateComic");
+	effect->stopUiFx();
+}
+
+void CModuleGameController::changeSpeedWidgetEffectSpecial(float x, float y) {
+	UI::CModuleUI& ui = Engine.getUI();
+	UI::CWidget* widgetPadre = ui.getWidget("INTRO_SCREEN");
+	UI::CWidget* widgetHijo = widgetPadre->getChildren(0)->getChildren(0);
+	UI::CEffect* effect = widgetHijo->getEffect("effectAnimateComic");
+	effect->changeSpeedUV(x, y);
+}
+
+void CModuleGameController::changeDurationWidgetEffectSpecial(float duration) {
+	UI::CModuleUI& ui = Engine.getUI();
+	UI::CWidget* widgetPadre = ui.getWidget("INTRO_SCREEN");
+	UI::CWidget* widgetHijo = widgetPadre->getChildren(0)->getChildren(0);
+	UI::CEffect* effect = widgetHijo->getEffect("effectScaleComic");
+	effect->changeDuration(duration);
+}
+
+
+void CModuleGameController::resurrectionInGameOver() {
+	CEntity* e_player = getEntityByName("Player");
+	if (!e_player) {
+		return;
+	}
+	TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
+	if ((c_controller->life <= 0)) {
+
+		//quitar puntero de raton
+		TMsgGamePause msg;
+		msg.isPause = false;
+		msg.playerDead = false;
+		CEntity* cam_player = getEntityByName("PlayerCamera");
+		if (cam_player != nullptr) {
+			cam_player->sendMsg(msg);
+		}
+		//Scripting.execActionDelayed("loadCheckpoint()", 2.0);
+		//Scripting.execActionDelayed("changeGameState(\"gs_gameplay\")", 2.0);
+		GameController.loadCheckpoint();
+		CEngine::get().getModules().changeToGamestate("gs_gameplay");
+		
+		c_controller->ChangeState("GROUNDED");
+	}
+	
+}
+
+void CModuleGameController::exitGame() {
+	auto& app = CApplication::get();
+	DestroyWindow(app.getHandle());
+}
+
+
+void CModuleGameController::setBloomInCam(bool value) {
+	CEntity* cam_player = getEntityByName("MainCamera");
+	TCompRenderBloom* renderBloom = cam_player->get<TCompRenderBloom>();
+	renderBloom->enabled = value;
 }
 
 

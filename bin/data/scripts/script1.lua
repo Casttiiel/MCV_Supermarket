@@ -89,6 +89,11 @@ function blendPlayerCamera()
 	GameController:blendPlayerCamera()
 end
 
+
+function setAmbient(value)
+	GameController:setAmbient(value)
+end
+
 function on_ambush_event_1()
 	on_wake_sushi("002")
 	on_wake_sushi("003")
@@ -277,7 +282,7 @@ function create_cupcakes_in_frost_player()
 	--GameController:setPauseEnemyByHandle(h_cupcake2,false);
 	--GameController:setLifeEnemy(h_cupcake2,3,350.0);
 
-	
+	--execDelayedAction("changeIntensityLightSpot(\"SpotJoint\",0.0)",0.0);--prueba 
 
 	h_oven1 =  GameController:entityByName("horno008");
 	h_oven2 =  GameController:entityByName("horno009");
@@ -294,7 +299,7 @@ function create_cupcakes_in_frost_player()
 	t_compSpawnOven3:setLifeSpawner(350.0);
 	
 
-	playAnnouncement('event:/UI/Announcements/Announcement4')
+	playAnnouncement('event:/UI/Announcements/Announcement4');
 
 	execDelayedAction("on_delete_handle(\"trigger010\")",0);
 
@@ -340,15 +345,82 @@ function crearTrampaHornos()
 
 end
 
+function changeIntensityLightOmni(nameLight,intensity)
+	h_light =  GameController:entityByName(nameLight);
+	t_comp_light_point = toCompLightPoint(toEntity(h_light):getCompByName("light_point"));
+	t_comp_light_point:setIntensity(intensity)
+end
 
 
+function changeIntensityLightSpot(nameLight,intensity)
+	h_light =  GameController:entityByName(nameLight);
+	t_comp_light_dir = toCompLightDir(toEntity(h_light):getCompByName("light_dir"));
+	t_comp_light_dir:setIntensity(intensity)
+end
 
+function changeShadowsEnabled(nameLight,enabled)
+	h_light =  GameController:entityByName(nameLight);
+	t_comp_light_dir = toCompLightDir(toEntity(h_light):getCompByName("light_dir"));
+	t_comp_light_dir:setShadowEnabled(enabled)
+
+end
+
+function changeShadowsEnabledJoint(value)
+	GameController:changeShadowsEnabledJoint(value);
+end
+
+function changeLightsIntensityJoint(value)
+	GameController:changeLightsIntensityJoint(value);
+end
 
 
 function wake_up_last_golem_player()
 	h_golem = GameController:entityByName("golem3"); 
 	execDelayedAction("setPauseEnemyName(\"golem3\",false)", 0);
 	GameController:setHeightEnemyByHandle(10.0,h_golem,4);
+	execDelayedAction("balanceoLampara(\"Joint001\")",0);
+
+
+	
+	execDelayedAction("changeIntensityLightSpot(\"Spot001\",0.0)",1.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot002\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot003\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot004\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot005\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot006\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot007\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot008\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot009\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot010\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot011\",0.0)",2.0);
+	execDelayedAction("changeIntensityLightSpot(\"Spot014\",0.0)",2.0);
+
+	execDelayedAction("changeShadowsEnabled(\"Spot001\",false)",1.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot002\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot003\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot004\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot005\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot006\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot007\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot008\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot009\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot010\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot011\",false)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot014\",false)",2.1);
+
+	execDelayedAction("changeShadowsEnabled(\"Spot016\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot017\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot018\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot019\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot020\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot021\",true)",2.1);
+	execDelayedAction("changeShadowsEnabled(\"Spot022\",true)",2.1);
+	
+
+	execDelayedAction("changeShadowsEnabledJoint(true)",2.2);
+	
+
+
 	--execDelayedAction("on_delete_handle(\"trigger007\")",0);
 end
 
@@ -372,7 +444,7 @@ function in_trap_tube_enemies_player()
 	t_compenemiestube = toCompEnemiesInTube(toEntity(handle):getCompByName("enemies_in_tube"));
 	t_compenemiestube.activateTrap = true
 	
-	--execDelayedAction("balanceoLampara(\"Joint001\")",0);
+	--execDelayedAction("balanceoLampara(\"Joint001\")",9);
 	execDelayedAction("on_delete_handle(\"trigger008\")",0);
 
 
@@ -435,7 +507,7 @@ end
 
 
 function createEnemies_player()
-	execDelayedAction("balanceoLampara(\"Joint001\")",0);
+	--execDelayedAction("balanceoLampara(\"Joint001\")",0);
 	GameController:deleteGolem("golem2");
 	GameController:deleteGolem("golem3");
 	GameController:deleteCupcake();
@@ -538,6 +610,11 @@ function defrost2()
 	execDelayedAction("changeLookAt(\"cubosHielo_033\",0)",4.9);
 	execDelayedAction("on_delete_handle(\"cubosHielo_033\")",5.1);
 
+	GameController:spawnPrefab("data/particles/hot_particles.json", VEC3(0,0,0), QUAT(0, 0, 0, 1),1);
+	GameController:spawnPrefab("data/particles/platform_fire_particles.json", VEC3(0,0,0), QUAT(0, 0, 0, 1),1);
+	GameController:spawnPrefab("data/particles/outside_fire1.json", VEC3(0,0,0), QUAT(0, 0, 0, 1),1);
+	GameController:spawnPrefab("data/particles/outside_fire2.json", VEC3(0,0,0), QUAT(0, 0, 0, 1),1);
+
 
 end
 
@@ -622,10 +699,6 @@ function changeIntensityLightPointWithFlickering(nameLight,intensity)
 	t_comp_flickering:setBase(intensity)--el base del flickering manda sobre el instensisy del componente pointLight
 	t_comp_flickering:setFrequency(0)
 	t_comp_flickering:setPhase(0)
-	
-	
-	
-
 end
 
 
@@ -679,37 +752,62 @@ function activePlataformCarniceria_player()
 	execDelayedAction("cinematica_tower()",0.0);
 
 	
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni038\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni039\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni038\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni039\",0.0)",15.5);
 	
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni040\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni041\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni040\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni041\",0.0)",15.5);
 	
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni042\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni043\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni042\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni043\",0.0)",15.5);
 
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni044\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni035\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni034\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni033\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni032\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni031\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni030\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni029\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni028\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni027\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni026\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni025\",0.0)",15.5);
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni024\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni044\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni035\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni034\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni033\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni032\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni031\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni030\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni029\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni028\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni027\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni026\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni025\",0.0)",15.5);
+	--execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni024\",0.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni038\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni039\",0.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni040\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni041\",0.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni042\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni043\",0.0)",15.5);
+
+	execDelayedAction("changeIntensityLightOmni(\"Omni044\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni035\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni034\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni033\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni032\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni031\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni030\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni029\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni028\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni027\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni026\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni025\",0.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni024\",0.0)",15.5);
+
+
 
 	execDelayedAction("playAnnouncement(\"event:/UI/Announcements/Announcement11\")",15.0);
 	
 	GameController:setAmbient(0.05);
 
 
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.0);
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",15.0);
-	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",15.0);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.8);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",15.8);
+	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",15.8);
 	--execDelayedAction("set_pause_enemy_by_handle(h_suishi5,false)",12.5);
 	execDelayedAction("setViewDistanceEnemy(1000,h_suishi1,1)",15.0);
 	execDelayedAction("sethalfConeEnemy(360,h_suishi1,1)",15.0);
@@ -902,8 +1000,8 @@ function cinematica_tower()
 	execDelayedAction("on_cinematic_special(true,1)",0.0);
 
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",10.0);
-	execDelayedAction("on_lock_camera3(true)",15.0);
-	execDelayedAction("on_cinematic_special(false,1)",15.0);
+	execDelayedAction("on_lock_camera3(true)",15.7);
+	execDelayedAction("on_cinematic_special(false,1)",15.7);
 	--t_compCharacterController = toCompCharacterController(toEntity(handlePlayer):getCompByName("character_controller"));
 	--t_compCharacterController:ChangeState("ESPECIAL_CINEMATIC");
 
@@ -935,7 +1033,32 @@ function activateWidget(nameWidget)
 	GameController:activateWidget(nameWidget)
 end
 
+function childAppears(name,getFromChildren,alfaPos,valueIni,valueFin)
+	GameController:childAppears(name,getFromChildren,alfaPos,valueIni,valueFin)
+end
 
+
+function stopWidgetEffect(nameWidget, effect)
+	GameController:stopWidgetEffect(nameWidget, effect)
+end
+
+function changeSpeedWidgetEffect(nameWidget, effect, x , y)
+	GameController:changeSpeedWidgetEffect(nameWidget, effect,x ,y )
+end
+
+
+
+function stopWidgetEffectSpecial()
+	GameController:stopWidgetEffectSpecial()
+end
+
+function changeSpeedWidgetEffectSpecial(x,y)
+	GameController:changeSpeedWidgetEffectSpecial(x,y)
+end
+
+function changeDurationWidgetEffectSpecial(duration)
+	GameController:changeDurationWidgetEffectSpecial(duration)
+end
 
 function saveCheckpoint()
 	handlePlayer = GameController:getPlayerHandle();
@@ -962,7 +1085,32 @@ function endGame()
 	--GameController:resetCamera();
 	execDelayedAction("resetCamera()",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
-	execDelayedAction("on_cinematic(true",0.0);
+	execDelayedAction("on_cinematic(true)",0.0);
+	execDelayedAction("changeIntensityLightOmni(\"Omni038\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni039\",40.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni040\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni041\",40.0)",15.5);
+	
+	execDelayedAction("changeIntensityLightOmni(\"Omni042\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni043\",40.0)",15.5);
+
+	execDelayedAction("changeIntensityLightOmni(\"Omni044\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni035\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni034\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni033\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni032\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni031\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni030\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni029\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni028\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni027\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni026\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni025\",40.0)",15.5);
+	execDelayedAction("changeIntensityLightOmni(\"Omni024\",40.0)",15.5);
+
+
+
 	execDelayedAction("on_blending_camera(\"CameraEndGame001\", 10,\"Cubicinout\")",0.0);
 	execDelayedAction("on_blending_camera(\"CameraEndGame\", 10,\"Cubicinout\")",5.0);
 	execDelayedAction("on_blending_camera(\"CameraEndGame002\", 10,\"Cubicinout\")",10.0);
@@ -1090,6 +1238,28 @@ function balanceoLampara(entityName)
 	h_lampara =  GameController:entityByName(entityName);
 	t_lampara = toCompBalance(toEntity(h_lampara):getCompByName("comp_balance"));
 	t_lampara:balanceo();
-	
-
 end
+
+function apagarEncenderLuz(value)
+	h_lampara =  GameController:entityByName("Joint001");
+	t_lampara = toCompBalance(toEntity(h_lampara):getCompByName("comp_balance"));
+	t_lampara:cambioTexturaJoint(value);
+end
+
+
+function resurrectionInGameOver()
+	GameController:resurrectionInGameOver()
+end
+
+function exitGame()
+	GameController:exitGame()
+end
+
+function setResurrect(value)
+	GameController:setResurrect(value)
+end
+
+function setBloomInCam(value)
+	GameController:setBloomInCam(value);
+end
+

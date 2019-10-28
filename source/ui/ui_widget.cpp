@@ -138,6 +138,7 @@ namespace UI
 			  if (alfaPos) {
 				  img->color.w = 0.0f;
 				  CEngine::get().getUI().lerp(&img->color.w, 1.0f, initial_time, lerp_time);
+				  //img->color.w = 1.0f;
 			  }
 			  else {
 				  img->color.w = 1.0f;

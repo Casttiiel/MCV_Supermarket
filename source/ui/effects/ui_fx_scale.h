@@ -25,7 +25,7 @@ namespace UI
     float _duration = 0.f;
     EMode _mode = EMode::Single;
     Interpolator::IInterpolator* _interpolator = nullptr;
-
+	void changeDuration(float duration);
     float _time = 0.f;
     VEC2 _initialScale = VEC2::One;
 

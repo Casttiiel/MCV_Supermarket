@@ -179,7 +179,7 @@ void CModuleRender::renderInMenu() {
 
   if (ImGui::TreeNode("Render Control")) {
     ImGui::DragFloat("Exposure Adjustment", &ctes_shared.GlobalExposureAdjustment, 0.01f, 0.1f, 32.f);
-    ImGui::DragFloat("Ambient Boost", &ctes_shared.GlobalAmbientBoost, 0.01f, 0.0f, 2.f);
+    ImGui::DragFloat("Ambient Boost", &new_ambient, 0.01f, 0.0f, 2.f);
 
 
     ImGui::Text("Toon Shading");
@@ -258,7 +258,7 @@ bool CModuleRender::setupDeferredOutput() {
 void CModuleRender::generateFrame() {
   CGpuScope gpu_trace("Module::Render");
   PROFILE_FUNCTION("CModuleRender::generateFrame");
-
+  
   ctes_shared.GlobalWorldTime = (float)Time.current;
   ctes_shared.Actual_dt = (float)Time.delta;
   ctes_shared.GlobalDeltaTime = Time.delta;

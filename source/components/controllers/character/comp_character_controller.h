@@ -17,7 +17,7 @@ public:
   float maxLife = 100.f;
   float life = maxLife;
   bool endGame = false;
-  PowerType power_selected = PowerType::TELEPORT;
+  PowerType power_selected;
 
   bool aiming = false;
   bool is_grounded = false;
@@ -69,7 +69,7 @@ private:
   //End Shopping Cart
   std::string statePrevious = "";
   float distance_to_aim = 20.0f;
-  float speed = 4.5f;
+  float speed = 5.0f;
   float inCombatTimer = 0.f;
   float inCombatDuration = 3.5f;
   
@@ -131,7 +131,7 @@ private:
 	float chargedAttack_impactForce = 20.0f;
   float chargedAttack_buttonPressThreshold = 0.2f;
   float chargedAttack_buttonPressTimer = 0.f;
-  float chargedAttack_playerSpeed = base_speed * 0.5;
+  float chargedAttack_playerSpeed = 0.f;
   bool chargedAttack_releasing = false;
   bool chargedAttack_onAir = false;
   //End ChargedAttack Values

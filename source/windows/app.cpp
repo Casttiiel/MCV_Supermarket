@@ -5,6 +5,10 @@
 #include "input/module_input.h"
 #include "render/module_render.h"
 
+
+#include <windowsx.h>
+#define IDI_ICON1 102
+
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 CApplication* CApplication::the_app = nullptr;
@@ -108,12 +112,18 @@ bool CApplication::create(HINSTANCE hInstance, int nCmdShow, int w, int h) {
   wcex.cbClsExtra = 0;
   wcex.cbWndExtra = 0;
   wcex.hInstance = hInstance;
-  wcex.hIcon = NULL; // LoadIcon(hInstance, (LPCTSTR)IDI_TUTORIAL1);
+  wcex.hIcon = (HICON)LoadImage(hInstance,
+    MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON,
+    ::GetSystemMetrics(SM_CXICON),
+    ::GetSystemMetrics(SM_CYICON), 0);
   wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
   wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
   wcex.lpszMenuName = NULL;
   wcex.lpszClassName = "MCVWindowsClass";
-  wcex.hIconSm = NULL; // LoadIcon( wcex.hInstance, ( LPCTSTR )IDI_TUTORIAL1 );
+  wcex.hIconSm = (HICON)LoadImage(hInstance,
+    MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON,
+    ::GetSystemMetrics(SM_CXSMICON),
+    ::GetSystemMetrics(SM_CYSMICON), 0);
   if (!RegisterClassEx(&wcex))
     return false;
 
@@ -123,7 +133,7 @@ bool CApplication::create(HINSTANCE hInstance, int nCmdShow, int w, int h) {
   width_app = w;
   height_app = h;
   AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
-  hWnd = CreateWindow("MCVWindowsClass", "SuperMarket",
+  hWnd = CreateWindow("MCVWindowsClass", "Madness: In Stock",
     WS_OVERLAPPEDWINDOW,
     CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, hInstance,
     NULL);

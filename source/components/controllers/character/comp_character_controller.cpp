@@ -28,7 +28,7 @@
 #include "components/objects/comp_enemy_spawner_special_trap.h"
 #include "skeleton/comp_skel_lookat_direction.h"
 #include "components/common/comp_dynamic_instance.h"
-
+#include "ui/widgets/ui_button.h"
 
 using namespace physx;
 
@@ -61,6 +61,10 @@ void TCompCharacterController::Init() {
     footStepsSlow.setPaused(true);
     damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
     damagedAudio.stop();
+
+
+	power_selected = GameController.getPowerSelected();
+
     ChangeState("GROUNDED");
 }
 
@@ -414,6 +418,16 @@ void TCompCharacterController::grounded(float delta) {
         if (chargedAttack_buttonPressTimer >= chargedAttack_buttonPressThreshold) {
             //Player is holding the button
             ChangeState("CHARGED_ATTACK");
+            TCompSkeleton* c_skel = get<TCompSkeleton>();
+            //c_skel->clearAnimations();
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_POSE, 1.0f);
+            if (!footSteps.getPaused()) {
+                footSteps.setPaused(true);
+            }
+            if (!footStepsSlow.getPaused()) {
+                footStepsSlow.setPaused(true);
+            }
         }
         else {
             chargedAttack_buttonPressTimer += Time.delta_unscaled;
@@ -759,6 +773,7 @@ void TCompCharacterController::dead(float delta) {
     TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
     playerAnima->playAnimation(TCompPlayerAnimator::DEAD, 1.0f);
 
+
     if (EngineInput["checkpoint_"].justPressed()) {
         GameController.loadCheckpoint();
         //------------------
@@ -926,34 +941,14 @@ void TCompCharacterController::powerSelection() {
 		last_power_selected = power_selected;
 		changeWeaponMesh(WeaponMesh::SCANNER);
 	
-	//GameController.bindInCurve("Line002","DebugCamera"); //prueba generacion de componente curva dinamico
 	
-	/*
-	//Prueba nueva funcion que esta en fichero
-	CHandle  h_entity = getEntityByName("PlayerCamera");
-	static Interpolator::TLinearInterpolator linear;
-	Engine.getCameraMixer().blendCameraToPosition(h_entity,VEC3(12,5,1),20.f, &linear);
-	*/
   }
   else if (EngineInput["select_battery_"].justPressed()) { //bateria
     power_selected = PowerType::BATTERY;
 		last_power_selected = power_selected;
 
 		changeWeaponMesh(WeaponMesh::BATTERTY);
-	/*TCompTransform* c_trans = get<TCompTransform>();
 	
-	VEC3 posDestination = c_trans->getTranslatePositionForAngle(c_trans->getPosition(), 3, -90);
-	dbg("POS DESTINATION:X:%f,Y:%f,Z:%f\n", posDestination.x, posDestination.y, posDestination.z);
-	*/
-	//Scripting.execActionDelayed("playMorph(\"Morph\")", 0.0);
-	/*Prueba de concepto
-	CEntity* debug_camera = getEntityByName("DebugCamera");
-	TCompCurveController* t = debug_camera->get<TCompCurveController>();
-	const CCurve* curve = t->getCurve();
-	const std::vector<VEC3> lista = curve->_knots;
-	TCompTransform* transf = debug_camera->get<TCompTransform>();
-	transf->setPosition(lista[0]);
-	*/
   }
 }
 
@@ -1067,7 +1062,7 @@ void TCompCharacterController::attack(float delta) {
 
             CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
             TMsgOnomPet msgonom;
-            msgonom.type = 2;
+            msgonom.type = 1.0f;
             msgonom.pos = c_trans->getPosition();
             onom_manager->sendMsg(msgonom);
           }
@@ -1106,41 +1101,20 @@ void TCompCharacterController::attack(float delta) {
 
 void TCompCharacterController::chargedAttack(float delta) {
     //If the button is released
-    if (EngineInput["attack_"].justReleased() || chargedAttack_releasing) {
+    if (EngineInput["attack_"].justReleased()) {
         //If the chargedAttack_buttonPressTimer is greater than chargedAttack_chargeDelay, launch the attack
-        if (chargedAttack_buttonPressTimer >= chargedAttack_chargeDelay && !chargedAttack_releasing) {
+        if (chargedAttack_buttonPressTimer >= chargedAttack_chargeDelay) {
             dbg("Player executes CHARGED_ATTACK\n");
-            chargedAttack_releasing = true;
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.8f);
             //Execute animation, should have root motion and deal the damage the moment it connects with the ground
             TCompRigidBody* c_rbody = get<TCompRigidBody>();
             if (!c_rbody)
                 return;
-            EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
-            c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
+            EngineAudio.playEvent("event:/Character/Attacks/ChargedAttack");
+            //c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
             inCombatTimer = inCombatDuration;
-        }
-
-        TCompTransform* c_trans = get<TCompTransform>();
-        //If we're releasing and haven't hit the floor, stay here
-        if (chargedAttack_releasing && !isGrounded()) {
-            chargedAttack_onAir = true;
-            VEC3 dir = VEC3().Zero;
-            VEC3 camera_front = c_trans->getFront();
-            camera_front.y = 0.0f;
-            camera_front.Normalize();
-            dir = camera_front;
-            dir *= speed * 1.0f;
-            dir *= Time.delta_unscaled;
-            TCompCollider* comp_collider = get<TCompCollider>();
-            if (!comp_collider || !comp_collider->controller)
-                return;
-
-            comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
-            return;
-        }
-
-        //if we're releasing and have hit the floor, finish the attack
-        if (chargedAttack_releasing && isGrounded() && chargedAttack_onAir) {
+            TCompTransform* c_trans = get<TCompTransform>();
             TMsgDamage msg;
             msg.h_bullet = CHandle(this).getOwner();
             msg.senderType = EntityType::PLAYER;
@@ -1148,15 +1122,14 @@ void TCompCharacterController::chargedAttack(float delta) {
             msg.damageType = PowerType::CHARGED_ATTACK;
             msg.position = c_trans->getPosition() + VEC3::Up;
             msg.intensityDamage = chargedAttack_damage;
-						msg.impactForce = chargedAttack_impactForce;
+			msg.impactForce = chargedAttack_impactForce;
             GameController.generateDamageSphere(c_trans->getPosition(), chargedAttack_radius, msg, "enemy");
+            GameController.generateDamageSphere(c_trans->getPosition() + 1.5f * c_trans->getFront(), chargedAttack_radius, msg, "enemy");
             GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
             //stop charging
             chargedAttack_buttonPressTimer = 0.f;
             //reset speed
             speed = base_speed;
-            chargedAttack_releasing = false;
-            chargedAttack_onAir = false;
             dbg("Player lands CHARGED_ATTACK.\n");
             ChangeState("GROUNDED");
             return;
@@ -1166,10 +1139,6 @@ void TCompCharacterController::chargedAttack(float delta) {
         if (EngineInput["attack_"].justReleased() && chargedAttack_buttonPressTimer < chargedAttack_chargeDelay) {
             //stop charging
             chargedAttack_buttonPressTimer = 0.f;
-            //reset speed
-            speed = base_speed;
-            chargedAttack_releasing = false;
-            chargedAttack_onAir = false;
             dbg("Player stops charging CHARGED_ATTACK.\n");
             ChangeState("GROUNDED");
         }
@@ -1179,9 +1148,11 @@ void TCompCharacterController::chargedAttack(float delta) {
     if (EngineInput["attack_"].isPressed()) {
         chargedAttack_buttonPressTimer += Time.delta_unscaled;
         speed = chargedAttack_playerSpeed;
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_LOOP, 1.0f);
     }
 
-    VEC3 dir = VEC3();
+    /*VEC3 dir = VEC3();
     getInputForce(dir);
     dir *= Time.delta_unscaled;
     TCompCollider* comp_collider = get<TCompCollider>();
@@ -1189,7 +1160,7 @@ void TCompCharacterController::chargedAttack(float delta) {
         return;
 
     comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
-    rotatePlayer(dir, Time.delta_unscaled, false);
+    rotatePlayer(dir, Time.delta_unscaled, false);*/
 }
 
 //void TCompCharacterController::attackChilli(float delta) {
@@ -1268,13 +1239,21 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
 }
 
 void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
-    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0 && !GameController.getResurrect()) {
         life -= msg.intensityDamage;
         damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
 
+        TCompTransform* c_trans = get<TCompTransform>();
+        CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+        TMsgOnomPet msgonom;
+        msgonom.type = 7.0f;
+        msgonom.pos = c_trans->getPosition();
+        onom_manager->sendMsg(msgonom);
+
+
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, false);
-		invulnerabilityTimer = invulnerabilityTimeDuration;
+		    invulnerabilityTimer = invulnerabilityTimeDuration;
         inCombatTimer = inCombatDuration;
     }
 
@@ -1346,14 +1325,18 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
 }
 
 void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
+
+	
+
+
     if (life <= 0.0f) {
         return;
     }
     //dbg("recibo damage \n");
-    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+    if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0 && !GameController.getResurrect()) {
         if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
             life -= msg.intensityDamage;
-			invulnerabilityTimer = invulnerabilityTimeDuration;
+			      invulnerabilityTimer = invulnerabilityTimeDuration;
             inCombatTimer = inCombatDuration;
             CEntity* e_cam = getEntityByName("MainCamera");
             TMsgOnContact msg_cam;
@@ -1394,7 +1377,14 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
 
                     TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
                     playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, false);
-                    //ChangeState("DAMAGED");
+                    
+
+                    TCompTransform* c_trans = get<TCompTransform>();
+                    CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+                    TMsgOnomPet msgonom;
+                    msgonom.type = 7.0f;
+                    msgonom.pos = c_trans->getPosition();
+                    onom_manager->sendMsg(msgonom);
                 }
             }
         }
@@ -1657,6 +1647,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  inventory->setChilli(true);
       EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
 	  Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
+	  //Scripting.execActionDelayed("balanceoLampara(\"Joint001\")", 0);
       /*CEntity* e1 = getEntityByName("Hielo2_LP");
       TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
       c_ma1->updateMorphData(0.0f);

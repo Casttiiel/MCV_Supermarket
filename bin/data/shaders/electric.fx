@@ -51,8 +51,8 @@ void PS(VS_OUTPUT input
   };
   float2 rot_uv = mul((polar) - float2(0.5f,0.5f), rot_matrix);
 
-  float noise1 = txNoise.Sample(samLinear,rot_uv*2.5f + float2(0.0,GlobalWorldTime*0.7)).x;
-  float noise2 = txNoise.Sample(samLinear,rot_uv*2.85f - float2(0.0,GlobalWorldTime*0.7)).y;
+  float noise1 = txNoise.Sample(samLinear,rot_uv*2.5f + float2(0.0,GlobalWorldTime*3.7)).x;
+  float noise2 = txNoise.Sample(samLinear,rot_uv*2.85f - float2(0.0,GlobalWorldTime*1.7)).y;
   float sum_noise = noise1 + noise2;
   sum_noise = pow(sum_noise,power);
 
@@ -67,6 +67,6 @@ void PS(VS_OUTPUT input
 
   float alpha = clamp(final_noise * dist, 0.0,1.0);
 
-  o_deferred = float4(ObjColor.xyz, alpha);
-  o_shine = float4(ObjColor.xyz, alpha);
+  o_deferred = float4(0.0, 0.5, 1.0, alpha);
+  o_shine = float4(0.0, 0.5, 1.0, alpha);
 }

@@ -1,8 +1,6 @@
 #include "mcv_platform.h"
 #include "comp_bolt_aura_billboard.h"
 #include "components/common/comp_transform.h"
-#include "components/common/comp_buffers.h"
-#include "components/common/physics/comp_collider.h"
 
 DECL_OBJ_MANAGER("bolt_aura_billboard", TCompBoltAuraBillboard);
 

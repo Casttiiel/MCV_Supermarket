@@ -15,6 +15,8 @@
 
 CCheckpoint::CCheckpoint() {
     saved = false;
+    uint32_t tag_id = getID("checkpoint_registered");
+    CTagsManager::get().registerTagName(tag_id, "checkpoint_registered");
 }
 
 /*
@@ -45,7 +47,9 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
 	playerStatus.chilli = inventory->getChilli();
 	playerStatus.coffe = inventory->getCoffe();
 	playerStatus.teleport = inventory->getTeleport();
-	
+
+	//TCompCharacterController* compCharacterController = e_player->get<TCompCharacterController>();
+	//playerStatus.power_selected = compCharacterController->power_selected;
 
 
     /* Save Registered Entities' status */
@@ -97,6 +101,7 @@ bool CCheckpoint::saveCheckPoint(VEC3 playerPos, QUAT playerRotation)
 			if(comp_enemy != nullptr) {
  				status.lifeCupcake = comp_enemy->getLifeSpawner();
 				status.comportamentNormal = comp_enemy->getComportamentNormal();
+				status.ovenDestroyed = comp_enemy->getDestroyed();
 			}
 		}
 		else if (status.entityType == EntityType::GOLEM) {
@@ -138,6 +143,9 @@ bool CCheckpoint::loadCheckPoint()
 			inventory->setChilli(playerStatus.chilli);
 			inventory->setCoffe(playerStatus.coffe);
 			inventory->setTeleport(playerStatus.teleport);
+
+			TCompCharacterController* compCharacterController = e_player->get<TCompCharacterController>();
+			compCharacterController->power_selected = playerStatus.power_selected;
 			
             GameController.healPlayer();
         }
@@ -150,7 +158,7 @@ bool CCheckpoint::loadCheckPoint()
         VHandles allEntities = CTagsManager::get().getAllEntitiesByTag(getID("checkpoint_registered"));
         for (auto& handle : allEntities) {
             if (handle.isValid()) {
-                handle.destroy();
+              handle.destroy();
             }
         }
         //Load saved entities
@@ -186,6 +194,19 @@ bool CCheckpoint::loadCheckPoint()
 				TCompEnemySpawner* comp_enemy = spawnedEntity->get<TCompEnemySpawner>();
 				comp_enemy->setLifeSpawner(entity.lifeCupcake);
 				comp_enemy->setComportamentNormal(entity.comportamentNormal);
+				comp_enemy->setDestroyed(entity.ovenDestroyed);
+				
+				VHandles v_spark = CTagsManager::get().getAllEntitiesByTag(getID("spark_particle_oven"));
+				for (const auto& entity : v_spark) {
+					CEntity* e_entity = (CEntity*)entity;
+					if (e_entity != nullptr) {
+						TCompSelfDestroy* destroy = e_entity->get<TCompSelfDestroy>();
+						if (destroy != nullptr) {
+							destroy->setEnabled(true);
+							destroy->setDelay(0);
+						}
+					}
+				}
 			}
         }
         return true;
@@ -204,6 +225,19 @@ bool CCheckpoint::deleteCheckPoint()
 
     return true;
 }
+
+
+PlayerStatus CCheckpoint::getPlayerStatus(){
+	return playerStatus;
+}
+
+bool CCheckpoint::savePower(PowerType power) {
+	CEntity* e_player = GameController.getPlayerHandle();
+	TCompCharacterController* compCharacterController = e_player->get<TCompCharacterController>();
+	playerStatus.power_selected = power;
+	return true;
+}
+
 
 void CCheckpoint::debugInMenu()
 {

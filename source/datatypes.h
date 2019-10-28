@@ -4,12 +4,12 @@
 #include "geometry/transform.h"
 
 enum PowerType { 
-    MELEE = 0,
+	TELEPORT = 0,
     CHARGED_ATTACK,
     FIRE, 
     FIRECOMBO, 
     COFFEE, 
-    TELEPORT, 
+	MELEE,
     BATTERY, 
     PUDDLE, 
     FOUNTAIN 

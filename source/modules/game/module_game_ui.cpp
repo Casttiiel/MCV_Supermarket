@@ -21,8 +21,7 @@ bool CModuleGameUI::start()
 	//ui.activateWidget("game_ui");
 	if(ui.sizeUI == 1){
 		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
-		//CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BACKGROUND");
-		//CEngine::get().getUI().activateWidgetClass("DEAD_MENU_BUTTONS");
+		
 	}
 	else {
 		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER_MINI");
@@ -92,34 +91,32 @@ void CModuleGameUI::update(float delta)
 			UI::CButton* boton = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_mop_"));
 			boton->setCurrentState("enabled");
 		}
-		//TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
+		TCompCharacterController* c_controller = e_player->get<TCompCharacterController>();
 		TCompInventory* inventory = e_inventory->get<TCompInventory>();
 		if (inventory->getBattery()) {
-			if (EngineInput["select_battery_"].justPressed()) {
-				UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
-				b->setCurrentState("option_battery");
-				//cambiar imagen de cursor un instante de timepo
-				UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
-				b_cursor->setCurrentState("option_battery");
+			if(!c_controller->cinematic) {
+				if (EngineInput["select_battery_"].justPressed()) {
+					UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
+					b->setCurrentState("option_battery");
+					//cambiar imagen de cursor un instante de timepo
+					UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
+					b_cursor->setCurrentState("option_battery");
 
 
+				}
 			}
 		}
 
 		if (inventory->getTeleport()){
-			if (EngineInput["select_teleport_"].justPressed()) {
-				UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
-				b->setCurrentState("option_teleport");
-				//cambiar imagen de cursor un instante de timepo
-				UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
-				b_cursor->setCurrentState("option_teleport");
+			if (!c_controller->cinematic) {
+				if (EngineInput["select_teleport_"].justPressed()) {
+					UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
+					b->setCurrentState("option_teleport");
+					//cambiar imagen de cursor un instante de timepo
+					UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
+					b_cursor->setCurrentState("option_teleport");
+				}
 			}
-			
-			/*
-			
-			}*/
-			
-
 		}
 		if (inventory->getChilli()) {
 			UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("bt_r1_"));

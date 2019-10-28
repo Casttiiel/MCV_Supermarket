@@ -23,23 +23,23 @@ void TCompOnomManager::onPetition(const TMsgOnomPet& msg) {
   if (!camera.isValid())
     return;
   //if the petition is not a boom, we calculate a better position based on camera pos
-  if (msg.type != 3) {
+  if (msg.type != 5.0f) {
     TMsgOnomPet newmsg;
-    if (msg.type == 2 && wham) {
-      newmsg.type = 2.0f;
+    if (msg.type == 1.0f && wham) {
+      newmsg.type = 1.0f;
       wham = false;
     }
-    else if (msg.type == 2 && !wham) {
-      newmsg.type = 4.0f;
+    else if (msg.type == 1.0f && !wham) {
+      newmsg.type = 2.0f;
       wham = true;
     }
     else {
-      newmsg.type = 1.0f;
+      newmsg.type = msg.type;
     }
 
     CEntity* e_cam = camera;
     TCompTransform* c_trans = e_cam->get<TCompTransform>();
-    newmsg.pos = msg.pos + (VEC3::Up * 1.2f) - (c_trans->getLeft() * 0.5f) + (c_trans->getFront() * 0.25f);
+    newmsg.pos = msg.pos + (VEC3::Up * 1.2f) - (c_trans->getLeft() * 0.65f) + (c_trans->getFront() * 0.25f);
 
     petitions.push_back(newmsg);
   }

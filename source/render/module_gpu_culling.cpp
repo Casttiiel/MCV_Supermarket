@@ -17,6 +17,7 @@
 #include "components/objects/comp_increase_power.h"
 #include "components/objects/comp_wind_trap.h"
 #include "components/objects/comp_destroyable_wall.h"
+#include "components/actions/comp_checkpoint_register.h"
 #include "components/ai/bt/bt_golem.h"
 #include "render/textures/material.h"
 #include "utils/utils.h"
@@ -75,7 +76,7 @@ struct TSampleDataGenerator {
       && j_entity.count("comp_increase_power") == 0 && j_entity.count("ai_platform_mobile") == 0 && j_entity.count("comp_door") == 0  //is not a platform and not a power up and not a door 
       && j_entity.count("morph_animation") == 0 && j_entity.count("comp_destroyable_wall") == 0 && j_entity.count("comp_interruptor") == 0   //is not a morph and not a destroyable wall
       && j_entity.count("bt_sushi") == 0 && j_entity.count("bt_cupcake") == 0 && j_entity.count("bt_golem") == 0 && j_entity.count("bt_ranged_sushi") == 0 //is not an enemy
-      && j_entity.count("comp_madness_puddle") == 0 && j_entity.count("comp_wind_trap") == 0; //is not a madness puddle or a wind trap
+      && j_entity.count("comp_madness_puddle") == 0 && j_entity.count("comp_wind_trap") == 0 && j_entity.count("local_aabb") == 0; //is not a madness puddle or a wind trap or has a local aabb
   }
 
   bool isInstantiable(CHandle ch) {
@@ -87,8 +88,9 @@ struct TSampleDataGenerator {
     CBTGolem* c_g = entity->get<CBTGolem>();
     TCompDestroyableWall* c_dw = entity->get<TCompDestroyableWall>();
     TCompCharacterController* c_cc = entity->get<TCompCharacterController>();
+    TCompCheckpointRegister* c_cr = entity->get<TCompCheckpointRegister>();
 
-    return !c_tr && !c_ip && !c_wt && !c_g && !c_dw && !c_cc;
+    return !c_tr && !c_ip && !c_wt && !c_g && !c_dw && !c_cc && !c_cr;
   }
 
   void createProducts(const std::string& filename, TEntityParseContext& ctx) {
@@ -242,8 +244,6 @@ struct TSampleDataGenerator {
 
   void create(const std::string& filename, TEntityParseContext& ctx) {
     ctx.filename = filename;
-    uint32_t tag_id = getID(filename.c_str());
-    CTagsManager::get().registerTagName(tag_id, filename.c_str());
 
     const json& j_scene = Resources.get(filename)->as<CJson>()->getJson();
     assert(j_scene.is_array());
@@ -400,20 +400,6 @@ struct TSampleDataGenerator {
       e_root_of_group->set(h_group.getType(), h_group);
       // Now add the rest of entities created to the group, starting at 1 because 0 is the head
       TCompGroup* c_group = h_group;
-      
-      //also put a tag on it so we know from which map it is
-      TCompTags* e_tag = e_root_of_group->get<TCompTags>();
-      if (!e_tag) {
-        CHandle h_tag = getObjectManager<TCompTags>()->createHandle();
-        if (h_tag.isValid()) {
-          e_root_of_group->set(h_tag.getType(), h_tag);
-          TCompTags* c_tag = h_tag;
-          c_tag->addTag(tag_id);
-        }
-      }
-      else {
-        e_tag->addTag(tag_id);
-      }
 
       for (size_t i = 0; i < ctx.entities_loaded.size(); ++i) {
         if (i == idx_father)
@@ -978,26 +964,33 @@ void CModuleGPUCulling::renderCategory(eRenderCategory category) {
   assert(gpu_ctes_instancing->slotIndex() == 13);
   gpu_ctes_instancing->activate();
 
+  if (category == eRenderCategory::CATEGORY_SHADOWS) {
+    render_types[0].material->getShadowsMaterial()->activate();
+    render_types[0].material->getShadowsMaterial()->activateCompBuffers(&comp_buffers);
+  }
+
   // Offset to the args of the draw indexed instanced args in the draw_datas gpu buffer
   uint32_t offset = 0;
   uint32_t idx = 0;
   for( auto& render_type : render_types ) {
     CGpuScope gpu_render_type(render_type.title);
 
+    // Setup material & meshes
+    if (category != eRenderCategory::CATEGORY_SHADOWS) {
+      render_type.material->activate();
+      render_type.material->activateCompBuffers(&comp_buffers);
+    }
+    else if (!render_type.material->castsShadows()){
+      // The offset is in bytes
+      offset += sizeof(TDrawData);
+      ++idx;
+      continue;
+    }
+
     // Because SV_InstanceID always start at zero, but the matrices
     // of each group have different starting offset
     ctes_instancing.instance_base = draw_datas[idx].base;
     gpu_ctes_instancing->updateGPU(&ctes_instancing);
-
-    // Setup material & meshes
-    if (category == eRenderCategory::CATEGORY_SHADOWS) {
-      render_type.material->getShadowsMaterial()->activate();
-      render_type.material->getShadowsMaterial()->activateCompBuffers(&comp_buffers);
-    }
-    else {
-      render_type.material->activate();
-      render_type.material->activateCompBuffers(&comp_buffers);
-    }
     
     render_type.mesh->activate();
     Render.ctx->DrawIndexedInstancedIndirect(gpu_draw_datas->buffer, offset);

@@ -73,6 +73,7 @@
     <ClCompile Include="components\objects\comp_interruptor.cpp" />
     <ClCompile Include="components\objects\comp_restore_madness.cpp" />
     <ClCompile Include="components\objects\comp_platform_fire_trap.cpp" />
+    <ClCompile Include="components\objects\comp_rotator.cpp" />
     <ClCompile Include="components\objects\comp_termoestato.cpp" />
     <ClCompile Include="components\postfx\comp_antialiasing.cpp" />
     <ClCompile Include="components\postfx\comp_chromatic_aberration.cpp" />
@@ -107,6 +108,7 @@
     <ClCompile Include="components\vfx\comp_bolt_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_sphere.cpp" />
     <ClCompile Include="components\vfx\comp_bolt_sphere_oven.cpp" />
+    <ClCompile Include="components\vfx\comp_boom_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_death_billboard.cpp" />
     <ClCompile Include="components\vfx\comp_dust.cpp" />
     <ClCompile Include="components\vfx\comp_fire_follow.cpp" />
@@ -147,6 +149,7 @@
     <ClCompile Include="modules\game\module_camera_shaker.cpp" />
     <ClCompile Include="modules\game\module_fluid_decal_generator.cpp" />
     <ClCompile Include="modules\game\module_game_controller.cpp" />
+    <ClCompile Include="modules\game\module_game_intro.cpp" />
     <ClCompile Include="modules\game\module_game_loading.cpp" />
     <ClCompile Include="modules\game\module_game_manager.cpp" />
     <ClCompile Include="modules\game\module_game_over.cpp" />
@@ -261,7 +264,6 @@
     <ClCompile Include="ui\widgets\ui_button.cpp" />
     <ClCompile Include="ui\widgets\ui_image.cpp" />
     <ClCompile Include="ui\widgets\ui_progress.cpp" />
-    <ClCompile Include="ui\widgets\ui_sprite.cpp" />
     <ClCompile Include="ui\widgets\ui_text.cpp" />
     <ClCompile Include="utils\json_resource.cpp" />
     <ClCompile Include="utils\murmur3\murmur3.cpp" />
@@ -335,6 +337,7 @@
     <ClInclude Include="components\objects\comp_interruptor.h" />
     <ClInclude Include="components\objects\comp_restore_madness.h" />
     <ClInclude Include="components\objects\comp_platform_fire_trap.h" />
+    <ClInclude Include="components\objects\comp_rotator.h" />
     <ClInclude Include="components\objects\comp_termoestato.h" />
     <ClInclude Include="components\postfx\comp_antialiasing.h" />
     <ClInclude Include="components\postfx\comp_chromatic_aberration.h" />
@@ -365,6 +368,7 @@
     <ClInclude Include="components\vfx\comp_bolt_billboard.h" />
     <ClInclude Include="components\vfx\comp_bolt_sphere.h" />
     <ClInclude Include="components\vfx\comp_bolt_sphere_oven.h" />
+    <ClInclude Include="components\vfx\comp_boom_billboard.h" />
     <ClInclude Include="components\vfx\comp_death_billboard.h" />
     <ClInclude Include="components\vfx\comp_dust.h" />
     <ClInclude Include="components\vfx\comp_fire_follow.h" />
@@ -425,6 +429,7 @@
     <ClInclude Include="modules\game\module_camera_shaker.h" />
     <ClInclude Include="modules\game\module_fluid_decal_generator.h" />
     <ClInclude Include="modules\game\module_game_controller.h" />
+    <ClInclude Include="modules\game\module_game_intro.h" />
     <ClInclude Include="modules\game\module_game_loading.h" />
     <ClInclude Include="modules\game\module_game_manager.h" />
     <ClInclude Include="modules\game\module_game_over.h" />
@@ -516,6 +521,7 @@
     <ClInclude Include="render\textures\material_mixing.h" />
     <ClInclude Include="render\textures\render_to_texture.h" />
     <ClInclude Include="render\textures\texture.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="resources\resource.h" />
     <ClInclude Include="skeleton\bone_correction.h" />
     <ClInclude Include="skeleton\cal3d2engine.h" />
@@ -540,7 +546,6 @@
     <ClInclude Include="ui\widgets\ui_button.h" />
     <ClInclude Include="ui\widgets\ui_image.h" />
     <ClInclude Include="ui\widgets\ui_progress.h" />
-    <ClInclude Include="ui\widgets\ui_sprite.h" />
     <ClInclude Include="ui\widgets\ui_text.h" />
     <ClInclude Include="utils\data_provider.h" />
     <ClInclude Include="utils\directory_watcher.h" />
@@ -588,6 +593,12 @@
       <Project>{f13518a5-98d4-48a8-98ed-81b5e9d70bce}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\bin\data\textures\icono.ico" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{BFB70905-C73E-4364-832D-3143B8CE1528}</ProjectGuid>
@@ -601,13 +612,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -626,10 +637,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(SolutionDir)..\Build\$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
+    <TargetName>MadnessInStock</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)..\Build\$(Platform)\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)..\bin\</OutDir>
+    <TargetName>MadnessInStock</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
