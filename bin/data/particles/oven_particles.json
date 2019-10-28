@@ -6,8 +6,10 @@
       "transform": {
         "pos": "0 0 0",
         "rotation": "0.0 0.0 0.0 1.0"
-      }
-      ,
+      },
+	  "comp_self_destroy" : {
+        "_isEnabled": false
+      },
       "render":
       {
         "mesh": "unit_quad_xy_centered.mesh",
@@ -86,7 +88,10 @@
           "swap_b" : "instances_active"
         }
       ],
-      "num_instances": "indirect_draw"
+      "num_instances": "indirect_draw",
+	  "tags": [
+				"spark_particle_oven"
+			]
     }
   }
 ]

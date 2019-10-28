@@ -15,6 +15,8 @@
 
 CCheckpoint::CCheckpoint() {
     saved = false;
+    uint32_t tag_id = getID("checkpoint_registered");
+    CTagsManager::get().registerTagName(tag_id, "checkpoint_registered");
 }
 
 /*
@@ -156,7 +158,7 @@ bool CCheckpoint::loadCheckPoint()
         VHandles allEntities = CTagsManager::get().getAllEntitiesByTag(getID("checkpoint_registered"));
         for (auto& handle : allEntities) {
             if (handle.isValid()) {
-                handle.destroy();
+              handle.destroy();
             }
         }
         //Load saved entities
