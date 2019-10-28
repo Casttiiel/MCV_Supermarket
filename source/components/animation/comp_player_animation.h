@@ -37,7 +37,18 @@ public:
         FIRE_LOOP,
         FIRE_LOOP_PARTIAL,
         FIRE_START,
-        FIRE_START_PARTIAL
+        FIRE_START_PARTIAL,
+        CHARGED_MELEE_ATTACK,
+        CHARGED_MELEE_LOOP,
+        CHARGED_MELEE_POSE,
+        SCART_IDLE,
+        SCART_LEFT_END,
+        SCART_LEFT_LOOP,
+        SCART_LEFT_START,
+        SCART_RIGHT_END,
+        SCART_RIGHT_LOOP,
+        SCART_RIGHT_START,
+        SCART_ROW
     };
 	struct TMsgExecuteAnimation {
 

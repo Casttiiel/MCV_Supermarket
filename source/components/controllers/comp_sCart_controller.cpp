@@ -1,5 +1,7 @@
 #include "mcv_platform.h"
 #include "components/controllers/character/comp_character_controller.h"
+#include "components/animation/comp_player_animation.h"
+#include "skeleton/comp_skeleton.h"
 #include "components/common/physics/comp_rigid_body.h"
 #include "comp_sCart_controller.h"
 #include "components/common/physics/comp_collider.h"
@@ -65,7 +67,10 @@ void TCompSCartController::enable(CHandle vehicle) {
 		fakePlayerHandle = GameController.spawnPrefab("data/prefabs/props/fake_player_mounted.json", c_trans->getPosition());
         EngineAudio.playEvent("event:/Character/SCart/Mount");
 
-		
+        TCompSkeleton* c_skel = get<TCompSkeleton>();
+        c_skel->clearAnimations();
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::SCART_IDLE, 1.f, true);
 
 	}
 
@@ -98,6 +103,11 @@ void TCompSCartController::disable() {
 	fakePlayerHandle.destroy();
     EngineAudio.playEvent("event:/Character/SCart/Dismount");
     _movementAudio.setPaused(true);
+
+    TCompSkeleton* c_skel = get<TCompSkeleton>();
+    c_skel->clearAnimations();
+    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+    playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.f, true);
 }
 
 void TCompSCartController::disabled() {
@@ -429,6 +439,8 @@ void TCompSCartController::grounded(float delta) {
 	if (EngineInput["jump_"].justPressed() && rowTimer <= 0.0f) {//ROW
     rowTimer = rowDelay;
 		ChangeState("SCART_ROWING");
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::SCART_ROW, 1.f, true);
 	}
 	else if (!isGrounded() && dir == VEC3()) { //FALLING
     //TRANSMITIR FUERZAS AL RIGID BODY

@@ -320,63 +320,6 @@ bool TCompSkeleton::isExecutingActionAnimation(std::string animaName) {
 	return false;
 }
 
-//retorna el numero de huesos mas bajos del eje y
-void TCompSkeleton::guessFeetBonesId(int feetNum) {
-
-	std::vector<int> bonesId;
-	std::vector<float> bonesHeight;
-	float minValue = 99999999.f;
-
-	for (int i = 0; i < model->getSkeleton()->getVectorBone().size(); i++) {
-
-		bonesId.emplace_back(i);
-		bonesHeight.emplace_back(model->getSkeleton()->getBone(i)->getTranslationAbsolute().y);
-	}
-
-	float heightAux = 0;
-	int idAux = 0;
-
-	for (int j = 0; j < bonesId.size(); j++) {
-		for (int k = 0; k < bonesId.size() - 1; k++) {
-			if (bonesHeight[k] > bonesHeight[k + 1]) {
-				heightAux = bonesHeight[k];
-				idAux = bonesId[k];
-
-				bonesHeight[k] = bonesHeight[k + 1];
-				bonesId[k] = bonesId[k + 1];
-
-				bonesHeight[k + 1] = heightAux;
-				bonesId[k + 1] = idAux;
-			}
-		}
-	}
-
-	std::vector<int> auxFeetBonesId;
-
-	for (int a = 0; a < feetNum; a++) {
-		auxFeetBonesId.emplace_back(bonesId[a]);
-	}
-
-	feetBonesId = auxFeetBonesId;
-}
-
-void TCompSkeleton::setFeetId(std::vector<int> feetId) {
-	feetBonesId = feetId;
-}
-
-std::vector<VEC3> TCompSkeleton::getFeetPositions() {
-
-	std::vector<VEC3> feetPositions;
-
-	for (int i = 0; i < feetBonesId.size(); i++) {
-		float x = model->getSkeleton()->getBone(feetBonesId[i])->getTranslationAbsolute().x;
-		float y = model->getSkeleton()->getBone(feetBonesId[i])->getTranslationAbsolute().y;
-		float z = model->getSkeleton()->getBone(feetBonesId[i])->getTranslationAbsolute().z;
-		feetPositions.push_back(VEC3(x, y, z));
-	}
-	return feetPositions;
-}
-
 float TCompSkeleton::getAnimationDuration(int animaId) {
 
 	auto core_anima = model->getCoreModel()->getCoreAnimation(animaId);
@@ -409,4 +352,14 @@ VEC3 TCompSkeleton::getBonePositionById(int id) {
 
 void TCompSkeleton::setBonePositionById(int id, VEC3 position) {
 	model->getSkeleton()->getBone(id)->setTranslation(DX2Cal(position));
+}
+
+void TCompSkeleton::clearAnimations() {
+    static float out_delay = 0.3f;
+    auto mixer = model->getMixer();
+    for (auto a : mixer->getAnimationActionList()) {
+        auto core = (CGameCoreSkeleton*)model->getCoreModel();
+        int id = core->getCoreAnimationId(a->getCoreAnimation()->getName());
+        mixer->removeAction(id); 
+    }
 }
