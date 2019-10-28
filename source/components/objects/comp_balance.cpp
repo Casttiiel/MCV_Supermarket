@@ -48,20 +48,23 @@ void TCompBalance::onCreate(const TMsgEntityCreated& msg) {
 
 void TCompBalance::balanceo() {
 
-    if (!balanceoDone) {
-      getObjectManager<TCompBalance>()->forEach([](TCompBalance* di) {
-        TCompCollider* c_col = di->get<TCompCollider>();
-        physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
-        float velocitiRandom = ba_mt_ba_dist(ba_mt_ba);
-        VEC3 linear_speed = PXVEC3_TO_VEC3(rigid_dynamic->getLinearVelocity());
-        float velLineal = linear_speed.Length();
-        //dbg("VEL_LINEAL:%f\n",velLineal);
-        rigid_dynamic->addForce(PxVec3(0, -900, 0), PxForceMode::eFORCE);
-        //rigid_dynamic->addForce(PxVec3(0, velocitiRandom, 0), PxForceMode::eVELOCITY_CHANGE);
-        });
-      balanceoDone = true;
-    }
-
+	if (!balanceoDone) {
+		getObjectManager<TCompBalance>()->forEach([](TCompBalance* di) {
+			TCompCollider* c_col = di->get<TCompCollider>();
+			physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
+			float velocitiRandom = ba_mt_ba_dist(ba_mt_ba);
+			VEC3 linear_speed = PXVEC3_TO_VEC3(rigid_dynamic->getLinearVelocity());
+			float velLineal = linear_speed.Length();
+			if (velLineal <= 0.00) {
+				
+				//dbg("VEL_LINEAL:%f\n",velLineal);
+				rigid_dynamic->addForce(PxVec3(0, -900, 0), PxForceMode::eFORCE);
+				//rigid_dynamic->addForce(PxVec3(0, velocitiRandom, 0), PxForceMode::eVELOCITY_CHANGE);
+			}
+		});
+		balanceoDone = true;
+	}
+}
 
 void TCompBalance::cambioTexturaJoint(bool apagado) {
 	VHandles v_tp_joints = CTagsManager::get().getAllEntitiesByTag(getID("joints"));
@@ -83,13 +86,13 @@ void TCompBalance::cambioTexturaJoint(bool apagado) {
 
 
 void TCompBalance::update(float dt) {
-  getObjectManager<TCompBalance>()->forEach([](TCompBalance* di) {
+ getObjectManager<TCompBalance>()->forEach([](TCompBalance* di) {
     TCompCollider* c_col = di->get<TCompCollider>();
     physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
 
     VEC3 linear_speed = PXVEC3_TO_VEC3(rigid_dynamic->getLinearVelocity());
     float velLineal = linear_speed.Length();
-    dbg("VEL_LINEAL:%f\n", velLineal);
+    //dbg("VEL_LINEAL:%f\n", velLineal);
     if (velLineal <= 0.00) {
       float velocitiRandom = ba_mt_ba_dist2(ba_mt_ba);
       rigid_dynamic->addForce(PxVec3(0, velocitiRandom, 0), PxForceMode::eVELOCITY_CHANGE);
