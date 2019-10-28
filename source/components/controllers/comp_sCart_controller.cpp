@@ -178,7 +178,7 @@ void TCompSCartController::onCinematicScart(const TMsgOnCinematic & msg)
 void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 	CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
 	TCompCharacterController* cc = get<TCompCharacterController>();
-	if (source_of_impact && cc->getIsMounted()) {
+	if (source_of_impact && cc->getIsMounted() && rowImpulseLeft > 0.0f) {
 		TCompCollider* c_tag = source_of_impact->get<TCompCollider>();
 		if (c_tag) {
 			PxShape* colShape;
@@ -239,9 +239,16 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 									dbg("name: %s\n",name->getName());
 									if (candidate != nullptr) {
 										rowImpulseLeft = 0.0f;
-                                        if (!_crashAudio.isPlaying()) {
-                                            _crashAudio = EngineAudio.playEvent("event:/Character/SCart/Crash");
-                                        }
+                    if (!_crashAudio.isPlaying()) {
+                        _crashAudio = EngineAudio.playEvent("event:/Character/SCart/Crash");
+                        expansiveWave();
+                        CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+                        TMsgOnomPet msgonom;
+                        msgonom.type = 4.0f;
+                        TCompTransform* c_trans2 = get<TCompTransform>();
+                        msgonom.pos = c_trans2->getPosition();
+                        onom_manager->sendMsg(msgonom);
+                    }
 									}
 									
 								}
@@ -259,29 +266,40 @@ void TCompSCartController::onCollision(const TMsgOnContact& msg) {
 		}
 	}
 
+}
 
-	/*
-	if (isEnabled) {
-		CEntity* source_of_impact = (CEntity *)msg.source.getOwner();
-		if (source_of_impact) {
-			TCompTags* c_tag = source_of_impact->get<TCompTags>();
-			if (c_tag) {
-				std::string tag = CTagsManager::get().getTagName(c_tag->tags[0]);
-				std::string tag2 = CTagsManager::get().getTagName(c_tag->tags[1]);
-				if (strcmp("floor", tag.c_str()) == 0) {
-
-				}
-				if (strcmp("cupcake", tag2.c_str()) == 0) {
-					if (strcmp("DAMAGED", state.c_str()) != 0) {
-						
-					}
-				}
-			}
-		}
-	}
-	else {
-		//ChangeState("SCART_DISABLED");
-	}*/
+void TCompSCartController::expansiveWave() {
+  TCompTransform* c_trans = get<TCompTransform>();
+  PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
+  PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
+  PxSphereGeometry geometry(5.0f);
+  const PxU32 bufferSize = 256;
+  PxOverlapHit hitBuffer[bufferSize];
+  PxOverlapBuffer buf(hitBuffer, bufferSize);
+  PxTransform shapePose = PxTransform(pos, ori);
+  PxQueryFilterData filter_data = PxQueryFilterData();
+  filter_data.data.word0 = EnginePhysics.Product;
+  bool res = EnginePhysics.gScene->overlap(geometry, shapePose, buf, filter_data);
+  if (res) {
+    for (PxU32 i = 0; i < buf.nbTouches; i++) {
+      CHandle h_comp_physics;
+      h_comp_physics.fromVoidPtr(buf.getAnyHit(i).actor->userData);
+      CEntity* entityContact = h_comp_physics.getOwner();
+      if (entityContact) {
+        TMsgDamage msg;
+        // Who sent this bullet
+        msg.h_sender = CHandle(this).getOwner();
+        msg.h_bullet = CHandle(this).getOwner();
+        msg.position = c_trans->getPosition() + VEC3::Up;
+        msg.senderType = PLAYER;
+        msg.intensityDamage = 10.0f;
+        msg.impactForce = 10.0f;
+        msg.damageType = MELEE;
+        msg.targetType = ENEMIES;
+        entityContact->sendMsg(msg);
+      }
+    }
+  }
 }
 
 void TCompSCartController::onDamage(const TMsgDamage& msg) {

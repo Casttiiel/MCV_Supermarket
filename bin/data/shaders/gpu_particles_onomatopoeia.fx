@@ -203,14 +203,22 @@ float4 PS(v2p input
 , StructuredBuffer<TInstance> instances_active : register(t0)
 ) : SV_Target0 {
   float2 uv = input.Uv;
+  uv /= 3.0f;
   uv.x = -uv.x;
 
-  float4 tex = float4(0,0,0,0);
+  if(input.aux >= 2.5f && input.aux <= 3.5f){
+    input.aux = 3.0f;
+  }else if(input.aux >= 5.5f && input.aux <= 6.5f){
+    input.aux = 6.0f;
+  }
+  uv.y += 0.333f * (floor(input.aux / 3.0f));
+  uv.x -= 0.333f * (input.aux % 3.0f);
 
-  tex += txAlbedo.Sample(samLinear,uv) * (input.aux >= 0.5f && input.aux < 1.5f);
+  float4 tex = txAlbedo.Sample(samLinear,uv);
+  /*tex += txAlbedo.Sample(samLinear,uv) * (input.aux >= 0.5f && input.aux < 1.5f);
   tex += txNormal.Sample(samLinear,uv) * (input.aux >= 1.5f && input.aux < 2.5f);
   tex += txMetallic.Sample(samLinear,uv) * (input.aux >= 2.5f && input.aux < 3.5f);
-  tex += txRoughness.Sample(samLinear,uv) * (input.aux >= 3.5f && input.aux< 4.5f);
+  tex += txRoughness.Sample(samLinear,uv) * (input.aux >= 3.5f && input.aux< 4.5f);*/
 
 
   if(tex.a < 0.7f)
@@ -221,6 +229,7 @@ float4 PS(v2p input
   const float2x2 rot_matrix = { cos(brush_rotation), -sin(brush_rotation),
     sin(brush_rotation), cos(brush_rotation)
   };
+  uv *= 3.0f;
   float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
   float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
   float4 dots = brush * tex;

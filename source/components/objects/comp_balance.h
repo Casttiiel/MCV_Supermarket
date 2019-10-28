@@ -22,8 +22,6 @@ private:
 	bool balanceoDone = false;
 	TCompTransform* c_trans;
 	void onCreate(const TMsgEntityCreated & msg);
-
-	
-	
+  void onDamage(const TMsgDamage& msg);
 };
 

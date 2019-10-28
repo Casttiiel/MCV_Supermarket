@@ -1034,7 +1034,7 @@ void TCompCharacterController::attack(float delta) {
 
             CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
             TMsgOnomPet msgonom;
-            msgonom.type = 2;
+            msgonom.type = 1.0f;
             msgonom.pos = c_trans->getPosition();
             onom_manager->sendMsg(msgonom);
           }
@@ -1239,9 +1239,17 @@ void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
         life -= msg.intensityDamage;
         damagedAudio = EngineAudio.playEvent("event:/Character/Voice/Player_Pain");
 
+        TCompTransform* c_trans = get<TCompTransform>();
+        CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+        TMsgOnomPet msgonom;
+        msgonom.type = 7.0f;
+        msgonom.pos = c_trans->getPosition();
+        onom_manager->sendMsg(msgonom);
+
+
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, false);
-		invulnerabilityTimer = invulnerabilityTimeDuration;
+		    invulnerabilityTimer = invulnerabilityTimeDuration;
         inCombatTimer = inCombatDuration;
     }
 
@@ -1324,7 +1332,7 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
     if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0 && !GameController.getResurrect()) {
         if (strcmp("DAMAGED", state.c_str()) != 0 && msg.targetType == EntityType::PLAYER || msg.targetType == EntityType::ALL) {
             life -= msg.intensityDamage;
-			invulnerabilityTimer = invulnerabilityTimeDuration;
+			      invulnerabilityTimer = invulnerabilityTimeDuration;
             inCombatTimer = inCombatDuration;
             CEntity* e_cam = getEntityByName("MainCamera");
             TMsgOnContact msg_cam;
@@ -1365,7 +1373,14 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
 
                     TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
                     playerAnima->playAnimation(TCompPlayerAnimator::DAMAGED, 1.f, false);
-                    //ChangeState("DAMAGED");
+                    
+
+                    TCompTransform* c_trans = get<TCompTransform>();
+                    CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
+                    TMsgOnomPet msgonom;
+                    msgonom.type = 7.0f;
+                    msgonom.pos = c_trans->getPosition();
+                    onom_manager->sendMsg(msgonom);
                 }
             }
         }

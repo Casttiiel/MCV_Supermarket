@@ -75,6 +75,7 @@ private:
 	void treatRumble(float delta);
 	void rotatePlayer(float delta);
 	bool isGrounded();
+  void expansiveWave();
 
 	void onCollision(const TMsgOnContact& msg);
     void onCinematicScart(const TMsgOnCinematic& msg);

@@ -119,7 +119,7 @@ void CEngine::start()
     _modules.registerSystemModule(_scripting);
     _modules.registerSystemModule(_ui);
     _modules.registerSystemModule(_particles);
-	_modules.registerSystemModule(_sceneManager);
+	  _modules.registerSystemModule(_sceneManager);
   }
 
   _modules.registerGameModule(_boot);

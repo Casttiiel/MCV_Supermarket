@@ -22,14 +22,15 @@ public:
 	static void registerMsgs();
 
 private:
-    bool _destroyOnCollission = true;
-    bool _requestAudioPermission = false;
-    bool _isEnabled = true;
-	  float _speed = 17.f;
-    void expansiveWave();
+  bool comicfeed = false;
+  bool _destroyOnCollission = true;
+  bool _requestAudioPermission = false;
+  bool _isEnabled = true;
+	float _speed = 17.f;
+  void expansiveWave();
 	VEC3 _targetDirection = VEC3().Zero;
 	TMsgDamage _messageToTarget;
   EntityType targetType;
-    std::string _audioOnHit = "";
+  std::string _audioOnHit = "";
 };
 

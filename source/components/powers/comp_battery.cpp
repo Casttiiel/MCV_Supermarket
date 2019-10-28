@@ -178,7 +178,7 @@ void TCompBatteryController::update(float delta) {
 
           CEntity* onom_manager = getEntityByName("Onomatopoeia Particles");
           TMsgOnomPet msgonom;
-          msgonom.type = 1.0f;
+          msgonom.type = 0.0f;
           TCompTransform* c_trans2 = get<TCompTransform>();
           msgonom.pos = c_trans2->getPosition();
           onom_manager->sendMsg(msgonom);
