@@ -409,6 +409,10 @@ void TCompCharacterController::grounded(float delta) {
         if (chargedAttack_buttonPressTimer >= chargedAttack_buttonPressThreshold) {
             //Player is holding the button
             ChangeState("CHARGED_ATTACK");
+            TCompSkeleton* c_skel = get<TCompSkeleton>();
+            c_skel->clearAnimations();
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_POSE, 1.0f);
         }
         else {
             chargedAttack_buttonPressTimer += Time.delta_unscaled;
@@ -1073,41 +1077,20 @@ void TCompCharacterController::attack(float delta) {
 
 void TCompCharacterController::chargedAttack(float delta) {
     //If the button is released
-    if (EngineInput["attack_"].justReleased() || chargedAttack_releasing) {
+    if (EngineInput["attack_"].justReleased()) {
         //If the chargedAttack_buttonPressTimer is greater than chargedAttack_chargeDelay, launch the attack
-        if (chargedAttack_buttonPressTimer >= chargedAttack_chargeDelay && !chargedAttack_releasing) {
+        if (chargedAttack_buttonPressTimer >= chargedAttack_chargeDelay) {
             dbg("Player executes CHARGED_ATTACK\n");
-            chargedAttack_releasing = true;
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.7f);
             //Execute animation, should have root motion and deal the damage the moment it connects with the ground
             TCompRigidBody* c_rbody = get<TCompRigidBody>();
             if (!c_rbody)
                 return;
             EngineAudio.playEvent("event:/Character/Footsteps/Jump_Start");
-            c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
+            //c_rbody->jump(VEC3(0.0f, jump_force, 0.0f));
             inCombatTimer = inCombatDuration;
-        }
-
-        TCompTransform* c_trans = get<TCompTransform>();
-        //If we're releasing and haven't hit the floor, stay here
-        if (chargedAttack_releasing && !isGrounded()) {
-            chargedAttack_onAir = true;
-            VEC3 dir = VEC3().Zero;
-            VEC3 camera_front = c_trans->getFront();
-            camera_front.y = 0.0f;
-            camera_front.Normalize();
-            dir = camera_front;
-            dir *= speed * 1.0f;
-            dir *= Time.delta_unscaled;
-            TCompCollider* comp_collider = get<TCompCollider>();
-            if (!comp_collider || !comp_collider->controller)
-                return;
-
-            comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
-            return;
-        }
-
-        //if we're releasing and have hit the floor, finish the attack
-        if (chargedAttack_releasing && isGrounded() && chargedAttack_onAir) {
+            TCompTransform* c_trans = get<TCompTransform>();
             TMsgDamage msg;
             msg.h_bullet = CHandle(this).getOwner();
             msg.senderType = EntityType::PLAYER;
@@ -1115,15 +1098,13 @@ void TCompCharacterController::chargedAttack(float delta) {
             msg.damageType = PowerType::CHARGED_ATTACK;
             msg.position = c_trans->getPosition() + VEC3::Up;
             msg.intensityDamage = chargedAttack_damage;
-						msg.impactForce = chargedAttack_impactForce;
+			msg.impactForce = chargedAttack_impactForce;
             GameController.generateDamageSphere(c_trans->getPosition(), chargedAttack_radius, msg, "enemy");
             GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
             //stop charging
             chargedAttack_buttonPressTimer = 0.f;
             //reset speed
             speed = base_speed;
-            chargedAttack_releasing = false;
-            chargedAttack_onAir = false;
             dbg("Player lands CHARGED_ATTACK.\n");
             ChangeState("GROUNDED");
             return;
@@ -1135,8 +1116,6 @@ void TCompCharacterController::chargedAttack(float delta) {
             chargedAttack_buttonPressTimer = 0.f;
             //reset speed
             speed = base_speed;
-            chargedAttack_releasing = false;
-            chargedAttack_onAir = false;
             dbg("Player stops charging CHARGED_ATTACK.\n");
             ChangeState("GROUNDED");
         }
@@ -1146,9 +1125,11 @@ void TCompCharacterController::chargedAttack(float delta) {
     if (EngineInput["attack_"].isPressed()) {
         chargedAttack_buttonPressTimer += Time.delta_unscaled;
         speed = chargedAttack_playerSpeed;
+        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+        playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_LOOP, 1.0f);
     }
 
-    VEC3 dir = VEC3();
+    /*VEC3 dir = VEC3();
     getInputForce(dir);
     dir *= Time.delta_unscaled;
     TCompCollider* comp_collider = get<TCompCollider>();
@@ -1156,7 +1137,7 @@ void TCompCharacterController::chargedAttack(float delta) {
         return;
 
     comp_collider->controller->move(VEC3_TO_PXVEC3(dir), 0.0f, Time.delta_unscaled, PxControllerFilters());
-    rotatePlayer(dir, Time.delta_unscaled, false);
+    rotatePlayer(dir, Time.delta_unscaled, false);*/
 }
 
 //void TCompCharacterController::attackChilli(float delta) {

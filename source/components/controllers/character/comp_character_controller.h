@@ -131,7 +131,7 @@ private:
 	float chargedAttack_impactForce = 20.0f;
   float chargedAttack_buttonPressThreshold = 0.2f;
   float chargedAttack_buttonPressTimer = 0.f;
-  float chargedAttack_playerSpeed = base_speed * 0.5;
+  float chargedAttack_playerSpeed = 0.f;
   bool chargedAttack_releasing = false;
   bool chargedAttack_onAir = false;
   //End ChargedAttack Values
