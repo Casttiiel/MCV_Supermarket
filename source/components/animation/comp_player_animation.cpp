@@ -91,6 +91,39 @@ void TCompPlayerAnimator::debugInMenu() {
     if (ImGui::SmallButton("FIRE_START_PARTIAL")) {
       playAnimation(EAnimation::FIRE_START_PARTIAL, speed);
     }
+    if (ImGui::SmallButton("CHARGED_MELEE_ATTACK")) {
+        playAnimation(EAnimation::CHARGED_MELEE_ATTACK, speed);
+    }
+    if (ImGui::SmallButton("CHARGED_MELEE_LOOP")) {
+        playAnimation(EAnimation::CHARGED_MELEE_LOOP, speed);
+    }
+    if (ImGui::SmallButton("CHARGED_MELEE_POSE")) {
+        playAnimation(EAnimation::CHARGED_MELEE_POSE, speed);
+    }
+    if (ImGui::SmallButton("SCART_IDLE")) {
+        playAnimation(EAnimation::SCART_IDLE, speed);
+    }
+    if (ImGui::SmallButton("SCART_LEFT_END")) {
+        playAnimation(EAnimation::SCART_LEFT_END, speed);
+    }
+    if (ImGui::SmallButton("SCART_LEFT_LOOP")) {
+        playAnimation(EAnimation::SCART_LEFT_LOOP, speed);
+    }
+    if (ImGui::SmallButton("SCART_LEFT_START")) {
+        playAnimation(EAnimation::SCART_LEFT_START, speed);
+    }
+    if (ImGui::SmallButton("SCART_RIGHT_END")) {
+        playAnimation(EAnimation::SCART_RIGHT_END, speed);
+    }
+    if (ImGui::SmallButton("SCART_RIGHT_LOOP")) {
+        playAnimation(EAnimation::SCART_RIGHT_LOOP, speed);
+    }
+    if (ImGui::SmallButton("SCART_RIGHT_START")) {
+        playAnimation(EAnimation::SCART_RIGHT_START, speed);
+    }
+    if (ImGui::SmallButton("SCART_ROW")) {
+        playAnimation(EAnimation::SCART_ROW, speed);
+    }
 
 
     ImGui::DragFloat("Delta Movement", &delta_movement, 0.01f, 0, 1.f);
@@ -395,6 +428,127 @@ void TCompPlayerAnimator::initializeAnimations() {
       "",
       1.0f,
       1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::CHARGED_MELEE_ATTACK,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "CHARGED_MELEE_ATTACK",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::CHARGED_MELEE_LOOP,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "CHARGED_MELEE_LOOP",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::CHARGED_MELEE_POSE,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "CHARGED_MELEE_POSE",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::SCART_IDLE,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "SCART_IDLE",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::SCART_LEFT_END,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "SCART_LEFT_END",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::SCART_LEFT_LOOP,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "SCART_LEFT_LOOP",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::SCART_LEFT_START,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "SCART_LEFT_START",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::SCART_RIGHT_END,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "SCART_RIGHT_END",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::SCART_RIGHT_LOOP,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "SCART_RIGHT_LOOP",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::SCART_RIGHT_START,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "SCART_RIGHT_START",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::SCART_ROW,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "SCART_ROW",
+        "",
+        "",
+        1.0f,
+        1.0f
     );
 }
 
