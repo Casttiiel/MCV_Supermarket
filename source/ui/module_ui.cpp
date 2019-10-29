@@ -314,6 +314,25 @@ namespace UI
 	  //INTRO
 	  registerWidgetClass("INTRO_SCREEN","data/ui/widgets/intro_background.json", nullptr);
 
+	  //MISION 1
+	  registerWidgetClass("MISION_1", "data/ui/widgets/mision1.json", nullptr);
+	  //MISION 2
+	  registerWidgetClass("MISION_2", "data/ui/widgets/mision2.json", nullptr);
+	  //MISION 3
+	  registerWidgetClass("MISION_3", "data/ui/widgets/mision3.json", nullptr);
+	  //MISION 4
+	  registerWidgetClass("MISION_4", "data/ui/widgets/mision4.json", nullptr);
+	  //MISION 5
+	  registerWidgetClass("MISION_5", "data/ui/widgets/mision5.json", nullptr);
+	  //MISION 6
+	  registerWidgetClass("MISION_6", "data/ui/widgets/mision6.json", nullptr);
+	  //MISION 7
+	  registerWidgetClass("MISION_7", "data/ui/widgets/mision7.json", nullptr);
+	  //MISION 8
+	  registerWidgetClass("MISION_8", "data/ui/widgets/mision8.json", nullptr);
+	  //MISION 9
+	  registerWidgetClass("MISION_9", "data/ui/widgets/mision9.json", nullptr);
+	  
   }
 
 

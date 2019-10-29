@@ -1211,6 +1211,15 @@ void TCompCharacterController::onEnter(const TMsgEntityTriggerEnter& trigger_ent
                 //dismount();
                 ChangeState("WIN");
 				CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");
+				CEngine::get().getUI().deactivateWidgetClass("MISION_9");
+				CEngine::get().getUI().deactivateWidgetClass("MISION_8");
+				CEngine::get().getUI().deactivateWidgetClass("MISION_7");
+				CEngine::get().getUI().deactivateWidgetClass("MISION_6");
+				CEngine::get().getUI().deactivateWidgetClass("MISION_5");
+				CEngine::get().getUI().deactivateWidgetClass("MISION_4");
+				CEngine::get().getUI().deactivateWidgetClass("MISION_3");
+				CEngine::get().getUI().deactivateWidgetClass("MISION_2");
+				CEngine::get().getUI().deactivateWidgetClass("MISION_1");
 				Scripting.execActionDelayed("endGame()", 0.0);
 				
 
@@ -1608,6 +1617,8 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 
 
 			Scripting.execActionDelayed("crearTrampaHornos()", 0.0);
+			Scripting.execActionDelayed("childAppears(\"MISION_2\",true,true,0.0,1.25)",0.1);
+			//Scripting.execActionDelayed("deactivateWidget(\"MISION_1\")", 0.0);
 			Scripting.execActionDelayed("saveCheckpoint()", 0.5);
 
 			/*
@@ -1627,8 +1638,9 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  CEntity* entity = EngineEntities.getInventoryHandle();
 		  TCompInventory* inventory = entity->get<TCompInventory>();
 		  inventory->setChilli(true);
-      EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-	  Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
+		  EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+		  Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
+		  Scripting.execActionDelayed("childAppears(\"MISION_4\",true,true,0.0,1.25)", 1.1);
 	  //Scripting.execActionDelayed("balanceoLampara(\"Joint001\")", 0);
       /*CEntity* e1 = getEntityByName("Hielo2_LP");
       TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
@@ -1659,6 +1671,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  inventory->setCoffe(true);
 		  //unLockableCoffe = true;
           EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+		  Scripting.execActionDelayed("childAppears(\"MISION_9\",true,true,0.0,1.25)", 0);
           break;
       }
       case PowerUpType::ACTIVATE_TELEPORT:

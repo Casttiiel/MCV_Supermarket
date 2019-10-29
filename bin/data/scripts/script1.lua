@@ -236,6 +236,7 @@ function script_ice_1_player()
 	execDelayedAction("on_blending_camera(\"CameraPanel001\", 5,\"Quadin\")",0);
 	--execDelayedAction("on_GPUdeleteScene(\"data/scenes/mapa_panaderia.json\")",3);
 	--execDelayedAction("on_load_gpu_products(\"data/scenes/mapa_asiatica.json\")",8.0);
+	execDelayedAction("childAppears(\"MISION_3\",true,true,0.0,1.25)", 6.1);
 	execDelayedAction("on_blending_camera(\"CameraPanel002\", 5,\"Quadin\")",6);	
     execDelayedAction("destroy_and_wake_up(\"golem2\",\"Box007\", 20)",15); 
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"Quadin\")",12);
@@ -463,8 +464,10 @@ function cinematic_scene_termoestatos_player()
 	execDelayedAction("on_cinematic(true)",0.1);
 	execDelayedAction("on_lock_camera3(false)",0);
 	execDelayedAction("on_blending_camera(\"CameraTermoestato1\", 5,\"linear\")",0); --poner en mapa la cmara correspondiente a donde estaran ubicados los termoestatos
+	execDelayedAction("childAppears(\"MISION_5\",true,true,0.0,1.25)", 4.5);
 	execDelayedAction("on_blending_camera(\"CameraTermoestato2\", 5,\"linear\")",7); --volver a la camara del jugador
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 5,\"linear\")",14);
+	execDelayedAction("childAppears(\"MISION_6\",true,true,0.0,1.25)", 13.25)
 	execDelayedAction("on_lock_camera3(true)",19);
 	execDelayedAction("on_cinematic(false)",19);
 	--asignar curvas a enemigos
@@ -819,7 +822,9 @@ function activePlataformCarniceria_player()
 	execDelayedAction("sethalfConeEnemy(360,h_suishi4,2)",15.0);
 	--execDelayedAction("setViewDistanceEnemy(1000,h_suishi5,1)",12.5);
 	--execDelayedAction("sethalfConeEnemy(360,h_suishi5,1)",12.5);
+	execDelayedAction("childAppears(\"MISION_8\",true,true,0.0,1.25)", 15.8)
 	execDelayedAction("saveCheckpoint()",15.5);
+
 
 	
 end
@@ -1147,7 +1152,8 @@ function salCupcakeHorno010_008_player()
 	execDelayedAction("on_lock_camera3(true)",12);
 	execDelayedAction("on_cinematic(false)",12);
 
-	
+	execDelayedAction("childAppears(\"MISION_1\",true,true,0.0,1.25)", 5.5)
+		
 
 
 	execDelayedAction("activateCurveForOven(\"horno008\",true,\"curvaCupcakeCongelados1\")",6);
@@ -1170,6 +1176,8 @@ function salCupcakeHorno010_008_2_player()
 	execDelayedAction("on_lock_camera3(false)",0.5);
 	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.5);
 	execDelayedAction("on_cinematic(true)",0.5);
+
+	execDelayedAction("childAppears(\"MISION_1\",true,true,0.0,1.25)", 5.5)
 
 	execDelayedAction("on_blending_camera(\"PlayerCamera\", 7,\"Cubicinout\")",6.5);
 	execDelayedAction("on_lock_camera3(true)",11);

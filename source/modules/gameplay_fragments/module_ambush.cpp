@@ -68,7 +68,7 @@ void CModuleAmbush::secondEvent() {
 	Scripting.execActionDelayed("on_ambush()", 0.0); 
 	Scripting.execActionDelayed("setAmbient(0.025)", 0.0);
 	Scripting.execActionDelayed("changeLightsIntensityJoint(0.0)", 0.0);
-	
+	Scripting.execActionDelayed("childAppears(\"MISION_7\",true,true,0.0,1.25)", 0.1);
 	Scripting.execActionDelayed("apagarEncenderLuz(true)", 0.0);
 	Scripting.execActionDelayed("setAmbient(0.300)", 4.0);
 	Scripting.execActionDelayed("changeLightsIntensityJoint(8.0)", 4.0);
