@@ -1110,8 +1110,6 @@ void TCompCharacterController::chargedAttack(float delta) {
             GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
             //stop charging
             chargedAttack_buttonPressTimer = 0.f;
-            //reset speed
-            speed = base_speed;
             dbg("Player lands CHARGED_ATTACK.\n");
             ChangeState("GROUNDED");
             return;
@@ -1129,7 +1127,6 @@ void TCompCharacterController::chargedAttack(float delta) {
     //If the button is pressed increase chargedAttack_buttonPressTimer
     if (EngineInput["attack_"].isPressed()) {
         chargedAttack_buttonPressTimer += Time.delta_unscaled;
-        speed = chargedAttack_playerSpeed;
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_LOOP, 1.0f);
     }
