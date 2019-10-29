@@ -534,6 +534,7 @@ void TCompCharacterController::grounded(float delta) {
 
     meleeTimer -= Time.delta_unscaled;
 
+
 }
 
 void TCompCharacterController::changeWeaponMesh(WeaponMesh weaponSelected) {
@@ -1136,19 +1137,17 @@ void TCompCharacterController::chargedAttack(float delta) {
             dbg("Player lands CHARGED_ATTACK.\n");
             ChangeState("GROUNDED");
             return;
-        }
+				}//If we stop holding before the attack is charged, go back to grounded
+				else if (EngineInput["attack_"].justReleased() && chargedAttack_buttonPressTimer < chargedAttack_chargeDelay) {
+						//stop charging
+						chargedAttack_buttonPressTimer = 0.f;
+						speed = base_speed;
+						dbg("Player stops charging CHARGED_ATTACK.\n");
+						ChangeState("GROUNDED");
+				}
 
-        //If we stop holding before the attack is charged, go back to grounded
-        if (EngineInput["attack_"].justReleased() && chargedAttack_buttonPressTimer < chargedAttack_chargeDelay) {
-            //stop charging
-            chargedAttack_buttonPressTimer = 0.f;
-            dbg("Player stops charging CHARGED_ATTACK.\n");
-            ChangeState("GROUNDED");
-        }
-    }
 
-    //If the button is pressed increase chargedAttack_buttonPressTimer
-    if (EngineInput["attack_"].isPressed()) {
+    } else if (EngineInput["attack_"].isPressed()) {
         chargedAttack_buttonPressTimer += Time.delta_unscaled;
         speed = chargedAttack_playerSpeed;
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
@@ -1494,6 +1493,14 @@ void  TCompCharacterController::SwapMesh(int state) {
 //Shopping Cart
 void TCompCharacterController::mount(CHandle vehicle) {
     if (vehicle.isValid()) {
+				//---------------visual
+				CEntity* carrito = getEntityByName("Carrito");
+				TCompRender* carrito_rend = carrito->get<TCompRender>();
+				carrito_rend->is_visible = true;
+				//animacion:
+
+
+				//--------------- end visual
         isMounted = true;
         TCompSCartController* sCart = get<TCompSCartController>();
         sCart->enable(vehicle);
