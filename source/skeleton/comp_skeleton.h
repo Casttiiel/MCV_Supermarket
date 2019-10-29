@@ -39,14 +39,13 @@ struct TCompSkeleton : public TCompBase {
   bool actionAnimationOnExecution();
   bool isExecutingCyclicAnimation(int animaId);
   bool isExecutingActionAnimation(std::string animaName);
-  void guessFeetBonesId(int feetNum);
-  void setFeetId(std::vector<int> feetId);
-  std::vector<VEC3> getFeetPositions();
   float getAnimationDuration(int animaId);
   VEC3 getBonePositionByName(const std::string & name);
   VEC3 setBonePositionByName(const std::string & name);
   VEC3 getBonePositionById(int id);
   void setBonePositionById(int id, VEC3 position);
+  void removeAnimationByNBame(std::string animName);
+  void clearAnimations();
   DECL_SIBLING_ACCESS();
 };
 

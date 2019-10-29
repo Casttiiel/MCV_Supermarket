@@ -1878,6 +1878,10 @@ void CBTSushi::onGenericDamageInfoMsg(const TMsgDamage& msg) {
 			if (msg.damageType == PowerType::CHARGED_ATTACK) {
 				blockRemaining = 0;
                 sushiAnimator->playAnimation(TCompSushiAnimator::BLOCK_BREAK_GET_UP, 1.f);
+                if (!_audioPlaying.isPlaying()) {
+                    _audioPlaying = EngineAudio.playEvent("event:/Enemies/Sushi/Melee_ParryBreak");
+                    _audioPlaying.set3DAttributes(c_trans->getPosition(), c_trans->getFront(), c_trans->getUp());
+                }
             }
             else {
                 sushiAnimator->playAnimation(TCompSushiAnimator::DAMAGED, 1.f);
