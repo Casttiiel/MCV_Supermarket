@@ -50,6 +50,7 @@ void TCompWindTrap::enable(const TMsgEntityTriggerEnter & msg) {
 		CEntity* player_e = (CEntity*)player;
 		TCompCharacterController* comp_ch= player_e->get<TCompCharacterController>();
 		comp_ch->setDashSpeed(5.f);
+		timmerDeactivateComodin = 1.0f;
 	}
 }
 
@@ -100,7 +101,20 @@ void TCompWindTrap::update(float dt) {
             pushingAudio.set3DAttributes(*c_trans);
         }
 	}
-
+	//Minor Fix por si falla el exit del trigger
+	if (timmerDeactivateComodin <= 0) {
+		if (_isEnabled) {
+			CEntity* player_e = (CEntity*)player;
+			if (player_e != nullptr)  {
+				TCompCharacterController* comp_ch = player_e->get<TCompCharacterController>();
+				comp_ch->setDashSpeed(35.f);
+				_isEnabled = false;
+				timmerDeactivateComodin = 1.0f;
+			}
+		}
+	}
+	timmerDeactivateComodin -= dt;
+	//...hasta aqui
   generateWind(dt);
 }
 

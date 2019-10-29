@@ -43,6 +43,7 @@ private:
   float _startDestroy = 1.1f;
   float _destroyVar = 1.0f;
   float distanceThreshold = 8.f;
+  float timmerDeactivateComodin = 1.f;
 
 	CHandle player;
 
