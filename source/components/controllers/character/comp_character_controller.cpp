@@ -186,7 +186,7 @@ void TCompCharacterController::onMeleeHit(const TMsgMeleeHit& msg) {
     dmgmsg.h_bullet = CHandle(this).getOwner();
     dmgmsg.position = c_trans->getPosition() + VEC3::Up;
     dmgmsg.senderType = PLAYER;
-    dmgmsg.intensityDamage = meleeDamage;
+    dmgmsg.intensityDamage = meleeDamage * comboModifier;
     dmgmsg.impactForce = impactForceAttack * comboModifier;
     dmgmsg.damageType = MELEE;
     dmgmsg.targetType = ENEMIES;
@@ -1069,7 +1069,7 @@ void TCompCharacterController::attack(float delta) {
     TCompMadnessController* m_c = get<TCompMadnessController>();
 
     if (c_tp->canCombo()) { //puedes hacer combo
-        comboModifier = 6.f;
+        comboModifier = 2.f;
         c_tp->comboDone = true;
     }
     else {
@@ -1307,9 +1307,6 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
 }
 
 void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
-
-	
-
 
     if (life <= 0.0f) {
         return;

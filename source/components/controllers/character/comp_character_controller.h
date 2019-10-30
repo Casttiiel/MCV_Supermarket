@@ -80,7 +80,7 @@ private:
   float dash_speed = 35.0f;
   float dash_limit = 0.12f;
   float dash = dash_limit;
-  float time_between_dashes = 1.5f;
+  float time_between_dashes = 1.0f;
   float time_to_next_dash = 0.0f;
   float jump_force = 7.f;
   float double_jump_force = 4.f;
@@ -112,13 +112,13 @@ private:
     bool alreadyAttacked = false;
   bool attackFirstExecution = true;
   bool attacking = false;
-  float comboModifier = 1.0f;
+  float comboModifier = 2.0f;
   float meleeTimer = 0.f;
   float meleeDelay = 0.3f;
   float meleeTotalDuration = 0.4f;
   float meleeCurrentDuration = 0.f;
   float meleeDistance = 0.75f;
-  float meleeDamage = 30.f;
+  float meleeDamage = 50.f;
   float meleeRadius = 1.25f;
   std::vector<CHandle> entitiesHit;
   float impactForceAttack = 8.0f;
