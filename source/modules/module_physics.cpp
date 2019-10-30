@@ -725,6 +725,9 @@ CModulePhysics::FilterGroup CModulePhysics::getFilterByName(const std::string& n
   else if (strcmp("player_scenario", name.c_str()) == 0) {
 	  return CModulePhysics::FilterGroup::PlayerAndScenario;
   }
+	else if (strcmp("proyectile_enemy", name.c_str()) == 0) {
+		return CModulePhysics::FilterGroup::ProyectileEnemy;
+	}
   else if (strcmp("trigger", name.c_str()) == 0) {
     return CModulePhysics::FilterGroup::Trigger;
   }
