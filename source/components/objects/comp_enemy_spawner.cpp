@@ -168,7 +168,7 @@ void TCompEnemySpawner::update(float dt) {
 				}
 				if (_prefab == PREFAB_CUPCAKE_) {
 					CBTCupcake* cbt = e_enemy->get<CBTCupcake>();
-					cbt->setLife(350.f);
+					cbt->setLife(300.f);
 				}
 
 

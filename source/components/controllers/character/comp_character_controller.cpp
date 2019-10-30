@@ -382,7 +382,7 @@ void TCompCharacterController::grounded(float delta) {
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
         shoot();
     }
-    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f && !aiming) {//DASH
+    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
         ChangeState("DASHING");
@@ -1575,7 +1575,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
           //maxLife = maxLife + quantity;
           //heal();
           //GameController.increaseHpBarSize(extraBarSize);
-					GameController.healPlayerPartially(15.f);
+					GameController.healPlayerPartially(quantity);
           EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
           break;
       }

@@ -49,7 +49,7 @@ private:
 	int _spawnMaxNumber = 2;
 	float destroyEffectTimer = 1.3f;
 	std::vector<CHandle> _currentEnemies;
-	float _spawnDelay = 3.f;
+	float _spawnDelay = 5.f;
 	float _spawnTimer = _spawnDelay;
 	std::string _prefab = PREFAB_CUPCAKE_;
     float _spawnOffset = 2.5f;

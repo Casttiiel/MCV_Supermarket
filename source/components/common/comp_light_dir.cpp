@@ -19,6 +19,7 @@ void TCompLightDir::debugInMenu() {
   ImGui::DragFloat("Intensity", &intensity, 0.01f, 0.f, 10.f);
   ImGui::ColorEdit3("Color", &color.x);
   ImGui::DragFloat("Step Size", &shadows_step, 0.01f, 0.f, 5.f);
+  ImGui::Checkbox("Shadows Enabled", &shadows_enabled);
 }
 
 // -------------------------------------------------
@@ -148,7 +149,7 @@ void TCompLightDir::activate() {
 // ------------------------------------------------------
 void TCompLightDir::generateShadowMap() {
   PROFILE_FUNCTION("ShadowMap");
-  if (!shadows_rt || !shadows_enabled )
+  if (!shadows_rt || !shadows_enabled)
     return;
 
   // In this slot is where we activate the render targets that we are going

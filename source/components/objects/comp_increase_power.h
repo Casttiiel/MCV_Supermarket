@@ -15,7 +15,7 @@ public:
   void update(float dt);
 
   PowerUpType type = PowerUpType::HEALTH_UP;
-  float chunk = 20; //cantidad que se incrementara
+  float chunk = 50.0f; //cantidad que se incrementara
 
   static void registerMsgs();
 
