@@ -311,6 +311,7 @@ int CBTCupcake::actionDivide() {
 		msg.impulse = impulse;
 		msg.insightPlayer = insightPlayer;
 		msg.attacking = attacking;
+    msg.damage = damage / 3.0f;
 		ctx.entities_loaded[0].sendMsg(msg);
 
 	}
@@ -806,6 +807,7 @@ void CBTCupcake::onTMsgToCupcakeSon(const TMsgToCupcakeSon& msg) {
 	life = msg.life;
 	insightPlayer = msg.insightPlayer;
 	attacking = msg.attacking;
+  damage = msg.damage;
 
 	TCompRigidBody* c_rb = get<TCompRigidBody>();
 	c_rb->addForce(msg.impulse);

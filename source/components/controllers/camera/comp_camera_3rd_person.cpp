@@ -24,13 +24,14 @@ void TCompCamera3rdPerson::debugInMenu()
   ImGui::SliderFloat("Smooth Speed", &smoothSpeed, 10.0f, 20.0f);
   ImGui::SliderFloat("Yaw Sensitivity", &GameController.yaw_sensivity, 10.0f, 20.0f);
   ImGui::SliderFloat("Pitch Sensitivity", &GameController.pitch_sensivity, 10.0f, 20.0f);
+  ImGui::DragFloat3("Pos Offset", &_posOffset.x, 0.01f, 0.0f, 25.0f);
+  ImGui::DragFloat3("Aim Offset", &aimOffset.x, 0.01f, 0.0f, 25.0f);
 
 
 }
 
 void TCompCamera3rdPerson::load(const json& j, TEntityParseContext& ctx) {
   _targetName = j.value("target", "");
-  _targetOffset = loadVEC3(j, "targetOffset");
   _posOffset = loadVEC3(j, "posOffset");
   _ratio = j.value("ratio", _ratio);
   _curve = Resources.get(j.value("curve", ""))->as<CCurve>();

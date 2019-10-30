@@ -84,7 +84,7 @@ public:
 	void generatePoints();
 	void renderDebug();
 
-	int damage = 10;
+	int damage = 5.0f;
 	int fireDamage = 15;
 	int currentDamage = damage;
   bool death_animation_started = false;
@@ -142,8 +142,8 @@ private:
 	bool insightPlayer = false;
 	//gameplay parameters
 	int num_of_divisions = 1; //times will you divide your self
-	float life = 30.f;
-	float sonLife = 10.0f;
+	float life = 100.f;
+	float sonLife = 50.0f;
 	int num_of_sons = 2; //number of sons
 	int spawnRange = 5; //spawn range of sons
 	float orbitRadious = 3.0f;

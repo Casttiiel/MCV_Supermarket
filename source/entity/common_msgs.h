@@ -58,6 +58,7 @@ struct TMsgToCupcakeSon {
 	int num_of_sons;
 	bool insightPlayer;
 	bool attacking;
+  float damage;
 	VEC3 impulse;
 	DECL_MSG_ID();
 };

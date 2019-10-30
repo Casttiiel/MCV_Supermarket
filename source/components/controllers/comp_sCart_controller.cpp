@@ -63,8 +63,11 @@ void TCompSCartController::enable(CHandle vehicle) {
 		player_collider->controller->setPosition(VEC3_TO_PXEXVEC3(prop_pos));
 		ChangeState("SCART_GROUNDED");
 		SwapMesh(1);
+        //Instead of swapmesh, show the scart mesh using the dummy
 		//Generate fake player mounted
 		fakePlayerHandle = GameController.spawnPrefab("data/prefabs/props/fake_player_mounted.json", c_trans->getPosition());
+        //This is no longer necessary
+        //Start the scart loop animation
         EngineAudio.playEvent("event:/Character/SCart/Mount");
 
         TCompSkeleton* c_skel = get<TCompSkeleton>();
