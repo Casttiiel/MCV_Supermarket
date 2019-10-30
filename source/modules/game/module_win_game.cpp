@@ -35,7 +35,7 @@ void CModuleWinGame::update(float delta)
 		auto& app = CApplication::get();
 		DestroyWindow(app.getHandle());
 	}*/
-
+	//GameController.changeGameState("gs_main_menu");
 	
 }
 
@@ -49,6 +49,13 @@ void CModuleWinGame::stop()
 	else {
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 	}
+
+	/*
+	EngineNavmesh.destroyNavmesh();
+	EngineEntities.destroyEntities();
+	Engine.getGPUCulling().start();
+	EngineEntities.start();
+	*/
 }
 
 void CModuleWinGame::renderInMenu()
