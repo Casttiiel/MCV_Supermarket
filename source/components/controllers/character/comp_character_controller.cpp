@@ -186,7 +186,7 @@ void TCompCharacterController::onMeleeHit(const TMsgMeleeHit& msg) {
     dmgmsg.h_bullet = CHandle(this).getOwner();
     dmgmsg.position = c_trans->getPosition() + VEC3::Up;
     dmgmsg.senderType = PLAYER;
-    dmgmsg.intensityDamage = meleeDamage;
+    dmgmsg.intensityDamage = meleeDamage * comboModifier;
     dmgmsg.impactForce = impactForceAttack * comboModifier;
     dmgmsg.damageType = MELEE;
     dmgmsg.targetType = ENEMIES;
@@ -382,7 +382,7 @@ void TCompCharacterController::grounded(float delta) {
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
         shoot();
     }
-    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f && !aiming) {//DASH
+    if (EngineInput["dash_"].justPressed() && time_to_next_dash <= 0.0f) {//DASH
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DASH, 1.5f);
         ChangeState("DASHING");
@@ -1069,7 +1069,7 @@ void TCompCharacterController::attack(float delta) {
     TCompMadnessController* m_c = get<TCompMadnessController>();
 
     if (c_tp->canCombo()) { //puedes hacer combo
-        comboModifier = 6.f;
+        comboModifier = 2.f;
         c_tp->comboDone = true;
     }
     else {
@@ -1110,8 +1110,6 @@ void TCompCharacterController::chargedAttack(float delta) {
             GameController.spawnPrefab("data/prefabs/props/explosion_soja.json", c_trans->getPosition(), c_trans->getRotation(), 2.f);
             //stop charging
             chargedAttack_buttonPressTimer = 0.f;
-            //reset speed
-            speed = base_speed;
             dbg("Player lands CHARGED_ATTACK.\n");
             ChangeState("GROUNDED");
             return;
@@ -1129,7 +1127,6 @@ void TCompCharacterController::chargedAttack(float delta) {
     //If the button is pressed increase chargedAttack_buttonPressTimer
     if (EngineInput["attack_"].isPressed()) {
         chargedAttack_buttonPressTimer += Time.delta_unscaled;
-        speed = chargedAttack_playerSpeed;
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_LOOP, 1.0f);
     }
@@ -1316,9 +1313,6 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
 }
 
 void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
-
-	
-
 
     if (life <= 0.0f) {
         return;
@@ -1587,7 +1581,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
           //maxLife = maxLife + quantity;
           //heal();
           //GameController.increaseHpBarSize(extraBarSize);
-					GameController.healPlayerPartially(15.f);
+					GameController.healPlayerPartially(quantity);
           EngineAudio.playEvent("event:/Character/Other/Powerup_Pickup");
           break;
       }

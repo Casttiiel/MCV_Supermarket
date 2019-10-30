@@ -214,7 +214,7 @@ void TCompFireController::attack(VEC3 origin) {
     msgDamage.damageType = PowerType::FIRE;
     msgDamage.senderType = EntityType::PLAYER;
     msgDamage.targetType = EntityType::ENEMIES;
-    msgDamage.intensityDamage = _fireDamage * Time.delta_unscaled;
+    msgDamage.intensityDamage = _fireDamage;
     msgDamage.impactForce = _fireImpactForce;
 
     //Message to the bullet

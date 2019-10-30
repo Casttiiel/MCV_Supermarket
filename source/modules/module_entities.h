@@ -17,6 +17,8 @@ class CModuleEntities : public IModule
 public:
   CHandle getPlayerHandle();
   CHandle getInventoryHandle();
+
+  void destroyEntities();
   CModuleEntities(const std::string& aname) : IModule(aname) { }
   bool start() override;
   void stop() override;

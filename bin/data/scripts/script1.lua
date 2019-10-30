@@ -542,18 +542,22 @@ function createEnemies_player()
 	--suishis piso superior (Quizas setear el height para que no te ataquen antes de tiempo)
 	h_suishi9 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-47,7.632,-18), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica9",h_suishi9);
-	GameController:setHeightEnemyByHandle(1,h_suishi9,1);
+	GameController:setHeightEnemyByHandle(0,h_suishi9,1);
 	GameController:setPauseEnemyByHandle(h_suishi9,false);
 
 	h_suishi10 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-53,7.632,-17), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica10",h_suishi10);
-	GameController:setHeightEnemyByHandle(1,h_suishi10,1);
+	GameController:setHeightEnemyByHandle(0,h_suishi10,1);
 	GameController:setPauseEnemyByHandle(h_suishi10,false);
 
 	h_suishi11 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-60,7.632,-23), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica11",h_suishi11);
-	GameController:setHeightEnemyByHandle(1,h_suishi11,1);
+	GameController:setHeightEnemyByHandle(0,h_suishi11,1);
 	GameController:setPauseEnemyByHandle(h_suishi11,false);
+
+	GameController:setViewDistanceEnemy(0,h_suishi9,1);
+	GameController:setViewDistanceEnemy(0,h_suishi10,1);
+	GameController:setViewDistanceEnemy(0,h_suishi11,1);
 
 	--h_suishi12 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(80,7.632,137), QUAT(0, 0, 0, 1),1);--quitar este
 	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica12",h_suishi12);
@@ -569,11 +573,22 @@ function createEnemies_player()
 	--GameController:setPauseEnemyByHandle(h_suishi15,true); --GameController:setPauseEnemyByHandle(h_suishi15,true);
 	playAnnouncement('event:/UI/Announcements/Announcement6')
 	
-	execDelayedAction("on_delete_handle(\"trigger2\")",0);
-
-
-	
+	execDelayedAction("on_delete_handle(\"trigger2\")",0);	
 end
+
+
+function viewAtPlayerSushisZanahoria_player()
+	GameController:setViewDistanceEnemyByHandle(60,h_suishi9,1);
+	GameController:setViewDistanceEnemyByHandle(60,h_suishi10,1);
+	GameController:setViewDistanceEnemyByHandle(60,h_suishi11,1);
+	GameController:setHeightEnemyByHandle(1,h_suishi9,1);
+	GameController:setHeightEnemyByHandle(1,h_suishi10,1);
+	GameController:setHeightEnemyByHandle(1,h_suishi11,1);
+	
+	execDelayedAction("on_delete_handle(\"trigger1\")",0);
+end
+
+
 
 function setTransformObject_(name,pos,yaw,pith,roll)
 	GameController:setTransformObject(name,pos,yaw,pith,roll);
