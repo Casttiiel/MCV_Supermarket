@@ -730,7 +730,7 @@ void CBTCupcake::onCollision(const TMsgOnContact& msg) { //no se utiliza
 }
 
 void CBTCupcake::onDamageToAll(const TMsgDamageToAll& msg) {
-	if (isPaused()) {
+	if (isPaused() || invulnerable) {
 		return;
 	}
 	life = life - msg.intensityDamage;
@@ -743,7 +743,7 @@ void CBTCupcake::onDamageToAll(const TMsgDamageToAll& msg) {
 }
 
 void CBTCupcake::onGenericDamageInfoMsg(const TMsgDamage& msg) { //TODO: ARREGLAR
-	if (isPaused()) {
+	if (isPaused() || invulnerable) {
 		return;
 	}
 	if (jump) {
@@ -912,7 +912,7 @@ void CBTCupcake::onFireAreaEnter(const TMsgFireAreaEnter& msg) {
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	c_trans->setScale(fireScale); //se vuelve el doble de grande
-	currentDamage = fireDamage; //y un 50% mas fuerte
+	//currentDamage = fireDamage; //y un 50% mas fuerte
 }
 
 void CBTCupcake::onFireAreaExit(const TMsgFireAreaExit& msg) {
@@ -1159,6 +1159,21 @@ void CBTCupcake::updateBT() {
 		}
 	}
 	//----------------------- navmesh
+
+
+	//---------- hijos invulnerables durante dos segundos y no hacen daño al nacer
+	if (num_of_sons == 0) { //si es un hijo
+		if (recienNacidoTimer > 0) {
+			currentDamage = 0;
+			invulnerable = true;
+			recienNacidoTimer -= dt;
+		}
+		else {
+			currentDamage = damage;
+			invulnerable = false;
+		}
+	}
+	//------------------------
 
 	//check if is in the blackboard
 	if (inBlackboard) {
