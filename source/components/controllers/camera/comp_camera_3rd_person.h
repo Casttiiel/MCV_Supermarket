@@ -25,13 +25,12 @@ private:
   const CCurve* _curveIdle = nullptr;
   CHandle _target;
   CHandle lastGroundHandle;
-  VEC3 _targetOffset;
   VEC3 _posOffset;
   std::string _targetName;
   bool aiming;
   float aimTransitionTime = 0.5f;
   float actualAimTransitionTime = 0.f;
-  VEC3 aimOffset = VEC3(0, 0, 1.2);
+  VEC3 aimOffset = VEC3(0, 0, 1.0);
   VEC3 pulsePos = VEC3();
   VEC3 lastPos = VEC3();
   bool lastPosWasCollision = false;

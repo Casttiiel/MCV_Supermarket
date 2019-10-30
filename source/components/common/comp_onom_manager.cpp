@@ -3,6 +3,10 @@
 #include "engine.h"
 #include "components/common/comp_transform.h"
 
+std::mt19937 ba_mt_onom(std::random_device{}());
+std::uniform_int_distribution<int> ba_mt_onom_dist(1, 2);
+std::uniform_int_distribution<int> ba_mt_onom_dist2(-25, 25);
+std::uniform_int_distribution<int> ba_mt_onom_dist3(-15, 15);
 
 DECL_OBJ_MANAGER("onom_manager", TCompOnomManager);
 
@@ -39,7 +43,11 @@ void TCompOnomManager::onPetition(const TMsgOnomPet& msg) {
 
     CEntity* e_cam = camera;
     TCompTransform* c_trans = e_cam->get<TCompTransform>();
-    newmsg.pos = msg.pos + (VEC3::Up * 1.2f) - (c_trans->getLeft() * 0.65f) + (c_trans->getFront() * 0.25f);
+    float side = (ba_mt_onom_dist(ba_mt_onom) * 2.0f) - 3.0f;
+    float littleSideOffset = ba_mt_onom_dist2(ba_mt_onom) / 100.0f;
+    float littleHeightOffset = ba_mt_onom_dist3(ba_mt_onom) / 100.0f;
+
+    newmsg.pos = msg.pos + (VEC3::Up * (1.2f + littleHeightOffset)) - (sign(side))*(c_trans->getLeft() * (0.65f + littleSideOffset)) + (c_trans->getFront() * 0.25f);
 
     petitions.push_back(newmsg);
   }
