@@ -464,7 +464,10 @@ struct TSceneExporter (
 		fs.writeKeyValue "intensity" (obj.multiplier)
 		fs.writeComma()
 		
-		fs.writeKeyValue "casts_shadows" obj.castShadows
+		fs.writeKeyValue "casts_shadows" true
+		fs.writeComma()
+		
+		fs.writeKeyValue "shadows_enabled" obj.on
 		fs.writeComma()
 		
 		fs.writeKeyValue "shadows_resolution" 1024
