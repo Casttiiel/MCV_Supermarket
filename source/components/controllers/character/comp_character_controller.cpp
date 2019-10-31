@@ -378,6 +378,9 @@ void TCompCharacterController::grounded(float delta) {
 				else if (power_selected == PowerType::FIRE) {
 					changeWeaponMesh(WeaponMesh::EXTINTOR);
 				}
+				else if (power_selected == PowerType::MELEE) {
+					changeWeaponMesh(WeaponMesh::MOP);
+				}
     }
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
         shoot();

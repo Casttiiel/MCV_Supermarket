@@ -146,7 +146,7 @@ void TCompBatteryController::update(float delta) {
       physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
       
 			//---------------------
-			if (firstCollision) {
+			/*if (firstCollision) {
 				firstCollision = false;
 				TCompTransform* c_trans = get<TCompTransform>();
 				c_trans->setScale(1.0);
@@ -155,7 +155,7 @@ void TCompBatteryController::update(float delta) {
 				GameController.spawnPrefab("data/prefabs/vfx/boom.json", position);
 				AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Hazards/Explosion");
 				audio.set3DAttributes(*c_trans);
-			}
+			}*/
 			//---------------------
 
 
