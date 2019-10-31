@@ -105,6 +105,13 @@ public:
     all_resources[name] = new_resource;
   }
 
+  void deleteResources() {
+	  for (auto it = all_resources.begin(); it != all_resources.end(); )
+	  {
+		 all_resources.erase(it++); 
+	  }
+  }
+
   const IResource* get(const std::string& name) {
     auto it = all_resources.find(name);
     if (it != all_resources.end())

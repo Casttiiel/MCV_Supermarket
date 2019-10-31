@@ -1,6 +1,7 @@
 #include "mcv_platform.h"
 #include "module_win_game.h"
 #include "engine.h"
+#include "render/render.h"
 #include "input/input.h"
 #include "modules/module_boot.h"
 #include "components/common/comp_transform.h"
@@ -8,6 +9,7 @@
 #include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
 #include "module_game_controller.h"
+#include "render/module_render.h"
 
 bool CModuleWinGame::start()
 {
@@ -24,6 +26,7 @@ bool CModuleWinGame::start()
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 	}
 	*/
+	
     return true;
 }
 
@@ -54,8 +57,14 @@ void CModuleWinGame::stop()
 	EngineNavmesh.destroyNavmesh();
 	EngineEntities.stop();
 	Engine.getGPUCulling().stop();
+	//EnginePhysics.stop();
+	Resources.deleteResources();
+	//Render.destroy();
+	auto& mod_render = CEngine::get().getRender();
 	
-	
+	mod_render.start();
+	//EnginePhysics.start();
+
 	//CEngine::get().getUI().stop();
 	//CEngine::get().start();
 	//EngineEntities.start();
