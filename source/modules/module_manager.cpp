@@ -94,10 +94,13 @@ void CModuleManager::startModules( VModules& modules )
 
 void CModuleManager::stopModules(VModules& modules)
 {
+	dbg("-------\n");
   for (auto module : modules) {
     if (!module->isActive()) continue;
+	dbg("stop %s modules\n", module->getName().c_str());
     module->stop();
     module->setActive(false);
+	
   }
 }
 

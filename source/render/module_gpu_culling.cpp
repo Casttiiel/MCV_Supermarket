@@ -726,6 +726,10 @@ void CModuleGPUCulling::updateCamera() {
   }
 
   CEntity* e_camera = h_camera;
+  if (!e_camera) {
+	  return;
+  }
+		
   TCompCamera* c_camera = e_camera->get<TCompCamera>();
   if (!c_camera) {
     TCompLightDir* c_light_dir = e_camera->get<TCompLightDir>();

@@ -512,6 +512,4 @@ namespace UI
 	  windgetToLerp.lerpTime = lerp_time;
 	  widgetsToLerp.push_back(windgetToLerp);
   }
-
-
 }

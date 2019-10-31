@@ -11,7 +11,7 @@
 
 bool CModuleWinGame::start()
 {
-	UI::CModuleUI& ui = Engine.getUI();
+	/*UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",0);
@@ -23,7 +23,7 @@ bool CModuleWinGame::start()
 	else {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 	}
-
+	*/
     return true;
 }
 
@@ -52,9 +52,13 @@ void CModuleWinGame::stop()
 
 	
 	EngineNavmesh.destroyNavmesh();
-	EngineEntities.destroyEntities();
+	EngineEntities.stop();
 	Engine.getGPUCulling().stop();
-	EngineEntities.start();
+	
+	
+	//CEngine::get().getUI().stop();
+	//CEngine::get().start();
+	//EngineEntities.start();
 	
 }
 
