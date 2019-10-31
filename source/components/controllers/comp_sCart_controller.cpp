@@ -501,7 +501,7 @@ void TCompSCartController::grounded(float delta) {
 		TCompTransform* fake_trans = ((CEntity*)fakePlayerHandle)->get< TCompTransform>();
 		fake_trans->setPosition(c_trans->getPosition());
 		fake_trans->setRotation(c_trans->getRotation());
-	}	
+	}
 }
 
 void TCompSCartController::rowing(float delta) {
@@ -580,6 +580,17 @@ void TCompSCartController::rotatePlayer(float delta) {
   }
 
   c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + value * rotation_speed * delta, pitch, 0.0f));
+
+  TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+  if (EngineInput["left_"].value > 0.f) {
+      playerAnima->playAnimation(TCompPlayerAnimator::SCART_LEFT_LOOP, 1.f, true);
+  }
+  else if (EngineInput["right_"].value > 0.f) {
+      playerAnima->playAnimation(TCompPlayerAnimator::SCART_RIGHT_LOOP, 1.f, true);
+  }
+  else {
+      playerAnima->playAnimation(TCompPlayerAnimator::SCART_IDLE, 1.f, true);
+  }
 
 }
 

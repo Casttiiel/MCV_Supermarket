@@ -370,10 +370,10 @@ void TCompCharacterController::grounded(float delta) {
         aiming = true;
 
 				if (power_selected == PowerType::TELEPORT && !attacking) {
-					changeWeaponMesh(WeaponMesh::SCANNER);
+                    changeWeaponMesh(WeaponMesh::SCANNER);
 				}
 				else if (power_selected == PowerType::BATTERY && !attacking) {
-					changeWeaponMesh(WeaponMesh::BATTERTY);
+                    changeWeaponMesh(WeaponMesh::BATTERTY);
 				} 
 				else if (power_selected == PowerType::FIRE && !attacking) {
 					changeWeaponMesh(WeaponMesh::EXTINTOR);
@@ -487,7 +487,7 @@ void TCompCharacterController::grounded(float delta) {
         }
     }
 		// pose apuntar player: 
-		if (power_selected == PowerType::TELEPORT && inventory->getBattery() && aiming) {
+		if (power_selected == PowerType::TELEPORT && inventory->getTeleport() && aiming) {
 			if (!isThrowingAnimationGoing && !attacking) {
 				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
 			//	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f); //TODO: Animacion de APUNTAR
