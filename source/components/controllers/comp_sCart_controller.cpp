@@ -72,8 +72,9 @@ void TCompSCartController::enable(CHandle vehicle) {
 		r_carrito->updateRenderManager();
 		/*
 		fakePlayerHandle = GameController.spawnPrefab("data/prefabs/props/fake_player_mounted.json", c_trans->getPosition());
+        */
         EngineAudio.playEvent("event:/Character/SCart/Mount");
-	*/
+	
 		//-----------------------la animacion de estar montado en el carrito
     TCompSkeleton* c_skel = get<TCompSkeleton>();
     c_skel->clearAnimations();

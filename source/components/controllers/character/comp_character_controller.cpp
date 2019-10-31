@@ -369,13 +369,13 @@ void TCompCharacterController::grounded(float delta) {
     if (EngineInput["aim_"].isPressed()) {//AIM
         aiming = true;
 
-				if (power_selected == PowerType::TELEPORT) {
+				if (power_selected == PowerType::TELEPORT && !attacking) {
 					changeWeaponMesh(WeaponMesh::SCANNER);
 				}
-				else if (power_selected == PowerType::BATTERY) {
+				else if (power_selected == PowerType::BATTERY && !attacking) {
 					changeWeaponMesh(WeaponMesh::BATTERTY);
 				} 
-				else if (power_selected == PowerType::FIRE) {
+				else if (power_selected == PowerType::FIRE && !attacking) {
 					changeWeaponMesh(WeaponMesh::EXTINTOR);
 				}
     }
