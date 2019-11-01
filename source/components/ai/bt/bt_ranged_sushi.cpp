@@ -1057,6 +1057,8 @@ int CBTRangedSushi::actionDeath() {
 		TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
 		c_sd->setDelay(0.25f);
 		c_sd->enable();
+    TCompRigidBody* c_rb = get<TCompRigidBody>();
+    c_rb->enableGravity(false);
 
 		CEntity* portal = ctx.entities_loaded[0];
 		CEntity* part_portal = ctx.entities_loaded[1];

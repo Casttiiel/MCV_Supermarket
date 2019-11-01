@@ -135,7 +135,7 @@ private:
   //End View Ranges
 
   //Core Values
-  float life = 100.f;
+  float life = 200.f;
   float patrolSpeed = 1.0f;
   float chaseSpeed = 4.0f;
   float retreatSpeed = 2.0f;
@@ -163,7 +163,7 @@ private:
   //End Salute Values
 
   //Shoot Values
-  float _bulletDamage = 10.f;
+  float _bulletDamage = 5.f;
   float _bulletForce = 2.5f;
   float _playerOffset = 7.5f;
   int _shotsFired = 0;

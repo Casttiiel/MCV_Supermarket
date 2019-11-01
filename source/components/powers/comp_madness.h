@@ -52,11 +52,11 @@ private:
 	float _meleeSpenderValue = 0.f;
 	float _meleeGeneratorValue = 10.f;
 
-	float _fireSpenderValue = 5.f;
+	float _fireSpenderValue = 15.f;
 	float _fireGeneratorValue = 20.f;
 
-  float _fireComboSpenderValue = 10.f;
-  float _fireComboGeneratorValue = 20.f;
+  float _fireComboSpenderValue = 15.f;
+  float _fireComboGeneratorValue = 0.f;
 
 	float _teleportSpenderValue = 20.f;
 	float _teleportGeneratorValue = 25.f;

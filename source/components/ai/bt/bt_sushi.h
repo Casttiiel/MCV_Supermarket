@@ -138,7 +138,7 @@ private:
   //End View Ranges
 
   //Core Values
-  float life = 100.f;
+  float life = 300.f;
   float patrolSpeed = 1.0f;
   float chaseSpeed = 3.0f;
   float rotationSpeed = 90.0f;
