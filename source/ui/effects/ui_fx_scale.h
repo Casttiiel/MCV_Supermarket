@@ -11,7 +11,7 @@ namespace UI
     void start() override;
     void stop() override;
     void update(float dt) override;
-
+	void setScale(VEC2 scale);
   private:
     float interpolate(float ratio) const;
 

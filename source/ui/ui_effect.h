@@ -16,6 +16,10 @@ namespace UI
 	virtual void stopUiFx() {};
 	virtual void changeSpeedUV(float x, float y) {};
 	virtual void changeDuration(float duration) {};
+	virtual void setScale(VEC2 scale) {};
+	virtual void setMinUV(VEC2 vector) {};
+	virtual void setMaxUV(VEC2 vector) {};
+
 
 	std::string getName() {
 		return name;

@@ -7,6 +7,8 @@
 #include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
 #include "ui/ui_widget.h"
+#include "ui/ui_params.h"
+#include "ui/ui_effect.h"
 
 
 
@@ -65,6 +67,16 @@ void CModuleGameIntro::update(float delta)
 
 void CModuleGameIntro::stop()
 {
+	UI::CModuleUI& ui = Engine.getUI();
+	UI::CWidget* widget = ui.getWidget("INTRO_SCREEN");
+	UI::CWidget* widgetHijo = widget->getChildren(0)->getChildren(0);
+	UI::CEffect* effect2 = widgetHijo->getEffect("effectAnimateComic");
+	effect2->setMaxUV(VEC2::One);
+	effect2->setMinUV(VEC2::Zero);
+	UI::CEffect* effect = widgetHijo->getEffect("effectScaleComic");
+	effect->changeDuration(0);
+	effect->setScale(VEC2(2.5,2.5));
+	
 	CEngine::get().getUI().deactivateWidgetClass("INTRO_SCREEN");
 	CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 }
