@@ -490,7 +490,7 @@ void TCompCharacterController::grounded(float delta) {
 		if (power_selected == PowerType::TELEPORT && inventory->getTeleport() && aiming) {
 			if (!isThrowingAnimationGoing && !attacking) {
 				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-			//	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f); //TODO: Animacion de APUNTAR
+				playerAnima->playAnimation(TCompPlayerAnimator::SCANNER_LOOP, 1.0f);
 			}
 		}
 
