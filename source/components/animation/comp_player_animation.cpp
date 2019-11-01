@@ -124,6 +124,9 @@ void TCompPlayerAnimator::debugInMenu() {
     if (ImGui::SmallButton("SCART_ROW")) {
         playAnimation(EAnimation::SCART_ROW, speed);
     }
+    if (ImGui::SmallButton("SCANNER_LOOP")) {
+        playAnimation(EAnimation::SCANNER_LOOP, speed);
+    }
 
 
     ImGui::DragFloat("Delta Movement", &delta_movement, 0.01f, 0, 1.f);
@@ -140,7 +143,7 @@ void TCompPlayerAnimator::initializeAnimations() {
         "IDLE_MELEE",
         "",
         "",
-        1.0f,
+        0.1f,
         1.0f
     );
     initializeAnimation(
@@ -545,6 +548,17 @@ void TCompPlayerAnimator::initializeAnimations() {
         EAnimationType::ACTION,
         EAnimationSize::SINGLE,
         "SCART_ROW",
+        "",
+        "",
+        1.0f,
+        1.0f
+    );
+
+    initializeAnimation(
+        (TCompAnimator::EAnimation)EAnimation::SCANNER_LOOP,
+        EAnimationType::ACTION,
+        EAnimationSize::SINGLE,
+        "SCANNER_LOOP",
         "",
         "",
         1.0f,
