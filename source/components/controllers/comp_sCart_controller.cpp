@@ -582,15 +582,28 @@ void TCompSCartController::rotatePlayer(float delta) {
   c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + value * rotation_speed * delta, pitch, 0.0f));
 
   TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-  if (EngineInput["left_"].value > 0.f) {
-      playerAnima->playAnimation(TCompPlayerAnimator::SCART_LEFT_LOOP, 1.f, true);
-  }
-  else if (EngineInput["right_"].value > 0.f) {
-      playerAnima->playAnimation(TCompPlayerAnimator::SCART_RIGHT_LOOP, 1.f, true);
+  if (EngineInput.gamepad()._connected) {
+      if (EngineInput["left_"].value < 0.f) {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_LEFT_LOOP, 1.f, true);
+      }
+      else if (EngineInput["right_"].value > 0.f) {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_RIGHT_LOOP, 1.f, true);
+      }
+      else {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_IDLE, 1.f, true);
+      }
   }
   else {
-      playerAnima->playAnimation(TCompPlayerAnimator::SCART_IDLE, 1.f, true);
-  }
+      if (EngineInput["left_"].value > 0.f) {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_LEFT_LOOP, 1.f, true);
+      }
+      else if (EngineInput["right_"].value > 0.f) {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_RIGHT_LOOP, 1.f, true);
+      }
+      else {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_IDLE, 1.f, true);
+      }
+  }  
 
 }
 
