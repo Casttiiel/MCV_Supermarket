@@ -2,7 +2,7 @@
 	"start" : "gs_main_menu",
 	"gamestates" : {
 		"gs_splash"      : ["splash"],
-		"gs_main_menu"   : ["main_menu","game_controller","scripting"],
+		"gs_main_menu"   : ["main_menu"],
     	"gs_gameplay"    : ["boot","scene_manager","game_controller","physics","test_cameras", "fluid_decals", "scripting", "game_ui","game_manager"],
     	"gs_paused"      : ["boot","scene_manager","game_controller","physics","test_cameras", "fluid_decals", "scripting", "game_ui", "pause_menu"],
     	"gs_credits"     : ["boot","test_cameras"],
@@ -11,6 +11,6 @@
 		"gs_boot" : ["boot","loading"],
 		"gs_gameover" : ["boot","scene_manager","game_controller","physics","test_cameras", "fluid_decals", "scripting", "game_ui","gameover"],
 		"gs_wingame" : ["boot","scene_manager","game_controller","physics","test_cameras", "fluid_decals", "scripting", "game_ui","game_manager","wingame"],
-		"gs_intro_game" : ["intro_game","game_controller","scripting"]
+		"gs_intro_game" : ["intro_game"]
 	}
 }

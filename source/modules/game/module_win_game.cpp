@@ -13,19 +13,19 @@
 
 bool CModuleWinGame::start()
 {
-	/*UI::CModuleUI& ui = Engine.getUI();
+	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",0);
 		Scripting.execActionDelayed("changeSpeedWidgetEffect(\"CREDITS\",\"effectAnimateCredit\",0,0.012)", 1);
 		Scripting.execActionDelayed("stopWidgetEffect(\"CREDITS\",\"effectAnimateCredit\")", 72);
-		Scripting.execActionDelayed("exitGame()",100);
+		Scripting.execActionDelayed("exitGame()",82);
 
 	}
 	else {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 	}
-	*/
+	
 	
     return true;
 }
@@ -38,7 +38,7 @@ void CModuleWinGame::update(float delta)
 		auto& app = CApplication::get();
 		DestroyWindow(app.getHandle());
 	}*/
-	GameController.changeGameState("gs_main_menu");
+	//GameController.changeGameState("gs_main_menu");
 	
 }
 
@@ -53,7 +53,7 @@ void CModuleWinGame::stop()
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 	}
 
-	
+	/*
 	EngineNavmesh.destroyNavmesh();
 	EngineEntities.stop();
 	Engine.getGPUCulling().stop();
@@ -68,7 +68,7 @@ void CModuleWinGame::stop()
 	//CEngine::get().getUI().stop();
 	//CEngine::get().start();
 	//EngineEntities.start();
-	
+	*/
 }
 
 void CModuleWinGame::renderInMenu()
