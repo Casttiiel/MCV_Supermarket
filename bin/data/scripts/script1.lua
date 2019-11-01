@@ -822,7 +822,7 @@ function activePlataformCarniceria_player()
 	
 	GameController:setAmbient(0.05);
 
-
+	
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.8);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",15.8);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",15.8);
@@ -838,7 +838,7 @@ function activePlataformCarniceria_player()
 	--execDelayedAction("setViewDistanceEnemy(1000,h_suishi5,1)",12.5);
 	--execDelayedAction("sethalfConeEnemy(360,h_suishi5,1)",12.5);
 	execDelayedAction("childAppears(\"MISION_8\",true,true,0.0,1.25)", 15.8)
-	execDelayedAction("saveCheckpoint()",15.5);
+	execDelayedAction("saveCheckpoint()",16);
 
 
 	
