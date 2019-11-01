@@ -48,7 +48,8 @@ public:
         SCART_RIGHT_END,
         SCART_RIGHT_LOOP,
         SCART_RIGHT_START,
-        SCART_ROW
+        SCART_ROW,
+        SCANNER_LOOP
     };
 	struct TMsgExecuteAnimation {
 
