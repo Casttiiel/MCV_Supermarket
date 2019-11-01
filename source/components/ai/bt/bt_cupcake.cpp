@@ -60,6 +60,7 @@ void CBTCupcake::create(string s)//crear el arbol
 	if (!h_player.isValid()) {
 		h_player = GameController.getPlayerHandle();
 	}
+    voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
 
 }
 
@@ -225,6 +226,7 @@ int CBTCupcake::actionFollowPoint() {
 }
 
 int CBTCupcake::actionDeath() {
+    voice.stop();
 	if (_mySpawner.isValid()) {
 		TMsgSpawnerCheckout checkout;
 		checkout.enemyHandle = CHandle(this).getOwner();
@@ -271,6 +273,7 @@ int CBTCupcake::actionDeath() {
 }
 
 int CBTCupcake::actionDeathStay() {
+    voice.stop();
 
   return STAY;
 }
@@ -1008,9 +1011,6 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 dir = VEC3();
-    if (!voice.isPlaying() && !conditionDeath()) {
-        voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
-    }    
     voice.set3DAttributes(*c_trans);
 
 	//MOVE
