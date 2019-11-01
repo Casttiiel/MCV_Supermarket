@@ -2,7 +2,7 @@
 	"start" : "gs_gameplay",
 	"gamestates" : {
 		"gs_splash"      : ["splash"],
-		"gs_main_menu"   : ["main_menu"],
+		"gs_main_menu"   : ["main_menu","game_controller","scripting"],
     	"gs_gameplay"    : ["boot","scene_manager","game_controller","physics","test_cameras", "fluid_decals", "scripting", "game_ui","game_manager"],
     	"gs_paused"      : ["boot","scene_manager","game_controller","physics","test_cameras", "fluid_decals", "scripting", "game_ui", "pause_menu"],
     	"gs_credits"     : ["boot","test_cameras"],
