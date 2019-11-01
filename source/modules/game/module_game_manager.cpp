@@ -85,7 +85,7 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 
 	}break;
 	case MenuState::menuWin: {
-    Scripting.execActionDelayed("changeGameState(\"gs_wingame\")", 2.0);
+    Scripting.execActionDelayed("changeGameState(\"gs_wingame\")", 0.0);
 		/*ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight));
 		ImGui::Begin("VICTORY!", false, window_flags);
 		ImGui::CaptureMouseFromApp(false);

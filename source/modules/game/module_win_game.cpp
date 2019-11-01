@@ -19,14 +19,16 @@ bool CModuleWinGame::start()
 		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",0);
 		Scripting.execActionDelayed("changeSpeedWidgetEffect(\"CREDITS\",\"effectAnimateCredit\",0,0.012)", 1);
 		Scripting.execActionDelayed("stopWidgetEffect(\"CREDITS\",\"effectAnimateCredit\")", 72);
-		Scripting.execActionDelayed("exitGame()",100);
+		//Scripting.execActionDelayed("exitGame()",82);
+		Scripting.execActionDelayed("changeGameState(\"gs_main_menu\")", 82.0);
 
 	}
 	else {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 	}
-	*/
 	
+	*/
+	Scripting.execActionDelayed("changeGameState(\"gs_main_menu\")", 1.0);
     return true;
 }
 
@@ -38,8 +40,16 @@ void CModuleWinGame::update(float delta)
 		auto& app = CApplication::get();
 		DestroyWindow(app.getHandle());
 	}*/
-	GameController.changeGameState("gs_main_menu");
 	
+	/*if (!creditos) {
+		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
+		Scripting.execActionDelayed("activateWidget(\"CREDITS\")", 0);
+		Scripting.execActionDelayed("changeSpeedWidgetEffect(\"CREDITS\",\"effectAnimateCredit\",0,0.012)", 1);
+		Scripting.execActionDelayed("stopWidgetEffect(\"CREDITS\",\"effectAnimateCredit\")", 72);
+		//Scripting.execActionDelayed("exitGame()", 82);
+		Scripting.execActionDelayed("changeGameState(\"gs_main_menu\")", 82.0);
+	}
+	creditos = true;*/
 }
 
 void CModuleWinGame::stop()
