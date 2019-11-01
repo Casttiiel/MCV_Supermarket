@@ -665,7 +665,8 @@ void CModulePhysics::update(float delta) {
 }
 
 void CModulePhysics::stop() {
-  gScene->release(); gScene = nullptr;
+  gScene->release(); 
+  gScene = nullptr;
   gDispatcher->release();
   gPhysics->release();
   PxPvdTransport* transport = gPvd->getTransport();
