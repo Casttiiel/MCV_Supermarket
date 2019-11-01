@@ -411,6 +411,7 @@ void TCompCharacterController::grounded(float delta) {
             ChangeState("CHARGED_ATTACK");
             TCompSkeleton* c_skel = get<TCompSkeleton>();
             //c_skel->clearAnimations();
+            changeWeaponMesh(WeaponMesh::MOP);
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_POSE, 1.0f);
             if (!footSteps.getPaused()) {
@@ -1484,6 +1485,7 @@ void TCompCharacterController::mount(CHandle vehicle) {
         //SwapMesh(1);
         footSteps.setPaused(true);
         footStepsSlow.setPaused(true);
+        changeWeaponMesh(WeaponMesh::MOP);
     }
 }
 
