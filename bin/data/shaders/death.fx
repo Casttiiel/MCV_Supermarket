@@ -50,7 +50,7 @@ void PS(VS_OUTPUT input
   float  NdV = (1 - saturate(dot(input.N, -view_dir)));
   NdV = pow(NdV,2.5f);
 
-  NdV = NdV > 0.2f + displ - displ2 ? 1.0f : 0.0f;
+  NdV = NdV > 0.5f + displ - displ2 ? 1.0f : 0.0f;
 
   float2 uv = input.Uv - float2(0.745f,0.5f);
   float a = atan2(uv.y, uv.x) / (2.0f * PI);

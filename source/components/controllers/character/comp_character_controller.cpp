@@ -456,9 +456,8 @@ void TCompCharacterController::grounded(float delta) {
         TCompTransform* c_trans = get<TCompTransform>();
         TCompMadnessController* m_c = get<TCompMadnessController>();
 
-        if (c_tp->canCombo() && m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) {
-            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
-                dbg("Pj execute combo fire\n");
+        if (c_tp->canCombo() && m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRECOMBO)) {
+            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO)) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
                 inCombatTimer = inCombatDuration;
                 c_tp->comboDone = true;
                 TCompFireController* c_fire = get<TCompFireController>();
@@ -693,8 +692,7 @@ void TCompCharacterController::onAir(float delta) {
             TCompFireController* c_fire = get<TCompFireController>();
             c_fire->enable();
         }
-        else if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode()) && c_tp->canCombo()) { //SI PUEDES HACER COMBO, Y TIENES ENERGIA
-            dbg("Pj execute combo fire\n");
+        else if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO)) || GameController.getGodMode()) && c_tp->canCombo()) { //SI PUEDES HACER COMBO, Y TIENES ENERGIA
             inCombatTimer = inCombatDuration;
             c_tp->comboDone = true;
             TCompFireController* c_fire = get<TCompFireController>();
@@ -1382,7 +1380,7 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
 
 void TCompCharacterController::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
 	
-	if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+	if (!GameController.getGodMode() && !cinematic) {
 		life -= msg.damage;
 		invulnerabilityTimer = invulnerabilityTimeDuration;
 	}

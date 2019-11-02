@@ -445,8 +445,8 @@ float4 PS_Ambient(
       , 1.0f) * GlobalAmbientBoost * ao;
   final_color.xyz += g.self_illum;
 
-  float4 static_dots = brush * final_color * 0.3f;
-  float4 ao_dots = brush * final_color * (1-ao);
+  float4 static_dots = brush * final_color * 0.6f;
+  float4 ao_dots = brush * final_color * (1-ao) * 2.0;
   float4 dots = static_dots + ao_dots;
   //end comic shading
   //-------------------
@@ -537,7 +537,7 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   lut = smoothstep(shadow_ramp-0.01f,shadow_ramp,lut);
   float cSpec_factor = length(cSpec) > 0.5f ? 1 : 0;
   cSpec *= cSpec_factor;
-  float3 color = LightColor.xyz * lut * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * color_intensity * shadow_factor;
+  float3 color = LightColor.xyz * lut * (cDiff * (1.0f - cSpec) + cSpec) * att * LightIntensity * color_intensity;
 
   float2 uv = 5.0f;
   uv *= iPosition.xy * CameraInvResolution.y;
@@ -546,9 +546,9 @@ float4 shade( float4 iPosition, bool use_shadows, bool fix_shadows ) {
   };
   float2 rot_uv = mul(uv - float2(0.5f,0.5f), rot_matrix);
   float brush = saturate(1.0f - saturate(txNoise.Sample(samLinear,rot_uv).x));
-  float3 final_color = color;
-  float signo = shadow_factor * lut >= 0.4 ? 1 : 0.4;
-  final_color += (brush * color) * 2 * signo;
+  float3 final_color = color * shadow_factor;
+  float signo = (shadow_factor * lut) >= 0.4 ? 2.0 : 0.0;
+  final_color += (brush * color) * signo;
   //end comic shading
   //-------------------
   

@@ -12,7 +12,7 @@ float4 PS(
 
   float2 coord = (iUV.xy - float2(0.5,0.5)) * (CameraInvResolution.y/CameraInvResolution.x) * 2.0;
 
-  float rf = sqrt(dot(coord,coord)) * 0.35f;
+  float rf = sqrt(dot(coord,coord)) * 0.45f;
   float rf2_1 = rf * rf + 1.0;
   float e = 1.0 / (rf2_1 * rf2_1);
 

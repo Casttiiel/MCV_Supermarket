@@ -26,7 +26,7 @@ private:
   bool _destroyOnCollission = true;
   bool _requestAudioPermission = false;
   bool _isEnabled = true;
-  float _speed = 17.f;
+  float _speed = 25.f;
   VEC3 _targetDirection = VEC3().Zero;
   TMsgDamage _messageToTarget;
   EntityType targetType;

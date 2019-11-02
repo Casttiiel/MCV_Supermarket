@@ -84,7 +84,7 @@ public:
 	void generatePoints();
 	void renderDebug();
 
-	int damage = 5.0f;
+	int damage = 6.25f;
 	int fireDamage = 15;
 	int currentDamage = damage;
   bool death_animation_started = false;
