@@ -185,6 +185,7 @@ void CModuleScripting::BindGameController() {
 		.set("exitGame", &CModuleGameController::exitGame)
 		.set("setResurrect", &CModuleGameController::setResurrect)
 		.set("setBloomInCam", &CModuleGameController::setBloomInCam)
+		.set("pausedPlayer", &CModuleGameController::pausedPlayer)
 		;
 }
 

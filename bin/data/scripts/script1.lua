@@ -1286,3 +1286,7 @@ function setBloomInCam(value)
 	GameController:setBloomInCam(value);
 end
 
+function pausedPlayer(value)
+	GameController:pausedPlayer(value)
+end
+

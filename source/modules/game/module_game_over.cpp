@@ -82,10 +82,6 @@ void CModuleGameOver::stop()
   TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
   render_chromatic->update_amount = true;
   //
-  CEntity* e_player = GameController.getPlayerHandle();
-  TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
-  characterController->_pausedAI = false;
-
   Scripting.execActionDelayed("setResurrect(false)", 1.0);
   
   

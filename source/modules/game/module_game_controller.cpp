@@ -947,6 +947,11 @@ CHandle CModuleGameController::entityByName(std::string name) {
 	return h;
 }
 
+void CModuleGameController::pausedPlayer(bool value) {
+	CEntity* e_player = getPlayerHandle();
+	TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
+	characterController->_pausedAI = value;
+}
 
 
 template <typename T>

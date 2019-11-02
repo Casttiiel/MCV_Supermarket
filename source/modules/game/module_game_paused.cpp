@@ -97,6 +97,9 @@ void CModuleGamePaused::stop()
   c_rrb->enabled = false;
 	TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
 	render_chromatic->enabled = true;
+	CEntity* e_player = GameController.getPlayerHandle();
+	TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
+	Scripting.execActionDelayed("pausedPlayer(false)", 1.0);
 	Scripting.execActionDelayed("setResurrect(false)", 1.0);
 }
 
