@@ -145,7 +145,19 @@ void TCompBatteryController::update(float delta) {
       TCompCollider* c_col = get<TCompCollider>();
       physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
       
-	 
+			//---------------------
+			/*if (firstCollision) {
+				firstCollision = false;
+				TCompTransform* c_trans = get<TCompTransform>();
+				c_trans->setScale(1.0);
+				VEC3 position = c_trans->getPosition();
+				position.y = position.y + 1.0f;
+				GameController.spawnPrefab("data/prefabs/vfx/boom.json", position);
+				AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Hazards/Explosion");
+				audio.set3DAttributes(*c_trans);
+			}*/
+			//---------------------
+
 
       VEC3 angular_speed = PXVEC3_TO_VEC3(rigid_dynamic->getAngularVelocity());
       VEC3 linear_speed = PXVEC3_TO_VEC3(rigid_dynamic->getLinearVelocity());

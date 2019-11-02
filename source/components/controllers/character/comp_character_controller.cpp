@@ -369,14 +369,17 @@ void TCompCharacterController::grounded(float delta) {
     if (EngineInput["aim_"].isPressed()) {//AIM
         aiming = true;
 
-				if (power_selected == PowerType::TELEPORT) {
-					changeWeaponMesh(WeaponMesh::SCANNER);
+				if (power_selected == PowerType::TELEPORT && !attacking) {
+                    changeWeaponMesh(WeaponMesh::SCANNER);
 				}
-				else if (power_selected == PowerType::BATTERY) {
-					changeWeaponMesh(WeaponMesh::BATTERTY);
+				else if (power_selected == PowerType::BATTERY && !attacking) {
+                    changeWeaponMesh(WeaponMesh::BATTERTY);
 				} 
-				else if (power_selected == PowerType::FIRE) {
+				else if (power_selected == PowerType::FIRE && !attacking) {
 					changeWeaponMesh(WeaponMesh::EXTINTOR);
+				}
+				else if (power_selected == PowerType::MELEE) {
+					changeWeaponMesh(WeaponMesh::MOP);
 				}
     }
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
@@ -411,6 +414,7 @@ void TCompCharacterController::grounded(float delta) {
             ChangeState("CHARGED_ATTACK");
             TCompSkeleton* c_skel = get<TCompSkeleton>();
             //c_skel->clearAnimations();
+            changeWeaponMesh(WeaponMesh::MOP);
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_POSE, 1.0f);
             if (!footSteps.getPaused()) {
@@ -487,10 +491,10 @@ void TCompCharacterController::grounded(float delta) {
         }
     }
 		// pose apuntar player: 
-		if (power_selected == PowerType::TELEPORT && inventory->getBattery() && aiming) {
+		if (power_selected == PowerType::TELEPORT && inventory->getTeleport() && aiming) {
 			if (!isThrowingAnimationGoing && !attacking) {
 				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-			//	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f); //TODO: Animacion de APUNTAR
+				playerAnima->playAnimation(TCompPlayerAnimator::SCANNER_LOOP, 1.0f);
 			}
 		}
 
@@ -1484,6 +1488,7 @@ void TCompCharacterController::mount(CHandle vehicle) {
         //SwapMesh(1);
         footSteps.setPaused(true);
         footStepsSlow.setPaused(true);
+        changeWeaponMesh(WeaponMesh::MOP);
     }
 }
 

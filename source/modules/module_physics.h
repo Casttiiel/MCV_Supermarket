@@ -60,6 +60,7 @@ public:
 	  Scenario = Wall | Floor,
     CameraJump = Floor | Platform, //discuss if you can jump onto more things like explosive things
 	  PlayerAndScenario = Player | Scenario,
+		ProyectileEnemy = PlayerAndScenario | Panel,
     Enemy = Cupcake | Sushi | Golem | Spawner,
     Characters = Player | Enemy,
     TeleportableEnemy = Cupcake | Sushi,

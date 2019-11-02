@@ -58,6 +58,7 @@ private:
   int maxEnemiesAffected = 5;
   float pulseTimer = 0;
   float pulseDelay = 0.75f;
+	bool firstCollision = true;
 
   AudioEvent audioEffect;
 };
