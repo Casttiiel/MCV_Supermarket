@@ -10,8 +10,12 @@
 
 bool CModuleGameLoading::start()
 {
-	
-  return true;
+	auto& app = CApplication::get();
+	if (app.cursorIngame) {
+		Input::CMouse mouse = EngineInput.mouse();
+		mouse.setLockMouse(true);
+	}
+	return true;
 }
 
 void CModuleGameLoading::update(float delta)

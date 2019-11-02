@@ -41,6 +41,12 @@ bool CModuleGameManager::start()
 	windowWidth = 250;
 	windowHeight = 70;
 
+	auto& app = CApplication::get();
+	if (app.cursorIngame) {
+		app.showCursorInMenu(true);
+		//Input::CMouse mouse = EngineInput.mouse();
+		//mouse.setLockMouse(true);
+	}
 
 
 	return true;
@@ -79,13 +85,21 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 	VEC2 menu_position = VEC2(float(CApplication::get().width_app) * .5f - (windowWidth * .5f), CApplication::get().height_app * .5f - (windowHeight * .5f));
 	switch (pauseState) {
 	case MenuState::menuNot: {
-		
-
+		auto& app = CApplication::get();
+		if(app.cursorIngame) {
+			Input::CMouse mouse = EngineInput.mouse();
+			//mouse.setLockMouse(true);
+		}
 
 
 	}break;
 	case MenuState::menuWin: {
-    Scripting.execActionDelayed("changeGameState(\"gs_wingame\")", 2.0);
+		Scripting.execActionDelayed("changeGameState(\"gs_wingame\")", 2.0);
+		auto& app = CApplication::get();
+		if (app.cursorIngame) {
+			Input::CMouse mouse = EngineInput.mouse();
+			app.showCursorInMenu(true);
+		}
 		/*ImGui::SetNextWindowSize(ImVec2((float)windowWidth, (float)windowHeight));
 		ImGui::Begin("VICTORY!", false, window_flags);
 		ImGui::CaptureMouseFromApp(false);
@@ -102,6 +116,10 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 	}break;
 	case MenuState::menuDead_: {
 		CEngine::get().getModules().changeToGamestate("gs_gameover");
+		auto& app = CApplication::get();
+		if (app.cursorIngame) {
+			app.showCursorInMenu(false);
+		}
 		setMenuState(MenuState::menuNot);
 		/*UI::CModuleUI& ui = Engine.getUI();
 		ui.activateWidgetClass("DEAD_MENU_BACKGROUND");
@@ -154,7 +172,12 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 	case MenuState::menuPause: {
 		Time.real_scale_factor = 0.0f;
 		GameController.pauseGame();
-
+		auto& app = CApplication::get();
+		if (app.cursorIngame) {
+			/*Input::CMouse mouse = EngineInput.mouse();
+			mouse.setLockMouse(false);*/
+			app.showCursorInMenu(false);
+		}
 		CEngine::get().getModules().changeToGamestate("gs_paused");
 
 	}break;

@@ -15,7 +15,13 @@ bool CModuleGameIntro::start()
 {
 	UI::CModuleUI& ui = Engine.getUI();
 	CEngine::get().getUI().activateWidgetClass("INTRO_SCREEN")->childAppears(true, true, 0.0, 1.25);
-	
+	auto& app = CApplication::get();
+	if (app.cursorIngame) {
+		Input::CMouse mouse = EngineInput.mouse();
+		mouse.setLockMouse(true);
+	}
+
+
 
 	Scripting.execActionDelayed("stopWidgetEffectSpecial()", 0);
 	Scripting.execActionDelayed("changeDurationWidgetEffectSpecial(1)", 1);
