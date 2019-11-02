@@ -150,7 +150,7 @@ namespace UI
 		  ui.unregisterController();*/
 		 
 		  if (ui.sizeUI == 1) {
-			  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")-> childAppears(true, true, 0.0, 1.0);
+			  CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")-> childAppears(true, true, 0.0, 0.50);
 			  //CEngine::get().getUI().deactivateWidgetClass("HUD_NORMAL_PLAYER");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BACKGROUND");
 			  CEngine::get().getUI().deactivateWidgetClass("PAUSE_MENU_BUTTONS");
@@ -164,9 +164,12 @@ namespace UI
           //GameController.loadCheckpoint();
 		  CEntity* e_player = GameController.getPlayerHandle();
 		  TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
+		  characterController->_pausedAI = true;
 		  PowerType power = characterController->power_selected;
 		  GameController.savePower(power);
-		  Scripting.execActionDelayed("loadCheckpoint()", 1.0);
+		  Scripting.execActionDelayed("loadCheckpoint()", 0.50);
+		  Scripting.execActionDelayed("setResurrect(true)", 0.5);
+		 
 	  };
 
 

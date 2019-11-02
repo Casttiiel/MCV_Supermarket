@@ -97,6 +97,7 @@ void CModuleGamePaused::stop()
   c_rrb->enabled = false;
 	TCompChromaticAberration* render_chromatic = m_camera->get<TCompChromaticAberration>();
 	render_chromatic->enabled = true;
+	Scripting.execActionDelayed("setResurrect(false)", 1.0);
 }
 
 void CModuleGamePaused::renderInMenu()
