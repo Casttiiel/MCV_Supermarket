@@ -19,6 +19,8 @@ namespace UI
 	virtual void setScale(VEC2 scale) {};
 	virtual void setMinUV(VEC2 vector) {};
 	virtual void setMaxUV(VEC2 vector) {};
+	virtual void setInitialScale(VEC2 initialscale) {};
+	virtual void setTime(float time) {};
 
 
 	std::string getName() {

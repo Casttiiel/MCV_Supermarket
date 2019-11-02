@@ -283,6 +283,7 @@ public:
 	void stopWidgetEffectSpecial();
 	void changeSpeedWidgetEffectSpecial(float x, float y);
 	void changeDurationWidgetEffectSpecial(float duration);
+	void changeScaleWidgetEffectSpecial(float x , float y);
 	void resurrectionInGameOver();
 	void exitGame();
 	void setBloomInCam(bool value);

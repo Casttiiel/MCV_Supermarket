@@ -94,6 +94,14 @@ namespace UI
 	  _scale = scale;
   }
 
+  void CFXScale::setInitialScale(VEC2 initialScale) {
+	  _initialScale = initialScale;
+  }
+
+  void CFXScale::setTime(float time) {
+	  _time = time;
+  }
+
 
 
 }
