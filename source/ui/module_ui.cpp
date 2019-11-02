@@ -164,7 +164,7 @@ namespace UI
           //GameController.loadCheckpoint();
 		  CEntity* e_player = GameController.getPlayerHandle();
 		  TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
-		  characterController->_pausedAI = true;
+		  //characterController->_pausedAI = true;
 		  PowerType power = characterController->power_selected;
 		  GameController.savePower(power);
 		  Scripting.execActionDelayed("loadCheckpoint()", 0.50);
