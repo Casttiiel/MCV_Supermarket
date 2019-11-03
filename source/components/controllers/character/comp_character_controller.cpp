@@ -1680,7 +1680,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		      EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
 		      Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
 		      Scripting.execActionDelayed("childAppears(\"MISION_4\",true,true,0.0,1.25)", 1.1);
-	        //Scripting.execActionDelayed("balanceoLampara(\"Joint001\")", 0);
+			  Scripting.execActionDelayed("saveCheckpoint()", 0);
 		  
           break;
       }
