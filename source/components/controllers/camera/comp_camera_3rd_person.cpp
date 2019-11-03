@@ -400,8 +400,8 @@ void TCompCamera3rdPerson::shouldSwapCamera() {
   //SWAP BETWEEN AIM AND NORMAL CAMERA
   if (EngineInput["aim_"].isPressed()) {
     if (!aiming) {
-      //UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula"));
-      //mirilla->getParams()->visible = true;
+      UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+      mirilla->getParams()->visible = true;
     }
     aiming = true;
     smoothSpeed = 10.f;
@@ -412,8 +412,8 @@ void TCompCamera3rdPerson::shouldSwapCamera() {
   //SWAP BETWEEN AIM AND NORMAL CAMERA
   if (!EngineInput["aim_"].isPressed()) {
     if (aiming) {
-      //UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula"));
-      //mirilla->getParams()->visible = false;
+      UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+      mirilla->getParams()->visible = false;
     }
     aiming = false;
     smoothSpeed = 6.f;

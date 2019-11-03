@@ -220,7 +220,7 @@ void TCompCharacterController::idleCinematic(float delta) {
 	if (!cinematic) {
 		ChangeState("GROUNDED");
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = true;
+		mirilla->getParams()->visible = false;
 	}
 }
 
@@ -1442,12 +1442,12 @@ void TCompCharacterController::onCinematicSpecial(const TMsgOnCinematicSpecial &
 		}
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = !cinematic;
+		mirilla->getParams()->visible = false;
 	}
 	else {
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = !cinematic;
+		mirilla->getParams()->visible = false;
 		TCompSCartController* sCart = get<TCompSCartController>();
 		sCart->disable();
 		TCompTransform* c_trans = get<TCompTransform>();
