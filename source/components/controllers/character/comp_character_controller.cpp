@@ -207,6 +207,10 @@ void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsg
           dbg("Animation THROW callback received.\n");
           isThrowingAnimationGoing = false;
           break;
+      case TCompPlayerAnimator::CHARGED_MELEE_ATTACK:
+          dbg("Animation CHARGED_MELEE_ATTACK callback received.\n");
+          isCHARGED_MELEE_ATTACKGoing = false;
+          break;
       default:
           break;
     }
@@ -484,14 +488,14 @@ void TCompCharacterController::grounded(float delta) {
 	}
 
     if (power_selected == PowerType::BATTERY && inventory->getBattery() && aiming) {
-        if (!isThrowingAnimationGoing && !attacking) {
+        if (!isThrowingAnimationGoing && !attacking && !isCHARGED_MELEE_ATTACKGoing) {
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
         }
     }
 		// pose apuntar player: 
 		if (power_selected == PowerType::TELEPORT && inventory->getTeleport() && aiming) {
-			if (!isThrowingAnimationGoing && !attacking) {
+			if (!isThrowingAnimationGoing && !attacking && !isCHARGED_MELEE_ATTACKGoing) {
 				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
 				playerAnima->playAnimation(TCompPlayerAnimator::SCANNER_LOOP, 1.0f);
 			}
@@ -1090,7 +1094,8 @@ void TCompCharacterController::chargedAttack(float delta) {
         if (chargedAttack_buttonPressTimer >= chargedAttack_chargeDelay) {
             dbg("Player executes CHARGED_ATTACK\n");
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.8f);
+            isCHARGED_MELEE_ATTACKGoing = true;
+            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.8f, true);
             //Execute animation, should have root motion and deal the damage the moment it connects with the ground
             TCompRigidBody* c_rbody = get<TCompRigidBody>();
             if (!c_rbody)
