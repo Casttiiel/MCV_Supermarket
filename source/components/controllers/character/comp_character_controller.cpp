@@ -1379,6 +1379,11 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 ChangeState("DEAD");
                 TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
                 playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
+
+                CEntity* e_carrito = getEntityByName("Carrito");
+                TCompRender* r_carrito = e_carrito->get<TCompRender>();
+                r_carrito->is_visible = false;
+                r_carrito->updateRenderManager();
             }
             else {
 
