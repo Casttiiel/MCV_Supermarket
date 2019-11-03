@@ -230,7 +230,7 @@ end
 function script_ice_1_player()
 	
 	--execDelayedAction("changeScene(\"congelados_scene\")",0)	
-	GameController:resetCamera(); 
+	--GameController:resetCamera();  comentado por dani para entrega final
 	execDelayedAction("on_cinematic(true)",0);
 	execDelayedAction("on_lock_camera3(false)",0);
 	execDelayedAction("on_blending_camera(\"CameraPanel001\", 5,\"Quadin\")",0);
