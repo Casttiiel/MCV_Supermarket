@@ -352,6 +352,11 @@ void TCompSCartController::onDamage(const TMsgDamage& msg) {
 		ChangeState("SCART_DAMAGED");
 		if (life <= 0.0f) {
 			life = 0.0f;
+
+            CEntity* e_carrito = getEntityByName("Carrito");
+            TCompRender* r_carrito = e_carrito->get<TCompRender>();
+            r_carrito->is_visible = false;
+            r_carrito->updateRenderManager();
 			//ChangeState("SCART_DEAD");
 		}
 		
@@ -556,6 +561,11 @@ void TCompSCartController::dead(float delta) {
 	if (isEnabled) {
 		dbg("Disabling sCart from DEAD\n");
 		disable();
+
+        CEntity* e_carrito = getEntityByName("Carrito");
+        TCompRender* r_carrito = e_carrito->get<TCompRender>();
+        r_carrito->is_visible = false;
+        r_carrito->updateRenderManager();
 	}
 }
 
