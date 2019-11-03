@@ -501,13 +501,13 @@ void TCompCharacterController::grounded(float delta) {
             playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
         }
     }
-		// pose apuntar player: 
-		if (power_selected == PowerType::TELEPORT && inventory->getTeleport() && aiming) {
-			if (!isThrowingAnimationGoing && !attacking && !isCHARGED_MELEE_ATTACKGoing) {
-				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-				playerAnima->playAnimation(TCompPlayerAnimator::SCANNER_LOOP, 1.0f);
-			}
+	// pose apuntar player: 
+	if (power_selected == PowerType::TELEPORT && inventory->getTeleport() && aiming) {
+		if (!isThrowingAnimationGoing && !attacking && !isCHARGED_MELEE_ATTACKGoing) {
+			TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+			playerAnima->playAnimation(TCompPlayerAnimator::SCANNER_LOOP, 1.0f);
 		}
+	}
 
 
     dir *= Time.delta_unscaled;
@@ -955,9 +955,12 @@ void TCompCharacterController::powerSelection() {
 	
   }
   else if (EngineInput["select_battery_"].justPressed()) { //bateria
-    power_selected = PowerType::BATTERY;
+	CEntity* entity = EngineEntities.getInventoryHandle();
+	TCompInventory* inventory = entity->get<TCompInventory>();
+	if(inventory->getBattery()) {
+		power_selected = PowerType::BATTERY;
 		changeWeaponMesh(WeaponMesh::BATTERTY);
-	
+	}
   }
 }
 
