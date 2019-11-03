@@ -61,7 +61,7 @@ private:
 	float _teleportSpenderValue = 20.f;
 	float _teleportGeneratorValue = 25.f;
 
-	float _coffeeSpenderValue = 15.f;
+	float _coffeeSpenderValue = 10.f;
 
 	float _batterySpenderValue = 40.f;
 

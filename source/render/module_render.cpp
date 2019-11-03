@@ -391,9 +391,9 @@ void CModuleRender::generateFrame() {
   }
 
   {
-    PROFILE_FUNCTION("RenderInMenu");
-    CEngine::get().getModules().renderInMenu();
-    Resources.renderInMenu();
+    //PROFILE_FUNCTION("RenderInMenu");
+    //CEngine::get().getModules().renderInMenu();
+    //Resources.renderInMenu();
   }
 
   // call render method of all active modules... Probably for debug only
