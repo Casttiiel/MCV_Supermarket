@@ -1636,9 +1636,6 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 			  
 			//Scripting.execActionDelayed("saveCheckpoint()", 20.0);
 
-			
-
-
 			Scripting.execActionDelayed("crearTrampaHornos()", 0.0);
 			Scripting.execActionDelayed("childAppears(\"MISION_2\",true,true,0.0,1.25)",0.1);
 			//Scripting.execActionDelayed("deactivateWidget(\"MISION_1\")", 0.0);
@@ -1651,21 +1648,6 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 			h.destroy();
 			*/
 
-
-			EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-			break;
-      }
-      case PowerUpType::ACTIVATE_CHILLI:
-      {
-          //TODO
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setChilli(true);
-		  EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-		  Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
-		  Scripting.execActionDelayed("childAppears(\"MISION_4\",true,true,0.0,1.25)", 1.1);
-	    //Scripting.execActionDelayed("balanceoLampara(\"Joint001\")", 0);
-
       CEntity* e1 = getEntityByName("Hielo2_LP");
       TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
       c_ma1->updateMorphData(0.0f);
@@ -1676,14 +1658,29 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       TCompMorphAnimation* c_ma3 = e3->get<TCompMorphAnimation>();
       c_ma3->updateMorphData(0.0f);
       CEntity* e4 = getEntityByName("cubosHielo_033");
-		 
-		  TCompMorphAnimation* c_ma4 = e4->get<TCompMorphAnimation>();
-		  c_ma4->updateMorphData(0.0f);
-		 
-		  CEntity* e5 = getEntityByName("cubosHielo_034");
-		  
-		  TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
-		  c_ma5->updateMorphData(0.0f);
+
+      TCompMorphAnimation* c_ma4 = e4->get<TCompMorphAnimation>();
+      c_ma4->updateMorphData(0.0f);
+
+      CEntity* e5 = getEntityByName("cubosHielo_034");
+
+      TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
+      c_ma5->updateMorphData(0.0f);
+
+
+			EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+			break;
+      }
+      case PowerUpType::ACTIVATE_CHILLI:
+      {
+          //TODO
+		      CEntity* entity = EngineEntities.getInventoryHandle();
+		      TCompInventory* inventory = entity->get<TCompInventory>();
+		      inventory->setChilli(true);
+		      EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+		      Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
+		      Scripting.execActionDelayed("childAppears(\"MISION_4\",true,true,0.0,1.25)", 1.1);
+	        //Scripting.execActionDelayed("balanceoLampara(\"Joint001\")", 0);
 		  
           break;
       }

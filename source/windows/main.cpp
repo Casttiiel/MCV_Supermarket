@@ -25,6 +25,8 @@
 void operator delete(void * p){
   free(p);
 }*/
+
+
 void CApplication::generateFrame() {
   PROFILE_FRAME_BEGINS();
   PROFILE_FUNCTION("App::generateFrame");
