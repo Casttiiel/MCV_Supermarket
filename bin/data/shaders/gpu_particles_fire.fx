@@ -64,7 +64,7 @@ TInstance spawnParticle( uint unique_id ) {
   p.dummy4 = 0;
 
   p.pos += float3( rnd2.x, 0, rnd2.y) * emitter_center_radius;
-  p.dir += float3( rndz, rnd4.y, rndz) * emitter_dir_aperture;
+  p.dir += float3( rndz, rnd4.y, rnd2.x) * emitter_dir_aperture;
   p.dir *= speed;
 
   return p;

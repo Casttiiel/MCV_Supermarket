@@ -126,7 +126,7 @@ private:
 
   //ChargedAttack Values
   float chargedAttack_chargeDelay = 1.f;
-  float chargedAttack_damage = 20.f;
+  float chargedAttack_damage = 75.f;
   float chargedAttack_radius = 5.f;
 	float chargedAttack_impactForce = 20.0f;
   float chargedAttack_buttonPressThreshold = 0.2f;

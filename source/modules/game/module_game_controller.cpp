@@ -58,7 +58,7 @@ void CModuleGameController::wakeUpWinds() {
 }
 
 void CModuleGameController::setGodMode(bool _god_mode) {
-	god_mode = _god_mode; 
+	//god_mode = _god_mode; 
 }
 
 
@@ -71,7 +71,7 @@ void CModuleGameController::update(float delta) {
 
     //updateGameCondition();
   if (EngineInput["godMode_"].justPressed()) {
-    god_mode = !god_mode;
+    //god_mode = !god_mode;
   }
   else if (EngineInput["flyMode_"].justPressed()) {
     CEntity* e_player = getEntityByName("Player");

@@ -10,6 +10,8 @@
 #include "components/controllers/comp_parabolic_launch.h"
 #include "components/common/comp_camera.h"
 #include "geometry/interpolators.h"
+#include "ui/widgets/ui_image.h"
+#include "ui/module_ui.h"
 
 using namespace physx;
 
@@ -397,6 +399,10 @@ void TCompCamera3rdPerson::shouldSwapCamera() {
 
   //SWAP BETWEEN AIM AND NORMAL CAMERA
   if (EngineInput["aim_"].isPressed()) {
+    if (!aiming) {
+      UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+      mirilla->getParams()->visible = true;
+    }
     aiming = true;
     smoothSpeed = 10.f;
     GameController.yaw_sensivity = 2.0f;
@@ -405,10 +411,15 @@ void TCompCamera3rdPerson::shouldSwapCamera() {
 
   //SWAP BETWEEN AIM AND NORMAL CAMERA
   if (!EngineInput["aim_"].isPressed()) {
+    if (aiming) {
+      UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
+      mirilla->getParams()->visible = false;
+    }
     aiming = false;
     smoothSpeed = 6.f;
     GameController.yaw_sensivity = 5.0f;
     GameController.pitch_sensivity = 2.0f;
+
   }
 }
 
