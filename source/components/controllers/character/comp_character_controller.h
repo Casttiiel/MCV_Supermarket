@@ -93,6 +93,7 @@ private:
   bool isBatteryAlive = false;
   bool isThrowingAnimationGoing = false;
   bool isCHARGED_MELEE_ATTACKGoing = false;
+  bool isDRINKGoing = false;
 
 	float invulnerabilityTimer = 0.f;
 	float invulnerabilityTimeDuration = 1.0;

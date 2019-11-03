@@ -211,6 +211,11 @@ void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsg
           dbg("Animation CHARGED_MELEE_ATTACK callback received.\n");
           isCHARGED_MELEE_ATTACKGoing = false;
           break;
+      case TCompPlayerAnimator::DRINK:
+          dbg("Animation CHARGED_MELEE_ATTACK callback received.\n");
+          isDRINKGoing = false;
+          changeWeaponMesh(WeaponMesh::MOP);
+          break;
       default:
           break;
     }
@@ -445,9 +450,12 @@ void TCompCharacterController::grounded(float delta) {
     else if (EngineInput["coffee_time_"].justPressed() && inventory->getCoffe()) { //COFFEE
       //dbg("switch coffe ground\n");
         TCompCoffeeController* c_coffee = get<TCompCoffeeController>();
+        if (!c_coffee->getIsEnabled()) {
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f, true);
+            changeWeaponMesh(WeaponMesh::ENERGIZER);
+        }
         c_coffee->switchState();
-        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f);
     }
     else if (EngineInput["fire_attack_"].isPressed() && inventory->getChilli()) { //FIRE
 				if (power_selected != PowerType::FIRE) {
@@ -537,6 +545,8 @@ void TCompCharacterController::changeWeaponMesh(WeaponMesh weaponSelected) {
 	TCompRender* w_r_scanner = weapon3->get<TCompRender>();
 	CEntity* weapon4 = getEntityByName("Pila");
 	TCompRender* w_r_pila = weapon4->get<TCompRender>();
+    CEntity* weapon5 = getEntityByName("Energizer");
+    TCompRender* w_r_energizer = weapon5->get<TCompRender>();
 
 
 	if (weaponSelected == WeaponMesh::MOP) {
@@ -544,31 +554,42 @@ void TCompCharacterController::changeWeaponMesh(WeaponMesh weaponSelected) {
 		w_r_extintor->is_visible = false;
 		w_r_scanner->is_visible = false;
 		w_r_pila->is_visible = false;
-
+        w_r_energizer->is_visible = false;
 	}
 	else if (weaponSelected== WeaponMesh::SCANNER) {
 		w_r_mop->is_visible = false;
 		w_r_extintor->is_visible = false;
 		w_r_scanner->is_visible = true;
 		w_r_pila->is_visible = false;
-	}
+        w_r_energizer->is_visible = false;
+    }
 	else if (weaponSelected == WeaponMesh::BATTERTY) {
 		w_r_mop->is_visible = false;
 		w_r_extintor->is_visible = false;
 		w_r_scanner->is_visible = false;
 		w_r_pila->is_visible = true;
-	}
+        w_r_energizer->is_visible = false;
+    }
 	else if (weaponSelected == WeaponMesh::EXTINTOR) {
 		w_r_mop->is_visible = false;
 		w_r_extintor->is_visible = true;
 		w_r_scanner->is_visible = false;
 		w_r_pila->is_visible = false;
-	}
+        w_r_energizer->is_visible = false;
+    }
+    else if (weaponSelected == WeaponMesh::ENERGIZER) {
+        w_r_mop->is_visible = false;
+        w_r_extintor->is_visible = false;
+        w_r_scanner->is_visible = false;
+        w_r_pila->is_visible = false;
+        w_r_energizer->is_visible = true;
+    }
 
 	w_r_mop->updateRenderManager();
 	w_r_extintor->updateRenderManager();
 	w_r_scanner->updateRenderManager();
-	w_r_pila->updateRenderManager();
+    w_r_pila->updateRenderManager();
+    w_r_energizer->updateRenderManager();
 }
 
 
