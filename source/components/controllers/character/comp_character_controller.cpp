@@ -1664,8 +1664,9 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
 		  Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
 		  Scripting.execActionDelayed("childAppears(\"MISION_4\",true,true,0.0,1.25)", 1.1);
-	  //Scripting.execActionDelayed("balanceoLampara(\"Joint001\")", 0);
-      /*CEntity* e1 = getEntityByName("Hielo2_LP");
+	    //Scripting.execActionDelayed("balanceoLampara(\"Joint001\")", 0);
+
+      CEntity* e1 = getEntityByName("Hielo2_LP");
       TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
       c_ma1->updateMorphData(0.0f);
       CEntity* e2 = getEntityByName("Hielo5_LP");
@@ -1683,19 +1684,17 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 		  
 		  TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
 		  c_ma5->updateMorphData(0.0f);
-		  */
+		  
           break;
       }
       case PowerUpType::ACTIVATE_COFFEE:
       {
-          //TODO
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setCoffe(true);
-		  //unLockableCoffe = true;
-          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-		  Scripting.execActionDelayed("childAppears(\"MISION_9\",true,true,0.0,1.25)", 0);
-          break;
+		    CEntity* entity = EngineEntities.getInventoryHandle();
+		    TCompInventory* inventory = entity->get<TCompInventory>();
+		    inventory->setCoffe(true);
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+		    Scripting.execActionDelayed("childAppears(\"MISION_9\",true,true,0.0,1.25)", 0);
+        break;
       }
       case PowerUpType::ACTIVATE_TELEPORT:
       {
