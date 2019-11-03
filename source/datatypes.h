@@ -18,7 +18,8 @@ enum PowerType {
 enum WeaponMesh {
 	MOP = 0,
 	SCANNER,
-	EXTINTOR,
+    EXTINTOR,
+    ENERGIZER,
 	BATTERTY
 };
 enum PowerUpType { 

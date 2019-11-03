@@ -45,6 +45,33 @@
   {
     "entity":
     {
+      "name": "Energizer"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0"
+      }
+      ,
+      "render":
+      {
+        "is_visible" : false,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh":"data/meshes/energizante_uvs/energizante_uvs_energizante.mesh",
+        "materials":
+        [
+          "data/materials/energizante_uvs/energizante_mat.material"
+        ]
+      },
+      "bone_tracker":{
+        "bone": "Bone_weapon",
+        "parent": "Player"
+      },
+     "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity":
+    {
       "name": "Scanner"
       ,
       "transform":

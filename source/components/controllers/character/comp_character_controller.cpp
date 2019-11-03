@@ -207,6 +207,15 @@ void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsg
           dbg("Animation THROW callback received.\n");
           isThrowingAnimationGoing = false;
           break;
+      case TCompPlayerAnimator::CHARGED_MELEE_ATTACK:
+          dbg("Animation CHARGED_MELEE_ATTACK callback received.\n");
+          isCHARGED_MELEE_ATTACKGoing = false;
+          break;
+      case TCompPlayerAnimator::DRINK:
+          dbg("Animation CHARGED_MELEE_ATTACK callback received.\n");
+          isDRINKGoing = false;
+          changeWeaponMesh(WeaponMesh::MOP);
+          break;
       default:
           break;
     }
@@ -441,9 +450,12 @@ void TCompCharacterController::grounded(float delta) {
     else if (EngineInput["coffee_time_"].justPressed() && inventory->getCoffe()) { //COFFEE
       //dbg("switch coffe ground\n");
         TCompCoffeeController* c_coffee = get<TCompCoffeeController>();
+        if (!c_coffee->getIsEnabled()) {
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f, true);
+            changeWeaponMesh(WeaponMesh::ENERGIZER);
+        }
         c_coffee->switchState();
-        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f);
     }
     else if (EngineInput["fire_attack_"].isPressed() && inventory->getChilli()) { //FIRE
 				if (power_selected != PowerType::FIRE) {
@@ -484,14 +496,14 @@ void TCompCharacterController::grounded(float delta) {
 	}
 
     if (power_selected == PowerType::BATTERY && inventory->getBattery() && aiming) {
-        if (!isThrowingAnimationGoing && !attacking) {
+        if (!isThrowingAnimationGoing && !attacking && !isCHARGED_MELEE_ATTACKGoing) {
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
         }
     }
 		// pose apuntar player: 
 		if (power_selected == PowerType::TELEPORT && inventory->getTeleport() && aiming) {
-			if (!isThrowingAnimationGoing && !attacking) {
+			if (!isThrowingAnimationGoing && !attacking && !isCHARGED_MELEE_ATTACKGoing) {
 				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
 				playerAnima->playAnimation(TCompPlayerAnimator::SCANNER_LOOP, 1.0f);
 			}
@@ -533,6 +545,8 @@ void TCompCharacterController::changeWeaponMesh(WeaponMesh weaponSelected) {
 	TCompRender* w_r_scanner = weapon3->get<TCompRender>();
 	CEntity* weapon4 = getEntityByName("Pila");
 	TCompRender* w_r_pila = weapon4->get<TCompRender>();
+    CEntity* weapon5 = getEntityByName("Energizer");
+    TCompRender* w_r_energizer = weapon5->get<TCompRender>();
 
 
 	if (weaponSelected == WeaponMesh::MOP) {
@@ -540,31 +554,42 @@ void TCompCharacterController::changeWeaponMesh(WeaponMesh weaponSelected) {
 		w_r_extintor->is_visible = false;
 		w_r_scanner->is_visible = false;
 		w_r_pila->is_visible = false;
-
+        w_r_energizer->is_visible = false;
 	}
 	else if (weaponSelected== WeaponMesh::SCANNER) {
 		w_r_mop->is_visible = false;
 		w_r_extintor->is_visible = false;
 		w_r_scanner->is_visible = true;
 		w_r_pila->is_visible = false;
-	}
+        w_r_energizer->is_visible = false;
+    }
 	else if (weaponSelected == WeaponMesh::BATTERTY) {
 		w_r_mop->is_visible = false;
 		w_r_extintor->is_visible = false;
 		w_r_scanner->is_visible = false;
 		w_r_pila->is_visible = true;
-	}
+        w_r_energizer->is_visible = false;
+    }
 	else if (weaponSelected == WeaponMesh::EXTINTOR) {
 		w_r_mop->is_visible = false;
 		w_r_extintor->is_visible = true;
 		w_r_scanner->is_visible = false;
 		w_r_pila->is_visible = false;
-	}
+        w_r_energizer->is_visible = false;
+    }
+    else if (weaponSelected == WeaponMesh::ENERGIZER) {
+        w_r_mop->is_visible = false;
+        w_r_extintor->is_visible = false;
+        w_r_scanner->is_visible = false;
+        w_r_pila->is_visible = false;
+        w_r_energizer->is_visible = true;
+    }
 
 	w_r_mop->updateRenderManager();
 	w_r_extintor->updateRenderManager();
 	w_r_scanner->updateRenderManager();
-	w_r_pila->updateRenderManager();
+    w_r_pila->updateRenderManager();
+    w_r_energizer->updateRenderManager();
 }
 
 
@@ -1090,7 +1115,8 @@ void TCompCharacterController::chargedAttack(float delta) {
         if (chargedAttack_buttonPressTimer >= chargedAttack_chargeDelay) {
             dbg("Player executes CHARGED_ATTACK\n");
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.8f);
+            isCHARGED_MELEE_ATTACKGoing = true;
+            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.8f, true);
             //Execute animation, should have root motion and deal the damage the moment it connects with the ground
             TCompRigidBody* c_rbody = get<TCompRigidBody>();
             if (!c_rbody)
