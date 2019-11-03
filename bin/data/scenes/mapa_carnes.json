@@ -86,48 +86,6 @@
   {
     "entity":
     {
-      "name": "triggerActivarAscensorInicial"
-      ,
-      "transform":
-      {
-        "pos": "-140.378 -9.88048e-06 -226.039"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "collider":
-      {
-        "shapes":
-        [
-          {
-            "shape": "box"
-            ,
-            "half_size": "6.15109 2.17178 5.27197"
-            ,
-            "offset":
-            {
-              "pos": "0.0 2.17178 0.0"
-            }
-            ,
-            "group": "trigger"
-            ,
-            "trigger": true
-          }
-        ]
-      }
-      ,
-      "trigger":
-      {
-        "onEnter": "activeElevatorInitCarniceria"
-        ,
-        "delay": 0
-      }
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "chechpoint002"
       ,
       "transform":
@@ -2938,22 +2896,6 @@
   {
     "entity":
     {
-      "name": "Player"
-      ,
-      "transform":
-      {
-        "pos": "-127.29 36.4845 -230.216"
-        ,
-        "rotation": "0.0 0.0 0.0 -1.0"
-      }
-      ,
-      "prefab": "data/prefabs/character/player.json"
-    }
-  }
-  ,
-  {
-    "entity":
-    {
       "name": "chicken_leg_01"
       ,
       "transform":
@@ -5513,6 +5455,228 @@
       "trigger":
       {
       }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "wetfloor_LP"
+      ,
+      "transform":
+      {
+        "pos": "-113.153 0.308215 -219.987"
+        ,
+        "rotation": "0.0013389 0.422616 -0.00287129 -0.906303"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_wetfloor_LP.mesh"
+        ,
+        "color": "0.423529 0.0313726 0.533333 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_wetfloor.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "wetfloor_LP"
+      ,
+      "transform":
+      {
+        "pos": "-141.873 0.308216 -192.238"
+        ,
+        "rotation": "-0.000952666 -0.300704 -0.00302146 -0.953712"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_wetfloor_LP.mesh"
+        ,
+        "color": "0.423529 0.0313726 0.533333 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_wetfloor.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "wetfloor_LP"
+      ,
+      "transform":
+      {
+        "pos": "-109.289 0.308216 -199.22"
+        ,
+        "rotation": "-0.003093 -0.976291 0.000685745 0.216439"
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_wetfloor_LP.mesh"
+        ,
+        "color": "0.423529 0.0313726 0.533333 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_wetfloor.material"
+        ]
+      }
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "charco"
+      ,
+      "transform":
+      {
+        "pos": "-109.433 0.393344 -200.462"
+        ,
+        "rotation": "0.0 0.173648 0.0 -0.984808"
+      }
+      ,
+      "prefab": "data/prefabs/structures/madness_puddle.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "charco001"
+      ,
+      "transform":
+      {
+        "pos": "-105.808 0.393344 -197.903"
+        ,
+        "rotation": "0.0 -0.991445 0.0 0.130526"
+      }
+      ,
+      "prefab": "data/prefabs/structures/madness_puddle.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "charco002"
+      ,
+      "transform":
+      {
+        "pos": "-110.539 0.393344 -196.163"
+        ,
+        "rotation": "0.0 0.382683 0.0 -0.92388"
+      }
+      ,
+      "prefab": "data/prefabs/structures/madness_puddle.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "charco003"
+      ,
+      "transform":
+      {
+        "pos": "-111.885 0.393343 -221.179"
+        ,
+        "rotation": "0.0 0.766044 0.0 -0.642788"
+      }
+      ,
+      "prefab": "data/prefabs/structures/madness_puddle.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "charco004"
+      ,
+      "transform":
+      {
+        "pos": "-113.775 0.393343 -217.165"
+        ,
+        "rotation": "0.0 -0.843392 0.0 -0.537299"
+      }
+      ,
+      "prefab": "data/prefabs/structures/madness_puddle.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "charco005"
+      ,
+      "transform":
+      {
+        "pos": "-116.311 0.393343 -221.521"
+        ,
+        "rotation": "0.0 -0.887011 0.0 0.461748"
+      }
+      ,
+      "prefab": "data/prefabs/structures/madness_puddle.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "charco006"
+      ,
+      "transform":
+      {
+        "pos": "-137.828 0.393344 -194.692"
+        ,
+        "rotation": "0.0 0.766044 0.0 -0.642788"
+      }
+      ,
+      "prefab": "data/prefabs/structures/madness_puddle.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "charco007"
+      ,
+      "transform":
+      {
+        "pos": "-139.719 0.393345 -190.677"
+        ,
+        "rotation": "0.0 -0.843392 0.0 -0.537299"
+      }
+      ,
+      "prefab": "data/prefabs/structures/madness_puddle.json"
+    }
+  }
+  ,
+  {
+    "entity":
+    {
+      "name": "charco008"
+      ,
+      "transform":
+      {
+        "pos": "-142.254 0.393344 -195.034"
+        ,
+        "rotation": "0.0 -0.887011 0.0 0.461748"
+      }
+      ,
+      "prefab": "data/prefabs/structures/madness_puddle.json"
     }
   }
 ]
