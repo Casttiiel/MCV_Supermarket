@@ -245,7 +245,7 @@ int CBTCupcake::actionDeath() {
 	//------------------------------------
   TCompTransform* c_trans = get<TCompTransform>();
   if (!isDeadForFallout && !isDeadForTrigger) {
-	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
+	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 1.0f);
 	  TEntityParseContext ctx;
 	  ctx.root_transform = *c_trans;
 	  parseScene("data/prefabs/vfx/death_sphere.json", ctx);

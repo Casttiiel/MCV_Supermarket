@@ -1262,7 +1262,7 @@ int CBTSushi::actionDeath() {
     //------------------------------------
     TCompTransform* c_trans = get<TCompTransform>();
 	if (!isDeadForFallout && !isDeadForTrigger) {
-		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 1.5f);
 
 		TEntityParseContext ctx;
 		ctx.root_transform = *c_trans;
