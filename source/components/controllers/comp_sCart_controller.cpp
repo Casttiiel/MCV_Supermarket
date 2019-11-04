@@ -62,23 +62,26 @@ void TCompSCartController::enable(CHandle vehicle) {
 			return;
 		player_collider->controller->setPosition(VEC3_TO_PXEXVEC3(prop_pos));
 		ChangeState("SCART_GROUNDED");
-		SwapMesh(1);
-        //Instead of swapmesh, show the scart mesh using the dummy
+		//SwapMesh(1);
 		//Generate fake player mounted
+		
+		//---------------------------que aparezca la mesh del carrito
+		CEntity* e_carrito = getEntityByName("Carrito");
+		TCompRender* r_carrito = e_carrito->get<TCompRender>();
+		r_carrito->is_visible = true;
+		r_carrito->updateRenderManager();
+		/*
 		fakePlayerHandle = GameController.spawnPrefab("data/prefabs/props/fake_player_mounted.json", c_trans->getPosition());
-        //This is no longer necessary
-        //Start the scart loop animation
+        */
         EngineAudio.playEvent("event:/Character/SCart/Mount");
-
-        TCompSkeleton* c_skel = get<TCompSkeleton>();
-        c_skel->clearAnimations();
-        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::SCART_IDLE, 1.f, true);
-
+	
+		//-----------------------la animacion de estar montado en el carrito
+    TCompSkeleton* c_skel = get<TCompSkeleton>();
+    c_skel->clearAnimations();
+    TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+    playerAnima->playAnimation(TCompPlayerAnimator::SCART_IDLE, 1.f, true);
+			
 	}
-
-
-
 }
 
 void TCompSCartController::disable() {
@@ -86,6 +89,8 @@ void TCompSCartController::disable() {
 	isEnabled = false;
 	TCompCollider* player_collider = get<TCompCollider>();
 	CEntity* vehicleEntity = vehiclePropHandle.getOwner();
+  if (!vehicleEntity)
+    return;
 	TCompCollider* vehicle_prop_collider = vehicleEntity->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompCharacterController* cc = get<TCompCharacterController>();
@@ -100,12 +105,17 @@ void TCompSCartController::disable() {
 	float offsetY = 1.5;
 	behind.y += offsetY;
 	vehicle_prop_collider->controller->setPosition(VEC3_TO_PXEXVEC3(behind));
-	SwapMesh(0);
+	//SwapMesh(0);
     rowImpulseLeft = 0.f;
 	//Remove fake player
-	fakePlayerHandle.destroy();
+	//fakePlayerHandle.destroy();
     EngineAudio.playEvent("event:/Character/SCart/Dismount");
     _movementAudio.setPaused(true);
+
+		CEntity* e_carrito = getEntityByName("Carrito");
+		TCompRender* r_carrito = e_carrito->get<TCompRender>();
+		r_carrito->is_visible = false;
+		r_carrito->updateRenderManager();
 
     TCompSkeleton* c_skel = get<TCompSkeleton>();
     c_skel->clearAnimations();
@@ -344,6 +354,11 @@ void TCompSCartController::onDamage(const TMsgDamage& msg) {
 		ChangeState("SCART_DAMAGED");
 		if (life <= 0.0f) {
 			life = 0.0f;
+
+            CEntity* e_carrito = getEntityByName("Carrito");
+            TCompRender* r_carrito = e_carrito->get<TCompRender>();
+            r_carrito->is_visible = false;
+            r_carrito->updateRenderManager();
 			//ChangeState("SCART_DEAD");
 		}
 		
@@ -493,7 +508,7 @@ void TCompSCartController::grounded(float delta) {
 		TCompTransform* fake_trans = ((CEntity*)fakePlayerHandle)->get< TCompTransform>();
 		fake_trans->setPosition(c_trans->getPosition());
 		fake_trans->setRotation(c_trans->getRotation());
-	}	
+	}
 }
 
 void TCompSCartController::rowing(float delta) {
@@ -548,6 +563,11 @@ void TCompSCartController::dead(float delta) {
 	if (isEnabled) {
 		dbg("Disabling sCart from DEAD\n");
 		disable();
+
+        CEntity* e_carrito = getEntityByName("Carrito");
+        TCompRender* r_carrito = e_carrito->get<TCompRender>();
+        r_carrito->is_visible = false;
+        r_carrito->updateRenderManager();
 	}
 }
 
@@ -572,6 +592,30 @@ void TCompSCartController::rotatePlayer(float delta) {
   }
 
   c_trans->setRotation(QUAT::CreateFromYawPitchRoll(yaw + value * rotation_speed * delta, pitch, 0.0f));
+
+  TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+  if (EngineInput.gamepad()._connected) {
+      if (EngineInput["left_"].value < 0.f) {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_LEFT_LOOP, 1.f, true);
+      }
+      else if (EngineInput["right_"].value > 0.f) {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_RIGHT_LOOP, 1.f, true);
+      }
+      else {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_IDLE, 1.f, true);
+      }
+  }
+  else {
+      if (EngineInput["left_"].value > 0.f) {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_LEFT_LOOP, 1.f, true);
+      }
+      else if (EngineInput["right_"].value > 0.f) {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_RIGHT_LOOP, 1.f, true);
+      }
+      else {
+          playerAnima->playAnimation(TCompPlayerAnimator::SCART_IDLE, 1.f, true);
+      }
+  }  
 
 }
 

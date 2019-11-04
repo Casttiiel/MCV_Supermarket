@@ -11,6 +11,7 @@
 #include "modules/module_physics.h"
 #include "components/controllers/comp_parabolic_launch.h"
 #include "comp_turret_bullet_golem.h"
+#include "modules/game/audio/audioEvent.h"
 
 using namespace physx;
 
@@ -52,7 +53,9 @@ void TCompTurretBulletGolem::onCollision(const TMsgEntityTriggerEnter& msg) {
       }
     }
     else {
-      EngineAudio.playEvent(_audioOnHit);
+        TCompTransform* c_trans = get<TCompTransform>();
+        AudioEvent audio = EngineAudio.playEvent(_audioOnHit);
+        audio.set3DAttributes(*c_trans);
     }
   }
 }

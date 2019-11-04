@@ -11,7 +11,7 @@ float4 PS(
 
   float dist = distance(iUV.xy, float2(0.5f,0.5f));
   float dither = txNormal.Sample(samLinear,iUV * 5).xyz * dist;
-  dither = pow(dither,2.5f) * 2.5f * grade;
+  dither = pow(dither,1.25f) * 3.0f * grade;
 
   float3 color = txAlbedo.Sample(samLinear, iUV).xyz;
   float3 final_color = lerp(color,red,dither);

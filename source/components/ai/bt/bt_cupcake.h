@@ -84,10 +84,12 @@ public:
 	void generatePoints();
 	void renderDebug();
 
-	int damage = 5.0f;
+	int damage = 6.25f;
 	int fireDamage = 15;
 	int currentDamage = damage;
   bool death_animation_started = false;
+	bool invulnerable = false;
+	float recienNacidoTimer = 2.0f; //tiempo que sera invulnerable el cupcake que acaba de nacer
 
 	//CURVE  VALUES
 	float	mTravelTime = 0.22f;

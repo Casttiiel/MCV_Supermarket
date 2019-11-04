@@ -73,7 +73,6 @@ void TCompMeleeTrigger::update(float delta) {
   }
 
   if (attacking) { // si estas atacando
-    
     if (_currentEnemies.size() > 0 && !hitDisplay) {
       EngineAudio.playEvent("event:/Character/Attacks/Melee_Hit");
       expansiveWave();
@@ -117,7 +116,7 @@ void TCompMeleeTrigger::expansiveWave() {
 
   PxVec3 pos = VEC3_TO_PXVEC3(c_trans->getPosition());
   PxQuat ori = QUAT_TO_PXQUAT(c_trans->getRotation());
-  PxSphereGeometry geometry(5.0f);
+  PxSphereGeometry geometry(7.0f);
   const PxU32 bufferSize = 256;
   PxOverlapHit hitBuffer[bufferSize];
   PxOverlapBuffer buf(hitBuffer, bufferSize);
@@ -137,8 +136,8 @@ void TCompMeleeTrigger::expansiveWave() {
         msg.h_bullet = CHandle(this).getOwner();
         msg.position = c_trans->getPosition() + VEC3::Up;
         msg.senderType = PLAYER;
-        msg.intensityDamage = 5.0f;
-        msg.impactForce = 5.0f;
+        msg.intensityDamage = 8.0f;
+        msg.impactForce = 8.0f;
         msg.damageType = MELEE;
         msg.targetType = ENEMIES;
         entityContact->sendMsg(msg);

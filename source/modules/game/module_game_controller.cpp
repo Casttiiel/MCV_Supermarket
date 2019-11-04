@@ -311,7 +311,7 @@ void CModuleGameController::deleteCupcake()
 		TMsgDeleteTrigger msg;
 		msg.deleteForTrigger = true;
 		msg.h_entity = h;
-		msg.damage = 100.f;
+		msg.damage = 999.f;
 
 		CEntity* e_enemy = (CEntity*)h;
 		e_enemy->sendMsg(msg);
@@ -757,6 +757,11 @@ void CModuleGameController::setHeightEnemyByHandle(int height, CHandle h_enemy,i
 			CBTGolem* golem = e_enemy->get<CBTGolem>();
 			golem->setHeightRange(height);
 		}
+    else if (TYPE_RANGED_SUSHI == typeEnemy) {
+      CEntity* e_enemy = (CEntity*)h_enemy;
+      CBTRangedSushi* r_sushi = e_enemy->get<CBTRangedSushi>();
+      r_sushi->setHeightRange(height);
+    }
 		
 	}
 }
@@ -947,6 +952,11 @@ CHandle CModuleGameController::entityByName(std::string name) {
 	return h;
 }
 
+void CModuleGameController::pausedPlayer(bool value) {
+	CEntity* e_player = getPlayerHandle();
+	TCompCharacterController* characterController = e_player->get<TCompCharacterController>();
+	characterController->_pausedAI = value;
+}
 
 
 template <typename T>

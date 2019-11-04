@@ -77,51 +77,7 @@ float4 PS(
   GBuffer g;
   decodeGBuffer( iPosition.xy, g );
 
-  if( GlobalRenderOutput == RO_COMPLETE )
-    return float4( applyLUT( gammaCorrectedColor ), 1 );
-
-  if( GlobalRenderOutput == RO_ALBEDO )
-    return txGAlbedo.Load(ss_load_coords);
-
-  if( GlobalRenderOutput == RO_NORMAL ) {
-    float3 N = txGNormal.Load(ss_load_coords).xyz;
-    float3 q = float4( decodeNormal(N), 1);
-    return float4( q, 1);
-  }
-
-  if( GlobalRenderOutput == RO_NORMAL_VIEW_SPACE ) {
-    float3 N = txGNormal.Load(ss_load_coords).xyz;
-    float3 q = float4( decodeNormal(N), 1);
-    return float4( mul( q, (float3x3)View).xyz, 1);
-  }
-  
-  if( GlobalRenderOutput == RO_ROUGHNESS ) {
-    return g.roughness;
-  }
-  
-  if( GlobalRenderOutput == RO_AO ) {
-    float  ao = txAO.Load(ss_load_coords).x;
-    return ao;
-  }
-
-  if( GlobalRenderOutput == RO_METALLIC ) {
-    float4 albedo = txGAlbedo.Load(ss_load_coords);
-    return albedo.a;
-  }
-
-  if( GlobalRenderOutput == RO_WORLD_POS ) {
-    float  zlinear = txGLinearDepth.Load(ss_load_coords).x;
-    float3 wPos = getWorldCoords(iPosition.xy, zlinear);
-    float3 deltaWorldPos = wPos - float3( (int)wPos.x, (int)wPos.y, (int)wPos.z );
-    deltaWorldPos = abs( deltaWorldPos );
-    return float4( deltaWorldPos.x * deltaWorldPos.z, 0, 0, 1 );
-  }
-  if( GlobalRenderOutput == RO_LINEAR_DEPTH ) {
-    float zLinear = txGLinearDepth.Load(ss_load_coords).x;
-    return zLinear;
-  }
-
-  return float4(1,0,0,1);
+  return float4( applyLUT( gammaCorrectedColor ), 1 );
 }
 
 

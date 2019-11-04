@@ -27,9 +27,9 @@ private:
   float _fireDelay = 0.25f;
   float _enablerTimer = 0.0f;
   float _disablerTimer = 0.0f;
-  float _enablerDelay = 1.0f;
-  float _disablerDelay = 3.0f;
-  float _fireDamage = 5.0f;
+  float _enablerDelay = 2.0f;
+  float _disablerDelay = 4.0f;
+  float _fireDamage = 15.0f;
   AudioEvent audio;
   AudioEvent audioSlow;
 

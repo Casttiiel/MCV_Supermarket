@@ -230,7 +230,7 @@ end
 function script_ice_1_player()
 	
 	--execDelayedAction("changeScene(\"congelados_scene\")",0)	
-	GameController:resetCamera(); 
+	--GameController:resetCamera();  comentado por dani para entrega final
 	execDelayedAction("on_cinematic(true)",0);
 	execDelayedAction("on_lock_camera3(false)",0);
 	execDelayedAction("on_blending_camera(\"CameraPanel001\", 5,\"Quadin\")",0);
@@ -383,18 +383,18 @@ function wake_up_last_golem_player()
 
 
 	
-	execDelayedAction("changeIntensityLightSpot(\"Spot001\",0.0)",1.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot002\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot003\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot004\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot005\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot006\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot007\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot008\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot009\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot010\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot011\",0.0)",2.0);
-	execDelayedAction("changeIntensityLightSpot(\"Spot014\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot001\",0.0)",1.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot002\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot003\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot004\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot005\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot006\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot007\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot008\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot009\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot010\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot011\",0.0)",2.0);
+	--execDelayedAction("changeIntensityLightSpot(\"Spot014\",0.0)",2.0);
 
 	execDelayedAction("changeShadowsEnabled(\"Spot001\",false)",1.1);
 	execDelayedAction("changeShadowsEnabled(\"Spot002\",false)",2.1);
@@ -493,8 +493,8 @@ function cinematic_scene_termoestatos_player()
 	execDelayedAction("sethalfConeEnemy(360,h_suishi10,1)",19);
 	execDelayedAction("setViewDistanceEnemy(70,h_suishi10,1)",19);
 	
-	execDelayedAction("sethalfConeEnemy(360,h_suishi11,1)",19);
-	execDelayedAction("setViewDistanceEnemy(70,h_suishi11,1)",19);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi11,2)",19);
+	execDelayedAction("setViewDistanceEnemy(70,h_suishi11,2)",19);
 
 	
 	
@@ -509,12 +509,15 @@ function cinematic_scene_termoestatos_player()
 end
 
 
+
 function createEnemies_player()
 	--execDelayedAction("balanceoLampara(\"Joint001\")",0);
 	GameController:deleteGolem("golem2");
 	GameController:deleteGolem("golem3");
 	GameController:deleteCupcake();
 	execDelayedAction("changeScene(\"asiatic_scene\")",0);
+
+	execDelayedAction("on_delete_handle(\"trigger2\")",0);	
 
 	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-33,-0.193,-52), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica1",h_suishi1);
@@ -550,14 +553,14 @@ function createEnemies_player()
 	GameController:setHeightEnemyByHandle(0,h_suishi10,1);
 	GameController:setPauseEnemyByHandle(h_suishi10,false);
 
-	h_suishi11 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-60,7.632,-23), QUAT(0, 0, 0, 1),1);
+	h_suishi11 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-60,7.632,-23), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica11",h_suishi11);
-	GameController:setHeightEnemyByHandle(0,h_suishi11,1);
+	GameController:setHeightEnemyByHandle(0,h_suishi11,2);
 	GameController:setPauseEnemyByHandle(h_suishi11,false);
 
 	GameController:setViewDistanceEnemy(0,h_suishi9,1);
 	GameController:setViewDistanceEnemy(0,h_suishi10,1);
-	GameController:setViewDistanceEnemy(0,h_suishi11,1);
+	GameController:setViewDistanceEnemy(0,h_suishi11,2);
 
 	--h_suishi12 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(80,7.632,137), QUAT(0, 0, 0, 1),1);--quitar este
 	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica12",h_suishi12);
@@ -571,19 +574,17 @@ function createEnemies_player()
 	--GameController:setPauseEnemyByHandle(h_suishi14,true);
 	--h_suishi15 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(71,-0.193,61), QUAT(0, 0, 0, 1),1);--quitar este
 	--GameController:setPauseEnemyByHandle(h_suishi15,true); --GameController:setPauseEnemyByHandle(h_suishi15,true);
-	playAnnouncement('event:/UI/Announcements/Announcement6')
-	
-	execDelayedAction("on_delete_handle(\"trigger2\")",0);	
+	playAnnouncement('event:/UI/Announcements/Announcement6');
 end
 
 
 function viewAtPlayerSushisZanahoria_player()
 	GameController:setViewDistanceEnemyByHandle(60,h_suishi9,1);
 	GameController:setViewDistanceEnemyByHandle(60,h_suishi10,1);
-	GameController:setViewDistanceEnemyByHandle(60,h_suishi11,1);
+	GameController:setViewDistanceEnemyByHandle(60,h_suishi11,2);
 	GameController:setHeightEnemyByHandle(1,h_suishi9,1);
 	GameController:setHeightEnemyByHandle(1,h_suishi10,1);
-	GameController:setHeightEnemyByHandle(1,h_suishi11,1);
+	GameController:setHeightEnemyByHandle(1,h_suishi11,2);
 	
 	execDelayedAction("on_delete_handle(\"trigger1\")",0);
 end
@@ -822,7 +823,7 @@ function activePlataformCarniceria_player()
 	
 	GameController:setAmbient(0.05);
 
-
+	
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.8);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",15.8);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",15.8);
@@ -838,7 +839,7 @@ function activePlataformCarniceria_player()
 	--execDelayedAction("setViewDistanceEnemy(1000,h_suishi5,1)",12.5);
 	--execDelayedAction("sethalfConeEnemy(360,h_suishi5,1)",12.5);
 	execDelayedAction("childAppears(\"MISION_8\",true,true,0.0,1.25)", 15.8)
-	execDelayedAction("saveCheckpoint()",15.5);
+	execDelayedAction("saveCheckpoint()",16);
 
 
 	
@@ -990,7 +991,7 @@ function cinematica_fire_off()
 	
 	handlePlayer = GameController:getPlayerHandle();
 	GameController:resetCamera();
-	execDelayedAction("changeIntensityLightPointWithFlickering(\"Omni018\",0.0)",0.0);
+	execDelayedAction("changeIntensityLightOmni(\"Omni018\",0.0)",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.0);
 	execDelayedAction("on_blending_camera(\"CameraAscensorOn\", 5,\"Cubicinout\")",0.0);
 	execDelayedAction("on_cinematic(true)",0.0);
@@ -1288,5 +1289,9 @@ end
 
 function setBloomInCam(value)
 	GameController:setBloomInCam(value);
+end
+
+function pausedPlayer(value)
+	GameController:pausedPlayer(value)
 end
 

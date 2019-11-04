@@ -28,7 +28,11 @@ bool CModuleMainMenu::start()
 
   ui.registerController(menu);
   */
-  
+	auto& app = CApplication::get();
+	if (app.cursorIngame) {
+		Input::CMouse mouse = EngineInput.mouse();
+		mouse.setLockMouse(false);
+	}
 	CEngine::get().getUI().activateWidgetClass("MAIN_MENU_BACKGROUND");
 	CEngine::get().getUI().activateWidgetClass("MAIN_MENU_BUTTONS");
 	

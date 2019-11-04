@@ -1262,7 +1262,7 @@ int CBTSushi::actionDeath() {
     //------------------------------------
     TCompTransform* c_trans = get<TCompTransform>();
 	if (!isDeadForFallout && !isDeadForTrigger) {
-		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.5f);
+		GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 1.5f);
 
 		TEntityParseContext ctx;
 		ctx.root_transform = *c_trans;
@@ -1271,6 +1271,8 @@ int CBTSushi::actionDeath() {
 		TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
 		c_sd->setDelay(0.25f);
 		c_sd->enable();
+    TCompRigidBody* c_rb = get<TCompRigidBody>();
+    c_rb->enableGravity(false);
 
 		CEntity* portal = ctx.entities_loaded[0];
 		CEntity* part_portal = ctx.entities_loaded[1];
@@ -2083,7 +2085,7 @@ bool CBTSushi::checkHeight() {
     float enemyHeight = c_trans->getPosition().y;
 
     if (height_range > abs(playerHeight - enemyHeight)) {
-        res = true;;
+        res = true;
     }
 
     return res;

@@ -147,6 +147,9 @@ bool CApplication::create(HINSTANCE hInstance, int nCmdShow, int w, int h) {
   SetWindowLongPtr(hWnd, GWL_STYLE, WS_VISIBLE | WS_POPUP);
   SetWindowPos(hWnd, HWND_TOP, 0, 0, w, h, SWP_FRAMECHANGED);
   
+
+  json cfg = loadJson("data/config.json");
+  cursorIngame = cfg.value("cursorInGame", false);
   return true;
 
 }
@@ -164,10 +167,10 @@ void CApplication::runMainLoop() {
       TranslateMessage(&msg);
       DispatchMessage(&msg);
     }
-    else
-    {
+	else
+	{
 
-		
+		if (!cursorIngame){
 			if (GameController.getInvisibleBlock()) {
 				if (hasFocus()) {
 					VEC2 centerInScreen = (VEC2(float(CApplication::get().width_app), CApplication::get().height_app) * 0.5);
@@ -176,7 +179,7 @@ void CApplication::runMainLoop() {
 					SetCursorPos(pt.x, pt.y);
 					Input::CMouse mouse = EngineInput.mouse();
 					mouse.setLockMouse(true);
-				
+
 					//ShowCursor(false);
 					//_currPosition = centerInScreen;
 				}
@@ -185,9 +188,22 @@ void CApplication::runMainLoop() {
 				Input::CMouse mouse = EngineInput.mouse();
 				mouse.setLockMouse(false);
 			}
+		}
         generateFrame();
     }
   }
 
   CEngine::get().stop();
+}
+
+
+void CApplication::showCursorInMenu(bool show) {
+	if (hasFocus()) {
+		VEC2 centerInScreen = (VEC2(float(CApplication::get().width_app), CApplication::get().height_app) * 0.5);
+		POINT pt{ LONG(centerInScreen.x), LONG(centerInScreen.y) };
+		ClientToScreen(CApplication::get().getHandle(), &pt);
+		SetCursorPos(pt.x, pt.y);
+		Input::CMouse mouse = EngineInput.mouse();
+		mouse.setLockMouse(show);
+	}
 }

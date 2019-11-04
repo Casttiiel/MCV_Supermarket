@@ -30,6 +30,7 @@ class TCompBatteryController : public TCompBase {
 	float gravityOriginHeight = 3.f;
 	float velocityCurve = 20.f;
   bool startedEffect = false;
+	float max_distance_enemy = 13.f;
 
 public:
 	void update(float dt);
@@ -58,6 +59,7 @@ private:
   int maxEnemiesAffected = 5;
   float pulseTimer = 0;
   float pulseDelay = 0.75f;
+	bool firstCollision = true;
 
   AudioEvent audioEffect;
 };

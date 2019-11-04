@@ -28,6 +28,8 @@ public:
   }
   int width_app;
   int height_app; 
+  bool cursorIngame = false;
+  void showCursorInMenu(bool show);
 };
 
 

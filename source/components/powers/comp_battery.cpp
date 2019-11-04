@@ -126,26 +126,34 @@ void TCompBatteryController::update(float delta) {
             }
         }
 
-		
-		if (limitTime > 0.f) {
-			limitTime -= delta;
-		}
-		else {
-			TMsgBatteryDeactivates msg;
-			((CEntity*)GameController.getPlayerHandle())->sendMsg(msg);
-			audioEffect.stop();
-			CHandle(this).getOwner().destroy();
-			CHandle(this).destroy();
-		}
-		
-
-		
+		    if (limitTime > 0.f) {
+			    limitTime -= delta;
+		    }
+		    else {
+			    TMsgBatteryDeactivates msg;
+			    ((CEntity*)GameController.getPlayerHandle())->sendMsg(msg);
+			    audioEffect.stop();
+			    CHandle(this).getOwner().destroy();
+			    CHandle(this).destroy();
+		    }
     }
     else { //LA PILA HA COLISIONADO
       TCompCollider* c_col = get<TCompCollider>();
       physx::PxRigidDynamic* rigid_dynamic = static_cast<physx::PxRigidDynamic*>(c_col->actor);
       
-	 
+			//---------------------
+			/*if (firstCollision) {
+				firstCollision = false;
+				TCompTransform* c_trans = get<TCompTransform>();
+				c_trans->setScale(1.0);
+				VEC3 position = c_trans->getPosition();
+				position.y = position.y + 1.0f;
+				GameController.spawnPrefab("data/prefabs/vfx/boom.json", position);
+				AudioEvent audio = EngineAudio.playEvent("event:/Enemies/Hazards/Explosion");
+				audio.set3DAttributes(*c_trans);
+			}*/
+			//---------------------
+
 
       VEC3 angular_speed = PXVEC3_TO_VEC3(rigid_dynamic->getAngularVelocity());
       VEC3 linear_speed = PXVEC3_TO_VEC3(rigid_dynamic->getLinearVelocity());
@@ -285,7 +293,11 @@ void TCompBatteryController::update(float delta) {
                       }
                       enemiesBolt.push_back(h_comp_physics);
                     }
-                    entityEnemyDamage->sendMsg(msg);
+										TCompTransform* c_transEnemy = entityEnemyDamage->get<TCompTransform>();
+										if (max_distance_enemy > Vector3::Distance(c_transEnemy->getPosition(), c_trans->getPosition())) { 
+											//si la ditancia al enemigo es mayor del limite no le envimos nada
+											entityEnemyDamage->sendMsg(msg);
+										}
                 }
                 else if (c_di) {
                   entityEnemyDamage->sendMsg(msg);

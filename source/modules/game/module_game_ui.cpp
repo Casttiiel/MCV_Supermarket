@@ -20,7 +20,8 @@ bool CModuleGameUI::start()
 	UI::CModuleUI& ui = Engine.getUI();
 	//ui.activateWidget("game_ui");
 	if(ui.sizeUI == 1){
-		CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+		//CEngine::get().getUI().activateWidgetClass("HUD_NORMAL_PLAYER");
+		Scripting.execActionDelayed("activateWidget(\"HUD_NORMAL_PLAYER\")", 2.32);
 		
 	}
 	else {

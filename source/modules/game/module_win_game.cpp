@@ -13,7 +13,13 @@
 
 bool CModuleWinGame::start()
 {
-	/*UI::CModuleUI& ui = Engine.getUI();
+
+	auto& app = CApplication::get();
+	if (app.cursorIngame) {
+		Input::CMouse mouse = EngineInput.mouse();
+		mouse.setLockMouse(true);
+	}
+	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",0);
@@ -63,7 +69,7 @@ void CModuleWinGame::stop()
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 	}
 
-	
+	/*
 	EngineNavmesh.destroyNavmesh();
 	EngineEntities.stop();
 	

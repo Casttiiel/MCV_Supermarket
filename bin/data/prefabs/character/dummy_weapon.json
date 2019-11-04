@@ -45,6 +45,33 @@
   {
     "entity":
     {
+      "name": "Energizer"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0"
+      }
+      ,
+      "render":
+      {
+        "is_visible" : false,
+        "color": "1.0 0.0 0.0 1.0",
+        "mesh":"data/meshes/energizante_uvs/energizante_uvs_energizante.mesh",
+        "materials":
+        [
+          "data/materials/energizante_uvs/energizante_mat2.material"
+        ]
+      },
+      "bone_tracker":{
+        "bone": "Bone_weapon",
+        "parent": "Player"
+      },
+     "tags" : ["weapon"]
+    }
+  },
+  {
+    "entity":
+    {
       "name": "Scanner"
       ,
       "transform":
@@ -87,7 +114,7 @@
         "mesh": "data/meshes/static_objects/Pila.mesh",
         "materials":
         [
-          "data/materials/pila_material.material"
+          "data/materials/pila_material2.material"
         ]
       },
       "bone_tracker":{
@@ -115,7 +142,7 @@
         "mesh":"data/meshes/weapons/Anti_extintor.mesh",
         "materials":
         [
-          "data/materials/extintor.material"
+          "data/materials/extintor2.material"
         ]
       },
       "bone_tracker":{

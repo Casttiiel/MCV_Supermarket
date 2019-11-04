@@ -44,10 +44,9 @@ fn isMaxShit obj = (
 ----------------------------------------------------------
 struct TSceneExporter (
 	fs = TJsonFormatter(), 
+	project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
 	--project_path = "C:/Users/MajoGC/Desktop/mcv_sm/bin/",
-	--project_path = "C:/Users/Daniel/Desktop/MCV_Supermarket/bin/",
-	project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
-	--project_path = "C:/Users/joaki/Desktop/VisualStudioProjects/Proyecto_47/MCV_Supermarket/bin/",
+	--project_path = "C:/Users/victo/mcv_supermarket/MCV_Supermarket/bin/",
 	--project_path = "D:/Joaquin/Proyecto_43/mcv_sm/bin/",
 	--project_path = "C:/Users/mcv17_alumne/Desktop/MCV_Supermarket/bin/",
 	base_path = "data/",
@@ -464,10 +463,7 @@ struct TSceneExporter (
 		fs.writeKeyValue "intensity" (obj.multiplier)
 		fs.writeComma()
 		
-		fs.writeKeyValue "casts_shadows" true
-		fs.writeComma()
-		
-		fs.writeKeyValue "shadows_enabled" obj.on
+		fs.writeKeyValue "casts_shadows" obj.castShadows
 		fs.writeComma()
 		
 		fs.writeKeyValue "shadows_resolution" 1024

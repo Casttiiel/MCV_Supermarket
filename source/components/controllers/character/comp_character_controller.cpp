@@ -207,6 +207,15 @@ void TCompCharacterController::onAnimationFinish(const TCompPlayerAnimator::TMsg
           dbg("Animation THROW callback received.\n");
           isThrowingAnimationGoing = false;
           break;
+      case TCompPlayerAnimator::CHARGED_MELEE_ATTACK:
+          dbg("Animation CHARGED_MELEE_ATTACK callback received.\n");
+          isCHARGED_MELEE_ATTACKGoing = false;
+          break;
+      case TCompPlayerAnimator::DRINK:
+          dbg("Animation CHARGED_MELEE_ATTACK callback received.\n");
+          isDRINKGoing = false;
+          changeWeaponMesh(WeaponMesh::MOP);
+          break;
       default:
           break;
     }
@@ -220,7 +229,7 @@ void TCompCharacterController::idleCinematic(float delta) {
 	if (!cinematic) {
 		ChangeState("GROUNDED");
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = true;
+		mirilla->getParams()->visible = false;
 	}
 }
 
@@ -369,14 +378,17 @@ void TCompCharacterController::grounded(float delta) {
     if (EngineInput["aim_"].isPressed()) {//AIM
         aiming = true;
 
-				if (power_selected == PowerType::TELEPORT) {
-					changeWeaponMesh(WeaponMesh::SCANNER);
+				if (power_selected == PowerType::TELEPORT && !attacking) {
+                    changeWeaponMesh(WeaponMesh::SCANNER);
 				}
-				else if (power_selected == PowerType::BATTERY) {
-					changeWeaponMesh(WeaponMesh::BATTERTY);
+				else if (power_selected == PowerType::BATTERY && !attacking) {
+                    changeWeaponMesh(WeaponMesh::BATTERTY);
 				} 
-				else if (power_selected == PowerType::FIRE) {
+				else if (power_selected == PowerType::FIRE && !attacking) {
 					changeWeaponMesh(WeaponMesh::EXTINTOR);
+				}
+				else if (power_selected == PowerType::MELEE) {
+					changeWeaponMesh(WeaponMesh::MOP);
 				}
     }
     if (EngineInput["shoot_"].justPressed() && aiming) {//SHOOT
@@ -411,6 +423,7 @@ void TCompCharacterController::grounded(float delta) {
             ChangeState("CHARGED_ATTACK");
             TCompSkeleton* c_skel = get<TCompSkeleton>();
             //c_skel->clearAnimations();
+            changeWeaponMesh(WeaponMesh::MOP);
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_POSE, 1.0f);
             if (!footSteps.getPaused()) {
@@ -437,9 +450,12 @@ void TCompCharacterController::grounded(float delta) {
     else if (EngineInput["coffee_time_"].justPressed() && inventory->getCoffe()) { //COFFEE
       //dbg("switch coffe ground\n");
         TCompCoffeeController* c_coffee = get<TCompCoffeeController>();
+        if (!c_coffee->getIsEnabled()) {
+            TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+            playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f, true);
+            changeWeaponMesh(WeaponMesh::ENERGIZER);
+        }
         c_coffee->switchState();
-        TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-        playerAnima->playAnimation(TCompPlayerAnimator::DRINK, 1.0f);
     }
     else if (EngineInput["fire_attack_"].isPressed() && inventory->getChilli()) { //FIRE
 				if (power_selected != PowerType::FIRE) {
@@ -452,9 +468,8 @@ void TCompCharacterController::grounded(float delta) {
         TCompTransform* c_trans = get<TCompTransform>();
         TCompMadnessController* m_c = get<TCompMadnessController>();
 
-        if (c_tp->canCombo() && m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) {
-            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
-                dbg("Pj execute combo fire\n");
+        if (c_tp->canCombo() && m_c->getRemainingMadness() > m_c->getPowerCost(PowerType::FIRECOMBO)) {
+            if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO)) || GameController.getGodMode())) {//SI PUEDES HACER COMBO, Y TIENES ENERGIA
                 inCombatTimer = inCombatDuration;
                 c_tp->comboDone = true;
                 TCompFireController* c_fire = get<TCompFireController>();
@@ -481,18 +496,18 @@ void TCompCharacterController::grounded(float delta) {
 	}
 
     if (power_selected == PowerType::BATTERY && inventory->getBattery() && aiming) {
-        if (!isThrowingAnimationGoing && !attacking) {
+        if (!isThrowingAnimationGoing && !attacking && !isCHARGED_MELEE_ATTACKGoing) {
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
             playerAnima->playAnimation(TCompPlayerAnimator::AIM_THROW, 1.0f);
         }
     }
-		// pose apuntar player: 
-		if (power_selected == PowerType::TELEPORT && inventory->getBattery() && aiming) {
-			if (!isThrowingAnimationGoing && !attacking) {
-				TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-			//	playerAnima->playAnimation(TCompPlayerAnimator::IDLE_COMBAT, 1.0f); //TODO: Animacion de APUNTAR
-			}
+	// pose apuntar player: 
+	if (power_selected == PowerType::TELEPORT && inventory->getTeleport() && aiming) {
+		if (!isThrowingAnimationGoing && !attacking && !isCHARGED_MELEE_ATTACKGoing) {
+			TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
+			playerAnima->playAnimation(TCompPlayerAnimator::SCANNER_LOOP, 1.0f);
 		}
+	}
 
 
     dir *= Time.delta_unscaled;
@@ -530,6 +545,8 @@ void TCompCharacterController::changeWeaponMesh(WeaponMesh weaponSelected) {
 	TCompRender* w_r_scanner = weapon3->get<TCompRender>();
 	CEntity* weapon4 = getEntityByName("Pila");
 	TCompRender* w_r_pila = weapon4->get<TCompRender>();
+    CEntity* weapon5 = getEntityByName("Energizer");
+    TCompRender* w_r_energizer = weapon5->get<TCompRender>();
 
 
 	if (weaponSelected == WeaponMesh::MOP) {
@@ -537,31 +554,42 @@ void TCompCharacterController::changeWeaponMesh(WeaponMesh weaponSelected) {
 		w_r_extintor->is_visible = false;
 		w_r_scanner->is_visible = false;
 		w_r_pila->is_visible = false;
-
+        w_r_energizer->is_visible = false;
 	}
 	else if (weaponSelected== WeaponMesh::SCANNER) {
 		w_r_mop->is_visible = false;
 		w_r_extintor->is_visible = false;
 		w_r_scanner->is_visible = true;
 		w_r_pila->is_visible = false;
-	}
+        w_r_energizer->is_visible = false;
+    }
 	else if (weaponSelected == WeaponMesh::BATTERTY) {
 		w_r_mop->is_visible = false;
 		w_r_extintor->is_visible = false;
 		w_r_scanner->is_visible = false;
 		w_r_pila->is_visible = true;
-	}
+        w_r_energizer->is_visible = false;
+    }
 	else if (weaponSelected == WeaponMesh::EXTINTOR) {
 		w_r_mop->is_visible = false;
 		w_r_extintor->is_visible = true;
 		w_r_scanner->is_visible = false;
 		w_r_pila->is_visible = false;
-	}
+        w_r_energizer->is_visible = false;
+    }
+    else if (weaponSelected == WeaponMesh::ENERGIZER) {
+        w_r_mop->is_visible = false;
+        w_r_extintor->is_visible = false;
+        w_r_scanner->is_visible = false;
+        w_r_pila->is_visible = false;
+        w_r_energizer->is_visible = true;
+    }
 
 	w_r_mop->updateRenderManager();
 	w_r_extintor->updateRenderManager();
 	w_r_scanner->updateRenderManager();
-	w_r_pila->updateRenderManager();
+    w_r_pila->updateRenderManager();
+    w_r_energizer->updateRenderManager();
 }
 
 
@@ -689,8 +717,7 @@ void TCompCharacterController::onAir(float delta) {
             TCompFireController* c_fire = get<TCompFireController>();
             c_fire->enable();
         }
-        else if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO) * Time.delta_unscaled) || GameController.getGodMode()) && c_tp->canCombo()) { //SI PUEDES HACER COMBO, Y TIENES ENERGIA
-            dbg("Pj execute combo fire\n");
+        else if ((m_c->spendMadness(m_c->getPowerCost(PowerType::FIRECOMBO)) || GameController.getGodMode()) && c_tp->canCombo()) { //SI PUEDES HACER COMBO, Y TIENES ENERGIA
             inCombatTimer = inCombatDuration;
             c_tp->comboDone = true;
             TCompFireController* c_fire = get<TCompFireController>();
@@ -928,9 +955,12 @@ void TCompCharacterController::powerSelection() {
 	
   }
   else if (EngineInput["select_battery_"].justPressed()) { //bateria
-    power_selected = PowerType::BATTERY;
+	CEntity* entity = EngineEntities.getInventoryHandle();
+	TCompInventory* inventory = entity->get<TCompInventory>();
+	if(inventory->getBattery()) {
+		power_selected = PowerType::BATTERY;
 		changeWeaponMesh(WeaponMesh::BATTERTY);
-	
+	}
   }
 }
 
@@ -1088,7 +1118,8 @@ void TCompCharacterController::chargedAttack(float delta) {
         if (chargedAttack_buttonPressTimer >= chargedAttack_chargeDelay) {
             dbg("Player executes CHARGED_ATTACK\n");
             TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
-            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.8f);
+            isCHARGED_MELEE_ATTACKGoing = true;
+            playerAnima->playAnimation(TCompPlayerAnimator::CHARGED_MELEE_ATTACK, 0.8f, true);
             //Execute animation, should have root motion and deal the damage the moment it connects with the ground
             TCompRigidBody* c_rbody = get<TCompRigidBody>();
             if (!c_rbody)
@@ -1249,6 +1280,8 @@ void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
     if (life <= 0.0f) {
         life = 0.0f;
         ChangeState("DEAD");
+        TCompSCartController* sCart = get<TCompSCartController>();
+        sCart->disable();
     }
     else {
 
@@ -1291,6 +1324,8 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
         ChangeState("DEAD");
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
+        TCompSCartController* sCart = get<TCompSCartController>();
+        sCart->disable();
       }
       else {
 
@@ -1351,6 +1386,11 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
                 ChangeState("DEAD");
                 TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
                 playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
+
+                CEntity* e_carrito = getEntityByName("Carrito");
+                TCompRender* r_carrito = e_carrito->get<TCompRender>();
+                r_carrito->is_visible = false;
+                r_carrito->updateRenderManager();
             }
             else {
 
@@ -1378,7 +1418,7 @@ void TCompCharacterController::onGenericDamage(const TMsgDamage& msg) {
 
 void TCompCharacterController::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
 	
-	if (!GameController.getGodMode() && !cinematic && invulnerabilityTimer <= 0) {
+	if (!GameController.getGodMode() && !cinematic) {
 		life -= msg.damage;
 		invulnerabilityTimer = invulnerabilityTimeDuration;
 	}
@@ -1387,6 +1427,8 @@ void TCompCharacterController::onTriggerFalloutDead(const TMSgTriggerFalloutDead
 	if (life <= 0.0f) {
 		life = 0.0f;
 		ChangeState("DEAD");
+    TCompSCartController* sCart = get<TCompSCartController>();
+    sCart->disable();
 	}
 	else {
 
@@ -1440,12 +1482,12 @@ void TCompCharacterController::onCinematicSpecial(const TMsgOnCinematicSpecial &
 		}
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = !cinematic;
+		mirilla->getParams()->visible = false;
 	}
 	else {
 		cinematic = msg.cinematic;
 		UI::CImage* mirilla = dynamic_cast<UI::CImage*>(Engine.getUI().getWidgetByAlias("reticula_"));
-		mirilla->getParams()->visible = !cinematic;
+		mirilla->getParams()->visible = false;
 		TCompSCartController* sCart = get<TCompSCartController>();
 		sCart->disable();
 		TCompTransform* c_trans = get<TCompTransform>();
@@ -1484,6 +1526,7 @@ void TCompCharacterController::mount(CHandle vehicle) {
         //SwapMesh(1);
         footSteps.setPaused(true);
         footStepsSlow.setPaused(true);
+        changeWeaponMesh(WeaponMesh::MOP);
     }
 }
 
@@ -1607,9 +1650,6 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 			  
 			//Scripting.execActionDelayed("saveCheckpoint()", 20.0);
 
-			
-
-
 			Scripting.execActionDelayed("crearTrampaHornos()", 0.0);
 			Scripting.execActionDelayed("childAppears(\"MISION_2\",true,true,0.0,1.25)",0.1);
 			//Scripting.execActionDelayed("deactivateWidget(\"MISION_1\")", 0.0);
@@ -1622,21 +1662,7 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
 			h.destroy();
 			*/
 
-
-			EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-			break;
-      }
-      case PowerUpType::ACTIVATE_CHILLI:
-      {
-          //TODO
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setChilli(true);
-		  EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-		  Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
-		  Scripting.execActionDelayed("childAppears(\"MISION_4\",true,true,0.0,1.25)", 1.1);
-	  //Scripting.execActionDelayed("balanceoLampara(\"Joint001\")", 0);
-      /*CEntity* e1 = getEntityByName("Hielo2_LP");
+      CEntity* e1 = getEntityByName("Hielo2_LP");
       TCompMorphAnimation* c_ma1 = e1->get<TCompMorphAnimation>();
       c_ma1->updateMorphData(0.0f);
       CEntity* e2 = getEntityByName("Hielo5_LP");
@@ -1646,27 +1672,40 @@ void  TCompCharacterController::applyPowerUp(float quantity, PowerUpType type, f
       TCompMorphAnimation* c_ma3 = e3->get<TCompMorphAnimation>();
       c_ma3->updateMorphData(0.0f);
       CEntity* e4 = getEntityByName("cubosHielo_033");
-		 
-		  TCompMorphAnimation* c_ma4 = e4->get<TCompMorphAnimation>();
-		  c_ma4->updateMorphData(0.0f);
-		 
-		  CEntity* e5 = getEntityByName("cubosHielo_034");
+
+      TCompMorphAnimation* c_ma4 = e4->get<TCompMorphAnimation>();
+      c_ma4->updateMorphData(0.0f);
+
+      CEntity* e5 = getEntityByName("cubosHielo_034");
+
+      TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
+      c_ma5->updateMorphData(0.0f);
+
+
+			EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+			break;
+      }
+      case PowerUpType::ACTIVATE_CHILLI:
+      {
+          //TODO
+		      CEntity* entity = EngineEntities.getInventoryHandle();
+		      TCompInventory* inventory = entity->get<TCompInventory>();
+		      inventory->setChilli(true);
+		      EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+		      Scripting.execActionDelayed("playAnnouncement(\"event:/UI/Announcements/Announcement5\")", 1.0);
+		      Scripting.execActionDelayed("childAppears(\"MISION_4\",true,true,0.0,1.25)", 1.1);
+			  Scripting.execActionDelayed("saveCheckpoint()", 0);
 		  
-		  TCompMorphAnimation* c_ma5 = e5->get<TCompMorphAnimation>();
-		  c_ma5->updateMorphData(0.0f);
-		  */
           break;
       }
       case PowerUpType::ACTIVATE_COFFEE:
       {
-          //TODO
-		  CEntity* entity = EngineEntities.getInventoryHandle();
-		  TCompInventory* inventory = entity->get<TCompInventory>();
-		  inventory->setCoffe(true);
-		  //unLockableCoffe = true;
-          EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
-		  Scripting.execActionDelayed("childAppears(\"MISION_9\",true,true,0.0,1.25)", 0);
-          break;
+		    CEntity* entity = EngineEntities.getInventoryHandle();
+		    TCompInventory* inventory = entity->get<TCompInventory>();
+		    inventory->setCoffe(true);
+        EngineAudio.playEvent("event:/Character/Other/Weapon_Pickup");
+		    Scripting.execActionDelayed("childAppears(\"MISION_9\",true,true,0.0,1.25)", 0);
+        break;
       }
       case PowerUpType::ACTIVATE_TELEPORT:
       {

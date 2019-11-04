@@ -10,8 +10,12 @@
 
 bool CModuleGameLoading::start()
 {
-	
-  return true;
+	auto& app = CApplication::get();
+	if (app.cursorIngame) {
+		Input::CMouse mouse = EngineInput.mouse();
+		mouse.setLockMouse(true);
+	}
+	return true;
 }
 
 void CModuleGameLoading::update(float delta)
@@ -30,7 +34,7 @@ void CModuleGameLoading::stop()
 {
 	//CEngine::get().getUI().deactivateWidgetClass("LOAD_SCREEN");
 	//deactivateWidget
-	Scripting.execActionDelayed("deactivateWidget(\"LOAD_SCREEN\")",2.31);
+	Scripting.execActionDelayed("deactivateWidget(\"LOAD_SCREEN\")",2.20);
 	
 }
 

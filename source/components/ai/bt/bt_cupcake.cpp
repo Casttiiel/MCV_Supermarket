@@ -60,6 +60,7 @@ void CBTCupcake::create(string s)//crear el arbol
 	if (!h_player.isValid()) {
 		h_player = GameController.getPlayerHandle();
 	}
+    voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
 
 }
 
@@ -225,6 +226,7 @@ int CBTCupcake::actionFollowPoint() {
 }
 
 int CBTCupcake::actionDeath() {
+    voice.stop();
 	if (_mySpawner.isValid()) {
 		TMsgSpawnerCheckout checkout;
 		checkout.enemyHandle = CHandle(this).getOwner();
@@ -243,7 +245,7 @@ int CBTCupcake::actionDeath() {
 	//------------------------------------
   TCompTransform* c_trans = get<TCompTransform>();
   if (!isDeadForFallout && !isDeadForTrigger) {
-	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 0.3f);
+	  GameController.spawnPuddle(c_trans->getPosition(), c_trans->getRotation(), 1.0f);
 	  TEntityParseContext ctx;
 	  ctx.root_transform = *c_trans;
 	  parseScene("data/prefabs/vfx/death_sphere.json", ctx);
@@ -251,6 +253,8 @@ int CBTCupcake::actionDeath() {
 	  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
 	  c_sd->setDelay(0.25f);
 	  c_sd->enable();
+    TCompRigidBody* c_rb = get<TCompRigidBody>();
+    c_rb->enableGravity(false);
 
     CEntity* portal = ctx.entities_loaded[0];
     CEntity* part_portal = ctx.entities_loaded[1];
@@ -264,13 +268,14 @@ int CBTCupcake::actionDeath() {
       AudioEvent death = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Death3D");
       death.set3DAttributes(*c_trans);
       voice.stop();
-	  CHandle(this).getOwner().destroy();
-	  CHandle(this).destroy();
+	  /*CHandle(this).getOwner().destroy();
+	  CHandle(this).destroy();*/
   }
 	return LEAVE;
 }
 
 int CBTCupcake::actionDeathStay() {
+    voice.stop();
 
   return STAY;
 }
@@ -731,28 +736,28 @@ void CBTCupcake::onCollision(const TMsgOnContact& msg) { //no se utiliza
 }
 
 void CBTCupcake::onDamageToAll(const TMsgDamageToAll& msg) {
-	if (isPaused()) {
+	if (isPaused() || invulnerable) {
 		return;
 	}
 	life = life - msg.intensityDamage;
   //FluidDecalGenerator.generateFluid(msg.impactForce, my_trans->getPosition());
 	//dbg("se recibe el fuego de la pila life = %f\n", life);
-	if (life < 0) {
-		life = 0;
+	if (life < 0.0f) {
+		life = 0.0f;
         voice.stop();
 	}
 }
 
 void CBTCupcake::onGenericDamageInfoMsg(const TMsgDamage& msg) { //TODO: ARREGLAR
-	if (isPaused()) {
+	if (isPaused() || invulnerable) {
 		return;
 	}
 	if (jump) {
 		TCompTransform* my_trans = get<TCompTransform>();
 		life -= msg.intensityDamage;
 		FluidDecalGenerator.generateFluid(msg.impactForce, my_trans->getPosition());
-		if (life < 0) {
-			life = 0;
+		if (life < 0.0f) {
+			life = 0.0f;
             voice.stop();
         }
 		if (msg.senderType == ENVIRONMENT) {
@@ -914,7 +919,7 @@ void CBTCupcake::onFireAreaEnter(const TMsgFireAreaEnter& msg) {
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	c_trans->setScale(fireScale); //se vuelve el doble de grande
-	currentDamage = fireDamage; //y un 50% mas fuerte
+	//currentDamage = fireDamage; //y un 50% mas fuerte
 }
 
 void CBTCupcake::onFireAreaExit(const TMsgFireAreaExit& msg) {
@@ -935,7 +940,7 @@ void CBTCupcake::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
 	life -= msg.damage;
 	isDeadForFallout = msg.falloutDead;
 	if (life < 0.f) {
-		life = 0;
+		life = 0.0f;
         voice.stop();
     }
 }
@@ -1008,9 +1013,6 @@ void CBTCupcake::movement(VEC3 target, bool seek) {
 
 	TCompTransform* c_trans = get<TCompTransform>();
 	VEC3 dir = VEC3();
-    if (!voice.isPlaying() && !conditionDeath()) {
-        voice = EngineAudio.playEvent("event:/Enemies/Cupcake/Cupcake_Voice3D");
-    }    
     voice.set3DAttributes(*c_trans);
 
 	//MOVE
@@ -1162,6 +1164,21 @@ void CBTCupcake::updateBT() {
 	}
 	//----------------------- navmesh
 
+
+	//---------- hijos invulnerables durante dos segundos y no hacen daño al nacer
+	if (num_of_sons == 0) { //si es un hijo
+		if (recienNacidoTimer > 0) {
+			currentDamage = 0;
+			invulnerable = true;
+			recienNacidoTimer -= dt;
+		}
+		else {
+			currentDamage = damage;
+			invulnerable = false;
+		}
+	}
+	//------------------------
+
 	//check if is in the blackboard
 	if (inBlackboard) {
 		if (resetSlotTimer >= resetSlotDuration) { //si ha superado el limite de tiempo, libera el slot
@@ -1247,9 +1264,12 @@ void CBTCupcake::renderDebug() {
 
 void CBTCupcake::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
 	isDeadForTrigger = true;
-	life = 0;
-    voice.stop();
-    num_of_divisions = 0;
+	life = 0.0f;
+  voice.stop();
+  num_of_divisions = 0;
+  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+  c_sd->setDelay(0.25f);
+  c_sd->enable();
 }
 
 float CBTCupcake::getLife() {

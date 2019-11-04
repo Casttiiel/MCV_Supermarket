@@ -92,6 +92,8 @@ private:
   bool animation1Done = false;
   bool isBatteryAlive = false;
   bool isThrowingAnimationGoing = false;
+  bool isCHARGED_MELEE_ATTACKGoing = false;
+  bool isDRINKGoing = false;
 
 	float invulnerabilityTimer = 0.f;
 	float invulnerabilityTimeDuration = 1.0;
@@ -126,7 +128,7 @@ private:
 
   //ChargedAttack Values
   float chargedAttack_chargeDelay = 1.f;
-  float chargedAttack_damage = 20.f;
+  float chargedAttack_damage = 75.f;
   float chargedAttack_radius = 5.f;
 	float chargedAttack_impactForce = 20.0f;
   float chargedAttack_buttonPressThreshold = 0.2f;
