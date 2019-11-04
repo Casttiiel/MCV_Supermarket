@@ -509,12 +509,15 @@ function cinematic_scene_termoestatos_player()
 end
 
 
+
 function createEnemies_player()
 	--execDelayedAction("balanceoLampara(\"Joint001\")",0);
 	GameController:deleteGolem("golem2");
 	GameController:deleteGolem("golem3");
 	GameController:deleteCupcake();
 	execDelayedAction("changeScene(\"asiatic_scene\")",0);
+
+	execDelayedAction("on_delete_handle(\"trigger2\")",0);	
 
 	h_suishi1 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-33,-0.193,-52), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica1",h_suishi1);
@@ -550,14 +553,14 @@ function createEnemies_player()
 	GameController:setHeightEnemyByHandle(0,h_suishi10,1);
 	GameController:setPauseEnemyByHandle(h_suishi10,false);
 
-	h_suishi11 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-60,7.632,-23), QUAT(0, 0, 0, 1),1);
+	h_suishi11 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-60,7.632,-23), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica11",h_suishi11);
-	GameController:setHeightEnemyByHandle(0,h_suishi11,1);
+	GameController:setHeightEnemyByHandle(0,h_suishi11,2);
 	GameController:setPauseEnemyByHandle(h_suishi11,false);
 
 	GameController:setViewDistanceEnemy(0,h_suishi9,1);
 	GameController:setViewDistanceEnemy(0,h_suishi10,1);
-	GameController:setViewDistanceEnemy(0,h_suishi11,1);
+	GameController:setViewDistanceEnemy(0,h_suishi11,2);
 
 	--h_suishi12 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(80,7.632,137), QUAT(0, 0, 0, 1),1);--quitar este
 	--GameController:updateEnemyCurveByHandle("curvaSuihiAsiatica12",h_suishi12);
@@ -571,19 +574,17 @@ function createEnemies_player()
 	--GameController:setPauseEnemyByHandle(h_suishi14,true);
 	--h_suishi15 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(71,-0.193,61), QUAT(0, 0, 0, 1),1);--quitar este
 	--GameController:setPauseEnemyByHandle(h_suishi15,true); --GameController:setPauseEnemyByHandle(h_suishi15,true);
-	playAnnouncement('event:/UI/Announcements/Announcement6')
-	
-	execDelayedAction("on_delete_handle(\"trigger2\")",0);	
+	playAnnouncement('event:/UI/Announcements/Announcement6');
 end
 
 
 function viewAtPlayerSushisZanahoria_player()
 	GameController:setViewDistanceEnemyByHandle(60,h_suishi9,1);
 	GameController:setViewDistanceEnemyByHandle(60,h_suishi10,1);
-	GameController:setViewDistanceEnemyByHandle(60,h_suishi11,1);
+	GameController:setViewDistanceEnemyByHandle(60,h_suishi11,2);
 	GameController:setHeightEnemyByHandle(1,h_suishi9,1);
 	GameController:setHeightEnemyByHandle(1,h_suishi10,1);
-	GameController:setHeightEnemyByHandle(1,h_suishi11,1);
+	GameController:setHeightEnemyByHandle(1,h_suishi11,2);
 	
 	execDelayedAction("on_delete_handle(\"trigger1\")",0);
 end

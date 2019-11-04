@@ -89,6 +89,8 @@ void TCompSCartController::disable() {
 	isEnabled = false;
 	TCompCollider* player_collider = get<TCompCollider>();
 	CEntity* vehicleEntity = vehiclePropHandle.getOwner();
+  if (!vehicleEntity)
+    return;
 	TCompCollider* vehicle_prop_collider = vehicleEntity->get<TCompCollider>();
 	TCompTransform* c_trans = get<TCompTransform>();
 	TCompCharacterController* cc = get<TCompCharacterController>();

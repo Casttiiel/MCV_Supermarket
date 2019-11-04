@@ -582,7 +582,14 @@ void TCompPlayerAnimator::update(float dt) {
             //Send animation finished message
             TMsgPlayerAnimationFinished msg;
             msg.animation = *it;
-            ((CEntity*)CHandle(this).getOwner())->sendMsg(msg);
+            CEntity* e = ((CEntity*)CHandle(this).getOwner());
+            if (!e) {
+              //Remove callback request
+              animationCallbackRequests.erase(it++);
+              continue;
+            }
+              
+            e->sendMsg(msg);
             //Remove callback request
             animationCallbackRequests.erase(it++);
         }
