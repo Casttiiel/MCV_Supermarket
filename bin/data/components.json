@@ -8,12 +8,12 @@
     "transform" : 90
   },
   "multithread": [
-    "armature",
     "local_aabb",
     "compute"
   ],
   "update": [
     "armature",
+    "player_animator",
 	"sCart_controller",
     "character_controller",
     "skel_lookat",
@@ -48,7 +48,6 @@
     "camera_3rd_person",
     "light_dir",
     "flickering",
-    "player_animator",
     "sushi_animator",
     "prop_animator",
     "grenade_golem_controller",

@@ -63,6 +63,7 @@ public:
   bool conditionDeathAnimation();
   bool conditionDecoy();
 
+  void setHeightRange(float height);
 	void setCurve(const CCurve* curve);
 	void onBlackboardMsg(const TMsgBlackboard& msg);
 	std::string getNameCurve();

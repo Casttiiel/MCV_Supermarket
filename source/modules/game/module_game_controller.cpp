@@ -58,7 +58,7 @@ void CModuleGameController::wakeUpWinds() {
 }
 
 void CModuleGameController::setGodMode(bool _god_mode) {
-	//god_mode = _god_mode; 
+	god_mode = _god_mode; 
 }
 
 
@@ -71,7 +71,7 @@ void CModuleGameController::update(float delta) {
 
     //updateGameCondition();
   if (EngineInput["godMode_"].justPressed()) {
-    //god_mode = !god_mode;
+    god_mode = !god_mode;
   }
   else if (EngineInput["flyMode_"].justPressed()) {
     CEntity* e_player = getEntityByName("Player");
@@ -757,6 +757,11 @@ void CModuleGameController::setHeightEnemyByHandle(int height, CHandle h_enemy,i
 			CBTGolem* golem = e_enemy->get<CBTGolem>();
 			golem->setHeightRange(height);
 		}
+    else if (TYPE_RANGED_SUSHI == typeEnemy) {
+      CEntity* e_enemy = (CEntity*)h_enemy;
+      CBTRangedSushi* r_sushi = e_enemy->get<CBTRangedSushi>();
+      r_sushi->setHeightRange(height);
+    }
 		
 	}
 }

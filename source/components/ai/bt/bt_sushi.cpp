@@ -2085,7 +2085,7 @@ bool CBTSushi::checkHeight() {
     float enemyHeight = c_trans->getPosition().y;
 
     if (height_range > abs(playerHeight - enemyHeight)) {
-        res = true;;
+        res = true;
     }
 
     return res;

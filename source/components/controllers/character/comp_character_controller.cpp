@@ -1280,6 +1280,8 @@ void TCompCharacterController::onDamageAll(const TMsgDamageToAll& msg) {
     if (life <= 0.0f) {
         life = 0.0f;
         ChangeState("DEAD");
+        TCompSCartController* sCart = get<TCompSCartController>();
+        sCart->disable();
     }
     else {
 
@@ -1322,6 +1324,8 @@ void TCompCharacterController::onTrapWind(const TMsgTrapWind& msg) {
         ChangeState("DEAD");
         TCompPlayerAnimator* playerAnima = get<TCompPlayerAnimator>();
         playerAnima->playAnimation(TCompPlayerAnimator::DIE, 0.5f, true);
+        TCompSCartController* sCart = get<TCompSCartController>();
+        sCart->disable();
       }
       else {
 
@@ -1423,6 +1427,8 @@ void TCompCharacterController::onTriggerFalloutDead(const TMSgTriggerFalloutDead
 	if (life <= 0.0f) {
 		life = 0.0f;
 		ChangeState("DEAD");
+    TCompSCartController* sCart = get<TCompSCartController>();
+    sCart->disable();
 	}
 	else {
 

@@ -126,6 +126,8 @@ float  TCompAnimator::getAnimationDuration(EAnimation animation) {
 
 bool TCompAnimator::isPlayingAnimation(EAnimation animation) {
 	CEntity* e = ownHandle;
+  if (!e)
+    return false;
 	TCompSkeleton* compSkeleton = e->get<TCompSkeleton>();
 	if (compSkeleton == NULL) {
 		return false;

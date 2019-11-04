@@ -30,6 +30,7 @@ class TCompBatteryController : public TCompBase {
 	float gravityOriginHeight = 3.f;
 	float velocityCurve = 20.f;
   bool startedEffect = false;
+	float max_distance_enemy = 13.f;
 
 public:
 	void update(float dt);

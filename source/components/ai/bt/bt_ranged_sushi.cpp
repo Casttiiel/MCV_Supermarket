@@ -1999,6 +1999,10 @@ bool CBTRangedSushi::checkHeight() {
 	return res;
 }
 
+
+void CBTRangedSushi::setHeightRange(float height) {
+  this->height_range = height;
+}
 std::string CBTRangedSushi::getNameCurve() {
 	return pathCurve;
 }
