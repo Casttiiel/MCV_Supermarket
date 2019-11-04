@@ -13,13 +13,7 @@
 
 bool CModuleWinGame::start()
 {
-
-	auto& app = CApplication::get();
-	if (app.cursorIngame) {
-		Input::CMouse mouse = EngineInput.mouse();
-		mouse.setLockMouse(true);
-	}
-	UI::CModuleUI& ui = Engine.getUI();
+	/*UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",0);
@@ -32,10 +26,10 @@ bool CModuleWinGame::start()
 	else {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 	}
-	
+
 	*/
 	Scripting.execActionDelayed("changeGameState(\"gs_main_menu\")", 1.0);
-    return true;
+	return true;
 }
 
 void CModuleWinGame::update(float delta)
@@ -46,7 +40,7 @@ void CModuleWinGame::update(float delta)
 		auto& app = CApplication::get();
 		DestroyWindow(app.getHandle());
 	}*/
-	
+
 	/*if (!creditos) {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 		Scripting.execActionDelayed("activateWidget(\"CREDITS\")", 0);
@@ -60,7 +54,7 @@ void CModuleWinGame::update(float delta)
 
 void CModuleWinGame::stop()
 {
-	
+
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
@@ -69,22 +63,22 @@ void CModuleWinGame::stop()
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 	}
 
-	/*
+
 	EngineNavmesh.destroyNavmesh();
 	EngineEntities.stop();
-	
+
 	Engine.getGPUCulling().stop();
-	
+
 	Resources.deleteResources();
-	
+
 	Engine.getBoot().isLoadAll = false;
-	
+
 	auto& mod_render = CEngine::get().getRender();
-	
+
 	mod_render.start();
-	
-	
-	
+
+
+
 }
 
 void CModuleWinGame::renderInMenu()
