@@ -742,8 +742,8 @@ void CBTCupcake::onDamageToAll(const TMsgDamageToAll& msg) {
 	life = life - msg.intensityDamage;
   //FluidDecalGenerator.generateFluid(msg.impactForce, my_trans->getPosition());
 	//dbg("se recibe el fuego de la pila life = %f\n", life);
-	if (life < 0) {
-		life = 0;
+	if (life < 0.0f) {
+		life = 0.0f;
         voice.stop();
 	}
 }
@@ -756,8 +756,8 @@ void CBTCupcake::onGenericDamageInfoMsg(const TMsgDamage& msg) { //TODO: ARREGLA
 		TCompTransform* my_trans = get<TCompTransform>();
 		life -= msg.intensityDamage;
 		FluidDecalGenerator.generateFluid(msg.impactForce, my_trans->getPosition());
-		if (life < 0) {
-			life = 0;
+		if (life < 0.0f) {
+			life = 0.0f;
             voice.stop();
         }
 		if (msg.senderType == ENVIRONMENT) {
@@ -940,7 +940,7 @@ void CBTCupcake::onTriggerFalloutDead(const TMSgTriggerFalloutDead& msg) {
 	life -= msg.damage;
 	isDeadForFallout = msg.falloutDead;
 	if (life < 0.f) {
-		life = 0;
+		life = 0.0f;
         voice.stop();
     }
 }
@@ -1264,9 +1264,12 @@ void CBTCupcake::renderDebug() {
 
 void CBTCupcake::onDeleteTrigger(const TMsgDeleteTrigger& msg) {
 	isDeadForTrigger = true;
-	life = 0;
-    voice.stop();
-    num_of_divisions = 0;
+	life = 0.0f;
+  voice.stop();
+  num_of_divisions = 0;
+  TCompSelfDestroy* c_sd = get<TCompSelfDestroy>();
+  c_sd->setDelay(0.25f);
+  c_sd->enable();
 }
 
 float CBTCupcake::getLife() {
