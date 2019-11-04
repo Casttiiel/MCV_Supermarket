@@ -293,7 +293,11 @@ void TCompBatteryController::update(float delta) {
                       }
                       enemiesBolt.push_back(h_comp_physics);
                     }
-                    entityEnemyDamage->sendMsg(msg);
+										TCompTransform* c_transEnemy = entityEnemyDamage->get<TCompTransform>();
+										if (max_distance_enemy > Vector3::Distance(c_transEnemy->getPosition(), c_trans->getPosition())) { 
+											//si la ditancia al enemigo es mayor del limite no le envimos nada
+											entityEnemyDamage->sendMsg(msg);
+										}
                 }
                 else if (c_di) {
                   entityEnemyDamage->sendMsg(msg);
