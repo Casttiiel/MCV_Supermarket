@@ -493,8 +493,8 @@ function cinematic_scene_termoestatos_player()
 	execDelayedAction("sethalfConeEnemy(360,h_suishi10,1)",19);
 	execDelayedAction("setViewDistanceEnemy(70,h_suishi10,1)",19);
 	
-	execDelayedAction("sethalfConeEnemy(360,h_suishi11,1)",19);
-	execDelayedAction("setViewDistanceEnemy(70,h_suishi11,1)",19);
+	execDelayedAction("sethalfConeEnemy(360,h_suishi11,2)",19);
+	execDelayedAction("setViewDistanceEnemy(70,h_suishi11,2)",19);
 
 	
 	
