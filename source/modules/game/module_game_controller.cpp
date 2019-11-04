@@ -311,7 +311,7 @@ void CModuleGameController::deleteCupcake()
 		TMsgDeleteTrigger msg;
 		msg.deleteForTrigger = true;
 		msg.h_entity = h;
-		msg.damage = 100.f;
+		msg.damage = 999.f;
 
 		CEntity* e_enemy = (CEntity*)h;
 		e_enemy->sendMsg(msg);
