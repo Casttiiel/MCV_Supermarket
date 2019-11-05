@@ -66,8 +66,9 @@ void CModuleWinGame::stop()
 
 	EngineNavmesh.destroyNavmesh();
 	EngineEntities.stop();
-
-	Engine.getGPUCulling().stop();
+	//EnginePhysics.stop();
+	
+	//Engine.getGPUCulling().stop();
 
 	Resources.deleteResources();
 
@@ -76,6 +77,11 @@ void CModuleWinGame::stop()
 	auto& mod_render = CEngine::get().getRender();
 
 	mod_render.start();
+
+
+	
+
+	//Engine.start();
 
 
 
