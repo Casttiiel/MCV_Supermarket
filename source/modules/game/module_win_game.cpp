@@ -68,7 +68,7 @@ void CModuleWinGame::stop()
 	EngineEntities.stop();
 	//EnginePhysics.stop();
 	
-	//Engine.getGPUCulling().stop();
+	Engine.getGPUCulling().stop();
 
 	Resources.deleteResources();
 
