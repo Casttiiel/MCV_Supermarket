@@ -77,11 +77,10 @@ void CModuleWinGame::stop()
 	auto& mod_render = CEngine::get().getRender();
 
 	mod_render.start();
-
+	
 
 	
 
-	//Engine.start();
 
 
 
