@@ -63,11 +63,11 @@ void CModuleWinGame::stop()
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 	}
 
-
+	GameController.updateAmbientLight(0.300);
 	EngineNavmesh.destroyNavmesh();
 	EngineEntities.stop();
 	//EnginePhysics.stop();
-	
+	//GameController.deactivateGameplayFragment("ambush"),//deactivateGameplayFragment("ambush");
 	Engine.getGPUCulling().stop();
 
 	Resources.deleteResources();
