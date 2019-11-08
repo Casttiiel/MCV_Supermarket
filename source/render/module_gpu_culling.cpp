@@ -556,6 +556,11 @@ bool CModuleGPUCulling::start() {
 
 void CModuleGPUCulling::stop() {
   objs.clear();
+  prefabs.clear();
+  draw_datas.clear();
+  render_types.clear();
+  gpu_draw_datas->cpu_data.clear();
+  is_dirty = true;
 }
 
 void CModuleGPUCulling::updateObjData(int idx, CHandle entity) {
@@ -903,6 +908,8 @@ void CModuleGPUCulling::run() {
 
   // Run the culling in the GPU
   comp_compute.executions[0].sizes[0] = (uint32_t) objs.size();
+  if (objs.size() == 0)
+    return;
   comp_compute.executions[0].run(&comp_buffers);
 }
 
