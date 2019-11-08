@@ -20,7 +20,7 @@ bool CModuleWinGame::start()
 		Scripting.execActionDelayed("changeSpeedWidgetEffect(\"CREDITS\",\"effectAnimateCredit\",0,0.012)", 1);
 		Scripting.execActionDelayed("stopWidgetEffect(\"CREDITS\",\"effectAnimateCredit\")", 72);
 		//Scripting.execActionDelayed("exitGame()",82);
-		Scripting.execActionDelayed("changeGameState(\"gs_main_menu\")", 82.0);
+		Scripting.execActionDelayed("changeGameState(\"gs_main_menu\")", 74.0);
 
 	}
 	else {
@@ -79,6 +79,7 @@ void CModuleWinGame::stop()
 	//EnginePhysics.stop();
 	//GameController.deactivateGameplayFragment("ambush"),//deactivateGameplayFragment("ambush");
 	Engine.getGPUCulling().stop();
+	GameController.updateSoundtrackID(1);
 
 	Resources.deleteResources();
 
