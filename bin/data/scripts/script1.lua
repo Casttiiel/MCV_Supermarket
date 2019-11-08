@@ -1081,6 +1081,10 @@ function changeDurationWidgetEffectSpecial(duration)
 	GameController:changeDurationWidgetEffectSpecial(duration)
 end
 
+function changeScaleWidgetEffectSpecial( x , y)
+	GameController:changeScaleWidgetEffectSpecial(x ,y )
+end
+
 function saveCheckpoint()
 	handlePlayer = GameController:getPlayerHandle();
 	t_compTranf = toCompTransform(toEntity(handlePlayer):getCompByName("transform"));

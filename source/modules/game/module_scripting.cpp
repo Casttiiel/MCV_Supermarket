@@ -182,6 +182,7 @@ void CModuleScripting::BindGameController() {
 		.set("changeSpeedWidgetEffectSpecial", &CModuleGameController::changeSpeedWidgetEffectSpecial)
 		.set("changeDurationWidgetEffectSpecial", &CModuleGameController::changeDurationWidgetEffectSpecial)
 		.set("changeSpeedWidgetEffect", &CModuleGameController::changeSpeedWidgetEffect)
+		.set("changeScaleWidgetEffectSpecial", &CModuleGameController::changeScaleWidgetEffectSpecial)
 		.set("exitGame", &CModuleGameController::exitGame)
 		.set("setResurrect", &CModuleGameController::setResurrect)
 		.set("setBloomInCam", &CModuleGameController::setBloomInCam)

@@ -1185,6 +1185,17 @@ void CModuleGameController::changeDurationWidgetEffectSpecial(float duration) {
 	effect->changeDuration(duration);
 }
 
+void CModuleGameController::changeScaleWidgetEffectSpecial(float x, float y) {
+	UI::CModuleUI& ui = Engine.getUI();
+	UI::CWidget* widgetPadre = ui.getWidget("INTRO_SCREEN");
+	UI::CWidget* widgetHijo = widgetPadre->getChildren(0)->getChildren(0);
+	UI::CEffect* effect = widgetHijo->getEffect("effectScaleComic");
+	effect->setInitialScale(VEC2(2.5, 2.5));
+	effect->setTime(0.f);
+	effect->setScale(VEC2(1,1));
+	effect->changeDuration(0.f);
+}
+
 
 void CModuleGameController::resurrectionInGameOver() {
 	CEntity* e_player = getEntityByName("Player");

@@ -19,5 +19,6 @@ public:
 
 private:
 	float timeOffModuleGameWin = 1000.0f;
+	bool creditos = false;
 };
 

@@ -87,6 +87,7 @@ void CModuleManager::startModules( VModules& modules )
     if (module->isActive()) continue;
     TFileContext fc(module->getName());
     PROFILE_FUNCTION(module->getName().c_str());
+	dbg("start %s name modules\n", module->getName().c_str());
     module->start();
     module->setActive(true);
   }

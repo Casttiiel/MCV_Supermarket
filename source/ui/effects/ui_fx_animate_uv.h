@@ -11,6 +11,8 @@ namespace UI
     void update(float dt) override;
 	void stopUiFx();
 	void changeSpeedUV(float x, float y);
+	void setMinUV(VEC2 vector);
+	void setMaxUV(VEC2 vector);
 
   private:
     VEC2 _speed = VEC2::Zero;

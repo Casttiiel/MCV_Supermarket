@@ -28,4 +28,26 @@ namespace UI
 	  _speed = VEC2(x, y);
   }
 
+  void CFXAnimateUV::setMinUV(VEC2 vector) {
+	  assert(_owner);
+
+	  TImageParams* imageParams = _owner->getImageParams();
+	  if (!imageParams)
+	  {
+		  return;
+	  }
+	  imageParams->minUV = vector;
+  }
+
+  void CFXAnimateUV::setMaxUV(VEC2 vector) {
+	  assert(_owner);
+
+	  TImageParams* imageParams = _owner->getImageParams();
+	  if (!imageParams)
+	  {
+		  return;
+	  }
+	  imageParams->maxUV = vector;
+  }
+
 }

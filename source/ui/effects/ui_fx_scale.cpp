@@ -75,7 +75,7 @@ namespace UI
         break;
       }
     }
-
+	
     params->scale = finalScale;
     _owner->updateTransform();
   }
@@ -88,6 +88,18 @@ namespace UI
   void CFXScale::changeDuration(float duration) {
 	  _duration = duration;
 
+  }
+
+  void CFXScale::setScale(VEC2 scale) {
+	  _scale = scale;
+  }
+
+  void CFXScale::setInitialScale(VEC2 initialScale) {
+	  _initialScale = initialScale;
+  }
+
+  void CFXScale::setTime(float time) {
+	  _time = time;
   }
 
 

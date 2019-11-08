@@ -14,6 +14,7 @@ bool CModuleAmbush::start()
 void CModuleAmbush::stop()
 {
   //JUST IN CASE SOMETHING IS NEEDED HERE
+	
 }
 
 void CModuleAmbush::enemyKilled(EntityType e) {
@@ -74,7 +75,7 @@ void CModuleAmbush::secondEvent() {
 	Scripting.execActionDelayed("changeLightsIntensityJoint(8.0)", 4.0);
 	
 	Scripting.execActionDelayed("apagarEncenderLuz(false)", 4.0);
-
+	termostatosActives = 0;
   //Scripting.execActionDelayed("on_GPUdeleteScene(\"data/scenes/mapa_congelados.json\")", 0.0);
   //Scripting.execActionDelayed("on_load_gpu_scene(\"data/scenes/mapa_carnes.json\")", 8.0);
   //Scripting.execActionDelayed("on_load_gpu_scene(\"data/particles/hot_particles.json\")", 9.0);

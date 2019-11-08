@@ -7,6 +7,8 @@
 #include "ui/module_ui.h"
 #include "ui/widgets/ui_button.h"
 #include "ui/ui_widget.h"
+#include "ui/ui_params.h"
+#include "ui/ui_effect.h"
 
 
 
@@ -48,8 +50,10 @@ bool CModuleGameIntro::start()
 	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.1, 0.0)", 54.0);
 	Scripting.execActionDelayed("changeSpeedWidgetEffectSpecial(0.0, 0.0)", 57.5);
 	Scripting.execActionDelayed("childAppears(\"LOAD_SCREEN\",true,true,0.0,1.0)", 60);
-    Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 61.5);
-    Scripting.execActionDelayed("GameController:updateSoundtrackID(2)", 62);
+	Scripting.execActionDelayed("changeScaleWidgetEffectSpecial(1.0,1.0)", 60.5);
+	
+    Scripting.execActionDelayed("changeGameState(\"gs_loading\")", 62);
+    Scripting.execActionDelayed("GameController:updateSoundtrackID(2)", 62.5);
 
     GameController.updateSoundtrackID(7);
 	/*
@@ -71,6 +75,19 @@ void CModuleGameIntro::update(float delta)
 
 void CModuleGameIntro::stop()
 {
+	UI::CModuleUI& ui = Engine.getUI();
+	UI::CWidget* widget = ui.getWidget("INTRO_SCREEN");
+	UI::CWidget* widgetHijo = widget->getChildren(0)->getChildren(0);
+	UI::CEffect* effect2 = widgetHijo->getEffect("effectAnimateComic");
+	effect2->setMaxUV(VEC2::One);
+	effect2->setMinUV(VEC2::Zero);
+	effect2->changeSpeedUV(0,0);
+	UI::CEffect* effect = widgetHijo->getEffect("effectScaleComic");
+	effect->changeDuration(1);
+	effect->setInitialScale(VEC2(1.0, 1.0));
+	effect->setScale(VEC2(2.5,2.5));
+	effect->setTime(0.f);
+	
 	CEngine::get().getUI().deactivateWidgetClass("INTRO_SCREEN");
 	CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 }

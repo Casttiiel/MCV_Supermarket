@@ -94,7 +94,7 @@ void CModuleGameManager::setMenuState(MenuState pauseState) {
 
 	}break;
 	case MenuState::menuWin: {
-		Scripting.execActionDelayed("changeGameState(\"gs_wingame\")", 2.0);
+		Scripting.execActionDelayed("changeGameState(\"gs_wingame\")", 0.0);
 		auto& app = CApplication::get();
 		if (app.cursorIngame) {
 			Input::CMouse mouse = EngineInput.mouse();
