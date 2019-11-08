@@ -13,7 +13,7 @@
 
 bool CModuleWinGame::start()
 {
-	/*UI::CModuleUI& ui = Engine.getUI();
+	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 		Scripting.execActionDelayed("activateWidget(\"CREDITS\")",0);
@@ -27,8 +27,8 @@ bool CModuleWinGame::start()
 		CEngine::get().getUI().activateWidgetClass("BLACK_SCREEN")->childAppears(true, true, 0.0, 2.0);
 	}
 
-	*/
-	Scripting.execActionDelayed("changeGameState(\"gs_main_menu\")", 1.0);
+	
+	//Scripting.execActionDelayed("changeGameState(\"gs_main_menu\")", 1.0);
 	return true;
 }
 
@@ -58,6 +58,16 @@ void CModuleWinGame::stop()
 	UI::CModuleUI& ui = Engine.getUI();
 	if (ui.sizeUI == 1) {
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
+		//UI::CWidget* widget = ui.getWidget("CREDITS");
+		UI::CWidget* widget = ui.getWidget("CREDITS");
+		//UI::CWidget* widgetHijo = widget->getChildren(0)->getChildren(0);
+		UI::CEffect* effect = widget->getEffect("effectAnimateCredit");
+		effect->setMaxUV(VEC2::One);
+		effect->setMinUV(VEC2::Zero);
+		effect->changeSpeedUV(0.0,0.15);
+		CEngine::get().getUI().deactivateWidgetClass("CREDITS");
+
+
 	}
 	else {
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
