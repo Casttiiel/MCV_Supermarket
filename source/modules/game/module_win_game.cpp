@@ -73,6 +73,13 @@ void CModuleWinGame::stop()
 		CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
 	}
 
+
+	UI::CButton* b = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("card_"));
+	b->setCurrentState("option_teleport");
+	//cambiar imagen de cursor un instante de timepo
+	UI::CButton* b_cursor = dynamic_cast<UI::CButton*>(Engine.getUI().getWidgetByAlias("cursor_"));
+	b_cursor->setCurrentState("option_teleport");
+
 	GameController.updateAmbientLight(0.300);
 	EngineNavmesh.destroyNavmesh();
 	EngineEntities.stop();

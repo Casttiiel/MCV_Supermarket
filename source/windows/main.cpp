@@ -33,7 +33,7 @@ void CApplication::generateFrame() {
 
   // This allow use of Imgui anytime during update/render
   auto& mod_render = CEngine::get().getRender();
-  mod_render.beginImgui();
+  //mod_render.beginImgui();
 
   // Update
   float elapsed = time_since_last_render.elapsedAndReset();
@@ -44,7 +44,7 @@ void CApplication::generateFrame() {
   mod_render.generateFrame();
 
   // The last thing we do is render imgui menus
-  mod_render.endImgui();
+  //mod_render.endImgui();
   Render.swapChain();
 }
 
