@@ -118,7 +118,7 @@ namespace UI
 	  mmb = (CMenuController*)getWidgetController("MAIN_MENU_BUTTONS");
 	  mmb->registerOption("bt_start", mpNewGame);
 	  //mmb->registerOption("bt_continue", mpCredits);
-	  //mmb->registerOption("bt_exit", mpExitGame);
+	  mmb->registerOption("bt_exit", mpExitGame);
 	  mmb->setCurrentOption(0);
 
 
