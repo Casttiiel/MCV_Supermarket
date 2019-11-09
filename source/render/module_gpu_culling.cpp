@@ -45,9 +45,9 @@ struct TSampleDataGenerator {
 
   void createProductPrefabs(const json& j) {
 	  
-    float radius = j.value("radius", 30.f);
-    pmin = VEC3(-radius, 0.f, -radius);
-    pmax = VEC3(radius, 1.0f, radius);
+    float radius = j.value("radius", 2.5f);
+    pmin = VEC3(-radius, 10.f, -radius);
+    pmax = VEC3(radius, 30.0f, radius);
     num_instances = j.value("num_instances", num_instances);
     
     #ifndef NDEBUG
@@ -63,7 +63,78 @@ struct TSampleDataGenerator {
     }
   }
 
+  void generate() {
+
+    assert(mod);
+    assert(!prefabs.empty());
+    
+    for (uint32_t i = 0; i < num_instances; ++i) {
+
+      // Find a random prefab
+      CEntity* player = getEntityByName("Player");
+      VEC3 offset = VEC3::Zero;
+      if (player) {
+        TCompTransform* c_trans_player = player->get<TCompTransform>();
+        offset = c_trans_player->getPosition();
+
+      }
+
+      VEC3 center = (offset + pmin)+(pmax - pmin) * VEC3(unitRandom(), unitRandom(), unitRandom());
+      float sc = scale;
+
+      // Add a random yaw
+      MAT44 rot_yaw = MAT44::CreateFromAxisAngle(VEC3(0, 1, 0), unitRandom() * deg2rad(360.0f));
+
+      MAT44 world = rot_yaw * MAT44::CreateScale(sc) * MAT44::CreateTranslation(center);
+
+      TEntityParseContext prefab_ctx;
+      CTransform tr = CTransform();
+      tr.fromMatrix(world);
+      prefab_ctx.root_transform = tr;
+      CHandle h_e;
+      int rand_idx = rand() % 12;
+      std::string prefab_src = "data/prefabs/products/product" + to_string(rand_idx + 1) + ".json";
+      if (!parseScene(prefab_src, prefab_ctx))
+        continue;
+
+      assert(!prefab_ctx.entities_loaded.empty());
+
+      // Create a new fresh entity
+      h_e = prefab_ctx.entities_loaded[0];
+
+      // Cast to entity object
+      CEntity* e = h_e;
+
+      CHandle prefab = prefabs[rand_idx];
+      CEntity* ep = prefab;
+      assert(e);
+
+      //IF IS A DYNAMIC INSTANCE (NOT PREFAB) SET UNIQUE IDX BINDING
+      TCompDynamicInstance* c_di = e->get<TCompDynamicInstance>();
+      if (c_di) {
+        c_di->set_idx(mod->getObjSize());
+      }
+
+      // Find AABB in world space
+      TCompRender* cr = e->get< TCompRender >();
+      const TCompRender::MeshPart& mp = cr->parts[0];
+      AABB aabb_local = mp.mesh->getAABB();
+      AABB aabb_abs = getRotatedBy(aabb_local, world);
+
+      // Register object & matrix to be rendered
+      mod->addToRender(prefab, aabb_abs, world);
+
+      CHandle h(cr);
+      h.destroy();
+
+      TCompAbsAABB* c_absaabb = e->get<TCompAbsAABB>();
+      CHandle h2(c_absaabb);
+      h2.destroy();
+    }
+  }
+
   void deleteProductPrefabs() {
+    return;
     for (auto& pref : prefabs) {
       pref.destroy();
     }
@@ -769,6 +840,10 @@ void CModuleGPUCulling::updateCullingPlanes(const CCamera& camera) {
 // ---------------------------------------------------------------
 void CModuleGPUCulling::renderInMenu() {
   if (ImGui::TreeNode("GPU Culling")) {
+    if (ImGui::Button("Generate Products")) {
+      sample_data.generate();
+    }
+
     ImGui::Text("%ld objects", (uint32_t)objs.size());
     ImGui::Checkbox("Show Debug", &show_debug);
 

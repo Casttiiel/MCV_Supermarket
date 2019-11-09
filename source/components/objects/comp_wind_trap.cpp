@@ -138,7 +138,7 @@ void TCompWindTrap::generateWind(float dt) {
     //change position a bit randomly
     VEC3 offset = VEC3(randomFloat(-_radius, _radius), randomFloat(0.5f - _radius, 0.5f + _radius), randomFloat(-_radius, _radius));
     ctx.root_transform.setPosition(ctx.root_transform.getPosition() + offset);
-    
+
     parseScene("data/prefabs/vfx/air.json", ctx);
 
     //change speed a bit randomly

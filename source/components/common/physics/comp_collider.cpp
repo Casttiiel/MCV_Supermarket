@@ -44,7 +44,7 @@ void TCompCollider::onEachShape(TShapeFn fn) {
   TCompTransform* trans = get<TCompTransform>();
   assert(trans);
 
-  static const PxU32 max_shapes = 12; //DANI, ESTABA A 8
+  static const PxU32 max_shapes = 8; //DANI, ESTABA A 8
   PxShape* shapes[max_shapes];
   
   PxU32 nshapes = actor->getNbShapes();
