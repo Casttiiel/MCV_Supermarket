@@ -84,14 +84,14 @@ void CModuleMainMenu::update(float dt)
   {
     ratio = clamp(ratio + 1.f * dt, 0.f, 1.f);
     UI::CProgress* progressBar = dynamic_cast<UI::CProgress*>(Engine.getUI().getWidgetByAlias("life_bar"));
-    progressBar->setRatio(ratio);
+    //progressBar->setRatio(ratio);
   }
 
   if (EngineInput[VK_LEFT])
   {
     ratio = clamp(ratio - 1.f * dt, 0.f, 1.f);
     UI::CProgress* progressBar = dynamic_cast<UI::CProgress*>(Engine.getUI().getWidgetByAlias("life_bar"));
-    progressBar->setRatio(ratio);
+    //progressBar->setRatio(ratio);
   }
 
   /*
