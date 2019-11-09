@@ -86,7 +86,7 @@ void CModuleGameIntro::stop()
 	effect->changeDuration(1);
 	effect->setInitialScale(VEC2(1.0, 1.0));
 	effect->setScale(VEC2(2.5,2.5));
-	effect->setTime(0.f);
+	effect->setTime(-1.f);
 	
 	CEngine::get().getUI().deactivateWidgetClass("INTRO_SCREEN");
 	CEngine::get().getUI().deactivateWidgetClass("BLACK_SCREEN");
