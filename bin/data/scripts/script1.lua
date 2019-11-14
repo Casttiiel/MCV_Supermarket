@@ -1163,6 +1163,7 @@ end
 
 function salCupcakeHorno010_008_player()
 	
+	GameController:updateMorphs();
 	execDelayedAction("resetCamera()",0.0);
 	execDelayedAction("on_lock_camera3(false)",0.2);
 	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.2);
@@ -1191,7 +1192,8 @@ end
 
 
 function salCupcakeHorno010_008_2_player()
-
+	
+	GameController:updateMorphs();
 	execDelayedAction("resetCamera()",0.5);
 	execDelayedAction("on_lock_camera3(false)",0.5);
 	execDelayedAction("on_blending_camera(\"CameraCupcakeSalHorno\", 7,\"Cubicinout\")",0.5);

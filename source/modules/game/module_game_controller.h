@@ -289,6 +289,7 @@ public:
 	void resurrectionInGameOver();
 	void exitGame();
 	void setBloomInCam(bool value);
+	void updateMorphs();
 };
 
 
