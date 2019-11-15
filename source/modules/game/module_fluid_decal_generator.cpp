@@ -47,7 +47,9 @@ void CModuleFluidDecalGenerator::update(float dt)
   }
 
   // Upload blood instances
-  blood_instances_mesh->setInstancesData(blood_instances.data(), blood_instances.size(), sizeof(TInstanceBlood));
+  if(blood_instances.size() > 0) {
+	blood_instances_mesh->setInstancesData(blood_instances.data(), blood_instances.size(), sizeof(TInstanceBlood));
+  }
 }
 
 void CModuleFluidDecalGenerator::renderInMenu() {
