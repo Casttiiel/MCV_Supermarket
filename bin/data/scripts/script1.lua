@@ -721,6 +721,9 @@ function changeIntensityLightPointWithFlickering(nameLight,intensity)
 end
 
 
+function spawnearCarne()
+	carne = GameController:spawnPrefab("data/prefabs/structures/carne.json", VEC3(-101.725,5.450,-211), QUAT(-0.512033, -0.486262, -0.488719, 0.512373),1);
+end
 
 --activar plataformas en torre carniceria y creacion de suishis
 function activePlataformCarniceria_player()
@@ -754,11 +757,13 @@ function activePlataformCarniceria_player()
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn3",h_suishi3);
 	GameController:setPauseEnemyByHandle(h_suishi3,true);
 	
-	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-121,0.316,-218), QUAT(0, 0, 0, 1),1);
+	h_suishi4 = GameController:spawnPrefab("data/prefabs/enemies/bt_ranged_sushi.json", VEC3(-121,0.316,-212), QUAT(0, 0, 0, 1),1);
 	GameController:updateEnemyCurveByHandle("CurvaSuishiCarn4",h_suishi4);
 	GameController:setPauseEnemyByHandle(h_suishi4,true);
 	
 	
+
+
 	--h_suishi5 = GameController:spawnPrefab("data/prefabs/enemies/bt_sushi.json", VEC3(-121,0.316,-218), QUAT(0, 0, 0, 1),1);
 	--GameController:updateEnemyCurveByHandle("CurvaSuishiCarn5",h_suishi5);
 	--GameController:setPauseEnemyByHandle(h_suishi5,true);
@@ -823,7 +828,7 @@ function activePlataformCarniceria_player()
 	
 	GameController:setAmbient(0.05);
 
-	
+	execDelayedAction("spawnearCarne()",15.9)
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi1,false)",15.8);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi3,false)",15.8);
 	execDelayedAction("set_pause_enemy_by_handle(h_suishi4,false)",15.8);

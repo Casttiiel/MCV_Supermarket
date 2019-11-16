@@ -149,7 +149,7 @@ private:
   bool cinematicFinish = false;
 
   float speedCinematicSpecial = 3.f;
-  VEC3 targetTower = VEC3(-103, -0.057, -211);
+  VEC3 targetTower = VEC3(-106, -0.057, -211);
 
   CHandle h_camera;
 

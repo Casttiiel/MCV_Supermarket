@@ -1,0 +1,60 @@
+[
+ {
+    "entity":
+   {
+      "name": "carne"
+      ,
+      "transform":
+      {
+        "pos": "0 0 0"
+        ,
+        "rotation": "0.0 -0.707107 0.0 -0.707107"
+      }
+      ,
+      "abs_aabb": {}
+      ,
+      "local_aabb": {}
+      ,
+      "ai_platform_mobile":
+      {
+        "mTravelTime_": 15
+        ,
+        "curve": "data/curves/curvaAscensor002_v2.curve"
+        ,
+        "active": false
+        ,
+        "platformType_": 6
+      }
+      ,
+      "collider":
+      {
+        "shapes":
+        [
+          {
+            "shape": "convex"
+            ,
+            "collision_mesh": "data/meshes/mapa_carnes_ascensor002.col_mesh"
+          }
+        ]
+        ,
+        "dynamic": true
+        ,
+        "kinematic": true
+        ,
+        "platform": true
+      }
+      ,
+      "render":
+      {
+        "mesh": "data/meshes/mapa_carnes/mapa_carnes_ascensor002.mesh"
+        ,
+        "color": "0.52549 0.0235294 0.0235294 1.0"
+        ,
+        "materials":
+        [
+          "data/materials/mapa_carnes/mat_carne_plat.material"
+        ]
+      }
+    }
+  }
+ ]
