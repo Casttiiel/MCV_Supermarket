@@ -130,6 +130,7 @@ void TCompFireTrap::update(float dt) {
     if (_disablerTimer <= 0.f) {
       _isEnabled = false;
       disable();
+      _offset = bt_range4(bt_off) / 50.0f;
       _disablerTimer = _disablerDelay;
     }
   }
